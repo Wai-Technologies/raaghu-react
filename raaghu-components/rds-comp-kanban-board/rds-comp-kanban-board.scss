@@ -89,7 +89,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
 
@@ -112,8 +112,8 @@
     padding-left: var(--rds-spacing-md);
     padding-right: var(--rds-spacing-sm);
     font-size: var(--rds-font-size-lg);
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-weight: var(--rds-font-weight-medium);
+    letter-spacing: var(--rds-letter-spacing-caps);
   }
 
   &__card-content {
@@ -158,8 +158,8 @@
       padding-left: var(--rds-spacing-18);
       padding-right: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-md);
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      font-weight: var(--rds-font-weight-medium);
+      letter-spacing: var(--rds-letter-spacing-caps);
     }
 
     .rds-kanban-board__sub-card-card.MuiPaper-root {
@@ -257,7 +257,7 @@
   }
   
   &-text {
-    line-height: 1.4;
+    line-height: var(--rds-line-height-comfortable);
     color: var(--rds-text-primary);
   }
   
@@ -290,7 +290,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
   
@@ -311,7 +311,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
 }
@@ -320,7 +320,7 @@
   color: var(--rds-text-primary);
   
   &:hover {
-    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+    background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
   }
 }
 
@@ -401,7 +401,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
 }
@@ -429,7 +429,7 @@
   color: var(--rds-text-primary);
   
   &:hover {
-    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+    background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
   }
 }
 
@@ -467,11 +467,11 @@
 }
 
 .fw-400 {
-  font-weight: 400;
+  font-weight: var(--rds-font-weight-regular);
 }
 
 .fw-500 {
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
 }
 
 .truncate-text {
@@ -531,11 +531,11 @@
 }
 
 .sub-card {
-  transition: background-color 0.2s ease;
+  transition: background-color var(--rds-motion-duration-quick) ease;
   cursor: grab;
 
   &.dragging {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: color-mix(in srgb, var(--rds-color-black) 5%, transparent);
     box-shadow: var(--rds-elevation-2);
   }
 
@@ -605,7 +605,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
 }
@@ -670,7 +670,7 @@
     color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, var(--rds-kanban-surface-subtle));
     }
   }
   

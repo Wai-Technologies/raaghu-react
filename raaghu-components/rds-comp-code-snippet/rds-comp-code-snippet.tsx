@@ -158,8 +158,8 @@ const RdsCompCodeSnippet = ({
                     <RdsButtonDropdown
                       options={LANGUAGE_OPTIONS}
                       showSearch={false}
-                      startIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
-                      endIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
+                      startIcon={<CodeOffIcon style={{ fontSize: 'var(--rds-font-size-md)' }} />}
+                      endIcon={<KeyboardArrowDownIcon style={{ fontSize: 'var(--rds-font-size-lg)' }} />}
                       onChange={handleLanguageChange}
                       showUserAvatar={false}
                       showRadio={false}

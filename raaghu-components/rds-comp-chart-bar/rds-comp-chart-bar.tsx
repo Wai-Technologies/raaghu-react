@@ -30,6 +30,7 @@ export interface RdsCompBarChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 

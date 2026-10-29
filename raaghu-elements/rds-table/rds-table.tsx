@@ -48,7 +48,9 @@ type RdsTableRow = {
 } & Record<string, ReactNode>;
 
 export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'> {
+  /** Column definitions (id, label, alignment, sortable, cell type). */
   columns: RdsTableColumn[];
+  /** Row data keyed by column id; `id` identifies each row. */
   rows: RdsTableRow[];
   /** Shows the paginator. @default false */
   paginated?: boolean;
@@ -68,7 +70,9 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   rowCount?: number;
   /** @deprecated Use `rowCount` instead. */
   totalRows?: number;
+  /** Called with the new zero-based page index when the page changes. */
   onPageChange?: (page: number) => void;
+  /** Called with the new rows-per-page value when it changes. */
   onPageSizeChange?: (pageSize: number) => void;
   /**
    * `'client'` slices `rows` per page; `'server'` renders `rows` as given (the current page)
@@ -78,6 +82,7 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   /** Options for the rows-per-page selector. @default [5, 10, 25] */
   rowsPerPageOptions?: number[];
   stickyHeader?: boolean;
+  /** Shows row selection checkboxes. @default false */
   selectable?: boolean;
   /** Controlled selected row ids. */
   selected?: string[];
@@ -94,10 +99,15 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   selectedRows?: string[];
   /** @deprecated Use `onSelectionChange` instead. */
   onRowSelect?: (selectedRows: string[]) => void;
+  /** Controlled id of the column the table is sorted by. */
   sortBy?: string;
+  /** Controlled sort direction. */
   sortDirection?: 'asc' | 'desc';
+  /** Called with the next sort column and direction when a sortable header is clicked. */
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
+  /** Initial sort column id when sorting is uncontrolled. */
   defaultSortBy?: string;
+  /** Initial sort direction when `defaultSortBy` is set. @default 'asc' */
   defaultSortDirection?: 'asc' | 'desc';
   /**
    * Value-first handler when per-column checkbox/radio cell selection changes.

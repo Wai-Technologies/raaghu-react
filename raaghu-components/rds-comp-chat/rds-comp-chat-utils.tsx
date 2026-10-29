@@ -25,6 +25,7 @@ export const startCamera = async (videoRef: RefObject<HTMLVideoElement>) => {
     }
     return stream;
   } catch {
+    return undefined;
   }
 };
 

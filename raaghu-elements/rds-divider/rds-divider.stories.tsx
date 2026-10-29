@@ -79,6 +79,7 @@ export const Vertical: Story = {
   args: {
     flexItem: true,
     layout: "vertical",
+    iconShow: false
   },
   parameters: {
     controls: { exclude: ['layout', 'component', 'icon', 'children', 'textAlign', 'iconShow'] },

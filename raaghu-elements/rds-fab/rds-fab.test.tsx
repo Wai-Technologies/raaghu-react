@@ -492,6 +492,16 @@ describe('RdsFab additive renames', () => {
   const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
   beforeEach(() => warn.mockClear());
 
+  it('pins the button with placement, and position still works with a warning', () => {
+    const { unmount } = render(<RdsFab aria-label='Add' placement='bottom-left' />);
+    expect(pos()).toBe('fixed');
+    expect(warn).not.toHaveBeenCalled();
+    unmount();
+    render(<RdsFab aria-label='Add' position='top-right' />);
+    expect(pos()).toBe('fixed');
+    expect(warn).toHaveBeenCalledWith('RdsFab', 'position', '`placement`');
+  });
+
   it('renders startIcon and names the icon-only button by label', () => {
     render(<RdsFab startIcon={<span data-testid="start-icon" />} label="Add" />);
     expect(screen.getByTestId('start-icon')).toBeInTheDocument();

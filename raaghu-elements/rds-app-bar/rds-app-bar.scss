@@ -259,8 +259,8 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-header-center-gap-xs: var(--rds-spacing-cozy);
   --rds-header-center-margin-left-mobile: 95px;
   --rds-header-center-margin-left-xs: var(--rds-spacing-30);
-  --rds-header-center-button-font-size-mobile: 12px;
-  --rds-header-center-button-font-size-xs: 11px;
+  --rds-header-center-button-font-size-mobile: var(--rds-font-size-xs);
+  --rds-header-center-button-font-size-xs: var(--rds-font-size-2xs);
   --rds-header-center-button-min-height-mobile: var(--rds-size-xl);
   --rds-header-center-button-min-height-xs: var(--rds-size-28);
   display: inline-flex;
@@ -398,7 +398,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   color: var(--rds-appbar-color, var(--rds-background-paper));
   min-height: var(--rds-spacing-lg);
-  box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
+  box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, color-mix(in srgb, var(--rds-color-black) 20%, transparent));
   position: relative;
   z-index: var(--rds-z-index-sticky);
   width: 100%;
@@ -409,7 +409,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   &__title {
     flex: 1;
     font-size: var(--rds-font-size-2xl);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     margin: 0 var(--rds-font-size-lg);
     min-width: 0;
     overflow: hidden;
@@ -515,16 +515,16 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       }
 
       .MuiAvatar-root {
-        background-color: rgba(255, 255, 255, 0.25);
+        background-color: color-mix(in srgb, var(--rds-color-white) 25%, transparent);
         color: var(--rds-color-on-primary);
-        border: var(--rds-border-width-thin) solid rgba(255, 255, 255, 0.5);
+        border: var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent);
       }
     }
 
     .rds-header__search {
-      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      background: var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 12%, transparent));
       color: var(--rds-color-on-primary);
-      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+      border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
 
       input {
         color: var(--rds-color-on-primary);
@@ -579,16 +579,16 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       }
 
       .MuiAvatar-root {
-        background-color: rgba(255, 255, 255, 0.25);
+        background-color: color-mix(in srgb, var(--rds-color-white) 25%, transparent);
         color: var(--rds-color-on-secondary);
-        border: var(--rds-border-width-thin) solid rgba(255, 255, 255, 0.5);
+        border: var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent);
       }
     }
 
     .rds-header__search {
-      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      background: var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 12%, transparent));
       color: var(--rds-color-on-secondary);
-      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+      border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
 
       input {
         color: var(--rds-color-on-secondary);
@@ -748,12 +748,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: var(--rds-color-scrollbar-thumb, rgba(0,0,0,0.32));
+      background-color: var(--rds-color-scrollbar-thumb, color-mix(in srgb, var(--rds-color-black) 32%, transparent));
       border-radius: var(--rds-border-radius-md);
     }
 
     scrollbar-width: thin;
-    scrollbar-color: var(--rds-color-scrollbar-thumb, rgba(0,0,0,0.32)) transparent;
+    scrollbar-color: var(--rds-color-scrollbar-thumb, color-mix(in srgb, var(--rds-color-black) 32%, transparent)) transparent;
   }
 
   .rds-language-menu-paper .MuiMenuItem-root,
@@ -764,7 +764,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     padding-left: var(--rds-spacing-12-px);
     padding-right: var(--rds-spacing-12-px);
     min-height: 0;
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     white-space: nowrap;
   }
 
@@ -824,7 +824,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     height: var(--rds-size-36);
     display: flex;
     align-items: center;
-    transition: border-color 0.2s;
+    transition: border-color var(--rds-motion-duration-quick);
     width: 100%;
     flex-shrink: 1;
  
@@ -965,21 +965,21 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     .MuiButton-root {
       text-transform: none;
       font-size: var(--rds-font-size-md);
-      font-weight: 400;
+      font-weight: var(--rds-font-weight-regular);
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       border-radius: var(--rds-border-radius-sm);
       min-width: auto;
 
       &.MuiButton-textPrimary {
         background-color: var(--rds-color-primary);
-        color: white;
+        color: var(--rds-color-white);
         
         &:hover {
           background-color: var(--rds-color-primary-dark);
         }
 
         .MuiSvgIcon-root, .MuiButton-startIcon {
-          color: white;
+          color: var(--rds-color-white);
         }
       }
 
@@ -1133,7 +1133,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 .rds-appbar-logo-label {
   margin-left: var(--rds-spacing-sm);
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
   font-size: var(--rds-font-size-xl);
   color: var(--rds-color-on-surface);
   white-space: nowrap;
@@ -1176,12 +1176,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-appbar-badge {
-  background: var(--rds-appbar-badge-bg, rgba(25, 118, 210, 0.1));
+  background: var(--rds-appbar-badge-bg, var(--rds-appbar-badge-bg-fallback));
   color: var(--rds-appbar-badge-color, var(--rds-color-primary));
   border: var(--rds-border-width-thin) solid currentColor;
   border-radius: var(--rds-border-radius-sm);
   padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
   font-size: var(--rds-font-size-sm);
   margin-right: var(--rds-spacing-sm);
   white-space: nowrap;
@@ -1298,7 +1298,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   align-items: center;
   z-index: var(--rds-z-index-dropdown);
   border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 -4px 12px color-mix(in srgb, var(--rds-color-black) 8%, transparent);
   box-sizing: border-box;
   min-height: var(--rds-size-56);
   max-height: var(--rds-size-56);
@@ -1341,7 +1341,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   .rds-bottom-nav-tab {
     color: var(--rds-color-on-surface, var(--rds-text-primary));
     text-transform: none;
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     font-size: var(--rds-font-size-sm);
     padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
     min-width: var(--rds-size-2xl);
@@ -1357,7 +1357,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     color: var(--rds-appbar-badge-color);
     border-radius: var(--rds-border-radius-sm);
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     font-size: var(--rds-font-size-sm);
     white-space: nowrap;
     flex-shrink: 0;

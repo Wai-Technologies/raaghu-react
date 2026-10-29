@@ -76,6 +76,7 @@ function resolveTriggerAppearance(
 export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'style' | 'defaultValue' | 'value' | 'color'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
+  /** Options listed in the dropdown menu. */
   options: RdsButtonDropdownOption[];
   /** Multi-select (checkbox) mode. Defaults to `false`. */
   multiple?: boolean;
@@ -108,8 +109,11 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   /** Single-select options as `'radio'` or plain `'button'`s. Preferred over `ui.selection`. */
   optionVariant?: 'radio' | 'button';
   
+  /** Called with the selected option id(s) and the event when the selection changes. */
   onChange?: (selected: string[] | string, event: object) => void;
+  /** Size of the trigger button. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Content layout of the trigger button. @default 'icon+text' */
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   /**
    * Shape treatment aligned with `RdsButton` (`filled` | `outlined` | `transparent`).
@@ -120,6 +124,7 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   color?: RdsButtonDropdownColor;
   /** @deprecated Use `variant` (`filled` | `outlined` | `transparent`) with `color`. */
   styleType?: RdsButtonDropdownLegacyVariant;
+  /** Shape of the trigger button. @default 'rectangle' */
   shape?: 'rectangle' | 'pill';
   /** Icon after the label. */
   endIcon?: ReactNode;
@@ -145,6 +150,7 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   sx?: SxProps<Theme>;
   /** Ref to the trigger button. */
   ref?: Ref<HTMLButtonElement>;
+  /** Called when the trigger button is clicked. */
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Id of the trigger button. */
   id?: string;
@@ -336,11 +342,11 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={requestClose}
         items={[]}
-        slotProps={{ paper: { style: { minWidth: 176 }, className: 'rds-button-dropdown__menu', elevation: 0 } }}
+        slotProps={{ paper: { style: { minWidth: 'var(--rds-button-dropdown-panel-min-width)' }, className: 'rds-button-dropdown__menu', elevation: 0 } }}
       >
-        <div style={{ padding: 6, minWidth: 176 }}>
+        <div style={{ padding: 'var(--rds-spacing-compact)', minWidth: 'var(--rds-button-dropdown-panel-min-width)' }}>
           {showSearch && (
-            <div style={{ marginBottom: 6 }}>
+            <div style={{ marginBottom: 'var(--rds-spacing-compact)' }}>
               <RdsSearch
                 value={search}
                 onChange={setSearch}
@@ -351,7 +357,7 @@ const RdsButtonDropdown = ({
               />
             </div>
           )}
-          <div style={{ maxHeight: 220, overflowY: 'auto' }}>
+          <div style={{ maxHeight: 'var(--rds-button-dropdown-menu-max-height)', overflowY: 'auto' }}>
             {filteredOptions.map(opt => (
               <div key={opt.id} className="rds-button-dropdown__option">
                 {showUserAvatar && <RdsAvatar size="small" src={opt.avatarSrc} />}

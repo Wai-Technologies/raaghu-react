@@ -5,6 +5,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-pagination.scss';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 /**
  * Props for {@link RdsPagination}. Extends MUI `PaginationProps` (forwarded to the
@@ -119,7 +120,7 @@ const RdsPagination = ({
   const showManualInput = controls?.manualInput ? controls.manualInput === 'visible' : (asBoolean(legacyShowManualInput) ?? false);
 
   const pageSizeLabelId = useId();
-  const isSmallScreen = useMediaQuery('(max-width:480px)', { noSsr: true });
+  const isSmallScreen = useMediaQuery(`(max-width:${extendedBreakpointTokens['480']})`, { noSsr: true });
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;

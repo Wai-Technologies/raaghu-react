@@ -15,20 +15,25 @@ export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component'
   description?: string;
   /** Heading shown before the message when the title is visible. */
   title?: string;
+  /** Visibility of icon, title, description and multiline layout; wins over the boolean flags. */
   content?: {
     icon?: Visibility;
     title?: Visibility;
     description?: Visibility;
     multiline?: Toggle;
   };
+  /** Size of the banner. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Visual style of the banner. @default 'style1' */
   variantStyle?: 'style1' | 'style2' | 'style3';
+  /** Per-action visibility ('visible' | 'hidden') for link, secondary, primary and close; wins over the boolean flags. */
   actionsConfig?: {
     link?: Visibility;
     secondary?: Visibility;
     primary?: Visibility;
     close?: Visibility;
   };
+  /** Persistent, width ('full' | 'auto') and outline toggles; wins over the boolean flags. */
   layout?: {
     persistent?: Toggle;
     width?: 'full' | 'auto';
@@ -42,8 +47,11 @@ export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component'
   secondaryText?: string;
   /** Label of the primary button. Defaults to `'Okay'`. */
   primaryText?: string;
+  /** Called when the link button is clicked. */
   onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the secondary button is clicked. */
   onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the primary button is clicked. */
   onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** @deprecated Use `severity`. */
   type?: AlertColor;

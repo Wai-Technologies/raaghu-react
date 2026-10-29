@@ -24,8 +24,8 @@
 
   .MuiInputBase-input {
     font-family: inherit;
-    font-weight: 400;
-    font-size: 1rem;
+    font-weight: var(--rds-font-weight-regular);
+    font-size: var(--rds-font-size-md);
   }
 
   &--datetimerange {
@@ -127,7 +127,7 @@
           padding: var(--rds-spacing-xs);
 
           .MuiSvgIcon-root {
-            font-size: 1.25rem;
+            font-size: var(--rds-font-size-xl);
           }
         }
       }
@@ -228,10 +228,10 @@
     background-color: transparent;
     color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-body2);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--rds-motion-duration-quick) ease;
 
     &:hover {
       background-color: var(--rds-color-primary-hover);
@@ -241,7 +241,7 @@
     &--selected {
       background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
 
       &:hover {
         background-color: var(--rds-color-primary-dark);
@@ -323,7 +323,7 @@
     color: var(--rds-color-error);
     font-size: var(--rds-font-size-body1);
     font-weight: var(--rds-font-weight-bold, 700);
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     margin-left: var(--rds-spacing-xs);
     display: inline-block;
     vertical-align: top;
@@ -399,7 +399,7 @@
     padding-left: var(--rds-spacing-14);
     padding-right: var(--rds-spacing-14);
     font-size: var(--rds-font-size-caption);
-    line-height: 1.25;
+    line-height: var(--rds-line-height-tight);
     color: var(--rds-color-text-secondary);
     white-space: normal;
     word-break: break-word;
@@ -408,7 +408,7 @@
   // Material UI input styles
   .MuiInputBase-root {
     border-radius: var(--rds-border-radius-lg);
-    transition: all 0.3s ease;
+    transition: all var(--rds-motion-duration-moderate) ease;
     cursor: pointer;
     min-height: var(--rds-size-56);
     display: flex;
@@ -431,7 +431,7 @@
         color: var(--rds-color-text-secondary);
         opacity: 1;
         font-style: normal;
-        transition: opacity 0.2s ease;
+        transition: opacity var(--rds-motion-duration-quick) ease;
         white-space: nowrap;
         overflow: visible;
         text-overflow: clip;
@@ -452,7 +452,7 @@
       margin-left: var(--rds-spacing-xs);
 
       .MuiSvgIcon-root {
-        font-size: 1.5rem;
+        font-size: var(--rds-font-size-2xl);
       }
     }
 
@@ -519,7 +519,7 @@
       &:not(.MuiInputLabel-shrink) {
         top: 50%;
         transform: translate(14px, -50%) scale(1);
-        line-height: 1;
+        line-height: var(--rds-line-height-none);
       }
 
       &.MuiInputLabel-shrink {
@@ -538,7 +538,7 @@
   .MuiInputLabel-root {
     font-weight: var(--rds-font-weight-medium, 500);
     transform-origin: top left;
-    transition: all 0.2s ease-in-out;
+    transition: all var(--rds-motion-duration-quick) ease-in-out;
     pointer-events: none;
     position: absolute;
     z-index: var(--rds-z-index-layer-1);
@@ -560,7 +560,7 @@
     &:not(.MuiInputLabel-shrink) {
       top: 50%;
       transform: translate(14px, -50%) scale(1);
-      line-height: 1;
+      line-height: var(--rds-line-height-none);
     }
   }
 
@@ -585,7 +585,7 @@
   }
 
   .MuiDateCalendar-root {
-    background: var(--rds-color-surface);
+    background: var(--rds-date-and-time-picker-muidatecalendar-root-background);
     border-radius: var(--rds-border-radius-lg);
     box-shadow: none;
     border: var(--rds-border-width-emphasis) solid var(--rds-color-border-light);
@@ -598,7 +598,7 @@
 
   .MuiDayCalendar-weekDayLabel {
     font-weight: var(--rds-font-weight-regular, 400);
-    color: var(--rds-color-text-secondary);
+    color: var(--rds-date-and-time-picker-muidaycalendar-weekdaylabel-color);
   }
 
   .MuiPickersDay-root {
@@ -672,16 +672,11 @@
 @media (prefers-color-scheme: dark) {
   .rds-date-picker {
     .MuiDateCalendar-root {
-      background: var(--rds-color-surface-dark);
       color: var(--rds-color-on-surface-dark);
     }
 
     .MuiPickersCalendarHeader-root {
       border-bottom-color: var(--rds-color-border-dark);
-    }
-
-    .MuiDayCalendar-weekDayLabel {
-      color: var(--rds-color-text-secondary-dark);
     }
   }
 }
@@ -773,7 +768,7 @@
     }
 
     .MuiPickersDay-root {
-      font-size: 0.875rem;
+      font-size: var(--rds-font-size-sm);
     }
 
     .MuiInputBase-root {
@@ -956,7 +951,7 @@
 
     .MuiDayCalendar-weekDayLabel {
       width: var(--rds-size-xl);
-      font-size: 0.75rem;
+      font-size: var(--rds-font-size-xs);
     }
 
     .MuiPickersCalendarHeader-root {
@@ -987,7 +982,7 @@
 }
 
 .MuiPickersPopper-root {
-  animation: rds-date-picker-fade-in 0.2s ease-out;
+  animation: rds-date-picker-fade-in var(--rds-motion-duration-quick) ease-out;
 }
 
 // Base picker paper
@@ -1122,7 +1117,7 @@
         background-color: var(--rds-color-primary);
         color: var(--rds-color-on-primary);
         border: var(--rds-border-width-medium) solid var(--rds-color-primary);
-        font-weight: 400;
+        font-weight: var(--rds-font-weight-regular);
 
         &:hover {
           background-color: var(--rds-color-primary-dark);
@@ -1171,11 +1166,11 @@
         min-width: var(--rds-date-and-time-picker-dim-4);
 
         .MuiMenuItem-root {
-          font-size: 0.75rem;
+          font-size: var(--rds-font-size-xs);
           min-height: var(--rds-size-28);
           padding: calc(var(--rds-spacing-xs) / 2)
             calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-          line-height: 1.2;
+          line-height: var(--rds-line-height-compact);
         }
 
         .MuiList-root {
@@ -1204,7 +1199,7 @@
         &.Mui-selected {
           background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary);
-          font-weight: 400;
+          font-weight: var(--rds-font-weight-regular);
         }
       }
 

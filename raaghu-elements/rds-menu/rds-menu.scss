@@ -4,7 +4,7 @@
   --rds-menu-dim-3: 260px;
   --rds-menu-dim-4: 340px;
 
-  --rds-menu-header-font-weight: 600;
+  --rds-menu-header-font-weight: var(--rds-font-weight-semibold);
 
   &__list {
     min-width: var(--rds-menu-list-min-width);
@@ -21,7 +21,7 @@
     align-items: center;
     gap: var(--rds-spacing-md);
     padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     min-height: var(--rds-menu-item-min-height);
     cursor: pointer;
     transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
@@ -70,13 +70,13 @@
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.25rem;
+        font-size: var(--rds-font-size-xl);
       }
 
       .rds-avatar .MuiAvatar-root {
         width: 1.25rem;
         height: 1.25rem;
-        font-size: 0.5625rem;
+        font-size: var(--rds-font-size-3xs);
       }
     }
     &__text {
@@ -107,7 +107,7 @@
       gap: var(--rds-spacing-sm);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1rem;
@@ -126,18 +126,18 @@
       max-width: var(--rds-menu-dim-3);
     }
     .rds-menu__item {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
       min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
       gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.25rem;
+      font-size: var(--rds-font-size-xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1.25rem;
       height: 1.25rem;
-      font-size: 0.5625rem;
+      font-size: var(--rds-font-size-3xs);
     }
     .rds-menu__header {
       font-size: 0.98em;
@@ -157,12 +157,12 @@
       gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.5rem;
+      font-size: var(--rds-font-size-2xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1.5rem;
       height: 1.5rem;
-      font-size: 0.6875rem;
+      font-size: var(--rds-font-size-2xs);
     }
     .rds-menu__header {
       font-size: 1.05em;

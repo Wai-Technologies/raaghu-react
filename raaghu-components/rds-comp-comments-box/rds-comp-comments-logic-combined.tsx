@@ -80,16 +80,16 @@ export const RdsCommentBoxLogic = ({
                     backgroundColor: 'var(--rds-primary-main)',
                     color: 'var(--rds-primary-contrast-text)',
                     width: 'auto',
-                    height: 24,
-                    minWidth: 26,
-                    minHeight: 24,
-                    maxHeight: 24,
+                    height: 'var(--rds-size-lg)',
+                    minWidth: 'var(--rds-comments-box-send-button-min-width)',
+                    minHeight: 'var(--rds-size-lg)',
+                    maxHeight: 'var(--rds-size-lg)',
                     borderRadius: 'var(--rds-border-radius-sm)',
                     boxShadow: 'none',
                     '&:hover': { backgroundColor: 'var(--rds-primary-dark)' },
                   }}
                 >
-                  <SendIcon aria-hidden="true" className="rds-comments-box__send-icon" sx={{ fontSize: 11, width: 11, height: 11 }} />
+                  <SendIcon aria-hidden="true" className="rds-comments-box__send-icon" sx={{ fontSize: 'var(--rds-font-size-2xs)', width: 'var(--rds-spacing-11-px)', height: 'var(--rds-spacing-11-px)' }} />
                 </IconButton>
               </InputAdornment>
             ),

@@ -12,7 +12,7 @@
     margin-top: var(--rds-text-field-helper-offset, var(--rds-spacing-sm));
     margin-bottom: 0;
     font-size: var(--rds-text-field-helper-font-size, var(--rds-font-size-md));
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
   }
 
   &--disabled {

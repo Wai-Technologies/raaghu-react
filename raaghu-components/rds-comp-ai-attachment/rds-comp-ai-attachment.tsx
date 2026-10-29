@@ -64,6 +64,7 @@ export interface RdsCompAiAttachmentProps
   menuAlignment?: "left" | "right";
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 

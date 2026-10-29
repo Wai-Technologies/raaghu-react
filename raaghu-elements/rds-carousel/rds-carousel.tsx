@@ -20,14 +20,19 @@ export interface RdsCarouselProps
   extends Omit<BoxProps, 'children' | 'component' | 'style' | 'type' | 'title' | 'height'> {
   /** The slides. A single child, an array or a fragment are all accepted. */
   children?: ReactNode;
+  /** Advances slides automatically. @default false */
   autoPlay?: boolean;
+  /** Extra CSS class applied to the root element. */
   className?: string;
+  /** Delay between automatic slides, in ms. @default 3000 */
   autoPlayInterval?: number;
+  /** Shows the previous and next arrows. @default true */
   showArrows?: boolean;
   /** Shows the slide indicators. Defaults to `true`. */
   showIndicators?: boolean;
   /** @deprecated Use `showIndicators` instead. */
   showDots?: boolean;
+  /** Height of the carousel. @default '400px' */
   height?: string | number;
   /** Indicator shape (Figma "Type"). */
   type?: 'circle' | 'line';
@@ -49,7 +54,9 @@ export interface RdsCarouselProps
   titles?: string[];
   /** @deprecated Use `items` instead. */
   subtitles?: string[];
+  /** Title shown on the slides. */
   title?: string;
+  /** Subtitle shown on the slides. */
   subtitle?: string;
 }
 
@@ -171,7 +178,7 @@ const RdsCarousel = ({
         sx={{
           display: 'flex',
           transform: `translateX(-${currentIndex * 100}%)`,
-          transition: 'transform 0.3s ease-in-out',
+          transition: 'transform var(--rds-motion-duration-moderate) ease-in-out',
           height: '100%',
           width: '100%',
           maxWidth: '100%',
@@ -267,9 +274,9 @@ const RdsCarousel = ({
               left: tokens.space(1),
               top:
                 style === 'with title'
-                  ? 'calc(50% + 50px)'
+                  ? 'calc(50% + var(--rds-spacing-50))'
                   : style === 'full width image'
-                    ? 'calc(50% - 50px)'
+                    ? 'calc(50% - var(--rds-spacing-50))'
                     : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
@@ -291,9 +298,9 @@ const RdsCarousel = ({
               right: tokens.space(1),
               top:
                 style === 'with title'
-                  ? 'calc(50% + 50px)'
+                  ? 'calc(50% + var(--rds-spacing-50))'
                   : style === 'full width image'
-                    ? 'calc(50% - 50px)'
+                    ? 'calc(50% - var(--rds-spacing-50))'
                     : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
@@ -347,10 +354,10 @@ const RdsCarousel = ({
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
-                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
+                    ? `var(--rds-border-width-thin) solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',
-                transition: 'background-color 0.2s, opacity 0.2s',
+                transition: 'background-color var(--rds-motion-duration-quick), opacity var(--rds-motion-duration-quick)',
                 '&:hover': {
                   backgroundColor:
                     currentIndex === index

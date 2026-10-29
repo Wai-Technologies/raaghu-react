@@ -25,6 +25,7 @@ const createActionLogger = (actionName: string) => {
                 });
             }
         } catch {
+            return;
         }
     };
 };

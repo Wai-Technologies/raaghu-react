@@ -29,27 +29,45 @@ const Editor = lazy(() =>
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange" | "style"> {
+    /** HTML id applied to the editor element. */
     id?: string;
+    /** Called with the sanitized HTML value whenever the editor content changes. */
     onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
+    /** Placeholder text shown when the editor is empty. */
     placeholder?: string;
+    /** Makes the editor non-editable. */
     readOnly?: boolean;
+    /** Controlled HTML content of the editor. */
     value?: string;
+    /** Initial HTML content when `value` is not provided. */
     defaultValue?: string;
+    /** Label shown above the editor when `showTitle` is true. */
     label?: string;
     /** @deprecated Use `required` instead. */
     isMandatory?: boolean;
+    /** Marks the field as required. */
     required?: boolean;
+    /** Applies the error style; falls back to `state === 'Error'` when omitted. */
     error?: boolean;
+    /** Disables the editor; falls back to `state === 'Disabled'` when omitted. */
     disabled?: boolean;
+    /** Extra class name applied to the label. */
     labelClass?: string;
+    /** Visual state: 'Selected', 'Active', 'Error' or 'Disabled'. */
     state?: string;
+    /** Applies the active (focused) style. */
     focused?: boolean;
+    /** Shows the label above the editor. */
     showTitle?: boolean;
+    /** Number of visible text rows used to size the editor. */
     rows?: number;
+    /** Whether the editor can be resized by the user. */
     resizable?: boolean;
     /** Upload handler for toolbar images. Return a public URL (or data URL). When omitted, files are read as base64 data URLs. */
     onImageUpload?: (file: File) => Promise<string> | string;
+    /** MUI system styles applied to the root element. */
     sx?: SxProps<Theme>;
+    /** Ref forwarded to the root element. */
     ref?: Ref<HTMLDivElement>;
 }
 

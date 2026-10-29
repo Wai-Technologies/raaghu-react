@@ -13,7 +13,9 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
   description?: string;
   /** Heading shown before the message when `showTitle` is on. */
   title?: string;
+  /** Size of the alert. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Visual style variant of the alert. @default 'style1' */
   variantStyle?: 'style1' | 'style2' | 'style3';
   /** Shows the icon. Defaults to `true`. Use `icon={false}` to hide it as well. */
   showIcon?: boolean;
@@ -37,8 +39,11 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
   secondaryText?: string;
   /** Label of the primary button. Defaults to `'Okay'`. */
   primaryText?: string;
+  /** Called when the link button is clicked. */
   onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the secondary button is clicked. */
   onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the primary button is clicked. */
   onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** @deprecated Use `severity`. */
   type?: AlertColor;

@@ -14,20 +14,29 @@ const toDisplayType = (template: LayoutTemplate) =>
 
 export interface RdsCompLayoutProps extends BoxProps {
   children?: ReactNode;
+  /** Gap between children, in theme spacing units. @default 2 */
   spacing?: number;
+  /** Flex direction of the layout. @default 'column' */
   direction?: 'row' | 'column';
+  /** Allows children to wrap onto multiple lines. @default false */
   wrap?: boolean;
+  /** Main-axis alignment of children. @default 'flex-start' */
   justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
+  /** Cross-axis alignment of children. @default 'stretch' */
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
+  /** Makes the layout fill the available height. @default false */
   fullHeight?: boolean;
+  /** Makes the layout fill the available width. @default false */
   fullWidth?: boolean;
   /** Figma layout name, rendered when `mode` is `'standard'`. */
   displayType?: LayoutDisplayType;
   /** Renders the predefined layout template. */
   template?: LayoutTemplate;
+  /** Adds a shadow to the template layout. */
   elevated?: boolean;
   /** @deprecated Use `elevated` instead. */
   hasShadow?: boolean;
+  /** Set to 'standard' to render the predefined layout chosen by `displayType`. */
   mode?: 'standard';
 }
 

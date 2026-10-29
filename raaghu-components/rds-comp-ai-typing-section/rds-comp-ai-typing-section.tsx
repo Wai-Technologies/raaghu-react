@@ -30,6 +30,7 @@ export interface RdsCompAiTypingSectionProps extends Omit<HTMLAttributes<HTMLDiv
   iconName?: ReactNode;
   /** Called with the prompt text (and image, if any) from the send button. */
   onSend?: (inputText: string, image?: string) => void;
+  /** Called with the comment created from the attachment menu. */
   onAddComment?: (comment: AttachmentComment) => void;
   /** Image sent with the prompt when no image was picked. */
   imageSrc?: string;
@@ -52,7 +53,9 @@ export interface RdsCompAiTypingSectionProps extends Omit<HTMLAttributes<HTMLDiv
   autocompleteOptions?: RdsCompAiTypingSectionOption[];
   /** Badge label on the attachment menu button. No badge is shown when omitted. */
   attachmentBadge?: string | null;
+  /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 
@@ -188,10 +191,10 @@ const RdsCompAiTypingSectionComponent = ({
             <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
                 colorVariant="primary"
-                height="24px"
+                height="var(--rds-size-lg)"
                 name="enhance"
                 stroke
-                width="24px"
+                width="var(--rds-size-lg)"
               />
             </span>
           )}

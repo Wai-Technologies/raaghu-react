@@ -67,7 +67,7 @@
     
     &:hover {
       color: var(--rds-text-primary, var(--rds-color-text-primary));
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-action-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
     }
   }
 

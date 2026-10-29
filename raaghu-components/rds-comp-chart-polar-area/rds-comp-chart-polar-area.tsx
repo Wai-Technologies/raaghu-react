@@ -33,6 +33,7 @@ export interface RdsCompPolarAreaChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
   sx?: SxProps<Theme>;
 }
 

@@ -43,6 +43,7 @@ export interface RdsCompMapProps
     valueSuffix?: string;
     /** MUI system styles applied to the root element. */
     sx?: SxProps<Theme>;
+    /** Ref to the root element. */
     ref?: Ref<HTMLDivElement>;
 }
 

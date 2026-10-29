@@ -27,6 +27,7 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   leftLabel?: string;
   /** @deprecated Use `endLabel` instead. */
   rightLabel?: string;
+  /** Extra class name applied to the slider root. */
   className?: string;
 }
 

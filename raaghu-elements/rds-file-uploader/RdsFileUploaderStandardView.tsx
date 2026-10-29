@@ -67,7 +67,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
     >
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
-          <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
+          <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 'var(--rds-font-weight-medium)' }}>
             {title || 'File'}
 {mandatory && (
   <span className="rds-file-uploader__mandatory">*</span>
@@ -95,7 +95,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           sx={{
             minWidth: 'var(--rds-file-uploader-btn-min-width)',
             fontSize: 'var(--rds-font-size-md)',
-            fontWeight: 'var(--rds-font-weight-medium, 500)',
+            fontWeight: 'var(--rds-font-weight-medium)',
             padding: 'var(--rds-file-uploader-upload-padding-y) var(--rds-file-uploader-upload-padding-x)',
             flexShrink: 0,
           }}
@@ -143,7 +143,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"
-          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
+          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 'var(--rds-font-weight-regular)', textAlign: 'right', minWidth: 0 }}
         >
           {showHint ? hintText : '\u00A0'}
         </Typography>

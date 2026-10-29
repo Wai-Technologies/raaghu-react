@@ -10,13 +10,17 @@ export interface RdsCompTruncateTextProps extends Omit<HTMLAttributes<HTMLDivEle
   text?: string;
   /** Text to display (preferred over `text`). */
   children?: string;
+  /** Maximum number of characters shown before the text is cut with an ellipsis. @default 100 */
   maxLength?: number;
   /** @deprecated Use `maxLines` instead. */
   lines?: number;
+  /** Maximum number of lines shown. @default 1 */
   maxLines?: number;
   /** Force the tooltip on or off. */
   showTooltip?: boolean;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

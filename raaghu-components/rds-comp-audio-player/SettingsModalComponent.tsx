@@ -76,28 +76,28 @@ export const SettingsModalComponent = memo(
                 ]}
                 sx={{
                   color: "var(--rds-primary-main)",
-                  height: 8,
+                  height: "var(--rds-size-sm)",
                   "& .MuiSlider-thumb": {
-                    width: 20,
-                    height: 20,
+                    width: "var(--rds-size-20)",
+                    height: "var(--rds-size-20)",
                     backgroundColor: "var(--rds-primary-main)",
                     "&:hover": {
-                      boxShadow: "0 0 0 8px var(--rds-action-hover)",
+                      boxShadow: "0 0 0 var(--rds-size-sm) var(--rds-action-hover)",
                     },
                   },
                   "& .MuiSlider-track": {
-                    height: 8,
+                    height: "var(--rds-size-sm)",
                     backgroundColor: "var(--rds-primary-main)",
                     border: "none",
                   },
                   "& .MuiSlider-rail": {
-                    height: 8,
+                    height: "var(--rds-size-sm)",
                     backgroundColor: "var(--rds-neutral-300)",
                   },
                   "& .MuiSlider-mark": {
                     backgroundColor: "var(--rds-primary-main)",
-                    height: 5,
-                    width: 5,
+                    height: "var(--rds-spacing-tight)",
+                    width: "var(--rds-spacing-tight)",
                     borderRadius: "50%",
                     "&.MuiSlider-markActive": {
                       backgroundColor: "var(--rds-neutral-0)",

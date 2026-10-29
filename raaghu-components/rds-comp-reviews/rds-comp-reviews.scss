@@ -17,7 +17,7 @@
   &__text {
     font-size: var(--rds-font-size-sm);
     color: var(--rds-text-secondary);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     margin-top: var(--rds-spacing-sm);
     margin-bottom: 0;
     font-weight: var(--rds-font-weight-regular);
@@ -25,7 +25,7 @@
   }
 
   .rating-value {
-    font-weight: bold;
+    font-weight: var(--rds-font-weight-bold);
   }
 }
 
@@ -44,10 +44,10 @@
     }
 
     .MuiRating-iconEmpty {
-      color: rgba(255, 255, 255, 0.15);
+      color: color-mix(in srgb, var(--rds-color-white) 15%, transparent);
 
       svg {
-        color: rgba(255, 255, 255, 0.15);
+        color: color-mix(in srgb, var(--rds-color-white) 15%, transparent);
       }
     }
 

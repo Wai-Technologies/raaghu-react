@@ -174,14 +174,14 @@
   }
 
   &__title {
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.4;
+    font-weight: var(--rds-font-weight-semibold);
+    font-size: var(--rds-font-size-md);
+    line-height: var(--rds-line-height-comfortable);
     color: var(--rds-text-primary, inherit);
   }
 
   &__time {
-    font-size: 0.875rem;
+    font-size: var(--rds-font-size-sm);
     opacity: 0.7;
     color: var(--rds-text-secondary, inherit);
   }
@@ -198,8 +198,8 @@
 
   &__description {
     margin-left: 0;
-    font-size: 0.875rem;
-    line-height: 1.5;
+    font-size: var(--rds-font-size-sm);
+    line-height: var(--rds-line-height-normal);
     color: var(--rds-text-primary, inherit);
   }
 
@@ -287,7 +287,7 @@
       border-color: var(--rds-form-border, var(--rds-color-border));
 
       &:hover {
-        background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-button-text-bg-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
       }
     }
   }
@@ -375,7 +375,7 @@
 :is(body.theme-dark, [data-theme="dark"]) {
   .rds-comp-notification {
     &.MuiCard-root {
-      border-color: var(--rds-border-default, rgba(255, 255, 255, 0.16));
+      border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 16%, transparent));
       box-shadow: none;
     }
 
@@ -404,7 +404,7 @@
     .rds-comp-notification__time,
     .rds-comp-notification__secondary-button,
     .rds-comp-notification__dismiss svg {
-      color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7));
+      color: var(--rds-text-secondary, color-mix(in srgb, var(--rds-color-white) 70%, transparent));
     }
   }
 }

@@ -124,9 +124,9 @@
 
   &__language-label {
     font-size: var(--rds-font-size-xs);
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--rds-letter-spacing-wider);
   }
 
   &__copy-button {
@@ -178,7 +178,7 @@
         padding: 0;
         font-size: inherit;
         font-family: inherit;
-        line-height: 1.5;
+        line-height: var(--rds-line-height-normal);
       }
     }
 
@@ -229,7 +229,7 @@
 
   &__code-line {
     display: block;
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
   }
 
   &__footer {

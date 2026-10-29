@@ -115,13 +115,13 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                     {isHorizontalImage && (
                         <Box
                             className="rds-comp-notification__image-sidebar"
-                            sx={{ width: 90, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+                            sx={{ width: 'var(--rds-spacing-90)', display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
                         >
                             <Box
                                 component="img"
                                 src={notification.image || resolvedDefaultImage}
                                 alt={title ?? notification.title}
-                                sx={{ width: 70, height: 70, objectFit: "contain" }}
+                                sx={{ width: 'var(--rds-spacing-70)', height: 'var(--rds-spacing-70)', objectFit: "contain" }}
                             />
                         </Box>
                     )}
@@ -144,7 +144,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                 layout === NotificationLayout.Horizontal) && (
                                 <Box
                                     className="rds-comp-notification__title-section" sx={{ flexGrow: 1, paddingLeft: 0, }}>
-                                    <Typography variant="subtitle1" component="strong" className="rds-comp-notification__title" sx={{ fontWeight: "bold" }}>
+                                    <Typography variant="subtitle1" component="strong" className="rds-comp-notification__title" sx={{ fontWeight: "var(--rds-font-weight-bold)" }}>
                                         {title ?? notification.title}
                                     </Typography>
                                     {notification.time && (
@@ -166,11 +166,11 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         {style === NotificationStyle.Avatar && (
                             <Avatar
                                 src={notification.avatar}
-                                sx={{ width: 40, height: 40, marginRight: 2 }}
+                                sx={{ width: 'var(--rds-size-40)', height: 'var(--rds-size-40)', marginRight: 2 }}
                             />
                         )}
                         {style === NotificationStyle.Icon && (
-                            <Box className="rds-comp-notification__icon" sx={{ marginRight: 2, display: "flex", alignItems: "center", width: 38, height: 38 }}>
+                            <Box className="rds-comp-notification__icon" sx={{ marginRight: 2, display: "flex", alignItems: "center", width: 'var(--rds-notification-icon-size)', height: 'var(--rds-notification-icon-size)' }}>
                                 {typeof notification.icon === 'string' ? (
                                     <CustomBellIcon />
                                 ) : (
@@ -188,7 +188,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                         variant="subtitle1"
                                         component="strong"
                                         className="rds-comp-notification__title"
-                                        sx={{ fontWeight: "bold" }}
+                                        sx={{ fontWeight: "var(--rds-font-weight-bold)" }}
                                     >
                                         {title ?? notification.title}
                                     </Typography>

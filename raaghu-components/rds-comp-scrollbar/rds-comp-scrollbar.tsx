@@ -9,19 +9,27 @@ export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
+  /** Scrollbar style (Mac with buttons, or Simple). Wins over `type`. */
   variant?: ScrollBarType;
+  /** Scrollbar style (Mac with buttons, or Simple); used when `variant` is not set. */
   type?: ScrollBarType;
   /** Initial scroll offset within the content. */
   scrollTo?: ScrollPosition;
   /** @deprecated Use `scrollTo` instead. Collides with CSS `position`. */
   position?: ScrollPosition;
+  /** Shows the scroll-to-top and scroll-to-bottom buttons in the Mac style. @default true */
   showButtons?: boolean;
+  /** Custom icon for the scroll-to-top button. */
   startIcon?: ReactNode;
+  /** Custom icon for the scroll-to-bottom button. */
   endIcon?: ReactNode;
   /** Content rendered inside the scroll container; replaces the placeholder. */
   children?: ReactNode;
+  /** Extra class name applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

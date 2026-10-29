@@ -431,7 +431,7 @@
   .MuiInputLabel-root {
     background: var(--rds-background-paper);
     padding: 0 0.25rem;
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     pointer-events: none;
     z-index: 1;
   }

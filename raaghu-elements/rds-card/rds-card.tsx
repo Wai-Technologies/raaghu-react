@@ -80,6 +80,7 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
   variant?: CardStyle | CardProps['variant'];
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: CardStyle | CSSProperties;
+  /** Card layout, vertical or horizontal. @default 'vertical' */
   layout?: CardLayout;
   /**
    * Shows or hides each section with `'visible'`/`'hidden'`. When a key is set it takes precedence
@@ -107,11 +108,13 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
   /** @deprecated Use `icon` instead. */
   changeIcon?: CardIconName;
   children?: ReactNode;
+  /** Title text shown in the card. */
   title?: string;
   /** Secondary line under the title. */
   subtitle?: string;
   /** @deprecated Use `subtitle` instead. */
   cardSubtext?: string;
+  /** Description text shown in the card. */
   description?: string;
 }
 

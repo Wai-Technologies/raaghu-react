@@ -1,4 +1,4 @@
 .rds-snackbar {
   border-radius: var(--rds-border-radius-sm);
-  transition: color var(--rds-transition-base, 150ms ease-in-out);
+  transition: color var(--rds-transition-base, var(--rds-motion-duration-fast) ease-in-out);
 }

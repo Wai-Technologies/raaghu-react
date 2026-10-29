@@ -4,12 +4,12 @@
   display: flex;
   position: relative;
   --rds-toggle-focus-ring-width: 2px;
-  --rds-toggle-group-border-light: var(--rds-border-light, rgba(0, 0, 0, 0.23));
-  --rds-toggle-group-border-dark: var(--rds-border-dark, rgba(255, 255, 255, 0.23));
-  --rds-toggle-group-border-disabled-light: var(--rds-border-light, rgba(100, 100, 100, 0.3));
-  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, rgba(100, 100, 100, 0.5));
+  --rds-toggle-group-border-light: var(--rds-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+  --rds-toggle-group-border-dark: var(--rds-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+  --rds-toggle-group-border-disabled-light: var(--rds-border-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
   --rds-toggle-button-selected-shadow: inset 0 0 0 1px currentColor;
-  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, rgba(0, 0, 0, 0.12));
+  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, color-mix(in srgb, var(--rds-color-black) 12%, transparent));
   
   &--horizontal {
     flex-direction: row;
@@ -260,12 +260,12 @@
 
 .rds-toggle-button__group {
   .MuiToggleButtonGroup-grouped {
-    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23));
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
     margin-left: 0;
     border-left-width: var(--rds-border-width-thin);
     
     &.Mui-disabled {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-light, rgba(100, 100, 100, 0.3));
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
     }
     
     &.Mui-selected {
@@ -277,34 +277,29 @@
 
 @media (prefers-color-scheme: dark) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23));
-    border-left-width: var(--rds-border-width-thin);
-    
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+
     &.Mui-disabled {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-dark, rgba(100, 100, 100, 0.5));
-    }
-    
-    &.Mui-selected {
-      border-color: currentColor;
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
     }
   }
 }
 
 @include bp.down(400) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23));
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
     
     &:not(:first-of-type) {
-      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23));
+      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
     }
   }
   
   @media (prefers-color-scheme: dark) {
     .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23));
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
       
       &:not(:first-of-type) {
-        border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23));
+        border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
       }
     }
   }

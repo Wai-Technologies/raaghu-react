@@ -166,7 +166,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            lineHeight: 1,
+            lineHeight: 'var(--rds-line-height-none)',
             whiteSpace: 'nowrap',
             maxWidth: 'fit-content',
           },
@@ -259,7 +259,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
     styleOverrides: {
       indicator: {
         backgroundColor: 'var(--rds-color-primary)',
-        height: 3,
+        height: 'var(--rds-border-width-thick)',
       },
       root: {
         '.rds-tabs &': {
@@ -281,7 +281,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
         textTransform: 'none' as const,
         '&.Mui-selected': {
           color: 'var(--rds-color-primary)',
-          fontWeight: 600,
+          fontWeight: 'var(--rds-font-weight-semibold)',
         },
         '&:hover': {
           color: 'var(--rds-color-primary)',
@@ -303,7 +303,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
       root: {
         '&.Mui-selected': {
           color: 'var(--rds-color-primary)',
-          fontWeight: 600,
+          fontWeight: 'var(--rds-font-weight-semibold)',
         },
         '&:hover': {
           color: 'var(--rds-color-primary)',
@@ -321,7 +321,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
       label: {
         '.Mui-selected &': {
           color: 'var(--rds-color-primary)',
-          fontWeight: 600,
+          fontWeight: 'var(--rds-font-weight-semibold)',
         },
       },
     },
@@ -765,7 +765,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           },
           '& .Mui-checked.Mui-disabled + .MuiSwitch-track, & .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track, & .Mui-disabled + .MuiSwitch-track':
             {
-              background: 'var(--rds-switch-disabled-secondary-bg, rgba(24,39,187,0.24))',
+              background: 'var(--rds-switch-disabled-secondary-bg)',
               opacity: 'var(--rds-switch-disabled-track-opacity, 0.4)',
             },
           '& .Mui-checked.Mui-disabled + .MuiSwitch-thumb, & .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb, & .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb':
@@ -799,7 +799,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           },
           '& .Mui-checked.Mui-disabled + .MuiSwitch-track, & .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track':
             {
-              background: 'var(--rds-switch-disabled-warning-bg, rgba(255,152,0,0.24))',
+              background: 'var(--rds-switch-disabled-warning-bg)',
               opacity: 'var(--rds-switch-disabled-track-opacity, 0.4)',
             },
           '& .Mui-checked.Mui-disabled + .MuiSwitch-thumb, & .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb':
@@ -835,7 +835,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
         '&.rds-switch--color-default': {
           '& .Mui-checked.Mui-disabled + .MuiSwitch-track, & .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track':
             {
-              background: 'var(--rds-switch-disabled-default-bg, rgba(158,158,158,0.24))',
+              background: 'var(--rds-switch-disabled-default-bg)',
               opacity: 'var(--rds-switch-disabled-track-opacity, 0.4)',
             },
           '& .Mui-checked.Mui-disabled + .MuiSwitch-thumb, & .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb':

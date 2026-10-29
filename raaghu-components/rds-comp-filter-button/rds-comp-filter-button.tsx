@@ -34,12 +34,15 @@ export interface RdsCompFilterButtonLocaleText {
 }
 
 export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** Shape of the trigger button. @default 'rectangle' */
   shape?: 'rectangle' | 'pill';
   /** Button label. Wins over `text`. */
   children?: ReactNode;
   /** @deprecated Use `children` instead. */
   text?: string;
+  /** Shows the start icon on the trigger button. @default true */
   showLeftIcon?: boolean;
+  /** Shows the end icon on the trigger button. @default false */
   showRightIcon?: boolean;
   /** Start icon. Wins over `leftIcon`; `null` hides it. */
   startIcon?: ReactNode;
@@ -49,17 +52,25 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
   leftIcon?: ReactNode;
   /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
+  /** Filters (with their values and selected values) listed in the popover. */
   options?: FilterOption[];
   /** @deprecated Use `options` instead. */
   filters?: FilterOption[];
+  /** Called with the updated filters whenever a value is checked or unchecked. */
   onFiltersChange?: (filters: FilterOption[]) => void;
+  /** Called with the current filters when Apply is clicked. */
   onApply?: (selectedFilters: FilterOption[]) => void;
+  /** Called when Clear All is clicked. */
   onClear?: () => void;
+  /** Disables the trigger button. @default false */
   disabled?: boolean;
+  /** Extra class name applied to the root element. */
   className?: string;
   /** MUI system styles applied to the filter button root. */
   sx?: SxProps<Theme>;
+  /** Default icon shown next to each filter in the popover; overridden by a filter's own `icon`. */
   itemIcon?: string | ReactNode;
+  /** Overrides for the popover texts (title, search placeholder, apply, clear all). */
   localeText?: RdsCompFilterButtonLocaleText;
 }
 
@@ -242,14 +253,14 @@ const RdsCompFilterButton = ({
             overflowY: 'auto',
             minHeight: 0,
             '&::-webkit-scrollbar': {
-              width: '6px',
+              width: 'var(--rds-spacing-compact)',
             },
             '&::-webkit-scrollbar-track': {
               background: 'var(--rds-background-default)',
             },
             '&::-webkit-scrollbar-thumb': {
               background: 'var(--rds-neutral-400)',
-              borderRadius: '3px',
+              borderRadius: 'var(--rds-border-radius-micro)',
             },
             '&::-webkit-scrollbar-thumb:hover': {
               background: 'var(--rds-neutral-500)',
@@ -274,7 +285,7 @@ const RdsCompFilterButton = ({
                 <AccordionSummary
                   expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)' }} />}
                   sx={{
-                    minHeight: '48px',
+                    minHeight: 'var(--rds-size-2xl)',
                     px: 2,
                     py: 1,
                     position: 'relative',
@@ -291,7 +302,7 @@ const RdsCompFilterButton = ({
                       bottom: 0,
                       left: 'var(--rds-spacing-md)',
                       right: 'var(--rds-spacing-md)',
-                      height: '1px',
+                      height: 'var(--rds-border-width-thin)',
                       backgroundColor: 'var(--rds-border-default)',
                       display: index === filteredFilters.length - 1 ? 'none' : 'block',
                     }
@@ -310,7 +321,7 @@ const RdsCompFilterButton = ({
 
                     <Typography sx={{ 
                       fontSize: 'var(--rds-font-size-md)', 
-                      fontWeight: 'var(--rds-font-weight-medium, 500)',
+                      fontWeight: 'var(--rds-font-weight-medium)',
                       color: 'var(--rds-text-primary)'
                     }}>
                       {filter.name}

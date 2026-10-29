@@ -24,6 +24,7 @@ const VARIANT_CLASS: Record<AccordionVariant, LegacyAccordionStyle> = {
 
 export interface RdsAccordionProps
   extends Omit<AccordionProps, 'children' | 'component' | 'variant'> {
+  /** Heading text shown in the accordion summary. */
   title: string;
   children: ReactNode;
   /** Visual style of the accordion. Defaults to `'outlined'`. */
@@ -35,6 +36,7 @@ export interface RdsAccordionProps
   /** Highlights the accordion as selected. */
   selected?: boolean;
   defaultExpanded?: boolean;
+  /** Size of the accordion. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
   /** @deprecated Use `slotProps.transition.timeout` instead. */
   animationDuration?: number;

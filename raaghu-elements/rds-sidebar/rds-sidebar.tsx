@@ -114,15 +114,19 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   header?: ReactNode;
   /** Replaces the default footer content (user avatar). */
   footer?: ReactNode;
+  /** Layout of the sidebar: 'raaghu', 'list' or 'toolbar'; affects avatar and search visibility. */
   layout?: 'raaghu' | 'list' | 'toolbar';
   /** Collapses the sidebar to icons only. Takes precedence over `typeOf`. */
   collapsed?: boolean;
+  /** Sidebar state: 'collapse' and 'fixed' render icons only, 'expanded' shows labels; `collapsed` takes precedence. @default 'expanded' */
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   /** @deprecated Pass `items` instead. */
   platform?: 'abp-list' | 'anz-list';
   /** @deprecated Use `user.avatarSrc` instead. */
   avatarSrc?: string;
+  /** Source of the default logo image shown in the header when the sidebar is expanded. */
   avatarCollapsedSrc?: string;
+  /** Shows the header with the logo (or custom `logo`). */
   showLogo?: boolean;
   container?: Element | (() => Element | null) | null;
   /**

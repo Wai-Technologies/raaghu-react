@@ -4,11 +4,14 @@ import clsx from "clsx";
 import "./rds-comp-app-shell.scss";
 
 export interface RdsCompAppShellItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
+  /** Heading text shown above the item content. */
   title: string;
   children: ReactNode;
   /** Heading element used for the title. Defaults to `h2`. */
   headingLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

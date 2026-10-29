@@ -10,7 +10,7 @@ import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 const HUE_TRACK_GRADIENT =
   "linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)";
 const CHECKERBOARD =
-  "linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)";
+  "linear-gradient(45deg, var(--rds-color-picker-checkerboard) 25%, transparent 25%), linear-gradient(-45deg, var(--rds-color-picker-checkerboard) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--rds-color-picker-checkerboard) 75%), linear-gradient(-45deg, transparent 75%, var(--rds-color-picker-checkerboard) 75%)";
 
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
@@ -240,8 +240,8 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             }}
             sx={{
               color: 'transparent',
-              height: 12,
-              padding: '6px 0',
+              height: 'var(--rds-size-12)',
+              padding: 'var(--rds-spacing-compact) 0',
               '& .MuiSlider-rail': {
                 opacity: 1,
                 background: HUE_TRACK_GRADIENT,
@@ -249,10 +249,10 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
               },
               '& .MuiSlider-track': { background: 'transparent', border: 'none' },
               '& .MuiSlider-thumb': {
-                width: 12,
-                height: 12,
+                width: 'var(--rds-size-12)',
+                height: 'var(--rds-size-12)',
                 backgroundColor: 'var(--rds-color-surface-contrast)',
-                boxShadow: '0 0 2px var(--rds-shadow-color)',
+                boxShadow: '0 0 var(--rds-spacing-xxs) var(--rds-shadow-color)',
               },
             }}
           />
@@ -273,21 +273,21 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             }}
             sx={{
               color: 'transparent',
-              height: 12,
-              padding: '6px 0',
+              height: 'var(--rds-size-12)',
+              padding: 'var(--rds-spacing-compact) 0',
               '& .MuiSlider-rail': {
                 opacity: 1,
                 backgroundImage: `linear-gradient(to right, transparent, ${solid}), ${CHECKERBOARD}`,
-                backgroundSize: '100% 100%, 8px 8px',
-                backgroundPosition: '0 0, 0 0, 0 4px, 4px -4px',
+                backgroundSize: '100% 100%, var(--rds-size-sm) var(--rds-size-sm)',
+                backgroundPosition: '0 0, 0 0, 0 var(--rds-size-xs), var(--rds-size-xs) calc(-1 * var(--rds-size-xs))',
                 borderRadius: 'var(--rds-border-radius-lg)',
               },
               '& .MuiSlider-track': { background: 'transparent', border: 'none' },
               '& .MuiSlider-thumb': {
-                width: 12,
-                height: 12,
+                width: 'var(--rds-size-12)',
+                height: 'var(--rds-size-12)',
                 backgroundColor: 'var(--rds-color-surface-contrast)',
-                boxShadow: '0 0 2px var(--rds-shadow-color)',
+                boxShadow: '0 0 var(--rds-spacing-xxs) var(--rds-shadow-color)',
               },
             }}
           />

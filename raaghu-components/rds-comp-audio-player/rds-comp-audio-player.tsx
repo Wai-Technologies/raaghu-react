@@ -19,6 +19,7 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 import { VolumeSliderComponent } from "./VolumeSliderComponent";
 import { SettingsModalComponent } from "./SettingsModalComponent";
 import { AudioEditionControls } from "./AudioEditionControls";
+import { extendedBreakpointTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
 registerMaterialIcons({
   share_icon: IosShareIcon,
@@ -36,6 +37,7 @@ export interface RdsCompAudioPlayerRange {
 
 export interface RdsCompAudioPlayerProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'id' | 'children' | 'onChange' | 'onCancel'> {
+  /** URL of the audio file to play. */
   src: string;
   /** Figma variant name. */
   type?: AudioPlayerType;
@@ -83,7 +85,7 @@ export interface RdsCompAudioPlayerProps
 }
 
 const SLIDER_MAX = 120;
-const MOBILE_QUERY = "(max-width:768px)";
+const MOBILE_QUERY = `(max-width:${extendedBreakpointTokens["tablet-sm"]})`;
 
 const VARIANT_TO_TYPE: Record<NonNullable<RdsCompAudioPlayerProps['variant']>, AudioPlayerType> = {
   player: "Audio Player",
@@ -95,18 +97,18 @@ const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
 
 const EXPORT_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", label: "Share Link" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", label: "Export Audio" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", label: "Export Transcript" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", label: "Export Summary" },
-  { icon: "download", iconHeight: "22px", iconWidth: "22px", key: "download", label: "Export Mind Map" },
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Share Link" },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Export Audio" },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Export Transcript" },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Export Summary" },
+  { icon: "download", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "download", label: "Export Mind Map" },
 ];
 
 const MORE_OPTIONS_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", label: "Move to folder" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", label: "Find & Replace" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", label: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", label: "Re-Summarize" },
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Move to folder" },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Find & Replace" },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Re-Transcribe" },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Re-Summarize" },
 ];
 
 const DEFAULT_WAVEFORM: number[] = Array.from({ length: 150 }, (_, barIndex) =>

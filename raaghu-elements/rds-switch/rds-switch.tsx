@@ -8,8 +8,11 @@ type SwitchVariant = 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
 
 /** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `style`/`component`). */
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
+  /** Label text shown next to the switch. */
   label?: string;
+  /** Position of the label relative to the switch; takes priority over `layout`. */
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
+  /** Arrangement of label and switch, mapped to a label placement. */
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   /** @deprecated Omit `label` instead. */
   showLabel?: boolean;

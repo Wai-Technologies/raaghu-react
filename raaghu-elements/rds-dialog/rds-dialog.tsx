@@ -17,9 +17,12 @@ const SIZE_MAP = {
 } as const;
 
 export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
+  /** Title text of the dialog. */
   title?: string;
   children?: ReactNode;
+  /** Action content rendered in the dialog footer. */
   actions?: ReactNode;
+  /** Shows the close button; superseded by `showCloseButton`. */
   showDissmiss?: boolean;
   /** Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`. */
   showCloseButton?: boolean;

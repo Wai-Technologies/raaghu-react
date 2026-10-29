@@ -24,16 +24,21 @@ export interface RdsRadioOption {
 }
 
 export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'component'> {
+  /** Radio options to render. */
   options: RdsRadioOption[];
+  /** Legend label shown above the radio group. */
   label?: string;
   /** @deprecated Use `slotProps.radio` instead. */
   radioProps?: RadioProps;
+  /** Props forwarded to the MUI radio, via `radio`. */
   slotProps?: { radio?: RadioProps };
   /** Where the option label sits: `none` (icon only), `end` or `bottom`. */
   labelPlacement?: 'none' | 'end' | 'bottom';
   /** Figma variant; `labelPlacement` takes precedence. */
   layout?: 'icon' | 'icon with label' | 'icon with bottom label';
+  /** Preselects the `value` option, or the first enabled option when no value is set; false clears the selection. */
   selected?: boolean;
+  /** Disables all radio options. @default false */
   disabled?: boolean;
   /** @deprecated Use `row`. */
   direction?: 'row' | 'column';

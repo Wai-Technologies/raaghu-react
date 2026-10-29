@@ -35,7 +35,7 @@
     border-radius: var(--rds-border-radius-sm);
     width: 100%;
     background-color: transparent;
-    transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, 0.2s ease-in-out));
+    transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, var(--rds-motion-duration-quick) ease-in-out));
     outline: none;
 
     &:hover:not(&--selected) {
@@ -69,12 +69,11 @@
 }
 
 [data-theme="dark"] .rds-button-dropdown__option:hover:not(.rds-button-dropdown__option--selected) {
-  background: var(--rds-button-dropdown-hover-bg-dark, rgba(255,255,255,0.04));
+  background: var(--rds-button-dropdown-hover-bg-dark, color-mix(in srgb, var(--rds-color-white) 4%, transparent));
 }
 
 [data-theme="dark"] .rds-button-dropdown__option--selected {
   background: var(--rds-button-dropdown-selected-bg, var(--rds-primary-main));
-  color: var(--rds-button-dropdown-selected-text);
 }
 
 .rds-button-dropdown__avatar {

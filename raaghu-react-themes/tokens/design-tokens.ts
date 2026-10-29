@@ -157,6 +157,7 @@ export const extendedBreakpointTokens = {
   '400': '400px',
   '420': '420px',
   '430': '430px',
+  '480': '480px',
   '514': '514px',
   '568': '568px',
   '576': '576px',
@@ -190,6 +191,8 @@ export const typographyTokens = {
   },
   
   fontSize: {
+    '3xs': '0.5625rem',
+    '2xs': '0.6875rem',
     xs: '0.75rem',
     sm: '0.875rem',
     base: '1rem',
@@ -201,6 +204,8 @@ export const typographyTokens = {
     '5xl': '3rem',
     '6xl': '3.75rem',
     '7xl': '4.5rem',
+    'display-sm': '2rem',
+    'display-md': '2.5rem',
   },
   
   fontWeight: {
@@ -216,8 +221,11 @@ export const typographyTokens = {
   
   lineHeight: {
     none: 1,
+    compact: 1.2,
     tight: 1.25,
+    dense: 1.3,
     snug: 1.375,
+    comfortable: 1.4,
     normal: 1.5,
     relaxed: 1.625,
     loose: 2,
@@ -230,6 +238,7 @@ export const typographyTokens = {
     wide: '0.025em',
     wider: '0.05em',
     widest: '0.1em',
+    caps: '0.5px',
   }
 };
 
@@ -401,8 +410,11 @@ export const shadowTokens = {
 
 export const animationTokens = {
   duration: {
+    instant: '100ms',
     fast: '150ms',
+    quick: '200ms',
     normal: '250ms',
+    moderate: '300ms',
     slow: '350ms',
     slower: '500ms',
   },
@@ -1160,6 +1172,8 @@ export const aiGradientTokens = {
  */
 export const switchTokens = {
   disabledSecondaryBg: 'rgba(24, 39, 187, 0.24)',
+  disabledWarningBg: 'rgba(255, 152, 0, 0.24)',
+  disabledDefaultBg: 'rgba(158, 158, 158, 0.24)',
   /** Track border radius for styled switches (exact 25px when requested) */
   trackBorderRadius: '25px',
 };
@@ -1372,3 +1386,77 @@ export const syntaxTokens = {
 } as const;
 
 export default designTokens;
+
+export const componentStyleTokens = {
+  'appbar-badge-bg-fallback': 'rgba(25, 118, 210, 0.1)',
+  'audio-player-primary-container': 'rgba(25, 118, 210, 0.1)',
+  'audio-player-primary-outline': 'rgba(25, 118, 210, 0.3)',
+  'audio-player-primary-overlay': 'rgba(25, 118, 210, 0.2)',
+  'audio-player-primary-overlay-soft': 'rgba(15, 119, 223, 0.2)',
+  'audio-player-primary-overlay-strong': 'rgba(25, 118, 210, 0.3)',
+  'audio-player-surface-disabled': 'rgba(108, 117, 125, 0.15)',
+  'audio-player-volume-slider-height': '120px',
+  'autocomplete-option-selected-bg': 'rgba(135, 46, 252, 0.12)',
+  'autocomplete-overflow-chip-surface': 'rgba(45, 44, 44, 0.04)',
+  'avatar-font-size-largest': '1.3125rem',
+  'avatar-font-size-overflow-smallest': '0.5rem',
+  'badge-shadow-color': 'rgba(108, 46, 183, 0.08)',
+  'button-dropdown-menu-max-height': '220px',
+  'button-dropdown-panel-min-width': '176px',
+  'card-shadow-base': '#102d56',
+  'color-picker-checkerboard': '#cccccc',
+  'comments-box-send-button-min-width': '26px',
+  'comp-map-heatmap-fade-lime': '#b5e43e',
+  'comp-map-heatmap-fade-orange': '#fc4703',
+  'comp-map-text': '#333333',
+  'emoji-generator-focus-ring-color': 'rgba(59, 130, 246, 0.2)',
+  'emoji-generator-hover-shadow-color': 'rgba(59, 130, 246, 0.3)',
+  'kanban-surface-subtle': 'rgba(144, 76, 236, 0.04)',
+  'layout-card-shadow-color': 'rgba(77, 82, 89, 0.07)',
+  'loader-ball-amber': 'rgba(233, 169, 32, 0.75)',
+  'loader-ball-cyan': 'rgba(111, 202, 220, 0.75)',
+  'loader-ball-green': 'rgba(61, 184, 143, 0.75)',
+  'loader-ball-pink': 'rgba(225, 20, 98, 0.75)',
+  'notification-icon-size': '38px',
+  'product-tour-dot-bg-color': 'rgba(124, 58, 237, 0.3)',
+  'product-tour-dot-shadow-color': 'rgba(135, 46, 252, 0.15)',
+  'product-tour-shadow-color': 'rgba(162, 89, 255, 0.18)',
+  'toggle-button-border-disabled-base': '#646464',
+} as const;
+
+export const componentModeTokens = {
+  light: {
+    'audio-player-base-background': 'var(--rds-color-surface-variant)',
+    'audio-player-base-color': 'var(--rds-color-on-surface-variant)',
+    'audio-player-base-hover-disabled-background': 'var(--rds-color-primary-container)',
+    'audio-player-base-hover-disabled-border-color': 'var(--rds-color-primary)',
+    'audio-player-edition-btn-active-background': 'var(--rds-color-primary-container)',
+    'audio-player-edition-btn-active-color': 'var(--rds-color-primary)',
+    'audio-player-settings-modal-background': 'var(--rds-color-surface, white)',
+    'backdrop-bg': 'var(--rds-overlay-dark)',
+    'collapse-story-box-text': 'var(--rds-text-primary)',
+    'collapse-story-box-variant-text': 'var(--rds-text-primary)',
+    'date-and-time-picker-muidatecalendar-root-background': 'var(--rds-color-surface)',
+    'date-and-time-picker-muidaycalendar-weekdaylabel-color': 'var(--rds-color-text-secondary)',
+    'empty-state-title-color': 'var(--rds-text-primary)',
+    'toast-accent-info-color': 'var(--rds-color-info, var(--rds-info-main))',
+    'toast-accent-success-color': 'var(--rds-color-success, var(--rds-success-main))',
+  },
+  dark: {
+    'audio-player-base-background': 'var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 5%, transparent))',
+    'audio-player-base-color': 'var(--rds-color-on-surface-overlay, color-mix(in srgb, var(--rds-color-white) 70%, transparent))',
+    'audio-player-base-hover-disabled-background': 'var(--rds-color-primary-overlay-soft, var(--rds-audio-player-primary-overlay-soft))',
+    'audio-player-base-hover-disabled-border-color': 'var(--rds-color-primary-light)',
+    'audio-player-edition-btn-active-background': 'var(--rds-color-primary-overlay, var(--rds-audio-player-primary-overlay))',
+    'audio-player-edition-btn-active-color': 'var(--rds-color-primary-light)',
+    'audio-player-settings-modal-background': 'var(--rds-color-surface, black)',
+    'backdrop-bg': 'rgba(128, 128, 128, 0.4)',
+    'collapse-story-box-text': 'var(--rds-color-on-surface-dark)',
+    'collapse-story-box-variant-text': 'color-mix(in srgb, var(--rds-color-black) 87%, transparent)',
+    'date-and-time-picker-muidatecalendar-root-background': 'var(--rds-color-surface-dark)',
+    'date-and-time-picker-muidaycalendar-weekdaylabel-color': 'var(--rds-color-text-secondary-dark)',
+    'empty-state-title-color': 'var(--rds-neutral-0)',
+    'toast-accent-info-color': 'var(--rds-color-on-surface, var(--rds-text-primary))',
+    'toast-accent-success-color': 'var(--rds-color-primary, var(--rds-primary-main))',
+  },
+} as const;

@@ -103,7 +103,9 @@ SkinTonePicker.displayName = 'SkinTonePicker';
 export interface RdsCompEmojiGeneratorProps {
     /** Type of emoji generator. Defaults to `EmojiGeneratorType.Default`. */
     type?: EmojiGeneratorType;
+    /** Shows the skin tone picker. @default true */
     showSkinTone?: boolean;
+    /** Shows the footer (default type only). @default true */
     showFooter?: boolean;
     /** Keeps the skin tone picker open inline. */
     skinTonePickerOpen?: boolean;
@@ -115,6 +117,7 @@ export interface RdsCompEmojiGeneratorProps {
     onChange?: (event: SyntheticEvent, emoji: string) => void;
     /** @deprecated Use `onChange` instead. */
     onEmojiSelect?: (emoji: string) => void;
+    /** Maximum number of emojis rendered in the grid. @default 80 */
     maxEmojis?: number;
     /** Called when the user picks a category tab. */
     onCategoryChange?: (category: EmojiCategory) => void;

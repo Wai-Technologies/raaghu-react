@@ -83,13 +83,17 @@ export interface RdsBreadcrumbItem {
 }
 
 export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' | 'component'> {
+  /** Breadcrumb items to render, in order. */
   items: RdsBreadcrumbItem[];
   /** Separator between items. Takes precedence over `separatorType` when both are given. */
   separator?: ReactNode | BreadcrumbSeparator;
   /** Predefined separator character. Accepts the `BreadcrumbSeparator` enum or its string value (e.g. `'/'`). Ignored when `separator` is given. */
   separatorType?: BreadcrumbSeparator | `${BreadcrumbSeparator}`;
+  /** Limits the number of items shown (level1 shows the first item, up to level5). */
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
+  /** Background style of the items; an item's own `layout` takes precedence. @default 'without background' */
   layout?: 'pill background' | 'without background' | 'square background';
+  /** Shows icons on the items; an item's `showIcon: false` hides its own. @default true */
   showIcon?: boolean;
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
   icon?: RdsBreadcrumbIcon;
@@ -200,7 +204,7 @@ const RdsBreadcrumbs = ({
 
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
 
-    return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
+    return <IconComp sx={{ fontSize: 'var(--rds-font-size-xl)', verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
   };
 
   return (

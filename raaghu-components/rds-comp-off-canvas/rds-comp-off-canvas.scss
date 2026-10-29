@@ -144,13 +144,13 @@
 
   border-radius: var(--rds-border-radius-sm);
 
-  transition: all 0.2s ease-in-out;
+  transition: all var(--rds-motion-duration-quick) ease-in-out;
 
 }
 
 .offcanvas-close-button:hover {
 
-  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
+  background-color: var(--rds-overlay-hover, color-mix(in srgb, var(--rds-color-black) 10%, transparent));
 
   border-radius: var(--rds-border-radius-sm);
 
@@ -316,7 +316,7 @@
 
   border: var(--rds-border-width-thin) solid transparent;
 
-  transition: all 0.2s ease-in-out;
+  transition: all var(--rds-motion-duration-quick) ease-in-out;
 
   border-radius: var(--rds-border-radius-sm);
 
@@ -326,7 +326,7 @@
 
 .offcanvas-container .offcanvas-header .close:hover {
 
-  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
+  background-color: var(--rds-overlay-hover, color-mix(in srgb, var(--rds-color-black) 10%, transparent));
 
 }
 
@@ -400,7 +400,7 @@
 
     height: auto;
 
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
 
   }
 
@@ -414,7 +414,7 @@
 
     white-space: nowrap;
 
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
 
   }
 
@@ -496,7 +496,7 @@
 
     height: auto;
 
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
 
   }
 
@@ -510,7 +510,7 @@
 
     white-space: nowrap;
 
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
 
   }
 

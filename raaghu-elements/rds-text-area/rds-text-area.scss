@@ -19,7 +19,7 @@
 
     .rds-textarea__required {
       color: var(--rds-error-main);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
     }
   }
 
@@ -61,7 +61,7 @@
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     font-size: var(--rds-font-size-md);
     font-family: var(--rds-font-family-base);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     border: var(--rds-border-width-thin) solid var(--rds-border-default);
     outline: none;
     resize: vertical;
@@ -71,7 +71,7 @@
 
     &::placeholder {
       color: var(--rds-text-secondary);
-      font-weight: 400;
+      font-weight: var(--rds-font-weight-regular);
     }
 
     &:focus {
@@ -151,7 +151,7 @@
     font-size: var(--rds-font-size-sm);
     color: var(--rds-error-main);
     font-family: var(--rds-font-family-base);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
   }
 
   .rds-textarea__helper-text {

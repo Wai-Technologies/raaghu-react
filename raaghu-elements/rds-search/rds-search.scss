@@ -32,7 +32,7 @@
   &__label {
     font-weight: var(--rds-search-label-font-weight, var(--rds-font-weight-medium, 500));
     font-size: var(--rds-search-label-font-size, var(--rds-font-size-md));
-    color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
+    color: var(--rds-color-text-secondary, color-mix(in srgb, var(--rds-color-black) 60%, transparent));
     
     &--top {
       margin-bottom: calc(var(--rds-spacing-xs) / 2);

@@ -16,6 +16,7 @@ export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'componen
   loadingIndicator?: ReactNode;
   /** @deprecated Use `loadingIndicator` instead. */
   loadingComponent?: ReactNode;
+  /** Controls whether the backdrop is open; when omitted, `loading` decides. */
   open?: boolean;
 }
 
@@ -32,11 +33,8 @@ const baseSx = (theme: Theme): SystemStyleObject<Theme> => ({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: `var(--rds-z-index-overlay, ${theme.zIndex.modal})`,
-    backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
+    backgroundColor: 'var(--rds-backdrop-bg)',
     color: 'var(--rds-neutral-0)',
-  },
-  '.dark-theme &.rds-backdrop, [data-theme="dark"] &.rds-backdrop': {
-    backgroundColor: 'var(--rds-overlay-semi, rgba(128, 128, 128, 0.4))',
   },
 });
 

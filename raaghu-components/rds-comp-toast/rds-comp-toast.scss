@@ -8,8 +8,8 @@
   --rds-toast-dim-6: 260px;
   --rds-toast-dim-7: 420px;
 
-  --rds-toast-accent-info: var(--rds-color-info, var(--rds-info-main));
-  --rds-toast-accent-success: var(--rds-color-success, var(--rds-success-main));
+  --rds-toast-accent-info: var(--rds-toast-accent-info-color);
+  --rds-toast-accent-success: var(--rds-toast-accent-success-color);
   --rds-toast-accent-warning: var(--rds-color-warning, var(--rds-warning-main));
   --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
   --rds-toast-accent-basic: var(--rds-color-outline-variant, var(--rds-color-border));
@@ -272,7 +272,7 @@
     color: var(--rds-color-on-surface-variant);
     cursor: pointer;
     padding: var(--rds-spacing-xs);
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     display: flex;
     align-items: center;
     height: var(--rds-toast-dim-2);
@@ -293,7 +293,7 @@
     padding: 0 var(--rds-spacing-lg) var(--rds-spacing-md) 2.2rem;
     color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-sm);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
   }
 
   &__content {
@@ -392,7 +392,7 @@
       padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
       min-width: 0;
       height: var(--rds-size-lg, 24px);
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
   }
 
@@ -461,10 +461,6 @@
 }
 
 :is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
-  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
-  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
-
   border-top-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
   border-right-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
   border-bottom-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));

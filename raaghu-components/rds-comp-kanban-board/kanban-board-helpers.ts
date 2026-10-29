@@ -113,9 +113,11 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   onColumnsChange?: (columns: KanbanColumn[]) => void;
   /** @deprecated Use `onColumnsChange` instead. */
   onBoardDataChange?: (boards: KanbanBoardInfo[]) => void;
+  /** Tag options offered when adding a card. */
   tagOptions?: KanbanOption[];
   /** @deprecated Use `tagOptions` instead. */
   allTagsList?: KanbanOption[];
+  /** Category options offered when adding a card. */
   categoryOptions?: KanbanOption[];
   /** @deprecated Use `categoryOptions` instead. */
   allCategoriesList?: KanbanOption[];
@@ -125,9 +127,13 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
   /** @deprecated It has no effect. */
   addQuestionData?: Record<string, unknown>;
+  /** Called with the selected tags when the tag selection in the add-card form changes. */
   onSelectedTagsListChange?: (items: unknown) => void;
+  /** Extra class name applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

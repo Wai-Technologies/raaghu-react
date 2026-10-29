@@ -250,7 +250,7 @@
    align-items: center;      
    justify-content: center;  
   gap: var(--rds-spacing-sm);                 
-   line-height: 1.5;
+   line-height: var(--rds-line-height-normal);
    text-transform: none;       
 }
 

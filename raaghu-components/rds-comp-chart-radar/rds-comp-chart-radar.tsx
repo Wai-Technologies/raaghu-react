@@ -43,6 +43,7 @@ export interface RdsCompRadarProps
   radius?: number;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 
@@ -101,9 +102,9 @@ const RdsCompRadarChart = ({
               labels: {
                 usePointStyle: true,
                 pointStyle: "circle",
-                boxWidth: 8,
-                boxHeight: 8,
-                padding: 20,
+                boxWidth: numericCSSVar("--rds-size-sm", 8),
+                boxHeight: numericCSSVar("--rds-size-sm", 8),
+                padding: numericCSSVar("--rds-size-20", 20),
                 ...passedLabels,
                 pointStyleWidth: undefined,
                 font: {

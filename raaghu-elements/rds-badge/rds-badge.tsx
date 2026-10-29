@@ -22,7 +22,9 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant' 
   /** Icon after the content (standalone badge). Overrides the `layout`-derived icon; `null` hides it. */
   endIcon?: ReactNode;
   children?: ReactNode;
+  /** Badge size. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Badge shape. @default 'pill' */
   shape?: 'rectangle' | 'pill';
   /** Placement of `icon` next to the content. Applies to the standalone badge (no `children`). */
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
@@ -119,9 +121,9 @@ const RdsBadge = ({
       icon ?? <Notifications fontSize="small" sx={margin} />;
     const layoutStart =
       layout === 'icon' ? renderIcon({ marginRight: 0 })
-      : layout === 'icon-text' ? renderIcon({ marginRight: '6px' })
+      : layout === 'icon-text' ? renderIcon({ marginRight: 'var(--rds-spacing-compact)' })
       : null;
-    const layoutEnd = layout === 'text-icon' ? renderIcon({ marginLeft: '6px' }) : null;
+    const layoutEnd = layout === 'text-icon' ? renderIcon({ marginLeft: 'var(--rds-spacing-compact)' }) : null;
     const badgeInner = (
       <>
         {startIcon !== undefined ? startIcon : layoutStart}

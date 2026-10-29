@@ -10,19 +10,29 @@ import { VideoPlayerType } from './rds-comp-video-player-types';
 const ReactPlayer = lazy(() => import("react-player"));
 
 export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Width of the player. @default '100%' */
   width?: string | number;
+  /** Height of the player. @default 'auto' */
   height?: string | number;
+  /** Starts playback automatically unless the player is disabled. */
   autoPlay?: boolean;
+  /** Mutes the audio. @default false */
   muted?: boolean;
   /** @deprecated Use `src` instead. */
   videoLink?: string;
+  /** URL of the video to play. */
   src?: string;
+  /** Video source type (Default, YouTube or Vimeo); also detected from the URL. @default VideoPlayerType.Default */
   type?: VideoPlayerType;
+  /** Shows the player controls. @default true */
   controls?: boolean;
+  /** Initial volume between 0 and 1. @default 0.8 */
   volume?: number;
+  /** Extra class name applied to the root element. @default '' */
   className?: string;
   /** MUI system styles applied to the video player root. */
   sx?: SxProps<Theme>;
+  /** Disables playback and shows `disabledMessage`. @default false */
   disabled?: boolean;
   /** Message shown over the player when disabled. */
   disabledMessage?: string;
@@ -30,6 +40,7 @@ export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>
   loop?: boolean;
   /** Accessible title for the embedded player. */
   title?: string;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

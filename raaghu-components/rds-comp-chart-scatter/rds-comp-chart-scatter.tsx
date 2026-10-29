@@ -46,7 +46,7 @@ function normalizeScatterDataset(
   const colors = dataset as DatasetColors;
   const lineColor = resolveDatasetColor(
     colors.borderColor ?? colors.backgroundColor,
-    getCSSVar("--rds-primary-main", "rgb(255, 99, 132)")
+    getCSSVar("--rds-primary-main")
   );
 
   return {
@@ -91,6 +91,7 @@ export interface RdsCompScatterChartProps
   chartType?: ScatterChartType;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
   sx?: SxProps<Theme>;
 }
 

@@ -13,6 +13,7 @@ export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bott
 export type ProductTourAnchorCorner = ProductTourCorner | "all" | "top" | "bottom" | ProductTourCorner[];
 
 export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
+    /** Layout of the tour card: Image, Carousel, GIF or Form. */
     variant?: ProductTourVariant;
     /**
      * Which corner anchor dots to show.
@@ -33,18 +34,28 @@ export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElem
     bottomRight?: boolean;
     /** @deprecated Use `title` instead. */
     header?: string;
+    /** Heading text of the tour card. */
     title?: string;
+    /** Badge node rendered next to the heading. */
     badge?: ReactNode;
+    /** Source of the image or GIF shown in the visual area. @default '/assets/animation.gif' */
     imageSrc?: string;
     children?: ReactNode;
+    /** Called when the primary (next) button is clicked. */
     onNext?: () => void;
+    /** Called when the back button is clicked. */
     onBack?: () => void;
+    /** Called when the skip button is clicked. */
     onSkip?: () => void;
+    /** Descriptive text shown below the title. */
     description?: string;
+    /** Total number of steps shown in the step indicator. */
     steps?: number;
+    /** Current step (1-based) shown in the step indicator. */
     activeStep?: number;
     /** @deprecated Use `steps` and `activeStep` instead. */
     stepsIndicator?: string;
+    /** Per-control visibility ('visible' | 'hidden') for dismiss, primary, secondary, tertiary buttons and visual placeholder. */
     controls?: {
         dismiss?: 'visible' | 'hidden';
         primary?: 'visible' | 'hidden';
@@ -52,20 +63,31 @@ export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElem
         tertiary?: 'visible' | 'hidden';
         visual?: 'visible' | 'hidden';
     };
+    /** Slides (id and image URL) shown by the Carousel and GIF variants. */
     slides?: { id: number; imgUrl: string; }[];
+    /** Subtitle text shown in the Form variant. */
     subtitle?: string;
     /** @deprecated Use `subtitle` instead. */
     formTitle?: string;
+    /** Tab titles shown by the tour. */
     items?: string[];
     /** @deprecated Use `items` instead. */
     tabTitle?: string[];
+    /** Called when the tour is dismissed via the close button. */
     onClose?: () => void;
+    /** Whether the dismiss button is shown; overridden by `controls.dismiss`. */
     showDismiss?: boolean;
+    /** Whether the primary button is shown; overridden by `controls.primary`. */
     showPrimaryButton?: boolean;
+    /** Whether the secondary button is shown; overridden by `controls.secondary`. */
     showSecondaryButton?: boolean;
+    /** Whether the tertiary button is shown; overridden by `controls.tertiary`. */
     showTertiaryButton?: boolean;
+    /** Whether the visual placeholder is shown; overridden by `controls.visual`. */
     showVisualPlaceholder?: boolean;
+    /** MUI system styles applied to the root element. */
     sx?: SxProps<Theme>;
+    /** Ref forwarded to the root element. */
     ref?: Ref<HTMLDivElement>;
 }
 

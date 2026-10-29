@@ -6,11 +6,15 @@ import './rds-icon-button.scss';
 
 /** Props for {@link RdsIconButton}. Extends MUI `IconButton` props. */
 export interface RdsIconButtonProps extends Omit<IconButtonProps, 'component'> {
+  /** Icon shown when `variant` is 'outlined'. */
   iconOutlined?: ReactNode;
+  /** Icon shown for the non-outlined variants. */
   iconFilled?: ReactNode;
   /** Visual variant. `'standard'` renders the same as `'filled'`, which is deprecated. */
   variant?: 'outlined' | 'filled' | 'standard';
+  /** Tooltip text shown on hover. */
   tooltip?: string;
+  /** Fallback icon used when the variant-specific icon is not provided. */
   icon?: ReactNode;
 }
 

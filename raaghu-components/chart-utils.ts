@@ -143,8 +143,8 @@ export function chartSeriesColors(count = CHART_SERIES_VARS.length): string[] {
  */
 function chartGridColor(): string {
   return isDarkMode()
-    ? getCSSVar('--rds-comp-chart-grid-color-dark', getCSSVar('--rds-divider', 'rgba(255,255,255,0.28)'))
-    : getCSSVar('--rds-comp-chart-grid-color-light', getCSSVar('--rds-divider', 'rgba(0,0,0,0.12)'));
+    ? getCSSVar('--rds-comp-chart-grid-color-dark', getCSSVar('--rds-divider'))
+    : getCSSVar('--rds-comp-chart-grid-color-light', getCSSVar('--rds-divider'));
 }
 
 /**
@@ -180,8 +180,8 @@ export function chartFont(
     '2xl': '--rds-font-size-2xl',
   };
 
-  const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
-  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
+  const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular');
+  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md');
   const family = getCSSVar('--rds-font-family-base', 'var(--rds-font-family, sans-serif)');
 
   return `${weightVal} ${sizeVal} ${family}`;

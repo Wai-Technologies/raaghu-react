@@ -123,7 +123,7 @@
     color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-md);
     font-weight: var(--rds-font-weight-semi-bold, 600);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     text-align: start;
   }
   &__footer-fixed button {
@@ -345,7 +345,7 @@
     font-size: var(--rds-font-size-sm);
     color: var(--rds-color-text-primary);
     font-weight: var(--rds-font-weight-regular, 400);
-    line-height: 1.4;
+    line-height: var(--rds-line-height-comfortable);
   }
   
   &__activity-delete {
@@ -406,7 +406,7 @@
     border-radius: var(--rds-border-radius-md);
     padding: var(--rds-spacing-xs);
     margin-bottom: 0;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color var(--rds-motion-duration-quick) ease, border-color var(--rds-motion-duration-quick) ease;
     border: var(--rds-border-width-thin) solid var(--rds-color-border);
     background-color: var(--rds-color-surface);
     color: var(--rds-color-on-surface);
@@ -449,7 +449,7 @@
     -webkit-tap-highlight-color: transparent;
     text-align: left;
     font: inherit;
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color var(--rds-motion-duration-quick) ease, border-color var(--rds-motion-duration-quick) ease, box-shadow var(--rds-motion-duration-quick) ease;
 
     &:hover {
       background-color: var(--rds-color-surface-hover);
@@ -512,14 +512,14 @@
     font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-text-primary);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     margin-bottom: var(--rds-agent-name-margin-bottom);
   }
 
   &__agent-designation {
     font-size: var(--rds-font-size-xs);
     color: var(--rds-color-text-secondary);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
   }
 
   &__agent-actions {
@@ -566,7 +566,7 @@
     button {
       border-radius: var(--rds-border-radius-md);
       height: var(--rds-footer-button-height);
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium);
       font-size: var(--rds-font-size-sm);
       background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
@@ -579,7 +579,7 @@
       justify-content: center;
       border: none;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       
       &:hover {
         background-color: var(--rds-color-primary-dark);
@@ -710,8 +710,8 @@
     color: var(--rds-color-text-primary);
     font-size: var(--rds-font-size-lg);
     font-style: normal;
-    font-weight: 600;
-    line-height: 1.2;
+    font-weight: var(--rds-font-weight-semibold);
+    line-height: var(--rds-line-height-compact);
     margin: var(--rds-spacing-xs);
     margin-top: var(--rds-spacing-20-px);
   }
@@ -731,7 +731,7 @@
     margin-top: var(--rds-spacing-sm);
     margin-bottom: var(--rds-spacing-xxl);
     font-size: var(--rds-font-size-sm);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     color: var(--rds-color-text-secondary);
   }
 
@@ -765,7 +765,7 @@
 
   &__guest-separator {
     color: var(--rds-color-text-secondary);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
   }
 
   &__counter-button-left {
@@ -922,7 +922,7 @@
     background: var(--rds-color-surface);
     color: var(--rds-color-primary);
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background var(--rds-motion-duration-quick) ease, border-color var(--rds-motion-duration-quick) ease, color var(--rds-motion-duration-quick) ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1019,7 +1019,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all var(--rds-motion-duration-quick) ease;
     cursor: pointer;
     padding: 0;
 
@@ -1035,7 +1035,7 @@
     &--selected {
       background: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
       border-color: var(--rds-color-primary);
     }
   }
@@ -1060,7 +1060,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--rds-spacing-xs);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     font-size: var(--rds-font-size-sm);
     cursor: pointer;
     border-radius: var(--rds-border-radius-sm);
@@ -1083,7 +1083,7 @@
     justify-content: center;
     gap: var(--rds-spacing-xs);
     padding: 0 var(--rds-spacing-md);
-    transition: all 0.2s ease-in-out;
+    transition: all var(--rds-motion-duration-quick) ease-in-out;
 
     &:hover {
       background-color: var(--rds-color-neutral-800);
@@ -1112,7 +1112,7 @@
   }
 
   &__figma-button-text {
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     font-size: var(--rds-font-size-sm);
     white-space: nowrap;
   }
@@ -1133,7 +1133,7 @@
     justify-content: center;
     gap: var(--rds-spacing-xs);
     padding: 0 var(--rds-spacing-md);
-    transition: all 0.2s ease-in-out;
+    transition: all var(--rds-motion-duration-quick) ease-in-out;
 
       &:hover {
       background-color: var(--rds-color-accent-light);
@@ -1163,7 +1163,7 @@
   }
 
   &__storybook-button-text {
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     font-size: var(--rds-font-size-sm);
     white-space: nowrap;
   }
@@ -1187,7 +1187,7 @@
 
   &__pages-header {
     font-size: var(--rds-font-size-md);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     color: var(--rds-color-text-primary);
     padding: var(--rds-spacing-md);
     padding-bottom: var(--rds-spacing-sm);
@@ -1206,10 +1206,10 @@
     border: none;
     border-radius: var(--rds-border-radius-sm);
     font-size: var(--rds-font-size-sm);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--rds-motion-duration-moderate) ease;
     box-shadow: none;
     
     &:hover {
@@ -1304,7 +1304,7 @@
     margin-top: var(--rds-spacing-neg-2);
   }
 
-  &__custom-tab-underline { position:absolute; left:0; bottom:0; height:var(--rds-details-pane-dim-1); width:50%; background: var(--rds-color-primary); border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0; transition: transform 0.3s cubic-bezier(.4,0,.2,1); transform: translateX(0%); }
+  &__custom-tab-underline { position:absolute; left:0; bottom:0; height:var(--rds-details-pane-dim-1); width:50%; background: var(--rds-color-primary); border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0; transition: transform var(--rds-motion-duration-moderate) cubic-bezier(.4,0,.2,1); transform: translateX(0%); }
 
   &__tab-pane {
     position: relative;
@@ -1507,7 +1507,7 @@
     
     &__activity-text {
       font-size: var(--rds-font-size-xs);
-      line-height: 1.3;
+      line-height: var(--rds-line-height-dense);
     }
     
     &__activity-delete {
@@ -1697,15 +1697,15 @@
       border: none;
       border-radius: var(--rds-border-radius-sm);
       font-size: var(--rds-font-size-xs);
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: var(--rds-spacing-xs);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: background-color 0.2s ease;
+      letter-spacing: var(--rds-letter-spacing-caps);
+      transition: background-color var(--rds-motion-duration-quick) ease;
       
       &:hover {
         background-color: var(--rds-color-primary-dark);
@@ -1814,27 +1814,27 @@ html[data-theme='dark'] .rds-comp-details-pane,
 body[data-theme='dark'] .rds-comp-details-pane,
 body.theme-dark .rds-comp-details-pane,
 html.rds-theme--dark .rds-comp-details-pane {
-  border: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+  border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   box-shadow: var(--rds-elevation-2-dark);
 
   .rds-comp-details-pane__tab-buttons {
-    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__divider {
-    border-top: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-top: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__favourite-card,
   .rds-comp-details-pane__agent-card {
-    border: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__agent-card {
     box-shadow: none;
 
     &::before {
-      background-color: var(--rds-border-default, rgba(255, 255, 255, 0.24));
+      background-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
     }
 
     &--selected {
@@ -1853,13 +1853,13 @@ html.rds-theme--dark .rds-comp-details-pane {
   }
 
   .rds-comp-details-pane__favourite-card-image {
-    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__search-field.MuiFormControl-root .MuiInputBase-root,
   .rds-comp-details-pane .MuiInputBase-root {
     background-color: var(--rds-color-surface-dark);
-    border: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
     color: var(--rds-color-on-surface);
 
     .MuiInputBase-input {
@@ -1881,16 +1881,16 @@ html.rds-theme--dark .rds-comp-details-pane {
   .rds-comp-details-pane__font-weight-btn,
   .rds-comp-details-pane__storybook-ui-kit-button,
   .rds-comp-details-pane__storybook-button {
-    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__detail-pane-footer,
   .rds-comp-details-pane__real-estate-footer-fixed {
-    border-top: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-top: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 
   .rds-comp-details-pane__history-icon {
-    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
   }
 }
 

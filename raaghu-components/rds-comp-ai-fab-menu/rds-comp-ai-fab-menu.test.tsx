@@ -724,3 +724,16 @@ describe('RdsCompAiFabMenu', () => {
     });
   });
 });
+
+describe('RdsCompAiFabMenu root forwarding', () => {
+  it('forwards ref and extra attributes to the root, and calls a consumer onKeyDown', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const onKeyDown = jest.fn();
+    render(<RdsCompAiFabMenu ref={ref} data-testid='fab-root' onKeyDown={onKeyDown} items={[{ key: 'a', label: 'A' }]} />);
+    const root = screen.getByTestId('fab-root');
+    expect(ref.current).toBe(root);
+    expect(root).toHaveClass('rds-fab-menu');
+    fireEvent.keyDown(root, { key: 'ArrowDown' });
+    expect(onKeyDown).toHaveBeenCalled();
+  });
+});

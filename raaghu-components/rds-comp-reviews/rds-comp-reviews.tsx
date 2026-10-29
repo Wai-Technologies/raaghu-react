@@ -25,10 +25,15 @@ export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>
   locale?: string;
   /** Custom date formatter; replaces the default locale formatting. */
   formatDate?: (date: Date) => string;
+  /** Called with the review item and the new rating value when a rating changes. */
   onRatingChange?: (item: Item, value: number) => void;
+  /** Called with the review item when its like button is clicked. */
   onLike?: (item: Item) => void;
+  /** Called with the review item when its dislike button is clicked. */
   onDislike?: (item: Item) => void;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

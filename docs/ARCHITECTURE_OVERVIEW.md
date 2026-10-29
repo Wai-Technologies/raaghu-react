@@ -181,10 +181,11 @@ Hex in component SCSS is **solved** (`hex-baseline.txt` = 0; map SVG selectors
 allowlisted). Remaining gated debt (Phase A — see
 `docs/THEME_INTEGRATION_COMPLETE.md`):
 
-- **`rgb()`/`rgba()` literals** — baseline **203** (`lint:rgba`)
-- **Bare `px`/`rem` in local `--rds-*` definitions** — baseline **572**
-  (`lint:local-dim-px`); ~277 map to existing spacing/size tokens, ~295 keep
-  as semantic locals
+- **`rgb()`/`rgba()` literals** — baseline **11** (`lint:rgba`)
+- **Bare `px`/`rem` in local `--rds-*` definitions** — baseline **564**
+  (`lint:local-dim-px`)
+- **Literal font-size / font-weight / line-height / letter-spacing / durations** —
+  baseline **95** (`lint:typography-motion`); scale tokens are listed in `docs/TOKENS.md`
 
 **Phase B (cascade):** `!important` gated by `important-baseline.txt` = **0**
 (`lint:important`). Prefer theme `styleOverrides` / `sx` / scoped BEM —

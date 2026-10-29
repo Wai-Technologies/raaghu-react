@@ -909,7 +909,7 @@
     .progress-fill {
       height: 100%;
       background-color: var(--rds-info-dark);
-      transition: width 0.3s ease;
+      transition: width var(--rds-motion-duration-moderate) ease;
     }
   }
 

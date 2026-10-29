@@ -7,8 +7,8 @@
   position: relative;
   --rds-autocomplete-focus-ring-width: 1px;
   --rds-autocomplete-focus-outline-width: 2px;
-  --rds-autocomplete-overflow-chip-bg: rgba(45, 44, 44, 0.04);
-  --rds-autocomplete-overflow-chip-bg-dark: rgba(255, 255, 255, 0.04);
+  --rds-autocomplete-overflow-chip-bg: var(--rds-autocomplete-overflow-chip-surface);
+  --rds-autocomplete-overflow-chip-bg-dark: color-mix(in srgb, var(--rds-color-white) 4%, transparent);
 
   &--root {
     display: inline-flex;
@@ -229,7 +229,7 @@
     min-height: var(--rds-size-20);
     margin-top: var(--rds-spacing-micro);
     margin-bottom: 0;
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
   }
 
   &__textfield--hidden-helper {
@@ -297,7 +297,7 @@
   &__chip {
     margin: var(--rds-spacing-hairline) var(--rds-spacing-xxs);
     max-width: var(--rds-autocomplete-dim-3);
-    font-size: 0.75rem;
+    font-size: var(--rds-font-size-xs);
     vertical-align: middle;
     
     &--small {
@@ -313,10 +313,41 @@
     }
     
     &--overflow {
-      background-color: var(--rds-primary-light, rgba(135, 46, 252, 0.12));
+      background-color: var(--rds-primary-light, var(--rds-autocomplete-option-selected-bg));
       color: var(--rds-primary-main);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
       pointer-events: none;
+    }
+  }
+}
+
+.MuiAutocomplete-popper.rds-autocomplete__popper {
+  z-index: var(--rds-z-index-tooltip, 1800);
+
+  .MuiPaper-root {
+    margin-top: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
+    max-height: var(--rds-time-picker-dim-10);
+    background-color: var(--rds-color-surface, var(--rds-background-paper));
+    color: var(--rds-color-on-surface, var(--rds-text-primary));
+
+    .MuiAutocomplete-listbox {
+      padding: var(--rds-spacing-xs) 0;
+      max-height: var(--rds-time-picker-dim-10);
+      
+      .MuiAutocomplete-option {
+        min-height: var(--rds-size-36);
+        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        color: var(--rds-color-on-surface, var(--rds-text-primary));
+
+        &[aria-selected="true"] {
+          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
+        }
+
+        &.Mui-focused {
+          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.12);
+        }
+      }
     }
   }
 }

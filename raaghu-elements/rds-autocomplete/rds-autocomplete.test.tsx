@@ -599,6 +599,16 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(document.querySelector('.my-paper')).toBeInTheDocument();
   });
 
+  it('scopes the popper with rds-autocomplete__popper and keeps the consumer popper class', () => {
+    const { container } = render(
+      <RdsAutocomplete options={makeOptions()} slotProps={{ popper: { className: 'my-popper' } }} />
+    );
+    openList(container);
+    const popper = document.querySelector('.MuiAutocomplete-popper');
+    expect(popper).toHaveClass('rds-autocomplete__popper');
+    expect(popper).toHaveClass('my-popper');
+  });
+
   it('keeps the input aria-label after moving to slotProps.htmlInput (G1-047)', () => {
     const { container } = render(<RdsAutocomplete options={makeOptions()} placeholder="Pick one" />);
     expect(getInput(container)).toHaveAttribute('aria-label', 'Pick one');

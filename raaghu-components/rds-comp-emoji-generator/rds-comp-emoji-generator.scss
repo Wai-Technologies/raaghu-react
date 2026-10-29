@@ -54,7 +54,7 @@
         }
 
         &.Mui-focused {
-          box-shadow: 0 0 0 2px var(--rds-color-primary-20, rgba(59, 130, 246, 0.2));
+          box-shadow: 0 0 0 2px var(--rds-color-primary-20, var(--rds-emoji-generator-focus-ring-color));
           background-color: var(--rds-background-paper);
         }
       }
@@ -220,7 +220,7 @@
     }
 
     &--selected {
-      box-shadow: 0 2px 8px var(--rds-color-primary-30, rgba(59, 130, 246, 0.3));
+      box-shadow: 0 2px 8px var(--rds-color-primary-30, var(--rds-emoji-generator-hover-shadow-color));
     }
 
     .MuiChip-icon {
@@ -258,7 +258,7 @@
       font-weight: var(--rds-font-weight-semibold, 600);
       color: var(--rds-text-primary);
       margin: 0;
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
   }
 
@@ -290,7 +290,7 @@
       &::-webkit-scrollbar-thumb {
         background-color: var(--rds-border-default);
         border-radius: var(--rds-border-radius-xs);
-        transition: background-color 0.2s ease;
+        transition: background-color var(--rds-motion-duration-quick) ease;
 
         &:hover {
           background-color: var(--rds-border-hover);
@@ -317,7 +317,7 @@
     min-height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-md);
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform var(--rds-motion-duration-quick) ease;
     font-size: var(--rds-font-size-xl);
     border: var(--rds-border-width-thin) solid transparent;
     background-color: transparent;
@@ -337,7 +337,7 @@
       font-size: var(--rds-font-size-xl);
       background-color: transparent;
       border: none;
-      transition: transform 0.2s ease;
+      transition: transform var(--rds-motion-duration-quick) ease;
 
       &:hover {
         background-color: transparent;
@@ -357,7 +357,7 @@
     height: var(--rds-size-md);
     border-radius: 0;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--rds-motion-duration-quick) ease;
     border: none;
     background-color: transparent;
     padding: 0;
@@ -386,14 +386,14 @@
     &-emoji {
       font-size: var(--rds-font-size-xl);
       flex-shrink: 0;
-      line-height: 1;
+      line-height: var(--rds-line-height-none);
     }
 
     &-text.MuiTypography-root {
       color: var(--rds-text-secondary);
       font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal, 400);
-      line-height: 1.4;
+      line-height: var(--rds-line-height-comfortable);
       margin: 0;
       flex: 1;
     }

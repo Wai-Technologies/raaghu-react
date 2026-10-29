@@ -120,8 +120,8 @@
 
   &__text-icon {
     font-size: var(--rds-font-size-md);
-    font-weight: 500;
-    line-height: 1;
+    font-weight: var(--rds-font-weight-medium);
+    line-height: var(--rds-line-height-none);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -138,8 +138,8 @@
 
   &__highlight-icon {
     font-size: var(--rds-font-size-md);
-    font-weight: 600;
-    line-height: 1;
+    font-weight: var(--rds-font-weight-semibold);
+    line-height: var(--rds-line-height-none);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -282,18 +282,18 @@
   }
 
   &__text-icon {
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     font-size: var(--rds-font-size-body);
   }
 
   &__highlight-icon {
     background: linear-gradient(to bottom, transparent 60%, var(--rds-color-warning) 60%);
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
   }
 
   &__math-icon {
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     font-size: var(--rds-font-size-md);
   }
 }
@@ -307,7 +307,7 @@
   ) {
   .rds-comp-toolbar__row--secondary .rds-comp-toolbar__button:hover {
     background: var(--rds-surface-dark-hover);
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
+    border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 18%, transparent));
     color: var(--rds-color-on-surface-dark);
   }
 
@@ -315,7 +315,7 @@
   .rds-comp-toolbar__button:focus-visible,
   .rds-comp-toolbar__button[aria-expanded='true'] {
     background: var(--rds-surface-dark-hover);
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
+    border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 18%, transparent));
     color: var(--rds-color-on-surface-dark);
   }
 }
@@ -375,7 +375,7 @@
       gap: var(--rds-spacing-xs);
       
       scrollbar-width: thin;
-      scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
+      scrollbar-color: var(--rds-color-on-surface-variant, color-mix(in srgb, var(--rds-color-black) 30%, transparent)) transparent;
       
       &::-webkit-scrollbar {
         height: var(--rds-toolbar-dim-2);
@@ -383,16 +383,16 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
+        background: var(--rds-color-surface-variant, color-mix(in srgb, var(--rds-color-black) 10%, transparent));
         border-radius: var(--rds-border-radius-xs);
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
+        background: var(--rds-color-on-surface-variant, color-mix(in srgb, var(--rds-color-black) 30%, transparent));
         border-radius: var(--rds-border-radius-xs);
 
         &:hover {
-          background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
+          background: var(--rds-color-on-surface, color-mix(in srgb, var(--rds-color-black) 50%, transparent));
         }
       }
     }

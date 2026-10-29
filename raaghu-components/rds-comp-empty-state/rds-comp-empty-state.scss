@@ -12,21 +12,8 @@
   }
 }
 
-[data-theme="dark"] .rds-comp-empty-state__title,
-[data-theme="dark"] .rds-comp-empty-state__subtitle {
-  color: var(--rds-neutral-0);
-}
-
 [data-theme="dark"] .rds-comp-empty-state {
   background-color: var(--rds-color-surface-dark);
-}
-
-[data-theme="dark"] .rds-comp-empty-state__subtitle {
-  color: var(--rds-text-secondary);
-}
-
-[data-theme="dark"] .rds-comp-empty-state__icon--minimal {
-  color: var(--rds-text-secondary);
 }
 
 .rds-comp-empty-state {
@@ -110,9 +97,9 @@
 
   &__title {
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-text-primary);
+    color: var(--rds-empty-state-title-color);
     font-size: var(--rds-font-size-lg);
-    line-height: 1.4;
+    line-height: var(--rds-line-height-comfortable);
     margin: var(--rds-spacing-xs) 0;
     font-family: var(--rds-font-family-base);
     margin-top: var(--rds-spacing-lg);
@@ -121,7 +108,7 @@
   &__subtitle {
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     margin: var(--rds-spacing-xs) 0;
     font-weight: var(--rds-font-weight-normal, 400);
     max-width: var(--rds-empty-state-max-width);
@@ -136,10 +123,10 @@
     border-radius: var(--rds-border-radius-sm);
     padding: var(--rds-spacing-xs) var(--rds-spacing-md);
     font-size: var(--rds-font-size-md);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     text-transform: none;
     min-width: var(--rds-empty-state-dim-1);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     font-family: var(--rds-font-family-base);
 
     &:focus-visible {

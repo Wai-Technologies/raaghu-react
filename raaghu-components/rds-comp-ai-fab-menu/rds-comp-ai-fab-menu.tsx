@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type HTMLAttributes, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type HTMLAttributes, type ReactElement, type ReactNode, type Ref, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -42,11 +42,15 @@ export interface RdsCompAiFabMenuItem {
   onClick?: () => void;
 }
 
-export interface RdsCompAiFabMenuProps {
+export interface RdsCompAiFabMenuProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "color" | "onClick" | "id" | "aria-label" | "children"> {
+  /** Color of the trigger button. */
   color?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
   /** @deprecated Use `color` instead. */
   colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
+  /** Size of the trigger button. */
   size?: "small" | "medium" | "large";
+  /** Built-in icon name or custom element shown on the trigger button. */
   icon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `icon` instead. */
   menuIcon?: RdsCompAiFabMenuIcon;
@@ -54,6 +58,7 @@ export interface RdsCompAiFabMenuProps {
   menuiconWidth?: CSSProperties['width'];
   /** @deprecated Has no effect. */
   menuiconHeight?: CSSProperties['height'];
+  /** Menu items shown in the dropdown. */
   items?: RdsCompAiFabMenuItem[];
   /** @deprecated Use `items` instead. */
   listItems?: RdsCompAiFabMenuItem[];
@@ -65,19 +70,23 @@ export interface RdsCompAiFabMenuProps {
     /** Applied to the `role="menu"` dropdown panel (e.g. `style.minWidth`). */
     dropdown?: HTMLAttributes<HTMLDivElement>;
   };
+  /** HTML id applied to the menu root. */
   id?: string;
   /** Use the compact item style (defaults to `id === "attachment-text"`). */
   dense?: boolean;
   /** Accessible name of the trigger button. */
   "aria-label"?: string;
+  /** Adds a border to the trigger button. */
   bordered?: boolean;
   /** @deprecated Use `bordered` instead. */
   isShowBorder?: boolean;
   /** @deprecated Use `variant="rounded"` instead. */
   isRectangular?: boolean;
+  /** Shape of the trigger button: circular, rounded or text. */
   variant?: "circular" | "rounded" | "text";
   /** @deprecated Use `variant` instead (`rectangular` is `rounded`, `none` is `text`). */
   backgroundType?: "circular" | "rectangular" | "none";
+  /** Side the dropdown opens toward: left or right. */
   placement?: "left" | "right";
   /** @deprecated Use `placement` instead. */
   alignment?: "left" | "right";
@@ -85,6 +94,8 @@ export interface RdsCompAiFabMenuProps {
   onClick?: () => void;
   /** MUI system styles applied to the menu root. */
   sx?: SxProps<Theme>;
+  /** Ref to the menu root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const VARIANT_TO_BACKGROUND = { circular: "circular", rounded: "rectangular", text: "none" } as const;
@@ -123,6 +134,9 @@ function RdsCompAiFabMenu({
   menuiconHeight,
   onClick,
   sx,
+  ref,
+  onKeyDown,
+  ...rest
 }: RdsCompAiFabMenuProps) {
   const {
     className: buttonClassName,
@@ -186,6 +200,7 @@ function RdsCompAiFabMenu({
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event);
     if (!isMenuOpen) return;
     if (event.key === "Escape") {
       event.preventDefault();
@@ -218,6 +233,8 @@ function RdsCompAiFabMenu({
 
   return (
     <Box
+      {...rest}
+      ref={ref}
       className={clsx(
         "rds-fab-menu",
         resolvedPlacement === "right" && "rds-fab-menu--right",
@@ -255,8 +272,8 @@ function RdsCompAiFabMenu({
             name={resolvedIcon}
             fill={false}
             stroke={true}
-            height="24px"
-            width="24px"
+            height="var(--rds-size-lg)"
+            width="var(--rds-size-lg)"
             color={resolvedIconColorVariant}
           />
         ) : (

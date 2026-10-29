@@ -74,34 +74,49 @@ export interface RdsCompToastProps {
   onClose?: (event: Event | SyntheticEvent | null, reason: ToastCloseReason) => void;
   /** Action buttons for download/chat/request layouts. No demo buttons are rendered when omitted. */
   action?: ReactNode;
+  /** Per-part visibility of header, leading icon, dismiss button and sub text; wins over the `show*` props. */
   chrome?: {
     header?: "visible" | "hidden";
     leading?: "visible" | "hidden";
     dismiss?: "visible" | "hidden";
     subText?: "visible" | "hidden";
   };
+  /** Toast layout variant: text, download, chat or request. */
   layout: ToastLayout;
   /** Severity and visual treatment of the toast. */
   severity?: ToastSeverity;
+  /** Placeholder of the reply input in the chat layout. */
   placeholder?: string;
   /** @deprecated Use `progress` instead. */
   progressWidth?: number;
   /** Download progress, 0-100. */
   progress?: number;
+  /** File name shown in the footer of the download layout. */
   filename?: string;
+  /** Screen position of the toast; overridden by `anchorOrigin`. */
   position?: ToastPosition;
   /** Screen anchor. Wins over `position`. */
   anchorOrigin?: ToastAnchorOrigin;
   /** @deprecated Use `icon` instead. */
   leadingIcon?: ToastLeadingIcon;
+  /** Leading icon variant. */
   icon?: ToastLeadingIcon;
+  /** Time label shown in the header of the chat layout. */
   chatTime?: string;
+  /** Pauses the auto-hide timer while the pointer is over the toast. */
   pauseOnHover?: boolean;
+  /** Shows the header; ignored when `chrome.header` is set. */
   showHeader?: boolean;
+  /** Shows the leading icon; ignored when `chrome.leading` is set. */
   showLeading?: boolean;
+  /** Shows the close button; ignored when `chrome.dismiss` is set. */
   showDismiss?: boolean;
+  /** Shows the message body; ignored when `chrome.subText` is set. */
   showSubText?: boolean;
+  /** MUI system styles applied to the toast container. */
   sx?: SxProps<Theme>;
+  /** Ref to the toast container element. */
   ref?: Ref<HTMLDivElement>;
+  /** Extra CSS class applied to the toast container. */
   className?: string;
 }

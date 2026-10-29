@@ -13,6 +13,7 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   title?: ReactNode;
   /** Applied to the tooltip popper (not to the child). */
   className?: string;
+  /** Styles passed to the tooltip as `sx`. */
   tooltipStyle?: CSSProperties;
   arrow?: boolean;
   /** Tooltip placement. */

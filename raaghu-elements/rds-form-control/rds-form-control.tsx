@@ -11,7 +11,9 @@ import {
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsFormControlProps extends FormControlProps {
+  /** Label text shown above the control. */
   label?: string;
+  /** Helper text shown below the control. */
   helperText?: string;
   children: ReactNode;
   /** @deprecated Use `required` instead. */

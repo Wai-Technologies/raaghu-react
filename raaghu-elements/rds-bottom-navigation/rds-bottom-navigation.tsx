@@ -15,6 +15,7 @@ export interface RdsBottomNavigationItem {
 }
 
 export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'children' | 'component'> {
+  /** Navigation items (label, value, icon, disabled) to render. */
   items: RdsBottomNavigationItem[];
   /** @deprecated Use `value` instead. */
   activeValue?: string;

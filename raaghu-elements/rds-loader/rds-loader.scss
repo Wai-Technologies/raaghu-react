@@ -12,11 +12,11 @@
   --rds-loader-sand-height: 80px;
   --rds-loader-radius-pill: 30px;
   --rds-loader-radius-rotate: 10px;
-  --rds-overlay-backdrop: rgba(0, 0, 0, 0.5);
+  --rds-overlay-backdrop: color-mix(in srgb, var(--rds-color-black) 50%, transparent);
   --rds-loader-jump-size: 48px;
   --rds-loader-jump-shadow-height: 5px;
   --rds-loader-jump-shadow-top: 60px;
-  --rds-loader-track-bg: rgba(0,0,0,0.2);
+  --rds-loader-track-bg: color-mix(in srgb, var(--rds-color-black) 20%, transparent);
   --rds-loader-spin-border: 4px;
 
   display: inline-block;
@@ -161,7 +161,7 @@
   height: 100%;
   margin: 0;
   box-sizing: border-box;
-  background-color: var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5));
+  background-color: var(--rds-overlay-backdrop, color-mix(in srgb, var(--rds-color-black) 50%, transparent));
   z-index: var(--rds-z-index-tooltip, 9999);
 
   .MuiTypography-root {
@@ -184,42 +184,42 @@
 @keyframes rds-loader-before8 {
   0% {
     width: 0.5em;
-    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75);
+    box-shadow: 1em -0.5em var(--rds-loader-ball-pink), -1em 0.5em var(--rds-loader-ball-cyan);
   }
 
   35% {
     width: 2.5em;
-    box-shadow: 0 -0.5em rgba(225, 20, 98, 0.75), 0 0.5em rgba(111, 202, 220, 0.75);
+    box-shadow: 0 -0.5em var(--rds-loader-ball-pink), 0 0.5em var(--rds-loader-ball-cyan);
   }
 
   70% {
     width: 0.5em;
-    box-shadow: -1em -0.5em rgba(225, 20, 98, 0.75), 1em 0.5em rgba(111, 202, 220, 0.75);
+    box-shadow: -1em -0.5em var(--rds-loader-ball-pink), 1em 0.5em var(--rds-loader-ball-cyan);
   }
 
   100% {
-    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75);
+    box-shadow: 1em -0.5em var(--rds-loader-ball-pink), -1em 0.5em var(--rds-loader-ball-cyan);
   }
 }
 
 @keyframes rds-loader-after6 {
   0% {
     height: 0.5em;
-    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75);
+    box-shadow: 0.5em 1em var(--rds-loader-ball-green), -0.5em -1em var(--rds-loader-ball-amber);
   }
 
   35% {
     height: 2.5em;
-    box-shadow: 0.5em 0 rgba(61, 184, 143, 0.75), -0.5em 0 rgba(233, 169, 32, 0.75);
+    box-shadow: 0.5em 0 var(--rds-loader-ball-green), -0.5em 0 var(--rds-loader-ball-amber);
   }
 
   70% {
     height: 0.5em;
-    box-shadow: 0.5em -1em rgba(61, 184, 143, 0.75), -0.5em 1em rgba(233, 169, 32, 0.75);
+    box-shadow: 0.5em -1em var(--rds-loader-ball-green), -0.5em 1em var(--rds-loader-ball-amber);
   }
 
   100% {
-    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75);
+    box-shadow: 0.5em 1em var(--rds-loader-ball-green), -0.5em -1em var(--rds-loader-ball-amber);
   }
 }
 
@@ -239,7 +239,7 @@
   top: var(--rds-loader-jump-shadow-top);
   left: 0;
   border-radius: var(--rds-border-radius-pill);
-  animation: rds-loader-shadow324 0.5s linear infinite;
+  animation: rds-loader-shadow324 var(--rds-motion-duration-slower) linear infinite;
 }
 
 .rds-loader__jump:after {
@@ -251,7 +251,7 @@
   top: 0;
   left: 0;
   border-radius: var(--rds-border-radius-sm);
-  animation: rds-loader-jump7456 0.5s linear infinite;
+  animation: rds-loader-jump7456 var(--rds-motion-duration-slower) linear infinite;
 }
 
 @keyframes rds-loader-jump7456 {
@@ -386,7 +386,7 @@
   width: var(--rds-loader-moving-width);
   height: var(--height-of-loader);
   border-radius: var(--rds-loader-radius-pill);
-  background-color: var(--rds-loader-track-bg, rgba(0,0,0,0.2));
+  background-color: var(--rds-loader-track-bg, color-mix(in srgb, var(--rds-color-black) 20%, transparent));
   position: relative;
 }
 
@@ -539,7 +539,7 @@
   border-color: var(--rds-loader-rotate-secondary);
   width: 110%;
   height: 110%;
-  animation-delay: .5s;
+  animation-delay: var(--rds-motion-duration-slower);
 }
 
 .rds-loader__rotate::after {

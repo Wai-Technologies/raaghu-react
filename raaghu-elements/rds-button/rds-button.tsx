@@ -54,14 +54,18 @@ const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : 
 type ButtonVariant = 'filled' | 'outlined' | 'transparent';
 
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
+  /** Corner shape of the button. @default 'rectangle' */
   shape?: 'pill' | 'rectangle';
   /** Applies the selected visual treatment, for toggle-style buttons. */
   selected?: boolean;
+  /** Content layout: icon and text, icon only, or text only. @default 'icon+text' */
   layout?: 'icon+text' | 'icon-only' | 'text-only';
+  /** Visual style of the button: filled, outlined or transparent. */
   variant?: ButtonVariant;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: ButtonVariant | CSSProperties;
   color?: ButtonProps['color'];
+  /** Text transform applied to the label. @default 'uppercase' */
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
   /**
    * Shows the MUI loading indicator and disables the button.
@@ -170,7 +174,7 @@ const RdsButton = ({
         {
           '& .MuiButton-startIcon': { margin: 0 },
           '& .MuiButton-endIcon': { margin: 0 },
-          ...(hasIcons ? { padding: '6px' } : {}),
+          ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
         },
         ...toSxArray(sx),
       ]}

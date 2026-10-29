@@ -26,7 +26,9 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   onChange?: (value: Date | null | [Date | null, Date | null]) => void;
   /** Label text; shows the label unless `showTitle` / `controls.title` say otherwise. */
   label?: string;
+  /** Picker variant, dropdown or selector; takes precedence over `datePickerStyleType`. */
   variant?: "dropdown" | "selector";
+  /** Placeholder text of the date input. */
   placeholder?: string;
   /** Shows the clear-date button when a date is selected. */
   clearable?: boolean;
@@ -42,13 +44,17 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   openPickerIcon?: ReactNode;
   /** @deprecated Use `value` instead. */
   dateForEdit?: string;
+  /** Title text; used when neither `label` nor `datePickerLabel` is set. */
   titleText?: string;
   /** @deprecated Use `onChange` instead. */
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
+  /** Style type of the date picker; overridden by `variant` when set. */
   datePickerStyleType?: DatePickerStyleType;
+  /** Layout variant of the date picker. */
   layout?: DatePickerLayout;
   /** @deprecated Use `onChange` instead (range picks). */
   customDate?: (dates: [Date | null, Date | null]) => void;
+  /** Legacy grouped toggles for title, disabled, mandatory, clear-date and default-date; the matching direct props win. */
   controls?: {
     title?: "visible" | "hidden";
     disabled?: "on" | "off";
@@ -61,7 +67,9 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   };
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
+  /** Label text; used when `label` is not set. */
   datePickerLabel?: string;
+  /** Picker type; 'Custom' enables the preset range list, otherwise 'Default'. */
   type?: string;
   /** @deprecated Use `openPickerIcon` instead. */
   changeIcon?: "dashboard_settings" | string;

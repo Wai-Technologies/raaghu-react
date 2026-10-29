@@ -14,7 +14,9 @@ import { useRaaghuTheme } from '../../raaghu-react-themes/src/provider/RaaghuThe
 import './rds-card-detail.scss';
 
 export interface RdsCardDetailProps extends Omit<CardProps, 'component'> {
+  /** Title text of the card. */
   title?: string;
+  /** Subtitle text shown under the title. */
   subtitle?: string;
   /** @deprecated Use `slotProps.media.image` instead. */
   image?: string;
@@ -27,6 +29,7 @@ export interface RdsCardDetailProps extends Omit<CardProps, 'component'> {
    * When omitted, the alt text falls back to `title`, then to `'Card image'`.
    */
   imageAlt?: string;
+  /** Action content rendered at the bottom of the card. */
   actions?: ReactNode;
   children: ReactNode;
 }

@@ -1,5 +1,6 @@
 import type { Theme } from '@mui/material/styles';
 import type { SystemStyleObject } from '@mui/system';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 type AppBarSx = SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>);
 
@@ -47,9 +48,9 @@ export const rdsAppBarSx: AppBarSx[] = [
         color: 'var(--rds-color-on-primary)',
       },
       [`${actionSlots} .MuiAvatar-root`]: {
-        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+        backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',
         color: 'var(--rds-color-on-primary)',
-        border: '1px solid rgba(255, 255, 255, 0.5)',
+        border: 'var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent)',
       },
       '.rds-header__search': {
         color: 'var(--rds-color-on-primary)',
@@ -70,9 +71,9 @@ export const rdsAppBarSx: AppBarSx[] = [
         color: 'var(--rds-color-on-secondary)',
       },
       [`${actionSlots} .MuiAvatar-root`]: {
-        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+        backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',
         color: 'var(--rds-color-on-secondary)',
-        border: '1px solid rgba(255, 255, 255, 0.5)',
+        border: 'var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent)',
       },
       '.rds-header__search': {
         color: 'var(--rds-color-on-secondary)',
@@ -95,14 +96,14 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
     '.rds-appbar-tab-btn-active': {
       color: 'var(--rds-text-primary)',
-      borderBottom: '3px solid var(--rds-color-primary)',
+      borderBottom: 'var(--rds-border-width-thick) solid var(--rds-color-primary)',
     },
 
     '.rds-header__tabs-inline .MuiTab-root': {
       minHeight: 'auto',
       padding: 'var(--rds-spacing-sm) var(--rds-spacing-md)',
       fontSize: 'var(--rds-font-size-md)',
-      fontWeight: 500,
+      fontWeight: 'var(--rds-font-weight-medium)',
       textTransform: 'none',
       color: 'var(--rds-color-on-surface)',
       minWidth: 'auto',
@@ -164,7 +165,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       paddingLeft: 'var(--rds-spacing-12-px)',
       paddingRight: 'var(--rds-spacing-12-px)',
       minHeight: 0,
-      lineHeight: 1.2,
+      lineHeight: 'var(--rds-line-height-compact)',
     },
     '.rds-language-menu-list': {
       paddingTop: 'var(--rds-spacing-xs)',
@@ -181,8 +182,8 @@ export const rdsAppBarSx: AppBarSx[] = [
         '& svg': { fontSize: 'var(--rds-font-size-2xl)' },
       },
       '.MuiAvatar-root': {
-        width: 28,
-        height: 28,
+        width: 'var(--rds-size-28)',
+        height: 'var(--rds-size-28)',
         fontSize: 'var(--rds-font-size-md)',
       },
       '.MuiTypography-body1': { fontSize: 'var(--rds-font-size-sm)' },
@@ -210,7 +211,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         fontSize: 'var(--rds-font-size-sm)',
       },
     },
-    '@media (max-width: 1280px)': {
+    [`@media (max-width: ${extendedBreakpointTokens['1280']})`]: {
       '.rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active), .rds-bottom-navigation .MuiButton-root:not(.rds-bottom-nav-tab--active)':
         {
           color: 'var(--rds-color-on-surface, var(--rds-text-primary))',
@@ -319,8 +320,8 @@ export const rdsAppBarSx: AppBarSx[] = [
         right: 12,
       },
       '.rds-profile-menu__avatar, .rds-profile-menu__button .MuiAvatar-root': {
-        width: 28,
-        height: 28,
+        width: 'var(--rds-size-28)',
+        height: 'var(--rds-size-28)',
       },
       '.rds-bottom-navigation .MuiButton-contained': {
         color: 'var(--rds-color-on-primary)',
@@ -460,7 +461,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         marginLeft: 'var(--rds-spacing-compact)',
         fontSize: 'var(--rds-font-size-md)',
         lineHeight: 1.1,
-        fontWeight: 500,
+        fontWeight: 'var(--rds-font-weight-medium)',
       },
       '.rds-header__toolbar': {
         position: 'relative',
@@ -486,12 +487,12 @@ export const rdsAppBarSx: AppBarSx[] = [
         },
       '.rds-admin-profile__button > .MuiAvatar-root': {
         display: 'inline-flex',
-        width: 28,
-        height: 28,
+        width: 'var(--rds-size-28)',
+        height: 'var(--rds-size-28)',
       },
       '.rds-appbar-tabs-container button, .rds-appbar-tabs-container .MuiButton-root': {
         padding: 'var(--rds-spacing-xs) var(--rds-spacing-compact)',
-        minWidth: 36,
+        minWidth: 'var(--rds-size-36)',
       },
       '.rds-appbar-tabs-container .MuiButton-root > svg': { display: 'none' },
       'button[aria-label="chat"], button[aria-label="theme"]': {
@@ -503,8 +504,8 @@ export const rdsAppBarSx: AppBarSx[] = [
         minWidth: 'auto',
         '& svg': {
           fontSize: 'var(--rds-font-size-xl)',
-          width: 18,
-          height: 18,
+          width: 'var(--rds-size-18)',
+          height: 'var(--rds-size-18)',
         },
       },
       '.rds-header__title': {
@@ -521,8 +522,8 @@ export const rdsAppBarSx: AppBarSx[] = [
     '&.rds-header--dashboardwithlang-narrow': {
       '.rds-dashboard-title': {
         fontSize: 'var(--rds-font-size-sm)',
-        lineHeight: 1,
-        fontWeight: 500,
+        lineHeight: 'var(--rds-line-height-none)',
+        fontWeight: 'var(--rds-font-weight-medium)',
         marginLeft: 'var(--rds-spacing-sm)',
       },
       '.rds-header__toolbar': {
@@ -614,7 +615,7 @@ export const rdsAppBarSx: AppBarSx[] = [
           padding: 'var(--rds-spacing-micro) var(--rds-spacing-sm)',
           minWidth: 'auto',
           minHeight: 'auto',
-          lineHeight: 1.4,
+          lineHeight: 'var(--rds-line-height-comfortable)',
           whiteSpace: 'nowrap',
         },
       },
@@ -640,7 +641,7 @@ export const rdsAppBarSx: AppBarSx[] = [
           padding: 'var(--rds-spacing-xxs) var(--rds-spacing-compact)',
           minWidth: 'auto',
           minHeight: 'var(--rds-size-lg)',
-          lineHeight: 1.2,
+          lineHeight: 'var(--rds-line-height-compact)',
           whiteSpace: 'nowrap',
         },
       },
@@ -655,7 +656,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-header__center-content': {
         gap: 'var(--rds-spacing-xxs)',
         '.MuiButton-root, .rds-button': {
-          fontSize: 9,
+          fontSize: 'var(--rds-font-size-3xs)',
           padding: 'var(--rds-spacing-xxs) var(--rds-spacing-xs)',
           minHeight: 22,
           lineHeight: 1.1,
@@ -705,7 +706,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
       '.rds-header__sub-tabs .MuiButton-root': {
         padding: 'var(--rds-spacing-compact)',
-        minWidth: 36,
+        minWidth: 'var(--rds-size-36)',
         width: 'auto',
         overflow: 'visible',
         gap: 'var(--rds-spacing-xs)',

@@ -115,7 +115,7 @@ All `--rds-*` variables are injected at runtime. The canonical list is in
 --rds-primary-main          /* brand primary */
 --rds-primary-light
 --rds-primary-dark
---rds-primary-50  …  --rds-primary-900
+--rds-color-primary-20 / -30 / -700 / -800 / -900   /* fixed brand scale steps */
 --rds-secondary-main
 --rds-success-main
 --rds-warning-main

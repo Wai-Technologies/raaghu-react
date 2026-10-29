@@ -25,7 +25,9 @@ export interface RdsTimelineItem {
 
 /** Vertical timeline built on MUI Lab `Timeline`. `alternating` is shorthand for `position="alternate"`. */
 export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
+  /** Timeline entries to render, in order. */
   items: RdsTimelineItem[];
+  /** Shows each item's deprecated `time` as its opposite content when `opposite` is not set. @default false */
   showTime?: boolean;
   /** @deprecated Use `position="alternate"` instead. */
   alternating?: boolean;

@@ -16,6 +16,7 @@ export type RdsCompEmptyStateVariant = "illustration" | "minimal";
 export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref"> {
   /** Figma mode: `"Dark NRA"` forces the dark artwork. Without it, the page theme is detected. */
   mode?: string;
+  /** Visual variant, illustration or minimal. @default "illustration" */
   variant?: RdsCompEmptyStateVariant;
   /** Heading text. */
   label?: string;
@@ -45,6 +46,7 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
   isContinueAnimate?: boolean;
   /** Element used for the heading. Default `"h5"`. */
   titleComponent?: ElementType;
+  /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -220,11 +222,11 @@ const RdsCompEmptyState = ({
             className="rds-comp-empty-state__title"
             data-testid="labelElement"
             sx={{
-              fontSize: "20px",
-              fontWeight: 600,
+              fontSize: "var(--rds-font-size-xl)",
+              fontWeight: "var(--rds-font-weight-semibold)",
               color: titleColor,
-              marginBottom: "8px",
-              marginTop: "24px",
+              marginBottom: "var(--rds-spacing-sm-px)",
+              marginTop: "var(--rds-spacing-lg-px)",
             }}
           >
             {label}

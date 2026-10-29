@@ -55,6 +55,11 @@ describe('RdsDivider', () => {
       expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 
+    it('renders vertically with orientation, which wins over layout', () => {
+      const { container } = renderWithTheme(<RdsDivider {...defaultProps} layout="horizontal" orientation="vertical" />);
+      expect(container.querySelector('.MuiDivider-root')).toHaveClass('MuiDivider-vertical');
+    });
+
     it('should apply flexbox styling to root container', () => {
       const { container } = renderWithTheme(<RdsDivider {...defaultProps} />);
       const root = container.firstChild as HTMLElement;

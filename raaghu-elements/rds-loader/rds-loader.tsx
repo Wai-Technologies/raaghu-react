@@ -3,7 +3,9 @@ import { Box, Typography, LinearProgress, CircularProgress, type BoxProps } from
 import clsx from 'clsx';
 import './rds-loader.scss';
 export interface RdsLoaderProps extends Omit<BoxProps, 'type' | 'color' | 'variant' | 'ref' | 'children' | 'className' | 'sx'> {
+  /** Extra CSS class applied to the loader root. */
   className?: string;
+  /** MUI system styles applied to the loader root. */
   sx?: BoxProps['sx'];
   /** Loader shape for the MUI-based loaders. @default 'circular' */
   variant?: 'linear' | 'circular';

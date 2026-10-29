@@ -241,7 +241,7 @@ export const RdsDropZoneWithButton = ({
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl)', fontWeight: 600, fontSize: 'var(--rds-font-size-md)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl)', fontWeight: 'var(--rds-font-weight-semibold)', fontSize: 'var(--rds-font-size-md)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
       >
         Upload Files
       </RdsButton>

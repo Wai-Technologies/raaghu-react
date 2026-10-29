@@ -26,7 +26,7 @@
     right: 0;
     background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2);
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow var(--rds-motion-duration-quick) ease;
   }
 }
 
@@ -35,7 +35,7 @@
   .rds-tab--selected,
   .rds-nav-tab--selected {
     color: var(--rds-color-primary);
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
   }
 }
 
@@ -72,7 +72,7 @@
       flex: 1;
       text-align: center;
       font-size: var(--rds-font-size-caption);
-      font-weight: 400;
+      font-weight: var(--rds-font-weight-regular);
       color: inherit;
       min-width: 0;
       white-space: nowrap;
@@ -89,7 +89,7 @@
 
       &[data-active="true"] {
         color: var(--rds-color-primary);
-        font-weight: 600;
+        font-weight: var(--rds-font-weight-semibold);
       }
 
       &::before,
@@ -137,7 +137,7 @@
 
 .sidebar-layout {
   flex: 0 0 auto;
-  transition: width 0.3s ease;
+  transition: width var(--rds-motion-duration-moderate) ease;
 }
 
 .topnav-layout {
@@ -180,8 +180,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--rds-font-size-display-sm);
+  font-weight: var(--rds-font-weight-bold);
   z-index: var(--rds-z-index-layer-1);
   pointer-events: none;
 }
@@ -261,8 +261,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-add-layout-text {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--rds-font-size-display-sm);
+  font-weight: var(--rds-font-weight-bold);
 }
 
 .rds-appshell-side-nav-layout {
@@ -291,8 +291,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     position: relative;
     
     .rds-appshell-add-layout-text {
-      font-size: 2rem;
-      font-weight: bold;
+      font-size: var(--rds-font-size-display-sm);
+      font-weight: var(--rds-font-weight-bold);
       color: var(--rds-text-secondary);
       text-align: center;
       position: absolute;
@@ -398,8 +398,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: var(--rds-font-size-display-sm);
+    font-weight: var(--rds-font-weight-bold);
     z-index: var(--rds-z-index-layer-1);
   }
 }
@@ -437,7 +437,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   cursor: pointer;
   padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   border-radius: var(--rds-border-radius-sm);
-  transition: background-color 0.2s;
+  transition: background-color var(--rds-motion-duration-quick);
   
   &:hover {
     background-color: var(--rds-action-hover);
@@ -445,7 +445,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   
   &--primary {
     color: var(--rds-color-primary);
-    font-weight: 600;
+    font-weight: var(--rds-font-weight-semibold);
     
     .rds-story-sub-tab-icon {
       color: var(--rds-color-primary);
@@ -454,7 +454,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   
   &--inherit {
     color: inherit;
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     
     .rds-story-sub-tab-icon {
       color: inherit;
@@ -607,8 +607,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   &__header {
     margin: 0 0 var(--rds-spacing-md);
     padding: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: var(--rds-font-size-xl);
+    font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
   }
   
@@ -617,12 +617,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   &--small .rds-comp-app-shell-item__header {
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     margin-bottom: var(--rds-spacing-sm);
   }
   
   &--large .rds-comp-app-shell-item__header {
-    font-size: 1.5rem;
+    font-size: var(--rds-font-size-2xl);
     margin-bottom: var(--rds-spacing-lg);
   }
 }
@@ -653,7 +653,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
 
     &.rds-appshell--layout-ready > .sidebar-layout {
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
     }
   }
   
@@ -820,7 +820,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
@@ -833,7 +833,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
     }
     
@@ -855,7 +855,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         width: var(--rds-app-shell-sidebar-width);
         z-index: var(--rds-z-index-modal, 1400);
         transform: translateX(0);
-        transition: transform 0.3s ease;
+        transition: transform var(--rds-motion-duration-moderate) ease;
         background: var(--rds-background-paper);
         box-shadow: var(--rds-elevation-3);
       }
@@ -877,7 +877,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
     }
     
@@ -924,8 +924,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         align-items: center;
         justify-content: center;
         min-height: calc(100vh - var(--rds-app-shell-header-offset-2xl));
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: var(--rds-font-size-display-sm);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
       }
     }
@@ -1035,7 +1035,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 0;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -1051,8 +1051,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1067,7 +1067,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       
       &:hover {
@@ -1093,7 +1093,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       box-sizing: border-box;
       overflow: hidden;
@@ -1183,8 +1183,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1255,7 +1255,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: var(--rds-spacing-63);
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1267,8 +1267,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: 100%;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1283,7 +1283,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       
       &:hover {
@@ -1309,7 +1309,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       box-sizing: border-box;
       overflow: hidden;
@@ -1413,8 +1413,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-layer-1);
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1592,7 +1592,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
       color: var(--rds-color-primary);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
@@ -1637,7 +1637,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
@@ -1650,7 +1650,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
     }
     
@@ -1691,8 +1691,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1776,7 +1776,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         
         &.Mui-selected {
           color: var(--rds-color-primary);
-          font-weight: 600;
+          font-weight: var(--rds-font-weight-semibold);
         }
       }
       
@@ -1884,7 +1884,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -1900,8 +1900,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1926,7 +1926,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -1959,7 +1959,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
       box-shadow: none;
       display: block;
@@ -2035,7 +2035,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
@@ -2121,7 +2121,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -2132,8 +2132,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         border-radius: var(--rds-border-radius-md);
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -2144,7 +2144,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       button {
         font-family: inherit;
         text-transform: none;
-        line-height: 1;
+        line-height: var(--rds-line-height-none);
         
         &::before,
         &::after {
@@ -2176,7 +2176,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -2209,7 +2209,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       background: var(--rds-background-paper);
       box-shadow: none;
       display: block;
@@ -2276,7 +2276,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
@@ -2424,8 +2424,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .rds-appshell-add-layout-text {
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: var(--rds-font-size-display-sm);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
         text-align: center;
       }
@@ -2774,7 +2774,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
       color: var(--rds-color-primary);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
@@ -2804,7 +2804,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .sidebar-layout {
     flex: 0 0 auto;
-    transition: width 0.3s ease;
+    transition: width var(--rds-motion-duration-moderate) ease;
     width: fit-content;
     height: 100%;
     z-index: var(--rds-z-index-layer-1);

@@ -97,28 +97,39 @@ export interface RdsCompAiIconProps
     | "className"
     | "children"
   > {
+  /** Icon width as a CSS length. */
   width?: string;
+  /** Icon height as a CSS length. */
   height?: string;
   /** Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`. */
   color?: RaaghuPaletteColor;
   /** @deprecated Use `color`. */
   colorVariant?: RaaghuPaletteColor;
+  /** Registered icon name (case-insensitive) looked up in the Material icon registry. */
   name?: string;
+  /** Fills the icon with `currentColor` when true, none when false. */
   fill?: boolean;
+  /** Strokes the icon with `strokeColor` or `currentColor` when true, none when false. */
   stroke?: boolean;
+  /** Stroke width of the icon as a CSS length. */
   strokeWidth?: string;
   /** @deprecated Has no effect. */
   borderRadius?: string;
+  /** Click handler; also makes the icon keyboard-activatable with Enter/Space. */
   onClick?: MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   /** @deprecated Has no effect. */
   opacity?: string;
+  /** Has no effect. */
   animate?: boolean;
   /** @deprecated Use `animate` instead. */
   isAnimate?: boolean;
   /** @deprecated Use `className` instead. */
   classes?: string;
+  /** Extra CSS class applied to the icon root. */
   className?: string;
+  /** MUI system styles applied to the icon wrapper. */
   sx?: SxProps<Theme>;
+  /** Ref to the root icon element. */
   ref?: Ref<Element>;
   /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
@@ -130,34 +141,47 @@ export interface RdsCompAiIconProps
   databstoggle?: string;
   /** @deprecated Use `aria-controls` instead. */
   ariacontrols?: string;
+  /** Image URL rendered when no icon component resolves. */
   src?: string;
   /** @deprecated Use `src` instead. */
   imageUrl?: string;
+  /** DOM id applied to the icon element. */
   id?: string;
   /** @deprecated Has no effect. */
   iconPath?: ReactNode;
   /** @deprecated Has no effect. */
   type?: "icon" | "lottie";
+  /** Has no effect. */
   hover?: boolean;
   /** @deprecated Use `hover` instead. */
   isHover?: boolean;
+  /** Has no effect. */
   continuousAnimate?: boolean;
   /** @deprecated Use `continuousAnimate` instead. */
   isContinueAnimate?: boolean;
+  /** Has no effect. */
   hovered?: boolean;
   /** @deprecated Use `hovered` instead. */
   isHovered?: boolean;
+  /** Applies a pointer cursor to the icon. */
   cursorPointer?: boolean;
   /** @deprecated Use `cursorPointer` instead. */
   isCursorPointer?: boolean;
+  /** Stroke color used when `stroke` is true. */
   strokeColor?: string;
   /** Preferred custom SVG icon component. */
   svgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
+  /** Custom SVG icon component; used when `svgIcon` is not provided. */
   component?: ComponentType<SVGProps<SVGSVGElement>>;
+  /** Icon alignment; `top-left` sets zero margin, otherwise it is centered with auto margin. */
   position?: "center" | "top-left" | "none";
+  /** Test id forwarded to the icon element. */
   "data-testid"?: string;
+  /** Forwarded to the icon as the `data-bs-dismiss` attribute. */
   "data-bs-dismiss"?: string;
+  /** Forwarded to the icon as the `data-bs-target` attribute. */
   "data-bs-target"?: string;
+  /** Forwarded to the icon as the `data-bs-toggle` attribute. */
   "data-bs-toggle"?: string;
   "aria-controls"?: string;
 }

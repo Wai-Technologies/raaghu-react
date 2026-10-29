@@ -5,6 +5,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import RdsAvatar from '../../rds-avatar/rds-avatar';
 import { warnDeprecatedProp } from '../utils/deprecation';
 import '../styles/rds-profile-menu.scss';
+import { extendedBreakpointTokens } from '../../../raaghu-react-themes/tokens/design-tokens';
 
 export interface ProfileMenuItem {
   label: string;
@@ -47,7 +48,7 @@ export const ProfileMenu = ({
   menuItems,
 }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isSmallScreen = useMediaQuery('(max-width:834px)', { noSsr: true });
+  const isSmallScreen = useMediaQuery(`(max-width:${extendedBreakpointTokens['tablet-md']})`, { noSsr: true });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   if (menuItems !== undefined) warnDeprecatedProp('ProfileMenu', 'menuItems', '`items`');

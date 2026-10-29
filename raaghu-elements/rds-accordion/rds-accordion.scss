@@ -239,7 +239,7 @@
 
   &__title {
     color: var(--rds-color-text-secondary);
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     font-weight: var(--rds-font-weight-regular, 400);
     transition: color var(--rds-transition-slow);
   }
@@ -389,7 +389,7 @@
     }
 
     .rds-accordion__title {
-      font-size: 0.875rem;
+      font-size: var(--rds-font-size-sm);
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {
@@ -412,7 +412,7 @@
     }
 
     .rds-accordion__title {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {
@@ -443,7 +443,7 @@
     }
 
     .rds-accordion__title {
-      font-size: 1.25rem;
+      font-size: var(--rds-font-size-xl);
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {

@@ -3,6 +3,8 @@ import { Fab as MuiFab, type FabProps } from '@mui/material';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-fab.scss';
 
+export type RdsFabPlacement = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+
 export interface RdsFabProps extends Omit<FabProps, 'component'> {
   /** Icon shown in the button (before the label in the extended variant). */
   startIcon?: ReactNode;
@@ -14,10 +16,13 @@ export interface RdsFabProps extends Omit<FabProps, 'component'> {
    * unless an explicit `aria-label` is passed.
    */
   label?: string;
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  /** Pins the button to a corner of the viewport (`position: fixed`). */
+  placement?: RdsFabPlacement;
+  /** @deprecated Use `placement` instead. */
+  position?: RdsFabPlacement;
 }
 
-const POSITION_STYLES: Record<NonNullable<RdsFabProps['position']>, CSSProperties> = {
+const POSITION_STYLES: Record<RdsFabPlacement, CSSProperties> = {
   'bottom-right': { position: 'fixed', bottom: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
   'bottom-left': { position: 'fixed', bottom: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
   'top-right': { position: 'fixed', top: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
@@ -35,13 +40,16 @@ const RdsFab = ({
   icon,
   label,
   children,
+  placement,
   position,
   sx,
   'aria-label': ariaLabel,
   ...props
 }: RdsFabProps) => {
   if (icon !== undefined) warnDeprecatedProp('RdsFab', 'icon', '`startIcon`');
-  const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
+  if (position !== undefined) warnDeprecatedProp('RdsFab', 'position', '`placement`');
+  const resolvedPlacement = placement ?? position;
+  const positionStyles = resolvedPlacement ? (POSITION_STYLES[resolvedPlacement] ?? {}) : {};
 
   const isExtended = props.variant === 'extended';
   const iconNode = startIcon ?? icon;

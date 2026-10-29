@@ -17,6 +17,7 @@ export interface RdsTimePickerProps {
   style?: 'default' | 'compact' | CSSProperties;
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
+  /** Palette color of the picker. */
   color?: TimePickerColor;
   /** Applies the selected appearance to the input. */
   selected?: boolean;
@@ -24,17 +25,23 @@ export interface RdsTimePickerProps {
   open?: boolean;
   /** Initial popup open state (uncontrolled). */
   defaultOpen?: boolean;
+  /** Called with the formatted time string when a time is set. */
   onChange?: (time: string) => void;
   /** Fired when the popup opens. */
   onOpen?: () => void;
   /** Fired when the popup closes. */
   onClose?: () => void;
+  /** Selected time as a formatted string. */
   value?: string;
+  /** Disables the picker. */
   disabled?: boolean;
   /** Overrides for the visible texts. */
   localeText?: RdsTimePickerLocaleText;
+  /** Extra CSS class applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
   [key: `data-${string}`]: string | number | undefined;
 }

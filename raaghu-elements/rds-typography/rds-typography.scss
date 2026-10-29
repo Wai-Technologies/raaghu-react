@@ -31,7 +31,7 @@
   &--h2 {
     font-size: var(--rds-typography-h2-size);
     font-weight: var(--rds-typography-font-weight-light);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     letter-spacing: -0.00833em;
   }
   
@@ -66,7 +66,7 @@
   &--body1 {
     font-size: var(--rds-typography-body1-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     letter-spacing: 0.00938em;
   }
   
@@ -101,11 +101,11 @@
   @include bp.down(mobile-sm) {
     &--h1 {
       font-size: var(--rds-typography-h1-size-mobile);
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
     &--h2 {
       font-size: var(--rds-typography-h2-size-mobile);
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
   }
   

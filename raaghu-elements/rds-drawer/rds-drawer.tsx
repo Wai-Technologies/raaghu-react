@@ -21,18 +21,25 @@ export interface RdsDrawerProps extends Omit<DrawerProps, 'component' | 'slotPro
    * and does not change it; wire `triggerButtonProps.onClick` to update `open`.
    */
   showTrigger?: boolean;
+  /** Text of the trigger button. @default 'Open Drawer' */
   triggerText?: string;
+  /** Text of the trigger button while the drawer is open; falls back to `triggerText`. */
   triggerTextWhenOpen?: string;
+  /** Initial open state when the drawer is uncontrolled. @default false */
   defaultOpen?: boolean;
   /** @deprecated Use `slotProps.trigger` instead. */
   triggerButtonProps?: DrawerButtonProps;
+  /** Shows a close button inside the drawer. @default false */
   showCloseButton?: boolean;
+  /** Text of the built-in close button. @default 'Close Drawer' */
   closeButtonText?: string;
   /** @deprecated Use `slotProps.closeButton` instead. */
   closeButtonProps?: DrawerButtonProps;
   /** MUI Drawer slot props, plus `trigger` and `closeButton` for the built-in buttons. */
   slotProps?: DrawerProps['slotProps'] & { trigger?: DrawerButtonProps; closeButton?: DrawerButtonProps };
+  /** Centers the trigger button inside its wrapper. @default false */
   centerTrigger?: boolean;
+  /** Class name of the trigger wrapper; defaults to 'rds-drawer-trigger-wrapper' when `centerTrigger` is set. */
   triggerWrapperClassName?: string;
   /**
    * Embeds the drawer in document flow (relative paper, full height) for flex layouts

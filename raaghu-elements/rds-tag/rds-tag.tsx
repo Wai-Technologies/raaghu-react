@@ -6,6 +6,7 @@ import './rds-tag.scss';
 
 /** Compact label built on MUI `Chip`. Set `removable` with `onDelete` to show the delete icon. */
 export interface RdsTagProps extends Omit<ChipProps, 'label' | 'component'> {
+  /** Content shown inside the tag. */
   label: ReactNode;
   /** Shows the delete icon (needs `onDelete` or `onRemove`). Without it, `onDelete` is ignored. */
   removable?: boolean;

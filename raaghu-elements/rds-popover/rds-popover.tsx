@@ -11,6 +11,7 @@ import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-popover.scss';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 function getPopoverArrowDirection(pos: string): string {
   if (pos.startsWith('top-')) return 'bottom';
@@ -89,7 +90,7 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' 
 }
 
 function useMobilePopoverPosition(position: string): string {
-  const isMobile = useMediaQuery('(max-width:600px)', { noSsr: true });
+  const isMobile = useMediaQuery(`(max-width:${extendedBreakpointTokens.sm})`, { noSsr: true });
 
   return useMemo(() => {
     if (!isMobile) {

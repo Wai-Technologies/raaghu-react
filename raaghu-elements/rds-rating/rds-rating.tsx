@@ -20,7 +20,9 @@ export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'>
   sliderLabels?: [ReactNode, ReactNode, ReactNode];
   /** Rating display: stars or a three-point slider. */
   type?: 'star' | 'slider';
+  /** Preset rating value, or Left/Mid/Right for the slider type. */
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
+  /** Visual style of the stars; `variant` takes precedence. */
   styles?: RatingStyle;
   /** Visual style of the stars. */
   variant?: RatingStyle;

@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-multi-level-menu.scss';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export type MenuOption = {
   label: string;
@@ -21,6 +22,7 @@ export type MenuOption = {
 
 /** Props for {@link RdsMultiLevelMenu}. Extra props are forwarded to the root element. */
 export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'children'> {
+  /** Extra CSS class applied to the root element. */
   className?: string;
   /** Menu items; an item with `children` opens a nested submenu. */
   items?: MenuOption[];
@@ -71,7 +73,7 @@ export const RdsMultiLevelMenu = ({
 }: RdsMultiLevelMenuProps) => {
   if (options !== undefined) warnDeprecatedProp('RdsMultiLevelMenu', 'options', '`items`');
   const type = variant ?? typeProp ?? 'expandable';
-  const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
+  const isMobile = useMediaQuery(`(max-width:${extendedBreakpointTokens['568']})`, { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>(() => (selected ? [0] : []));
@@ -189,7 +191,7 @@ export const RdsMultiLevelMenu = ({
                   <Box className={'rds-mlm-leading'}>
                     {type === 'selectable' && isSelected ? <CheckIcon fontSize="small" /> : null}
                   </Box>
-                  <ListItemText primary={option.label} slotProps={{ primary: { fontWeight: 400 } }} />
+                  <ListItemText primary={option.label} slotProps={{ primary: { fontWeight: 'var(--rds-font-weight-regular)' } }} />
                   {!isExpandable && option.shortcut && (
                     <Box className={'rds-mlm-shortcut'}>{option.shortcut}</Box>
                   )}

@@ -21,10 +21,13 @@ const VARIANT_DISPLAY_TYPE: Record<AppShellVariant, AppShellDisplayType> = {
 export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'ref'> {
   /** Figma layout name. `variant` takes precedence. */
   displayType?: AppShellDisplayType;
+  /** Shell layout variant; takes precedence over `displayType`. */
   variant?: AppShellVariant;
+  /** Content rendered in the header area of the shell. */
   header?: ReactNode;
   /** @deprecated Use `header` instead. */
   topbar?: ReactNode;
+  /** Content rendered in the sidebar area of the shell. */
   sidebar?: ReactNode;
   children?: ReactNode;
   /** Controlled open state of the mobile sidebar. */
@@ -37,7 +40,9 @@ export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement
   onMobileSidebarToggle?: () => void;
   /** Accessible label of the backdrop that closes the mobile sidebar. */
   closeSidebarLabel?: string;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 

@@ -113,11 +113,11 @@
 
   &__content-primary {
     font-size: var(--rds-font-size-body);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     transition: color var(--rds-transition-base, 0.2s ease-in-out);
     color: var(--rds-text-primary);
     margin-bottom: var(--rds-spacing-xxs);
-    line-height: 1.2;
+    line-height: var(--rds-line-height-compact);
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -233,7 +233,7 @@
   }
 
   .rds-list__icon .MuiCheckbox-root:hover {
-    background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.04));
+    background-color: var(--rds-overlay-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
     border-radius: 50%;
   }
 }
@@ -336,7 +336,7 @@
 
 .rds-list-demo__title {
   font-size: var(--rds-font-size-body);
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
   margin: var(--rds-spacing-sm) 0;
   text-align: left;
   padding-left: var(--rds-spacing-md);
@@ -346,7 +346,7 @@
   font-size: var(--rds-font-size-sm);
   color: var(--rds-text-secondary);
   margin-bottom: var(--rds-spacing-sm);
-  line-height: 1.5;
+  line-height: var(--rds-line-height-normal);
 }
 
 .rds-list-demo__container {
@@ -384,16 +384,16 @@
   
   &-title {
     font-size: var(--rds-font-size-h6);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
   }
 }
 
 .rds-list-demo__section-header {
   font-size: var(--rds-font-size-xs);
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
   text-transform: uppercase;
   padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-sm);
-  letter-spacing: 0.5px;
+  letter-spacing: var(--rds-letter-spacing-caps);
 }
 
 .rds-list--custom-theme {
@@ -407,7 +407,7 @@
   }
 
   .rds-list__item--clickable:hover {
-    background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
+    background-color: var(--rds-overlay-hover, color-mix(in srgb, var(--rds-color-white) 8%, transparent));
   }
 }
 

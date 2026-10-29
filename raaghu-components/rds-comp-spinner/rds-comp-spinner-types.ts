@@ -43,6 +43,7 @@ export interface RdsCompSpinnerProps {
   width?: string;
   /** @deprecated Prefer `size` (token or px number). */
   height?: string;
+  /** Shows the label next to the spinner. @default false */
   showLabel?: boolean;
   /** Label text shown when `showLabel` is true; also the accessible name. */
   label?: string;
@@ -50,6 +51,7 @@ export interface RdsCompSpinnerProps {
   labelText?: string;
   /** Token size, legacy PascalCase size, or a pixel number (G6-102). */
   size?: SpinnerSize | SpinnerSizeLegacy | number;
+  /** Label and spinner arrangement; overridden by `labelPlacement`. */
   layout?: SpinnerLayout;
   /** Label position relative to the spinner; wins over `layout`. */
   labelPlacement?: "top" | "bottom" | "start" | "end";
@@ -57,8 +59,12 @@ export interface RdsCompSpinnerProps {
   color?: string;
   /** @deprecated Use `color` instead. */
   colorVariant?: string;
+  /** Spinner opacity level, from 01 (lightest) to 04 (opaque). */
   level?: SpinnerLevel;
+  /** Extra class name applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }

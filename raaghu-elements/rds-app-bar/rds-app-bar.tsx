@@ -30,6 +30,7 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { rdsAppBarSx } from './rds-app-bar.styles';
 import "./rds-app-bar.scss";
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 
@@ -50,6 +51,7 @@ export type RdsAppBarVariantStyle =
 export type RdsAppBarTab = string | { label: string; [key: string]: unknown };
 
 export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
+  /** Title text of the bar. */
   title?: string;
   /** Content at the right of the bar. Takes precedence over `rightActions` and `actions`. */
   endSlot?: ReactNode;
@@ -59,22 +61,31 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   rightActions?: ReactNode;
   /** @deprecated Use `centerSlot` instead. */
   centerContent?: ReactNode;
+  /** Size of the bar. @default 'medium' */
   size?: RdsAppBarSize;
+  /** Logo node shown at the start of the bar. */
   logo?: ReactNode;
   /** @deprecated The logo is shown whenever `logo` is provided. Documentation only: still works. */
   showLogo?: boolean;
+  /** Called when the menu button is clicked; its presence shows the menu button. */
   onMenuClick?: () => void;
   /** @deprecated The menu button is decided by `onMenuClick`. Documentation only: still works. */
   showMenuButton?: boolean;
   /** @deprecated Use `endSlot` instead. */
   actions?: ReactNode;
+  /** Name of the signed-in user, shown in the profile menu. */
   userName?: string;
+  /** Email of the signed-in user, shown in the profile menu. */
   userEmail?: string;
   /** Items of the profile menu shown when `userName` and `userEmail` are set. Pass explicitly; there is no demo default. */
   profileMenuItems?: ProfileMenuItem[];
+  /** Value of the search input. */
   searchValue?: string;
+  /** Called with the new value when the search input changes; its presence shows the search field. */
   onSearchChange?: (value: string) => void;
+  /** Placeholder of the search input. */
   searchPlaceholder?: string;
+  /** Tabs shown in the bar. */
   tabs?: RdsAppBarTab[];
   /** @deprecated Use `tabsProps.value` instead. */
   tabValue?: number;
@@ -82,10 +93,13 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   onTabChange?: (value: number) => void;
   /** Props for the tabs. `value` and `onChange(event, value)` take precedence over `tabValue` and `onTabChange`. */
   tabsProps?: Partial<TabsProps>;
+  /** Content rendered below the bar. */
   subHeader?: ReactNode;
   /** @deprecated Search is shown when `onSearchChange` is provided. Documentation only: still works. */
   showSearch?: boolean;
+  /** Visual style variant of the bar. */
   variantStyle?: RdsAppBarVariantStyle;
+  /** Content shown in an overflow menu on small screens, or inline in the bar on larger ones. */
   overflowContent?: ReactNode;
   /**
    * Content after the tabs in the small-screen bottom bar of the `withMenuButton` layout.
@@ -106,9 +120,9 @@ const toVariantClass = (variantStyle?: string) =>
   variantStyle ? variantStyle.toLowerCase().replace(/[^a-z0-9]+/g, '') : '';
 
 const getSmallScreenBreakpoint = (variant: string) => {
-  if (variant === 'withnotificationbadge') return 1280;
-  if (TABLET_BOTTOM_NAV_VARIANTS.includes(variant)) return 840;
-  return 420;
+  if (variant === 'withnotificationbadge') return extendedBreakpointTokens['1280'];
+  if (TABLET_BOTTOM_NAV_VARIANTS.includes(variant)) return extendedBreakpointTokens['840'];
+  return extendedBreakpointTokens['420'];
 };
 
 const getTabLabel = (tab: RdsAppBarTab, index: number) =>
@@ -165,9 +179,9 @@ const RdsAppBar = ({
 
   const variant = variantStyle ? variantStyle.toLowerCase() : '';
   const variantClass = toVariantClass(variantStyle);
-  const isSmallScreen = useMediaQuery(`(max-width:${getSmallScreenBreakpoint(variant)}px)`, { noSsr: true });
-  const isNarrowMobile = useMediaQuery('(max-width:420px)', { noSsr: true });
-  const isExtraNarrowMobile = useMediaQuery('(max-width:320px)', { noSsr: true });
+  const isSmallScreen = useMediaQuery(`(max-width:${getSmallScreenBreakpoint(variant)})`, { noSsr: true });
+  const isNarrowMobile = useMediaQuery(`(max-width:${extendedBreakpointTokens['420']})`, { noSsr: true });
+  const isExtraNarrowMobile = useMediaQuery(`(max-width:${extendedBreakpointTokens['mobile-sm']})`, { noSsr: true });
   const hasControlledTabs = Array.isArray(tabs) && typeof tabValueResolved === 'number' && hasTabHandler;
   const showInlineTabs = hasControlledTabs && !isSmallScreen;
   const isWithMenuButton = variant === 'withmenubutton';
@@ -230,7 +244,7 @@ const RdsAppBar = ({
     justifyContent: 'space-around',
     alignItems: 'center',
     zIndex: tokens.zIndex.dropdown,
-    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+    borderTop: `var(--rds-border-width-thin) solid ${tokens.cssVar('border-default')}`,
     boxShadow: tokens.cssVar('elevation-2'),
     backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface))',
   } as const;

@@ -61,11 +61,13 @@ export interface RdsCompColorPickerProps
   disabled?: boolean;
   /** @deprecated Use `disabled` instead. */
   isDisabled?: boolean;
+  /** Label shown in the picker header and used as its accessible name. */
   label: string;
   /** Picker layout. Defaults to `'inline'`. */
   variant?: ColorPickerVariant;
   /** Figma alias of `variant`. */
   type?: ColorPickerType;
+  /** Shows the swatches section. */
   showSwatches?: boolean;
   /** Active view. */
   view?: ColorPickerView;
@@ -73,6 +75,7 @@ export interface RdsCompColorPickerProps
   defaultView?: ColorPickerView;
   /** @deprecated Use `view` instead. */
   pickerType?: PickerType;
+  /** Shows the tabs for switching between picker views. */
   showTabs?: boolean;
   /** Colour format shown in the value field. */
   format?: ColorPickerFormat;

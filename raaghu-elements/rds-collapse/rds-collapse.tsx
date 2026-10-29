@@ -91,7 +91,7 @@ const RdsCollapse = ({
               size="small"
               sx={{
                 transform: currentExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.2s',
+                transition: 'transform var(--rds-motion-duration-quick)',
                 p: 0,
                 ml: 0,
               }}

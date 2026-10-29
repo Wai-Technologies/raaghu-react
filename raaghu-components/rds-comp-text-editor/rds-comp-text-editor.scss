@@ -19,7 +19,7 @@
   min-height: var(--rds-editor-min-height);
   background-color: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color var(--rds-motion-duration-fast) ease, background-color var(--rds-motion-duration-fast) ease;
   resize: none;
   position: relative;
 
@@ -66,7 +66,7 @@
     padding: var(--rds-spacing-xs);
     border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
     margin-bottom: 0;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: background-color var(--rds-motion-duration-fast) ease, border-color var(--rds-motion-duration-fast) ease;
 
     .rds-comp-text-editor--disabled & {
       background-color: var(--rds-surface-subtle);
@@ -88,7 +88,7 @@
       background: var(--rds-color-surface);
       color: var(--rds-color-on-surface);
       text-transform: capitalize;
-      transition: color 0.15s ease, background-color 0.15s ease;
+      transition: color var(--rds-motion-duration-fast) ease, background-color var(--rds-motion-duration-fast) ease;
 
       .rds-comp-text-editor--disabled & {
         background-color: var(--rds-surface-subtle);
@@ -113,7 +113,7 @@
       border-radius: var(--rds-border-radius-sm);
       min-width: var(--rds-text-editor-dim-3);
       min-height: var(--rds-toolbar-button-size);
-      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      transition: background-color var(--rds-motion-duration-fast) ease, border-color var(--rds-motion-duration-fast) ease, color var(--rds-motion-duration-fast) ease;
 
       &:hover {
         box-shadow: 1px 1px 0 var(--rds-color-border);
@@ -204,7 +204,7 @@
     line-height: var(--rds-line-height-body, 1.5);
     background-color: var(--rds-color-surface);
     color: var(--rds-color-on-surface);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color var(--rds-motion-duration-quick) ease, color var(--rds-motion-duration-quick) ease;
     resize: vertical;
     overflow: auto;
 
@@ -260,7 +260,7 @@
   margin-bottom: var(--rds-spacing-xs);
   font-weight: var(--rds-font-weight-medium, 500);
   color: var(--rds-color-on-surface);
-  transition: color 0.2s ease;
+  transition: color var(--rds-motion-duration-quick) ease;
 }
 
 .rds-comp-text-editor__required {

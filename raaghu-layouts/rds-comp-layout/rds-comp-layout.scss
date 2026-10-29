@@ -12,7 +12,7 @@
   --rds-layout-min-height-5xl: 500px;
   --rds-layout-min-height-6xl: 600px;
 
-  --rds-box-shadow-card: 0 0 6px 5px rgba(77, 82, 89, 0.07);
+  --rds-box-shadow-card: 0 0 6px 5px var(--rds-layout-card-shadow-color);
 
   min-height: 83vh;
   width: 100%;
@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  transition: box-shadow 0.3s;
+  transition: box-shadow var(--rds-motion-duration-moderate);
 }
 
 .rds-comp-layout-inner-wrapper_basic {
@@ -43,7 +43,7 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  transition: box-shadow 0.3s, border 0.3s;
+  transition: box-shadow var(--rds-motion-duration-moderate), border var(--rds-motion-duration-moderate);
   display: flex;
   align-items: center;
   justify-content: center;

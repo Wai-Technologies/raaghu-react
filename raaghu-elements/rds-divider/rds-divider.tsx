@@ -45,6 +45,8 @@ export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   dividerMessage?: string;
   /** Figma layout. Defaults to `'horizontal'`. */
   layout?: 'horizontal' | 'vertical';
+  /** Line direction (MUI name for `layout`). Wins over `layout`. */
+  orientation?: 'horizontal' | 'vertical';
   /** @deprecated Use `icon={null}` to hide the icon instead. */
   iconShow?: boolean;
   /** Icon node or icon name. No icon is shown unless this (or `iconName`) is provided. Use `null` or `false` to hide the icon. */
@@ -63,7 +65,8 @@ const RdsDivider = ({
   children,
   dividerMessage,
   textAlign = 'center',
-  layout = 'horizontal',
+  layout,
+  orientation,
   iconShow,
   icon,
   iconName,
@@ -81,6 +84,7 @@ const RdsDivider = ({
   if (styleVariant !== undefined) warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');
   if (iconName !== undefined) warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
 
+  const resolvedLayout = orientation ?? layout ?? 'horizontal';
   const message: ReactNode = children ?? dividerMessage;
 
   const hasMessage = message !== undefined && message !== null && message !== false && message !== '';
@@ -107,7 +111,7 @@ const RdsDivider = ({
       display="flex"
       alignItems="center"
       gap={{ xs: 0.3, sm: 0.3, md: 0.3, lg: 1.0 }}
-      px={hasMessage ? 1 : layout === 'horizontal' ? 2 : 0}
+      px={hasMessage ? 1 : resolvedLayout === 'horizontal' ? 2 : 0}
     >
       {showIcon && (
         <Box
@@ -135,7 +139,7 @@ const RdsDivider = ({
     </Box>
   );
 
-  if (layout === 'vertical') {
+  if (resolvedLayout === 'vertical') {
     return (
       <Box
         className={clsx('rds-divider', className)}

@@ -25,8 +25,11 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   placeholder?: string;
   /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
+  /** MUI text field variant. @default 'outlined' */
   variant?: 'outlined' | 'filled' | 'standard';
+  /** Size of the input. @default 'small' */
   size?: 'small' | 'medium' | 'large';
+  /** Input type: text, password, phone number, number or card number. @default 'text' */
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   /** @deprecated Use `labelPlacement` instead. */
   titlePosition?: 'title-above' | 'inline-title' | (string & {});
@@ -36,6 +39,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   style?: 'default' | 'pill' | 'bottom outline' | CSSProperties;
   /** Field shape. */
   shape?: 'default' | 'pill' | 'bottom outline';
+  /** Applies the selected appearance to the input. @default false */
   selected?: boolean;
   /** Icon shown at the start of the field. */
   startIcon?: ReactNode;

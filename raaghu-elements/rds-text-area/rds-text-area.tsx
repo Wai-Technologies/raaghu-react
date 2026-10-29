@@ -28,9 +28,13 @@ type NativeTextareaProps = Omit<
  * Other native `<textarea>` attributes (`name`, `maxLength`, `aria-*`, ...) are passed to the textarea.
  */
 export interface RdsTextAreaProps extends NativeTextareaProps {
+  /** Number of visible text rows; falls back to 4. */
   rows?: number;
+  /** Label shown above the textarea. */
   label?: string;
+  /** Placeholder text of the textarea. */
   placeholder?: string;
+  /** Controlled value of the textarea. */
   value?: string;
   /** Initial value when `value` is not controlled. */
   defaultValue?: string;
@@ -54,8 +58,11 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   disabled?: boolean;
   /** Class name for the root container. Use `customClasses` for the textarea element. */
   className?: string;
+  /** MUI system styles applied to the root container. */
   sx?: SxProps<Theme>;
+  /** Ref to the textarea element. */
   ref?: Ref<HTMLTextAreaElement>;
+  /** DOM id of the textarea. */
   id?: string;
   /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
@@ -65,12 +72,17 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
    * Event-only handlers `(event) => event.target.value` are no longer supported; migrate to `(value) => …`.
    */
   onChange?: (value: string, event: ChangeEvent<HTMLTextAreaElement>) => void;
+  /** Called when the textarea is clicked. */
   onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
+  /** Called on key down inside the textarea. */
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+  /** Called when the textarea receives focus. */
   onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  /** Called when the textarea loses focus. */
   onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   /** @deprecated Remount with a new `key` instead. */
   reset?: boolean;
+  /** Pattern the value must match; invalid values show the error state. */
   validationPattern?: RegExp;
   /** @deprecated Use `helperText` instead. */
   validationMsg?: string;
@@ -78,6 +90,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   multiUrl?: boolean;
   /** @deprecated Use `multiUrl` instead. */
   isMultiUrl?: boolean;
+  /** Extra CSS class applied to the textarea element. */
   customClasses?: string;
   /** Override built-in copy. `required` replaces the empty-value message. */
   localeText?: {

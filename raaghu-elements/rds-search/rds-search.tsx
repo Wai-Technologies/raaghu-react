@@ -16,9 +16,12 @@ export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'compo
   onChange: (value: string, event: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>) => void;
   /** Called with the current value on Enter, on the search button, and after `debounce` ms when it is set. */
   onSearch?: (value: string) => void;
+  /** Called when the clear button is clicked. */
   onClear?: () => void;
   placeholder?: string;
+  /** Shows the clear button. @default true */
   showClearButton?: boolean;
+  /** Shows the search icon. @default true */
   showSearchIcon?: boolean;
   /** Calls `onSearch` automatically while typing, debounced by this many ms. */
   debounce?: number;
@@ -27,6 +30,7 @@ export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'compo
   /** @deprecated Use `debounce` instead. */
   searchDelay?: number;
   label?: string;
+  /** Position of the label relative to the field. @default 'top' */
   labelPosition?: 'top' | 'left' | 'right' | 'bottom';
   /** Side of the search icon. `left`/`right` are deprecated aliases of `start`/`end`. */
   iconPosition?: 'left' | 'right' | 'start' | 'end';

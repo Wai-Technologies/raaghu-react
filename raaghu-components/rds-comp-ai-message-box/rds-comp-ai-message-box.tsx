@@ -19,6 +19,7 @@ export interface RdsCompAiMessageBoxProps extends Omit<HTMLAttributes<HTMLDivEle
   src?: string;
   /** @deprecated Use `avatar` instead. */
   avtar?: string;
+  /** Avatar image URL of the sender. */
   avatar?: string;
   /** Display name shown for the sender. */
   name?: string;
@@ -26,7 +27,9 @@ export interface RdsCompAiMessageBoxProps extends Omit<HTMLAttributes<HTMLDivEle
   avatarAlt?: string;
   /** Alt text for the attached image. */
   imageAlt?: string;
+  /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 

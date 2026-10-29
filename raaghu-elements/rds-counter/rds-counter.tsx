@@ -9,8 +9,11 @@ import "./rds-counter.scss";
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsCounterProps
   extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder' | 'className' | 'sx' | 'ref'> {
+  /** Extra class name applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the root element. */
   sx?: BoxProps['sx'];
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
   /** Controlled value. When set (even without `onChange`) the counter is controlled. */
   value?: number;
@@ -22,16 +25,25 @@ export interface RdsCounterProps
   onChange?: (value: number, event: SyntheticEvent) => void;
   /** Initial value when uncontrolled. */
   defaultValue?: number;
+  /** Minimum allowed value. @default 0 */
   min?: number;
+  /** Maximum allowed value. @default Infinity */
   max?: number;
+  /** Amount added or subtracted by each button click. @default 1 */
   step?: number;
+  /** Disables the counter. @default false */
   disabled?: boolean;
+  /** Size of the counter. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Shows an editable input instead of static value text. @default true */
   showInput?: boolean;
   /** Label shown above (or, in the compact variant, beside) the counter. */
   label?: string;
+  /** Visual variant of the counter. @default 'default' */
   variant?: 'default' | 'compact';
+  /** Placement of the value relative to the buttons. @default 'side-to-side' */
   layout?: 'right-side' | 'side-to-side' | 'bottom';
+  /** Text shown in the input, or as the value, when no value is set. @default '00' */
   placeholder?: string;
   /** @deprecated Use `slotProps.controls.className` instead. */
   controlsClassName?: string;
@@ -41,6 +53,7 @@ export interface RdsCounterProps
   showTitle?: boolean;
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
   required?: boolean;
+  /** Applies the selected style. @default false */
   selected?: boolean;
   /** @deprecated Use `label` instead. */
   titleText?: string;

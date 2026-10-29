@@ -5,6 +5,7 @@ import { Item, ReviewStyle } from "./rds-comp-reviews-types";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 interface FeedbackActionsProps {
   likes: number;
@@ -103,7 +104,7 @@ export const ReviewStyleCard = ({
     setPrevDislikes(item.dislikes);
     setDislikes(item.dislikes ?? 0);
   }
-  const isXs = useMediaQuery("(max-width: 600px)");
+  const isXs = useMediaQuery(`(max-width: ${extendedBreakpointTokens.sm})`);
 
   const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {

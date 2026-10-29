@@ -29,22 +29,22 @@ export const VolumeSliderComponent = memo(
             min={0}
             max={100}
             sx={{
-              height: 120,
+              height: "var(--rds-audio-player-volume-slider-height)",
               color: "var(--rds-primary-main)",
               "& .MuiSlider-thumb": {
-                width: 16,
-                height: 16,
+                width: "var(--rds-size-md)",
+                height: "var(--rds-size-md)",
                 backgroundColor: "var(--rds-primary-main)",
                 "&:hover": {
-                  boxShadow: "0 0 0 8px color-mix(in srgb, var(--rds-primary-main) 16%, transparent)",
+                  boxShadow: "0 0 0 var(--rds-size-sm) color-mix(in srgb, var(--rds-primary-main) 16%, transparent)",
                 },
               },
               "& .MuiSlider-track": {
-                width: 4,
+                width: "var(--rds-size-xs)",
                 backgroundColor: "var(--rds-primary-main)",
               },
               "& .MuiSlider-rail": {
-                width: 4,
+                width: "var(--rds-size-xs)",
                 backgroundColor: "var(--rds-neutral-300, var(--rds-grey-300))",
               },
             }}

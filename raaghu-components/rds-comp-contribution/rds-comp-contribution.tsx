@@ -15,7 +15,9 @@ type DataAttributes = { [key: `data-${string}`]: string | number | undefined };
 
 export interface RdsCompContributionProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** Shows month labels above the panels. @default true */
   showMonthLabels?: boolean;
+  /** Shows weekday labels beside the panels. @default false */
   showWeekLabels?: boolean;
   /** Short names for Sunday..Saturday. */
   weekdayLabels?: string[];
@@ -51,9 +53,13 @@ export interface RdsCompContributionProps
   monthLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
   /** @deprecated Use `slotProps.panel` instead. */
   panelAttributes?: SVGProps<SVGRectElement> & DataAttributes;
+  /** Height reserved for the month labels, in pixels. @default 28 */
   monthLabelHeight?: number;
+  /** Width reserved for the weekday labels, in pixels. @default 24 */
   weekLabelWidth?: number;
+  /** Size of each panel, in pixels. @default 11 */
   panelSize?: number;
+  /** Gap between panels, in pixels. @default 2 */
   panelMargin?: number;
   /** Extra class name(s) merged onto the root element. */
   className?: string;

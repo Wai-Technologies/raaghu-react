@@ -31,6 +31,7 @@ export interface RdsCompLineProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 
@@ -49,7 +50,7 @@ const applyLineCanvasSizing = (chart: Chart, chartId: string) => {
   }
 
   if (chartId === "linechart2") {
-    const smallSize = getCSSVar("--rds-spacing-2xl", "50px");
+    const smallSize = getCSSVar("--rds-spacing-2xl");
     chart.canvas.style.height = smallSize;
     chart.canvas.style.width = smallSize;
     return;

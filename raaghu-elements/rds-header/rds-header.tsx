@@ -9,10 +9,15 @@ import './rds-header.scss';
 
 /** Props for {@link RdsHeader}. Extends MUI `AppBar` props. */
 export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
+  /** Title text of the header. */
   title?: string;
+  /** Logo node shown at the start of the header. */
   logo?: ReactNode;
+  /** Called when the menu button is clicked. */
   onMenuClick?: () => void;
+  /** Shows the menu button. @default false */
   showMenuButton?: boolean;
+  /** Content rendered at the end of the header. */
   actions?: ReactNode;
   /** Signed-in user shown in the profile menu. */
   user?: { name?: string; initials?: string; email?: string };
@@ -22,9 +27,13 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   userShortName?: string;
   /** @deprecated Use `user.email` instead. */
   userEmail?: string;
+  /** Value of the search input. */
   searchValue?: string;
+  /** Called with the new value when the search input changes. */
   onSearchChange?: (value: string) => void;
+  /** Placeholder of the search input. */
   searchPlaceholder?: string;
+  /** Tabs shown in the header, as labels or objects with a `label`. */
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
   /** Selected tab index (controlled). */
   tabsValue?: number;
@@ -36,6 +45,7 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   onTabChange?: (value: number) => void;
   /** Items of the profile menu shown when `user.name`, `user.initials` and `user.email` are set. Pass explicitly; there is no demo default. */
   profileMenuItems?: ProfileMenuItem[];
+  /** Content rendered below the header. */
   subHeader?: ReactNode;
   children?: ReactNode;
 }

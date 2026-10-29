@@ -108,11 +108,14 @@ export const FullWidth: Story = {
     fullWidth: true,
     maxWidth: 'sm',
     title: 'Full Width Dialog',
+
     children: (
       <Typography variant="body1">
         This dialog uses the full width available for its size.
       </Typography>
     ),
+
+    fullScreen: false
   },
 };
 
@@ -125,11 +128,14 @@ export const Interactive: Story = {
     maxWidth: 'sm',
     fullWidth: true,
     variant: 'default',
+
     children: (
       <Typography variant="body1" gutterBottom>
         This dialog can be opened and closed.
       </Typography>
     ),
+
+    fullScreen: false
   },
 };
 

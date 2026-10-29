@@ -22,6 +22,7 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   placeholder?: string;
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
+  /** Chat messages rendered in the conversation log. */
   messages: Message[];
   /** Called with the message the user sent. Prefer this over `setMessages`. */
   onSend?: (message: Message) => void;
@@ -36,6 +37,7 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   title?: string;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 

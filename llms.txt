@@ -1,0 +1,26 @@
+# Raaghu Design System (@waiin/raaghu-react)
+
+> React 19 + MUI design system: about 110 exported components (elements, composite components, layouts, charts, AI chat UI) themed through `--rds-*` CSS variables with light and dark modes.
+
+Import from the package root, wrap the app in `RaaghuThemeProvider` and import `@waiin/raaghu-react/styles.css`. Style only with `var(--rds-*)` tokens.
+
+## Docs
+
+- [AGENTS.md](AGENTS.md): usage, component selection guide, token and prop rules for contributors
+- [docs/ai/components.json](docs/ai/components.json): every exported component with props, defaults and deprecations
+- [docs/ai/tokens.json](docs/ai/tokens.json): every `--rds-*` variable with light and dark values
+- [docs/TOKENS.md](docs/TOKENS.md): token reference table
+- [docs/CSS_ARCHITECTURE.md](docs/CSS_ARCHITECTURE.md): SCSS structure, BEM naming, override order
+- [docs/THEME_INTEGRATION_GUIDE.md](docs/THEME_INTEGRATION_GUIDE.md): theme provider and brand overrides
+- [docs/COMPONENT_DEPRECATION_POLICY.md](docs/COMPONENT_DEPRECATION_POLICY.md): how props are renamed and removed
+
+## Source
+
+- [raaghu-elements/index.ts](raaghu-elements/index.ts): element exports
+- [raaghu-components/index.ts](raaghu-components/index.ts): component exports
+- [raaghu-layouts/index.ts](raaghu-layouts/index.ts): layout exports
+- [raaghu-react-themes/tokens/design-tokens.ts](raaghu-react-themes/tokens/design-tokens.ts): raw token values
+
+## Optional
+
+- [Storybook](https://react.raaghu.ai/): live examples of every component

@@ -4,7 +4,7 @@
   --rds-card-action-min-width: 60px;
   --rds-card-action-height: 32px;
   --rds-card-avatar-offset-left: 15px;
-  --rds-card-shadow: 0 8px 24px rgba(16, 45, 86, 0.08);
+  --rds-card-shadow: 0 8px 24px color-mix(in srgb, var(--rds-card-shadow-base) 8%, transparent);
 
   border-radius: var(--rds-border-radius-md);
   box-shadow: var(--rds-elevation-3);
@@ -272,7 +272,7 @@
   &__title {
     font-weight: var(--rds-font-weight-medium, 500);
     font-size: var(--rds-font-size-xl);
-    line-height: 1.3;
+    line-height: var(--rds-line-height-dense);
     color: var(--rds-color-text-secondary);
     margin: 0;
     margin-bottom: var(--rds-spacing-xs);
@@ -364,7 +364,7 @@
           font-weight: var(--rds-font-weight-semibold, 600);
           color: var(--rds-color-text-primary);
           margin: 0 0 var(--rds-spacing-xs) 0;
-          line-height: 1.3;
+          line-height: var(--rds-line-height-dense);
         }
         
         .rds-card__avatar-designation {
@@ -372,7 +372,7 @@
           font-weight: var(--rds-font-weight-normal, 400);
           color: var(--rds-color-text-secondary);
           margin: 0;
-          line-height: 1.3;
+          line-height: var(--rds-line-height-dense);
         }
       }
       
@@ -409,7 +409,7 @@
     .rds-card__description {
       font-size: var(--rds-font-size-sm);
       color: var(--rds-color-text-secondary);
-      line-height: 1.5;
+      line-height: var(--rds-line-height-normal);
       margin: 0 0 var(--rds-spacing-md) 0;
       display: block;
     }
@@ -418,7 +418,7 @@
   &__description {
     font-size: var(--rds-font-size-sm);
     color: var(--rds-color-text-secondary);
-    line-height: 1.5;
+    line-height: var(--rds-line-height-normal);
     margin: 0 0 var(--rds-spacing-md) 0;
     display: block;
   }
@@ -451,7 +451,7 @@
   display: block;
   font-size: var(--rds-font-size-sm);
   color: var(--rds-color-text-secondary);
-  line-height: 1.5;
+  line-height: var(--rds-line-height-normal);
   margin: 0 0 var(--rds-spacing-md) 0;
 }
 
@@ -477,7 +477,7 @@
 .rds-card__long-description {
   font-size: var(--rds-font-size-sm);
   color: var(--rds-color-text-secondary);
-  line-height: 1.5;
+  line-height: var(--rds-line-height-normal);
   margin: 0 0 var(--rds-spacing-md) 0;
   display: block;
 }
@@ -521,7 +521,7 @@
         text-transform: uppercase;
         font-weight: var(--rds-font-weight-medium, 500);
         border-radius: var(--rds-border-radius-xs);
-        line-height: 1.2;
+        line-height: var(--rds-line-height-compact);
       }
       
       .rds-card__action-icon {
@@ -531,7 +531,7 @@
         transition: background-color var(--rds-transition-base, 0.2s ease-in-out);
         
         &:hover {
-          background-color: var(--rds-color-hover, var(--rds-color-overlay-hover, rgba(0, 0, 0, 0.04)));
+          background-color: var(--rds-color-hover, var(--rds-color-overlay-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent)));
         }
       }
     }

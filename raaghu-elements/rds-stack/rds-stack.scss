@@ -25,10 +25,6 @@
   width: 100%;
 }
 
-[data-theme="dark"] .rds-stack {
-  --rds-stack-divider-color: var(--rds-stack-divider-color-dark);
-}
-
 .rds-stack__demo-item {
   padding: 0.25rem 0.5rem;
   border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm));

@@ -17,9 +17,9 @@
     color: var(--rds-color-on-primary);
   }
   .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background: var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 12%, transparent));
     color: var(--rds-color-on-primary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+    border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
     input {
       color: var(--rds-color-on-primary);
     }
@@ -42,9 +42,9 @@
     color: var(--rds-color-on-secondary);
   }
   .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background: var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 12%, transparent));
     color: var(--rds-color-on-secondary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+    border-color: var(--rds-color-border-overlay, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
     input {
       color: var(--rds-color-on-secondary);
     }

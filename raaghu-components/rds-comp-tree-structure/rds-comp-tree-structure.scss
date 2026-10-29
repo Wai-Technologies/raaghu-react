@@ -5,7 +5,7 @@
   --rds-tree-structure-dim-2: 25px;
 
   
-  --rds-surface-hover: rgba(0,0,0,0.04);
+  --rds-surface-hover: color-mix(in srgb, var(--rds-color-black) 4%, transparent);
 
   &__node-container {
     position: relative;
@@ -18,7 +18,7 @@
     padding: var(--rds-spacing-xs);
     cursor: pointer;
     border-radius: var(--rds-border-radius-sm);
-    transition: background-color var(--rds-transition-duration-short, 0.2s) ease;
+    transition: background-color var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease;
     
     &:hover,
     &:focus-visible {
@@ -50,7 +50,7 @@
     height: auto;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     cursor: pointer;
-    transition: transform var(--rds-transition-duration-short, 0.2s) ease, color 0.12s ease;
+    transition: transform var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease, color 0.12s ease;
     color: var(--rds-text-secondary);
     background: transparent;
     border: none;
@@ -133,7 +133,7 @@
     padding: var(--rds-spacing-xs);
     width: var(--rds-size-28);
     height: var(--rds-size-28);
-    transition: background-color var(--rds-transition-duration-short, 0.15s) ease, color 0.15s ease;
+    transition: background-color var(--rds-transition-duration-short, var(--rds-motion-duration-fast)) ease, color var(--rds-motion-duration-fast) ease;
     cursor: pointer;
     background: transparent;
     color: var(--rds-text-secondary);
@@ -145,7 +145,7 @@
     }
 
     &:hover {
-      background-color: var(--rds-surface-hover, rgba(0,0,0,0.04));
+      background-color: var(--rds-surface-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
       color: var(--rds-text-primary);
     }
   }

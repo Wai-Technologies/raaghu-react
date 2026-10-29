@@ -26,14 +26,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     cursor: inherit;
     pointer-events: auto;
   }
 
   .rds-tooltip__wrapper {
     display: inline-block;
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     cursor: inherit;
   }
 

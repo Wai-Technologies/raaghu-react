@@ -418,6 +418,7 @@ value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
                                 slotProps={{
                                   paper: { className: 'rds-kanban-board__autocomplete-paper' },
                                   popper: {
+                                    className: "rds-autocomplete__popper",
                                     modifiers: [
                                       { name: 'preventOverflow', options: { altBoundary: true, rootBoundary: 'viewport' } },
                                       { name: 'offset', options: { offset: [0, 10] } },

@@ -7,6 +7,7 @@ import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiGradientTextWithIconProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Text rendered with the gradient style. */
   title?: string;
   /** Icon rendered before the title. */
   icon?: ReactNode;
@@ -20,7 +21,9 @@ export interface RdsCompAiGradientTextWithIconProps
   showIcon?: boolean;
   /** Element used for the heading. Defaults to `h6`. */
   component?: ElementType;
+  /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
 }
 

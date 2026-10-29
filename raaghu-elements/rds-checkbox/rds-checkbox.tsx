@@ -13,9 +13,11 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
   style?: 'square' | 'circular' | CSSProperties;
   /** Checkbox shape. */
   variant?: 'square' | 'circular';
+  /** Checked state: checked, unchecked or indeterminate. */
   status?: 'checked' | 'unchecked' | 'indeterminate';
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
   showText?: boolean;
+  /** Inline styles applied to the checkbox root. */
   cssStyle?: CSSProperties;
   /** @deprecated Use `disabled`. */
   isDisabled?: boolean;

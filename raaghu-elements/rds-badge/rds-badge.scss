@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     white-space: nowrap;
     max-width: fit-content;
   }
@@ -188,7 +188,7 @@
     height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-md);
     padding: 0 var(--rds-spacing-xs);
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     display: grid;
     place-items: center;
 
@@ -222,7 +222,7 @@
     display: grid;
     place-items: center;
     padding: var(--rds-spacing-xxs);
-    line-height: 1;
+    line-height: var(--rds-line-height-none);
     height: var(--rds-badge-dim-2);
     min-width: var(--rds-badge-dim-2);
     vertical-align: middle;
@@ -290,7 +290,7 @@
   }
   
   &--medium .rds-badge__badge {
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
     border-radius: var(--rds-border-radius-lg);
     min-width: var(--rds-badge-dim-4);
@@ -312,7 +312,7 @@
     height: var(--rds-size-40);
   }
   &--large .MuiBadge-badge {
-    font-size: 0.875rem;
+    font-size: var(--rds-font-size-sm);
     min-width: var(--rds-size-lg);
     height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-lg);
@@ -325,9 +325,9 @@
     color: var(--rds-primary-800);
     border-radius: var(--rds-border-radius-xl);
     font-weight: var(--rds-font-weight-semibold, 600);
-    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+    box-shadow: 0 1px 4px var(--rds-badge-shadow-color);
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
     display: flex;

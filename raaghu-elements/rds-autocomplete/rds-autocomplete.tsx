@@ -14,19 +14,26 @@ import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+import clsx from 'clsx';
 import './rds-autocomplete.scss';
 
 type RdsAutocompleteMuiProps<T> = AutocompleteProps<T, boolean, false, false>;
 
 export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>, 'renderInput' | 'component' | 'size'> {
+  /** Label text of the field. */
   label?: string;
+  /** Placeholder text of the input. */
   placeholder?: string;
+  /** Hint text shown below the field. */
   helperText?: string;
+  /** Shows the field in the error state. @default false */
   error?: boolean;
   disabled?: boolean;
+  /** MUI text field variant. @default 'outlined' */
   variant?: 'standard' | 'outlined' | 'filled';
   /** Marks the field as required: shows an asterisk after the label and sets `aria-required` on the input. */
   required?: boolean;
+  /** Legacy grouped toggles for title, mandatory and hint; the matching direct props are preferred. */
   display?: {
     /** @deprecated Use `showTitle` instead. */
     title?: 'visible' | 'hidden';
@@ -39,6 +46,7 @@ export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>
   size?: 'small' | 'medium' | 'large';
   /** @deprecated Use `size`. */
   selectSize?: 'small' | 'medium' | 'large';
+  /** Style of the input control; 'bottom line' shows only a bottom border. @default 'default' */
   controlStyle?: 'default' | 'bottom line';
   /** Selects the first available option when no value/defaultValue is provided. */
   selected?: boolean;
@@ -322,6 +330,16 @@ const RdsAutocomplete = <T extends { label?: string },>({
       ? (ownerState) => mergeListbox(consumerListbox(ownerState) as ListboxSlotPropsObject)
       : mergeListbox(consumerListbox);
 
+  type PopperSlotProps = NonNullable<NonNullable<RdsAutocompleteMuiProps<T>['slotProps']>['popper']>;
+  type PopperSlotPropsObject = Exclude<PopperSlotProps, (...args: never[]) => unknown>;
+  const consumerPopper = slotProps?.popper;
+  const mergePopper = (consumer: PopperSlotPropsObject | undefined) =>
+    ({ ...consumer, className: clsx('rds-autocomplete__popper', consumer?.className) }) as PopperSlotPropsObject;
+  const popperSlotProps: PopperSlotProps =
+    typeof consumerPopper === 'function'
+      ? (ownerState) => mergePopper(consumerPopper(ownerState) as PopperSlotPropsObject)
+      : mergePopper(consumerPopper);
+
   return (
     <div
       ref={containerRef}
@@ -352,7 +370,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
       clearIcon={hideClearAll || shouldHideClearAll ? null : clearIcon}
       renderValue={renderValue ?? (allowMultipleResolved ? renderChips : undefined)}
       sx={[{ width: '100%' }, ...toSxArray(sx)]}
-      slotProps={{ ...slotProps, listbox: listboxSlotProps }}
+      slotProps={{ ...slotProps, listbox: listboxSlotProps, popper: popperSlotProps }}
       open={open}
       onOpen={(event) => {
         setUncontrolledOpen(true);

@@ -44,9 +44,12 @@ export interface RdsCompToolbarProps
   onAction?: (action: string) => void;
   /** Called when a dropdown option or emoji is chosen, with the parent button action and the chosen value. */
   onOptionSelect?: (action: string, value: string) => void;
+  /** Extra CSS class applied to the toolbar root. @default '' */
   className?: string;
   /** MUI system styles applied to the toolbar root. */
   sx?: SxProps<Theme>;
+  /** Test id applied to the toolbar root. */
   'data-testid'?: string;
+  /** Ref to the toolbar root element. */
   ref?: Ref<HTMLDivElement>;
 }

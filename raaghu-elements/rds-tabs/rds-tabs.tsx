@@ -43,6 +43,7 @@ export type RdsTabsLayout =
  * Presentation uses `layout`; selection and unavailable tabs use `value` and item-level `disabled`.
  */
 export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
+  /** Tabs to render (id, label, icons, disabled state). */
   items?: RdsTabItem[];
   /** @deprecated Use `items` instead. */
   tabs?: RdsTabItem[];
@@ -50,17 +51,23 @@ export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
   activeTab?: string | number;
   /** @deprecated Use `onChange(event, value)` instead. */
   onTabChange?: (tabId: string | number) => void;
+  /** Visual layout of the tab strip. @default 'filled' */
   layout?: RdsTabsLayout;
   /** @deprecated Use `orientation` instead. */
   type?: 'horizontal' | 'vertical';
+  /** Default start icon for tabs that do not define their own. */
   startIcon?: ReactNode;
+  /** Default end icon for tabs that do not define their own. */
   endIcon?: ReactNode;
   /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
   /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
+  /** Shows a start icon on every tab, using a default person icon when none is set. @default false */
   showLeftIcon?: boolean; 
+  /** Shows an end icon on every tab, using a default add icon when none is set. @default false */
   showRightIcon?: boolean; 
+  /** Accepted but not used by the component. */
   level?: number;
 }
 

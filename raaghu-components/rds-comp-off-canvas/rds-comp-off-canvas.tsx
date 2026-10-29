@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { type ReactNode, useId, useState } from "react";
+import { type ReactNode, type Ref, useId, useState } from "react";
 import { Drawer, Box } from "@mui/material";
 import type { DrawerProps, SxProps, Theme } from "@mui/material";
 import Close from "@mui/icons-material/Close";
@@ -14,14 +14,21 @@ export type RdsCompOffcanvasCloseReason =
   | NonNullable<Parameters<NonNullable<DrawerProps["onClose"]>>[1]>
   | "closeButton";
 
-export interface RdsCompOffcanvasProps {
+export interface RdsCompOffcanvasProps
+  extends Omit<
+    DrawerProps,
+    | "anchor" | "open" | "onClose" | "title" | "children" | "className" | "sx" | "slotProps"
+    | "hideBackdrop" | "disableEscapeKeyDown" | "id" | "onClick" | "ref" | "variant"
+  > {
   /** @deprecated Use `anchor` instead. */
   placement?: RdsOffcanvasPlacement | `${RdsOffcanvasPlacement}`;
   /** MUI anchor. Wins over `placement`. */
   anchor?: DrawerProps["anchor"];
+  /** Backdrop behavior: shown, hidden, or static (clicking it does not close and Escape is disabled). */
   backDrop?: RdsOffcanvasBackDrop | `${RdsOffcanvasBackDrop}`;
   /** Hides the backdrop. Wins over `backDrop`. */
   hideBackdrop?: boolean;
+  /** Applies the scrolling style to the drawer container and body. @default false */
   scrolling?: boolean;
   /** @deprecated Use `disableEscapeKeyDown` instead. */
   preventEscapeKey?: boolean;
@@ -29,9 +36,11 @@ export interface RdsCompOffcanvasProps {
   disableEscapeKeyDown?: boolean;
   /** @deprecated Use `id` instead. */
   offId?: string;
+  /** HTML id applied to the drawer root. */
   id?: string;
   /** @deprecated Use `title` instead. */
   canvasTitle?: string;
+  /** Title shown in the drawer header. */
   title?: string;
   /** @deprecated Use `width` instead. */
   offcanvaswidth?: number;
@@ -41,22 +50,33 @@ export interface RdsCompOffcanvasProps {
   open?: boolean;
   /** @deprecated Use `onOpen` instead. */
   onShow?: () => void;
+  /** Called when the drawer closes, with the event and close reason. */
   onClose?: (event?: unknown, reason?: RdsCompOffcanvasCloseReason) => void;
+  /** Called with true when the built-in trigger button opens the drawer. */
   onOpen?: (data: boolean) => void;
   /** Callback invoked when the canvas is opened. */
   onClick?: (data: boolean) => void;
   children?: ReactNode;
+  /** Extra class name applied to the drawer root. */
   className?: string;
   /** MUI system styles applied to the Drawer root. */
   sx?: DrawerProps["sx"];
   /** Replaces the default footer buttons. */
   actions?: ReactNode;
+  /** Called when the default SAVE button is clicked; the drawer then closes. */
   onSave?: () => void;
+  /** Called when the default RESTORE TO DEFAULT button is clicked. */
   onRestoreDefault?: () => void;
+  /** MUI Drawer slot props; the paper slot is merged with the title label and width. */
   slotProps?: DrawerProps["slotProps"];
+  /** Shows the default SAVE footer button. @default false */
   showPrimaryButton?: boolean;
+  /** Shows the default CANCEL footer button. @default false */
   showSecondaryButton?: boolean;
+  /** Shows the default RESTORE TO DEFAULT footer button. @default false */
   showTertiaryButton?: boolean;
+  /** Ref to the Drawer root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 type PaperProps = { sx?: SxProps<Theme>; [key: string]: unknown };
@@ -90,6 +110,8 @@ const RdsCompOffcanvas = ({
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
+  ref,
+  ...rest
 }: RdsCompOffcanvasProps) => {
   if (placement !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "placement", "`anchor`");
   if (onShow !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onShow", "`onOpen`");
@@ -162,6 +184,8 @@ const RdsCompOffcanvas = ({
           </div>
         )}
         <Drawer
+          {...rest}
+          ref={ref}
           anchor={(anchor ?? placement ?? RdsOffcanvasPlacement.End) as DrawerProps["anchor"]}
           open={drawerOpen}
           onClose={handleDrawerClose}

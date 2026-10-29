@@ -40,7 +40,7 @@
     color: var(--rds-color-on-surface);
     border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline);
     font-size: var(--rds-font-size-sm);
-    letter-spacing: 0.5px;
+    letter-spacing: var(--rds-letter-spacing-caps);
     white-space: nowrap;
     
     &--sortable {
@@ -217,7 +217,7 @@
     font-size: var(--rds-font-size-xs);
     font-weight: var(--rds-font-weight-medium, 500);
     text-transform: capitalize;
-    letter-spacing: 0.5px;
+    letter-spacing: var(--rds-letter-spacing-caps);
     border-radius: var(--rds-border-radius-full);
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     

@@ -14,6 +14,7 @@ import './rds-progress.scss';
 type ProgressShape = 'circular' | 'line' | 'stepper' | 'dash' | 'block';
 
 export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'color' | 'className'> {
+  /** Extra CSS class applied to the root element. */
   className?: string;
   /** @deprecated Has no effect; rendering is chosen by `shape`. */
   type?: 'linear' | 'circular';
@@ -21,17 +22,25 @@ export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   shape?: ProgressShape;
   /** @deprecated Passing a shape string is deprecated; use `shape`. Pass CSSProperties for inline styles. */
   style?: ProgressShape | CSSProperties;
+  /** Current progress, 0-100. */
   value?: number;
+  /** Buffer value, 0-100, used in buffer mode. */
   valueBuffer?: number;
   /** Completed steps; progress becomes `steps / totalSteps * 100` for every style. */
   steps?: 0 | 1 | 2 | 3 | 4 | 5;
+  /** Progress mode: determinate, indeterminate, buffer or query. */
   mode?: 'determinate' | 'indeterminate' | 'buffer' | 'query';
   /** @deprecated Use `mode` instead. */
   variant?: 'determinate' | 'indeterminate' | 'buffer' | 'query';
+  /** Palette color of the indicator. @default 'primary' */
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  /** Diameter in pixels of the circular indicator. @default 50 */
   size?: number;
+  /** Stroke thickness of the circular indicator. @default 3.6 */
   thickness?: number;
+  /** Shows the label next to or over the indicator. @default false */
   showLabel?: boolean;
+  /** Label text shown with the progress; used when `showLabel` is true. */
   label?: string;
   /** Number of steps (stepper) or segments (dash/block). Defaults to 5. */
   totalSteps?: number;
@@ -39,6 +48,7 @@ export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   stepIcon?: 'number' | 'dot';
   /** Figma variant; `circle` renders dots like `stepIcon="dot"`. */
   stepperType?: 'number' | 'circle';
+  /** MUI system styles applied to the indicator. */
   sx?: SxProps<Theme>;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
@@ -124,7 +134,7 @@ const RdsProgress = ({
       <Box {...props} ref={ref} className={clsx(baseClasses, className)} sx={sx}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ width: '100%', mr: 1 }} className="rds-progress__bar">{progressElement}</Box>
-          <Box sx={{ minWidth: 35 }}>{labelElement}</Box>
+          <Box sx={{ minWidth: 'var(--rds-spacing-35)' }}>{labelElement}</Box>
         </Box>
       </Box>
     );
@@ -159,7 +169,7 @@ const RdsProgress = ({
                 {stepNumber < totalSteps && (
                   <Box
                     className={`rds-progress__stepper-connector ${isCompleted || isCurrent ? 'rds-progress__stepper-connector--completed' : ''}`}
-                      sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
+                      sx={{ width: 'var(--rds-progress-connector-width)', height: 'var(--rds-spacing-xxs)' }}
                   />
                 )}
               </Fragment>

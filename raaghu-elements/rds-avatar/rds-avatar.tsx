@@ -22,8 +22,11 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
   description?: string;
   /** @deprecated Use `description` instead. */
   subText?: string;
+  /** Size of the avatar. @default 'medium' */
   size?: AvatarSize;
+  /** Layout: avatar with name beside it, name below it, or stacked avatars. @default 'with-name' */
   displayStyle?: 'with-name' | 'name-bottom' | 'stacking';
+  /** Avatars (src, title, subText, alt) rendered in the stacking layout. */
   avatars?: Array<{
     src?: string;
     title?: string;
@@ -38,6 +41,7 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
   max?: number;
   /** @deprecated Use `max` instead. */
   maxVisibleAvatars?: number;
+  /** Shows an activity ring around the avatar. @default false */
   activityRing?: boolean;
   /** Shows a status dot when `'online'`; `'offline'` shows none. */
   status?: 'online' | 'offline';
@@ -69,20 +73,20 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
 }
 
 const sizeStyles = {
-  smallest: { width: 24, height: 24, fontSize: '0.5625rem' },
-  small:    { width: 32, height: 32, fontSize: '0.6875rem' },
-  medium:   { width: 40, height: 40, fontSize: '0.875rem'  },
-  large:    { width: 48, height: 48, fontSize: '1.125rem'  },
-  largest:  { width: 64, height: 64, fontSize: '1.3125rem' },
+  smallest: { width: 24, height: 24, fontSize: 'var(--rds-font-size-3xs)' },
+  small:    { width: 32, height: 32, fontSize: 'var(--rds-font-size-2xs)' },
+  medium:   { width: 40, height: 40, fontSize: 'var(--rds-font-size-sm)'  },
+  large:    { width: 48, height: 48, fontSize: 'var(--rds-font-size-lg)'  },
+  largest:  { width: 64, height: 64, fontSize: 'var(--rds-avatar-font-size-largest)' },
 };
 
 /** Maps avatar size key to a rem font-size for the +N overflow badge */
 const overflowFontSize: Record<string, string> = {
-  smallest: '0.5rem',
-  small:    '0.6875rem',
-  medium:   '0.875rem',
-  large:    '1rem',
-  largest:  '1.125rem',
+  smallest: 'var(--rds-avatar-font-size-overflow-smallest)',
+  small:    'var(--rds-font-size-2xs)',
+  medium:   'var(--rds-font-size-sm)',
+  large:    'var(--rds-font-size-md)',
+  largest:  'var(--rds-font-size-lg)',
 };
 
 const overlapOffsets: Record<string, number> = {
@@ -203,7 +207,7 @@ const RdsAvatar = ({
             style={{
               marginLeft: `${overlapOffset}px`,
               zIndex: maxResolved + 1,
-              fontSize: overflowFontSize[size] ?? '0.875rem',
+              fontSize: overflowFontSize[size] ?? 'var(--rds-font-size-sm)',
             }}
           >
             +{remainingCount}

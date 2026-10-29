@@ -77,17 +77,17 @@ export const AudioEditionControls = memo(
               aria-label="Zoom"
               size="small"
               sx={{
-                width: "100px",
+                width: "var(--rds-spacing-100)",
                 color: "var(--rds-primary-main)",
                 "& .MuiSlider-thumb": {
-                  width: 16,
-                  height: 16,
+                  width: "var(--rds-size-md)",
+                  height: "var(--rds-size-md)",
                 },
                 "& .MuiSlider-track": {
-                  height: 4,
+                  height: "var(--rds-size-xs)",
                 },
                 "& .MuiSlider-rail": {
-                  height: 4,
+                  height: "var(--rds-size-xs)",
                   opacity: 0.3,
                 },
               }}

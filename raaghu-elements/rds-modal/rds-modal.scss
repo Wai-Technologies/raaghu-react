@@ -1,10 +1,10 @@
 .rds-modal {
   --rds-modal-mobile-breakpoint: 600px;
-  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) rgba(0, 0, 0, 0.3);
+  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-color-black) 30%, transparent);
   --rds-modal-image-width: 300px;
   --rds-modal-image-height: 150px;
   --rds-modal-image-width-mobile: 190px;
-  --rds-modal-animation-delay: 0.1s;
+  --rds-modal-animation-delay: var(--rds-motion-duration-instant);
   --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm));
   --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs));
   position: fixed;
@@ -33,14 +33,14 @@
     position: relative;
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-spacing-sm);
-    box-shadow: var(--rds-modal-container-shadow, 0 var(--rds-spacing-sm) var(--rds-spacing-xl) rgba(0, 0, 0, 0.3));
+    box-shadow: var(--rds-modal-container-shadow, 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-color-black) 30%, transparent));
     max-width: 90vw;
     max-height: 90vh;
     overflow: hidden;
     transform: scale(0.9);
     opacity: 0;
     animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
-    animation-delay: var(--rds-modal-animation-delay, 0.1s);
+    animation-delay: var(--rds-modal-animation-delay, var(--rds-motion-duration-instant));
  
     @media (max-width: var(--rds-modal-mobile-breakpoint)) {
       max-width: 98vw;
@@ -106,7 +106,7 @@
     border-radius: var(--rds-spacing-xs);
    
     &:hover {
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.08));
+      background-color: var(--rds-action-hover, color-mix(in srgb, var(--rds-color-black) 8%, transparent));
     }
   }
  
