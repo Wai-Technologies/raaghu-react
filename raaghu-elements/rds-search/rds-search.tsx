@@ -184,6 +184,7 @@ const RdsSearch = ({
         placeholder={placeholder}
         disabled={disabled}
         fullWidth={fullWidthProp}
+        hiddenLabel
         slotProps={{
           ...consumerSlotProps,
           input: inputSlotProps,
