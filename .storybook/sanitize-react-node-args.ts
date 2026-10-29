@@ -14,6 +14,8 @@ export const REACT_NODE_ARG_KEYS = [
   'icon',
   'startIcon',
   'endIcon',
+  'changeLeftIcon',
+  'changeRightIcon',
   'subHeader',
   'sidebar',
   'topbar',

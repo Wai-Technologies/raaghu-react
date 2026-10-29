@@ -21,11 +21,11 @@ figma.connect(
         "Disabled On": true,
         "Disabled Off": true,
       }),
-      layout:figma.enum("📱 Layout", {
-        "Switch + Label": "switch+label",
-        "Label + Switch": "label+switch",
-        "Top Label + Switch": "toplabel+switch",
-        "Bottom Label + Switch": "bottomlabel+switch",
+      labelPlacement: figma.enum("📱 Layout", {
+        "Switch + Label": "end",
+        "Label + Switch": "start",
+        "Top Label + Switch": "top",
+        "Bottom Label + Switch": "bottom",
       }),
       variant: figma.enum("✨ Style", {
         "Style 1": "style1",

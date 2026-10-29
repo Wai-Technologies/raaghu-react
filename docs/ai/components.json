@@ -3148,7 +3148,7 @@
       "kind": "element",
       "import": "import { RdsSwitch } from '@waiin/raaghu-react';",
       "source": "raaghu-elements/rds-switch/rds-switch.tsx",
-      "description": "Switch toggle with optional label, built on MUI `Switch`.\nSupports controlled (`checked`) and uncontrolled (`defaultChecked`) usage;\n`labelPlacement` takes priority over `layout`.",
+      "description": "Switch toggle with optional label, built on MUI `Switch`.\nSupports controlled (`checked`) and uncontrolled (`defaultChecked`) usage.",
       "inheritsFrom": [
         "CommonProps",
         "SwitchProps",
@@ -3166,13 +3166,8 @@
           "name": "labelPlacement",
           "type": "\"bottom\" | \"top\" | \"start\" | \"end\"",
           "required": false,
-          "description": "Position of the label relative to the switch; takes priority over `layout`."
-        },
-        {
-          "name": "layout",
-          "type": "\"switch+label\" | \"label+switch\" | \"toplabel+switch\" | \"bottomlabel+switch\"",
-          "required": false,
-          "description": "Arrangement of label and switch, mapped to a label placement."
+          "default": "'end'",
+          "description": "Position of the label relative to the switch."
         },
         {
           "name": "variant",
@@ -3182,6 +3177,10 @@
         }
       ],
       "deprecatedProps": [
+        {
+          "name": "layout",
+          "use": "Use `labelPlacement` (`end` | `start` | `top` | `bottom`)."
+        },
         {
           "name": "showLabel",
           "use": "Omit `label` instead."

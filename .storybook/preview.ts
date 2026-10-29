@@ -111,7 +111,7 @@ const preview: Preview = {
           mode,
           initializeOnMount: false,
         },
-        React.createElement(Story, { args: safeArgs }),
+        React.createElement(Story),
       );
     },
   ],

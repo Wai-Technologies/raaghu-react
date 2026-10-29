@@ -10,9 +10,9 @@ type SwitchVariant = 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
   /** Label text shown next to the switch. */
   label?: string;
-  /** Position of the label relative to the switch; takes priority over `layout`. */
+  /** Position of the label relative to the switch. @default 'end' */
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
-  /** Arrangement of label and switch, mapped to a label placement. */
+  /** @deprecated Use `labelPlacement` (`end` | `start` | `top` | `bottom`). */
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   /** @deprecated Omit `label` instead. */
   showLabel?: boolean;
@@ -36,8 +36,7 @@ const normalizeLayout = (layout?: string): RdsSwitchProps['layout'] | undefined 
 
 /**
  * Switch toggle with optional label, built on MUI `Switch`.
- * Supports controlled (`checked`) and uncontrolled (`defaultChecked`) usage;
- * `labelPlacement` takes priority over `layout`.
+ * Supports controlled (`checked`) and uncontrolled (`defaultChecked`) usage.
  */
 const RdsSwitch = ({
   label,
@@ -51,6 +50,7 @@ const RdsSwitch = ({
   ...props
 }:RdsSwitchProps) => {
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
+  if (layout !== undefined) warnDeprecatedProp('RdsSwitch', 'layout', '`labelPlacement`');
   const legacyVariant = typeof style === 'string' ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp('RdsSwitch', 'style', '`variant`');
   const styleProp = variant ?? legacyVariant ?? 'style1';
@@ -59,10 +59,8 @@ const RdsSwitch = ({
 
   const effectivePlacement: RdsSwitchProps['labelPlacement'] =
     labelPlacement
-      ? labelPlacement
-      : normalizedLayout
-        ? layoutToPlacement[normalizedLayout]
-        : 'end';
+      ?? (normalizedLayout ? layoutToPlacement[normalizedLayout] : undefined)
+      ?? 'end';
 
   const disabled = props.disabled ?? false;
 

@@ -1,3 +1,4 @@
+:is(.Default, .default, .relaxing, .top-nav, .side-nav, .double-nav, .triPane),
 .rds-appshell-appbar {
   --rds-app-shell-divider-height: var(--rds-spacing-micro);
   --rds-app-shell-header-offset-xs: var(--rds-spacing-52);
@@ -15,7 +16,9 @@
   --rds-app-shell-panel-min-height: 400px;
 
   --rds-surface-primary: var(--rds-neutral-0);
+}
 
+.rds-appshell-appbar {
   width: 100%;
   z-index: var(--rds-z-index-dropdown, 1000);
   
@@ -424,7 +427,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   }
 }
 
-.rds-story-sub-tabs {
+.rds-story-sub-tabs,
+.rds-header__sub-tabs.rds-story-sub-tabs {
   display: flex;
   gap: var(--rds-spacing-md);
 }

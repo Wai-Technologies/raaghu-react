@@ -110,45 +110,33 @@ describe('RdsSwitch', () => {
     });
   });
 
-  describe('Layout Property', () => {
-    it('should apply switch+label layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="switch+label" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply label+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="label+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply toplabel+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="toplabel+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply bottomlabel+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="bottomlabel+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should handle layout with extra spaces', () => {
+  describe('Deprecated layout prop', () => {
+    it('maps switch+label layout to end placement', () => {
       const { container } = renderWithTheme(
         <RdsSwitch label="Test Label" layout="switch+label" />
       );
-      const muiSwitch = container.querySelector('.MuiSwitch-root');
-      expect(muiSwitch).toBeInTheDocument();
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementEnd')).toBeInTheDocument();
+    });
+
+    it('maps label+switch layout to start placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="label+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementStart')).toBeInTheDocument();
+    });
+
+    it('maps toplabel+switch layout to top placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="toplabel+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementTop')).toBeInTheDocument();
+    });
+
+    it('maps bottomlabel+switch layout to bottom placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="bottomlabel+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementBottom')).toBeInTheDocument();
     });
   });
 
@@ -515,19 +503,11 @@ describe('RdsSwitch', () => {
   });
 
   describe('Edge Cases', () => {
-    it('should handle both layout and labelPlacement props', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch label="Test" layout="switch+label" labelPlacement="start" />
-      );
-      const formControlLabel = container.querySelector('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should prefer layout over labelPlacement', () => {
+    it('should prefer labelPlacement over deprecated layout', () => {
       const { container } = renderWithTheme(
         <RdsSwitch label="Test" layout="label+switch" labelPlacement="end" />
       );
-      const formControlLabel = container.querySelector('.MuiFormControlLabel-root');
+      const formControlLabel = container.querySelector('.MuiFormControlLabel-labelPlacementEnd');
       expect(formControlLabel).toBeInTheDocument();
     });
 
@@ -644,6 +624,11 @@ describe('audit fixes', () => {
   it('warns when deprecated showLabel is passed', () => {
     renderWithTheme(<RdsSwitch label="L" showLabel={false} />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'showLabel', expect.any(String));
+  });
+
+  it('warns when deprecated layout is passed', () => {
+    renderWithTheme(<RdsSwitch label="L" layout="switch+label" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'layout', '`labelPlacement`');
   });
 
   it('variant wins over a deprecated style string, which warns', () => {

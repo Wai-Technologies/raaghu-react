@@ -48,12 +48,19 @@ const config: StorybookConfig = {
     },
   },
   async viteFinal(config: InlineConfig) {
+    const reactPath = fileURLToPath(new URL('../node_modules/react', import.meta.url));
+    const reactDomPath = fileURLToPath(new URL('../node_modules/react-dom', import.meta.url));
     return {
       ...config,
       resolve: {
         ...config.resolve,
+        dedupe: [...new Set([...(config.resolve?.dedupe ?? []), 'react', 'react-dom', '@emotion/react'])],
         alias: {
           ...(typeof config.resolve?.alias === 'object' ? config.resolve.alias : {}),
+          react: reactPath,
+          'react-dom': reactDomPath,
+          'react/jsx-runtime': fileURLToPath(new URL('../node_modules/react/jsx-runtime.js', import.meta.url)),
+          'react/jsx-dev-runtime': fileURLToPath(new URL('../node_modules/react/jsx-dev-runtime.js', import.meta.url)),
           '@icons/material/UnfoldMoreHorizontalIcon': fileURLToPath(new URL('./shims/UnfoldMoreHorizontalIcon.tsx', import.meta.url)),
           '@icons/material/CheckIcon': fileURLToPath(new URL('./shims/CheckIcon.tsx', import.meta.url)),
         },
@@ -62,6 +69,9 @@ const config: StorybookConfig = {
         ...config.optimizeDeps,
         include: [
           ...(config.optimizeDeps?.include ?? []),
+          'react',
+          'react-dom',
+          'react/jsx-runtime',
           '@mui/material',
           '@mui/material/styles',
           '@mui/material/Box',

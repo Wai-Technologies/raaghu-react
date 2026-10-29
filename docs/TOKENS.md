@@ -1117,7 +1117,7 @@ Total: 1239 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-kanban-container-mobile-padding` | `0px 16px 5px` | same |
 | `--rds-kanban-dropdown-min-width` | `125px` | same |
 | `--rds-kanban-header-bg` | `var(--rds-surface-primary-light)` | `#1f5fb9` |
-| `--rds-kanban-subcard-bg` | `var(--rds-background-paper)` | `#9fbce6` |
+| `--rds-kanban-subcard-bg` | `var(--rds-surface-primary-light)` | `#9fbce6` |
 | `--rds-kanban-subcard-border` | `var(--rds-surface-neutral-light)` | `#81a7d9` |
 | `--rds-kanban-subcard-min-height` | `133.6px` | same |
 | `--rds-kanban-subcard-padding` | `15px` | same |

@@ -185,13 +185,27 @@
     border-bottom-right-radius: 0;
   }
   
+  // Full-width wrapped row: restore the left border MUI clears for last/middle buttons.
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3) {
     flex:1 1 100%;
     max-width:100%;
+    margin-left: 0;
+    border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+    border-top: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
     border-bottom-left-radius: var(--rds-border-radius-sm);
     border-bottom-right-radius: var(--rds-border-radius-sm);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+
+    &.Mui-selected {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
+    }
+
+    &.Mui-disabled {
+      border-left-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+      border-top-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+    }
   }
 
   @supports (flex-wrap: wrap) {
@@ -225,10 +239,18 @@
       border-bottom-left-radius: 0;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+      margin-left: 0;
+      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+      border-top: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
       border-bottom-left-radius: var(--rds-border-radius-sm);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+
+      &.Mui-selected {
+        border-left-color: currentColor;
+        border-top-color: currentColor;
+      }
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4) {
       border-bottom-right-radius: var(--rds-border-radius-sm);
@@ -261,46 +283,81 @@
 .rds-toggle-button__group {
   .MuiToggleButtonGroup-grouped {
     border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
-    margin-left: 0;
-    border-left-width: var(--rds-border-width-thin);
-    
-    &.Mui-disabled {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+
+    // Overlap adjacent edges so the shared border stays 1px (MUI's default join).
+    &:not(:first-of-type) {
+      margin-left: calc(-1 * var(--rds-border-width-thin));
+      border-left-color: transparent;
     }
-    
+
+    &.Mui-disabled {
+      border-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+
+      &:not(:first-of-type) {
+        border-left-color: transparent;
+      }
+    }
+
     &.Mui-selected {
       border-color: currentColor;
       z-index: calc(var(--rds-z-index-base) + 1);
+
+      &:not(:first-of-type) {
+        border-left-color: currentColor;
+      }
+    }
+
+    &.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected {
+      border-left-color: currentColor;
+    }
+  }
+
+  &.MuiToggleButtonGroup-vertical .MuiToggleButtonGroup-grouped {
+    &:not(:first-of-type) {
+      margin-left: 0;
+      margin-top: calc(-1 * var(--rds-border-width-thin));
+      border-left-color: var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+      border-top-color: transparent;
+    }
+
+    &.Mui-disabled:not(:first-of-type) {
+      border-left-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+      border-top-color: transparent;
+    }
+
+    &.Mui-selected:not(:first-of-type) {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
+    }
+
+    &.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected {
+      border-top-color: currentColor;
     }
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+    border-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
 
     &.Mui-disabled {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
+      border-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
     }
   }
-}
 
-@include bp.down(400) {
-  .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
-    
-    &:not(:first-of-type) {
-      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
+  .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+    border-left-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+    border-top-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+
+    &.Mui-selected {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
     }
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
-      
-      &:not(:first-of-type) {
-        border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
-      }
+
+    &.Mui-disabled {
+      border-left-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
+      border-top-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
     }
   }
 }
