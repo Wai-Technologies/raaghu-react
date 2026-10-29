@@ -196,18 +196,10 @@
   height: var(--rds-spacing-xl);
   min-width: var(--rds-spacing-xl);
   border-radius: var(--rds-border-radius);
-  background-color: var(--rds-primary-main, var(--rds-color-primary));
-  color: var(--rds-primary-contrast-text);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background var(--rds-transition-base);
-  border: var(--rds-border-width-thin) solid var(--rds-color-primary);
-
-  &:hover:not(.rds-counter__button--disabled) {
-    background-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
-    border-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
-  }
 
   &--compact {
     width: var(--rds-counter-button-size-compact);
@@ -243,16 +235,14 @@
   }
 
   &--disabled {
-    color: var(--rds-action-disabled);
-    border-color: var(--rds-action-disabled);
     cursor: not-allowed;
     opacity: var(--rds-counter-button-disabled-opacity);
-
-    &:hover {
-      background-color: var(--rds-action-disabled-background);
-      border-color: var(--rds-action-disabled);
-    }
   }
+}
+
+/* Size/shape helpers; fill colors come from IconButton `sx` so they beat MUI defaults */
+.rds-counter .rds-counter__button.MuiIconButton-root {
+  border-radius: var(--rds-border-radius);
 }
 
 .rds-counter__input {

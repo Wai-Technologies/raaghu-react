@@ -983,12 +983,12 @@ describe('RdsCompProductTour', () => {
       expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
     });
 
-    it('G6-058: renders no mock form inputs unless children are provided', () => {
+    it('G6-058: renders default form inputs and allows children to override them', () => {
       const { rerender } = render(<RdsCompProductTour variant="Form" title="T" />);
-      expect(screen.queryByPlaceholderText('Enter Project Name')).not.toBeInTheDocument();
-      expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Enter Project Name')).toBeInTheDocument();
       rerender(<RdsCompProductTour variant="Form" title="T"><span data-testid="custom-form" /></RdsCompProductTour>);
       expect(screen.getByTestId('custom-form')).toBeInTheDocument();
+      expect(screen.queryByPlaceholderText('Enter Project Name')).not.toBeInTheDocument();
     });
 
     it('warns for deprecated props', () => {

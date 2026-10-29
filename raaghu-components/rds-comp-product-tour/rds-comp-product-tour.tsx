@@ -18,6 +18,7 @@ import {
     renderInfoSection,
     renderCarouselNavigation,
     renderGifNavigation,
+    renderFormInputs,
     renderFormNavigation
 } from './product-tour-helpers';
 import './rds-comp-product-tour.scss';
@@ -155,7 +156,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);
     const carouselNavigationElement = renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
     const gifNavigationElement = renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
-    const formInputsElement = children ?? null;
+    const formInputsElement = children ?? renderFormInputs();
     const formNavigationElement = renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
 
     if (!isVisible) {
@@ -253,7 +254,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                     {formInputsElement}
                     <Box className="rds-comp-product-tour__file-upload-container">
                         <Box className="rds-comp-product-tour__file-upload-container-wrapper">
-                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop helperText="Maximum 2MB" required maxFiles={1} maxSize={2097152} mode="standard" onChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
+                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop helperText="Maximum 5MB" required maxFiles={1} maxSize={2097152} mode="standard" onChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
                         </Box>
                     </Box>
                     {formNavigationElement}

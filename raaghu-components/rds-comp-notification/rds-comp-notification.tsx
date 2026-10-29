@@ -2,11 +2,10 @@ import clsx from "clsx";
 import { useState } from "react";
 import type { FC, MouseEvent } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
-import { getRaaghuLogoUrlFromDark } from "../../raaghu-elements/shared/constants/raaghu-logo";
+import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-notification.scss";
 import {
@@ -67,9 +66,8 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompNotification', 'style', '`variant`');
     const style = variant ?? legacyStyle ?? NotificationStyle.Default;
 
-    const theme = useTheme();
-    const resolvedDefaultImage =
-        fallbackImage ?? defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
+    const themeLogoSrc = useRaaghuLogoSrc();
+    const resolvedDefaultImage = fallbackImage ?? defaultImage ?? themeLogoSrc;
 
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;

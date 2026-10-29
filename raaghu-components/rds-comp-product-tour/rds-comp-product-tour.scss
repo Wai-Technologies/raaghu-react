@@ -498,6 +498,8 @@
 
   &__form-header {
     margin-bottom: var(--rds-spacing-sm);
+    /* Keep subtitle clear of the absolute close button */
+    padding-right: var(--rds-spacing-2xl);
   }
 
   &__form-subtitle {
@@ -520,7 +522,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--rds-spacing-sm);
     margin-bottom: var(--rds-spacing-sm);
+    /* Reserve space so the badge does not sit under the absolute close button */
+    padding-right: var(--rds-spacing-2xl);
   }
 
   &__form-title {
@@ -881,7 +886,8 @@
   &__form-arrow-prev,
   &__form-arrow-next {
     border: var(--rds-border-width-hairline) solid var(--rds-primary-main);
-    background: var(--rds-neutral-0);
+    /* Use paper (not neutral-0) so the prev button stays theme-aware in dark mode */
+    background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);

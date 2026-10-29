@@ -134,9 +134,14 @@ export const Default: Story = {
     showTitle: true,
     required: false,
     placeholder: '00',
-    defaultValue: 0,
+    // Keep uncontrolled — do not set value/defaultValue so placeholder "00" shows (matches production).
+    value: undefined,
+    defaultValue: undefined,
   },
-  render: (args) => <CounterWithState {...args} />,
+  render: (args) => {
+    const { value: _value, defaultValue: _defaultValue, ...rest } = args;
+    return <RdsCounter {...rest} />;
+  },
   play: async ({ canvasElement }) => {
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);

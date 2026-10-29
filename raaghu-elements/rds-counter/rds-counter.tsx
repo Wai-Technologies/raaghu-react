@@ -243,12 +243,32 @@ const RdsCounter = ({
     )
   );
 
+  const buttonSx = {
+    padding: 0,
+    borderRadius: 'var(--rds-border-radius)',
+    backgroundColor: 'var(--rds-primary-main)',
+    color: 'var(--rds-primary-contrast-text)',
+    border: 'var(--rds-border-width-thin) solid var(--rds-primary-main)',
+    '&:hover': {
+      backgroundColor: 'var(--rds-primary-dark)',
+      borderColor: 'var(--rds-primary-dark)',
+    },
+    '&.Mui-disabled': {
+      backgroundColor: 'var(--rds-primary-main)',
+      color: 'var(--rds-primary-contrast-text)',
+      borderColor: 'var(--rds-primary-main)',
+      opacity: 'var(--rds-counter-button-disabled-opacity, 0.5)',
+    },
+  } as const;
+
   const decButton = (
     <IconButton
       aria-label="Decrease value"
       onClick={handleDecrement}
       disabled={isDisabled || atMin}
       size={size === 'small' ? 'small' : 'medium'}
+      disableRipple
+      sx={buttonSx}
       className={clsx(
         'rds-counter__button',
         'rds-counter__button--decrement',
@@ -266,6 +286,8 @@ const RdsCounter = ({
       onClick={handleIncrement}
       disabled={isDisabled || atMax}
       size={size === 'small' ? 'small' : 'medium'}
+      disableRipple
+      sx={buttonSx}
       className={clsx(
         'rds-counter__button',
         'rds-counter__button--increment',

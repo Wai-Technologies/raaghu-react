@@ -216,7 +216,7 @@ export const renderInfoSection = (header?: string, description?: string, titleId
     </Box>
 );
 
-/** Demo form fields for the Form variant. Not rendered by default; pass the result as children. */
+/** Default form fields for the Form variant. Override by passing `children`. */
 export const renderFormInputs = () => (
     <>
         <Box className="rds-comp-product-tour__form-input-row">
