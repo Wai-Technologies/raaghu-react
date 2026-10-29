@@ -248,7 +248,7 @@
     max-width: var(--rds-popover-list-mobile-max-width);
     min-width: var(--rds-popover-list-mobile-min-width);
     padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm));
-    font-size: 0.95rem;
+    font-size: var(--rds-popover-list-font-size);
   }
   .with-list-popover .MuiListItem-root {
     padding-top: var(--rds-spacing-xxs);

@@ -48,7 +48,7 @@ const RdsSwitch = ({
   className,
   'data-testid': dataTestId,
   ...props
-}:RdsSwitchProps) => {
+}: RdsSwitchProps & { 'data-testid'?: string }) => {
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
   if (layout !== undefined) warnDeprecatedProp('RdsSwitch', 'layout', '`labelPlacement`');
   const legacyVariant = typeof style === 'string' ? style : undefined;

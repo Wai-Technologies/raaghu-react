@@ -945,7 +945,7 @@
     .MuiPickersDay-root {
       width: var(--rds-size-xl);
       height: var(--rds-size-xl);
-      font-size: 0.8rem;
+      font-size: var(--rds-date-and-time-picker-font-size-sm);
       margin: var(--rds-spacing-hairline);
     }
 
@@ -1133,7 +1133,7 @@
 .MuiMultiSectionDigitalClock-root {
   .MuiMultiSectionDigitalClockSection-root {
     .MuiMenuItem-root {
-      font-size: 0.8rem;
+      font-size: var(--rds-date-and-time-picker-font-size-sm);
       min-height: var(--rds-size-xl);
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     }
@@ -1186,7 +1186,7 @@
   .MuiMultiSectionDigitalClock-root {
     .MuiMultiSectionDigitalClockSection-root {
       .MuiMenuItem-root {
-        font-size: 0.8rem;
+        font-size: var(--rds-date-and-time-picker-font-size-sm);
         min-height: var(--rds-date-and-time-picker-dim-3);
         padding: calc(var(--rds-spacing-xs) * 0.75)
           calc(var(--rds-spacing-sm) - 1px);

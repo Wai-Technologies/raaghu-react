@@ -134,7 +134,7 @@
   &__content-secondary {
     font-size: var(--rds-font-size-sm);
     color: var(--rds-text-secondary);
-    line-height: 1.43;
+    line-height: var(--rds-list-secondary-line-height);
     display: block;
     transition: color var(--rds-transition-base, 0.2s ease-in-out);
     white-space: nowrap;
@@ -250,7 +250,7 @@
 
   .rds-list__subheader {
     font-weight: var(--rds-font-weight-medium, 500);
-    line-height: 48px;
+    line-height: var(--rds-list-subheader-line-height);
     position: sticky;
     top: 0;
     z-index: calc(var(--rds-z-index-base) + 1);

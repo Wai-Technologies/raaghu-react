@@ -15,8 +15,8 @@
   --rds-switch-style1-track-width: 5.5rem;
   --rds-switch-style3-track-height: 1.4rem;
   --rds-switch-style4-track-height: var(--rds-spacing-sm);
-  --rds-switch-disabled-warning-bg: rgba(255,152,0,0.24);
-  --rds-switch-disabled-default-bg: rgba(158,158,158,0.24);
+  --rds-switch-disabled-warning-bg: color-mix(in srgb, var(--rds-switch-warning-base) 24%, transparent);
+  --rds-switch-disabled-default-bg: color-mix(in srgb, var(--rds-color-neutral-500) 24%, transparent);
 
   &__track {
     display: block;

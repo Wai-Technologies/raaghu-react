@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompPolarAreaChart from './rds-comp-chart-polar-area';
+import RdsCompPolarAreaChart, { type RdsCompPolarAreaChartProps } from './rds-comp-chart-polar-area';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
@@ -109,7 +109,7 @@ describe('RdsCompPolarAreaChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPolarAreaChart {...defaultProps} options={customOptions} />
+        <RdsCompPolarAreaChart {...defaultProps} options={customOptions as RdsCompPolarAreaChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -535,7 +535,7 @@ describe('RdsCompPolarAreaChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompPolarAreaChart {...defaultProps} options={null} />
+        <RdsCompPolarAreaChart {...defaultProps} options={null as unknown as RdsCompPolarAreaChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -697,7 +697,7 @@ describe('RdsCompPolarAreaChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPolarAreaChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompPolarAreaChart {...defaultProps} options={optionsWithPlugins as RdsCompPolarAreaChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

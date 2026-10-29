@@ -27,7 +27,7 @@ const meta: Meta<typeof RdsTag> = {
     removable: {
       control: 'boolean',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

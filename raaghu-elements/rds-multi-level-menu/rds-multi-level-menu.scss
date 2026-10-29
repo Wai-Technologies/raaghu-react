@@ -76,7 +76,7 @@
 
 .rds-mlm-paper .MuiMenuItem-root.large {
   font-size: var(--rds-font-size-lg);
-  line-height: 24px;
+  line-height: var(--rds-multi-level-menu-item-line-height-lg);
   min-height: var(--rds-size-2xl);
   padding: var(--rds-spacing-md) calc(var(--rds-spacing-lg) + var(--rds-spacing-xxs));
 }

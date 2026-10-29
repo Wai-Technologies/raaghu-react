@@ -11,7 +11,7 @@ figma.connect(
       showSecondary: figma.boolean("🔶 Show Secondary"),
       title: figma.string("✏️ Title"),
       showPrimary: figma.boolean("🔷 Show Primary"),
-      showDissmiss: figma.boolean("⛔️ Show Dismiss"),
+      showCloseButton: figma.boolean("⛔️ Show Dismiss"),
     },
     example: (props) => <RdsDialog 
     {...props}

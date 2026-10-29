@@ -2,7 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompMixedChart from './rds-comp-chart-mixed';
+import RdsCompMixedChart, { type RdsCompMixedChartProps } from './rds-comp-chart-mixed';
+import type { ChartDataset, ChartOptions } from 'chart.js/auto';
 
 jest.mock('./rds-comp-chart-mixed.scss', () => ({}));
 
@@ -26,7 +27,7 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-const defaultProps = {
+const defaultProps: RdsCompMixedChartProps = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
   dataSets: [
     {
@@ -93,7 +94,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('passes dataSets to chart', () => {
-      const customDatasets = [
+      const customDatasets: ChartDataset[] = [
         {
           label: 'Custom',
           type: 'bar',
@@ -141,7 +142,7 @@ describe('RdsCompMixedChart', () => {
 
   describe('Mixed Chart Types', () => {
     it('renders with bar and line datasets mixed', () => {
-      const mixedDatasets = [
+      const mixedDatasets: ChartDataset[] = [
         {
           label: 'Bar',
           type: 'bar',
@@ -162,7 +163,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('renders with multiple bar datasets', () => {
-      const multiBarDatasets = [
+      const multiBarDatasets: ChartDataset[] = [
         {
           label: 'Bar 1',
           type: 'bar',
@@ -183,7 +184,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('renders with multiple line datasets', () => {
-      const multiLineDatasets = [
+      const multiLineDatasets: ChartDataset[] = [
         {
           label: 'Line 1',
           type: 'line',
@@ -204,7 +205,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('renders with bar, line, and area datasets', () => {
-      const complexDatasets = [
+      const complexDatasets: ChartDataset[] = [
         {
           label: 'Bar',
           type: 'bar',
@@ -398,7 +399,7 @@ describe('RdsCompMixedChart', () => {
 
   describe('Color Configuration', () => {
     it('applies custom background colors to bars', () => {
-      const coloredDatasets = [
+      const coloredDatasets: ChartDataset[] = [
         {
           label: 'Colored Bar',
           type: 'bar',
@@ -413,7 +414,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('applies custom border colors to lines', () => {
-      const borderedDatasets = [
+      const borderedDatasets: ChartDataset[] = [
         {
           label: 'Colored Line',
           type: 'line',
@@ -429,7 +430,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('applies gradient colors', () => {
-      const gradientDatasets = [
+      const gradientDatasets: ChartDataset[] = [
         {
           label: 'Gradient',
           type: 'bar',
@@ -502,7 +503,7 @@ describe('RdsCompMixedChart', () => {
 
   describe('Props Variants', () => {
     it('renders with minimal props', () => {
-      const minimalProps = {
+      const minimalProps: RdsCompMixedChartProps = {
         id: 'chart-1',
         labels: ['A', 'B'],
         dataSets: [{ type: 'bar', data: [10, 20] }],
@@ -536,7 +537,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles very large data values', () => {
-      const largeData = [
+      const largeData: ChartDataset[] = [
         {
           label: 'Large',
           type: 'bar',
@@ -551,7 +552,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles negative data values', () => {
-      const negativeData = [
+      const negativeData: ChartDataset[] = [
         {
           label: 'Negative',
           type: 'bar',
@@ -566,7 +567,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles zero values in dataset', () => {
-      const zeroData = [
+      const zeroData: ChartDataset[] = [
         {
           label: 'Zero',
           type: 'bar',
@@ -581,7 +582,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles mixed positive and negative values', () => {
-      const mixedData = [
+      const mixedData: ChartDataset[] = [
         {
           label: 'Mixed',
           type: 'bar',
@@ -597,7 +598,7 @@ describe('RdsCompMixedChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompMixedChart {...defaultProps} options={null} />
+        <RdsCompMixedChart {...defaultProps} options={null as unknown as ChartOptions<'bar'>} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -735,7 +736,7 @@ describe('RdsCompMixedChart', () => {
 
   describe('Plugin Configuration', () => {
     it('processes options with plugins', () => {
-      const optionsWithPlugins = {
+      const optionsWithPlugins: ChartOptions<'bar'> = {
         responsive: true,
         plugins: {
           legend: {
@@ -821,7 +822,7 @@ describe('RdsCompMixedChart', () => {
 
   describe('Dataset Type Variants', () => {
     it('handles bar type datasets', () => {
-      const barDatasets = [
+      const barDatasets: ChartDataset[] = [
         {
           label: 'Bars',
           type: 'bar',
@@ -836,7 +837,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles line type datasets', () => {
-      const lineDatasets = [
+      const lineDatasets: ChartDataset[] = [
         {
           label: 'Lines',
           type: 'line',
@@ -852,7 +853,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles area type (line with fill) datasets', () => {
-      const areaDatasets = [
+      const areaDatasets: ChartDataset[] = [
         {
           label: 'Area',
           type: 'line',
@@ -869,7 +870,7 @@ describe('RdsCompMixedChart', () => {
     });
 
     it('handles multiple bar datasets grouped', () => {
-      const groupedBars = [
+      const groupedBars: ChartDataset[] = [
         {
           label: 'Group A',
           type: 'bar',

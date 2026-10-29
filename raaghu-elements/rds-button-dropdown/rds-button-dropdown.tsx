@@ -73,7 +73,7 @@ function resolveTriggerAppearance(
   };
 }
 
-export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'style' | 'defaultValue' | 'value' | 'color'> {
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'defaultValue' | 'value' | 'color'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   /** Options listed in the dropdown menu. */

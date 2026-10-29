@@ -31,6 +31,7 @@ describe('audit fixes', () => {
   });
 
   it('does not mutate consumer datasets and passes a resolved copy to Chart', () => {
+    document.documentElement.style.setProperty('--x', '#123456');
     const datasets = [{ data: [1, 2], backgroundColor: 'var(--x)' }];
     render(<TestChart datasets={datasets} />);
 
@@ -39,6 +40,7 @@ describe('audit fixes', () => {
     expect(config.data.datasets[0]).not.toBe(datasets[0]);
     expect(config.data.datasets[0].backgroundColor).toBe('#123456');
     expect(config.data.datasets[0].data).toEqual([1, 2]);
+    document.documentElement.style.removeProperty('--x');
   });
 
   it('destroys the chart on unmount', () => {

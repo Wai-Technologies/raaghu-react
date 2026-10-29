@@ -132,7 +132,7 @@ const RdsTextArea = ({
   localeText,
   'data-testid': dataTestIdAttr,
   ...rest
-}: RdsTextAreaProps): ReactNode => {
+}: RdsTextAreaProps & { 'data-testid'?: string }): ReactNode => {
   if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
   if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
   const resolvedTestId = dataTestIdAttr ?? dataTestId;

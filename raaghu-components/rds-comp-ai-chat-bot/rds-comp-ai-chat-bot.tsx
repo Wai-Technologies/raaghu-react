@@ -9,7 +9,7 @@ import "./rds-comp-ai-chat-bot.scss";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
-export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "title"> {
+export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
   /** Avatar of the assistant, also shown in the header. */
   assistantAvatar?: string;
   /** @deprecated Use `assistantAvatar` instead. */

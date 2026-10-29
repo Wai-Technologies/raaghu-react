@@ -312,6 +312,11 @@
           "description": "Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. Other strings pass through."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -421,6 +426,11 @@
           "description": "Inline styles applied to the checkbox root."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "label",
           "type": "string",
           "required": false,
@@ -473,6 +483,11 @@
         "FilledTextFieldProps"
       ],
       "props": [
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
         {
           "name": "endIcon",
           "type": "ReactNode",
@@ -586,6 +601,11 @@
       ],
       "props": [
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "helperText",
           "type": "string",
           "required": false,
@@ -660,6 +680,11 @@
           "type": "ReactNode",
           "required": false,
           "description": "Custom leading icon."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "defaultExpanded",
@@ -938,7 +963,8 @@
           "name": "profileMenuItems",
           "type": "ProfileMenuItem[]",
           "required": false,
-          "description": "Items of the profile menu shown when `userName` and `userEmail` are set. Pass explicitly; there is no demo default."
+          "default": "My Profile and Logout",
+          "description": "Items of the profile menu shown when `userName` and `userEmail` are set."
         },
         {
           "name": "searchPlaceholder",
@@ -1053,6 +1079,11 @@
           "required": false,
           "default": "default",
           "description": "Style of the input control; 'bottom line' shows only a bottom border."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "disabled",
@@ -1345,6 +1376,11 @@
       ],
       "props": [
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "items",
           "type": "RdsBottomNavigationItem[]",
           "required": true,
@@ -1529,7 +1565,7 @@
           "name": "showDissmiss",
           "type": "boolean",
           "required": false,
-          "description": "Shows the close button; superseded by `showCloseButton`."
+          "description": "Figma alias of `showCloseButton` (Figma \"Show Dismiss\"); kept without a warning. Prefer `showCloseButton`."
         },
         {
           "name": "showPrimary",
@@ -1589,6 +1625,11 @@
           "type": "(string & {}) | DividerColor",
           "required": false,
           "description": "Colour style. Defaults to `'subtle'`."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "icon",
@@ -1676,12 +1717,6 @@
           "description": "Header image URL."
         },
         {
-          "name": "isOpen",
-          "type": "boolean",
-          "required": false,
-          "description": "Legacy open flag, used when `visibility` is not set."
-        },
-        {
           "name": "onClose",
           "type": "((event: {}, reason: \"backdropClick\" | \"escapeKeyDown\") => void) | undefined",
           "required": true,
@@ -1692,13 +1727,6 @@
           "type": "boolean",
           "required": false,
           "description": "Direct open state; when passed it takes precedence over `visibility` and `isOpen`. Defaults to closed."
-        },
-        {
-          "name": "showCloseButton",
-          "type": "boolean",
-          "required": false,
-          "default": "true",
-          "description": "Legacy flag to show the close button."
         },
         {
           "name": "showDescription",
@@ -1731,8 +1759,16 @@
           "use": "Use `hideCloseButton` instead."
         },
         {
+          "name": "isOpen",
+          "use": "Use `open` instead."
+        },
+        {
           "name": "media",
           "use": "Control icon/image with `icon`, `showIcon` and `imageSrc` instead."
+        },
+        {
+          "name": "showCloseButton",
+          "use": "Use `hideCloseButton` instead."
         },
         {
           "name": "visibility",
@@ -2134,6 +2170,11 @@
           "description": "Page content, rendered inside the inner `Container`."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "header",
           "type": "{ title?: string; showMenuButton?: boolean; onMenuClick?: (() => void) | undefined; actions?: ReactNode; } | undefined",
           "required": false,
@@ -2299,6 +2340,11 @@
           "type": "number",
           "required": false,
           "description": "Total number of records (G2-117). Prefer this over `totalPages`.\nFor an explicit page count without a record total, use `pageCount`."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "labelDisplayedRows",
@@ -2590,6 +2636,11 @@
       ],
       "props": [
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "disabled",
           "type": "boolean",
           "required": false,
@@ -2661,6 +2712,11 @@
           "type": "RatingColor",
           "required": false,
           "description": "Color of the rating. `'danger'` is deprecated; use `'error'`."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "label",
@@ -2881,6 +2937,11 @@
           "description": "Animation type; `false` disables it. Defaults to 'pulse'."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "frames",
           "type": "number",
           "required": false,
@@ -2921,6 +2982,11 @@
           "type": "\"one way\" | \"two way\"",
           "required": false,
           "description": "`'two way'` renders a range slider with two thumbs."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "endLabel",
@@ -3155,6 +3221,11 @@
       ],
       "props": [
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "label",
           "type": "string",
           "required": false,
@@ -3205,6 +3276,11 @@
           "type": "RdsTableColumn[]",
           "required": true,
           "description": "Column definitions (id, label, alignment, sortable, cell type)."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
         },
         {
           "name": "defaultSortBy",
@@ -3499,6 +3575,11 @@
           "description": "Applied to the tooltip popper (not to the child)."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "placement",
           "type": "Placement",
           "required": false,
@@ -3762,6 +3843,11 @@
       ],
       "props": [
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "defaultExpanded",
           "type": "boolean",
           "required": false,
@@ -3895,6 +3981,11 @@
         "CommonProps"
       ],
       "props": [
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
         {
           "name": "formatValue",
           "type": "((value: number) => string)",
@@ -4075,6 +4166,11 @@
         "FilledTextFieldProps"
       ],
       "props": [
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
         {
           "name": "debounce",
           "type": "number",
@@ -4997,6 +5093,11 @@
           "description": "Extra CSS class applied to the textarea element."
         },
         {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "defaultValue",
           "type": "string",
           "required": false,
@@ -5168,6 +5269,12 @@
       "source": "raaghu-components/rds-comp-spinner/rds-comp-spinner.tsx",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the root element."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false,
@@ -5178,6 +5285,12 @@
           "type": "string",
           "required": false,
           "description": "Colour name applied as `text-{color}`."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the root element."
         },
         {
           "name": "label",
@@ -5221,6 +5334,12 @@
           "type": "number | SpinnerSize | SpinnerSizeLegacy",
           "required": false,
           "description": "Token size, legacy PascalCase size, or a pixel number (G6-102)."
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "description": "Inline styles applied to the root element."
         },
         {
           "name": "sx",
@@ -5556,6 +5675,12 @@
           "description": "Screen anchor. Wins over `position`."
         },
         {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the toast container element."
+        },
+        {
           "name": "autoHideDuration",
           "type": "number | null",
           "required": false,
@@ -5590,6 +5715,12 @@
           "type": "ToastLeadingIcon",
           "required": false,
           "description": "Leading icon variant."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the toast container element."
         },
         {
           "name": "layout",
@@ -5674,6 +5805,12 @@
           "type": "boolean",
           "required": false,
           "description": "Shows the message body; ignored when `chrome.subText` is set."
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "description": "Inline styles applied to the toast container element."
         },
         {
           "name": "sx",
@@ -6089,6 +6226,12 @@
           "description": "Filters (with their values and selected values) listed in the popover."
         },
         {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref to the root element."
+        },
+        {
           "name": "shape",
           "type": "\"pill\" | \"rectangle\"",
           "required": false,
@@ -6182,6 +6325,12 @@
           "type": "Ref<HTMLDivElement>",
           "required": false,
           "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "System styles applied to the root element."
         },
         {
           "name": "width",
@@ -7218,6 +7367,12 @@
           "description": "Items of the export menu (defaults to the built-in sample items)."
         },
         {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the variant's root element."
+        },
+        {
           "name": "moreItems",
           "type": "RdsCompAiFabMenuItem[]",
           "required": false,
@@ -7283,6 +7438,12 @@
           "type": "string",
           "required": true,
           "description": "URL of the audio file to play."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "System styles applied to the variant's root element."
         },
         {
           "name": "type",
@@ -7859,6 +8020,12 @@
       "source": "raaghu-components/rds-comp-time-picker/rds-comp-time-picker.tsx",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the root element."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false,
@@ -7881,6 +8048,12 @@
           "type": "boolean",
           "required": false,
           "description": "Disables the picker."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the root element."
         },
         {
           "name": "localeText",
@@ -8609,6 +8782,12 @@
       "source": "raaghu-components/rds-comp-emoji-generator/rds-comp-emoji-generator.tsx",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the root element."
+        },
+        {
           "name": "category",
           "type": "EmojiCategory",
           "required": false,
@@ -8626,6 +8805,12 @@
           "required": false,
           "default": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/",
           "description": "Base URL (folder, with 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the root element."
         },
         {
           "name": "localeText",
@@ -8690,6 +8875,12 @@
           "type": "boolean",
           "required": false,
           "description": "Keeps the skin tone picker open inline."
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "description": "Inline styles applied to the root element."
         },
         {
           "name": "sx",

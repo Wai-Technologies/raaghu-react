@@ -765,7 +765,7 @@ describe('RdsAvatar audit fixes', () => {
         description="Engineer"
         displayStyle="with-name"
         slotProps={{
-          wrap: { className: 'slot-wrap', 'data-testid': 'avatar-wrap' },
+          wrap: { className: 'slot-wrap', 'data-testid': 'avatar-wrap' } as React.HTMLAttributes<HTMLSpanElement>,
           info: { className: 'slot-info' },
           designation: { className: 'slot-designation' },
         }}

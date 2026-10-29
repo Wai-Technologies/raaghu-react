@@ -43,5 +43,9 @@ export interface RdsTimePickerProps {
   sx?: SxProps<Theme>;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** Id of the root element. */
+  id?: string;
+  /** Accessible label of the root element. */
+  'aria-label'?: string;
   [key: `data-${string}`]: string | number | undefined;
 }

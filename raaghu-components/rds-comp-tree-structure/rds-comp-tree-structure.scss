@@ -50,7 +50,7 @@
     height: auto;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     cursor: pointer;
-    transition: transform var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease, color 0.12s ease;
+    transition: transform var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease, color var(--rds-tree-structure-color-duration) ease;
     color: var(--rds-text-secondary);
     background: transparent;
     border: none;

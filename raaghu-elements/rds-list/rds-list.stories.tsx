@@ -108,7 +108,7 @@ const meta: Meta<typeof RdsList> = {
       control: { disable: true },
       table: { disable: true },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -124,11 +124,11 @@ const meta: Meta<typeof RdsList> = {
       control: { disable: true },
       table: { disable: true },
     },
-    slotProps: {
+    ['slotProps' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
-    slots: {
+    ['slots' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

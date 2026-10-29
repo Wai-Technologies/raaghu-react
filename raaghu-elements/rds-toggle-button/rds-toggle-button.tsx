@@ -58,7 +58,7 @@ const RdsToggleButton = ({
   sx,
   'data-testid': dataTestId,
   ...otherProps
-}: RdsToggleButtonProps) => {
+}: RdsToggleButtonProps & { 'data-testid'?: string }) => {
   if (enforceSelected !== undefined) warnDeprecatedProp('RdsToggleButton', 'enforceSelected', '`required`');
   if (iconTextSpacing !== undefined) warnDeprecatedProp('RdsToggleButton', 'iconTextSpacing', 'the `--rds-spacing-xs` theme token');
   const mustSelect = required ?? enforceSelected ?? false;
@@ -145,19 +145,19 @@ const RdsToggleButton = ({
             backgroundColor: 'transparent',
             '& .MuiToggleButtonGroup-grouped': {
               borderRadius: 'var(--rds-border-radius-sm)',
-              border: '1px solid',
+              border: 'var(--rds-border-width-thin) solid',
               borderColor: 'divider',
               margin: 0,
               '&:not(:first-of-type)': {
                 marginLeft: 0,
                 marginTop: 0,
-                borderLeft: '1px solid',
-                borderTop: '1px solid',
+                borderLeft: 'var(--rds-border-width-thin) solid',
+                borderTop: 'var(--rds-border-width-thin) solid',
                 borderColor: 'divider',
               },
               '&.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected': {
-                borderLeft: '1px solid',
-                borderTop: '1px solid',
+                borderLeft: 'var(--rds-border-width-thin) solid',
+                borderTop: 'var(--rds-border-width-thin) solid',
                 borderColor: 'divider',
               },
             },

@@ -58,7 +58,7 @@
       padding: var(--rds-spacing-sm) var(--rds-dialog-title-padding-right) var(--rds-spacing-xs) var(--rds-dialog-title-padding-left);
       font-size: var(--rds-font-size-xl);
       font-weight: var(--rds-font-weight-medium, 500);
-      line-height: 20px;
+      line-height: var(--rds-dialog-line-height-md);
       color: var(--rds-text-primary);
     }
 
@@ -88,7 +88,7 @@
       max-width: var(--rds-dialog-dim-1);
       margin: 0 auto;
       font-size: var(--rds-font-size-md);
-      line-height: 1.45;
+      line-height: var(--rds-dialog-content-line-height);
       color: var(--rds-text-secondary);
     }
 
@@ -118,7 +118,7 @@
       font-family: var(--rds-font-family-base);
       font-weight: var(--rds-font-weight-regular, 400);
       font-size: var(--rds-font-size-xs);
-      line-height: 16px;
+      line-height: var(--rds-dialog-line-height-sm);
       text-align: center;
       vertical-align: middle;
       text-transform: none;

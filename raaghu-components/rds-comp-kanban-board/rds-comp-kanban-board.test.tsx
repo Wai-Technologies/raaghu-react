@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
-import { boardInfo, RdsCompKanbanBoardProps, colorClass } from './kanban-board-helpers';
+import { boardInfo, RdsCompKanbanBoardProps, colorClass, type KanbanSubCard } from './kanban-board-helpers';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
@@ -120,7 +120,7 @@ const mockBoardData: boardInfo[] = [
         assignedToName: 'John Doe',
         assignedTo: 'john.doe',
         actions: [{ key: 'Edit', value: 'edit' }],
-      },
+      } as KanbanSubCard,
       {
         ticketId: 'TKT002',
         ticketPriority: 'Low',
@@ -529,7 +529,7 @@ describe('RdsCompKanbanBoard', () => {
             ticketDate: '15 Feb 2024',
             SubcardId: i * 10 + 1,
             actions: [],
-          },
+          } as unknown as KanbanSubCard,
         ],
       }));
       renderComponent({ boardData: manyBoards });

@@ -26,7 +26,7 @@ const RdsSkeleton = ({
   width,
   'data-testid': dataTestId,
   ...props
-}: RdsSkeletonProps) => {
+}: RdsSkeletonProps & { 'data-testid'?: string }) => {
   if (shape !== undefined) warnDeprecatedProp('RdsSkeleton', 'shape', '`variant`');
   const resolvedVariant = variant ?? shape ?? 'text';
   const isText = resolvedVariant === 'text';

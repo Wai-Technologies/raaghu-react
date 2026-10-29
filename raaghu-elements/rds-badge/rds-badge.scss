@@ -46,7 +46,7 @@
     font-weight: var(--rds-font-weight-regular, 400);
     font-style: normal;
    font-size: var(--rds-font-size-sm);
-    line-height: 20px;
+    line-height: var(--rds-badge-line-height);
     letter-spacing: 0;
     text-align: center;
     vertical-align: middle;
@@ -180,10 +180,10 @@
     border-radius: var(--rds-border-radius-md);
     min-width: var(--rds-size-40);
     height: var(--rds-size-lg);
-    line-height: 20px;
+    line-height: var(--rds-badge-line-height);
   }
   &--small .MuiBadge-badge {
-    font-size: 0.625rem;
+    font-size: var(--rds-badge-small-font-size);
     min-width: var(--rds-size-md);
     height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-md);

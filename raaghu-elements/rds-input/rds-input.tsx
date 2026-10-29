@@ -98,7 +98,7 @@ const RdsInput = ({
   slotProps: consumerSlotProps,
   'data-testid': dataTestId,
   ...props
-}: RdsInputProps) => {
+}: RdsInputProps & { 'data-testid'?: string }) => {
   if (hintText !== undefined) warnDeprecatedProp('RdsInput', 'hintText', '`helperText`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsInput', 'isMandatory', '`required`');
   if (errorMessage !== undefined) warnDeprecatedProp('RdsInput', 'errorMessage', '`error` with `helperText`');

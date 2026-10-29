@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -138,6 +138,12 @@ export interface RdsCompEmojiGeneratorProps {
     className?: string;
     /** Ref forwarded to the root element. */
     ref?: Ref<HTMLDivElement>;
+    /** Id of the root element. */
+    id?: string;
+    /** Accessible label of the root element. */
+    'aria-label'?: string;
+    /** Inline styles applied to the root element. */
+    style?: CSSProperties;
 }
 
 /** @deprecated Use `RdsCompEmojiGeneratorProps` instead. */

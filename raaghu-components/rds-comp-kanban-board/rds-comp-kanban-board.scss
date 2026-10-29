@@ -453,7 +453,7 @@
   }
 
   .small {
-    font-size: 0.65rem;
+    font-size: var(--rds-kanban-board-small-font-size);
   }
 }
 

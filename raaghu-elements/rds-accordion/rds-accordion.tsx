@@ -80,7 +80,7 @@ const RdsAccordion = ({
   onChange,
   'data-testid': dataTestId,
   ...props
-}: RdsAccordionProps) => {
+}: RdsAccordionProps & { 'data-testid'?: string }) => {
   if (icon !== undefined) {
     warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
   }

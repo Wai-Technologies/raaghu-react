@@ -5,7 +5,7 @@ import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
-export interface RdsCompTruncateTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
+export interface RdsCompTruncateTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** @deprecated Use `children` instead. */
   text?: string;
   /** Text to display (preferred over `text`). */

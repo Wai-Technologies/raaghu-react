@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompBarChart from './rds-comp-chart-bar';
+import RdsCompBarChart, { type RdsCompBarChartProps } from './rds-comp-chart-bar';
 import { applyCanvasSize } from '../chart-utils';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
@@ -343,7 +343,7 @@ describe('RdsCompBarChart', () => {
     it('renders with numeric labels', () => {
       const numLabels = [1, 2, 3, 4, 5];
       const { container } = render(
-        <RdsCompBarChart {...defaultProps} labels={numLabels} />
+        <RdsCompBarChart {...defaultProps} labels={numLabels as unknown as string[]} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -399,7 +399,7 @@ describe('RdsCompBarChart', () => {
       const options = {
         scales: {
           x: {
-            type: 'category',
+            type: 'category' as const,
             title: { display: true, text: 'X Axis' },
           },
         },
@@ -429,7 +429,7 @@ describe('RdsCompBarChart', () => {
       const options = {
         scales: {
           x: {
-            type: 'category',
+            type: 'category' as const,
             title: { display: true, text: 'Categories' },
           },
           y: {
@@ -549,7 +549,7 @@ describe('RdsCompBarChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBarChart {...defaultProps} options={null} />
+        <RdsCompBarChart {...defaultProps} options={null as unknown as RdsCompBarChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -610,7 +610,7 @@ describe('RdsCompBarChart', () => {
       const dataSets = [
         {
           label: 'String Values',
-          data: ['10', '20', '30'],
+          data: ['10', '20', '30'] as unknown as number[],
         },
       ];
       const { container } = render(

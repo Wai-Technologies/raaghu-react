@@ -895,3 +895,11 @@ describe('RdsCompFilterButton', () => {
     });
   });
 });
+
+describe('RdsCompFilterButton ref', () => {
+  it('forwards ref to the root element', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsCompFilterButton ref={ref} />);
+    expect(ref.current).toBe(container.firstChild);
+  });
+});

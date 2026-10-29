@@ -266,7 +266,7 @@ const RdsSidebar = ({
         marginTop: 0,
         marginLeft: 0,
         boxShadow: 'none',
-        borderRight: '1px solid var(--rds-border-default)',
+        borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
       }),
       ...(shouldShowIconsOnly && {
         alignItems: 'center',

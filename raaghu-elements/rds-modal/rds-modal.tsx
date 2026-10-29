@@ -21,7 +21,7 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   visibility?: 'open' | 'closed';
   /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. Defaults to closed. */
   open?: boolean;
-  /** Legacy open flag, used when `visibility` is not set. */
+  /** @deprecated Use `open` instead. */
   isOpen?: boolean;
   /** Called with MUI's `(event, reason)` on backdrop/escape close; the close button passes the click event. */
   onClose: DialogProps['onClose'];
@@ -31,7 +31,7 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   hideCloseButton?: boolean;
   /** @deprecated Use `hideCloseButton` instead. */
   headerChrome?: 'closeable' | 'plain';
-  /** Legacy flag to show the close button. @default true */
+  /** @deprecated Use `hideCloseButton` instead. @default true */
   showCloseButton?: boolean;
   /** Icon shown in the header. */
   icon?: ReactNode;
@@ -75,6 +75,8 @@ const RdsModal= ({
   if (headerChrome !== undefined) warnDeprecatedProp('RdsModal', 'headerChrome', '`hideCloseButton`');
   if (media !== undefined) warnDeprecatedProp('RdsModal', 'media', '`icon`, `showIcon` and `imageSrc`');
   if (body !== undefined) warnDeprecatedProp('RdsModal', 'body', '`showDescription`');
+  if (legacyIsOpen !== undefined) warnDeprecatedProp('RdsModal', 'isOpen', '`open`');
+  if (legacyShowCloseButton !== undefined) warnDeprecatedProp('RdsModal', 'showCloseButton', '`hideCloseButton`');
   const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? false);
   const resolvedShowCloseButton = hideCloseButton !== undefined ? !hideCloseButton : headerChrome ? headerChrome === 'closeable' : (legacyShowCloseButton ?? true);
   const resolvedShowDescription = body === 'visible' ? true : body === 'hidden' ? false : (legacyShowDescription ?? true);

@@ -34,7 +34,7 @@ const RdsBottomNavigation = ({
   onChange,
   'data-testid': dataTestId,
   ...props
-}: RdsBottomNavigationProps) => {
+}: RdsBottomNavigationProps & { 'data-testid'?: string }) => {
   if (activeValue !== undefined) warnDeprecatedProp('RdsBottomNavigation', 'activeValue', '`value`');
   if (onItemChange !== undefined) warnDeprecatedProp('RdsBottomNavigation', 'onItemChange', '`onChange`');
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
 const createActionLogger = (actionName: string) => {
@@ -405,7 +406,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
             side: '',
             drink: ''
         });
-        const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const handleChange = (e: SelectChangeEvent<string>) => {
             setOrder({ ...order, [e.target.name]: e.target.value });
         };
         const handlePlaceOrder = () => {

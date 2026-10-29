@@ -70,7 +70,7 @@ const KPI_CARDS = [
     subtitle: 'vs last month',
     accent: COLOR.primary,
     iconBg: tint(COLOR.primary, 12),
-    icon: <PeopleIcon sx={{ fontSize: 22, color: COLOR.primary }} />,
+    icon: <PeopleIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.primary }} />,
     progress: 72,
   },
   {
@@ -81,7 +81,7 @@ const KPI_CARDS = [
     subtitle: 'vs last month',
     accent: COLOR.success,
     iconBg: tint(COLOR.success, 12),
-    icon: <MoneyIcon sx={{ fontSize: 22, color: COLOR.success }} />,
+    icon: <MoneyIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.success }} />,
     progress: 58,
   },
   {
@@ -92,7 +92,7 @@ const KPI_CARDS = [
     subtitle: 'new this week',
     accent: COLOR.secondary,
     iconBg: tint(COLOR.secondary, 12),
-    icon: <WorkIcon sx={{ fontSize: 22, color: COLOR.secondary }} />,
+    icon: <WorkIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.secondary }} />,
     progress: 81,
   },
   {
@@ -103,7 +103,7 @@ const KPI_CARDS = [
     subtitle: 'resolved today',
     accent: COLOR.warning,
     iconBg: tint(COLOR.warning, 12),
-    icon: <TicketIcon sx={{ fontSize: 22, color: COLOR.warning }} />,
+    icon: <TicketIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.warning }} />,
     progress: 35,
   },
 ];
@@ -124,10 +124,10 @@ const TAG_COLORS: Record<string, { bg: string; color: string }> = {
 };
 
 const QUICK_STATS = [
-  { label: 'Uptime',          value: '99.9%', icon: <CheckIcon sx={{ fontSize: 18, color: COLOR.success }} />, color: COLOR.success, iconBg: tint(COLOR.success, 10) },
-  { label: 'Avg. Response',   value: '142ms', icon: <FlashIcon sx={{ fontSize: 18, color: COLOR.primary }} />, color: COLOR.primary, iconBg: tint(COLOR.primary, 10) },
-  { label: 'Critical Issues', value: '2',     icon: <ErrorIcon sx={{ fontSize: 18, color: COLOR.error }} />,   color: COLOR.error,   iconBg: tint(COLOR.error, 10) },
-  { label: 'Pending Reviews', value: '18',    icon: <ClockIcon sx={{ fontSize: 18, color: COLOR.warning }} />, color: COLOR.warning, iconBg: tint(COLOR.warning, 10) },
+  { label: 'Uptime',          value: '99.9%', icon: <CheckIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.success }} />, color: COLOR.success, iconBg: tint(COLOR.success, 10) },
+  { label: 'Avg. Response',   value: '142ms', icon: <FlashIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.primary }} />, color: COLOR.primary, iconBg: tint(COLOR.primary, 10) },
+  { label: 'Critical Issues', value: '2',     icon: <ErrorIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.error }} />,   color: COLOR.error,   iconBg: tint(COLOR.error, 10) },
+  { label: 'Pending Reviews', value: '18',    icon: <ClockIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.warning }} />, color: COLOR.warning, iconBg: tint(COLOR.warning, 10) },
 ];
 
 const NAV_ITEMS = [
@@ -166,9 +166,9 @@ export default function DashboardPage() {
   }, [setMode]);
 
   const themeIcon = useMemo(() => (
-    mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 20 }} /> :
-    isDark ? <SunIcon sx={{ fontSize: 20 }} /> :
-    <MoonIcon sx={{ fontSize: 20 }} />
+    mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 'var(--rds-size-20)' }} /> :
+    isDark ? <SunIcon sx={{ fontSize: 'var(--rds-size-20)' }} /> :
+    <MoonIcon sx={{ fontSize: 'var(--rds-size-20)' }} />
   ), [mode, isDark]);
 
   const logoSrc = useRaaghuLogoSrc();
@@ -179,7 +179,7 @@ export default function DashboardPage() {
         color="default"
         title=""
         showLogo
-        logo={<img src={logoSrc} alt="Raaghu Design System" style={{ height: 28, objectFit: 'contain' }} />}
+        logo={<img src={logoSrc} alt="Raaghu Design System" style={{ height: 'var(--rds-size-28)', objectFit: 'contain' }} />}
         showMenuButton={isMobile}
         showSearch
         searchPlaceholder="Search…"
@@ -197,8 +197,8 @@ export default function DashboardPage() {
                   '&:hover': { bgcolor: 'action.selected' },
                 }}
               >
-                <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 10, minWidth: 16, height: 16 } }}>
-                  <BellIcon sx={{ fontSize: 20 }} />
+                <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 'var(--rds-dashboard-badge-font-size)', minWidth: 'var(--rds-size-md)', height: 'var(--rds-size-md)' } }}>
+                  <BellIcon sx={{ fontSize: 'var(--rds-size-20)' }} />
                 </Badge>
               </IconButton>
               <IconButton
@@ -220,20 +220,20 @@ export default function DashboardPage() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }}>
                 <Avatar
                   sx={{
-                    width: 34,
-                    height: 34,
+                    width: 'var(--rds-spacing-34)',
+                    height: 'var(--rds-spacing-34)',
                     background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
                     color: COLOR.white,
-                    fontSize: 13,
+                    fontSize: 'var(--rds-dashboard-label-font-size)',
                     fontWeight: 700,
-                    boxShadow: `0 2px 8px ${tint(COLOR.primary, 40)}`,
+                    boxShadow: `0 var(--rds-spacing-xxs) var(--rds-spacing-sm-px) ${tint(COLOR.primary, 40)}`,
                   }}
                 >
                   JD
                 </Avatar>
                 <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                  <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 13 }}>John Doe</Typography>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 11 }}>Admin</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 'var(--rds-dashboard-label-font-size)' }}>John Doe</Typography>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 'var(--rds-dashboard-caption-font-size)' }}>Admin</Typography>
                 </Box>
               </Box>
             </Box>
@@ -274,16 +274,16 @@ export default function DashboardPage() {
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box
         sx={{
-          height: 64,
+          height: 'var(--rds-size-3xl)',
           px: 2.5,
           display: 'flex',
           alignItems: 'center',
           flexShrink: 0,
           bgcolor: 'background.paper',
-          borderBottom: '1px solid var(--rds-divider)',
+          borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)',
         }}
       >
-        <img src={logoSrc} alt="Raaghu Design System" style={{ height: 26, objectFit: 'contain' }} />
+        <img src={logoSrc} alt="Raaghu Design System" style={{ height: 'var(--rds-dashboard-sidebar-logo-height)', objectFit: 'contain' }} />
       </Box>
       <RdsSidebar
         user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
@@ -313,7 +313,7 @@ export default function DashboardPage() {
 
       <Box sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.3px' }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: 'var(--rds-dashboard-title-letter-spacing)' }}>
             Overview
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
@@ -321,16 +321,16 @@ export default function DashboardPage() {
           </Typography>
         </Box>
         <Chip
-          icon={<CheckIcon sx={{ fontSize: '14px !important', color: `${COLOR.success} !important` }} />}
+          icon={<CheckIcon sx={{ fontSize: 'var(--rds-size-14) !important', color: `${COLOR.success} !important` }} />}
           label="All systems operational"
           size="small"
           sx={{
             bgcolor: tint(COLOR.success, 10),
             color: COLOR.success,
             fontWeight: 600,
-            fontSize: 12,
-            border: `1px solid ${tint(COLOR.success, 20)}`,
-            height: 28,
+            fontSize: 'var(--rds-dashboard-chip-font-size)',
+            border: `var(--rds-border-width-thin) solid ${tint(COLOR.success, 20)}`,
+            height: 'var(--rds-size-28)',
           }}
         />
       </Box>
@@ -349,13 +349,13 @@ export default function DashboardPage() {
             sx={{
               p: 2.5,
               bgcolor: 'background.paper',
-              border: '1px solid var(--rds-divider)',
+              border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               boxShadow: 'var(--rds-elevation-1)',
-              transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+              transition: 'transform var(--rds-motion-duration-fast) ease, box-shadow var(--rds-motion-duration-fast) ease',
               cursor: 'default',
               '&:hover': {
-                transform: 'translateY(-2px)',
+                transform: 'translateY(var(--rds-spacing-neg-2))',
                 boxShadow: 'var(--rds-elevation-2)',
               },
             }}
@@ -366,8 +366,8 @@ export default function DashboardPage() {
               </Typography>
               <Box
                 sx={{
-                  width: 38,
-                  height: 38,
+                  width: 'var(--rds-dashboard-icon-box-size)',
+                  height: 'var(--rds-dashboard-icon-box-size)',
                   borderRadius: 2,
                   bgcolor: kpi.iconBg,
                   display: 'flex',
@@ -380,14 +380,14 @@ export default function DashboardPage() {
               </Box>
             </Box>
 
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: '-0.5px', lineHeight: 1 }}>
+            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: 'var(--rds-dashboard-value-letter-spacing)', lineHeight: 1 }}>
               {kpi.value}
             </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
               {kpi.trendUp
-                ? <TrendingUp sx={{ fontSize: 15, color: COLOR.success }} />
-                : <TrendingDown sx={{ fontSize: 15, color: COLOR.warning }} />}
+                ? <TrendingUp sx={{ fontSize: 'var(--rds-spacing-15)', color: COLOR.success }} />
+                : <TrendingDown sx={{ fontSize: 'var(--rds-spacing-15)', color: COLOR.warning }} />}
               <Typography
                 variant="caption"
                 sx={{
@@ -406,7 +406,7 @@ export default function DashboardPage() {
               variant="determinate"
               value={kpi.progress}
               sx={{
-                height: 4,
+                height: 'var(--rds-size-xs)',
                 borderRadius: 99,
                 bgcolor: kpi.iconBg,
                 '& .MuiLinearProgress-bar': {
@@ -422,14 +422,14 @@ export default function DashboardPage() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', lg: '1fr 320px' },
+          gridTemplateColumns: { xs: '1fr', lg: '1fr var(--rds-dashboard-aside-width)' },
           gap: 2.5,
         }}
       >
         <Box
           sx={{
             bgcolor: 'background.paper',
-            border: '1px solid var(--rds-divider)',
+            border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
             borderRadius: 'var(--rds-border-radius-md)',
             overflow: 'hidden',
             boxShadow: 'var(--rds-elevation-1)',
@@ -439,7 +439,7 @@ export default function DashboardPage() {
             sx={{
               px: 3,
               py: 2,
-              borderBottom: '1px solid var(--rds-divider)',
+              borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -464,7 +464,7 @@ export default function DashboardPage() {
                 borderRadius: 1,
                 bgcolor: tint(COLOR.primary, 8),
                 '&:hover': { bgcolor: tint(COLOR.primary, 14) },
-                transition: 'background 0.15s',
+                transition: 'background var(--rds-motion-duration-fast)',
               }}
             >
               View all
@@ -479,19 +479,19 @@ export default function DashboardPage() {
                     px: 3,
                     py: 1.75,
                     '&:hover': { bgcolor: 'action.hover' },
-                    transition: 'background 0.15s',
+                    transition: 'background var(--rds-motion-duration-fast)',
                   }}
                 >
                   <ListItemAvatar>
                     <Avatar
                       sx={{
-                        width: 38,
-                        height: 38,
+                        width: 'var(--rds-dashboard-icon-box-size)',
+                        height: 'var(--rds-dashboard-icon-box-size)',
                         bgcolor: item.avatarColor,
                         color: COLOR.white,
-                        fontSize: 13,
+                        fontSize: 'var(--rds-dashboard-label-font-size)',
                         fontWeight: 700,
-                        boxShadow: `0 2px 6px ${tint(item.avatarColor, 33)}`,
+                        boxShadow: `0 var(--rds-spacing-xxs) var(--rds-spacing-compact) ${tint(item.avatarColor, 33)}`,
                       }}
                     >
                       {item.initials}
@@ -510,16 +510,16 @@ export default function DashboardPage() {
                       label={item.tag}
                       size="small"
                       sx={{
-                        height: 22,
-                        fontSize: 11,
+                        height: 'var(--rds-spacing-22)',
+                        fontSize: 'var(--rds-dashboard-caption-font-size)',
                         fontWeight: 600,
                         bgcolor: TAG_COLORS[item.tag]?.bg ?? 'action.hover',
                         color: TAG_COLORS[item.tag]?.color ?? 'text.primary',
                         border: 'none',
-                        letterSpacing: '0.2px',
+                        letterSpacing: 'var(--rds-dashboard-tag-letter-spacing)',
                       }}
                     />
-                    <Typography variant="caption" sx={{ color: 'text.disabled', whiteSpace: 'nowrap', fontSize: 11 }}>
+                    <Typography variant="caption" sx={{ color: 'text.disabled', whiteSpace: 'nowrap', fontSize: 'var(--rds-dashboard-caption-font-size)' }}>
                       {item.time}
                     </Typography>
                   </Box>
@@ -536,13 +536,13 @@ export default function DashboardPage() {
           <Box
             sx={{
               bgcolor: 'background.paper',
-              border: '1px solid var(--rds-divider)',
+              border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               overflow: 'hidden',
               boxShadow: 'var(--rds-elevation-1)',
             }}
           >
-            <Box sx={{ px: 2.5, py: 2, borderBottom: '1px solid var(--rds-divider)' }}>
+            <Box sx={{ px: 2.5, py: 2, borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)' }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                 System Health
               </Typography>
@@ -556,8 +556,8 @@ export default function DashboardPage() {
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box
                       sx={{
-                        width: 30,
-                        height: 30,
+                        width: 'var(--rds-spacing-30)',
+                        height: 'var(--rds-spacing-30)',
                         borderRadius: 1.5,
                         bgcolor: stat.iconBg,
                         display: 'flex',
@@ -585,27 +585,27 @@ export default function DashboardPage() {
               borderRadius: 'var(--rds-border-radius-md)',
               background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
               color: COLOR.white,
-              boxShadow: `0 4px 20px ${tint(COLOR.primary, 35)}`,
+              boxShadow: `0 var(--rds-spacing-xs-px) var(--rds-spacing-20-px) ${tint(COLOR.primary, 35)}`,
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5, opacity: 0.9, fontSize: 13 }}>
+            <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5, opacity: 0.9, fontSize: 'var(--rds-dashboard-label-font-size)' }}>
               Monthly Goal
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: '-0.5px' }}>
+            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: 'var(--rds-dashboard-value-letter-spacing)' }}>
               78%
             </Typography>
             <LinearProgress
               variant="determinate"
               value={78}
               sx={{
-                height: 6,
+                height: 'var(--rds-spacing-compact)',
                 borderRadius: 99,
                 bgcolor: tint(COLOR.white, 25),
                 mb: 1.5,
                 '& .MuiLinearProgress-bar': { bgcolor: COLOR.white, borderRadius: 99 },
               }}
             />
-            <Typography variant="caption" sx={{ opacity: 0.75, fontSize: 12 }}>
+            <Typography variant="caption" sx={{ opacity: 0.75, fontSize: 'var(--rds-dashboard-chip-font-size)' }}>
               $37,668 of $48,300 target
             </Typography>
           </Box>

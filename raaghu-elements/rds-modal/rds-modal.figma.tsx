@@ -26,7 +26,7 @@ figma.connect(
           Open Modal
         </RdsButton>
         <RdsModal
-          isOpen={true}
+          open={true}
           onClose={() => {}}
           title="Default Modal"
           icon={<Delete color="error" sx={{ height: 60, width: 60 }} />}

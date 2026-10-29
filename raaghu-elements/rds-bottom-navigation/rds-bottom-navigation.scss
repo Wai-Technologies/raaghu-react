@@ -59,11 +59,11 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
       padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs);
 
       .MuiBottomNavigationAction-label {
-        font-size: 0.7rem;
+        font-size: var(--rds-bottom-navigation-label-font-size-sm);
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.4rem;
+        font-size: var(--rds-bottom-navigation-icon-font-size);
       }
     }
   }

@@ -58,7 +58,7 @@ const RdsSelect = ({
   sx,
   'data-testid': dataTestId,
   ...props
-}: RdsSelectProps) => {
+}: RdsSelectProps & { 'data-testid'?: string }) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
   if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
   if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');

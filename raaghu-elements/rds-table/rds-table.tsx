@@ -36,7 +36,7 @@ export interface RdsTableColumn {
   label: string;
   minWidth?: number;
   align?: 'left' | 'right' | 'center';
-  format?: (value: ReactNode) => string | ReactNode;
+  format?(value: ReactNode): string | ReactNode;
   type?: 'text' | 'checkbox' | 'radio';
   sortable?: boolean;
 }
@@ -45,7 +45,7 @@ type RdsTableRow = {
   id?: string | number;
   /** @deprecated Use `id` instead. */
   key?: string | number;
-} & Record<string, ReactNode>;
+} & Record<string, unknown>;
 
 export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'> {
   /** Column definitions (id, label, alignment, sortable, cell type). */
@@ -153,7 +153,7 @@ const RdsTable = ({
   onCellSelectionChange,
   'data-testid': dataTestId,
   ...props
-}: RdsTableProps) => {
+}: RdsTableProps & { 'data-testid'?: string }) => {
   if (pagination !== undefined) warnDeprecatedProp('RdsTable', 'pagination', '`paginated`');
   if (totalRows !== undefined) warnDeprecatedProp('RdsTable', 'totalRows', '`rowCount`');
   if (selectedRows !== undefined) warnDeprecatedProp('RdsTable', 'selectedRows', '`selected`');

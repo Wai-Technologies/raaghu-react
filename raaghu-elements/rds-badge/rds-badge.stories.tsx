@@ -50,7 +50,7 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge palette color (`danger` maps to `error`)',
       defaultValue: 'primary',
     },
-  component: { control: { disable: true }, table: { disable: true } },
+  ['component' as string]: { control: { disable: true }, table: { disable: true } },
   slots: { control: { disable: true }, table: { disable: true } },
   slotProps: { control: { disable: true }, table: { disable: true } },
   },

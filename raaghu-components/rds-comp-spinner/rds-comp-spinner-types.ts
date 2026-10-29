@@ -26,7 +26,7 @@ export const SpinnerLevel = {
 } as const;
 export type SpinnerLevel = (typeof SpinnerLevel)[keyof typeof SpinnerLevel];
 
-import type { Ref } from "react";
+import type { CSSProperties, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
 /**
@@ -67,4 +67,10 @@ export interface RdsCompSpinnerProps {
   sx?: SxProps<Theme>;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** Id of the root element. */
+  id?: string;
+  /** Accessible label of the root element. */
+  'aria-label'?: string;
+  /** Inline styles applied to the root element. */
+  style?: CSSProperties;
 }

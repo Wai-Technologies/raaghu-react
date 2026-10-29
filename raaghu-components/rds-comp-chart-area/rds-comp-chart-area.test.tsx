@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompAreaChart from './rds-comp-chart-area';
+import RdsCompAreaChart, { type RdsCompAreaChartProps } from './rds-comp-chart-area';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -446,7 +446,7 @@ describe('RdsCompAreaChart', () => {
     it('renders with numeric labels', () => {
       const numericLabels = [1, 2, 3, 4, 5];
       render(
-        <RdsCompAreaChart {...defaultProps} labels={numericLabels} />
+        <RdsCompAreaChart {...defaultProps} labels={numericLabels as unknown as string[]} />
       );
       expect(RdsCompAreaChart).toBeDefined();
     });
@@ -658,7 +658,7 @@ describe('RdsCompAreaChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompAreaChart {...defaultProps} options={null} />
+        <RdsCompAreaChart {...defaultProps} options={null as unknown as RdsCompAreaChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -733,7 +733,7 @@ describe('RdsCompAreaChart', () => {
         },
       ];
       render(
-        <RdsCompAreaChart {...defaultProps} dataSets={stringDataSet} />
+        <RdsCompAreaChart {...defaultProps} dataSets={stringDataSet as unknown as RdsCompAreaChartProps['dataSets']} />
       );
       expect(RdsCompAreaChart).toBeDefined();
     });
@@ -865,5 +865,14 @@ describe('audit fixes', () => {
     );
     expect(container.querySelector('canvas')).toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAreaChart', 'isGradient', expect.any(String));
+  });
+});
+
+describe('RdsCompAreaChart sx', () => {
+  it('applies sx to the root only when passed', () => {
+    const a = render(<RdsCompAreaChart {...defaultProps} sx={{ opacity: 0.5 }} />);
+    expect(a.container.firstChild).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsCompAreaChart {...defaultProps} />);
+    expect(b.container.firstChild).not.toHaveStyle({ opacity: '0.5' });
   });
 });

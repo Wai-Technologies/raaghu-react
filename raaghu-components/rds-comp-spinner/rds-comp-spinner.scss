@@ -164,7 +164,7 @@
     
     &--large {
       font-size: var(--rds-font-size-lg);
-      line-height: 1.6;
+      line-height: var(--rds-spinner-large-line-height);
     }
   }
 }

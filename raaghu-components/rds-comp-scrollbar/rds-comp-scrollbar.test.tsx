@@ -621,3 +621,12 @@ describe('audit fixes', () => {
     expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
   });
 });
+
+describe('RdsCompScrollBar style', () => {
+  it('forwards style to the root and adds none when omitted', () => {
+    const a = render(<RdsCompScrollBar style={{ opacity: 0.5 }} />);
+    expect(a.container.firstChild).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsCompScrollBar />);
+    expect(b.container.firstChild).not.toHaveAttribute('style');
+  });
+});

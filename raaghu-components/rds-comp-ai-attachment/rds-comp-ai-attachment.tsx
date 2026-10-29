@@ -13,7 +13,7 @@ import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiAttachmentProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
   /** Built-in icon name or a custom icon element for the menu trigger. */
   icon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `icon` instead. */

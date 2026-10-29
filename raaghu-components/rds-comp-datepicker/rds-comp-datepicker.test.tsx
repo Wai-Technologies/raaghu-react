@@ -528,3 +528,12 @@ describe('audit fixes', () => {
     expect(mockCaptured.type?.[5]?.locale).toBe('de-DE');
   });
 });
+
+describe('RdsDatepicker style', () => {
+  it('forwards style to the root and adds none when omitted', () => {
+    const a = render(<RdsDatepicker isDropdownOpen={false} style={{ opacity: 0.5 }} />);
+    expect(a.container.querySelector('.rds-datepicker')).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsDatepicker isDropdownOpen={false} />);
+    expect(b.container.querySelector('.rds-datepicker')).not.toHaveAttribute('style');
+  });
+});

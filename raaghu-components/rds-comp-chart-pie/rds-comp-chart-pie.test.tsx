@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompPieChart from './rds-comp-chart-pie';
+import RdsCompPieChart, { type RdsCompPieProps } from './rds-comp-chart-pie';
 import Chart from 'chart.js/auto';
 
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
@@ -117,7 +117,7 @@ describe('RdsCompPieChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={customOptions} />
+        <RdsCompPieChart {...defaultProps} options={customOptions as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -497,7 +497,7 @@ describe('RdsCompPieChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={null} />
+        <RdsCompPieChart {...defaultProps} options={null as unknown as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -696,7 +696,7 @@ describe('RdsCompPieChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompPieChart {...defaultProps} options={optionsWithPlugins as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

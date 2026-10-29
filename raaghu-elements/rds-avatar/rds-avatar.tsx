@@ -9,7 +9,7 @@ type AvatarColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'lig
 const avatarColors: readonly string[] = ['primary', 'success', 'error', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'];
 type AvatarSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
-export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'> {
+export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color' | 'slotProps'> {
   /** Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. Other strings pass through. */
   color?: AvatarColor | (string & {});
   /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
@@ -127,7 +127,7 @@ const RdsAvatar = ({
   slotProps,
   'data-testid': dataTestId,
   ...props
-}: RdsAvatarProps) => {
+}: RdsAvatarProps & { 'data-testid'?: string }) => {
   const { className: wrapClassName, ...wrapSlotRest } = slotProps?.wrap ?? {};
   const { className: infoClassName, ...infoSlotRest } = slotProps?.info ?? {};
   const { className: designationClassName, ...designationSlotRest } = slotProps?.designation ?? {};

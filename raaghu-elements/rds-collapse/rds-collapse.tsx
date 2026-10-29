@@ -40,7 +40,7 @@ const RdsCollapse = ({
   className,
   'data-testid': dataTestId,
   ...props
-}: RdsCollapseProps) => {
+}: RdsCollapseProps & { 'data-testid'?: string }) => {
   if (showToggleButton !== undefined) warnDeprecatedProp('RdsCollapse', 'showToggleButton', '`hideToggle`');
   const showToggle = hideToggle === undefined ? (showToggleButton ?? true) : !hideToggle;
   const generatedId = useId();

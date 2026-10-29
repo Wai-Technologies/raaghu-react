@@ -233,7 +233,7 @@ describe('RdsSkeleton', () => {
       );
       const boxContainer = container.querySelector('.rds-skeleton') as HTMLElement;
       const styleAttr = boxContainer?.getAttribute('style') ?? '';
-      expect(styleAttr).toMatch(/12px/);
+      expect(styleAttr).toContain('gap: var(--rds-spacing-md)');
     });
 
     it('should set flex-start alignment for text frames', () => {

@@ -41,7 +41,7 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'select',
       options: ['small', 'medium'],
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

@@ -57,7 +57,7 @@ const meta: Meta<typeof RdsIconButton> = {
       control: { disable: true },
       table: { disable: true },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

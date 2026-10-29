@@ -494,7 +494,7 @@
   &__header {
     font-weight: var(--rds-font-weight-bold);
     margin-bottom: var(--rds-spacing-md);
-    font-size: 1.2rem;
+    font-size: var(--rds-counter-header-font-size);
   }
 
   &__item {
@@ -529,7 +529,7 @@
     padding-top: var(--rds-spacing-md);
     display: flex;
     justify-content: space-between;
-    font-size: 1.1rem;
+    font-size: var(--rds-counter-footer-font-size);
     font-weight: var(--rds-font-weight-bold);
   }
 }

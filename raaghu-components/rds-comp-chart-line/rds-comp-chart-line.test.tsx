@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompLineChart from './rds-comp-chart-line';
+import RdsCompLineChart, { type RdsCompLineProps } from './rds-comp-chart-line';
 
 jest.mock('./rds-comp-chart-line.scss', () => ({}));
 
@@ -573,14 +573,14 @@ describe('RdsCompLineChart', () => {
         },
       ];
       const { container } = render(
-        <RdsCompLineChart {...defaultProps} dataSets={stringDataset} />
+        <RdsCompLineChart {...defaultProps} dataSets={stringDataset as unknown as RdsCompLineProps['dataSets']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompLineChart {...defaultProps} options={null} />
+        <RdsCompLineChart {...defaultProps} options={null as unknown as RdsCompLineProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

@@ -8,7 +8,7 @@ import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
-export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
+export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Scrollbar style (Mac with buttons, or Simple). Wins over `type`. */
   variant?: ScrollBarType;
   /** Scrollbar style (Mac with buttons, or Simple); used when `variant` is not set. */

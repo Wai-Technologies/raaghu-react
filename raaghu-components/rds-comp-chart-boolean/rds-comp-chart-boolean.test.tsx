@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
 import type { ChartIconName } from './chart-icons';
+import type { ChartOptions } from 'chart.js/auto';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -50,7 +51,7 @@ const defaultProps = {
     maintainAspectRatio: false,
   },
   id: 'boolean-chart-1',
-  centerIconName: 'circle',
+  centerIconName: 'circle' as ChartIconName,
 };
 
 describe('RdsCompBooleanChart', () => {
@@ -109,7 +110,7 @@ describe('RdsCompBooleanChart', () => {
     });
 
     it('passes options to chart', () => {
-      const customOptions = {
+      const customOptions: ChartOptions<'doughnut'> = {
         responsive: true,
         maintainAspectRatio: true,
         plugins: {
@@ -502,7 +503,7 @@ describe('RdsCompBooleanChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBooleanChart {...defaultProps} options={null} />
+        <RdsCompBooleanChart {...defaultProps} options={null as unknown as ChartOptions<'doughnut'>} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

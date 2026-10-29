@@ -1008,3 +1008,20 @@ describe('audit fixes', () => {
     expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--error');
   });
 });
+
+describe('RdsCompToast root attributes', () => {
+  it('forwards id, aria-label and style to the container', () => {
+    const { container } = render(<RdsCompToast layout={ToastLayout.Text} message="m" id="t1" aria-label="note" style={{ opacity: 0.5 }} />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveAttribute('id', 't1');
+    expect(root).toHaveAttribute('aria-label', 'note');
+    expect(root).toHaveStyle({ opacity: '0.5' });
+  });
+  it('adds none of them when omitted', () => {
+    const { container } = render(<RdsCompToast layout={ToastLayout.Text} message="m" />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).not.toHaveAttribute('id');
+    expect(root).not.toHaveAttribute('aria-label');
+    expect(root).not.toHaveAttribute('style');
+  });
+});

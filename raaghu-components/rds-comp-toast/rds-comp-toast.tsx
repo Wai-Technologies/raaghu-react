@@ -137,7 +137,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     }, [setShowState, onClose]);
 
     return (
-        <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx}>
+        <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx} id={props.id} aria-label={props['aria-label']} style={props.style}>
             <div
                 role="alert"
                 aria-live="assertive"

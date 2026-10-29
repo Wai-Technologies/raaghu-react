@@ -25,9 +25,9 @@ const meta: Meta<typeof RdsModal> = {
       control: 'text',
       description: 'Title of the modal',
     },
-    showCloseButton: {
+    hideCloseButton: {
       control: 'boolean',
-      description: 'Whether to show the close button',
+      description: 'Whether to hide the close button',
     },
     maxWidth: {
       control: 'select',
@@ -57,7 +57,7 @@ const ModalTemplate = (args: any) => {
       </RdsButton>
       <RdsModal
         {...args}
-        isOpen={open}
+        open={open}
         onClose={() => setOpen(false)}
       >
         {args.children}
@@ -131,7 +131,7 @@ export const WithoutCloseButton = {
   },
   args: {
     title: 'No Close Button',
-    showCloseButton: false,
+    hideCloseButton: true,
     children: (
       <Typography>
         This modal doesn't have a close button in the header. You must use the action buttons to close it.

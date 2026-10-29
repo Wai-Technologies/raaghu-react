@@ -77,7 +77,7 @@ const RdsRating = ({
   precision: precisionProp,
   'data-testid': dataTestId,
   ...props
-}: RdsRatingProps) => {
+}: RdsRatingProps & { 'data-testid'?: string }) => {
   if (maxStars !== undefined) warnDeprecatedProp('RdsRating', 'maxStars', '`max`');
   if (colorVariant !== undefined) warnDeprecatedProp('RdsRating', 'colorVariant', '`color`');
   if (color === 'danger' || colorVariant === 'danger') {

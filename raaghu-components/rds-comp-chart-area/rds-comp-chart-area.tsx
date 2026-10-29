@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -31,6 +33,8 @@ export interface RdsCompAreaChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  /** System styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
 /** @deprecated Use RdsCompAreaChartProps. */
@@ -49,6 +53,7 @@ const RdsCompAreaChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompAreaChartProps) => {
   if (isGradient !== undefined) {
@@ -68,14 +73,14 @@ const RdsCompAreaChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-area", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-area", className)} sx={sx}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompAreaChart", ariaLabel, chartLabel, "Area chart")}
       />
-    </div>
+    </Box>
   );
 };
 

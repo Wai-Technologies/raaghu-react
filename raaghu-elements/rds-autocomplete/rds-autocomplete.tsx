@@ -175,7 +175,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   disabled,
   'data-testid': dataTestId,
   ...muiAutocompleteProps
-}: RdsAutocompleteProps<T>) => {
+}: RdsAutocompleteProps<T> & { 'data-testid'?: string }) => {
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
   if (behavior !== undefined) warnDeprecatedProp('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
   if (optionDecorators !== undefined) warnDeprecatedProp('RdsAutocomplete', 'optionDecorators', '`optionVariant`');
@@ -402,15 +402,15 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <li {...optionLiProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }} key={optionKey}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
-                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 {(isShowUser) && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', p: 'var(--rds-spacing-xxs)', flexShrink: 0 }}>
                     {getOptionIcon ? getOptionIcon(option) : userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (
-                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{optionText(option)}</span>
               </Box>

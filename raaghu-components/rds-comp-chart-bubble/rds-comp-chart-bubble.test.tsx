@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompBubbleChart from './rds-comp-chart-bubble';
+import RdsCompBubbleChart, { type RdsCompBubbleChartProps } from './rds-comp-chart-bubble';
 
 jest.mock('./rds-comp-chart-bubble.scss', () => ({}));
 
@@ -618,7 +618,7 @@ describe('RdsCompBubbleChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBubbleChart {...defaultProps} options={null} />
+        <RdsCompBubbleChart {...defaultProps} options={null as unknown as RdsCompBubbleChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -797,7 +797,7 @@ describe('RdsCompBubbleChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompBubbleChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompBubbleChart {...defaultProps} options={optionsWithPlugins as RdsCompBubbleChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

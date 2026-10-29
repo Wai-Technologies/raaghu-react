@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type ReactNode, type Ref, type MouseEvent as ReactMouseEvent } from 'react';
 import { 
   Box, 
   Typography, 
@@ -72,6 +72,8 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
   itemIcon?: string | ReactNode;
   /** Overrides for the popover texts (title, search placeholder, apply, clear all). */
   localeText?: RdsCompFilterButtonLocaleText;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
@@ -98,6 +100,7 @@ const RdsCompFilterButton = ({
   sx,
   itemIcon,
   localeText,
+  ref,
   ...props
 }: RdsCompFilterButtonProps) => {
   if (text !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'text', '`children`');
@@ -211,7 +214,7 @@ const RdsCompFilterButton = ({
   }, [localFilters, searchTerm]);
 
   return (
-    <Box className={clsx("rds-comp-filter-button", className)} sx={sx} {...props}>
+    <Box ref={ref} className={clsx("rds-comp-filter-button", className)} sx={sx} {...props}>
       <RdsButton
         ref={buttonRef}
         size={'medium'}

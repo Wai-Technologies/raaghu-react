@@ -28,7 +28,7 @@ const Editor = lazy(() =>
 ) as ComponentType<DraftWysiwygEditorProps>;
 import "./rds-comp-text-editor.scss";
 
-export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange" | "style"> {
+export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
     /** HTML id applied to the editor element. */
     id?: string;
     /** Called with the sanitized HTML value whenever the editor content changes. */

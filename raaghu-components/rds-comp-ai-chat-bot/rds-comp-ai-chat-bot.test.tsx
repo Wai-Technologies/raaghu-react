@@ -736,3 +736,12 @@ describe('RdsCompAiChatBot', () => {
     });
   });
 });
+
+describe('RdsCompAiChatBot id', () => {
+  it('forwards id to the root and adds none when omitted', () => {
+    const a = render(<RdsCompAiChatBot {...defaultProps} id="cb" />);
+    expect(a.container.firstChild).toHaveAttribute('id', 'cb');
+    const b = render(<RdsCompAiChatBot {...defaultProps} />);
+    expect(b.container.firstChild).not.toHaveAttribute('id');
+  });
+});

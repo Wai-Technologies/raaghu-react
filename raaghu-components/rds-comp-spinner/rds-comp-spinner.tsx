@@ -6,12 +6,12 @@ import "./rds-comp-spinner.scss";
 export { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 import { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 
-/** Inline px match `--rds-spinner-size-*` in scss (G6-103); tests assert these strings. */
+/** Inline sizes use the `--rds-spinner-size-*` vars from scss (G6-103); tests assert these strings. */
 const SIZE_DIMENSIONS: Record<SpinnerSize, { width: string; height: string }> = {
-  [SpinnerSize.Default]: { width: "30px", height: "30px" },
-  [SpinnerSize.Small]: { width: "15px", height: "15px" },
-  [SpinnerSize.Medium]: { width: "35px", height: "35px" },
-  [SpinnerSize.Large]: { width: "45px", height: "45px" },
+  [SpinnerSize.Default]: { width: "var(--rds-spinner-size-default)", height: "var(--rds-spinner-size-default)" },
+  [SpinnerSize.Small]: { width: "var(--rds-spinner-size-small)", height: "var(--rds-spinner-size-small)" },
+  [SpinnerSize.Medium]: { width: "var(--rds-spinner-size-medium)", height: "var(--rds-spinner-size-medium)" },
+  [SpinnerSize.Large]: { width: "var(--rds-spinner-size-large)", height: "var(--rds-spinner-size-large)" },
 };
 
 const SIZE_CLASS: Partial<Record<SpinnerSize, string>> = {

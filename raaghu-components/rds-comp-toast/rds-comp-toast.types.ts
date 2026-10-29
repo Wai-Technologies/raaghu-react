@@ -1,4 +1,4 @@
-import type { ReactNode, Ref, SyntheticEvent } from "react";
+import type { CSSProperties, ReactNode, Ref, SyntheticEvent } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
 export const ToastLayout = {
@@ -119,4 +119,10 @@ export interface RdsCompToastProps {
   ref?: Ref<HTMLDivElement>;
   /** Extra CSS class applied to the toast container. */
   className?: string;
+  /** Id of the toast container element. */
+  id?: string;
+  /** Accessible label of the toast container element. */
+  'aria-label'?: string;
+  /** Inline styles applied to the toast container element. */
+  style?: CSSProperties;
 }

@@ -578,3 +578,16 @@ describe('audit fixes', () => {
     expect(container.firstChild).toBe(root);
   });
 });
+
+describe('RdsCompAudioPlayer id and sx', () => {
+  it('forwards id and sx to the root', () => {
+    const { container } = setup({ id: 'ap', sx: { opacity: 0.5 } });
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveAttribute('id', 'ap');
+    expect(root).toHaveStyle({ opacity: '0.5' });
+  });
+  it('adds no id when omitted', () => {
+    const { container } = setup();
+    expect(container.firstChild).not.toHaveAttribute('id');
+  });
+});

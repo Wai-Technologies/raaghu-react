@@ -52,7 +52,7 @@ export interface ColorChangeDetails {
 }
 
 export interface RdsCompColorPickerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'id' | 'defaultValue'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'defaultValue'> {
   /** Selected colour. */
   value?: string;
   /** Initial colour for uncontrolled use. */

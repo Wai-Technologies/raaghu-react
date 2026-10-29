@@ -696,3 +696,14 @@ describe('RdsCompTimePicker', () => {
     });
   });
 });
+
+describe('RdsCompTimePicker root attributes', () => {
+  it('forwards id and aria-label to the root only when passed', () => {
+    const a = render(<RdsCompTimePicker id="tp" aria-label="time" />);
+    expect(a.container.firstChild).toHaveAttribute('id', 'tp');
+    expect(a.container.firstChild).toHaveAttribute('aria-label', 'time');
+    const b = render(<RdsCompTimePicker />);
+    expect(b.container.firstChild).not.toHaveAttribute('id');
+    expect(b.container.firstChild).not.toHaveAttribute('aria-label');
+  });
+});

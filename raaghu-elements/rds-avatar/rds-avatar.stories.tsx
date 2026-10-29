@@ -15,7 +15,6 @@ const meta: Meta<typeof RdsAvatar> = {
     color: {
       control: 'select',
       options: ['primary', 'success', 'error', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
-      description: 'Avatar palette color (`danger` is deprecated; use `error`)',
       description: 'Color variant for activity ring and dot',
     },
     showName: {
@@ -80,7 +79,7 @@ const meta: Meta<typeof RdsAvatar> = {
     slots: { control: { disable: true }, table: { disable: true } },
     slotProps: { control: { disable: true }, table: { disable: true } },
     ref: { control: { disable: true }, table: { disable: true } },
-    component: { control: { disable: true }, table: { disable: true } },
+    ['component' as string]: { control: { disable: true }, table: { disable: true } },
     displayStyle: {
       control: 'select',
       options: ['with-name', 'name-bottom', 'stacking'],

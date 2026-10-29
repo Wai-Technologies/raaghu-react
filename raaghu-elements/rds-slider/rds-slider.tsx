@@ -32,7 +32,7 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
 }
 
 /** Slider with optional label row, value readout, end labels and single/range modes. */
-const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
+const RdsSlider = (sliderProps: RdsSliderProps & { 'data-testid'?: string }): ReactElement => {
   const {
     label,
     showValue = false,

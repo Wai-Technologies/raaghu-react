@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompDoughnutChart from './rds-comp-chart-doughnut';
+import RdsCompDoughnutChart, { type RdsCompDoughnutProps } from './rds-comp-chart-doughnut';
 
 jest.mock('./rds-comp-chart-doughnut.scss', () => ({}));
 
@@ -124,7 +124,7 @@ describe('RdsCompDoughnutChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={customOptions} />
+        <RdsCompDoughnutChart {...defaultProps} options={customOptions as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -579,7 +579,7 @@ describe('RdsCompDoughnutChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={null} />
+        <RdsCompDoughnutChart {...defaultProps} options={null as unknown as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -747,7 +747,7 @@ describe('RdsCompDoughnutChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompDoughnutChart {...defaultProps} options={optionsWithPlugins as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

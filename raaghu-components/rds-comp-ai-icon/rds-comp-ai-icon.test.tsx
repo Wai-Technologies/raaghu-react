@@ -137,7 +137,7 @@ describe('RdsCompAiIcon', () => {
     });
 
     it('applies different color variants', () => {
-      const variants = ['primary', 'secondary', 'success', 'danger', 'warning'];
+      const variants: RdsCompAiIconProps['colorVariant'][] = ['primary', 'secondary', 'success', 'danger', 'warning'];
       variants.forEach((variant) => {
         const { container, unmount } = render(
           <RdsCompAiIcon

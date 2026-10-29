@@ -66,7 +66,7 @@ const meta: Meta<typeof RdsSlider> = {
       options: [1, 2, 3, 4, 5],
       description: 'Slider level (1-5)',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

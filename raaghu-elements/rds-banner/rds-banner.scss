@@ -345,7 +345,7 @@
       .rds-banner__secondary-button,
       .rds-banner__primary-button {
         min-height: var(--rds-banner-dim-2);
-        font-size: 0.8125rem;
+        font-size: var(--rds-banner-primary-button-font-size);
         padding: calc(var(--rds-spacing-xs) / 2) calc(1.5 * var(--rds-spacing-xs));
       }
     }

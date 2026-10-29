@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompGaugeChart from './rds-comp-chart-gauge';
+import RdsCompGaugeChart, { type RdsCompGaugeProps } from './rds-comp-chart-gauge';
 
 jest.mock('./rds-comp-chart-gauge.scss', () => ({}));
 
@@ -123,7 +123,7 @@ describe('RdsCompGaugeChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={customOptions} />
+        <RdsCompGaugeChart {...defaultProps} options={customOptions as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -584,7 +584,7 @@ describe('RdsCompGaugeChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={null} />
+        <RdsCompGaugeChart {...defaultProps} options={null as unknown as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -763,7 +763,7 @@ describe('RdsCompGaugeChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompGaugeChart {...defaultProps} options={optionsWithPlugins as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

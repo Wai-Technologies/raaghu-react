@@ -90,7 +90,7 @@ const RdsRange= ({
   ref,
   'data-testid': dataTestId,
   ...props
-}: RdsRangeProps) => {
+}: RdsRangeProps & { 'data-testid'?: string }) => {
   if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
   if (rightLabel !== undefined) warnDeprecatedProp('RdsRange', 'rightLabel', '`max`');
   if (showLabel !== undefined) warnDeprecatedProp('RdsRange', 'showLabel', '`showMinMax`');

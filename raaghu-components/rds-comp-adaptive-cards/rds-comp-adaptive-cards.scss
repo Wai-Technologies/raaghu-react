@@ -128,7 +128,7 @@
       text-align: left ;
       padding-top: var(--rds-spacing-xs);
       padding-bottom: var(--rds-spacing-none, 0);
-      line-height: 1.1 ;
+      line-height: var(--rds-adaptive-cards-line-height-tight) ;
       font-family: var(--rds-font-family-base) ;
   }
   &__title-icon {
@@ -1247,7 +1247,7 @@
     }
     .rds-adaptive-cards__football-league {
       font-size: var(--rds-adaptive-cards-font-size-md) ;
-      letter-spacing: 0.3px;
+      letter-spacing: var(--rds-adaptive-cards-league-letter-spacing);
       font-weight: var(--rds-font-weight-bold, 700);
     }
   }
@@ -1398,7 +1398,7 @@
   }
 
   &__title-text {
-  font-size: 1.3rem; 
+  font-size: var(--rds-adaptive-cards-title-text-font-size);
   font-weight: var(--rds-font-weight-bold); 
   margin-right: 0; 
   }
@@ -1530,7 +1530,7 @@
 
 .rds-adaptive-cards__error-message {
   color: var(--rds-error-main);
-  font-size: 0.8rem;
+  font-size: var(--rds-adaptive-cards-error-font-size);
   margin-top: var(--rds-spacing-xs);
   margin-bottom: var(--rds-spacing-sm);
   font-weight: var(--rds-font-weight-regular);

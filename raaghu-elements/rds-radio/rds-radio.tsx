@@ -64,7 +64,7 @@ const RdsRadio = ({
   selected,
   'data-testid': dataTestId,
   ...props
-}: RdsRadioProps) => {
+}: RdsRadioProps & { 'data-testid'?: string }) => {
   if (direction !== undefined) warnDeprecatedProp('RdsRadio', 'direction', '`row`');
   if (options.some(option => option.text !== undefined)) {
     warnDeprecatedProp('RdsRadio', 'options[].text', '`options[].label`');

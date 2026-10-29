@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type MouseEvent as ReactMouseEvent, type KeyboardEvent as ReactKeyboardEvent, type Ref } from "react";
 import clsx from 'clsx';
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Box from "@mui/material/Box";
+import type { SxProps, Theme } from "@mui/material/styles";
 import "./rds-comp-audio-player.scss";
 import Forward10OutlinedIcon from "@mui/icons-material/Forward10Outlined";
 import RestoreOutlinedIcon from "@mui/icons-material/RestoreOutlined";
@@ -82,6 +84,10 @@ export interface RdsCompAudioPlayerProps
   waveform?: number[];
   /** Ref to the variant's root element. */
   ref?: Ref<HTMLDivElement>;
+  /** Id of the variant's root element. */
+  id?: string;
+  /** System styles applied to the variant's root element. */
+  sx?: SxProps<Theme>;
 }
 
 const SLIDER_MAX = 120;
@@ -150,6 +156,8 @@ const RdsCompAudioPlayer = ({
   waveform = DEFAULT_WAVEFORM,
   className,
   ref,
+  id,
+  sx,
   ...rest
 }: RdsCompAudioPlayerProps) => {
   if (controls !== undefined) {
@@ -485,6 +493,8 @@ const RdsCompAudioPlayer = ({
   const rootProps = (baseClassName: string) => ({
     ...rest,
     ref,
+    ...(id !== undefined && { id }),
+    ...(sx !== undefined && { sx }),
     className: clsx(baseClassName, className),
   });
 
@@ -497,7 +507,7 @@ const RdsCompAudioPlayer = ({
   return (
     <>
       {resolvedType === "Collapsed" && (
-        <div {...rootProps("rds-comp-audio-player__collapsed-container")}>
+        <Box {...rootProps("rds-comp-audio-player__collapsed-container")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
             <MusicNote />
           </span>
@@ -505,10 +515,10 @@ const RdsCompAudioPlayer = ({
             <SettingsSuggestSharpIcon />
           </span>
           {audioNode}
-        </div>
+        </Box>
       )}
       {resolvedType === "Audio Player" && (
-        <div {...rootProps("rds-comp-audio-player__player rds-comp-audio-player__player--image-layout")}>
+        <Box {...rootProps("rds-comp-audio-player__player rds-comp-audio-player__player--image-layout")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
             <MusicNote />
           </span>
@@ -622,10 +632,10 @@ const RdsCompAudioPlayer = ({
             handlePlaybackSpeedChange={handlePlaybackSpeedChange}
             onClose={closeSettingsModal}
           />
-        </div>
+        </Box>
       )}
       {resolvedType === "Audio Edition" && (
-        <div {...rootProps("rds-comp-audio-player__edition-container")}>
+        <Box {...rootProps("rds-comp-audio-player__edition-container")}>
           <div className="rds-comp-audio-player__edition-buttons-top">
             <RdsButton
               color="primary"
@@ -719,7 +729,7 @@ const RdsCompAudioPlayer = ({
             onDelete={handleDelete}
           />
           {audioNode}
-        </div>
+        </Box>
       )}
     </>
   );

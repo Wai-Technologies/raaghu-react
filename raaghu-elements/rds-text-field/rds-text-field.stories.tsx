@@ -61,7 +61,7 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'text',
       description: 'Default value for the text field',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

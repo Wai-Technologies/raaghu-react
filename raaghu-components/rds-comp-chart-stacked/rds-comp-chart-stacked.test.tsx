@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompStackedChart from './rds-comp-chart-stacked';
+import RdsCompStackedChart, { type RdsCompStackedProps } from './rds-comp-chart-stacked';
 
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
@@ -635,7 +635,7 @@ describe('RdsCompStackedChart', () => {
 
     it('handles undefined options', () => {
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={undefined} />
+        <RdsCompStackedChart {...defaultProps} options={undefined as unknown as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -946,7 +946,7 @@ describe('RdsCompStackedChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={customOptions} />
+        <RdsCompStackedChart {...defaultProps} options={customOptions as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -961,7 +961,7 @@ describe('RdsCompStackedChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={categoryOptions} />
+        <RdsCompStackedChart {...defaultProps} options={categoryOptions as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

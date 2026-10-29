@@ -111,7 +111,7 @@ const CounterWithState = (args: React.ComponentProps<typeof RdsCounter>) => {
       value={count}
       onChange={(next) => {
         setCount(next);
-        args.onChange?.(next);
+        (args.onChange as ((value: number) => void) | undefined)?.(next);
       }}
     />
   );

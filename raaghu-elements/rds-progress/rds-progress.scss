@@ -82,7 +82,7 @@
   }
 
   &--indeterminate {
-    animation: rds-progress-indeterminate 1.5s infinite linear;
+    animation: rds-progress-indeterminate var(--rds-progress-indeterminate-duration) infinite linear;
   }
 
   &__dash {

@@ -104,7 +104,7 @@ const RdsPagination = ({
   showManualInput: legacyShowManualInput,
   'data-testid': dataTestId,
   ...props
-}: RdsPaginationProps) => {
+}: RdsPaginationProps & { 'data-testid'?: string }) => {
   if (controls !== undefined) warnDeprecatedProp('RdsPagination', 'controls', '`showFirstLast`, `showFirst`, `showLast`, `showPageSize`, `showPageInput` and `showLegend`');
   if (currentPage !== undefined) warnDeprecatedProp('RdsPagination', 'currentPage', '`page`');
   if (onPageChange !== undefined) warnDeprecatedProp('RdsPagination', 'onPageChange', '`onChange`');

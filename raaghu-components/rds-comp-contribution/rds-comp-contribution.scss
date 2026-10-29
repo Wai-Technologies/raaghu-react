@@ -49,7 +49,7 @@
       fill: var(--rds-color-text-primary);
       font-size: var(--rds-font-size-xs);
       font-weight: var(--rds-font-weight-medium, 500);
-      letter-spacing: -0.01em;
+      letter-spacing: var(--rds-contribution-label-letter-spacing);
       alignment-baseline: central;
     }
     
@@ -61,7 +61,7 @@
       fill: var(--rds-text-secondary);
       font-size: var(--rds-font-size-sm);
       text-anchor: end;
-      letter-spacing: -0.01em;
+      letter-spacing: var(--rds-contribution-label-letter-spacing);
     }
   }
   
@@ -102,7 +102,7 @@
     &__text--month {
       font-size: var(--rds-font-size-caption);
       font-weight: var(--rds-font-weight-semibold);
-      letter-spacing: 0.02em;
+      letter-spacing: var(--rds-contribution-month-letter-spacing);
     }
     
     &__text--week {
@@ -135,7 +135,7 @@
     &__text--month {
       font-size: var(--rds-font-size-caption);
       font-weight: var(--rds-font-weight-semibold);
-      letter-spacing: 0.02em;
+      letter-spacing: var(--rds-contribution-month-letter-spacing);
     }
     
     &__text--week {

@@ -593,3 +593,12 @@ describe('audit fixes', () => {
     expect(screen.getByTestId('grid-color-state').textContent).toContain('#FF0000');
   });
 });
+
+describe('RdsCompColorPicker id', () => {
+  it('forwards id to the root and adds none when omitted', () => {
+    const a = setup({ id: 'cp' });
+    expect(a.container.firstChild).toHaveAttribute('id', 'cp');
+    const b = setup();
+    expect(b.container.firstChild).not.toHaveAttribute('id');
+  });
+});

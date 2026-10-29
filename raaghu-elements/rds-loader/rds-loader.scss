@@ -27,7 +27,7 @@
   &__spinner {
     stroke: currentColor;
     stroke-linecap: round;
-    animation: rds-loader-dash 1.4s ease-in-out infinite;
+    animation: rds-loader-dash var(--rds-loader-dash-duration) ease-in-out infinite;
   }
 
   &--small {
@@ -65,7 +65,7 @@
       height: 100%;
       background-color: currentColor;
       transform-origin: left;
-      animation: rds-loader-linear 2s linear infinite;
+      animation: rds-loader-linear var(--rds-loader-duration-2s) linear infinite;
     }
   }
 
@@ -177,11 +177,11 @@
 }
 
 .rds-loader__hash:before {
-  animation: rds-loader-before8 2s infinite;
+  animation: rds-loader-before8 var(--rds-loader-duration-2s) infinite;
 }
 
 .rds-loader__hash:after {
-  animation: rds-loader-after6 2s infinite;
+  animation: rds-loader-after6 var(--rds-loader-duration-2s) infinite;
 }
 
 @keyframes rds-loader-before8 {
@@ -329,7 +329,7 @@
   background: linear-gradient(90deg, var(--c1) 2px, var(--c2) 0 5px,var(--c1) 0) 50%/7px 8px no-repeat;
   display: grid;
   overflow: hidden;
-  animation: rds-loader-l5-0 2s infinite linear;
+  animation: rds-loader-l5-0 var(--rds-loader-duration-2s) infinite linear;
 }
 
 .rds-loader__sand::before,
@@ -402,7 +402,7 @@
   width: 0%;
   height: 100%;
   border-radius: var(--rds-loader-radius-pill);
-  animation: rds-loader-moving 1s ease-in-out infinite;
+  animation: rds-loader-moving var(--rds-loader-duration-1s) ease-in-out infinite;
 }
 
 @keyframes rds-loader-moving {
@@ -444,7 +444,7 @@
   height: 1em;
   background-color: var(--rds-warning-main, orange);
   border-radius: var(--rds-border-radius-xs);
-  animation: rds-loader-rollingRock 2.5s cubic-bezier(.79, 0, .47, .97) infinite;
+  animation: rds-loader-rollingRock var(--rds-loader-duration-2-5s) var(--rds-loader-rolling-rock-easing) infinite;
 }
 
 @keyframes rds-loader-rollingRock {
@@ -512,14 +512,14 @@
     radial-gradient(10.08px at top left, transparent 94%, currentColor) bottom right;
   background-size: 22.4px 22.4px;
   background-repeat: no-repeat;
-  animation: rds-loader-loader 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+  animation: rds-loader-loader var(--rds-loader-duration-1-5s) infinite var(--rds-loader-bounce-easing);
 }
 
 .rds-loader__rotate, .rds-loader__rotate::before, .rds-loader__rotate::after {
   border-width: var(--rds-border-width-medium);
   border-style: solid;
   border-radius: var(--rds-loader-radius-rotate);
-  animation: rds-loader-rotate-ring 5s linear infinite;
+  animation: rds-loader-rotate-ring var(--rds-loader-duration-5s) linear infinite;
 }
 
 .rds-loader__rotate {
@@ -549,7 +549,7 @@
   border-color: var(--rds-loader-rotate-tertiary);
   width: 120%;
   height: 120%;
-  animation-delay: .10s;
+  animation-delay: var(--rds-loader-rotate-delay);
 }
 
 @keyframes rds-loader-rotate-ring {
@@ -565,7 +565,7 @@
   border: var(--rds-loader-spin-border) solid transparent;
   border-radius: var(--rds-border-radius-pill);
   border-right-color: var(--rds-primary-main);
-  animation: rds-loader-spinner-a4dj62 1s infinite linear;
+  animation: rds-loader-spinner-a4dj62 var(--rds-loader-duration-1s) infinite linear;
 }
 
 .rds-loader__spin::before,
@@ -575,12 +575,12 @@
   margin: var(--rds-spacing-xxs);
   border: inherit;
   border-radius: var(--rds-border-radius-pill);
-  animation: rds-loader-spinner-a4dj62 2s infinite;
+  animation: rds-loader-spinner-a4dj62 var(--rds-loader-duration-2s) infinite;
 }
 
 .rds-loader__spin::after {
   margin: var(--rds-spacing-sm);
-  animation-duration: 3s;
+  animation-duration: var(--rds-loader-duration-3s);
 }
 
 @keyframes rds-loader-spinner-a4dj62 {
@@ -594,7 +594,7 @@
   aspect-ratio: 1.154;
   position: relative;
   background: conic-gradient(from 120deg at 50% 64%, transparent, var(--rds-semantic-error-main) 1deg 120deg, transparent 121deg);
-  animation: rds-loader-l27-0 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+  animation: rds-loader-l27-0 var(--rds-loader-duration-1-5s) infinite var(--rds-loader-bounce-easing);
 }
 
 .rds-loader__triangle:before,
@@ -604,7 +604,7 @@
   inset: 0;
   background: inherit;
   transform-origin: 50% 66%;
-  animation: rds-loader-l27-1 1.5s infinite;
+  animation: rds-loader-l27-1 var(--rds-loader-duration-1-5s) infinite;
 }
 
 .rds-loader__triangle:after {
@@ -650,7 +650,7 @@
   border-top: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-right: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-radius: var(--rds-border-radius-pill);
-  animation: rds-loader-spin 1s linear infinite;
+  animation: rds-loader-spin var(--rds-loader-duration-1s) linear infinite;
   position: relative;
   display: flex;
   align-items: center;

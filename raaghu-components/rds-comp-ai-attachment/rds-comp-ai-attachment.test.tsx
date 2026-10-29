@@ -155,7 +155,7 @@ describe('RdsCompAiAttachment', () => {
           {...defaultProps}
           showBadge={true}
           badgeLabel="NEW"
-          badgeColor="red"
+          badgeColor={"red" as unknown as RdsCompAiAttachmentProps['badgeColor']}
         />
       );
       expect(screen.getByTestId('rds-badge')).toBeInTheDocument();
@@ -495,5 +495,14 @@ describe('RdsCompAiAttachment', () => {
       fireEvent.change(container.querySelector("input[type=\"file\"]")!, { target: { files: [new File(["x"], "a.png", { type: "image/png" })] } });
       expect(onAddComment).toHaveBeenCalledWith(expect.objectContaining({ firstName: "Ann", lastName: "Lee" }));
     });
+  });
+});
+
+describe('RdsCompAiAttachment id', () => {
+  it('forwards id to the root and adds none when omitted', () => {
+    const a = render(<RdsCompAiAttachment id="at" />);
+    expect(a.container.firstChild).toHaveAttribute('id', 'at');
+    const b = render(<RdsCompAiAttachment />);
+    expect(b.container.firstChild).not.toHaveAttribute('id');
   });
 });

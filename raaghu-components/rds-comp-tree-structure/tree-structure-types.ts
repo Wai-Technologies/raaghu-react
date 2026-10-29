@@ -18,6 +18,8 @@ export interface TreeNode {
   id: number;
   name: string;
   language?: string;
+  /** Icon hint carried in the data; not read by the component. */
+  icon?: string;
   children?: TreeNode[];
 }
 

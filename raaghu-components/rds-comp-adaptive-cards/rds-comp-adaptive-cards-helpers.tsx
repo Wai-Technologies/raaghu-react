@@ -497,7 +497,7 @@ export function RestaurantOrderForm({
   const drinkRenderValue = renderSelectValue(drinkPlaceholder);
 
   return (
-    <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
+    <RdsStack spacing={1} {...({ component: "form" } as object)} className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
         <RdsStack direction="row" spacing={0.5} alignItems="center">
           <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">

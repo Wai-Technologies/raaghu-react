@@ -263,7 +263,7 @@ const RdsAppBar = ({
           className="rds-bottom-navigation"
           sx={{
             ...bottomBarSx,
-            minHeight: 56,
+            minHeight: 'var(--rds-size-56)',
             padding: `${tokens.space(1)} ${tokens.space(1.5)}`,
             boxSizing: 'border-box',
           }}
@@ -290,9 +290,9 @@ const RdsAppBar = ({
           role="tablist"
           sx={{
             ...bottomBarSx,
-            height: 56,
-            maxHeight: 56,
-            minHeight: 56,
+            height: 'var(--rds-size-56)',
+            maxHeight: 'var(--rds-size-56)',
+            minHeight: 'var(--rds-size-56)',
             padding: `0 ${tokens.space(2)}`,
             overflow: 'hidden',
             boxSizing: 'border-box',

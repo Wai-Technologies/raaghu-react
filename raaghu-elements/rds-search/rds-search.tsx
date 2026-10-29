@@ -58,7 +58,7 @@ const RdsSearch = ({
   id,
   'data-testid': dataTestId,
   ...restProps
-}: RdsSearchProps) => {
+}: RdsSearchProps & { 'data-testid'?: string }) => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const generatedId = useId();
   const inputId = id ?? `rds-search-${generatedId}`;

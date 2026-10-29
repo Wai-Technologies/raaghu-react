@@ -1,12 +1,10 @@
-import { memo, useCallback, useEffect, useMemo, useState, type ReactElement, type ReactNode, type Ref } from 'react';
-import clsx from 'clsx';
-import type { PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { useMemo, useState, type ComponentType, type ReactElement, type ReactNode, type Ref } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import { PickersDay, type PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import Box from '@mui/material/Box';
 
 export interface DateRangePreset {
   key: string;
@@ -42,6 +40,43 @@ const dateRangePresets: DateRangePreset[] = [
   },
 ];
 
+export const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
+    children: ReactNode;
+    selectedPreset: string;
+    onPresetSelect: (preset: DateRangePreset) => void;
+    rangeValue: [Dayjs | null, Dayjs | null];
+    ref?: Ref<HTMLDivElement>;
+}) => {
+  return (
+    <div
+      ref={ref}
+      className="rds-date-picker__custom-layout"
+    >
+      <div className="rds-date-picker__preset-panel">
+        <ul className="rds-date-picker__preset-list">
+          {dateRangePresets.map((preset) => (
+            <li key={preset.key} className="rds-date-picker__preset-item">
+              <button
+                type="button"
+                className={`rds-date-picker__preset-button ${
+                  selectedPreset === preset.key ? 'rds-date-picker__preset-button--selected' : ''
+                }`}
+                onClick={() => onPresetSelect(preset)}
+              >
+                {preset.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <div className="rds-date-picker__calendar-panel">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 export const formatRangeText = (
   variant: 'daterange' | 'timerange' | 'datetimerange',
   value: [Dayjs | null, Dayjs | null],
@@ -65,88 +100,33 @@ const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b
 const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
   !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
 
-const DateCalendarPanel = memo(function DateCalendarPanel({
+export function RangeCalendar({
   value,
   onChange,
-  onMonthChange,
   minDate,
   maxDate,
-  daySlot,
+  multiMonth,
 }: {
-  value: Dayjs;
-  onChange: (newMonth: Dayjs | null) => void;
-  onMonthChange: (newMonth: Dayjs) => void;
-  minDate?: Dayjs;
-  maxDate?: Dayjs;
-  daySlot: React.ElementType<PickersDayProps>;
-}) {
-  return (
-    <DateCalendar
-      value={value}
-      onChange={(newValue) => onChange(newValue as Dayjs | null)}
-      onMonthChange={(newMonth) => onMonthChange(newMonth as Dayjs)}
-      minDate={minDate}
-      maxDate={maxDate}
-      slots={{ day: daySlot }}
-      views={['year', 'month', 'day']}
-      displayWeekNumber
-      slotProps={{
-        calendarHeader: {
-          format: 'MMMM YYYY',
-        },
-      }}
-    />
-  );
-});
-
-export const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
-    children: ReactNode;
-    selectedPreset: string;
-    onPresetSelect: (preset: DateRangePreset) => void;
-    rangeValue: [Dayjs | null, Dayjs | null];
-    ref?: Ref<HTMLDivElement>;
-}) => {
-  return (
-    <div
-      ref={ref}
-      className="rds-date-picker__custom-layout"
-    >
-      <div className="rds-date-picker__preset-panel">
-        <ul className="rds-date-picker__preset-list">
-          {dateRangePresets.map((preset) => (
-            <li key={preset.key} className="rds-date-picker__preset-item">
-              <button
-                type="button"
-                className={clsx(
-                  "rds-date-picker__preset-button",
-                  selectedPreset === preset.key && "rds-date-picker__preset-button--selected"
-                )}
-                onClick={() => onPresetSelect(preset)}
-              >
-                {preset.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="rds-date-picker__calendar-panel">{children}</div>
-    </div>
-  );
-};
-
-export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }: {
   value: [Dayjs | null, Dayjs | null];
   onChange: (v: [Dayjs | null, Dayjs | null]) => void;
   minDate?: Dayjs;
   maxDate?: Dayjs;
   multiMonth?: boolean;
 }) {
-  const [draft, setDraft] = useState<[Dayjs | null, Dayjs | null]>(value);
-  const [currentMonth, setCurrentMonth] = useState(draft[0] || dayjs());
+  const [draft, setDraft] = useState<[Dayjs | null, Dayjs | null]>([null, null]);
+  const [currentMonth, setCurrentMonth] = useState(() => dayjs());
+  const [prevValue0, setPrevValue0] = useState(value[0]?.valueOf());
+  const [prevValue1, setPrevValue1] = useState(value[1]?.valueOf());
+  if (value[0]?.valueOf() !== prevValue0 || value[1]?.valueOf() !== prevValue1) {
+    setPrevValue0(value[0]?.valueOf());
+    setPrevValue1(value[1]?.valueOf());
+    setDraft(value);
+    if (value[0]) {
+      setCurrentMonth(value[0]);
+    }
+  }
 
-  useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
-
-  const handleSelect = useCallback((day: Dayjs) => {
+  const handleSelect = (day: Dayjs) => {
     const [start, end] = draft;
     if (!start || (start && end)) {
       setDraft([day.startOf('day'), null]);
@@ -158,11 +138,13 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
       setDraft([start, day.endOf('day')]);
       onChange([start, day.endOf('day')]);
     }
-  }, [draft, onChange]);
+  };
 
-  const handleMonthChange = useCallback((newMonth: Dayjs) => setCurrentMonth(newMonth), []);
+  const handleMonthChange = (newMonth: Dayjs) => {
+    setCurrentMonth(newMonth);
+  };
 
-  const RangeDaySlot: React.ElementType<PickersDayProps> = (dayProps: PickersDayProps): ReactElement => {
+  const RangeDaySlot: ComponentType<PickersDayProps> = (dayProps: PickersDayProps): ReactElement => {
     const day = dayProps.day as Dayjs;
     const [start, end] = draft;
     const inRange = isBetween(day, start, end);
@@ -170,57 +152,50 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     const isEnd = isSameDay(day, end);
     return (
       <PickersDay
-        {...(dayProps as PickersDayProps)}
+        {...dayProps}
+        day={day}
         onClick={() => handleSelect(day)}
-        sx={{
-          borderRadius: '4px !important',
-          ...(inRange && {
-            backgroundColor: 'var(--rds-color-primary-hover) !important',
-            color: 'var(--rds-color-primary) !important',
-          }),
-          ...(isStart || isEnd ? {
-            backgroundColor: 'var(--rds-color-primary) !important',
-            color: 'var(--rds-color-on-primary) !important',
-          } : {}),
-        }}
+        className={[
+          dayProps.className,
+          inRange ? 'rds-date-picker__day--in-range' : '',
+          (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
+        ].filter(Boolean).join(' ')}
       />
     );
   };
 
-  const handlePrimaryCalendarChange = useCallback((newMonth: Dayjs | null) => {
-    if (newMonth) {
-      handleMonthChange(newMonth);
-    }
-  }, [handleMonthChange]);
-
-  const handleSecondaryCalendarChange = useCallback((newMonth: Dayjs | null) => {
-    if (newMonth) {
-      handleMonthChange(newMonth.subtract(1, 'month'));
-    }
-  }, [handleMonthChange]);
-
-  const handleSecondaryMonthChange = useCallback((newMonth: Dayjs) => {
-    setCurrentMonth(newMonth.subtract(1, 'month'));
-  }, []);
-
   const calendars = (
-    <Box display="flex" gap={2}>
-      <DateCalendarPanel
+    <Box className="rds-date-picker__range-calendar-row">
+      <DateCalendar
         value={currentMonth}
-        onChange={handlePrimaryCalendarChange}
-        onMonthChange={handleMonthChange}
+        onChange={(newMonth) => newMonth && handleMonthChange(newMonth as Dayjs)}
+        onMonthChange={(newMonth) => setCurrentMonth(newMonth as Dayjs)}
         minDate={minDate}
         maxDate={maxDate}
-        daySlot={RangeDaySlot}
+        slots={{ day: RangeDaySlot }}
+        views={['year', 'month', 'day']}
+        displayWeekNumber
+        slotProps={{
+          calendarHeader: {
+            format: 'MMMM YYYY',
+          },
+        }}
       />
       {multiMonth && (
-        <DateCalendarPanel
+        <DateCalendar
           value={currentMonth.add(1, 'month')}
-          onChange={handleSecondaryCalendarChange}
-          onMonthChange={handleSecondaryMonthChange}
+          onChange={(newMonth) => newMonth && handleMonthChange((newMonth as Dayjs).subtract(1, 'month'))}
+          onMonthChange={(newMonth) => setCurrentMonth((newMonth as Dayjs).subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
-          daySlot={RangeDaySlot}
+          slots={{ day: RangeDaySlot }}
+          views={['year', 'month', 'day']}
+          displayWeekNumber
+          slotProps={{
+            calendarHeader: {
+              format: 'MMMM YYYY',
+            },
+          }}
         />
       )}
     </Box>
@@ -245,56 +220,95 @@ export function RangeTime({
   size?: 'small' | 'medium';
 }) {
   const [start, end] = value;
+  
+  const handleStartTimeChange = (newStart: Dayjs | Date | null) => {
+    onChange([newStart as Dayjs | null, end]);
+  };
 
-  const handleStartTimeChange = useCallback((newStart: Dayjs | null) => onChange([newStart, end]), [onChange, end]);
-  const handleEndTimeChange = useCallback((newEnd: Dayjs | null) => onChange([start, newEnd]), [onChange, start]);
+  const handleEndTimeChange = (newEnd: Dayjs | Date | null) => {
+    onChange([start, newEnd as Dayjs | null]);
+  };
 
-  const endMinTime = useMemo(() => (start ? start : minTime), [start, minTime]);
-  const startMaxTime = useMemo(() => (end ? end : maxTime), [end, maxTime]);
-
+  const endMinTime = useMemo(() => {
+    if (start) {
+      return start; // Allow same time or later
+    }
+    return minTime;
+  }, [start, minTime]);
+  
+  const startMaxTime = useMemo(() => {
+    if (end) {
+      return end; // Allow same time or earlier
+    }
+    return maxTime;
+  }, [end, maxTime]);
+  
   return (
-    <Stack direction="row" spacing={2}>
-      <Box flex={1}>
+    <div className="rds-date-picker__time-range-stack" data-testid="stack">
+      <div className="rds-date-picker__time-range-item">
         <TimePicker
           label="Start Time"
           value={start}
-          onChange={(newValue) => handleStartTimeChange(newValue as Dayjs | null)}
+          onChange={handleStartTimeChange}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           minTime={minTime}
-          maxTime={startMaxTime}
+          maxTime={startMaxTime} // Use end time as maximum for start time (allows same time)
           slotProps={{
             textField: {
               size: size,
               fullWidth: true,
             },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              className: 'rds-date-picker__picker-paper',
+            },
           }}
         />
-      </Box>
-      <Box flex={1}>
+      </div>
+      <div className="rds-date-picker__time-range-item">
         <TimePicker
           label="End Time"
           value={end}
-          onChange={(newValue) => handleEndTimeChange(newValue as Dayjs | null)}
+          onChange={handleEndTimeChange}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
-          minTime={endMinTime}
+          minTime={endMinTime} // Use start time as minimum for end time (allows same time)
           maxTime={maxTime}
           slotProps={{
             textField: {
               size: size,
               fullWidth: true,
             },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              className: 'rds-date-picker__picker-paper',
+            },
           }}
         />
-      </Box>
-    </Stack>
+      </div>
+    </div>
   );
 }
 
-export function RangeDateTime(props: {
+export function RangeDateTime({
+  value,
+  onChange,
+  showSeconds,
+  minDate,
+  maxDate,
+  minTime,
+  maxTime,
+  multiMonth,
+}: {
   value: [Dayjs | null, Dayjs | null];
   onChange: (v: [Dayjs | null, Dayjs | null]) => void;
   showSeconds: boolean;
@@ -303,19 +317,44 @@ export function RangeDateTime(props: {
   minTime?: Dayjs;
   maxTime?: Dayjs;
   multiMonth?: boolean;
-  size?: 'small' | 'medium';
 }) {
-  const { value, onChange, showSeconds, minDate, maxDate, minTime, maxTime, multiMonth, size } = props;
+  const [start, end] = value;
+
+  const handleStartTimeChange = (newStart: Dayjs | Date | null) => {
+    onChange([newStart as Dayjs | null, end]);
+  };
+
+  const handleEndTimeChange = (newEnd: Dayjs | Date | null) => {
+    onChange([start, newEnd as Dayjs | null]);
+  };
+
   return (
-    <Stack direction="column" spacing={2}>
+    <Box className="rds-date-picker__range-datetime">
       <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
-      <RangeTime value={value} onChange={onChange} showSeconds={showSeconds} minTime={minTime} maxTime={maxTime} size={size} />
-    </Stack>
+      <Box className="rds-date-picker__range-datetime-divider" />
+      <Box>
+        <Box className="rds-date-picker__range-datetime-time-label">Start Time</Box>
+        <TimeClock
+          value={start}
+          onChange={handleStartTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          ampm
+          minTime={minTime}
+          maxTime={end ?? maxTime}
+        />
+      </Box>
+      <Box className="rds-date-picker__range-datetime-spacer" />
+      <Box>
+        <Box className="rds-date-picker__range-datetime-time-label">End Time</Box>
+        <TimeClock
+          value={end}
+          onChange={handleEndTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          ampm
+          minTime={start ?? minTime}
+          maxTime={maxTime}
+        />
+      </Box>
+    </Box>
   );
 }
-
-CustomDateRangeLayout.displayName = 'CustomDateRangeLayout';
-RangeCalendar.displayName = 'RangeCalendar';
-RangeTime.displayName = 'RangeTime';
-RangeDateTime.displayName = 'RangeDateTime';
-DateCalendarPanel.displayName = 'DateCalendarPanel';

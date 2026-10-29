@@ -113,7 +113,7 @@ export const CardSkeleton: Story = {
   argTypes: {
     variant: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    component: { table: { disable: true }, control: false },
+    ['component' as string]: { table: { disable: true }, control: false },
   },
   args: {
     width: "100%",

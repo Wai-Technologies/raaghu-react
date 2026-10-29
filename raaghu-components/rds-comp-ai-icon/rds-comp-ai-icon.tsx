@@ -8,9 +8,13 @@ import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements
 import { normalizePaletteColor, type RaaghuPaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
+import type { SvgIconTypeMap } from "@mui/material/SvgIcon";
+import type { OverridableComponent } from "@mui/material/OverridableComponent";
+
+type RdsSvgIconComponent = ComponentType<SVGProps<SVGSVGElement> & { fontSize?: string | number }>;
 
 /** Accepts MUI SvgIcon components and plain SVG React components. */
-type RdsIconComponent = ComponentType<SVGProps<SVGSVGElement> & { fontSize?: string | number }>;
+type RdsIconComponent = RdsSvgIconComponent | OverridableComponent<SvgIconTypeMap>;
 
 const defaultMaterialIcons: Record<string, RdsIconComponent> = {
   users: GroupOutlinedIcon,
@@ -37,7 +41,7 @@ export const registerMaterialIcons = (
 };
 
 const createMuiIconWrapper = (
-  MuiIcon: RdsIconComponent
+  MuiIcon: RdsSvgIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> =>
   ({
     ref,
@@ -65,13 +69,13 @@ const createMuiIconWrapper = (
 
 const resolveIconComponent = (
   iconName: string,
-  SvgIcon?: RdsIconComponent
+  SvgIcon?: RdsSvgIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> | null => {
   try {
     if (SvgIcon) return SvgIcon;
 
     if (iconName && materialIconsRegistry[iconName]) {
-      return createMuiIconWrapper(materialIconsRegistry[iconName]);
+      return createMuiIconWrapper(materialIconsRegistry[iconName] as RdsSvgIconComponent);
     }
 
     return null;

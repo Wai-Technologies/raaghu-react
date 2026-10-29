@@ -213,7 +213,7 @@
     font-size: var(--rds-font-size-xl);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-700);
-    letter-spacing: 0.2px;
+    letter-spacing: var(--rds-e-signature-letter-spacing);
   }
 
   &__canvas-icon {
@@ -740,7 +740,7 @@
   &--type-initials {
     .rds-e-signature__disabled-text {
       font-size: var(--rds-font-size-xs);
-      line-height: 1.35;
+      line-height: var(--rds-e-signature-disabled-text-line-height);
       width: 100%;
       background: transparent;
       padding: 0;

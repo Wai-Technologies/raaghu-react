@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompRadarChart from './rds-comp-chart-radar';
+import RdsCompRadarChart, { type RdsCompRadarProps } from './rds-comp-chart-radar';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
@@ -110,7 +110,7 @@ describe('RdsCompRadarChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompRadarChart {...defaultProps} options={customOptions} />
+        <RdsCompRadarChart {...defaultProps} options={customOptions as RdsCompRadarProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -597,7 +597,7 @@ describe('RdsCompRadarChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompRadarChart {...defaultProps} options={null} />
+        <RdsCompRadarChart {...defaultProps} options={null as unknown as RdsCompRadarProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -611,7 +611,7 @@ describe('RdsCompRadarChart', () => {
 
     it('handles undefined options', () => {
       const { container } = render(
-        <RdsCompRadarChart {...defaultProps} options={undefined} />
+        <RdsCompRadarChart {...defaultProps} options={undefined as unknown as RdsCompRadarProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -725,7 +725,7 @@ describe('RdsCompRadarChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompRadarChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompRadarChart {...defaultProps} options={optionsWithPlugins as RdsCompRadarProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -765,7 +765,7 @@ describe('RdsCompRadarChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompRadarChart {...defaultProps} options={customLegendOptions} />
+        <RdsCompRadarChart {...defaultProps} options={customLegendOptions as RdsCompRadarProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });

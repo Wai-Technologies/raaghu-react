@@ -591,7 +591,7 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('state applies without a legacy casing alias', async () => {
-      warnDeprecatedProp.mockClear();
+      (warnDeprecatedProp as jest.Mock).mockClear();
       await renderEditor({ state: 'Active' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--active');
@@ -641,5 +641,12 @@ describe('audit fixes focused/defaultValue', () => {
       'user',
       expect.any(Object),
     );
+  });
+});
+
+describe('RdsCompTextEditor style', () => {
+  it('forwards style to the root element', async () => {
+    const { container } = await renderEditor({ style: { opacity: 0.5 } });
+    expect(container.querySelector('.rds-comp-text-editor')).toHaveStyle({ opacity: '0.5' });
   });
 });

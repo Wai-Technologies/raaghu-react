@@ -78,7 +78,7 @@ const RdsDivider = ({
   className,
   'data-testid': dataTestId,
   ...props
-}: RdsDividerProps) => {
+}: RdsDividerProps & { 'data-testid'?: string }) => {
   if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
   if (iconShow !== undefined) warnDeprecatedProp('RdsDivider', 'iconShow', '`icon={null}`');
   if (styleVariant !== undefined) warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');

@@ -23,7 +23,7 @@
     color: var(--rds-text);
     margin-bottom: var(--rds-spacing-sm);
     margin-left: 0;
-    letter-spacing: 0.2px;
+    letter-spacing: var(--rds-map-label-letter-spacing);
     text-align: left;
   }
 

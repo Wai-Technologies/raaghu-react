@@ -22,7 +22,7 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   children?: ReactNode;
   /** Action content rendered in the dialog footer. */
   actions?: ReactNode;
-  /** Shows the close button; superseded by `showCloseButton`. */
+  /** Figma alias of `showCloseButton` (Figma "Show Dismiss"); kept without a warning. Prefer `showCloseButton`. */
   showDissmiss?: boolean;
   /** Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`. */
   showCloseButton?: boolean;
@@ -104,8 +104,7 @@ const RdsDialog = ({
 }: RdsDialogProps) => {
   if (showTitleProp !== undefined) warnDeprecatedProp('RdsDialog', 'showTitle', '`title={undefined}`');
   if (size !== undefined) warnDeprecatedProp('RdsDialog', 'size', '`maxWidth`');
-  if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');
-  const showTitle = showTitleProp ?? true;
+  if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');  const showTitle = showTitleProp ?? true;
   const showClose = showCloseButtonProp ?? showDissmiss ?? true;
   const resolvedSize = size ?? 'medium';
   const titleId = useId();

@@ -101,7 +101,7 @@
       max-width: var(--rds-menu-dim-2);
     }
     .rds-menu__item {
-      font-size: 0.80rem;
+      font-size: var(--rds-menu-item-font-size-sm);
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       gap: var(--rds-spacing-sm);
@@ -112,7 +112,7 @@
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1rem;
       height: 1rem;
-      font-size: 0.5rem;
+      font-size: var(--rds-menu-avatar-font-size);
     }
     .rds-menu__header {
       font-size: 0.85em;
@@ -151,7 +151,7 @@
       max-width: var(--rds-menu-dim-4);
     }
     .rds-menu__item {
-      font-size: 1.0625rem;
+      font-size: var(--rds-menu-item-font-size-lg);
       min-height: 2.75rem;
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) var(--rds-spacing-lg);
       gap: var(--rds-spacing-md);
@@ -195,7 +195,7 @@
   &--enter-active {
     opacity: 1;
     transform: scale(1) translateY(0);
-    transition: opacity 120ms, transform 120ms;
+    transition: opacity var(--rds-menu-enter-duration), transform var(--rds-menu-enter-duration);
   }
   &--exit {
     opacity: 1;
@@ -203,7 +203,7 @@
   &--exit-active {
     opacity: 0;
     transform: scale(0.9) translateY(-8px);
-    transition: opacity 80ms, transform 80ms;
+    transition: opacity var(--rds-menu-exit-duration), transform var(--rds-menu-exit-duration);
   }
 
 }

@@ -30,7 +30,7 @@ const meta: Meta<typeof RdsStepper> = {
     nonLinear: {
       control: { type: 'boolean' },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -38,7 +38,7 @@ const meta: Meta<typeof RdsStepper> = {
       control: { disable: true },
       table: { disable: true },
     },
-    children: {
+    ['children' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

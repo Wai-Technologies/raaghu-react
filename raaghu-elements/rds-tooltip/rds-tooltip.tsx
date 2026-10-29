@@ -38,7 +38,7 @@ const RdsTooltip = ({
   wrapper: _wrapper,
   'data-testid': dataTestId,
   ...props
-}: RdsTooltipProps) => {
+}: RdsTooltipProps & { 'data-testid'?: string }) => {
   const legacyPlacement = typeof style === 'string' ? style : undefined;
   if (legacyPlacement !== undefined) {
     warnDeprecatedProp('RdsTooltip', 'style', '`placement`');

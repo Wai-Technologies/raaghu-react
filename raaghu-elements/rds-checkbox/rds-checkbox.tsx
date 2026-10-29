@@ -42,7 +42,7 @@ const RdsCheckbox = ({
   slotProps,
   'data-testid': dataTestId,
   ...props
-}: RdsCheckboxProps) => {
+}: RdsCheckboxProps & { 'data-testid'?: string }) => {
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
   if (labelText !== undefined) warnDeprecatedProp('RdsCheckbox', 'labelText', '`label`');
 

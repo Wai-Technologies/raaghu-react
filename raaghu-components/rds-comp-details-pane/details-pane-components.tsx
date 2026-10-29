@@ -92,7 +92,7 @@ export const FigmaUIKitButton = ({
   storybookIconSrc,
   iconAlt = "Figma",
   className = ""
-}) => {
+}: FigmaUIKitButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__figma-ui-kit-button ${className}`}
@@ -122,7 +122,7 @@ export const StorybookButton = ({
   figmaIconSrc,
   storybookIconSrc,
   iconAlt = "Storybook"
-}) => {
+}: StorybookButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__storybook-ui-kit-button ${className}`}
@@ -160,7 +160,7 @@ export const HistoryFavoritesTabs = ({
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
   favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
-}) => {
+}: HistoryFavoriteTabsProps) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
   const resolvedHistoryItems = historyItems ?? EMPTY_HISTORY_ITEMS;
   const resolvedOlderHistoryItems = olderHistoryItems ?? EMPTY_HISTORY_ITEMS;
@@ -341,7 +341,7 @@ export const RealEstateContent = ({
   estateTitle,
   estateDescription,
   carouselImages
-}) => {
+}: RealEstateContentProps) => {
   const resolvedCarouselImages = carouselImages ?? EMPTY_CAROUSEL_IMAGES;
   const badges = REAL_ESTATE_BADGES;
 
@@ -351,7 +351,7 @@ export const RealEstateContent = ({
         <div className="rds-comp-details-pane__real-estate-carousel" id="carousel-indicator">
           <RdsCarousel
             autoPlay={false}
-            height="200px"
+            height="var(--rds-spacing-200)"
             showArrows={false}
             showIndicators={true}
             variant="default"
@@ -456,7 +456,7 @@ export const SelectionContent = ({
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
-  const handleAgentCardKeyDown = useCallback((e: KeyboardEvent, agentId: string) => {
+  const handleAgentCardKeyDown = useCallback((e: React.KeyboardEvent<HTMLButtonElement>, agentId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setSelectedAgent(agentId);
@@ -543,7 +543,7 @@ export const ToolbarContent = ({
   initialTab = 'icon_font',
   figmaIconSrc,
   storybookIconSrc
-}) => {
+}: ToolbarContentProps) => {
   const [toolbarState, setToolbarState] = useState({
     activeToolbarTab: initialTab,
     selectedFontSize: 16,
@@ -995,7 +995,7 @@ const THUMBNAIL_ACCORDION_ITEMS = [
 
 export const ThumbnailViewContent = ({
   thumbnailButtonName
-}) => {
+}: ThumbnailViewContentProps) => {
   const accordionItems = THUMBNAIL_ACCORDION_ITEMS;
 
   return (

@@ -125,7 +125,7 @@
   font-size: var(--rds-font-size-lg);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 600);
-  line-height: 22px;
+  line-height: var(--rds-filter-button-header-title-line-height);
 }
 
 .rds-filter-button__popover .MuiAccordionDetails-root {

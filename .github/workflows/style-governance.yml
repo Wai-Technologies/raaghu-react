@@ -21,11 +21,16 @@ on:
       - 'scripts/check-raw-px-in-scss.mjs'
       - 'scripts/local-dim-px-baseline.txt'
       - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/typography-motion-baseline.txt'
+      - 'scripts/check-typography-motion-in-scss.mjs'
       - 'scripts/check-orphaned-css-vars.mjs'
+      - 'scripts/ts-raw-values-baseline.txt'
+      - 'scripts/check-raw-values-in-ts.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
       - 'raaghu-layouts/**/*.{ts,tsx}'
+      - 'raaghu-pages/**/*.{ts,tsx}'
   pull_request:
     branches: [main, development, production]
     paths:
@@ -46,11 +51,16 @@ on:
       - 'scripts/check-raw-px-in-scss.mjs'
       - 'scripts/local-dim-px-baseline.txt'
       - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/typography-motion-baseline.txt'
+      - 'scripts/check-typography-motion-in-scss.mjs'
       - 'scripts/check-orphaned-css-vars.mjs'
+      - 'scripts/ts-raw-values-baseline.txt'
+      - 'scripts/check-raw-values-in-ts.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
       - 'raaghu-layouts/**/*.{ts,tsx}'
+      - 'raaghu-pages/**/*.{ts,tsx}'
   workflow_dispatch:
 
 permissions:
@@ -97,8 +107,14 @@ jobs:
       - name: Check for bare px/rem in local --rds-* custom properties
         run: node scripts/check-local-dim-px-in-scss.mjs
 
+      - name: Check for typography/motion literals in SCSS
+        run: node scripts/check-typography-motion-in-scss.mjs
+
       - name: Check for orphaned var(--rds-*) references
         run: node scripts/check-orphaned-css-vars.mjs
+
+      - name: Check for raw px/rem/duration literals in TS/TSX styles
+        run: node scripts/check-raw-values-in-ts.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

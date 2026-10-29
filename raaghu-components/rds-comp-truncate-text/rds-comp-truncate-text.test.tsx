@@ -659,3 +659,12 @@ describe('audit fixes maxLines', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompTruncateText', 'lines', '`maxLines`');
   });
 });
+
+describe('RdsCompTruncateText style', () => {
+  it('forwards style to the root and adds none when omitted', () => {
+    const a = render(<RdsCompTruncateText style={{ opacity: 0.5 }}>abc</RdsCompTruncateText>);
+    expect(a.container.firstChild).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsCompTruncateText>abc</RdsCompTruncateText>);
+    expect(b.container.firstChild).not.toHaveAttribute('style');
+  });
+});

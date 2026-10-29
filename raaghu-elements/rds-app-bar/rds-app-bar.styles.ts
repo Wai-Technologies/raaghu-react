@@ -4,6 +4,8 @@ import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/desig
 
 type AppBarSx = SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>);
 
+const bp = (key: keyof typeof extendedBreakpointTokens) => parseFloat(extendedBreakpointTokens[key]);
+
 const contrastTextTargets =
   '.rds-header__title, .rds-header__actions, .rds-header__logo, .rds-header__center-content, .rds-avatar__name, #avatarname, .rds-avatar__designation, .rds-profile-menu__name, .rds-profile-menu__chevron';
 
@@ -107,7 +109,7 @@ export const rdsAppBarSx: AppBarSx[] = [
     '.rds-header__menu-button': {
       marginLeft: 0,
       marginRight: 'var(--rds-spacing-sm)',
-      [theme.breakpoints.down(840)]: {
+      [theme.breakpoints.down(bp('840'))]: {
         marginRight: 0,
       },
     },
@@ -128,15 +130,15 @@ export const rdsAppBarSx: AppBarSx[] = [
       textTransform: 'none',
       color: 'var(--rds-color-on-surface)',
       minWidth: 'auto',
-      [theme.breakpoints.down(834)]: {
+      [theme.breakpoints.down(bp('834'))]: {
         padding: 'var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs))',
         fontSize: 'var(--rds-font-size-sm)',
       },
-      [theme.breakpoints.down(420)]: {
+      [theme.breakpoints.down(bp('420'))]: {
         padding: 'calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs))',
         fontSize: 'var(--rds-font-size-sm)',
       },
-      [theme.breakpoints.down(320)]: {
+      [theme.breakpoints.down(bp('mobile-sm'))]: {
         padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm)',
         fontSize: 'var(--rds-font-size-xs)',
       },
@@ -154,29 +156,29 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
     '.rds-header__tabs-inline .MuiTabs-indicator': {
-      height: 2,
+      height: 'var(--rds-border-width-medium)',
       backgroundColor: 'var(--rds-color-primary)',
     },
 
     '.rds-language-menu-paper': {
-      width: 220,
-      maxWidth: 260,
-      maxHeight: 360,
+      width: 'var(--rds-appbar-language-menu-width)',
+      maxWidth: 'var(--rds-appbar-language-menu-max-width)',
+      maxHeight: 'var(--rds-appbar-language-menu-max-height)',
       overflow: 'hidden',
       boxSizing: 'border-box',
-      [theme.breakpoints.down(834)]: {
-        width: 200,
-        maxWidth: 240,
+      [theme.breakpoints.down(bp('834'))]: {
+        width: 'var(--rds-spacing-200)',
+        maxWidth: 'var(--rds-spacing-240)',
       },
-      [theme.breakpoints.down(420)]: {
-        width: 180,
-        maxWidth: 200,
-        maxHeight: 300,
+      [theme.breakpoints.down(bp('420'))]: {
+        width: 'var(--rds-appbar-language-menu-width-sm)',
+        maxWidth: 'var(--rds-spacing-200)',
+        maxHeight: 'var(--rds-appbar-language-menu-max-height-sm)',
       },
-      [theme.breakpoints.down(320)]: {
-        width: 160,
-        maxWidth: 180,
-        maxHeight: 280,
+      [theme.breakpoints.down(bp('mobile-sm'))]: {
+        width: 'var(--rds-spacing-160)',
+        maxWidth: 'var(--rds-appbar-language-menu-width-sm)',
+        maxHeight: 'var(--rds-appbar-language-menu-max-height-xs)',
       },
     },
     '.rds-language-menu-paper .MuiMenuItem-root, .rds-language-menu-list .MuiMenuItem-root': {
@@ -191,13 +193,13 @@ export const rdsAppBarSx: AppBarSx[] = [
     '.rds-language-menu-list': {
       paddingTop: 'var(--rds-spacing-xs)',
       paddingBottom: 'var(--rds-spacing-xs)',
-      maxHeight: 360,
+      maxHeight: 'var(--rds-appbar-language-menu-max-height)',
       overflowY: 'auto',
-      [theme.breakpoints.down(420)]: { maxHeight: 300 },
-      [theme.breakpoints.down(320)]: { maxHeight: 280 },
+      [theme.breakpoints.down(bp('420'))]: { maxHeight: 'var(--rds-appbar-language-menu-max-height-sm)' },
+      [theme.breakpoints.down(bp('mobile-sm'))]: { maxHeight: 'var(--rds-appbar-language-menu-max-height-xs)' },
     },
 
-    [theme.breakpoints.down(420)]: {
+    [theme.breakpoints.down(bp('420'))]: {
       '.MuiIconButton-root': {
         padding: 'var(--rds-spacing-sm)',
         '& svg': { fontSize: 'var(--rds-font-size-2xl)' },
@@ -217,7 +219,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         color: 'var(--rds-color-on-surface)',
       },
     },
-    [theme.breakpoints.down(320)]: {
+    [theme.breakpoints.down(bp('mobile-sm'))]: {
       '.MuiIconButton-root': {
         padding: 'var(--rds-spacing-compact)',
         marginRight: 0,
@@ -262,23 +264,23 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
       '.rds-bottom-navigation .rds-bottom-nav-tab': {
         fontSize: 'var(--rds-font-size-sm)',
-        padding: '4px 6px',
+        padding: 'var(--rds-spacing-xs-px) var(--rds-spacing-compact)',
       },
       '.rds-bottom-navigation .rds-appbar-badge': {
         fontSize: 'var(--rds-font-size-xs)',
-        padding: '2px 4px',
+        padding: 'var(--rds-spacing-xxs) var(--rds-spacing-xs-px)',
       },
       '.rds-bottom-navigation .MuiButton-root': {
         fontSize: 'var(--rds-font-size-xs)',
-        padding: '3px 6px',
+        padding: 'var(--rds-spacing-micro) var(--rds-spacing-compact)',
       },
       '.rds-profile-menu__button .MuiBox-root, .rds-profile-menu__button .rds-avatar__info, .rds-profile-menu__button .rds-profile-menu__name-lg, .rds-profile-menu__button .rds-profile-menu__email, .rds-profile-menu__button .rds-profile-menu__chevron, .rds-avatar__info':
         {
           display: 'none',
         },
       '.rds-profile-menu__avatar, .rds-profile-menu__button .MuiAvatar-root': {
-        width: 30,
-        height: 30,
+        width: 'var(--rds-spacing-30)',
+        height: 'var(--rds-spacing-30)',
       },
       '.rds-header__toolbar': {
         position: 'relative',
@@ -287,7 +289,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-header__search-wrapper': {
         marginRight: 'var(--rds-spacing-12-px)',
         flex: '0 1 auto',
-        maxWidth: 'calc(100% - 140px)',
+        maxWidth: 'calc(100% - var(--rds-appbar-search-width-lg))',
         position: 'relative',
         transform: 'none',
       },
@@ -295,7 +297,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         display: 'inline-flex',
         alignItems: 'center',
         position: 'absolute',
-        right: 72,
+        right: 'var(--rds-appbar-settings-offset)',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 'calc(var(--rds-z-index-base) + 4)',
@@ -307,7 +309,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         display: 'inline-flex',
         alignItems: 'center',
         position: 'absolute',
-        right: 12,
+        right: 'var(--rds-spacing-12-px)',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 'calc(var(--rds-z-index-base) + 5)',
@@ -331,14 +333,14 @@ export const rdsAppBarSx: AppBarSx[] = [
         order: 2,
         flex: '1 1 auto',
         minWidth: 0,
-        maxWidth: 140,
+        maxWidth: 'var(--rds-appbar-search-width-lg)',
       },
       '.rds-withmenubutton-settings': {
-        right: 60,
+        right: 'var(--rds-spacing-60)',
         padding: 'var(--rds-spacing-compact)',
       },
       '.rds-profile-menu__button': {
-        right: 12,
+        right: 'var(--rds-spacing-12-px)',
       },
       '.rds-profile-menu__avatar, .rds-profile-menu__button .MuiAvatar-root': {
         width: 'var(--rds-size-28)',
@@ -347,8 +349,8 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-bottom-navigation .MuiButton-contained': {
         color: 'var(--rds-color-on-primary)',
       },
-      [theme.breakpoints.down(320)]: {
-        '.rds-appbar-logo-group, .rds-header__logo': { left: 8 },
+      [theme.breakpoints.down(bp('mobile-sm'))]: {
+        '.rds-appbar-logo-group, .rds-header__logo': { left: 'var(--rds-spacing-sm-px)' },
         '.rds-header__toolbar': {
           paddingLeft: 'var(--rds-spacing-2xl-px)',
           paddingRight: 90,
@@ -357,14 +359,14 @@ export const rdsAppBarSx: AppBarSx[] = [
           right: 'var(--rds-spacing-52)',
           padding: 'var(--rds-spacing-xs)',
         },
-        '.rds-profile-menu__button': { right: 8 },
+        '.rds-profile-menu__button': { right: 'var(--rds-spacing-sm-px)' },
         '.rds-profile-menu__avatar, .rds-profile-menu__button .MuiAvatar-root': {
           width: 'var(--rds-size-lg)',
           height: 'var(--rds-size-lg)',
         },
         '.rds-header__search-wrapper': {
-          maxWidth: 'calc(100% - 100px)',
-          minWidth: 60,
+          maxWidth: 'calc(100% - var(--rds-spacing-100))',
+          minWidth: 'var(--rds-spacing-60)',
         },
       },
     },
@@ -386,7 +388,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         order: 2,
         flex: 1,
         minWidth: 0,
-        maxWidth: 'calc(100% - 140px)',
+        maxWidth: 'calc(100% - var(--rds-appbar-search-width-lg))',
         position: 'relative',
         transform: 'none',
         marginRight: 0,
@@ -398,7 +400,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         display: 'inline-flex',
         alignItems: 'center',
         position: 'absolute',
-        right: 12,
+        right: 'var(--rds-spacing-12-px)',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 'calc(var(--rds-z-index-base) + 5)',
@@ -415,10 +417,10 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
     '&.rds-header--logosearchtabs-narrow': {
       '.rds-header__search-wrapper': {
-        maxWidth: 'calc(100% - 120px)',
+        maxWidth: 'calc(100% - var(--rds-appbar-search-width-md))',
       },
       '.rds-profile-menu__button': {
-        right: 8,
+        right: 'var(--rds-spacing-sm-px)',
       },
       '.rds-header__toolbar': {
         paddingRight: 'var(--rds-spacing-68)',
@@ -454,7 +456,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         minWidth: 0,
         position: 'relative',
         transform: 'none',
-        maxWidth: 'calc(100% - 120px)',
+        maxWidth: 'calc(100% - var(--rds-appbar-search-width-md))',
         marginRight: 'var(--rds-spacing-xs)',
       },
       '.rds-profile-menu__button': {
@@ -469,10 +471,10 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
     '&.rds-header--logotabsactions-narrow': {
       '.rds-header__search-wrapper': {
-        maxWidth: 80,
+        maxWidth: 'var(--rds-spacing-80-px)',
       },
       '.rds-profile-menu__button': {
-        right: 11,
+        right: 'var(--rds-spacing-11-px)',
       },
     },
 
@@ -481,7 +483,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-dashboard-title': {
         marginLeft: 'var(--rds-spacing-compact)',
         fontSize: 'var(--rds-font-size-md)',
-        lineHeight: 1.1,
+        lineHeight: 'var(--rds-appbar-line-height-tight)',
         fontWeight: 'var(--rds-font-weight-medium)',
       },
       '.rds-header__toolbar': {
@@ -495,7 +497,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         alignItems: 'center',
         gap: 'var(--rds-spacing-sm)',
         position: 'absolute',
-        right: 12,
+        right: 'var(--rds-spacing-12-px)',
         top: '50%',
         transform: 'translateY(-50%)',
         marginLeft: 0,
@@ -536,7 +538,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         textOverflow: 'ellipsis',
       },
       '.rds-language-button': {
-        transform: 'translateX(-6px)',
+        transform: 'translateX(var(--rds-spacing-neg-6))',
         marginLeft: 0,
       },
     },
@@ -592,7 +594,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         fontSize: 'var(--rds-font-size-sm)',
       },
       '.rds-language-button': {
-        transform: 'translateX(-10px)',
+        transform: 'translateX(calc(-1 * var(--rds-spacing-cozy)))',
       },
       '.rds-appbar-separator': { display: 'none' },
     },
@@ -603,12 +605,12 @@ export const rdsAppBarSx: AppBarSx[] = [
           display: 'none',
         },
       '.rds-profile-menu__avatar, .rds-profile-menu__button .MuiAvatar-root': {
-        width: 30,
-        height: 30,
+        width: 'var(--rds-spacing-30)',
+        height: 'var(--rds-spacing-30)',
       },
       '.rds-profile-menu__button': {
-        paddingLeft: '0.25rem',
-        paddingRight: '0.25rem',
+        paddingLeft: 'var(--rds-spacing-xs)',
+        paddingRight: 'var(--rds-spacing-xs)',
         minWidth: 'auto',
         order: 99,
         marginLeft: 'auto',
@@ -651,14 +653,14 @@ export const rdsAppBarSx: AppBarSx[] = [
     '&.rds-header--withactions-narrow': {
       '.rds-header__logo': {
         flexShrink: 0,
-        maxWidth: 80,
+        maxWidth: 'var(--rds-spacing-80-px)',
       },
       '.rds-header__center-content': {
         flexShrink: 1,
         gap: 'var(--rds-spacing-micro)',
         marginLeft: 'auto',
         '.MuiButton-root, .rds-button': {
-          fontSize: 10,
+          fontSize: 'var(--rds-appbar-action-font-size-xs)',
           padding: 'var(--rds-spacing-xxs) var(--rds-spacing-compact)',
           minWidth: 'auto',
           minHeight: 'var(--rds-size-lg)',
@@ -673,14 +675,14 @@ export const rdsAppBarSx: AppBarSx[] = [
         },
     },
     '&.rds-header--withactions-xs': {
-      '.rds-header__logo': { maxWidth: 60 },
+      '.rds-header__logo': { maxWidth: 'var(--rds-spacing-60)' },
       '.rds-header__center-content': {
         gap: 'var(--rds-spacing-xxs)',
         '.MuiButton-root, .rds-button': {
           fontSize: 'var(--rds-font-size-3xs)',
           padding: 'var(--rds-spacing-xxs) var(--rds-spacing-xs)',
-          minHeight: 22,
-          lineHeight: 1.1,
+          minHeight: 'var(--rds-spacing-22)',
+          lineHeight: 'var(--rds-appbar-line-height-tight)',
         },
       },
     },
@@ -707,9 +709,9 @@ export const rdsAppBarSx: AppBarSx[] = [
         margin: '0 var(--rds-spacing-xs)',
       },
       '.rds-header__search-wrapper, .rds-header__search': {
-        maxWidth: 120,
-        minWidth: 80,
-        flex: '0 1 120px',
+        maxWidth: 'var(--rds-appbar-search-width-md)',
+        minWidth: 'var(--rds-spacing-80-px)',
+        flex: '0 1 var(--rds-appbar-search-width-md)',
       },
       '.rds-header__actions': {
         gap: 'var(--rds-spacing-xs)',
@@ -747,15 +749,15 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
     '&.rds-header--mobile-toolbar-xs': {
       '.rds-header__search-wrapper, .rds-header__search': {
-        maxWidth: 84,
-        minWidth: 64,
+        maxWidth: 'var(--rds-spacing-84)',
+        minWidth: 'var(--rds-size-3xl)',
       },
       '.rds-header__title': {
         maxWidth: '55%',
         fontSize: 'var(--rds-font-size-sm)',
       },
       '.rds-header__sub-tabs .MuiButton-root': {
-        minWidth: 32,
+        minWidth: 'var(--rds-size-xl)',
         padding: 4,
         gap: 'var(--rds-spacing-xs)',
       },
@@ -785,7 +787,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       marginLeft: 'var(--rds-spacing-compact)',
     },
 
-    [theme.breakpoints.down(420)]: {
+    [theme.breakpoints.down(bp('420'))]: {
       '.rds-header__sub-tabs': {
         display: 'flex',
         flexWrap: 'wrap',
@@ -809,7 +811,7 @@ export const rdsAppBarSx: AppBarSx[] = [
         marginRight: 'var(--rds-spacing-xs)',
       },
     },
-    [theme.breakpoints.down(320)]: {
+    [theme.breakpoints.down(bp('mobile-sm'))]: {
       '.rds-header__sub-tabs .MuiButton-root': {
         padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm)',
       },
@@ -826,7 +828,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    [theme.breakpoints.down(834)]: {
+    [theme.breakpoints.down(bp('834'))]: {
       '&.rds-header--has-menu-button': {
         '.rds-header__toolbar': {
           justifyContent: 'flex-start',
@@ -869,7 +871,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-header__search-wrapper': {
         flex: '1 1 0',
         minWidth: 0,
-        maxWidth: 120,
+        maxWidth: 'var(--rds-appbar-search-width-md)',
       },
       '.rds-header__right-actions .MuiButton-root': {
         padding: 'var(--rds-spacing-xs) var(--rds-spacing-compact)',
@@ -879,7 +881,7 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
     '&.rds-header--has-menu-button.rds-header--mobile-toolbar-xs:not(.rds-header--withmenubutton-compact)': {
       '.rds-header__title:not(:empty)': {
-        maxWidth: 'calc(100% - 130px)',
+        maxWidth: 'calc(100% - var(--rds-appbar-title-reserved-width))',
         fontSize: 'var(--rds-font-size-sm)',
         margin: '0 var(--rds-spacing-xxs)',
       },
@@ -891,7 +893,7 @@ export const rdsAppBarSx: AppBarSx[] = [
     '&.rds-header--variant-dashboardwithlang': {
       '.rds-bottom-navigation': {
         display: 'none',
-        [theme.breakpoints.down(1200)]: {
+        [theme.breakpoints.down(bp('lg'))]: {
           display: 'flex',
         },
       },
@@ -900,7 +902,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       display: 'flex',
       alignItems: 'center',
       gap: 'var(--rds-spacing-sm)',
-      [theme.breakpoints.down(640)]: {
+      [theme.breakpoints.down(bp('640'))]: {
         display: 'none',
       },
     },

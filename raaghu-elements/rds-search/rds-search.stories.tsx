@@ -60,7 +60,7 @@ const meta: Meta<typeof RdsSearch> = {
       control: 'number',
       description: 'Calls onSearch automatically while typing, debounced by this many ms',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

@@ -67,7 +67,7 @@ export const Default = {
   render: SnackbarTemplate,
   args: {
     message: 'Operation completed successfully!',
-    severity: 'success',
+    severity: 'success' as const,
   },
 };
 

@@ -421,7 +421,7 @@
     }
 
     &__title-subtitle {
-      font-size: 0.85rem;
+      font-size: var(--rds-carousel-subtitle-font-size);
       line-height: var(--rds-line-height-comfortable);
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -486,7 +486,7 @@
     }
 
     &__title-subtitle {
-      font-size: 0.8rem;
+      font-size: var(--rds-carousel-subtitle-font-size-sm);
     }
 
     &--default,
