@@ -1,5 +1,5 @@
 
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';
@@ -320,44 +320,6 @@ const columns = [
   { id: 'name', label: 'Name', minWidth: 150, sortable: true },
   { id: 'email', label: 'Email', minWidth: 200, sortable: true },
   { id: 'role', label: 'Role', minWidth: 120, sortable: true },
-];
-
-const advancedColumns = [
-  { 
-    id: 'checkbox', 
-    label: '', 
-    type: 'checkbox' as const,
-    minWidth: 50
-  },
-  { 
-    id: 'user', 
-    label: 'User', 
-    type: 'avatar' as const,
-    minWidth: 200
-  },
-  { 
-    id: 'badge', 
-    label: 'Badge', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'status', 
-    label: 'Status', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'actions', 
-    label: 'Actions', 
-    type: 'actions' as const,
-    minWidth: 120,
-    align: 'right' as const,
-    format: () => [
-      { type: 'edit', icon: <EditIcon fontSize="small" /> },
-      { type: 'delete', icon: <DeleteIcon fontSize="small" /> }
-    ]
-  },
 ];
 
 export const Default: Story = {

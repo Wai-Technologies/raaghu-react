@@ -105,7 +105,6 @@ const RdsRating = ({
   
   
   const computeCurrentValue = (): number | null => {
-    // `level` wins so Storybook / Figma level control updates the display even when `value` is set.
     if (type === 'slider') {
       if (level !== undefined) {
         return snapToAllowed(getLevelValue(level), maxRating);

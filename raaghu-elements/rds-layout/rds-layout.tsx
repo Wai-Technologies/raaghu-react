@@ -48,9 +48,6 @@ const RdsLayout= ({
       <Box
         component="main"
         sx={{
-          // Keep the CSS var for runtime theming, but set an explicit px
-          // value here so tests and inline-style consumers receive a
-          // concrete `margin-top` value.
           marginTop: showHeader ? `${headerHeight}px` : 0,
           flexGrow: 1,
           padding: padding,

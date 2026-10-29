@@ -3,7 +3,6 @@
   --rds-scrollbar-dim-2: 2px;
   --rds-scrollbar-dim-3: 800px;
 
-  /* G6-094: default height via token; consumer sx/className can override */
   --rds-scrollbar-height: 300px;
   position: relative;
   overflow: hidden;

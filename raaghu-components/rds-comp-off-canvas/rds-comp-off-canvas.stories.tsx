@@ -1,7 +1,5 @@
-import React from "react";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import RdsCompOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-comp-off-canvas";
-import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -55,7 +53,6 @@ type Story = StoryObj<typeof RdsCompOffcanvas>;
 
 export const Default: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
   },

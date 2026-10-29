@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompTimePicker, { RdsTimePickerProps } from './rds-comp-time-picker';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';

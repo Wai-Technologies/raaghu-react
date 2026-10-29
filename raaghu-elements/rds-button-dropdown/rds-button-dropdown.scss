@@ -1,7 +1,6 @@
 .rds-button-dropdown {
   --rds-button-dropdown-dim-1: 220px;
 
-  // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
     padding: var(--rds-button-dropdown-menu-padding);
     min-width: var(--rds-button-dropdown-menu-min-width);
@@ -96,7 +95,6 @@
   padding: var(--rds-spacing-xs) var(--rds-spacing-compact);
   min-height: var(--rds-size-xl);
 
-  /* Keep compact avatar size without overlap */
 	.rds-avatar,
 	.rds-avatar .MuiAvatar-root {
     width: var(--rds-size-28);
@@ -110,7 +108,6 @@
 		}
 	}
 
-  /* Keep radio readable and prevent overlap with avatar */
 	.rds-radio {
     display: flex;
     align-items: center;
@@ -141,7 +138,6 @@
 		}
 	}
 
-  /* Keep checkbox compact but readable */
 	.rds-checkbox {
     margin-left: 0;
     min-width: 0;

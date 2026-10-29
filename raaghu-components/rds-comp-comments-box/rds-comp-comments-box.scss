@@ -433,7 +433,6 @@
         padding-left: 0;
         border-radius: var(--rds-border-radius-lg);
 
-        /* Compact sizing owned by .rds-input--compact; send button via IconButton sx */
         .MuiOutlinedInput-notchedOutline {
           border-color: var(--rds-border-default, var(--rds-neutral-200));
         }

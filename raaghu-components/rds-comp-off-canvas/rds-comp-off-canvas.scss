@@ -1,11 +1,8 @@
-/* auto size dims */
 :root {
   --rds-off-canvas-dim-1: 320px;
   --rds-off-canvas-dim-2: 375px;
   --rds-off-canvas-dim-3: 400px;
 }
-
-/* G6-055: scope drawer chrome / placement under .offcanvas-drawer (no global .placement-* / header leaks) */
 
 .offcanvas-drawer {
 
@@ -256,8 +253,6 @@
 #offcanvas-btns .MuiButton-root {
 
   min-height: var(--rds-size-36);
-
-  //padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
 
 }
 

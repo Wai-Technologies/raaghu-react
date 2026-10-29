@@ -181,7 +181,6 @@ function countLocalDimInFile(file) {
     ) {
       continue;
     }
-    // Only lines that define custom properties (start with -- after trim, or block of --)
     if (!trimmed.startsWith('--')) continue;
 
     const { count: lineCount, entries } = analyzeCustomPropLine(line);

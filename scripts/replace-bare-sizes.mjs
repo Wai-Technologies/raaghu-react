@@ -75,7 +75,6 @@ function collectUnmappedSizes(source) {
         else if ((ch === ';' || ch === '}') && depth === 0) break;
       }
       let value = line.slice(valueStart, j);
-      // strip var() for bare px detection
       let cleaned = '';
       let i = 0;
       while (i < value.length) {
@@ -90,10 +89,8 @@ function collectUnmappedSizes(source) {
       const pxRe = /(-?\d+)px\b/g;
       let pm;
       while ((pm = pxRe.exec(cleaned))) {
-        // skip fractional by checking original
         const key = pm[1] + 'px';
         if (MAP.has(key) || key === '0px') continue;
-        // skip negatives / huge unlikely - still lift
         if (key.includes('.') || Number(pm[1]) < 0) continue;
         counts.set(key, (counts.get(key) || 0) + 1);
       }
@@ -119,11 +116,9 @@ function insertLocalVars(source, slug, unmapped) {
   const newline = source.includes('\r\n') ? '\r\n' : '\n';
   const lines = source.split(/\r?\n/);
 
-  // Insert after first selector block's opening `{` that looks like a component root
   let insertAt = -1;
   for (let i = 0; i < lines.length; i++) {
     if (/^\s*\.rds[\w-]*\s*\{/.test(lines[i]) || /^\s*\.rds[\w-]*\s*,/.test(lines[i])) {
-      // find the line with `{`
       if (lines[i].includes('{')) {
         insertAt = i + 1;
         break;
@@ -139,7 +134,6 @@ function insertLocalVars(source, slug, unmapped) {
   }
 
   if (insertAt < 0) {
-    // Prepend a :root-like block comment + vars wrapper at top
     return {
       source: [`/* auto size dims */`, ...declLines.map((l) => l.trim()), '', ...lines].join(
         newline,

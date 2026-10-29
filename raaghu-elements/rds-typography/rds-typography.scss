@@ -1,13 +1,9 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-// Import breakpoint variables so @media queries use the token scale
 .rds-typography {
   margin: 0;
   font-family: var(--rds-font-family-base);
 
-  // ── Component-scoped size tokens ─────────────────────────────────────────────
-  // These are overridable per-instance via inline style or a parent selector.
-  // They reference the global --rds-font-size-* scale defined in custom-properties.scss.
   --rds-typography-h1-size:        var(--rds-font-size-5xl);
   --rds-typography-h2-size:        var(--rds-font-size-4xl);
   --rds-typography-h3-size:        var(--rds-font-size-3xl);
@@ -21,7 +17,6 @@
   --rds-typography-h1-size-mobile: var(--rds-font-size-5xl);
   --rds-typography-h2-size-mobile: var(--rds-font-size-4xl);
 
-  // ── Font weight tokens ───────────────────────────────────────────────────────
   --rds-typography-font-weight-light:   var(--rds-font-weight-light, 300);
   --rds-typography-font-weight-regular: var(--rds-font-weight-regular, 400);
   --rds-typography-font-weight-medium:  var(--rds-font-weight-medium, 500);
@@ -103,7 +98,6 @@
     display: block;
   }
 
-  // Use the breakpoint token instead of a hardcoded 320px literal
   @include bp.down(mobile-sm) {
     &--h1 {
       font-size: var(--rds-typography-h1-size-mobile);

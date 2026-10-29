@@ -61,7 +61,6 @@ function stripPxFallbacks(source) {
       }
 
       if (comma === -1) {
-        // var(--name) — recurse into name only if nested vars somehow appear
         result += `var(${stripPxFallbacks(inner)})`;
       } else {
         const name = inner.slice(0, comma);
@@ -69,7 +68,6 @@ function stripPxFallbacks(source) {
         if (fallbackHasLength(fallback)) {
           result += `var(${name.trim()})`;
         } else {
-          // Keep non-length fallbacks (e.g. nested var without px, colors already stripped)
           result += `var(${name},${fallback})`;
         }
       }

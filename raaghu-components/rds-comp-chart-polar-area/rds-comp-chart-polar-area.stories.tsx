@@ -47,7 +47,6 @@ const meta: Meta = {
             description: "React ref to the chart container; assign it in code.",
         },
 
-        // Hide deprecated props from Storybook documentation.
         labels: { control: false, table: { disable: true } },
         dataSets: { control: false, table: { disable: true } },
         chartLabel: { control: false, table: { disable: true } },
@@ -115,7 +114,6 @@ export const Default: Story = {
     },
     parameters: {
         controls: {
-            // No chartStyle exclusion needed.
         },
     },
     play: async ({ canvas }) => {

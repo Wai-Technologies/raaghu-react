@@ -24,15 +24,10 @@ const ALLOW_PATH_EXACT = new Set([
 
 /** Path substrings / patterns that are allowlisted. */
 const ALLOW_PATH_INCLUDES = [
-  // Color-picker hue spectrum + checkerboard (fixed paint, not theme chrome)
   'rds-comp-color-picker/color-picker-components.tsx',
-  // Parse / API logic that matches hex string inputs
   'rds-comp-color-picker/rds-comp-color-picker.tsx',
-  // Doc comments describing hex format
   'rds-comp-color-picker/rds-comp-color-picker.types.ts',
-  // SVG attribute selectors matching third-party map fills
   'rds-comp-map/rds-comp-map.scss',
-  // Maintenance scripts (not product paint)
   'scripts/strip-hex-fallbacks.mjs',
   'scripts/check-no-hex.mjs',
 ];
@@ -86,7 +81,6 @@ for (const root of ROOTS) {
     const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/);
     lines.forEach((line, i) => {
       const trimmed = line.trim();
-      // Doc comments / block comments illustrating overrides are not product paint.
       if (trimmed.startsWith('*') || trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('*/')) {
         return;
       }

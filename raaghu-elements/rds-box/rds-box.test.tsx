@@ -4,7 +4,6 @@ import RdsBox, { type RdsBoxProps } from './rds-box';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-box.scss', () => ({}));
 
 describe('RdsBox', () => {

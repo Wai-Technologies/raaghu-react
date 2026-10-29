@@ -654,8 +654,8 @@ describe('RdsSearch', () => {
       );
       
       const input = screen.getByRole('textbox');
-      await user.tab(); // Focus on search button
-      await user.tab(); // Move to input
+      await user.tab();
+      await user.tab();
       expect(input).toHaveFocus();
     });
 

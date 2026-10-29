@@ -1,7 +1,6 @@
 $rds-bottom-navigation-mobile-breakpoint: 568px;
 
 .rds-bottom-navigation {
-  // bottom-navigation sizing and tokens provided by centralized --rds-* vars
   display: block;
   position: fixed;
   bottom: 0;
@@ -16,14 +15,11 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    // Separates the bar from the page background in light mode
     border-top: var(--rds-border-width-thin) solid
       var(--rds-bottom-navigation-border-color, var(--rds-color-border, var(--rds-border-default)));
   }
 
   .MuiBottomNavigationAction-root {
-    // Equal columns across the full bar — override MUI maxWidth: 168px
-    // which otherwise leaves empty space on the right at mid/large widths.
     flex: 1 1 0;
     min-width: 0;
     max-width: none;

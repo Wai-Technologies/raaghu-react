@@ -24,8 +24,7 @@ export const startCamera = async (videoRef: RefObject<HTMLVideoElement>) => {
       videoRef.current.play();
     }
     return stream;
-  } catch (error) {
-    // handled
+  } catch {
   }
 };
 

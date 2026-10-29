@@ -24,8 +24,7 @@ const createActionLogger = (actionName: string) => {
                     }
                 });
             }
-        } catch (e) {
-          // handled
+        } catch {
         }
     };
 };

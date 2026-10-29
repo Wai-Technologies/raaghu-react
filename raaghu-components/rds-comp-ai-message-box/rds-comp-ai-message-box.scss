@@ -14,7 +14,6 @@
     align-items: center;
   }
 
-  /* G3-137: style via public avatar root + slotProps classes (no pierced `.rds-avatar__*` internals) */
   &__row > .rds-avatar--with-name {
     align-items: center;
     width: 100%;

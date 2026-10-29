@@ -113,7 +113,6 @@ const RdsButton = ({
   const legacyVariant = typeof style === 'string' ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp('RdsButton', 'style', '`variant`');
   const buttonVariant = variant ?? legacyVariant;
-  // Explicit loading props win; otherwise submit buttons track the parent form's pending state.
   const isBusy = loading ?? isLoading ?? (type === 'submit' && pending);
   const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
   const isIconOnly = normalizedLayout === 'icon-only';

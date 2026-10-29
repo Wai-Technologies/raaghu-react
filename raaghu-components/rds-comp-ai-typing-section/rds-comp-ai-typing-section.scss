@@ -9,8 +9,6 @@
 
 
 
-  /* Use global --rds-* tokens (falls back to component defaults) */
-
   --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height);
 
   --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width);
@@ -297,13 +295,9 @@
 
 
 
-  /* Tablet (768px) and above: keep New Project, Import From Figma, and Select Frontend on one row */
-
   @media (min-width: 768px) {
 
     &__button-sections {
-
-      /* Top-align so buttons line up with the autocomplete input (not helper-text height) */
 
       align-items: flex-start;
 
@@ -415,8 +409,6 @@
 
 
 
-    /* Helper text is not shown in this toolbar; collapse reserved space so controls share one baseline */
-
     .MuiFormHelperText-root {
 
       display: none;
@@ -426,8 +418,6 @@
   }
 
 
-
-  /* Mobile only: stack project actions above the frontend select */
 
   @media (max-width: 767px) {
 

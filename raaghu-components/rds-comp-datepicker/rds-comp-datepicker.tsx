@@ -2,7 +2,6 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { Box } from "@mui/material";
 import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
 import { CustomInputWithClear } from './CustomInputWithClear';
 import {

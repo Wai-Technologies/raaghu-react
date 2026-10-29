@@ -1,5 +1,5 @@
 import React, { StrictMode } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } from './rds-button-dropdown';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';

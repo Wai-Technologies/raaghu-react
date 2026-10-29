@@ -63,7 +63,6 @@ function countBarePxInFile(file) {
         else if ((ch === ';' || ch === '}') && depth === 0) break;
       }
       let value = line.slice(valueStart, j);
-      // Strip var() so only bare lengths remain
       let cleaned = '';
       let i = 0;
       while (i < value.length) {

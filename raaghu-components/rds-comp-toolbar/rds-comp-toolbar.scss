@@ -298,7 +298,6 @@
   }
 }
 
-/* G6-166: one :is() dark host for secondary toolbar hover (was 16 selectors) */
 :is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme)
   .rds-comp-toolbar--secondary:is(
     .rds-comp-toolbar--more-text,

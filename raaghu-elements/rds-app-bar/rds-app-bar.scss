@@ -6,7 +6,6 @@ $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
 $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
-/* Module size dims — shared by header/app-bar selectors in this file */
 .rds-app-bar,
 .rds-header__search-field,
 .rds-story-logo {
@@ -228,7 +227,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   min-width: auto;
   
   @media (max-width: 834px) {
-    font-size: var(--rds-font-size-md); // 15px ? md (14px, closest token)
+    font-size: var(--rds-font-size-md);
     padding: calc(1.5 * var(--rds-spacing-xs)) calc(3.5 * var(--rds-spacing-xs));
   }
   
@@ -238,7 +237,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
   
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
+    font-size: var(--rds-font-size-sm);
     padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm);
   }
 }
@@ -299,33 +298,27 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center; margin-left: auto; }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; }
     .rds-header__actions { order: 5; }
-    // Remove the heading gap — title should not grow when center content is present
     .rds-header__title { flex-grow: 0; min-width: 0; padding: 0; }
   }
 }
 
-// Remove heading gap for withactions at all screen sizes
 .rds-header--variant-withactions {
   .rds-header__title { flex-grow: 0; min-width: 0; padding: 0; }
 }
 
-// "Find Jobs" button in bottom nav: only visible at small mobile (≤320px)
 .rds-withactions-findjobs-mobile {
   display: none;
 }
 
-// "Find Jobs" button in top nav: hidden at small mobile (≤320px), visible above
 .rds-withactions-findjobs-topnav {
   display: inline-flex;
   align-items: center;
 }
 
-// Center buttons container for withActions variant
 .rds-withactions-center-buttons {
   display: flex;
   align-items: center;
 
-  // Large mobile (421px - 840px): collapse gap to 0
   @media (min-width: 421px) and (max-width: 840px) {
     gap: 0;
   }
@@ -441,7 +434,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
-    margin-left: 0; // override MUI edge="start" default of calc(-1 * var(--rds-spacing-3))
+    margin-left: 0;
     flex-shrink: 0;
     
     @media (max-width: 840px) {
@@ -521,7 +514,6 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
         color: var(--rds-color-on-primary);
       }
 
-      // Avatar background should stand out on primary — use a semi-transparent white
       .MuiAvatar-root {
         background-color: rgba(255, 255, 255, 0.25);
         color: var(--rds-color-on-primary);
@@ -766,7 +758,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
   .rds-language-menu-paper .MuiMenuItem-root,
   .rds-language-menu-list .MuiMenuItem-root {
-    font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
+    font-size: var(--rds-font-size-sm);
     padding-top: var(--rds-spacing-compact);
     padding-bottom: var(--rds-spacing-compact);
     padding-left: var(--rds-spacing-12-px);
@@ -1036,7 +1028,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
     &__sub-tabs .MuiButton-root {
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
-      font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
+      font-size: var(--rds-font-size-sm);
       width: 100%;
     }
   }
@@ -1148,7 +1140,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   white-space: nowrap;
 
   @media (max-width: 834px) {
-    font-size: var(--rds-font-size-lg); // 17px ? lg (16px, closest token)
+    font-size: var(--rds-font-size-lg);
     margin-left: var(--rds-spacing-compact);
   }
 
@@ -1158,7 +1150,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
   
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
+    font-size: var(--rds-font-size-xs);
     margin-left: var(--rds-spacing-xs);
   }
 }
@@ -1196,13 +1188,13 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   flex-shrink: 0;
   
   @media (max-width: 420px) {
-    font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
+    font-size: var(--rds-font-size-xs);
     padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
     margin-right: var(--rds-spacing-compact);
   }
   
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-xs); // 10px ? xs
+    font-size: var(--rds-font-size-xs);
     padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     margin-right: var(--rds-spacing-xs);
   }
@@ -1269,7 +1261,6 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 @media (max-width: 840px) {
-  // Bottom nav clearance (class set from TSX when bottom bar is active)
   body:has(.rds-header--bottom-nav-active) {
     padding-bottom: var(--rds-spacing-56-px);
   }
@@ -1313,7 +1304,6 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   max-height: var(--rds-size-56);
   height: var(--rds-size-56);
   overflow: hidden;
-  // Paper surface (not app-bar fill) — use on-surface so light mode stays readable
   background: var(--rds-background-paper, var(--rds-color-surface));
   color: var(--rds-color-on-surface, var(--rds-text-primary));
 
@@ -1349,11 +1339,10 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
 
   .rds-bottom-nav-tab {
-    // Bottom nav sits on paper/surface, not the colored app bar — avoid on-appbar (white)
     color: var(--rds-color-on-surface, var(--rds-text-primary));
     text-transform: none;
     font-weight: 600;
-    font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
+    font-size: var(--rds-font-size-sm);
     padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
     min-width: var(--rds-size-2xl);
     white-space: nowrap;
@@ -1398,12 +1387,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     }
     
     .rds-appbar-badge {
-      font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
+      font-size: var(--rds-font-size-xs);
       padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
     }
     
     .MuiButton-root {
-      font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
+      font-size: var(--rds-font-size-xs);
       padding: var(--rds-spacing-micro) var(--rds-spacing-compact);
       min-width: auto;
     }
@@ -1419,18 +1408,18 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     }
     
     .rds-bottom-nav-tab { 
-      font-size: var(--rds-font-size-xs); // 10px ? xs
+      font-size: var(--rds-font-size-xs);
       padding: var(--rds-spacing-micro) var(--rds-spacing-xs); 
       min-width: auto;
     }
     
     .rds-appbar-badge {
-      font-size: var(--rds-font-size-xs); // 9px ? xs (10px, closest token)
+      font-size: var(--rds-font-size-xs);
       padding: var(--rds-spacing-xxs) var(--rds-spacing-micro);
     }
     
     .MuiButton-root {
-      font-size: var(--rds-font-size-xs); // 9px ? xs (10px, closest token)
+      font-size: var(--rds-font-size-xs);
       padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
       min-width: auto;
     }

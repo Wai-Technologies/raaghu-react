@@ -5,7 +5,6 @@ import RdsTag from './rds-tag';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tag.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -335,7 +334,6 @@ describe('RdsTag', () => {
       );
       const chip = container.querySelector('.MuiChip-root');
       fireEvent.click(chip!);
-      // Disabled chips may or may not trigger click
     });
   });
 
@@ -434,7 +432,6 @@ describe('RdsTag', () => {
         <RdsTag label="Test Tag" onDelete={onDelete} />
       );
       const deleteButton = container.querySelector('.MuiChip-deleteIcon');
-      // When removable is false, onDelete should not be passed to MuiChip
       expect(deleteButton).not.toBeInTheDocument();
     });
 

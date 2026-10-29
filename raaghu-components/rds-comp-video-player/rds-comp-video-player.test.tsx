@@ -253,7 +253,6 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(player).toHaveAttribute('data-controls', 'true');
     });
 
@@ -266,7 +265,6 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(player).toHaveAttribute('data-controls', 'false');
     });
   });

@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompChat, { UserData, Comment } from './rds-comp-chat';
+import RdsCompChat, { UserData } from './rds-comp-chat';
 
 jest.mock('./rds-comp-chat.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {

@@ -32,7 +32,6 @@
 .rds-filter-button__header {
   padding: var(--rds-spacing-md);
   border-bottom: none;
-  /* G5-071: paper/surface so dark theme is not forced white */
   background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
   flex-shrink: 0;
   position: relative;

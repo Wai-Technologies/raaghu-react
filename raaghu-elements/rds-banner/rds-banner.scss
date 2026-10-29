@@ -6,7 +6,6 @@
   --rds-banner-dim-3: 26px;
   --rds-banner-dim-4: 110px;
 
-  // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);

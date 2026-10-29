@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompGaugeChart from './rds-comp-chart-gauge';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-gauge.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
@@ -654,7 +652,6 @@ describe('RdsCompGaugeChart', () => {
       const { rerender, container } = render(
         <RdsCompGaugeChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompGaugeChart
@@ -784,7 +781,6 @@ describe('RdsCompGaugeChart', () => {
         <RdsCompGaugeChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated
       expect((options.plugins.legend as any).labels).toBeUndefined();
     });
   });

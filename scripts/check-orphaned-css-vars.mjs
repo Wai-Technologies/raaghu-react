@@ -99,7 +99,6 @@ for (const file of files) {
     USE_RE.lastIndex = 0;
     while ((m = USE_RE.exec(line))) {
       const name = m[1];
-      // Incomplete template prefixes like var(--rds-alert-${x}-text) — skip trailing '-'
       if (name.endsWith('-')) continue;
       if (!uses.has(name)) uses.set(name, []);
       uses.get(name).push({ file: rel, line: i + 1 });

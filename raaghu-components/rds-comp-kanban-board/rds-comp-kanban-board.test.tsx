@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
 import { boardInfo, RdsCompKanbanBoardProps, colorClass } from './kanban-board-helpers';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';

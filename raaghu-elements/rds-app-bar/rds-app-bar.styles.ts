@@ -19,7 +19,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       '--rds-header__search-field-color': 'var(--rds-text-primary)',
     },
 
-    // Beat MuiInputBase paper fill so header search follows RDS tokens (dark = surface).
     '.rds-header__search': {
       backgroundColor: 'var(--rds-header__search-field-bg)',
       color: 'var(--rds-header__search-field-color)',
@@ -222,7 +221,6 @@ export const rdsAppBarSx: AppBarSx[] = [
         },
     },
 
-    // withMenuButton ≤840 (class set from useMediaQuery — no SCSS display wars)
     '&.rds-header--withmenubutton-compact': {
       overflow: 'visible',
       '.rds-story-nav-actions, .rds-logo-search-tabs__left-actions, .rds-appbar-badge, .rds-appbar-actions-group .MuiButton-contained':
@@ -297,7 +295,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // withMenuButton ≤420 — narrow overrides on top of compact
     '&.rds-header--withmenubutton-compact.rds-header--withmenubutton-narrow': {
       '.rds-header__toolbar': {
         paddingLeft: 'var(--rds-spacing-sm)',
@@ -350,7 +347,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // Shared: avatar-only profile on logo* variants at ≤420
     '&.rds-header--logosearchtabs-compact, &.rds-header--logotabsactions-compact': {
       '.rds-profile-menu__button .MuiBox-root, .rds-profile-menu__button .rds-profile-menu__name-lg, .rds-profile-menu__button .rds-profile-menu__email, .rds-avatar__info, .rds-profile-menu__button .rds-profile-menu__chevron':
         {
@@ -579,7 +575,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-appbar-separator': { display: 'none' },
     },
 
-    // Tablet chrome variants (withtabs / withactions / withlogoandtabs / withnotificationbadge)
     '&.rds-header--tablet-compact': {
       '.rds-profile-menu__button .MuiBox-root, .rds-profile-menu__button .rds-avatar__info, .rds-profile-menu__button .rds-avatar__name, .rds-profile-menu__button .rds-avatar__designation, .rds-profile-menu__button .rds-profile-menu__name-lg, .rds-profile-menu__button .rds-profile-menu__email, .rds-profile-menu__button .rds-profile-menu__chevron, .rds-profile-menu__button .MuiSvgIcon-root':
         {
@@ -674,7 +669,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // Shared ≤420 / ≤320 toolbar squeeze (all variants)
     '&.rds-header--mobile-toolbar': {
       overflowX: 'hidden',
       '.rds-appbar-badge': { display: 'none' },
@@ -719,7 +713,6 @@ export const rdsAppBarSx: AppBarSx[] = [
         '& .MuiButton-label, & > span:not(.MuiButton-startIcon)': { display: 'none' },
       },
     },
-    // Hide story chrome on mobile unless a logo* compact class owns that slot
     '&.rds-header--mobile-toolbar:not(.rds-header--logosearchtabs-compact):not(.rds-header--logosearchtabsactions-compact):not(.rds-header--logotabsactions-compact)':
       {
         '.rds-story-nav-actions': { display: 'none' },
@@ -750,7 +743,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // withuserprofile avatar-only at mobile
     '&.rds-header--variant-withuserprofile.rds-header--mobile-toolbar': {
       '.rds-profile-menu__button .MuiBox-root, .rds-profile-menu__button .rds-profile-menu__name-lg, .rds-profile-menu__button .rds-profile-menu__email, .rds-avatar__info, .rds-profile-menu__button .rds-profile-menu__chevron':
         {
@@ -771,7 +763,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       marginLeft: 'var(--rds-spacing-compact)',
     },
 
-    // Sub-header tabs on narrow screens
     [theme.breakpoints.down(420)]: {
       '.rds-header__sub-tabs': {
         display: 'flex',
@@ -813,7 +804,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // Hamburger + logo flush (≤834)
     [theme.breakpoints.down(834)]: {
       '&.rds-header--has-menu-button': {
         '.rds-header__toolbar': {
@@ -845,7 +835,6 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
     },
 
-    // Title/search squeeze when menu button present (not withMenuButton layout)
     '&.rds-header--has-menu-button.rds-header--mobile-toolbar:not(.rds-header--withmenubutton-compact)': {
       '.rds-header__title:not(:empty)': {
         flex: '0 1 auto',

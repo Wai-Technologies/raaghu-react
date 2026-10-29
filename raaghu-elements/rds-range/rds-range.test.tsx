@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRange from './rds-range';
@@ -661,7 +661,6 @@ describe('RdsRange', () => {
     });
 
     it('should be keyboard accessible', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRange 
           value={50}
@@ -674,7 +673,6 @@ describe('RdsRange', () => {
     });
 
     it('should support arrow key navigation', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRange 
           value={50}

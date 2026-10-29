@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
 import { Star, StarBorder } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import RdsRating from './rds-rating';

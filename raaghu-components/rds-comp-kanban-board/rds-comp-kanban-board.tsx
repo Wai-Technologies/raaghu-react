@@ -47,8 +47,6 @@ interface KanbanOption {
   label: string;
 }
 
-type KanbanTagValue = string | number;
-
 interface SortableSubCardProps {
   subCard: KanbanSubCard;
   subCardIndex: number;

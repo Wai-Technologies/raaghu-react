@@ -237,7 +237,6 @@
   }
 }
 
-/* Dark-theme SVG/background fixes so the map doesn't render a white inner canvas */
 body[data-theme="dark"], html[data-theme="dark"], body[data-bs-theme="dark"], html[data-bs-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
 .rds-theme--dark, body.theme-dark, .dark-theme {
   .rds-comp-map {

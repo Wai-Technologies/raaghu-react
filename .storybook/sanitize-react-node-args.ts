@@ -12,7 +12,6 @@ export const REACT_NODE_ARG_KEYS = [
   'icon',
   'startIcon',
   'endIcon',
-  // Note: `actions` is usually an array of action configs (e.g. Speed Dial), not a ReactNode slot.
   'subHeader',
   'sidebar',
   'topbar',
@@ -47,7 +46,6 @@ export const isUnsafeReactChild = (value: unknown): boolean => {
   if (typeof value === 'function') return false;
   if (React.isValidElement(value)) return false;
   if (Array.isArray(value)) return value.some(isUnsafeReactChild);
-  // Plain objects from Storybook object controls (e.g. `{}`)
   return isPlainObject(value);
 };
 
@@ -91,7 +89,6 @@ export const sanitizeReactNodeArgs = <T extends Record<string, unknown>>(args: T
     }
   }
 
-  // Item/action trees often carry JSX icons that become `{}` when edited.
   for (const key of ['items', 'options', 'menuItems', 'navItems', 'tabs', 'actions'] as const) {
     if (key in next) {
       next[key] = sanitizeNestedTree(next[key]);

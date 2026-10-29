@@ -87,7 +87,6 @@ export function getCSSVar(property: string, fallback = ''): string {
 }
 
 export function chartTextColor(): string {
-  // Token-only fallbacks (G3-006) — avoid drifting hard-coded hex.
   return getCSSVar('--rds-text-primary', 'var(--mui-palette-text-primary, currentColor)');
 }
 
@@ -312,8 +311,6 @@ export function applyChartThemeColors<TOptions extends object>(
   if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
   chartOptions.plugins.title.color = textColor;
 
-  // Always theme tooltips (G3-004). Do not override labelColor — that forced every
-  // series swatch to textColor so users could not tell series apart (G3-003).
   if (!chartOptions.plugins.tooltip) chartOptions.plugins.tooltip = {};
   chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
   chartOptions.plugins.tooltip.titleColor      = tooltipText;

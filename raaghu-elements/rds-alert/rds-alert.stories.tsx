@@ -15,7 +15,6 @@ const meta: Meta<typeof RdsAlert> = {
     controls: {
       exclude: [
         'component', 'slots', 'slotProps', 'variant',
-        // Deprecated props that have a direct replacement control
         'type', 'changeIconName', 'content', 'actions',
       ],
     },

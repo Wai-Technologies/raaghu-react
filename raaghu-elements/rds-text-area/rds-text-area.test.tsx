@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RdsTextArea, { RdsTextAreaProps } from './rds-text-area';
+import RdsTextArea from './rds-text-area';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 

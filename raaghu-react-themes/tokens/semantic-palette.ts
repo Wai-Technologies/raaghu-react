@@ -149,7 +149,6 @@ function darkSemanticPalette(): SemanticPalette {
       dark: su[400],
       contrastText: white,
     },
-    // Dark info tracks primary (matches --rds-info-* in CSS injection)
     info: {
       main: p[200],
       light: p[100],

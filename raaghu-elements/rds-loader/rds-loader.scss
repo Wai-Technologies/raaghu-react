@@ -148,8 +148,6 @@
   width: 100%;
 }
 
-/* Higher specificity so overlay flex centering is not overridden by
-   `.rds-loader { display: inline-block }` */
 .rds-loader.rds-loader--overlay {
   display: flex;
   align-items: center;

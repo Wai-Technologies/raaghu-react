@@ -41,7 +41,6 @@ className: {
   description: "CSS class applied to the chart container.",
 },
 
-    // Hide deprecated props from Storybook documentation.
     labels: { control: false, table: { disable: true } },
     dataSets: { control: false, table: { disable: true } },
     chartLabel: { control: false, table: { disable: true } },

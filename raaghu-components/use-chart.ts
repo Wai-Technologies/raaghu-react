@@ -80,7 +80,6 @@ export function useChart<TType extends ChartType>(
       datasets: themed ? resolveDatasetColors(datasets) : datasets,
     } as ChartData<TType>;
 
-    // A chart left on this canvas (StrictMode double effects, HMR) must be destroyed first.
     Chart.getChart?.(canvas)?.destroy();
     const chart = new Chart(ctx, {
       type,

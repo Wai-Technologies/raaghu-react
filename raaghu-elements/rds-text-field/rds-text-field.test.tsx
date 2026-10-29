@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsTextField, { RdsTextFieldProps } from './rds-text-field';
+import RdsTextField from './rds-text-field';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 

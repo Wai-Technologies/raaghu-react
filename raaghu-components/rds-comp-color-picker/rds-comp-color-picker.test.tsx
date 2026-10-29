@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompColorPicker from './rds-comp-color-picker';
-import { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker.types';
+import { ColorPickerType, PickerType, ColorMode } from './rds-comp-color-picker.types';
 
 jest.mock('./rds-comp-color-picker.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {

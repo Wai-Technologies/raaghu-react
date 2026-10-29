@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTooltip from './rds-tooltip';
@@ -966,7 +966,7 @@ describe('RdsTooltip — keyboard navigation', () => {
     );
     const trigger = screen.getByRole('button', { name: 'Blur Me' });
     await act(async () => { trigger.focus(); });
-    await waitFor(() => {}, { timeout: 300 }); // let enter delay pass
+    await waitFor(() => {}, { timeout: 300 });
     await act(async () => { trigger.blur(); });
     await waitFor(() => expect(onClose).toHaveBeenCalled());
   });

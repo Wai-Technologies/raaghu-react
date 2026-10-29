@@ -9,7 +9,6 @@ const config: StorybookConfig = {
     '../stories/Introduction.mdx',
     '../stories/**/*.mdx',
     "../raaghu-elements/**/*.stories.@(js|jsx|ts|tsx)",
-    // Exclude internal/paid components (grid=paid, tree-structure=internal, date-and-time-picker=internal)
     "../raaghu-components/!(rds-comp-grid|rds-comp-tree-structure|rds-comp-date-and-time-picker)/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/*.stories.@(js|jsx|ts|tsx)",
   ],
@@ -63,7 +62,6 @@ const config: StorybookConfig = {
         ...config.optimizeDeps,
         include: [
           ...(config.optimizeDeps?.include ?? []),
-          // MUI subpaths — Vite 7 cannot auto-resolve the wildcard "./*" export pattern
           '@mui/material',
           '@mui/material/styles',
           '@mui/material/Box',

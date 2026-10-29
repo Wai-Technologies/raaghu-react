@@ -23,7 +23,6 @@ import {
   sizeTokens,
   scrollbarTokens,
   semanticAliasTokens,
-  shadowTokens,
   spacingTokens,
   spinnerTokens,
   surfaceTokens,
@@ -56,7 +55,6 @@ function breakpointCssVars(): Record<string, string> {
 
 function sharedCssVars(): Record<string, string> {
   return {
-    // ── Explicit breakpoint aliases (for static var audits) ─────────────────
     '--rds-breakpoint-xs': breakpointTokens.xs,
     '--rds-breakpoint-sm': breakpointTokens.sm,
     '--rds-breakpoint-md': breakpointTokens.md,
@@ -98,12 +96,10 @@ function sharedCssVars(): Record<string, string> {
     '--rds-breakpoint-1112': extendedBreakpointTokens['1112'],
     '--rds-breakpoint-1280': extendedBreakpointTokens['1280'],
     '--rds-breakpoint-1600': extendedBreakpointTokens['1600'],
-    // ── Z-index ──────────────────────────────────────────────────────────────
-    // Local / utility layers (component-internal stacking, not MUI-level)
     '--rds-z-index-hide': String(zIndexTokens.hide),
     '--rds-z-index-base': String(zIndexTokens.base),
     '--rds-z-index-docked': String(zIndexTokens.docked),
-    '--rds-z-index-raised': String(zIndexTokens.docked),   // alias: same as docked (10)
+    '--rds-z-index-raised': String(zIndexTokens.docked),
     '--rds-z-index-layer-1': '1',
     '--rds-z-index-layer-2': '2',
     '--rds-z-index-above': String(zIndexTokens.above),
@@ -112,23 +108,20 @@ function sharedCssVars(): Record<string, string> {
     '--rds-z-index-local-20': '20',
     '--rds-z-index-local-30': '30',
     '--rds-z-index-local-50': '50',
-    // MUI-aligned scale (matches zIndexTokens in design-tokens.ts)
-    '--rds-z-index-dropdown': String(zIndexTokens.dropdown),   // 1000
-    '--rds-z-index-sticky': String(zIndexTokens.sticky),       // 1100
-    '--rds-z-index-banner': String(zIndexTokens.banner),       // 1200
-    '--rds-z-index-fixed': String(zIndexTokens.banner),        // 1200 — alias for banner
-    '--rds-z-index-drawer': String(zIndexTokens.banner),       // 1200 — drawers sit at banner level
-    '--rds-z-index-overlay': String(zIndexTokens.overlay),     // 1300
-    '--rds-z-index-modal': String(zIndexTokens.modal),         // 1400
-    '--rds-z-index-modal-backdrop': String(zIndexTokens.overlay), // 1300 — backdrop below modal
-    '--rds-z-index-popover': String(zIndexTokens.popover),     // 1500
-    '--rds-z-index-skip-link': String(zIndexTokens.skipLink),  // 1600
-    '--rds-z-index-toast': String(zIndexTokens.toast),         // 1700
-    '--rds-z-index-tooltip': String(zIndexTokens.tooltip),     // 1800
-    // Portal helpers (above all MUI layers)
-    '--rds-z-index-portal': String(zIndexTokens.tooltip + 200),        // 2000
-    '--rds-z-index-picker-portal': String(zIndexTokens.tooltip + 200), // 2000
-    // ── Typography ───────────────────────────────────────────────────────────
+    '--rds-z-index-dropdown': String(zIndexTokens.dropdown),
+    '--rds-z-index-sticky': String(zIndexTokens.sticky),
+    '--rds-z-index-banner': String(zIndexTokens.banner),
+    '--rds-z-index-fixed': String(zIndexTokens.banner),
+    '--rds-z-index-drawer': String(zIndexTokens.banner),
+    '--rds-z-index-overlay': String(zIndexTokens.overlay),
+    '--rds-z-index-modal': String(zIndexTokens.modal),
+    '--rds-z-index-modal-backdrop': String(zIndexTokens.overlay),
+    '--rds-z-index-popover': String(zIndexTokens.popover),
+    '--rds-z-index-skip-link': String(zIndexTokens.skipLink),
+    '--rds-z-index-toast': String(zIndexTokens.toast),
+    '--rds-z-index-tooltip': String(zIndexTokens.tooltip),
+    '--rds-z-index-portal': String(zIndexTokens.tooltip + 200),
+    '--rds-z-index-picker-portal': String(zIndexTokens.tooltip + 200),
     '--rds-font-family-base': typographyTokens.fontFamily.primary,
     '--rds-font-family': typographyTokens.fontFamily.primary,
     '--rds-font-family-poppins': typographyTokens.fontFamily.primary,
@@ -152,7 +145,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-letter-spacing-wide': typographyTokens.letterSpacing.wide,
     '--rds-letter-spacing-button': miscTokens.letterSpacingButton,
     '--rds-backdrop-blur': miscTokens.backdropBlur,
-    // ── Font sizes (component scale) ─────────────────────────────────────────
     '--rds-font-size-xs': typographyTokens.fontSize.xs,
     '--rds-font-size-sm': typographyTokens.fontSize.sm,
     '--rds-font-size-md': typographyTokens.fontSize.base,
@@ -162,7 +154,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-font-size-3xl': typographyTokens.fontSize['3xl'],
     '--rds-font-size-4xl': typographyTokens.fontSize['4xl'],
     '--rds-font-size-5xl': typographyTokens.fontSize['5xl'],
-    // ── Typography aliases (legacy component contracts) ─────────────────────
     '--rds-typography-h1-size': typographyTokens.fontSize['5xl'],
     '--rds-typography-h1-size-mobile': typographyTokens.fontSize['4xl'],
     '--rds-typography-h2-size': typographyTokens.fontSize['4xl'],
@@ -178,7 +169,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-typography-font-weight-light': String(typographyTokens.fontWeight.light),
     '--rds-typography-font-weight-regular': String(typographyTokens.fontWeight.normal),
     '--rds-typography-font-weight-medium': String(typographyTokens.fontWeight.medium),
-    // ── Spacing ──────────────────────────────────────────────────────────────
     '--rds-spacing-0': spacingTokens[0],
     '--rds-spacing-3': spacingTokens[3],
     '--rds-spacing-5': spacingTokens[5],
@@ -191,7 +181,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-xl': spacingTokens[8],
     '--rds-spacing-2xl': spacingTokens[12],
     '--rds-spacing-3xl': spacingTokens[16],
-    // Exact pixel aliases (preferred when components expect px values)
     '--rds-spacing-hairline': spacingExact.hairline,
     '--rds-spacing-xs-px': spacingExact.xs,
     '--rds-spacing-sm-px': spacingExact.sm,
@@ -200,7 +189,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-xl-px': spacingExact.xl,
     '--rds-spacing-2xl-px': spacingExact['2xl'],
     '--rds-spacing-3xl-px': spacingExact['3xl'],
-    // Sub-token fills (gap-filling values found in legacy SCSS)
     '--rds-spacing-micro': spacingExact.micro,
     '--rds-spacing-tight': spacingExact.tight,
     '--rds-spacing-compact': spacingExact.compact,
@@ -212,7 +200,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-18': spacingExact['18'],
     '--rds-spacing-22': spacingExact['22'],
     '--rds-spacing-52': spacingExact['52'],
-    // Additional component-specific pixel values (legacy SCSS — not for new code)
     '--rds-spacing-25': spacingExact['25'],
     '--rds-spacing-27': spacingExact['27'],
     '--rds-spacing-29': spacingExact['29'],
@@ -253,7 +240,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-200': spacingExact['200'],
     '--rds-spacing-210': spacingExact['210'],
     '--rds-spacing-250': spacingExact['250'],
-    // Negative spacing offsets (layout adjustments in legacy components)
     '--rds-spacing-neg-1': spacingExact['neg-1'],
     '--rds-spacing-neg-2': spacingExact['neg-2'],
     '--rds-spacing-neg-4': spacingExact['neg-4'],
@@ -272,7 +258,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-neg-80': spacingExact['neg-80'],
     '--rds-spacing-neg-93': spacingExact['neg-93'],
     '--rds-spacing-neg-180': spacingExact['neg-180'],
-    // Pixel-exact gap values not covered by spacingExact named aliases
     '--rds-spacing-9-px': '9px',
     '--rds-spacing-11-px': '11px',
     '--rds-spacing-12-px': '12px',
@@ -283,7 +268,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-56-px': '56px',
     '--rds-spacing-80-px': '80px',
     '--rds-spacing-96-px': '96px',
-    // ── Border radius ────────────────────────────────────────────────────────
     '--rds-border-radius-none': radiusTokens.none,
     '--rds-border-radius-xs': radiusTokens.sm,
     '--rds-border-radius-sm': radiusTokens.base,
@@ -293,18 +277,15 @@ function sharedCssVars(): Record<string, string> {
     '--rds-border-radius-3xl': radiusTokens['3xl'],
     '--rds-border-radius-pill': radiusTokens.full,
     '--rds-border-radius-full': radiusTokens.full,
-    // ── Header / AppBar defaults
     '--rds-header-toolbar-height': '56px',
     '--rds-toolbar-height': componentTokens.toolbar?.height || '40px',
     '--rds-toolbar-height-mobile': componentTokens.toolbar?.heightMobile || '32px',
-    // ── Transitions ──────────────────────────────────────────────────────────
     '--rds-transition-fast': animationTokens.duration.fast,
     '--rds-transition-base': animationTokens.duration.normal,
     '--rds-transition-slow': animationTokens.duration.slow,
     '--rds-transition-ease-in': animationTokens.easing.easeIn,
     '--rds-transition-ease-out': animationTokens.easing.easeOut,
     '--rds-transition-ease-in-out': animationTokens.easing.easeInOut,
-    // ── Motion tokens (Phase B) ───────────────────────────────────────────────
     '--rds-motion-duration-fast':     motionTokens.duration.fast,
     '--rds-motion-duration-base':     motionTokens.duration.normal,
     '--rds-motion-duration-slow':     motionTokens.duration.slow,
@@ -317,17 +298,14 @@ function sharedCssVars(): Record<string, string> {
     '--rds-motion-transition-base':   motionTokens.transition.base,
     '--rds-motion-transition-slow':   motionTokens.transition.slow,
     '--rds-motion-transition-bounce': motionTokens.transition.bounce,
-    // ── Elevation shadows ────────────────────────────────────────────────────
     '--rds-elevation-0': elevationTokens[0],
     '--rds-elevation-1': elevationTokens[1],
     '--rds-elevation-2': elevationTokens[2],
     '--rds-elevation-3': elevationTokens[3],
     '--rds-elevation-4': elevationTokens[4],
     '--rds-elevation-5': elevationTokens[5],
-    // ── Code block ───────────────────────────────────────────────────────────
     '--rds-code-bg': surfaceTokens.codeBg,
     '--rds-code-color': surfaceTokens.codeColor,
-    // ── Form misc ────────────────────────────────────────────────────────────
     '--rds-form-control-asterisk-font-weight': String(typographyTokens.fontWeight.semibold),
     '--rds-form-control-fullwidth-margin-right': spacingTokens[9],
     '--rds-placeholder-color-light': alphaTokens.placeholderLight,
@@ -339,7 +317,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-card-bg': 'var(--rds-background-paper)',
     '--rds-card-border': 'var(--rds-border-light)',
     '--rds-modal-backdrop': alphaTokens.modalBackdrop,
-    // ── Input component ──────────────────────────────────────────────────────
     '--rds-input-border-width-thin': inputTokens.borderWidthThin,
     '--rds-input-border-width-thick': inputTokens.borderWidthThick,
     '--rds-input-focus-ring-error': inputTokens.focusRingError,
@@ -360,7 +337,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-input-asterisk-offset': inputTokens.asteriskOffset,
     '--rds-input-sr-only-size': inputTokens.srOnlySize,
     '--rds-input-sr-only-offset': inputTokens.srOnlyOffset,
-    // ── Spinner component ────────────────────────────────────────────────────
     '--rds-spinner-primary-color': spinnerTokens.primaryColor,
     '--rds-spinner-secondary-color': spinnerTokens.secondaryColor,
     '--rds-spinner-success-color': spinnerTokens.successColor,
@@ -370,41 +346,34 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spinner-light-color': spinnerTokens.lightColor,
     '--rds-spinner-dark-color': spinnerTokens.darkColor,
     '--rds-spinner-animation-duration': spinnerTokens.animationDuration,
-    // ── Tooltip component ────────────────────────────────────────────────────
     '--rds-tooltip-border-width': tooltipTokens.borderWidth,
     '--rds-tooltip-arrow-offset': tooltipTokens.arrowOffset,
     '--rds-tooltip-arrow-shadow': tooltipTokens.arrowShadow,
     '--rds-tooltip-focus-ring-width': tooltipTokens.focusRingWidth,
-    // ── Component-specific shared vars ──────────────────────────────────────
     '--rds-esignature-draw-height': esignatureTokens.drawHeight,
     '--rds-esignature-spacing-md': esignatureTokens.spacingMd,
     '--rds-fab-menu-open-height': fabMenuTokens.openHeight,
-    // ── AI attachment component tokens (component-scoped values centralized)
     '--rds-ai-attachment-min-width': componentTokens.aiAttachment?.minWidth || '273px',
     '--rds-ai-attachment-fab-left-offset': componentTokens.aiAttachment?.fabLeftOffset || '-18px',
     '--rds-ai-attachment-fab-bottom': componentTokens.aiAttachment?.fabBottom || '10px',
     '--rds-ai-attachment-transform-x': componentTokens.aiAttachment?.transformX || '30px',
     '--rds-ai-attachment-transform-y': componentTokens.aiAttachment?.transformY || '97.5px',
     '--rds-ai-icon-size': componentTokens.aiIcon?.size || '22px',
-    // AI typing section tokens
     '--rds-ai-typing-textarea-height': componentTokens.aiTyping?.textareaHeight || '100px',
     '--rds-ai-typing-autocomplete-min-width': componentTokens.aiTyping?.autocompleteMinWidth || '190px',
     '--rds-ai-typing-autocomplete-max-width': componentTokens.aiTyping?.autocompleteMaxWidth || '260px',
     '--rds-ai-typing-action-button-min-width': componentTokens.aiTyping?.actionButtonMinWidth || '140px',
     '--rds-ai-typing-fab-left-offset': componentTokens.aiTyping?.fabLeftOffset || '-129px',
     '--rds-ai-typing-action-button-margin-right': componentTokens.aiTyping?.actionButtonMarginRight || '5px',
-    // Emoji generator component tokens
     '--rds-emoji-generator-width': componentTokens.emojiGenerator?.width || '360px',
     '--rds-emoji-generator-height': componentTokens.emojiGenerator?.height || '420px',
     '--rds-emoji-generator-icon-size-sm': componentTokens.emojiGenerator?.iconSizeSm || '29px',
     '--rds-emoji-generator-icon-size-xs': componentTokens.emojiGenerator?.iconSizeXs || '22px',
     '--rds-emoji-skin-popover-width': componentTokens.emojiGenerator?.popoverWidth || '45px',
     '--rds-emoji-skin-tone-size': componentTokens.emojiGenerator?.skinToneSize || '32px',
-    // Button heights (shared across components)
     '--rds-component-button-height-small': componentTokens.button?.height?.small || '32px',
     '--rds-component-button-height-medium': componentTokens.button?.height?.medium || '40px',
     '--rds-component-button-height-large': componentTokens.button?.height?.large || '48px',
-    // Divider sizes (consumed from TSX sx)
     '--rds-divider-border-width-sm': '1px',
     '--rds-divider-border-width-md': '2px',
     '--rds-divider-border-width-lg': '3px',
@@ -416,11 +385,9 @@ function sharedCssVars(): Record<string, string> {
     '--rds-shadow-color': alphaTokens.shadowColor,
     '--rds-emoji-generator-popover-width': componentTokens.emojiGenerator?.popoverWidth || '45px',
     '--rds-emoji-generator-inline-min-width': componentTokens.emojiGenerator?.inlineMinWidth || '36px',
-    // Empty state component tokens
     '--rds-empty-state-max-width': componentTokens.emptyState?.maxWidth || '640px',
     '--rds-empty-state-padding': componentTokens.emptyState?.padding || '32px',
     '--rds-empty-state-button-padding': componentTokens.emptyState?.buttonPadding || '6px 15px',
-    // Adaptive Cards component tokens
     '--rds-adaptive-cards-thumb-width': componentTokens.adaptiveCards?.thumbWidth || '20px',
     '--rds-adaptive-cards-min-thumb-width': componentTokens.adaptiveCards?.minThumbWidth || '32px',
     '--rds-adaptive-cards-min-width': componentTokens.adaptiveCards?.minWidth || '90px',
@@ -447,7 +414,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-adaptive-cards-error-ring': componentTokens.adaptiveCards?.errorRing || '0 0 0 2px rgba(189,13,29,0.2)',
     '--rds-image-list-item-height-mobile': componentTokens.adaptiveCards?.imageListItemHeightMobile || '120px',
     '--rds-football-logo-size-mobile': componentTokens.adaptiveCards?.footballLogoSizeMobile || '72px',
-    // ── Toggle button tokens
     '--rds-toggle-min-height-sm': componentTokens.toggleButton?.minHeight?.small || '32px',
     '--rds-toggle-min-height-md': componentTokens.toggleButton?.minHeight?.medium || '36px',
     '--rds-toggle-min-height-lg': componentTokens.toggleButton?.minHeight?.large || '44px',
@@ -457,17 +423,14 @@ function sharedCssVars(): Record<string, string> {
     '--rds-toggle-spacing-md': componentTokens.toggleButton?.spacing?.md || spacingTokens[4],
     '--rds-toggle-button-selected-shadow': componentTokens.toggleButton?.shadow?.selected || 'inset 0 0 0 1px currentColor',
     '--rds-toggle-button-spaced-shadow': componentTokens.toggleButton?.shadow?.spaced || 'inset 0 0 0 1px rgba(0, 0, 0, 0.12)',
-    // Avatar tokens
     '--rds-avatar-size-small': componentTokens.avatar?.size?.small || '28px',
     '--rds-avatar-size-medium': componentTokens.avatar?.size?.medium || '32px',
     '--rds-avatar-size-large': componentTokens.avatar?.size?.large || '40px',
     '--rds-avatar-initials-font-size': componentTokens.avatar?.initialsFontSize || '0.875rem',
-    // Chat component tokens
     '--rds-chat-height': componentTokens.chat?.height || '600px',
     '--rds-chat-max-height': componentTokens.chat?.maxHeight || '80vh',
     '--rds-chat-video-max-width': componentTokens.chat?.videoMaxWidth || '600px',
     '--rds-chat-message-max-width': componentTokens.chat?.messageMaxWidth || '280px',
-    // Kanban component tokens
     '--rds-kanban-column-width': componentTokens.kanban?.columnWidth || '300px',
     '--rds-kanban-column-gap': componentTokens.kanban?.columnGap || '20px',
     '--rds-kanban-card-min-height': componentTokens.kanban?.cardMinHeight || '600px',
@@ -486,7 +449,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-kanban-container-mobile-padding': componentTokens.kanban?.containerMobilePadding || '0px 16px 5px',
     '--rds-kanban-add-item-margin': componentTokens.kanban?.addItemMargin || '6px 0px',
     '--rds-kanban-subcards-container-padding': componentTokens.kanban?.subcardsContainerPadding || '0px 8px 8px 8px',
-    // Map component heatmap palette (component-scoped)
     '--rds-comp-map-heatmap-0': componentTokens.map?.heatmapPalette?.[0],
     '--rds-comp-map-heatmap-1': componentTokens.map?.heatmapPalette?.[1],
     '--rds-comp-map-heatmap-2': componentTokens.map?.heatmapPalette?.[2],
@@ -499,7 +461,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-comp-map-heatmap-9': componentTokens.map?.heatmapPalette?.[9],
     '--rds-comp-map-heatmap-10': componentTokens.map?.heatmapPalette?.[10],
     '--rds-comp-map-heatmap-11': componentTokens.map?.heatmapPalette?.[11],
-    // ── Chart component tokens (component-scoped defaults)
     '--rds-comp-chart-bar-barchart1-height': componentTokens.chart?.bar?.barchart1Height || '65vh',
     '--rds-comp-chart-bar-histogram-size': componentTokens.chart?.bar?.histogramSize || '50px',
     '--rds-comp-chart-bar-default-height': componentTokens.chart?.bar?.defaultHeight || '76vh',
@@ -512,10 +473,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-comp-chart-bar-dataset-bg': componentTokens.chart?.bar?.dataset?.datasetBg,
     '--rds-comp-chart-bar-dataset-border': componentTokens.chart?.bar?.dataset?.datasetBorder,
     '--rds-comp-chart-boolean-size': componentTokens.chart?.boolean?.size || '20vh',
-    // ── Table component tokens
     '--rds-table-sticky-max-height': componentTokens.table?.stickyMaxHeight || '440px',
     '--rds-table-actions-width': componentTokens.table?.actionsWidth || '120px',
-    // ── Table checkbox tokens
     '--rds-table-checkbox-size': componentTokens.table?.checkbox?.size || '18px',
     '--rds-table-checkbox-border-width': componentTokens.table?.checkbox?.borderWidth || '2px',
     '--rds-table-checkbox-check-width': componentTokens.table?.checkbox?.checkWidth || '6px',
@@ -525,10 +484,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-table-checkbox-hover-ring-size': componentTokens.table?.checkbox?.hoverRingSize || '4px',
     '--rds-table-checkbox-focus-ring-size': componentTokens.table?.checkbox?.focusRingSize || '2px',
     '--rds-table-checkbox-disabled-opacity': componentTokens.table?.checkbox?.disabledOpacity || '0.6',
-    // ── Table focus tokens
     '--rds-table-focus-ring-width': componentTokens.table?.focus?.ringWidth || '2px',
     '--rds-table-focus-ring-offset': componentTokens.table?.focus?.ringOffset || '2px',
-    // ── Progress component tokens
     '--rds-progress-dash-width': componentTokens.progress?.dashWidth || '50px',
     '--rds-progress-dash-height': componentTokens.progress?.dashHeight || '5px',
     '--rds-progress-block-width': componentTokens.progress?.blockWidth || '80px',
@@ -539,7 +496,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-progress-connector-width-mobile': componentTokens.progress?.connectorWidthMobile || '35px',
     '--rds-progress-inner-dot-size': componentTokens.progress?.innerDotSize || '20px',
     '--rds-progress-transition': componentTokens.progress?.transition || animationTokens.duration.normal,
-    // ── Popover component tokens
     '--rds-popover-container-max-width': componentTokens.popover?.containerMaxWidth || '400px',
     '--rds-popover-container-min-width': componentTokens.popover?.containerMinWidth || '200px',
     '--rds-popover-wide-min-width': componentTokens.popover?.wideMinWidth || '300px',
@@ -554,7 +510,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-ai-gradient-end': aiGradientTokens.gradientEnd,
     '--rds-switch-disabled-secondary-bg': switchTokens.disabledSecondaryBg,
     '--rds-switch-track-border-radius': switchTokens.trackBorderRadius,
-    // ── Pagination component tokens
     '--rds-pagination-item-size-xs': componentTokens.pagination?.itemSize?.xs || '18px',
     '--rds-pagination-item-size-sm': componentTokens.pagination?.itemSize?.sm || '22px',
     '--rds-pagination-item-size-md': componentTokens.pagination?.itemSize?.md || '24px',
@@ -568,7 +523,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-pagination-font-size-sm': componentTokens.pagination?.fontSize?.sm || '0.7rem',
     '--rds-pagination-font-size-md': componentTokens.pagination?.fontSize?.md || '0.75rem',
     '--rds-pagination-font-size-lg': componentTokens.pagination?.fontSize?.lg || '0.85rem',
-    // ── Alert component tokens
     '--rds-alert-padding-sm': componentTokens.alert.padding.small,
     '--rds-alert-padding-md': componentTokens.alert.padding.medium,
     '--rds-alert-padding-lg': componentTokens.alert.padding.large,
@@ -577,7 +531,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-alert-style1-shadow': componentTokens.alert.style.style1Shadow,
     '--rds-alert-link-font-size': componentTokens.alert.linkFontSize,
     '--rds-alert-link-margin-right': componentTokens.alert.linkMarginRight,
-    // ── Accordion component tokens (component-local -> injected CSS vars)
     '--rds-accordion-summary-height-sm': componentTokens.accordion.summary.height.small,
     '--rds-accordion-summary-height-md': componentTokens.accordion.summary.height.medium,
     '--rds-accordion-summary-height-lg': componentTokens.accordion.summary.height.large,
@@ -596,7 +549,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-accordion-details-margin-left': componentTokens.accordion.details.marginLeft,
     '--rds-accordion-details-min-height': componentTokens.accordion.details.minHeight,
     '--rds-accordion-disabled-opacity': componentTokens.accordion.disabledOpacity,
-    // ── File uploader component tokens
     '--rds-file-uploader-dropzone-padding-y': componentTokens.fileUploader?.dropzone?.paddingY || '32px',
     '--rds-file-uploader-dropzone-padding-x': componentTokens.fileUploader?.dropzone?.paddingX || '24px',
     '--rds-file-uploader-dropzone-min-width': componentTokens.fileUploader?.dropzone?.minWidth || '500px',
@@ -617,13 +569,11 @@ function sharedCssVars(): Record<string, string> {
     '--rds-file-uploader-hint-padding-right': componentTokens.fileUploader?.hintPaddingRight || '10px',
     '--rds-file-uploader-file-progress-height': componentTokens.fileUploader?.fileProgressHeight || '6px',
     '--rds-file-uploader-file-progress-radius': componentTokens.fileUploader?.fileProgressRadius || '3px',
-    // ── Range component tokens
     '--rds-range-max-width-sm': componentTokens.range?.maxWidthSm || '370px',
     '--rds-range-max-width-xs': componentTokens.range?.maxWidthXs || '275px',
     '--rds-range-slider-width-mobile': componentTokens.range?.sliderWidthMobile || '288px',
     '--rds-range-slider-width-tablet': componentTokens.range?.sliderWidthTablet || '382px',
     '--rds-range-disabled-opacity': componentTokens.range?.disabledOpacity || '0.6',
-    // ── Menu component tokens
     '--rds-menu-list-min-width': componentTokens.menu?.listMinWidth || '180px',
     '--rds-menu-list-min-width-small': componentTokens.menu?.listMinWidthSmall || '140px',
     '--rds-menu-list-min-width-medium': componentTokens.menu?.listMinWidthMedium || '180px',
@@ -636,32 +586,26 @@ function sharedCssVars(): Record<string, string> {
     '--rds-menu-header-margin-bottom': componentTokens.menu?.headerMarginBottom || '2px',
     '--rds-menu-focus-ring': componentTokens.menu?.focusRing || '2px',
     '--rds-menu-letter-spacing': componentTokens.menu?.letterSpacing || '0.5px',
-    // ── Autocomplete component tokens
     '--rds-autocomplete-focus-ring-width': '1px',
     '--rds-autocomplete-focus-outline-width': '2px',
     '--rds-autocomplete-overflow-chip-bg': alphaTokens.actionHoverLight,
     '--rds-autocomplete-overflow-chip-bg-dark': alphaTokens.actionHoverDark,
     '--rds-field-min-height': spacingTokens[10],
-    // ── Avatar component tokens
     '--rds-avatar-dot-size': spacingTokens[3],
     '--rds-avatar-dot-scale': '1',
     '--rds-avatar-ring-width': '2.5px',
     '--rds-avatar-dot-size-lg': '14px',
     '--rds-avatar-dot-border-width': '2px',
-    // ── Backdrop component tokens
     '--rds-backdrop-focus-ring-width': '2px',
     '--rds-backdrop-disabled-opacity': '0.6',
-    // ── Banner component tokens
     '--rds-banner-close-hover-bg': alphaTokens.actionHoverLight,
     '--rds-banner-style-left-border-width': '0.375rem',
     '--rds-banner-mobile-offset': '-0.5rem',
     '--rds-banner-mobile-gap-xs': '0.375rem',
-    // ── Badge component tokens
     '--rds-badge-dot-font-size': '0.75rem',
     '--rds-badge-dot-min-size': spacingTokens[5],
     '--rds-badge-dot-padding-x': '6px',
     '--rds-badge-pill-shadow': 'var(--rds-elevation-1)',
-    // ── Bottom navigation component tokens
     '--rds-bottom-navigation-z-index': 'var(--rds-z-index-dropdown)',
     '--rds-bottom-navigation-focus-ring-width': '2px',
     '--rds-bottom-navigation-disabled-opacity': '0.6',
@@ -673,14 +617,10 @@ function sharedCssVars(): Record<string, string> {
     '--rds-bottom-navigation-label-line-height': '1.2',
     '--rds-bottom-navigation-icon-size': '1.6rem',
     '--rds-bottom-navigation-border-color': 'var(--rds-border-default)',
-    // ── Chip component tokens
     '--rds-chip-focus-ring-width': componentTokens.chip.focusRingWidth,
     '--rds-chip-disabled-opacity': componentTokens.chip.disabledOpacity,
-    // ── Container component tokens
     '--rds-container-padding': componentTokens.container.padding,
-    // ── Icon button focus color (component-specific)
     '--rds-icon-button-focus-color': semanticAliasTokens.rdsIconButtonFocusColor,
-    // ── Button component tokens
     '--rds-button-primary-bg': 'var(--rds-primary-main)',
     '--rds-button-primary-text': 'var(--rds-color-on-primary)',
     '--rds-button-primary-bg-hover': 'var(--rds-primary-light)',
@@ -699,7 +639,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-button-text-bg-active': alphaTokens.actionActiveLight,
     '--rds-button-text-color-active': 'var(--rds-primary-dark)',
 
-    // ── Button dropdown component tokens
     '--rds-button-dropdown-menu-padding': spacingTokens[2],
     '--rds-button-dropdown-menu-min-width': '200px',
     '--rds-button-dropdown-hover-bg': alphaTokens.actionHoverLight,
@@ -710,41 +649,33 @@ function sharedCssVars(): Record<string, string> {
     '--rds-button-dropdown-secondary-bg-hover': 'var(--rds-primary-dark)',
     '--rds-button-dropdown-secondary-bg-active': 'var(--rds-primary-dark)',
     '--rds-button-dropdown-transition': 'var(--rds-transition-base)',
-    // ── Card component tokens
     '--rds-card-content-padding-left': '14px',
     '--rds-card-content-min-height': '20px',
     '--rds-card-hover-offset': '-2px',
     '--rds-card-avatar-controls-mobile-offset': '6.875rem',
-    // Map card-detail shadows to elevation tokens
     '--rds-card-detail-shadow-light': 'var(--rds-elevation-1)',
     '--rds-card-detail-shadow-dark': 'var(--rds-elevation-4)',
-    // Card indicator color
     '--rds-card-indicator-bg': 'var(--rds-color-gray-700)',
-    // Card color tokens
     '--rds-card-surface-filled': colorTokens.neutral[50],
     '--rds-card-bg-hover': 'var(--rds-color-gray-200)',
     '--rds-card-selected-bg': 'var(--rds-color-gray-200)',
     '--rds-card-disabled-bg': 'var(--rds-color-gray-300)',
     '--rds-card-text-disabled': 'var(--rds-color-disabled-text)',
     '--rds-card-text-secondary': 'var(--rds-color-text-secondary)',
-    // ── Carousel component tokens
     '--rds-carousel-navigation-bg': alphaTokens.modalBackdrop,
     '--rds-carousel-navigation-bg-hover': alphaTokens.actionHoverDark,
     '--rds-carousel-indicator-bg': 'var(--rds-color-gray-500)',
     '--rds-carousel-indicator-bg-hover': 'var(--rds-color-gray-600)',
     '--rds-carousel-indicator-active': 'var(--rds-primary-main)',
     '--rds-carousel-divider': 'var(--rds-border-light)',
-    // ── Box component tokens
     '--rds-box-surface-outline': 'var(--rds-color-outline)',
     '--rds-box-surface-primary': 'var(--rds-primary-main)',
     '--rds-box-surface-secondary': 'var(--rds-secondary-main)',
     '--rds-box-surface-tertiary': 'var(--rds-tertiary-main)',
-    // ── Breadcrumbs component tokens
     '--rds-breadcrumbs-focus-ring-width': '2px',
     '--rds-breadcrumbs-separator-gap': spacingTokens[2],
     '--rds-breadcrumbs-item-padding-y': spacingTokens[1],
     '--rds-breadcrumbs-item-padding-x': spacingTokens[2],
-    // ── Semantic aliases used directly in components ────────────────────────
     '--rds-color-dark': semanticAliasTokens.colorDark,
     '--rds-color-gray-500': semanticAliasTokens.colorGray500,
     '--rds-color-icon': semanticAliasTokens.colorIcon,
@@ -763,33 +694,25 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-primary': 'var(--rds-primary-main)',
     '--rds-color-accent': 'var(--rds-tab-accent)',
     '--rds-color-accent-bg': 'var(--rds-tab-accent-bg)',
-    // ── Semantic missing vars (used in SCSS, mapped to design tokens) ─────────
-    // Accordion
     '--rds-accordion-item-divider-color': 'var(--rds-border-default)',
-    // Backgrounds & surfaces
     '--rds-background-light': white,
     '--rds-background-neutral-50': colorTokens.neutral[50],
     '--rds-background-surface-hover': 'var(--rds-action-hover)',
     '--rds-surface-subtle': colorTokens.neutral[50],
-    // Badge
     '--rds-badge-bg-primary-card': colorTokens.primary[50],
     '--rds-badge-bg-secondary-card': colorTokens.secondary[50],
     '--rds-badge-text-on-dark': white,
-    // Borders
     '--rds-border-hover': colorTokens.neutral[400],
     '--rds-border-selected': colorTokens.primary[700],
     '--rds-border-strong': colorTokens.neutral[600],
     '--rds-border-subtle': colorTokens.neutral[200],
-    // Box shadows
     '--rds-box-shadow-xs': elevationTokens[1],
     '--rds-box-shadow-hover': elevationTokens[2],
     '--rds-box-shadow-lg': elevationTokens[3],
-    // Carousel
     '--rds-carousel-title-bg': colorTokens.neutral[50],
     '--rds-carousel-title-bg-dark': colorTokens.neutral[800],
     '--rds-carousel-title-border': colorTokens.neutral[200],
     '--rds-carousel-wrapper-bg': white,
-    // Color palette aliases
     '--rds-color-accent-light': colorTokens.primary[100],
     '--rds-color-background-light': white,
     '--rds-color-border-hover': colorTokens.neutral[400],
@@ -813,7 +736,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-neutral-700': colorTokens.neutral[700],
     '--rds-color-neutral-800': colorTokens.neutral[800],
     '--rds-color-neutral-900': colorTokens.neutral[900],
-    // On-color tokens
     '--rds-color-on-accent': white,
     '--rds-color-on-danger': white,
     '--rds-color-on-dark': white,
@@ -824,13 +746,11 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-on-success': white,
     '--rds-color-on-tertiary': white,
     '--rds-color-on-warning': white,
-    // Placeholder & text colors
     '--rds-color-placeholder': colorTokens.neutral[500],
     '--rds-color-text-placeholder': colorTokens.neutral[500],
     '--rds-color-text-secondary-dark': colorTokens.neutral[400],
     '--rds-color-text-tertiary': colorTokens.neutral[600],
     '--rds-color-white': white,
-    // Primary variants
     '--rds-color-primary-bg': colorTokens.primary[700],
     '--rds-color-primary-contrast': white,
     '--rds-color-primary-hover-bg': colorTokens.primary[800],
@@ -838,38 +758,29 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-primary-lighter': colorTokens.primary[50],
     '--rds-color-primary-outline': colorTokens.primary[700],
     '--rds-color-primary-pressed': colorTokens.primary[900],
-    // Secondary variants
     '--rds-color-secondary-container': colorTokens.secondary[50],
     '--rds-color-secondary-container-hover': colorTokens.secondary[100],
-    // Surface variants
     '--rds-color-surface-container-high': colorTokens.neutral[100],
     '--rds-color-surface-light': white,
     '--rds-color-surface-readonly': colorTokens.neutral[50],
     '--rds-color-surface-variant-hover': colorTokens.neutral[100],
-    // Switch colors
     '--rds-color-switch-thumb': white,
     '--rds-color-switch-track': colorTokens.neutral[400],
     '--rds-switch-active-bg': colorTokens.primary[700],
     '--rds-switch-disabled-bg': colorTokens.neutral[200],
     '--rds-switch-inactive-bg': colorTokens.neutral[300],
-    // Switch dimensions (match defaults defined in rds-switch.scss)
     '--rds-switch-root-width': '44px',
     '--rds-switch-root-height': '24px',
     '--rds-switch-thumb-size': '20px',
     '--rds-switch-thumb-padding': '2px',
     '--rds-switch-thumb-translate-x': '20px',
-    // Tertiary
     '--rds-color-tertiary': colorTokens.tertiary[500],
-    // Comments
     '--rds-comments-input-bg': white,
     '--rds-comments-input-text': colorTokens.neutral[900],
     '--rds-comments-selected-text': colorTokens.primary[50],
-    // Focus & selection
     '--rds-focus-color': colorTokens.primary[700],
     '--rds-grid-row-selected': colorTokens.primary[50],
-    // Font size aliases
     '--rds-font-size-caption': typographyTokens.fontSize.xs,
-    // Loader colors
     '--rds-loader-jump-fill': colorTokens.primary[700],
     '--rds-loader-jump-shadow': 'rgba(0,0,0,0.2)',
     '--rds-loader-rotate-primary': colorTokens.primary[700],
@@ -879,27 +790,20 @@ function sharedCssVars(): Record<string, string> {
     '--rds-loader-sand-dark': colorTokens.primary[700],
     '--rds-loader-sand-light': colorTokens.primary[200],
     '--rds-loader-spinner-accent': colorTokens.primary[500],
-    // Off-canvas
     '--rds-offcanvas-border': colorTokens.neutral[300],
-    // Primary numeric aliases
     '--rds-primary-100': colorTokens.primary[100],
     '--rds-primary-800': colorTokens.primary[800],
     '--rds-primary-rgb': '60,152,255',
-    // Border radius aliases
     '--rds-radius-base': radiusTokens.base,
     '--rds-radius-lg': radiusTokens.lg,
-    // Semantic status colors
     '--rds-semantic-error-main': colorTokens.error[700],
     '--rds-semantic-success-main': colorTokens.success[700],
     '--rds-semantic-warning-dark': colorTokens.warning[600],
     '--rds-semantic-warning-main': colorTokens.warning[700],
-    // Stack dividers
     '--rds-stack-divider-color-dark': colorTokens.neutral[700],
     '--rds-stack-divider-color-light': colorTokens.neutral[300],
-    // Stepper mobile dimensions (match defaults in rds-stepper.scss)
     '--rds-stepper-mobile-offset-left': spacingTokens[2],
     '--rds-stepper-mobile-step-padding-right': spacingTokens[1],
-    // Syntax highlighting (light / dark variants)
     '--rds-syntax-attribute': syntaxTokens.attribute,
     '--rds-syntax-attribute-dark': syntaxTokens.attributeDark,
     '--rds-syntax-function': syntaxTokens.function,
@@ -916,19 +820,14 @@ function sharedCssVars(): Record<string, string> {
     '--rds-syntax-tag-dark': syntaxTokens.tagDark,
     '--rds-syntax-value': syntaxTokens.value,
     '--rds-syntax-value-dark': syntaxTokens.valueDark,
-    // Text aliases
     '--rds-text-primary-light': colorTokens.neutral[900],
     '--rds-text-tertiary': colorTokens.neutral[600],
-    // Time picker
     '--rds-time-picker-accent': colorTokens.primary[700],
     '--rds-time-picker-accent-rgb': '60,152,255',
-    // Toast
     '--rds-toast-circle-color': colorTokens.neutral[600],
     '--rds-toast-plus-color': colorTokens.neutral[600],
-    // Tooltip dimensions
     '--rds-tooltip-max-width': '320px',
     '--rds-tooltip-min-width': '80px',
-    // ── Font size semantic aliases ────────────────────────────────────────────
     '--rds-font-size-body1': typographyTokens.fontSize.base,
     '--rds-font-size-body2': typographyTokens.fontSize.sm,
     '--rds-font-size-body-large': typographyTokens.fontSize.lg,
@@ -945,7 +844,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-font-size-title-medium': typographyTokens.fontSize.base,
     '--rds-font-size-subheading': typographyTokens.fontSize.sm,
     '--rds-font-size-label-small': typographyTokens.fontSize.xs,
-    // ── Font weight aliases ───────────────────────────────────────────────────
     '--rds-font-weight-black': String(typographyTokens.fontWeight.black),
     '--rds-font-weight-extrabold': String(typographyTokens.fontWeight.extrabold),
     '--rds-font-weight-semi-bold': String(typographyTokens.fontWeight.semibold),
@@ -953,10 +851,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-typography-medium': String(typographyTokens.fontWeight.medium),
     '--rds-typography-regular': String(typographyTokens.fontWeight.normal),
     '--rds-typography-semibold': String(typographyTokens.fontWeight.semibold),
-    // ── Line height aliases ───────────────────────────────────────────────────
     '--rds-line-height-body': typographyTokens.lineHeight.normal.toString(),
     '--rds-line-height-normal': typographyTokens.lineHeight.normal.toString(),
-    // ── Spacing aliases ───────────────────────────────────────────────────────
     '--rds-spacing-none': '0px',
     '--rds-spacing-xxl': spacingTokens[10],
     '--rds-spacing-xxxl': spacingTokens[12],
@@ -965,7 +861,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-space-3': spacingTokens[3],
     '--rds-space-4': spacingTokens[4],
     '--rds-space-5': spacingTokens[5],
-    // ── Generic size tokens (exact px — width/height/chrome) ─────────────────
     '--rds-size-xs': sizeTokens.xs,
     '--rds-size-sm': sizeTokens.sm,
     '--rds-size-md': sizeTokens.md,
@@ -986,7 +881,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-size-44': sizeTokens['44'],
     '--rds-size-56': sizeTokens['56'],
     '--rds-size-color-btn': sizeTokens.colorBtn,
-    // ── Border / radius aliases ───────────────────────────────────────────────
     '--rds-border-radius': radiusTokens.base,
     '--rds-border-width-none': borderWidthTokens.none,
     '--rds-border-width-hairline': borderWidthTokens.hairline,
@@ -999,7 +893,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-border-radius-micro': '3px',
     '--rds-radius-md': radiusTokens.md,
     '--rds-blockquote-border-width': borderWidthTokens.heavy,
-    // ── Shadow aliases ────────────────────────────────────────────────────────
     '--rds-shadow-sm': elevationTokens[1],
     '--rds-shadow-hover': elevationTokens[2],
     '--rds-shadow-1': elevationTokens[1],
@@ -1007,19 +900,15 @@ function sharedCssVars(): Record<string, string> {
     '--rds-box-shadow-md': elevationTokens[3],
     '--rds-elevation-focus': '0 0 0 3px color-mix(in srgb, var(--rds-primary-main) 40%, transparent)',
     '--rds-text-shadow': 'none',
-    // ── Transition aliases ────────────────────────────────────────────────────
     '--rds-transition-duration': animationTokens.duration.normal,
     '--rds-transition-duration-short': animationTokens.duration.fast,
     '--rds-transition-duration-standard': animationTokens.duration.slow,
     '--rds-transition-timing': animationTokens.easing.easeInOut,
-    // ── Opacity ───────────────────────────────────────────────────────────────
     '--rds-opacity-disabled': '0.6',
-    // ── Extended breakpoints (min/max helpers) ────────────────────────────────
     '--rds-breakpoint-mobile-min': extendedBreakpointTokens['mobile-sm'],
     '--rds-breakpoint-mobile-max': '767px',
     '--rds-breakpoint-tablet-min': extendedBreakpointTokens['tablet-sm'],
     '--rds-breakpoint-tablet-max': extendedBreakpointTokens['tablet-lg'],
-    // ── Fixed accent/utility colors ───────────────────────────────────────────
     '--rds-color-neutral-0': white,
     '--rds-color-accent-blue-200': colorTokens.info[200],
     '--rds-color-accent-blue-500': colorTokens.info[400],
@@ -1042,7 +931,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-teal-dark': colorTokens.accent.teal.dark,
     '--rds-color-palette-gap': spacingExact.cozy,
     '--rds-color-button-size': componentTokens.button.height.small,
-    // ── Chart series / chrome (shared across chart components + figma demos) ──
     '--rds-chart-series-1': chartPaletteTokens.series[1],
     '--rds-chart-series-2': chartPaletteTokens.series[2],
     '--rds-chart-series-3': chartPaletteTokens.series[3],
@@ -1065,11 +953,9 @@ function sharedCssVars(): Record<string, string> {
     '--rds-chart-named-blue-solid': chartPaletteTokens.named.blueSolid,
     '--rds-chart-axis': chartPaletteTokens.axis,
     '--rds-chart-muted': chartPaletteTokens.muted,
-    // ── E-signature pen colors ────────────────────────────────────────────────
     '--rds-esignature-pen-black': eSignaturePenColors.black,
     '--rds-esignature-pen-blue': eSignaturePenColors.blue,
     '--rds-esignature-pen-red': eSignaturePenColors.red,
-    // ── RGB channel values (for rgba() usage in SCSS) ─────────────────────────
     '--rds-color-primary-rgb': '60,152,255',
     '--rds-secondary-rgb': '37,52,233',
     '--rds-error-rgb': '189,13,29',
@@ -1080,10 +966,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-semantic-error-rgb': '189,13,29',
     '--rds-semantic-success-rgb': '31,118,48',
     '--rds-semantic-warning-rgb': '194,81,12',
-    // ── Grey scale aliases ────────────────────────────────────────────────────
     '--rds-grey-300': colorTokens.neutral[300],
     '--rds-grey-900': colorTokens.neutral[900],
-    // ── Theme-following color aliases (resolved at CSS cascade time) ──────────
     '--rds-color-border-default': 'var(--rds-border-default)',
     '--rds-color-border-subtle': 'var(--rds-border-light)',
     '--rds-color-border-overlay': 'var(--rds-border-opacity-light)',
@@ -1114,34 +998,28 @@ function lightThemeCssVars(): Record<string, string> {
   const i = infoPaletteTokens;
 
   return {
-    // ── Primary (from resolveSemanticPalette) ────────────────────────────────
     '--rds-primary-main': sem.primary.main,
     '--rds-primary-light': sem.primary.light,
     '--rds-primary-dark': sem.primary.dark,
     '--rds-primary-contrast-text': sem.primary.contrastText,
-    // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[800],
     '--rds-surface-primary-dark': p[700],
     '--rds-surface-primary-medium': p[100],
     '--rds-surface-primary-light': p[50],
     '--rds-surface-primary-subtle': p[50],
-    // ── Surface neutral ──────────────────────────────────────────────────────
     '--rds-surface-neutral-darker': surfaceTokens.neutralDarker,
     '--rds-surface-neutral-dark': surfaceTokens.neutralDark,
     '--rds-surface-neutral-medium': surfaceTokens.neutralMedium,
     '--rds-surface-neutral-light': surfaceTokens.neutralLight,
     '--rds-surface-neutral-subtle': white,
-    // ── Secondary (from resolveSemanticPalette) ──────────────────────────────
     '--rds-secondary-main': sem.secondary.main,
     '--rds-secondary-light': sem.secondary.light,
     '--rds-secondary-dark': sem.secondary.dark,
     '--rds-secondary-contrast-text': sem.secondary.contrastText,
-    // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[500],
     '--rds-tertiary-light': t[100],
     '--rds-tertiary-dark': t[600],
     '--rds-tertiary-contrast-text': white,
-    // ── Neutral scale ────────────────────────────────────────────────────────
     '--rds-neutral-main': n[700],
     '--rds-neutral-light': n[100],
     '--rds-neutral-dark': n[600],
@@ -1157,13 +1035,11 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-neutral-700': n[700],
     '--rds-neutral-800': n[800],
     '--rds-neutral-900': n[900],
-    // ── Dark surface aliases (used in light theme for dark-mode sub-components)
     '--rds-surface-dark': surfaceTokens.darkBase,
     '--rds-surface-dark-hover': surfaceTokens.darkHover,
     '--rds-surface-dark-alt': surfaceTokens.darkAlt,
     '--rds-surface-dark-deep': surfaceTokens.darkDeep,
     '--rds-border-dark-elevated': surfaceTokens.darkElevatedBorder,
-    // ── Semantic colors (from resolveSemanticPalette) ────────────────────────
     '--rds-error-main': sem.error.main,
     '--rds-error-light': sem.error.light,
     '--rds-error-dark': sem.error.dark,
@@ -1180,22 +1056,18 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-info-light': sem.info.light,
     '--rds-info-dark': sem.info.dark,
     '--rds-info-contrast-text': sem.info.contrastText,
-    // ── Background (from resolveSemanticPalette) ─────────────────────────────
     '--rds-background-default': sem.background.default,
     '--rds-background-paper': sem.background.paper,
     '--rds-background-surface': n[50],
     '--rds-background-overlay': alphaTokens.overlayDark,
-    // ── Text (from resolveSemanticPalette) ───────────────────────────────────
     '--rds-text-primary': sem.text.primary,
     '--rds-text-secondary': sem.text.secondary,
     '--rds-text-disabled': sem.text.disabled,
     '--rds-text-hint': n[500],
-    // ── Border ───────────────────────────────────────────────────────────────
     '--rds-border-default': n[300],
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
-    // ── Divider (from resolveSemanticPalette) ────────────────────────────────
     '--rds-divider': sem.divider,
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
@@ -1203,7 +1075,6 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-primary-bg-disabled': p[100],
     '--rds-button-primary-text': white,
     '--rds-button-primary-text-disabled': p[300],
-    // ── App bar tokens (light theme)
     '--rds-appbar-bg': p[700],
     '--rds-appbar-color': white,
     '--rds-appbar-shadow': 'var(--rds-elevation-1)',
@@ -1211,7 +1082,6 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-appbar-secondary-bg': s[700],
     '--rds-appbar-badge-bg': p[50],
     '--rds-appbar-badge-color': p[700],
-    // ── App bar separator / sizing tokens
     '--rds-appbar-separator-horizontal-margin': spacingTokens[2],
     '--rds-appbar-separator-horizontal-margin-sm': '6px',
     '--rds-appbar-separator-horizontal-margin-xs': spacingTokens[1],
@@ -1220,7 +1090,6 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-appbar-separator-min-height-xs': '18px',
     '--rds-appbar-separator-max-height': '60px',
     '--rds-appbar-separator-width': '1px',
-    // ── Button secondary ─────────────────────────────────────────────────────
     '--rds-button-secondary-bg': 'transparent',
     '--rds-button-secondary-bg-hover': interactiveTokens.secondaryBgHover,
     '--rds-button-secondary-bg-active': interactiveTokens.secondaryBgActive,
@@ -1232,14 +1101,12 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-text-active': interactiveTokens.secondaryText,
     '--rds-button-secondary-text-disabled': interactiveTokens.secondaryTextDisabled,
     '--rds-button-secondary-bg-disabled': n[100],
-    // ── Button text ──────────────────────────────────────────────────────────
     '--rds-button-text-bg-hover': p[50],
     '--rds-button-text-variant-bg': interactiveTokens.variantTextBg,
     '--rds-button-text-bg-active': p[100],
     '--rds-button-text-color': p[700],
     '--rds-button-text-color-active': p[600],
     '--rds-button-text-color-disabled': p[300],
-    // ── Alerts ───────────────────────────────────────────────────────────────
     '--rds-alert-success-bg': p[50],
     '--rds-alert-success-border': interactiveTokens.alertSuccessBorder,
     '--rds-alert-loading-border': colorTokens.primary[700],
@@ -1253,21 +1120,18 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-alert-info-bg': white,
     '--rds-alert-info-border': n[700],
     '--rds-alert-info-text': i[600],
-    // ── Form ─────────────────────────────────────────────────────────────────
     '--rds-form-bg': white,
     '--rds-form-border': n[300],
     '--rds-form-border-focus': p[700],
     '--rds-form-bg-focus': white,
     '--rds-placeholder-color': 'var(--rds-placeholder-color-light)',
     '--rds-form-control-asterisk-color': e[700],
-    // ── Badge ────────────────────────────────────────────────────────────────
     '--rds-badge-error-bg': e[700],
     '--rds-badge-error-text': white,
     '--rds-badge-warning-bg': w[700],
     '--rds-badge-warning-text': white,
     '--rds-badge-neutral-bg': n[700],
     '--rds-badge-neutral-text': white,
-    // ── Overlays / actions ───────────────────────────────────────────────────
     '--rds-overlay-dark': alphaTokens.overlayDark,
     '--rds-overlay-darker': alphaTokens.overlayDarker,
     '--rds-overlay-semi': alphaTokens.overlaySemi,
@@ -1275,14 +1139,11 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-action-active': alphaTokens.actionActiveLight,
     '--rds-action-disabled': sem.action.disabled,
     '--rds-action-selected': sem.action.selected,
-    // ── Tooltip (inverted: dark surface on light theme) ──────────────────────
     '--rds-tooltip-bg': n[900],
     '--rds-tooltip-color': white,
     '--rds-tooltip-text': white,
     '--rds-tooltip-border': n[900],
-    // ── Focus ring ───────────────────────────────────────────────────────────
     '--rds-focus-ring': '2px solid var(--rds-primary-main)',
-    // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-hover-bg': 'var(--rds-action-hover)',
     '--rds-color-disabled-bg': 'var(--rds-neutral-50)',
     '--rds-color-disabled-text': 'var(--rds-text-disabled)',
@@ -1325,7 +1186,6 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-on-primary': 'var(--rds-primary-contrast-text)',
     '--rds-rating-color-dark': 'var(--rds-text-primary)',
     '--rds-rating-color-light': 'var(--rds-border-default)',
-    // ── Light-theme numeric color aliases ─────────────────────────────────────
     '--rds-color-neutral-300': n[300],
     '--rds-color-neutral-500': n[500],
     '--rds-color-primary-700': p[700],
@@ -1355,7 +1215,6 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[700],
     '--rds-color-neutral-disabled-icon': n[400],
     '--rds-color-neutral-soft': n[100],
-    // ── Kanban board (light-theme defaults) ──────────────────────────────────
     '--rds-kanban-header-bg': 'var(--rds-surface-primary-light)',
     '--rds-kanban-subcard-bg': 'var(--rds-background-paper)',
     '--rds-kanban-subcard-border': 'var(--rds-surface-neutral-light)',
@@ -1365,7 +1224,6 @@ function lightThemeCssVars(): Record<string, string> {
 function darkThemeCssVars(): Record<string, string> {
   const sem = resolveSemanticPalette('dark');
   const p = colorTokens.primary;
-  const s = colorTokens.secondary;
   const t = tertiaryTokens;
   const n = colorTokens.neutral;
   const e = colorTokens.error;
@@ -1373,33 +1231,27 @@ function darkThemeCssVars(): Record<string, string> {
   const su = colorTokens.success;
 
   return {
-    // ── Primary (from resolveSemanticPalette) ────────────────────────────────
     '--rds-primary-main': sem.primary.main,
     '--rds-primary-light': sem.primary.light,
     '--rds-primary-dark': sem.primary.dark,
     '--rds-primary-contrast-text': sem.primary.contrastText,
-    // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[200],
     '--rds-surface-primary-dark': p[400],
     '--rds-surface-primary-medium': p[600],
     '--rds-surface-primary-light': p[800],
     '--rds-surface-primary-subtle': p[900],
-    // ── Surface neutral ──────────────────────────────────────────────────────
     '--rds-surface-neutral-darker': n[200],
     '--rds-surface-neutral-dark': n[400],
     '--rds-surface-neutral-medium': n[700],
     '--rds-surface-neutral-light': n[800],
     '--rds-surface-neutral-subtle': black,
-    // ── Secondary (from resolveSemanticPalette) ──────────────────────────────
     '--rds-secondary-main': sem.secondary.main,
     '--rds-secondary-light': sem.secondary.light,
     '--rds-secondary-dark': sem.secondary.dark,
     '--rds-secondary-contrast-text': sem.secondary.contrastText,
-    // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[200],
     '--rds-tertiary-light': t[100],
     '--rds-tertiary-dark': t[400],
-    // ── Semantic colors (from resolveSemanticPalette) ────────────────────────
     '--rds-error-main': sem.error.main,
     '--rds-error-light': sem.error.light,
     '--rds-error-dark': sem.error.dark,
@@ -1416,35 +1268,28 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-info-light': sem.info.light,
     '--rds-info-dark': sem.info.dark,
     '--rds-info-contrast-text': sem.info.contrastText,
-    // ── Neutral scale ────────────────────────────────────────────────────────
     '--rds-neutral-main': n[200],
     '--rds-neutral-light': n[100],
     '--rds-neutral-dark': n[400],
     '--rds-neutral-0': white,
-    // ── Background (from resolveSemanticPalette) ─────────────────────────────
     '--rds-background-default': sem.background.default,
     '--rds-background-paper': sem.background.paper,
     '--rds-background-surface': n[800],
     '--rds-background-overlay': alphaTokens.overlayDarker,
-    // ── Text (from resolveSemanticPalette) ───────────────────────────────────
     '--rds-text-primary': sem.text.primary,
     '--rds-text-secondary': sem.text.secondary,
     '--rds-text-disabled': sem.text.disabled,
     '--rds-text-hint': n[500],
-    // ── Border ───────────────────────────────────────────────────────────────
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
-    // ── Divider (from resolveSemanticPalette) ────────────────────────────────
     '--rds-divider': sem.divider,
-    // ── Button primary (dark) ────────────────────────────────────────────────
     '--rds-button-primary-bg': p[200],
     '--rds-button-primary-bg-hover': p[250],
     '--rds-button-primary-bg-active': p[400],
     '--rds-button-primary-bg-disabled': n[700],
     '--rds-button-primary-text': n[900],
     '--rds-button-primary-text-disabled': n[600],
-    // ── Button secondary / outlined (dark) ───────────────────────────────────
     '--rds-button-secondary-bg': 'transparent',
     '--rds-button-secondary-bg-hover': 'transparent',
     '--rds-button-secondary-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
@@ -1456,21 +1301,18 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-text-active': p[200],
     '--rds-button-secondary-text-disabled': n[600],
     '--rds-button-secondary-bg-disabled': n[800],
-    // ── Button text (dark) ───────────────────────────────────────────────────
     '--rds-button-text-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 10%, transparent)',
     '--rds-button-text-variant-bg': 'color-mix(in srgb, var(--rds-primary-main) 4%, transparent)',
     '--rds-button-text-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 15%, transparent)',
     '--rds-button-text-color': p[200],
     '--rds-button-text-color-active': p[250],
     '--rds-button-text-color-disabled': n[600],
-    // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',
     '--rds-color-text-primary': 'var(--rds-text-primary)',
     '--rds-color-text-secondary': 'var(--rds-text-secondary)',
     '--rds-color-text-disabled': 'var(--rds-text-disabled)',
     '--rds-color-outline': 'var(--rds-border-default)',
-    // border-light (n[800]) matches surface paper — use divider for visible row borders
     '--rds-color-outline-variant': 'var(--rds-divider)',
     '--rds-color-border': 'var(--rds-border-default)',
     '--rds-color-border-disabled': 'var(--rds-border-light)',
@@ -1478,7 +1320,6 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-surface-hover': 'var(--rds-action-hover)',
     '--rds-color-primary': 'var(--rds-primary-main)',
     '--rds-color-primary-hover': 'var(--rds-primary-light)',
-    // Higher opacity than light (8%/12%) so containers stay visible on dark surfaces
     '--rds-color-primary-container': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
     '--rds-color-primary-container-hover': 'color-mix(in srgb, var(--rds-primary-main) 28%, transparent)',
     '--rds-color-primary-container-variant': 'color-mix(in srgb, var(--rds-primary-main) 24%, transparent)',
@@ -1491,7 +1332,6 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-secondary': 'var(--rds-secondary-main)',
     '--rds-rating-color-dark': 'var(--rds-text-primary)',
     '--rds-rating-color-light': 'var(--rds-border-default)',
-    // ── Dark-mode surface chrome ──────────────────────────────────────────────
     '--rds-color-surface': n[800],
     '--rds-color-surface-dark': surfaceTokens.darkBase,
     '--rds-color-surface-variant-dark': surfaceTokens.darkVariant,
@@ -1503,32 +1343,25 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-disabled-text-dark': miscTokens.disabledTextDark,
     '--rds-color-hover-bg': surfaceTokens.darkAlt,
     '--rds-color-disabled-bg': surfaceTokens.darkDeep,
-    // ── Dark-mode elevation ───────────────────────────────────────────────────
     '--rds-elevation-2-dark': alphaTokens.elevation2Dark,
     '--rds-elevation-focus-dark': alphaTokens.elevationFocusDark,
-    // ── Dark-mode actions (from resolveSemanticPalette) ───────────────────────
     '--rds-action-hover': sem.action.hover,
     '--rds-action-active': alphaTokens.actionActiveDark,
     '--rds-action-disabled': sem.action.disabled,
     '--rds-action-selected': sem.action.selected,
     '--rds-placeholder-color': 'var(--rds-placeholder-color-dark)',
-    // ── Toggle group ──────────────────────────────────────────────────────────
     '--rds-toggle-group-border-light': alphaTokens.toggleGroupBorderDark,
     '--rds-toggle-group-border-disabled-light': alphaTokens.toggleGroupBorderDisabledDark,
-    // ── Tooltip (inverted: light surface on dark theme) ───────────────────────
     '--rds-tooltip-bg': white,
     '--rds-tooltip-color': black,
     '--rds-tooltip-text': black,
     '--rds-tooltip-border': n[300],
-    // ── Scrollbar ─────────────────────────────────────────────────────────────
     '--rds-color-scrollbar-track': scrollbarTokens.track,
     '--rds-color-scrollbar-thumb': scrollbarTokens.thumb,
     '--rds-color-scrollbar-thumb-hover': scrollbarTokens.thumbHover,
-    // ── Icon ──────────────────────────────────────────────────────────────────
     '--rds-color-on-surface-dark-icon': white,
     '--rds-color-surface-container': surfaceTokens.darkContainer,
     '--rds-color-hover-dark': surfaceTokens.darkContainer,
-    // ── Grid / data-table ─────────────────────────────────────────────────────
     '--rds-grid-bg': gridTokens.bg,
     '--rds-grid-bg-alt': gridTokens.bgAlt,
     '--rds-grid-header-bg': gridTokens.headerBg,
@@ -1538,14 +1371,12 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-grid-border-soft': gridTokens.border,
     '--rds-grid-border-alt': gridTokens.border,
     '--rds-grid-row-hover': surfaceTokens.darkHover,
-    // ── Misc dark tokens ──────────────────────────────────────────────────────
     '--rds-color-border-dark': miscTokens.borderColorDark,
     '--rds-color-surface-hover-dark': surfaceTokens.darkSurfaceHover,
     '--rds-color-icon-muted-dark': iconTokens.mutedDark,
     '--rds-offcanvas-cancel-color': miscTokens.offcanvasCancelColor,
     '--rds-color-surface-variant-hover-dark': surfaceTokens.darkVariantHover,
     '--rds-color-disabled-container-dark': surfaceTokens.darkDisabledContainer,
-    // ── App bar (dark): same keys as light so SCSS need not remap via [data-theme] ─
     '--rds-appbar-bg': appBarTokens.darkBg,
     '--rds-appbar-color': white,
     '--rds-appbar-shadow': 'rgba(0, 0, 0, 0.5)',
@@ -1553,18 +1384,15 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-appbar-secondary-bg': appBarTokens.darkSecondaryBg,
     '--rds-appbar-badge-bg': appBarTokens.darkBadgeBg,
     '--rds-appbar-badge-color': appBarTokens.darkBadgeColor,
-    // Aliases kept for any leftover `*-dark` consumers
     '--rds-appbar-bg-dark': appBarTokens.darkBg,
     '--rds-appbar-secondary-bg-dark': appBarTokens.darkSecondaryBg,
     '--rds-appbar-badge-bg-dark': appBarTokens.darkBadgeBg,
     '--rds-appbar-badge-color-dark': appBarTokens.darkBadgeColor,
-    // ── Form (dark overrides) ─────────────────────────────────────────────────
     '--rds-form-bg': n[800],
     '--rds-form-border': n[700],
     '--rds-form-border-focus': p[200],
     '--rds-form-bg-focus': n[800],
     '--rds-form-control-asterisk-color': e[200],
-    // ── Alerts (dark overrides) ───────────────────────────────────────────────
     '--rds-alert-success-bg': 'rgba(31, 118, 48, 0.15)',
     '--rds-alert-success-border': su[200],
     '--rds-alert-loading-border': colorTokens.primary[700],
@@ -1578,11 +1406,9 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-alert-info-bg': n[800],
     '--rds-alert-info-border': n[400],
     '--rds-alert-info-text': p[200],
-    // ── Badge (dark overrides) ────────────────────────────────────────────────
     '--rds-badge-error-bg': e[200],
     '--rds-badge-warning-bg': w[200],
     '--rds-badge-neutral-bg': n[200],
-    // ── Dark-theme numeric color aliases ──────────────────────────────────────
     '--rds-color-neutral-300': n[700],
     '--rds-color-neutral-500': n[500],
     '--rds-color-primary-700': p[200],
@@ -1613,11 +1439,9 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[200],
     '--rds-color-neutral-disabled-icon': n[600],
     '--rds-color-neutral-soft': n[800],
-    // ── Kanban board (dark-theme overrides) ──────────────────────────────────
     '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
     '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,
     '--rds-kanban-subcard-border': componentTokens.kanban?.subcardBorderDark,
-    // ── Carousel indicators (dark): light dots for contrast on dark surfaces ─
     '--rds-carousel-indicator-bg': 'rgba(255, 255, 255, 0.55)',
     '--rds-carousel-indicator-bg-hover': 'rgba(255, 255, 255, 0.8)',
   };

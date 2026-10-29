@@ -47,7 +47,6 @@ export function replacePxInValue(value, map) {
       continue;
     }
     const prev = i > 0 ? value[i - 1] : '';
-    // Full length token including decimals (0.5px, 1.5px, 11.2px)
     const m = value.slice(i).match(/^(-?\d*\.?\d+)px\b/);
     if (m && !/[\d.]/.test(prev)) {
       const key = m[0];
@@ -94,7 +93,6 @@ export function transformPropsInFile(source, propRe, map) {
       const prop = m[2];
       const valueStart = m.index + m[0].length;
 
-      // Skip CSS custom property definitions
       if (prop.startsWith('--')) {
         continue;
       }

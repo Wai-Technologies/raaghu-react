@@ -28,9 +28,9 @@
   border-bottom: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
     border-bottom: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent); // Use accent token
+    color: var(--rds-color-accent);
     border-radius: unset;
-    background: var(--rds-color-accent-bg); // Use accent bg token
+    background: var(--rds-color-accent-bg);
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {

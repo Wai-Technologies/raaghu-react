@@ -531,8 +531,6 @@ export const createDragEndHandler = (
     const dest = resolveDropLocation(boards, over.id, over.data.current);
     if (dest.boardIndex < 0 || dest.boardIndex >= boards.length) return;
 
-    // If onDragOver already moved the card into the destination column, source reflects
-    // the current board and this becomes a same-column reorder (or a no-op).
     const newBoards = moveSubCard(
       boards,
       source.boardIndex,

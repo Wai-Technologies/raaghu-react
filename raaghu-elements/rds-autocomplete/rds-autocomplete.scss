@@ -193,8 +193,6 @@
     pointer-events: none;
   }
 
-  /* Filled variant: label is external, so drop MUI floating-label top padding
-     and vertically center the placeholder / input text. */
   .MuiFilledInput-root {
     padding-top: 0;
     padding-bottom: 0;
@@ -270,7 +268,6 @@
       white-space: nowrap;
     }
 
-    // When chips are present, shrink input to minimum; when empty, let it fill fully
     .MuiAutocomplete-input {
       min-width: var(--rds-autocomplete-dim-1);
       flex-shrink: 1;
@@ -287,11 +284,9 @@
     }
   }
 
-  // Make the outlined border box clip chips properly
   .MuiOutlinedInput-root {
     overflow: hidden;
     
-    // Tighten vertical padding in multiple mode so chips stay within the border
     &.MuiAutocomplete-inputRoot {
       padding-top: var(--rds-spacing-xs);
       padding-bottom: var(--rds-spacing-xs);

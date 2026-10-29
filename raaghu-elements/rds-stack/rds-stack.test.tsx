@@ -332,7 +332,6 @@ describe('RdsStack', () => {
         </RdsStack>
       );
       const stack = container.querySelector('.MuiStack-root');
-      const style = window.getComputedStyle(stack!);
       expect(stack).toBeInTheDocument();
     });
 

@@ -30,10 +30,6 @@ const HEX = '#[0-9a-fA-F]{3,8}\\b';
 function stripHexFallbacks(source) {
   let result = source;
   let prev;
-  // Collapse nested: var(--x, var(--y, #hex)) → var(--x, var(--y))
-  // Then: var(--y, #hex) → var(--y)
-  // Also: var(--x, #hex) → var(--x)
-  // And double-nested already partially cleaned.
   const nestedHex = new RegExp(
     `(var\\(\\s*--[\\w-]+)\\s*,\\s*var\\((\\s*--[\\w-]+)\\s*,\\s*${HEX}\\s*\\)`,
     'g',
@@ -42,7 +38,6 @@ function stripHexFallbacks(source) {
     `(var\\(\\s*--[\\w-]+)\\s*,\\s*${HEX}(\\s*\\))`,
     'g',
   );
-  // Triple nesting: var(--a, var(--b, var(--c, #hex)))
   const tripleHex = new RegExp(
     `(var\\(\\s*--[\\w-]+)\\s*,\\s*var\\((\\s*--[\\w-]+)\\s*,\\s*var\\((\\s*--[\\w-]+)\\s*,\\s*${HEX}\\s*\\)\\s*\\)`,
     'g',
@@ -79,7 +74,6 @@ const files = targets.length
 
 let changedCount = 0;
 for (const file of files) {
-  // Skip design-tokens (hex source of truth) and generated/check scripts
   if (file.replace(/\\/g, '/').includes('design-tokens.ts')) continue;
 
   const original = fs.readFileSync(file, 'utf8');

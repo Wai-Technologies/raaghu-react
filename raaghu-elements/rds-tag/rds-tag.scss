@@ -13,7 +13,6 @@
 }
 
 [data-theme="dark"] {
-  // Default filled tag — keep container tint visible against dark surfaces
   .rds-tag.MuiChip-filled.MuiChip-colorDefault,
   .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) {
     background-color: var(--rds-color-primary-container);

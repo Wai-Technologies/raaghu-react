@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsIconButton, { RdsIconButtonProps } from './rds-icon-button';
+import RdsIconButton from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';

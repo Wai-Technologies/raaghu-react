@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPolarAreaChart from './rds-comp-chart-polar-area';
 
-// Mock Chart.js
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
@@ -627,7 +626,6 @@ describe('RdsCompPolarAreaChart', () => {
       const { rerender, container } = render(
         <RdsCompPolarAreaChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompPolarAreaChart
@@ -719,7 +717,6 @@ describe('RdsCompPolarAreaChart', () => {
         <RdsCompPolarAreaChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
   });

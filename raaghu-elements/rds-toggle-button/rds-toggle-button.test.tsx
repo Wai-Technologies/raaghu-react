@@ -109,7 +109,6 @@ describe('RdsToggleButton', () => {
   describe('Single Select Mode', () => {
     it('should use exclusive mode by default', () => {
       const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
       expect(buttons[0]).toHaveAttribute('aria-pressed', 'false');
@@ -172,7 +171,6 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
       buttons.forEach(button => {
@@ -725,7 +723,7 @@ describe('RdsToggleButton', () => {
         </ThemeProvider>
       );
       
-      const updatedContainer = rerender(
+      rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsToggleButton 
             options={mockOptions}

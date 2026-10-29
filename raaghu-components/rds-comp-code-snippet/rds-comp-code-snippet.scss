@@ -60,9 +60,6 @@
   }
 
   @include bp.down(360) {
-    // .css-1in3o51-MuiButton-startIcon{
-    //   margin-right: 0px;
-    // }
     &__toolbar {
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-xs);
       gap: calc(var(--rds-spacing-xs) * 0.75);

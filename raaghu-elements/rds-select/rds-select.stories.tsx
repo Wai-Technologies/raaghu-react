@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {

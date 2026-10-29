@@ -3,52 +3,48 @@
  * These tokens define the foundation of the design system
  */
 
-// Color Tokens
 export const colorTokens = {
-  // Primary Colors
   primary: {
     50: '#e3f2fd',
     100: '#bbdefb',
-    200: '#3C98FF', // Dark theme normal
-    250: '#66B2FF', // Dark theme hover
+    200: '#3C98FF',
+    250: '#66B2FF',
     300: '#64b5f6',
     400: '#42a5f5',
-    500: '#2196f3', // Primary
+    500: '#2196f3',
     600: '#1e88e5',
-    700: '#3C98FF', // Light theme normal
-    750: '#2E7CE0', // Light theme hover
+    700: '#3C98FF',
+    750: '#2E7CE0',
     800: '#1565c0',
     900: '#0d47a1',
   },
   
-  // Secondary Colors
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
-    200: '#2534E9', // Dark theme normal
-    250: '#4666FF', // Dark theme hover
+    200: '#2534E9',
+    250: '#4666FF',
     300: '#f06292',
     400: '#ec407a',
-    500: '#e91e63', // Secondary
+    500: '#e91e63',
     600: '#d81b60',
-    700: '#2534E9', // Light theme normal
-    750: '#1827BB', // Light theme hover
+    700: '#2534E9',
+    750: '#1827BB',
     800: '#ad1457',
     900: '#880e4f',
   },
   
-  // Semantic Colors
   success: {
     50: '#e8f5e8',
     100: '#c8e6c8',
-    200: '#1F7630', // Dark theme normal
-    250: '#31B64A', // Dark theme hover
+    200: '#1F7630',
+    250: '#31B64A',
     300: '#81c784',
     400: '#66bb6a',
-    500: '#4caf50', // Success
+    500: '#4caf50',
     600: '#43a047',
-    700: '#1F7630', // Light theme normal
-    750: '#1D5E2A', // Light theme hover
+    700: '#1F7630',
+    750: '#1D5E2A',
     800: '#2e7d32',
     900: '#1b5e20',
   },
@@ -56,14 +52,14 @@ export const colorTokens = {
   warning: {
     50: '#fffde7',
     100: '#fff9c4',
-    200: '#C2510C', // Dark theme normal
-    250: '#F98816', // Dark theme hover
+    200: '#C2510C',
+    250: '#F98816',
     300: '#fff176',
     400: '#ffee58',
-    500: '#ffeb3b', // Warning
+    500: '#ffeb3b',
     600: '#fdd835',
-    700: '#C2510C', // Light theme normal
-    750: '#9A4012', // Light theme hover
+    700: '#C2510C',
+    750: '#9A4012',
     800: '#f9a825',
     900: '#f57f17',
   },
@@ -71,31 +67,30 @@ export const colorTokens = {
   error: {
     50: '#ffebee',
     100: '#ffcdd2',
-    200: '#BD0D1D', // Dark theme normal
-    250: '#FF544F', // Dark theme hover
+    200: '#BD0D1D',
+    250: '#FF544F',
     300: '#e57373',
     400: '#ef5350',
-    500: '#f44336', // Error
+    500: '#f44336',
     600: '#e53935',
-    700: '#BD0D1D', // Light theme normal
-    750: '#930011', // Light theme hover
+    700: '#BD0D1D',
+    750: '#930011',
     800: '#c62828',
     900: '#b71c1c',
   },
   
-  // Neutral Colors
   neutral: {
     0: '#ffffff',
     50: '#fafafa',
     100: '#f5f5f5',
     200: '#eeeeee',
-    250: '#969696', // Dark theme hover
+    250: '#969696',
     300: '#e0e0e0',
     400: '#bdbdbd',
     500: '#9e9e9e',
     600: '#757575',
-    700: '#646464', // Light theme normal
-    750: '#4C4C4C', // Light theme hover
+    700: '#646464',
+    750: '#4C4C4C',
     800: '#424242',
     900: '#212121',
     1000: '#000000',
@@ -140,8 +135,6 @@ export const colorTokens = {
     teal:   { light: '#80CBC4', dark: '#004D40' },
   },
 };
-
-// (component-specific blocks for detailsPane and eSignature relocated below)
 
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
@@ -189,7 +182,6 @@ export const extendedBreakpointTokens = {
   '1600': '1600px',
 } as const;
 
-// Typography Tokens
 export const typographyTokens = {
   fontFamily: {
     primary: '"Poppins", sans-serif',
@@ -198,17 +190,17 @@ export const typographyTokens = {
   },
   
   fontSize: {
-    xs: '0.75rem',    // 12px
-    sm: '0.875rem',   // 14px
-    base: '1rem',     // 16px
-    lg: '1.125rem',   // 18px
-    xl: '1.25rem',    // 20px
-    '2xl': '1.5rem',  // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem', // 36px
-    '5xl': '3rem',    // 48px
-    '6xl': '3.75rem', // 60px
-    '7xl': '4.5rem',  // 72px
+    xs: '0.75rem',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
+    '2xl': '1.5rem',
+    '3xl': '1.875rem',
+    '4xl': '2.25rem',
+    '5xl': '3rem',
+    '6xl': '3.75rem',
+    '7xl': '4.5rem',
   },
   
   fontWeight: {
@@ -237,36 +229,33 @@ export const typographyTokens = {
     normal: '0em',
     wide: '0.025em',
     wider: '0.05em',
-      // Secondary Colors (blue/indigo brand palette)
     widest: '0.1em',
   }
 };
 
-// Spacing Tokens
 export const spacingTokens = {
   0: '0px',
-  1: '0.25rem',   // 4px
-  2: '0.5rem',    // 8px
-  3: '0.75rem',   // 12px
-  4: '1rem',      // 16px
-  5: '1.25rem',   // 20px
-  6: '1.5rem',    // 24px
-  7: '1.75rem',   // 28px
-  8: '2rem',      // 32px
-  9: '2.25rem',   // 36px
-  10: '2.5rem',   // 40px
-  12: '3rem',     // 48px
-  16: '4rem',     // 64px
-  20: '5rem',     // 80px
-  24: '6rem',     // 96px
-  32: '8rem',     // 128px
-  40: '10rem',    // 160px
-  48: '12rem',    // 192px
-  56: '14rem',    // 224px
-  64: '16rem',    // 256px
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '0.75rem',
+  4: '1rem',
+  5: '1.25rem',
+  6: '1.5rem',
+  7: '1.75rem',
+  8: '2rem',
+  9: '2.25rem',
+  10: '2.5rem',
+  12: '3rem',
+  16: '4rem',
+  20: '5rem',
+  24: '6rem',
+  32: '8rem',
+  40: '10rem',
+  48: '12rem',
+  56: '14rem',
+  64: '16rem',
 };
 
-// Exact pixel aliases for spacing (useful for CSS var injection when exact px needed)
 export const spacingExact = {
   hairline: '1px',
   xxs: '2px',
@@ -277,12 +266,10 @@ export const spacingExact = {
   xl: '32px',
   '2xl': '48px',
   '3xl': '64px',
-  // Sub-token fills (gaps between named sizes, present in legacy SCSS)
   micro: '3px',
   tight: '5px',
   compact: '6px',
   cozy: '10px',
-  // Exact oddball values (legacy SCSS only — avoid in new components)
   '7': '7px',
   '13': '13px',
   '14': '14px',
@@ -290,7 +277,6 @@ export const spacingExact = {
   '18': '18px',
   '22': '22px',
   '52': '52px',
-  // Additional component-specific values (legacy SCSS — not for new code)
   '25': '25px',
   '27': '27px',
   '29': '29px',
@@ -317,7 +303,6 @@ export const spacingExact = {
   '170': '170px',
   '235': '235px',
   '240': '240px',
-  // Repeated legacy layout offsets (legacy SCSS — not for new code)
   '17': '17px',
   '35': '35px',
   '45': '45px',
@@ -332,7 +317,6 @@ export const spacingExact = {
   '200': '200px',
   '210': '210px',
   '250': '250px',
-  // Negative offsets (layout adjustments in legacy components — not for new code)
   'neg-1': '-1px',
   'neg-2': '-2px',
   'neg-4': '-4px',
@@ -353,16 +337,15 @@ export const spacingExact = {
   'neg-180': '-180px',
 } as const;
 
-// Border Radius Tokens
 export const radiusTokens = {
   none: '0px',
-  sm: '0.125rem',    // 2px
-  base: '0.25rem',   // 4px
-  md: '0.375rem',    // 6px
-  lg: '0.5rem',      // 8px
-  xl: '0.75rem',     // 12px
-  '2xl': '1rem',     // 16px
-  '3xl': '1.5rem',   // 24px
+  sm: '0.125rem',
+  base: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
+  '2xl': '1rem',
+  '3xl': '1.5rem',
   full: '9999px',
 };
 
@@ -392,8 +375,7 @@ export const sizeTokens = {
   '3xl': '64px',
   '4xl': '80px',
   '5xl': '96px',
-  '6xl': '96px', // alias kept for existing --rds-size-6xl consumers
-  // Numeric control sizes (high-frequency in component SCSS)
+  '6xl': '96px',
   '12': '12px',
   '14': '14px',
   '18': '18px',
@@ -406,7 +388,6 @@ export const sizeTokens = {
   colorBtn: '32px',
 } as const;
 
-// Shadow Tokens
 export const shadowTokens = {
   none: 'none',
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -418,7 +399,6 @@ export const shadowTokens = {
   inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
 };
 
-// Animation Tokens
 export const animationTokens = {
   duration: {
     fast: '150ms',
@@ -434,7 +414,6 @@ export const animationTokens = {
   },
 };
 
-// Motion tokens — canonical alias for animationTokens used by the design system pipeline
 export const motionTokens = {
   duration: animationTokens.duration,
   easing: animationTokens.easing,
@@ -446,7 +425,6 @@ export const motionTokens = {
   },
 };
 
-// Z-Index Tokens
 export const zIndexTokens = {
   hide: -1,
   auto: 'auto',
@@ -464,7 +442,6 @@ export const zIndexTokens = {
   tooltip: 1800,
 };
 
-// Breakpoint Tokens
 export const breakpointTokens = {
   xs: '320px',
   sm: '600px',
@@ -473,7 +450,6 @@ export const breakpointTokens = {
   xl: '1536px',
 };
 
-// Component Tokens
 const _componentTokensBase = {
   button: {
     height: {
@@ -569,18 +545,15 @@ const _componentTokensBase = {
   },
   chart: {
     bar: {
-      // Heights for various presets used by the component
       barchart1Height: '65vh',
       histogramSize: '50px',
       defaultHeight: '76vh',
       tabletHeight: '600px',
-      // Pie chart height token (used by pie component)
       pieHeight: '335px',
-      // Dataset default colors (source of truth for component examples)
       dataset: {
-        ds1Bg: '#4BC0C0', // rgba(75,192,192,1)
+        ds1Bg: '#4BC0C0',
         ds1Border: '#4BC0C0',
-        ds2Bg: '#36A2EB', // rgba(54,162,235,1)
+        ds2Bg: '#36A2EB',
         ds2Border: '#36A2EB',
         datasetBg: '#4BC0C0',
         datasetBorder: '#36A2EB',
@@ -662,22 +635,18 @@ const _componentTokensBase = {
     headerMarginBottom: '2px',
     focusRing: '2px',
     letterSpacing: '0.5px',
-    /* Multi-level menu specific tokens */
     mlmMinWidth: '220px',
     mlmRootOffset: '43px',
   }
   ,
-  // Avatar tokens used across components
   avatar: {
     size: {
       small: '28px',
       medium: '32px',
       large: '40px',
     },
-    // fallback font-size for avatar initials
     initialsFontSize: '0.875rem',
   },
-  // Chat component size tokens
   chat: {
     height: '600px',
     maxHeight: '80vh',
@@ -685,9 +654,7 @@ const _componentTokensBase = {
     messageMaxWidth: '280px',
   }
   ,
-  // Kanban board component tokens
   kanban: {
-    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
     headerBgDark: '#1f5fb9',
     subcardBgDark: '#9fbce6',
     subcardBorderDark: '#81a7d9',
@@ -710,7 +677,6 @@ const _componentTokensBase = {
     addItemMargin: '6px 0px',
     subcardsContainerPadding: '0px 8px 8px 8px',
   },
-  // Map component tokens (heatmap palette)
   map: {
     heatmapPalette: [
       '#FFAF00',
@@ -731,14 +697,12 @@ const _componentTokensBase = {
 export const componentTokens = {
   ..._componentTokensBase,
 
-  // Toolbar component tokens (used by rds-comp-toolbar)
   toolbar: {
     height: '40px',
     heightMobile: '32px',
-    spacingXxs: spacingExact.xxs, // 2px
+    spacingXxs: spacingExact.xxs,
   },
 
-  // Component-specific tokens for details pane + e-signature
   detailsPane: {
     width: '338.098px',
     height: '671px',
@@ -788,7 +752,6 @@ export const componentTokens = {
     colorButtonSize: '32px',
   },
 
-  // Pagination component tokens
   pagination: {
     itemSize: {
       xs: '18px',
@@ -809,7 +772,6 @@ export const componentTokens = {
     },
   },
 
-  // Progress component tokens
   progress: {
     dashWidth: '50px',
     dashHeight: '5px',
@@ -823,7 +785,6 @@ export const componentTokens = {
     transition: '0.2s ease-in-out',
   },
 
-  // Range component tokens (used by rds-range)
   range: {
     maxWidthSm: '370px',
     maxWidthXs: '275px',
@@ -832,7 +793,6 @@ export const componentTokens = {
     disabledOpacity: '0.6',
   },
 
-  // Emoji generator + empty state
   emojiGenerator: {
     width: '360px',
     height: '420px',
@@ -849,7 +809,6 @@ export const componentTokens = {
     buttonPadding: '6px 15px',
   },
 
-  // Table component tokens
   table: {
     stickyMaxHeight: '440px',
     actionsWidth: '120px',
@@ -870,7 +829,6 @@ export const componentTokens = {
     },
   },
 
-  // Popover component tokens
   popover: {
     containerMaxWidth: '400px',
     containerMinWidth: '200px',
@@ -883,7 +841,6 @@ export const componentTokens = {
     listMobileMinWidth: '120px',
   },
 
-  // Adaptive Cards component tokens (component-scoped defaults)
   adaptiveCards: {
     thumbWidth: '20px',
     minThumbWidth: '32px',
@@ -924,7 +881,6 @@ export const surfaceTokens = {
   /** Light code-block foreground */
   codeColor: '#e6eef6',
 
-  // ── Light-theme surface neutrals ──────────────────────────────────────────
   /** Darkest neutral surface (light theme) */
   neutralDarker: '#202020',
   /** Dark neutral surface (light theme) */
@@ -934,7 +890,6 @@ export const surfaceTokens = {
   /** Light neutral surface (light theme) */
   neutralLight: '#E1E3EA',
 
-  // ── Dark-mode UI chrome ───────────────────────────────────────────────────
   /** Standard dark surface (cards, panels) */
   darkBase: '#424242',
   /** Hovered dark surface */
@@ -966,7 +921,6 @@ export const surfaceTokens = {
  * These represent specific design decisions for interactive states.
  */
 export const interactiveTokens = {
-  // ── Light-theme secondary button ──────────────────────────────────────────
   /** Secondary button hover background */
   secondaryBgHover: '#EBDCFF',
   /** Secondary button active background */
@@ -979,7 +933,6 @@ export const interactiveTokens = {
   /** Variant text background used for text-buttons hover (semi-transparent blue) */
   variantTextBg: 'rgba(60, 152, 255, 0.04)',
 
-  // ── Alert backgrounds ─────────────────────────────────────────────────────
   /** Alert success border (uses primary purple brand) */
   alertSuccessBorder: '#7825E9',
   /** Alert error background */
@@ -992,7 +945,6 @@ export const interactiveTokens = {
  * Alpha / overlay tokens — semi-transparent values used for overlays, actions, borders.
  */
 export const alphaTokens = {
-  // ── Overlays ──────────────────────────────────────────────────────────────
   /** Standard modal/overlay scrim */
   overlayDark: 'rgba(0, 0, 0, 0.5)',
   /** Heavy overlay scrim */
@@ -1000,7 +952,6 @@ export const alphaTokens = {
   /** Semi-transparent grey overlay */
   overlaySemi: 'rgba(128, 128, 128, 0.4)',
 
-  // ── Light-theme action states ─────────────────────────────────────────────
   /** Hover state background (light) */
   actionHoverLight: 'rgba(0, 0, 0, 0.04)',
   /** Active state (light) */
@@ -1012,7 +963,6 @@ export const alphaTokens = {
   /** Selected state background (light) — MUI action.selected */
   actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
 
-  // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
   actionHoverDark: 'rgba(255, 255, 255, 0.08)',
   /** Active state (dark) */
@@ -1024,19 +974,16 @@ export const alphaTokens = {
   /** Selected state background (dark) — MUI action.selected */
   actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
 
-  // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
   borderOpacityLight: 'rgba(0, 0, 0, 0.12)',
   /** Dark-theme border with opacity */
   borderOpacityDark: 'rgba(255, 255, 255, 0.12)',
 
-  // ── Placeholder colors ────────────────────────────────────────────────────
   /** Placeholder text (light theme) */
   placeholderLight: 'rgba(0, 0, 0, 0.6)',
   /** Placeholder text (dark theme) */
   placeholderDark: 'rgba(255, 255, 255, 0.65)',
 
-  // ── Modal backdrop ────────────────────────────────────────────────────────
   /** Modal backdrop scrim */
   modalBackdrop: 'rgba(0, 0, 0, 0.5)',
   /** Light chart tick / label backdrop */
@@ -1044,13 +991,11 @@ export const alphaTokens = {
   /** Generic soft shadow color (slider thumbs, overlays) */
   shadowColor: 'rgba(0, 0, 0, 0.6)',
 
-  // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
   /** Toggle group border (dark) */
   toggleGroupBorderDark: 'rgba(255, 255, 255, 0.23)',
   /** Toggle group disabled border (dark) */
   toggleGroupBorderDisabledDark: 'rgba(100, 100, 100, 0.5)',
 
-  // ── Dark-theme elevation shadows ──────────────────────────────────────────
   /** Elevation shadow level 2 (dark) */
   elevation2Dark: '0 4px 8px rgba(0, 0, 0, 0.6)',
   /** Focus ring elevation (dark) */
@@ -1247,7 +1192,7 @@ export const semanticAliasTokens = {
   /** On-secondary contrast text */
   colorOnSecondary: '#ffffff',
   /** Popover surface border */
-    popoverSurfaceBorder: '1px solid var(--rds-border-default)', // uses theme-aware border-default token
+    popoverSurfaceBorder: '1px solid var(--rds-border-default)',
   /** Sidebar overlay background */
   sidebarOverlayBg: 'var(--rds-action-hover)',
   /** Font size body alias */
@@ -1359,18 +1304,17 @@ export const eSignaturePenColors = {
 
 /** File-type icon colors — used by rds-comp-tree-structure/fileTypeIcons.tsx */
 export const fileTypeIconColors = {
-  blue:      '#2534E9',  // CSS, C++, TypeScript, JavaScript
-  pink:      '#F55385',  // SQL / database
-  orange:    '#E37933',  // Python / Jupyter
-  lightGray: '#D4D7D6',  // Plain text / unknown
-  yellow:    '#CBCB41',  // YAML / config
-  purple:    '#A074C4',  // Env / Markdown
-  red:       '#CC3E44',  // Git / error
-  steel:     '#6D8086',  // Settings / config
-  darkSteel: '#41535B',  // Git / Stencil
+  blue:      '#2534E9',
+  pink:      '#F55385',
+  orange:    '#E37933',
+  lightGray: '#D4D7D6',
+  yellow:    '#CBCB41',
+  purple:    '#A074C4',
+  red:       '#CC3E44',
+  steel:     '#6D8086',
+  darkSteel: '#41535B',
 };
 
-// Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
   typography: typographyTokens,

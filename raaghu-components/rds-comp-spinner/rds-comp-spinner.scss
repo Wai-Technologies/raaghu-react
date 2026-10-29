@@ -8,7 +8,6 @@
   --rds-spinner-light-color: var(--rds-surface-subtle);
   --rds-spinner-dark-color: var(--rds-text-primary);
 
-  /* G6-103: size tokens (inline style map keeps matching px for jest/consumers) */
   --rds-spinner-size-small: 15px;
   --rds-spinner-size-default: 30px;
   --rds-spinner-size-medium: 35px;
@@ -17,7 +16,6 @@
   --rds-spinner-animation-duration: 0.75s;
 }
 
-/* G6-097: keep Bootstrap-like class names on the element, but scope rules under .spinner-container */
 .spinner-container {
   .spinner-border {
     display: inline-block;
@@ -39,7 +37,6 @@
     color: var(--rds-primary-main, var(--rds-spinner-primary-color));
   }
 
-  /* Default and size modifier classes for consistent sizing */
   .spinner-border,
   .spinner-grow {
     width: var(--rds-spinner-size-default);
@@ -108,7 +105,6 @@
     margin: 0;
   }
 
-  /* Keep border spinner visible: `.spinner-container output` must not wipe `.spinner-border` */
   output.spinner-border {
     border: 0.25em solid currentColor;
     border-right-color: transparent;

@@ -106,7 +106,6 @@ const RdsDialog = ({
   const showClose = showCloseButtonProp ?? showDissmiss ?? true;
   const resolvedSize = size ?? 'medium';
   const titleId = useId();
-  // Label by the title text only so the close button's name is not part of the dialog name.
   const labelledBy = ariaLabelledByProp ?? (showTitle && title ? titleId : undefined);
   const closeFromButton = (event: MouseEvent<HTMLButtonElement>) => {
     (onClose as ((event: MouseEvent<HTMLButtonElement>) => void) | undefined)?.(event);

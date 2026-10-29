@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
-import { axe, configureAxe } from 'jest-axe';
+import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 jest.mock('./rds-sidebar.scss');

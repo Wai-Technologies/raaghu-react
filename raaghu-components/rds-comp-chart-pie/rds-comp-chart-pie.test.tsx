@@ -1,14 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPieChart from './rds-comp-chart-pie';
 import Chart from 'chart.js/auto';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
@@ -28,7 +26,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock Chart.getChart
 (Chart as any).getChart = jest.fn(() => null);
 
 const defaultProps = {
@@ -578,7 +575,6 @@ describe('RdsCompPieChart', () => {
       const { rerender, container } = render(
         <RdsCompPieChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompPieChart

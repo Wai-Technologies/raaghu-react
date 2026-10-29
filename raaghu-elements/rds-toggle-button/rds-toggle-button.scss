@@ -125,7 +125,7 @@
   .rds-toggle-button__group,
   .rds-toggle-button--spaced .rds-toggle-button__group--spaced {
     flex-wrap: nowrap;
-    overflow: hidden; // hide any stray pixel overflow
+    overflow: hidden;
     width: 100%;
     max-width:100%;
   }

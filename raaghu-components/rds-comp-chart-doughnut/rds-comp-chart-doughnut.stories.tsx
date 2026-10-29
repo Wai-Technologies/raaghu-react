@@ -51,7 +51,6 @@ const meta = {
         description: "Accessible label for the chart.",
     },
 
-    // Hide deprecated aliases from the Docs table.
     labels: {
         control: false,
         table: { disable: true },

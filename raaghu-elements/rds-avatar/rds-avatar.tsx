@@ -69,11 +69,11 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
 }
 
 const sizeStyles = {
-  smallest: { width: 24, height: 24, fontSize: '0.5625rem' },  // 9px
-  small:    { width: 32, height: 32, fontSize: '0.6875rem' },  // 11px
-  medium:   { width: 40, height: 40, fontSize: '0.875rem'  },  // 14px
-  large:    { width: 48, height: 48, fontSize: '1.125rem'  },  // 18px
-  largest:  { width: 64, height: 64, fontSize: '1.3125rem' },  // 21px
+  smallest: { width: 24, height: 24, fontSize: '0.5625rem' },
+  small:    { width: 32, height: 32, fontSize: '0.6875rem' },
+  medium:   { width: 40, height: 40, fontSize: '0.875rem'  },
+  large:    { width: 48, height: 48, fontSize: '1.125rem'  },
+  largest:  { width: 64, height: 64, fontSize: '1.3125rem' },
 };
 
 /** Maps avatar size key to a rem font-size for the +N overflow badge */

@@ -10,7 +10,6 @@
   display: inline-flex;
   vertical-align: middle;
   justify-content: center;
-  // badge sizing and shadow are provided by centralized --rds-* tokens
   
   & .MuiBadge-badge {
     background-color: var(--rds-primary-main);

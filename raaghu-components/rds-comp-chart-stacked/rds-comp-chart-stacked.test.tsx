@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompStackedChart from './rds-comp-chart-stacked';
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -25,7 +24,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-stacked.scss', () => ({}));
 
 const defaultProps = {
@@ -711,7 +709,6 @@ describe('RdsCompStackedChart', () => {
       const { rerender, container } = render(
         <RdsCompStackedChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompStackedChart
@@ -787,7 +784,6 @@ describe('RdsCompStackedChart', () => {
         <RdsCompStackedChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
 

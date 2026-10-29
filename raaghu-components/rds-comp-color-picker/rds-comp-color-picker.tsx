@@ -162,7 +162,6 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
       const resolved = isHex
         ? { hex: normalizeHex(trimmed), rgb: { ...hexToRgb(normalizeHex(trimmed)), a: 1 } }
         : resolveColorToHex(trimmed);
-      // Skip opaque-black fallback for unparseable non-hex (keep prior colour).
       const explicitlyBlack = /^(#0{3}([0-9A-Fa-f]{3})?|#000000|black|rgb\(\s*0\s*,\s*0\s*,\s*0)/i.test(trimmed);
       if (!(resolved.hex === '#000000' && !isHex && !explicitlyBlack)) {
         updatePickerState((prev) => ({

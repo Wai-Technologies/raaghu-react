@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompScatterChart from "./rds-comp-chart-scatter";
 import "./rds-comp-chart-scatter.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";

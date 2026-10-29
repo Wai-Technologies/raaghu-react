@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompRadarChart from './rds-comp-chart-radar';
 
-// Mock Chart.js
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
@@ -26,7 +25,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-radar.scss', () => ({}));
 
 const defaultProps = {
@@ -681,7 +679,6 @@ describe('RdsCompRadarChart', () => {
       const { rerender, container } = render(
         <RdsCompRadarChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompRadarChart
@@ -748,7 +745,6 @@ describe('RdsCompRadarChart', () => {
         <RdsCompRadarChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
 

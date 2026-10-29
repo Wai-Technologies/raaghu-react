@@ -252,7 +252,6 @@
     align-items: center;
     justify-content: center;
 
-    /* Signature ink swatches — values from eSignaturePenColors via CSS vars. */
     &:first-child {
       background-color: var(--rds-esignature-pen-black);
     }
@@ -389,7 +388,6 @@
     box-sizing: border-box;
 
     &:focus-within {
-      /* Keep keyboard focus on the control via :focus-visible. */
       border-color: var(--rds-color-neutral-300);
       box-shadow: none;
     }
@@ -447,7 +445,6 @@
     color: var(--rds-color-neutral-0);
   }
 
-  /* Remove mouse-click outline but retain keyboard-visible focus. */
   &__file-button:focus {
     outline: none;
     box-shadow: none;
@@ -803,7 +800,6 @@
   }
 }
 
-/* Dark theme overrides */
 [data-theme="dark"] .rds-e-signature__upload-panel,
 [data-theme="dark"] .rds-e-signature__choose-panel,
 [data-theme="dark"] .rds-e-signature__file-row,

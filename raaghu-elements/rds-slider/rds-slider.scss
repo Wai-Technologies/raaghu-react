@@ -39,16 +39,14 @@
     display: flex;
     align-items: center;
     gap: var(--rds-slider-container-gap);
-    min-width: 0; /* allow children to shrink properly */
+    min-width: 0;
   }
 
-  /* make the MUI Slider expand to fill available space between labels */
   &__container .MuiSlider-root {
     flex: 1 1 auto;
     min-width: 0;
-    /* ensure the track has extra padding so the thumb doesn't overlap the right label */
-    padding-inline-end: 20px; /* space for thumb + small gap */
-    padding-inline-start: 8px; /* small start padding for symmetry */
+    padding-inline-end: 20px;
+    padding-inline-start: 8px;
   }
 
   &__left-label,

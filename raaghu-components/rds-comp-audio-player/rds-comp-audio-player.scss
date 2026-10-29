@@ -102,7 +102,6 @@
       vertical-align: middle;
     }
     
-    // Exclude dropdown menu items so icon+text stay left-aligned
     button:not(.rds-fab-menu__item) {
       background: none;
       border: none;

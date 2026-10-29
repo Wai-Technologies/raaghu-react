@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { Share, Print, Favorite } from '@mui/icons-material';
 import RdsSpeedDial, { RdsSpeedDialAction, RdsSpeedDialProps } from './rds-speed-dial';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';

@@ -603,7 +603,6 @@
     align-items: center;
     vertical-align: middle;
 
-    // Suppress MUI focus ring on the rds-input wrapper in chat context
     .MuiOutlinedInput-notchedOutline {
       border: none;
       outline: none;
@@ -643,7 +642,6 @@
         box-shadow: none;
       }
 
-      // Suppress focus outline/border on the notchedOutline in all states
       &:hover .MuiOutlinedInput-notchedOutline,
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
         border: none;

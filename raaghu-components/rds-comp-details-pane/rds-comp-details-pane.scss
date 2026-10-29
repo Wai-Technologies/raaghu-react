@@ -63,7 +63,6 @@
   border: none;
   position: relative;
 
-  /* App-shell / right-nav: flush layout without ID-scoped overrides */
   &--flush {
     height: 100%;
     display: flex;
@@ -608,7 +607,6 @@
     accent-color: var(--rds-color-primary);
     margin-right: var(--rds-spacing-xs);
 
-    /* Ensure RdsCheckbox internal padding doesn't overlap text */
     .rds-checkbox {
       margin: 0;
       padding: 0;
@@ -780,9 +778,6 @@
     height: var(--rds-details-pane-dim-9);
 }
   &__toolbar-pane-container {
-    // padding-left: var(--rds-spacing-lg);
-    // padding-right: var(--rds-spacing-lg);
-    // padding-bottom: 25px;
     display: flex;
     flex-direction: column;
     position: relative;

@@ -993,7 +993,6 @@ describe('audit fixes', () => {
   });
 
   it('is marked deprecated in favour of RdsSnackbar (G6-149)', () => {
-    // Component-level deprecation is documented on the export; runtime behaviour unchanged.
     expect(RdsCompToast.displayName).toBe('RdsCompToast');
   });
 

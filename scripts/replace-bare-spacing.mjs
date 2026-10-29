@@ -14,7 +14,7 @@ const SPACING_PROP =
 
 /** Exact px → CSS var name (without var()) */
 const MAP = new Map([
-  ['0px', '0'], // unitless zero; avoids spacing token noise
+  ['0px', '0'],
   ['1px', 'var(--rds-spacing-hairline)'],
   ['-1px', 'var(--rds-spacing-neg-1)'],
   ['2px', 'var(--rds-spacing-xxs)'],
@@ -85,7 +85,6 @@ const MAP = new Map([
   ['170px', 'var(--rds-spacing-170)'],
   ['235px', 'var(--rds-spacing-235)'],
   ['240px', 'var(--rds-spacing-240)'],
-  // Repeated legacy offsets (centralized rather than left bare)
   ['17px', 'var(--rds-spacing-17)'],
   ['35px', 'var(--rds-spacing-35)'],
   ['45px', 'var(--rds-spacing-45)'],
@@ -144,10 +143,9 @@ function replaceInValue(value) {
   let i = 0;
   while (i < value.length) {
     if (value.startsWith('var(', i)) {
-      const innerStart = i + 4; // after 'var('
+      const innerStart = i + 4;
       const end = matchingParenEnd(value, i + 3);
       const inner = value.slice(innerStart, end - 1);
-      // Split name / fallback at first top-level comma
       let depth = 0;
       let comma = -1;
       for (let k = 0; k < inner.length; k++) {
@@ -169,7 +167,6 @@ function replaceInValue(value) {
       i = end;
       continue;
     }
-    // Do not match the fractional part of decimals (e.g. 2px inside -11.2px)
     const prev = i > 0 ? value[i - 1] : '';
     const m = value.slice(i).match(/^(-?\d+)px\b/);
     if (m && !/[\d.]/.test(prev)) {
@@ -206,11 +203,9 @@ function transformLine(line) {
   while ((m = propRe.exec(line))) {
     const propStart = m.index + m[1].length;
     const valueStart = m.index + m[0].length;
-    // Skip CSS custom property definitions (--foo:)
     const before = line.slice(Math.max(0, propStart - 2), propStart);
     if (before.endsWith('--')) continue;
 
-    // Value ends at ; or } at depth 0 (wrt var/calc parens)
     let depth = 0;
     let j = valueStart;
     for (; j < line.length; j++) {
@@ -249,7 +244,6 @@ let changedCount = 0;
 let replaceCount = 0;
 for (const file of files) {
   const original = fs.readFileSync(file, 'utf8');
-  // count replacements roughly
   const before = original;
   const { updated, changed } = transformFile(original);
   if (changed) {

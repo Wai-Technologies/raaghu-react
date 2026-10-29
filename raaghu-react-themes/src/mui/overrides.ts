@@ -6,7 +6,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiInputBase: {
     styleOverrides: {
       root: ({ theme }) => {
-        // Prefer theme.vars so light/dark colorSchemes swap at runtime via data-theme.
         const palette = theme.vars?.palette ?? theme.palette;
         return {
           borderRadius: theme.shape.borderRadius,
@@ -18,7 +17,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
       input: ({ theme }) => {
         const palette = theme.vars?.palette ?? theme.palette;
         return {
-          // Longhands so MuiSelect can override paddingRight for the chevron
           paddingTop: theme.spacing(1.25),
           paddingBottom: theme.spacing(1.25),
           paddingLeft: theme.spacing(1.5),
@@ -83,7 +81,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
     styleOverrides: {
       select: ({ theme }) => ({
         minHeight: theme.spacing(2.5),
-        // Avoid display:flex — it breaks text-overflow and lets long values cover the icon
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
@@ -146,7 +143,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
   },
   MuiBadge: {
     styleOverrides: {
-      // Soft defaults — RdsBadge modifiers win via `&.rds-badge` below / SCSS.
       badge: ({ theme }) => ({
         borderRadius: theme.shape.borderRadius,
         minWidth: theme.spacing(2.25),
@@ -243,7 +239,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
     styleOverrides: {
       root: ({ theme, ownerState }) => ({
         borderRadius: theme.shape.borderRadius,
-        // Both variants get the divider border; outlined also drops the shadow
         ...(ownerState?.variant === 'outlined'
           ? { border: `1px solid ${pal(theme).divider}`, boxShadow: 'none' }
           : { border: `1px solid ${pal(theme).divider}` }),
@@ -267,7 +262,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
         height: 3,
       },
       root: {
-        // Hide default indicator inside RdsTabs; layout skins use borders/backgrounds.
         '.rds-tabs &': {
           overflow: 'visible',
         },
@@ -284,8 +278,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiTab: {
     styleOverrides: {
       root: {
-        // Soft defaults — layout skins (pill, filled, flap, line-*) win via
-        // higher-specificity `.rds-tabs--* .MuiTab-root` SCSS without !important.
         textTransform: 'none' as const,
         '&.Mui-selected': {
           color: 'var(--rds-color-primary)',
@@ -427,8 +419,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
         '&.Mui-disabled': {
           backgroundColor: 'var(--rds-text-disabled)',
         },
-        // RdsButton BEM lives on the MUI root — Emotion owns hover/selected/disabled
-        // so component SCSS does not need !important against theme contained* styles.
         '&.rds-button': {
           '&.Mui-disabled:not(.rds-button__loading)': {
             backgroundColor: 'var(--rds-button-primary-bg-disabled)',
@@ -566,8 +556,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
   },
   MuiSwitch: {
     styleOverrides: {
-      // Geometry and skins when `className` includes `rds-switch` / `--style*` / `--color*`
-      // (RdsSwitch). Emotion owns these so component SCSS does not need !important.
       root: {
         '&.rds-switch': {
           width: 'var(--rds-switch-root-width)',

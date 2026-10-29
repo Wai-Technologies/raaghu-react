@@ -35,7 +35,6 @@ export interface RaaghuThemeProviderProps {
 
 function MuiColorSchemeSync({ mode }: Readonly<{ mode: RaaghuThemeMode }>) {
   const { setMode } = useColorScheme();
-  // Resolve system → light|dark so MUI `data-theme` matches injectTokens / logo hooks.
   const effectiveMode = mode === 'system' ? (prefersDarkColorScheme() ? 'dark' : 'light') : mode;
 
   useIsomorphicLayoutEffect(() => {

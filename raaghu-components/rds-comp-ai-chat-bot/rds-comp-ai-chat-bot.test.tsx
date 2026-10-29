@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';

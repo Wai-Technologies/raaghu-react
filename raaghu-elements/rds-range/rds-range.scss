@@ -1,7 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-/* use centralized breakpoint tokens where possible */
-
 .rds-range {
   --rds-range-max-width-sm: 370px;
   --rds-range-max-width-xs: 275px;

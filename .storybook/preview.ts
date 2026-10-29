@@ -35,7 +35,6 @@ const preview: Preview = {
       },
     },
   },
-  // Disable object editors for ReactNode slots (Storybook often yields `{}`).
   argTypes: {
     ...reactNodeArgTypes,
     ref: { control: false },
@@ -106,7 +105,6 @@ const preview: Preview = {
         theme: docsTheme,
       };
 
-      // Drop `{}` (and other plain objects) from ReactNode args before render.
       const safeArgs = sanitizeReactNodeArgs(
         (context.args ?? {}) as Record<string, unknown>,
       );
@@ -116,10 +114,8 @@ const preview: Preview = {
         RaaghuThemeProvider,
         {
           mode,
-          // Theme persistence is handled outside Storybook; avoid fighting toolbar globals.
           initializeOnMount: false,
         },
-        // Pass sanitized args so CSF render functions cannot receive `{}` slots.
         React.createElement(Story, { args: safeArgs }),
       );
     },

@@ -30,7 +30,6 @@
   }
 }
 
-/* Selected tab / indicator colors live in designSystemComponentOverrides (MuiTab / MuiTabs / MuiBottomNavigationAction). */
 .rds-header__navigation,
 .rds-footer-navigation {
   .rds-tab--selected,
@@ -40,10 +39,6 @@
   }
 }
 
-/*
- * Docked mobile footer — opt-in modifier. Prefer this over :first-of-type /
- * cascade fights with MUI BottomNavigation.
- */
 .rds-footer-navigation--docked {
   position: fixed;
   bottom: 0;
@@ -496,8 +491,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   z-index: var(--rds-z-index-raised);
 }
 
-/* Flush layout lives on .rds-comp-details-pane--flush (see details-pane SCSS). */
-
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
   margin-top: var(--rds-spacing-200);
 }
@@ -514,8 +507,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   z-index: var(--rds-z-index-raised);
 }
 
-/* Flush toolbar layout lives on .rds-comp-details-pane--flush-toolbar. */
-
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1,
 .tripane-sidebar img.ps-md-2.main-logo.ps-1 {
   visibility: hidden;
@@ -531,7 +522,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: flex;
   flex-direction: column;
 
-  // Stable selectors — do not target MUI emotion hashes (they change between builds).
   .rds-story-double-nav-content {
     .rds-sidebar.MuiDrawer-root,
     .rds-sidebar .MuiDrawer-root {
@@ -539,7 +529,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       height: 100%;
     }
 
-    /* Embedded paper positioning owned by RdsSidebar embedded prop */
   }
 
   > .sidebar-layout {
@@ -597,7 +586,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
       }
 
-      /* Embedded paper positioning owned by RdsSidebar embedded prop */
     }
   }
 
@@ -649,14 +637,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none;
     }
 
-    // Keep closed mobile drawer fully off-screen (avoids white strip flash on viewport resize).
     &:not(.mobile-sidebar-open) > .sidebar-layout {
       visibility: hidden;
       pointer-events: none;
     }
   }
 
-  // Only animate after first layout — Storybook mobile viewport often paints desktop width first.
   .Default,
   .relaxing,
   .side-nav,
@@ -736,7 +722,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Top Nav story specific mobile fix
   .rds-story-topnav-content {
     padding-bottom: var(--rds-spacing-3xl);
     overflow: hidden;
@@ -777,7 +762,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  /* Fixed chrome lives on .rds-footer-navigation--docked (defined above). */
   
   .double-nav, .triPane {
     .MuiTabs-root:not(.rds-footer-navigation *),
@@ -785,7 +769,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none;
     }
     
-    /* Hide accidental duplicate footers; the docked one is opted in via --docked. */
     .rds-footer-navigation:not(.rds-footer-navigation--docked),
     .MuiBottomNavigation-root:not(.rds-footer-navigation):not(.rds-footer-navigation--docked) {
       display: none;
@@ -918,7 +901,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
     }
 
-    // Bottom nav is rendered by RdsAppBar (.rds-bottom-navigation); keep header tabs hidden.
     .MuiTabs-root,
     .rds-header__navigation,
     .rds-header__tabs-inline {
@@ -1098,8 +1080,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
     
-    // Right panel: leave a thin strip on the left (hamburger/chrome).
-    // Cap width on tablet-sized viewports so 85% does not dominate the canvas.
     .doublenav-mobile-toolbar {
       position: fixed;
       top: 0;
@@ -1131,7 +1111,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         box-sizing: border-box;
 
-        // Details pane must fill the panel — no fixed 338px width / side gutters.
         .rds-comp-details-pane {
           width: 100%;
           max-width: 100%;
@@ -1584,8 +1563,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Prefer AppBar's .rds-bottom-navigation over forcing header tabs to the bottom
-  // (avoids a tall broken tab strip while Storybook viewport is mid-resize).
   .Default .MuiTabs-root,
   .relaxing .MuiTabs-root,
   .side-nav .MuiTabs-root,
@@ -1755,8 +1732,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none;
     }
 
-    // Undo max-width:900px closed-drawer hide so tablet keeps a permanent sidebar
-    // (hamburger is hidden here; without this the left column stays blank).
     &:not(.mobile-sidebar-open) > .sidebar-layout,
     .sidebar-layout {
       position: relative;
@@ -1805,7 +1780,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
       
-      // Match other shells' bottom nav: active = primary color only (no top indicator bar).
       .MuiTabs-indicator {
         display: none;
       }
@@ -2571,7 +2545,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         overflow: hidden;
         margin: 0;
 
-        // Kill native scrollbars on the tabs strip
         scrollbar-width: none;
         -ms-overflow-style: none;
 

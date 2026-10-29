@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompScatterChart from './rds-comp-chart-scatter';
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -25,7 +24,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-scatter.scss', () => ({}));
 
 const defaultProps = {
@@ -771,7 +769,6 @@ describe('RdsCompScatterChart', () => {
       const { rerender, container } = render(
         <RdsCompScatterChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompScatterChart
@@ -847,7 +844,6 @@ describe('RdsCompScatterChart', () => {
         <RdsCompScatterChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
 
@@ -989,7 +985,6 @@ describe('RdsCompScatterChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
 
-      // Simulate theme change
       document.documentElement.setAttribute('data-theme', 'dark');
       rerender(<RdsCompScatterChart {...defaultProps} />);
       expect(container.querySelector('canvas')).toBeInTheDocument();

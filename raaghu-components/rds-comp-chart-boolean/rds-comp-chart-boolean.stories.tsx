@@ -41,7 +41,6 @@ const meta = {
         description: "Width of the chart.",
     },
 
-    // Hide deprecated aliases from Storybook documentation.
     labels: {
         control: false,
         table: { disable: true },

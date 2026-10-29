@@ -69,7 +69,6 @@ export const Default: Story = {
     mode: 'standard',
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const wrapper = canvasElement.querySelector('.rds-comp-layout-wrapper_basic');
     expect(wrapper).toBeInTheDocument();
   },

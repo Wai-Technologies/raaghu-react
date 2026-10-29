@@ -3,7 +3,6 @@
 .rds-box {
   display: block;
   position: relative;
-  // box surface tokens provided by centralized --rds-* theme vars
 
   &:focus-visible {
     outline: var(--rds-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));

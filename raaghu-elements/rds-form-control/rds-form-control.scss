@@ -1,9 +1,6 @@
 .rds-form-control {
   --rds-form-control-select-width: var(--rds-input-min-width);
 
-  // Match MuiFormControl (inline-flex + column). `display: block` overrides that
-  // and lets the inline FormLabel sit beside the TextField when SCSS injects
-  // after Emotion (common on first Storybook navigation).
   --rds-input-min-width: 200px;
 
   display: inline-flex;
@@ -19,7 +16,6 @@
     margin-right: var(--rds-form-control-fullwidth-margin-right);
   }
 
-  // No outer focus glow — match rds-select (border color change only)
   .MuiOutlinedInput-root {
     &,
     &:hover,
@@ -30,8 +26,6 @@
     }
   }
 
-  // Keep Select at a stable width so long selected values do not stretch the field.
-  // Do not set overflow:hidden on the root — it clips the outlined fieldset top edge.
   .MuiSelect-root {
     box-sizing: border-box;
     max-width: 100%;
@@ -44,7 +38,6 @@
     width: var(--rds-form-control-select-width);
   }
 
-  // Reserve space for the chevron; truncate long values so they never cover the icon
   .MuiSelect-select.MuiInputBase-input {
     box-sizing: border-box;
     display: block;

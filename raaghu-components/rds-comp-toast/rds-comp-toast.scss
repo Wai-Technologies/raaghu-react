@@ -401,7 +401,6 @@
     margin-top: var(--rds-spacing-md);
   }
 
-  /* G6-148: chat layout via BEM nesting (no) */
   &--chat &__leading-icon {
     display: none;
     width: 0;
@@ -461,7 +460,6 @@
   }
 }
 
-/* G6-148: one :is() dark host instead of duplicated theme-sniff selectors */
 :is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .rds-comp-toast {
   --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
   --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));

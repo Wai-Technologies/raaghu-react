@@ -98,7 +98,6 @@
     margin-right: var(--rds-spacing-xs);
   }
 
-  // Override MUI ListItemIcon default min-width to reduce icon-text gap
   .MuiListItemIcon-root {
     min-width: var(--rds-size-36);
   }
@@ -219,7 +218,6 @@
   padding: 0;
 }
 
-// Circular hover effect on the checkbox icon area in withCheckboxes mode
 .rds-list__item .MuiListItemButton-root .rds-list__icon {
   position: relative;
 
@@ -229,8 +227,6 @@
   }
 }
 
-// For withCheckboxes rows: suppress the full-width MuiListItemButton hover
-// and show only the circular ripple on the checkbox itself
 .rds-list__item--clickable .MuiListItemButton-root {
   &:hover {
     background-color: transparent;
@@ -272,7 +268,6 @@
 }
 
 .rds-list--align-responsive {
-  // CSS custom properties cannot be used in @media queries — use hardcoded token values (sm=600px, xl=1536px).
   @media (max-width: 600px) {
     .rds-list__item {
       align-items: flex-start;

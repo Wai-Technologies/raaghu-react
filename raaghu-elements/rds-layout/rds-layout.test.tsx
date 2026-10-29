@@ -5,10 +5,8 @@ import RdsLayout from './rds-layout';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-layout.scss', () => ({}));
 
-// Mock RdsHeader component
 jest.mock('../rds-header/rds-header', () => {
   return function DummyHeader(props: any) {
     return (

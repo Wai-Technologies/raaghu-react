@@ -38,7 +38,6 @@ export const SettingsModalComponent = memo(
             elevation: 0,
             sx: {
               backgroundImage: "none",
-              // Popover positions via anchor; drop absolute offsets from SCSS.
               position: "relative",
               top: "auto",
               right: "auto",

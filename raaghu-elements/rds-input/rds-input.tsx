@@ -125,10 +125,6 @@ const RdsInput = ({
       setInternalValue('');
     }
   }
-  
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

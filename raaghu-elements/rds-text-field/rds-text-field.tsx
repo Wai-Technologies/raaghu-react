@@ -45,7 +45,6 @@ const RdsTextField = ({
     ),
   };
 
-  // Only forward defaultValue when uncontrolled — React warns if both value and defaultValue are set.
   const uncontrolledDefault =
     defaultValue !== undefined && props.value === undefined ? { defaultValue } : {};
 

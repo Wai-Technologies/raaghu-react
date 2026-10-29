@@ -280,7 +280,6 @@
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
 }
 
-/* Global modal field defaults */
 .rdw-image-modal-url-input,
 .rdw-image-modal-size-input,
 .rdw-image-modal-alt-input {
@@ -288,7 +287,6 @@
   padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
 }
 
-/* G6-118: one :is() dark host instead of duplicated theme-sniff selectors */
 :is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, html.theme-dark, html.rds-theme--dark, [data-theme='dark']) .rds-comp-text-editor__wrapper .rdw-editor-toolbar {
   .rdw-option-wrapper,
   .rdw-dropdown-wrapper,

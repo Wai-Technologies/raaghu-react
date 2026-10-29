@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsTimeline, { RdsTimelineProps, RdsTimelineItem } from './rds-timeline';
+import RdsTimeline, { RdsTimelineItem } from './rds-timeline';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 

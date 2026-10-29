@@ -119,7 +119,6 @@ const RdsCompBooleanChart = ({
     const hasCenterIcon = centerIcon !== undefined && centerIcon !== null;
     const iconName = centerIconName;
 
-    // Only access ChartIcons when iconName is a valid, non-empty key.
     const svg =
         !hasCenterIcon && iconName && iconName in ChartIcons
             ? ChartIcons[iconName]

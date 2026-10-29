@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
+import RdsAppBar, { RdsAppBarProps } from './rds-app-bar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';

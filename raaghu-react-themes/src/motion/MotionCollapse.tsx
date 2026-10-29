@@ -10,8 +10,6 @@ interface MotionCollapseProps {
 }
 
 const MotionCollapse = ({ ref, in: isIn, children, onExited }: MotionCollapseProps & { ref?: React.Ref<HTMLDivElement> }) => {
-    // Fire onExited after commit, not during render: render must stay pure so StrictMode's
-    // double render (and React 19's render replays) can't call it twice.
     const prevIsInRef = React.useRef(Boolean(isIn));
     React.useEffect(() => {
       if (prevIsInRef.current && !isIn) {

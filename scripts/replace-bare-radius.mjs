@@ -6,7 +6,6 @@ import { transformPropsInFile, runOnRoots } from './lib/scss-px-replace.mjs';
 
 const PROP = /^(border-radius|border-top-left-radius|border-top-right-radius|border-bottom-left-radius|border-bottom-right-radius)$/i;
 
-// Maps to emitted CSS vars (see build-rds-css-vars naming)
 const MAP = new Map([
   ['0px', 'var(--rds-border-radius-none)'],
   ['1px', 'var(--rds-border-radius-xs)'],

@@ -1,9 +1,9 @@
 import React from 'react';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
 import { RaaghuLogoImg } from '../shared/components/RaaghuLogoImg';
-import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
+import { Button, IconButton, Avatar, Badge } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const headerThemeLogo = <RaaghuLogoImg alt="Logo" style={{ height: 32 }} />;

@@ -319,7 +319,6 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={3} height={60} />
       );
-      const skeletons = container.querySelectorAll('.rds-skeleton:not(.rds-skeleton)');
       const individualSkeletons = Array.from(container.querySelectorAll('.MuiSkeleton-root'));
       individualSkeletons.forEach(skeleton => {
         expect(skeleton).toHaveStyle('height: 60px');

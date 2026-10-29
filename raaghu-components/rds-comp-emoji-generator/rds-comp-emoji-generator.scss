@@ -126,7 +126,6 @@
     box-shadow: var(--rds-elevation-3);
     margin-top: var(--rds-spacing-xxs);
     min-width: auto;
-    /* G5-040: dedicated width token (was misusing --rds-size-sm with 45px fallback) */
     width: var(--rds-emoji-skin-popover-width);
   }
 
@@ -151,7 +150,6 @@
     }
   }
 
-  /* G5-038/040: border/shadow via BEM + aria-pressed; beat MUI without */
   &__skin-tone-option.MuiIconButton-root {
     width: var(--rds-emoji-skin-tone-size);
     height: var(--rds-emoji-skin-tone-size);

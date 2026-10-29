@@ -188,7 +188,6 @@ export const renderDatePickerTypeView = (
     CustomInputWithClear: React.ElementType,
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
-    // Retain this parameter for compatibility with existing callers.
     void datePickerRef;
 
     if (type === "Default") {

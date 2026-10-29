@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
@@ -582,7 +582,6 @@ describe('RdsCompBooleanChart', () => {
       const { rerender, container } = render(
         <RdsCompBooleanChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompBooleanChart

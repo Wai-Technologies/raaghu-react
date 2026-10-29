@@ -1,4 +1,4 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompToolbar, { ToolbarLayout, ToolbarType } from "./rds-comp-toolbar";
 
@@ -100,7 +100,6 @@ export const Default: Story = {
         disabled: false,
     },
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
         const buttons = canvasElement.querySelectorAll('button');
         expect(buttons.length).toBeGreaterThan(0);
     },

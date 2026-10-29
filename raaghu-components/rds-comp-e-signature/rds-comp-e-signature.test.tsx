@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, createEvent } from '@testing-library/react';
+import { render, screen, fireEvent, createEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompESignature, { RdsCompESignatureProps } from './rds-comp-e-signature';
+import RdsCompESignature from './rds-comp-e-signature';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 

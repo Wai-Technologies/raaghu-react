@@ -38,7 +38,6 @@ const meta: Meta = {
         description: "React ref to the chart container; assign it in code.",
     },
 
-    // Hide deprecated aliases from Storybook documentation.
     labels: {
         control: false,
         table: { disable: true },

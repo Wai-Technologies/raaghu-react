@@ -64,7 +64,6 @@ function resolveTriggerAppearance(
   if (resolved === 'outlined') {
     return { buttonVariant: 'outlined', color: colorProp ?? 'primary', isSecondary: false, isOutline: true };
   }
-  // filled (canonical default) or unknown → filled
   const color = colorProp ?? 'primary';
   return {
     buttonVariant: 'filled',

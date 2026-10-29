@@ -113,7 +113,6 @@ const RdsCompScatterChart = ({
   if (chartType !== undefined) {
     warnDeprecatedProp("RdsCompScatterChart", "chartType", "`showLine` on the datasets");
   }
-  // Always scatter — chartType is deprecated and ignored for rendering.
   const resolvedChartType = resolveScatterChartType(chartType);
   const resolved = resolveChartData<unknown[], ChartDataset[]>(
     "RdsCompScatterChart",
