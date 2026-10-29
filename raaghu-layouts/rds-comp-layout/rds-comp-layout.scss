@@ -1,6 +1,7 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-.rds-comp-layout-wrapper_basic {
+.rds-comp-layout-wrapper_basic,
+.rds-comp-layout-wrapper {
   --rds-layout-min-height-xs: 100px;
   --rds-layout-min-height-sm: 120px;
   --rds-layout-min-height-md: 180px;
@@ -13,7 +14,9 @@
   --rds-layout-min-height-6xl: 600px;
 
   --rds-box-shadow-card: 0 0 6px 5px var(--rds-layout-card-shadow-color);
+}
 
+.rds-comp-layout-wrapper_basic {
   min-height: 83vh;
   width: 100%;
   display: flex;
@@ -47,7 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--rds-box-shadow-card)
+  box-shadow: var(--rds-box-shadow-card) !important;
 }
 
 
@@ -72,9 +75,9 @@
 
 .rds-comp-layout__paper {
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
-  border-radius: var(--rds-border-radius-sm);
+  border-radius: var(--rds-border-radius-sm) !important;
   background: var(--rds-background-default);
-  box-shadow: var(--rds-box-shadow-card);
+  box-shadow: var(--rds-box-shadow-card) !important;
   
   &--height-xs {
     min-height: var(--rds-size-4xl);
@@ -256,8 +259,8 @@
   }
   
   .rds-layout-item {
-    flex: none;
-    width: 100%;
+    flex: none !important;
+    width: 100% !important;
   }
 }
 

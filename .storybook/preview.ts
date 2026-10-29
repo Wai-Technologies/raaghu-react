@@ -10,7 +10,8 @@ import './custom-theme.css';
 import { getDocsTheme } from './storybook-docs-theme';
 import './storybook-theme-sync';
 import {
-  reactNodeArgTypes,
+  reactNodeArgTypesEnhancer,
+  sanitizeArrayArgs,
   sanitizeReactNodeArgs,
 } from './sanitize-react-node-args';
 
@@ -35,14 +36,7 @@ const preview: Preview = {
       },
     },
   },
-  argTypes: {
-    ...reactNodeArgTypes,
-    ref: { control: false },
-    component: { control: false },
-    slots: { control: false },
-    slotProps: { control: false },
-    container: { control: false },
-  },
+  argTypesEnhancers: [reactNodeArgTypesEnhancer],
   parameters: {
     controls: {
       matchers: {
@@ -105,8 +99,9 @@ const preview: Preview = {
         theme: docsTheme,
       };
 
-      const safeArgs = sanitizeReactNodeArgs(
-        (context.args ?? {}) as Record<string, unknown>,
+      const safeArgs = sanitizeArrayArgs(
+        sanitizeReactNodeArgs((context.args ?? {}) as Record<string, unknown>),
+        context.argTypes,
       );
       context.args = safeArgs;
 
@@ -116,7 +111,7 @@ const preview: Preview = {
           mode,
           initializeOnMount: false,
         },
-        React.createElement(Story, { args: safeArgs }),
+        React.createElement(Story),
       );
     },
   ],

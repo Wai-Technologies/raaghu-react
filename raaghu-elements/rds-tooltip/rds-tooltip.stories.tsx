@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsTooltip> = {
     status: { type: 'stable' },
     layout: 'centered',
     controls: {
-      exclude: ['ref', 'slots', 'slotProps'],
+      exclude: ['ref', 'slots', 'slotProps', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -88,47 +88,58 @@ const iconButton = (icon: ReactNode, label: string) => (
 export const Default: Story = {
   args: {
     title: 'This is a tooltip',
-    children: textButton('Hover me', 'filled'),
     placement: 'top',
     arrow: false,
   },
   parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Hover me', 'filled')}</RdsTooltip>
+  ),
 };
 
 export const OnIconButton: Story = {
   args: {
     title: 'Delete item',
-    children: iconButton(<Delete />, 'Delete item'),
     placement: 'top',
   },
   parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{iconButton(<Delete />, 'Delete item')}</RdsTooltip>
+  ),
 };
 
 export const WithArrow: Story = {
   args: {
     title: 'Tooltip with arrow',
     arrow: true,
-    children: textButton('Arrow tooltip', 'outlined'),
     placement: 'top',
   },
   parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Arrow tooltip', 'outlined')}</RdsTooltip>
+  ),
 };
 
 export const Different_Placements: Story = {
   args: {
     title: 'Top placement',
     placement: 'top',
-    children: textButton('Top', 'transparent'),
   },
   parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Top', 'transparent')}</RdsTooltip>
+  ),
 };
 
 export const LongText: Story = {
   args: {
     title:
       'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
-    children: iconButton(<HelpIcon />, 'Help'),
     placement: 'top',
+    arrow: false,
   },
   parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{iconButton(<HelpIcon />, 'Help')}</RdsTooltip>
+  ),
 };

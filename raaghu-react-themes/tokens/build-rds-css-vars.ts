@@ -1276,7 +1276,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-neutral-disabled-icon': n[400],
     '--rds-color-neutral-soft': n[100],
     '--rds-kanban-header-bg': 'var(--rds-surface-primary-light)',
-    '--rds-kanban-subcard-bg': 'var(--rds-background-paper)',
+    '--rds-kanban-subcard-bg': 'var(--rds-surface-primary-light)',
     '--rds-kanban-subcard-border': 'var(--rds-surface-neutral-light)',
     '--rds-audio-player-base-background': componentModeTokens.light['audio-player-base-background'],
     '--rds-audio-player-base-color': componentModeTokens.light['audio-player-base-color'],

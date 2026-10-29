@@ -1,4 +1,6 @@
 import React from 'react';
+import type { ArgTypesEnhancer, StrictArgTypes } from 'storybook/internal/types';
+import type { ReactRenderer } from '@storybook/react-vite';
 
 /**
  * Prop names that are typically ReactNode slots. Storybook infers these as
@@ -12,6 +14,8 @@ export const REACT_NODE_ARG_KEYS = [
   'icon',
   'startIcon',
   'endIcon',
+  'changeLeftIcon',
+  'changeRightIcon',
   'subHeader',
   'sidebar',
   'topbar',
@@ -98,15 +102,44 @@ export const sanitizeReactNodeArgs = <T extends Record<string, unknown>>(args: T
   return next as T;
 };
 
+const ARRAY_TYPE = /(\[\]|^(readonly\s+)?Array<.*>)\s*(\|\s*(undefined|null)\s*)*$/;
+
 /**
- * Shared argTypes: hide non-serializable ReactNode slot editors in Controls.
- * `children` is omitted so stories can keep a text control when content is a string.
+ * Array props get an object editor in Controls, which can hand the component
+ * `{}` and crash `.map` calls. Drop any non-array value for array-typed props.
  */
-export const reactNodeArgTypes = Object.fromEntries(
-  REACT_NODE_ARG_KEYS.filter((key) => key !== 'children').map((key) => [
-    key,
-    {
-      control: false,
-    },
-  ]),
-);
+export const sanitizeArrayArgs = <T extends Record<string, unknown>>(
+  args: T,
+  argTypes: StrictArgTypes,
+): T => {
+  const next = { ...args } as Record<string, unknown>;
+  for (const [key, value] of Object.entries(next)) {
+    if (value == null || Array.isArray(value)) continue;
+    const typeText = argTypes[key]?.table?.type?.summary;
+    if (typeof typeText === 'string' && ARRAY_TYPE.test(typeText.trim())) {
+      next[key] = undefined;
+    }
+  }
+  return next as T;
+};
+
+const NO_CONTROL_KEYS = new Set<string>(REACT_NODE_ARG_KEYS.filter((key) => key !== 'children'));
+const HIDDEN_KEYS = new Set(['ref', 'component', 'slots', 'slotProps', 'container']);
+
+/**
+ * Only touches props the component actually has, so components never show
+ * rows for props they do not accept. ReactNode slots keep a docs row without an
+ * editor; MUI plumbing props are hidden unless a story gives them a real control.
+ */
+export const reactNodeArgTypesEnhancer: ArgTypesEnhancer<ReactRenderer> = ({ argTypes }) =>
+  Object.fromEntries(
+    Object.entries(argTypes).map(([name, argType]) => {
+      if (HIDDEN_KEYS.has(name) && (!argType.control || (typeof argType.control === 'object' && argType.control.disable))) {
+        return [name, { ...argType, table: { ...argType.table, disable: true } }];
+      }
+      if (NO_CONTROL_KEYS.has(name) && argType.control === undefined) {
+        return [name, { ...argType, control: false }];
+      }
+      return [name, argType];
+    }),
+  );

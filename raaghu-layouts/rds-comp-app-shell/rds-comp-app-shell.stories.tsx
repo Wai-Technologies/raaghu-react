@@ -435,7 +435,7 @@ const AppShellStory = (args: any) => {
                       onClick: () => {},
                     },
                   ]}
-                  variant="permanent" embedded
+                  variant="permanent"
                   layout="raaghu"
                 />
               </BrowserRouter>
