@@ -1,4 +1,5 @@
-.rds-loader {
+.rds-loader,
+.rds-loader__type-wrap {
   --rds-loader-size-medium: var(--rds-size-4xl);
   --rds-loader-size-large: 60px;
   --rds-loader-dash-offset-mid: -35px;
@@ -18,7 +19,9 @@
   --rds-loader-jump-shadow-top: 60px;
   --rds-loader-track-bg: color-mix(in srgb, var(--rds-color-black) 20%, transparent);
   --rds-loader-spin-border: 4px;
+}
 
+.rds-loader {
   display: inline-block;
 
   &__spinner {

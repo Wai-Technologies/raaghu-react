@@ -1,13 +1,10 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-.rds-popover {
+.rds-popover,
+.rds-popover__paper {
   --rds-popover-dim-1: 285px;
   --rds-popover-dim-2: 330px;
   --rds-popover-dim-3: 380px;
-
-  display: block;
-  position: relative;
-  overflow: visible;
   --rds-popover-arrow-size: 8px;
   --rds-popover-arrow-edge-inset: 8px;
   --rds-popover-arrow-offset-primary: 30px;
@@ -28,6 +25,12 @@
   --rds-popover-position-grid-max-width: 120px;
   --rds-popover-list-mobile-max-width: 220px;
   --rds-popover-list-mobile-min-width: 120px;
+}
+
+.rds-popover {
+  display: block;
+  position: relative;
+  overflow: visible;
 
   &-highlight-box {
     margin-top: var(--rds-spacing-md);
