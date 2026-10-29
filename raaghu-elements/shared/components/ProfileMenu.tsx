@@ -2,6 +2,11 @@ import { useState, type ReactNode, type MouseEvent } from 'react';
 import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem, useMediaQuery } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import PersonIcon from '@mui/icons-material/Person';
+import Brightness5Icon from '@mui/icons-material/Brightness5';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 import RdsAvatar from '../../rds-avatar/rds-avatar';
 import { warnDeprecatedProp } from '../utils/deprecation';
 import '../styles/rds-profile-menu.scss';
@@ -38,12 +43,24 @@ const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
+const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
+  { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
+  { label: 'Theme', icon: <Brightness5Icon fontSize="small" /> },
+  { label: 'Setting', icon: <SettingsIcon fontSize="small" /> },
+  { label: 'Help', icon: <HelpOutlineIcon fontSize="small" /> },
+  {
+    label: 'Logout',
+    icon: <LogoutIcon fontSize="small" />,
+    sx: { borderRadius: '0 0 var(--rds-border-radius-lg) var(--rds-border-radius-lg)' },
+  },
+];
+
 export const ProfileMenu = ({
   name,
   email,
   variant = 'rich',
   shortName,
-  designation,
+  designation = 'Developer',
   items,
   menuItems,
 }: ProfileMenuProps) => {
@@ -52,7 +69,7 @@ export const ProfileMenu = ({
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   if (menuItems !== undefined) warnDeprecatedProp('ProfileMenu', 'menuItems', '`items`');
-  const resolvedItems = items ?? menuItems ?? [];
+  const resolvedItems = items ?? menuItems ?? DEFAULT_MENU_ITEMS;
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

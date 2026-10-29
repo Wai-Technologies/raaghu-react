@@ -20,9 +20,16 @@ describe('ProfileMenu audit fixes', () => {
     expect(screen.getAllByRole('menuitem').length).toBeGreaterThan(0);
   });
 
-  it('G2-403: renders no menu items when none are provided', () => {
+  it('renders the default menu items and designation when none are provided', () => {
     render(<ProfileMenu name="Jane Doe" email="jane@example.com" />);
+    expect(screen.getByText('Developer')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Account menu for Jane Doe' }));
-    expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
+    expect(screen.getAllByRole('menuitem').map((item) => item.textContent)).toEqual([
+      'My Profile',
+      'Theme',
+      'Setting',
+      'Help',
+      'Logout',
+    ]);
   });
 });

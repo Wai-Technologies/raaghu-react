@@ -7,7 +7,10 @@ type AppBarSx = SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<
 const contrastTextTargets =
   '.rds-header__title, .rds-header__actions, .rds-header__logo, .rds-header__center-content, .rds-avatar__name, #avatarname, .rds-avatar__designation, .rds-profile-menu__name, .rds-profile-menu__chevron';
 
-const actionSlots = '.rds-header__actions, .rds-header__right-actions, .rds-header__center-content';
+const actionSlots = ['.rds-header__actions', '.rds-header__right-actions', '.rds-header__center-content'];
+
+const inActionSlots = (...targets: string[]) =>
+  actionSlots.flatMap((slot) => targets.map((target) => `${slot} ${target}`)).join(', ');
 
 /**
  * Theme-aware AppBar styles (G1-041). Prefer this + CSS vars over SCSS `!important`
@@ -44,7 +47,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       [contrastTextTargets]: {
         color: 'var(--rds-color-on-primary)',
       },
-      [`${actionSlots} .MuiButton-root, ${actionSlots} .MuiButton-text, ${actionSlots} .MuiIconButton-root`]: {
+      [inActionSlots('.MuiButton-root', '.MuiButton-text', '.MuiIconButton-root')]: {
         color: 'var(--rds-color-on-primary)',
         backgroundColor: 'transparent',
         boxShadow: 'none',
@@ -53,10 +56,10 @@ export const rdsAppBarSx: AppBarSx[] = [
           boxShadow: 'none',
         },
       },
-      [`${actionSlots} .rds-profile-menu__button`]: {
+      [inActionSlots('.rds-profile-menu__button')]: {
         backgroundColor: 'transparent',
       },
-      [`${actionSlots} .MuiAvatar-root`]: {
+      [inActionSlots('.MuiAvatar-root')]: {
         backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',
         color: 'var(--rds-color-on-primary)',
         border: 'var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent)',
@@ -76,7 +79,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       [contrastTextTargets]: {
         color: 'var(--rds-color-on-secondary)',
       },
-      [`${actionSlots} .MuiButton-root, ${actionSlots} .MuiButton-text, ${actionSlots} .MuiIconButton-root`]: {
+      [inActionSlots('.MuiButton-root', '.MuiButton-text', '.MuiIconButton-root')]: {
         color: 'var(--rds-color-on-secondary)',
         backgroundColor: 'transparent',
         boxShadow: 'none',
@@ -85,10 +88,10 @@ export const rdsAppBarSx: AppBarSx[] = [
           boxShadow: 'none',
         },
       },
-      [`${actionSlots} .rds-profile-menu__button`]: {
+      [inActionSlots('.rds-profile-menu__button')]: {
         backgroundColor: 'transparent',
       },
-      [`${actionSlots} .MuiAvatar-root`]: {
+      [inActionSlots('.MuiAvatar-root')]: {
         backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',
         color: 'var(--rds-color-on-secondary)',
         border: 'var(--rds-border-width-thin) solid color-mix(in srgb, var(--rds-color-white) 50%, transparent)',
@@ -778,7 +781,7 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
 
     '.rds-appbar-overflow-button': {
-      display: 'inline-flex',
+      display: 'none',
       marginLeft: 'var(--rds-spacing-compact)',
     },
 

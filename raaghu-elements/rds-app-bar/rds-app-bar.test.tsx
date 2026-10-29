@@ -525,9 +525,9 @@ describe('RdsAppBar audit fixes', () => {
     expect(container.querySelector('header')).toHaveClass('MuiPaper-elevation4');
   });
 
-  it('has no demo profile menu items by default and accepts custom ones (G1-026)', () => {
+  it('has default profile menu items and accepts custom ones', () => {
     const { rerender } = render(<RdsAppBar userName="Ann Lee" userEmail="ann@example.com" />);
-    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('0');
+    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('2');
     rerender(
       <RdsAppBar
         userName="Ann Lee"

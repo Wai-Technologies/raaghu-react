@@ -24,6 +24,8 @@ import RdsButton from '../rds-button/rds-button';
 import ClearIcon from '@mui/icons-material/Clear';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import Close from '@mui/icons-material/Close';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
@@ -77,7 +79,7 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   userName?: string;
   /** Email of the signed-in user, shown in the profile menu. */
   userEmail?: string;
-  /** Items of the profile menu shown when `userName` and `userEmail` are set. Pass explicitly; there is no demo default. */
+  /** Items of the profile menu shown when `userName` and `userEmail` are set. @default My Profile and Logout */
   profileMenuItems?: ProfileMenuItem[];
   /** Value of the search input. */
   searchValue?: string;
@@ -113,6 +115,11 @@ const toolbarHeights: Record<RdsAppBarSize, number> = {
   medium: 64,
   large: 80,
 };
+
+const DEFAULT_PROFILE_MENU_ITEMS: ProfileMenuItem[] = [
+  { label: 'My Profile', icon: <PersonIcon /> },
+  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
+];
 
 const TABLET_BOTTOM_NAV_VARIANTS = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
 
@@ -411,7 +418,7 @@ const RdsAppBar = ({
 
           {userName && userEmail ? (
             <span className="rds-header__actions">
-              <ProfileMenu name={userName} email={userEmail} items={profileMenuItems} />
+              <ProfileMenu name={userName} email={userEmail} items={profileMenuItems ?? DEFAULT_PROFILE_MENU_ITEMS} />
             </span>
           ) : (
             endSlot === undefined && actions && <span className="rds-header__actions">{actions}</span>
