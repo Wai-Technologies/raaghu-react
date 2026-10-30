@@ -55,7 +55,7 @@ export interface RdsCompSpinnerProps {
   layout?: SpinnerLayout;
   /** Label position relative to the spinner; wins over `layout`. */
   labelPlacement?: "top" | "bottom" | "start" | "end";
-  /** Colour name applied as `text-{color}`. */
+  /** Colour name applied as `text-{color}`. `'info'` is deprecated; use `'primary'`. */
   color?: string;
   /** @deprecated Use `color` instead. */
   colorVariant?: string;
