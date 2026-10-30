@@ -75,5 +75,5 @@ Token renames are breaking changes. Before renaming:
 ### Value-only Changes
 
 Changes to token values (not names) are not breaking at the API level, but they are visual breaking changes. Always:
-- Check contrast ratios with `utils/accessibility/index.ts → ColorContrastUtils`
+- Check contrast ratios meet WCAG 2.1 AA (4.5:1 for text, 3:1 for UI elements)
 - Note the change here so UI reviewers know what to look for in Storybook

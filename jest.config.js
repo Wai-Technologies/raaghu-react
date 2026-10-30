@@ -4,7 +4,6 @@ export default {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/tests/jest-setup.ts'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
     '^@raaghu/elements/(.*)$': '<rootDir>/raaghu-elements/$1',
     '^@raaghu/layouts/(.*)$': '<rootDir>/raaghu-layouts/$1',
     '^@raaghu/themes/(.*)$': '<rootDir>/raaghu-react-themes/$1',
@@ -22,7 +21,6 @@ export default {
     'raaghu-elements/**/*.{ts,tsx}',
     'raaghu-layouts/**/*.{ts,tsx}',
     'raaghu-react-themes/**/*.{ts,tsx}',
-    'src/**/*.{ts,tsx}',
     '!**/*.stories.{ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',

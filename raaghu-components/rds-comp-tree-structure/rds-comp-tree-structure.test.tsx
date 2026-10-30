@@ -5,14 +5,6 @@ import { axe } from 'jest-axe';
 import RdsCompTreeStructure, { TreeLevel, IconType } from './rds-comp-tree-structure';
 
 jest.mock('./rds-comp-tree-structure.scss', () => ({}));
-jest.mock('./fileTypeIcons', () => ({
-  fileTypeIcons: {},
-  getFileIcon: jest.fn(() => null),
-  TreeLevel: { Level1: 'Level1', Level2: 'Level2', Level3: 'Level3', Level4: 'Level4' },
-  IconType: { Circle: 'Circle', Folder: 'Folder' },
-  getAllNodeIds: (nodes: any[]) => nodes.map((n: any) => n.id),
-  TreeNode: ({ node }: any) => <div data-testid="tree-node">{node?.name}</div>,
-}), { virtual: false });
 jest.mock('../../raaghu-elements/rds-checkbox/rds-checkbox', () => ({
   __esModule: true,
   default: ({ checked, onChange }: any) => (
@@ -25,7 +17,6 @@ jest.mock('@mui/icons-material/Add', () => ({ __esModule: true, default: () => <
 jest.mock('@mui/icons-material/Edit', () => ({ __esModule: true, default: () => <span data-testid="edit-icon" /> }));
 jest.mock('@mui/icons-material/Delete', () => ({ __esModule: true, default: () => <span data-testid="delete-icon" /> }));
 jest.mock('@mui/icons-material/OpenWith', () => ({ __esModule: true, default: () => <span data-testid="open-with-icon" /> }));
-jest.mock('../../raaghu-react-themes/tokens/design-tokens', () => ({ fileTypeIconColors: {} }));
 
 const sampleTreeData = [
   {

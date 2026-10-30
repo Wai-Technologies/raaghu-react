@@ -1,5 +1,5 @@
 import { useId, useState, useRef, type FocusEvent, type ReactNode, type SyntheticEvent } from 'react';
-import { useIsomorphicLayoutEffect } from '../shared/utils/use-isomorphic-layout-effect';
+import { useIsomorphicLayoutEffect } from '../../raaghu-react-themes/src/utils/use-isomorphic-layout-effect';
 import {
   Autocomplete as MuiAutocomplete,
   TextField,

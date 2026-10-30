@@ -6,13 +6,13 @@
       "severity": "error",
       "message": "Use --rds-* CSS variables instead of raw hex values",
       "scope": ["*.scss", "*.css"],
-      "gate": "scripts/check-hex-in-scss.sh"
+      "gate": "scripts/check-no-hex.mjs"
     },
     "no-hardcoded-spacing": {
       "severity": "warning",
       "message": "Use var(--rds-spacing-*) instead of hardcoded px spacing",
       "scope": ["*.scss", "*.css"],
-      "gate": "scripts/check-spacing-in-scss.sh"
+      "gate": "scripts/check-spacing-in-scss.mjs"
     },
     "story-must-have-status": {
       "severity": "warning",

@@ -7,15 +7,12 @@ on:
       - 'raaghu-elements/**/*.scss'
       - 'raaghu-components/**/*.scss'
       - 'raaghu-layouts/**/*.scss'
-      - 'scripts/hex-baseline.txt'
-      - 'scripts/check-hex-in-scss.sh'
       - 'scripts/check-no-hex.mjs'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/important-baseline.txt'
       - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
-      - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
@@ -37,15 +34,12 @@ on:
       - 'raaghu-elements/**/*.scss'
       - 'raaghu-components/**/*.scss'
       - 'raaghu-layouts/**/*.scss'
-      - 'scripts/hex-baseline.txt'
-      - 'scripts/check-hex-in-scss.sh'
       - 'scripts/check-no-hex.mjs'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/important-baseline.txt'
       - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
-      - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
@@ -76,12 +70,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Make governance script executable
-        run: chmod +x scripts/check-hex-in-scss.sh scripts/check-spacing-in-scss.sh
-
-      - name: Check for new hardcoded hex colors in SCSS
-        run: bash scripts/check-hex-in-scss.sh
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

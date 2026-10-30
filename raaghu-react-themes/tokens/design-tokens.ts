@@ -1316,7 +1316,7 @@ export const eSignaturePenColors = {
   red:   '#FF0000',
 };
 
-/** File-type icon colors — used by rds-comp-tree-structure/fileTypeIcons.tsx */
+/** File-type icon colors */
 export const fileTypeIconColors = {
   blue:      '#2534E9',
   pink:      '#F55385',

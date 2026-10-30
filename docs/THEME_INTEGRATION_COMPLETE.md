@@ -44,7 +44,6 @@ tokens/semantic-palette.ts          ← shared semantic roles
 
 ### Hex governance (complete)
 - Stylelint `color-no-hex` + `npm run lint:hex` (`scripts/check-no-hex.mjs`)
-- SCSS debt ceiling `scripts/hex-baseline.txt` = **0** (map SCSS allowlisted)
 - Legitimate exceptions: `design-tokens.ts`, color-picker spectrum/API, map SVG
   attribute selectors, stories/tests/figma fixtures
 
@@ -59,7 +58,7 @@ Frozen by CI; **do not raise** baselines. Ratchet down in component PRs.
 | `rgb()` / `rgba()` in SCSS | `scripts/check-no-rgba-in-scss.mjs` | **11** | `lint:rgba` |
 | Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **564** | `lint:local-dim-px` |
 | Literal typography / motion values in SCSS | `scripts/check-typography-motion-in-scss.mjs` | **95** | `lint:typography-motion` |
-| Hex in SCSS | `scripts/check-hex-in-scss.sh` | **0** | (CI + `lint:hex`) |
+| Hex in SCSS | `scripts/check-no-hex.mjs` | **0** | `lint:hex` |
 | `!important` in SCSS (Phase B) | `scripts/check-no-important-in-scss.mjs` | **0** | `lint:important` |
 
 ---

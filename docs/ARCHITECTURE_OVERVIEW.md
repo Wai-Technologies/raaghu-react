@@ -177,7 +177,7 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 
 ## Token Adoption Status
 
-Hex in component SCSS is **solved** (`hex-baseline.txt` = 0; map SVG selectors
+Hex in component SCSS is **solved** (`lint:hex` allows none; map SVG selectors
 allowlisted). Remaining gated debt (Phase A — see
 `docs/THEME_INTEGRATION_COMPLETE.md`):
 

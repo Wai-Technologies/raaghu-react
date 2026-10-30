@@ -1,5 +1,5 @@
 import { useRef, useState, type KeyboardEvent } from "react";
-import { useIsomorphicLayoutEffect } from "../../raaghu-elements/shared/utils/use-isomorphic-layout-effect";
+import { useIsomorphicLayoutEffect } from "../../raaghu-react-themes/src/utils/use-isomorphic-layout-effect";
 import clsx from "clsx";
 import { createPortal } from 'react-dom';
 import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
