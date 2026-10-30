@@ -14,9 +14,9 @@
 @include _rds-dark {
   .rds-accordion__container {  border-color: var(--rds-color-border-dark); }
 
-  .rds-accordion { background-color: var(--rds-color-surface-dark); }
-  .rds-accordion__summary { background-color: var(--rds-color-surface-dark); }
-  .rds-accordion__summary:hover { background-color: var(--rds-color-surface-hover-dark); }
+  .rds-accordion { background-color: var(--rds-color-surface); }
+  .rds-accordion__summary { background-color: var(--rds-color-surface); }
+  .rds-accordion__summary:hover { background-color: var(--rds-color-surface-hover); }
   .rds-accordion__summary:hover .rds-accordion__title,
   .rds-accordion__summary:hover .rds-accordion__icon,
   .rds-accordion__summary:hover .MuiAccordionSummary-expandIconWrapper {
@@ -24,14 +24,18 @@
   }
   .rds-accordion:not(.rds-accordion--selected):not(.rds-accordion--hover) .rds-accordion__details {
     border-color: var(--rds-color-border-dark);
-    background-color: var(--rds-color-surface-dark);
+    background-color: var(--rds-color-surface);
   }
   .rds-accordion__details .MuiAccordionDetails-root,
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: var(--rds-color-on-surface-variant-dark); }
   .rds-accordion__title { color: var(--rds-color-on-surface-variant-dark); }
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: var(--rds-color-icon-muted-dark); }
-  .rds-accordion--expanded { 
-    .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-neutral-1000); }
+  .rds-accordion.rds-accordion--expanded,
+  .rds-accordion.Mui-expanded {
+    .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+      margin-top: 0;
+      background-color: var(--rds-color-surface);
+    }
     &.rds-accordion--hover .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-primary-hover); }
     &.rds-accordion--selected .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-primary-hover); }
   }
@@ -52,7 +56,7 @@
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root { color: var(--rds-color-on-primary-soft); }
   }
   .rds-accordion__details-panel {
-    background: var(--rds-color-surface-dark);
+    background: var(--rds-color-surface);
   }
   .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
     background: var(--rds-color-border-dark);
@@ -170,17 +174,19 @@
     border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
   
-  &.Mui-expanded {
-    margin: 0;
-  }
-
+  &.Mui-expanded,
   &.rds-accordion--expanded {
+    margin: 0;
 
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
       margin-top: 0;
-      background-color: transparent;
+      background-color: var(--rds-color-surface);
     }
-    
+
+    .rds-accordion__details {
+      background-color: var(--rds-color-surface);
+    }
+
     .rds-accordion__summary::after {
       display: block;
     }
