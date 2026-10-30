@@ -16,7 +16,9 @@ export default {
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/',
+    '<rootDir>/.claude/',
   ],
+  modulePathIgnorePatterns: ['<rootDir>/.claude/'],
   collectCoverageFrom: [
     'raaghu-elements/**/*.{ts,tsx}',
     'raaghu-layouts/**/*.{ts,tsx}',

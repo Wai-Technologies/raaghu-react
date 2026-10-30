@@ -283,15 +283,11 @@ const RdsCompAiIconComponent = ({
       height: height ?? "22px",
       width: width ?? "22px",
       strokeWidth: strokeWidth ?? "inherit",
-      ...(fill !== undefined && { fill: fill ? "currentColor" : "none" }),
-      ...(stroke !== undefined && {
-        stroke: stroke ? strokeColor || "currentColor" : "none",
-      }),
       ...(position === "center" && { margin: "auto" }),
       ...(position === "top-left" && { margin: "0" }),
       ...(!position && { margin: "auto" }),
     }),
-    [height, width, strokeWidth, position, fill, stroke, strokeColor]
+    [height, width, strokeWidth, position]
   );
 
   const resolvedColor = normalizePaletteColor(

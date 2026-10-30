@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useCallback, useState, type Dispatch, type HTMLAttributes, type ReactNode, type Ref, type SetStateAction } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
-import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
+import RdsCompAiTypingSection, { type RdsCompAiTypingSectionProps } from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import type { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -39,6 +39,10 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   ref?: Ref<HTMLDivElement>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Props passed to inner slots; `typingSection` reaches the prompt input (e.g. project buttons, frontend options). */
+  slotProps?: {
+    typingSection?: Omit<RdsCompAiTypingSectionProps, "onSend" | "onAddComment">;
+  };
 }
 
 export interface Message {
@@ -69,6 +73,7 @@ const RdsCompAiChatBot = ({
   className,
   ref,
   sx,
+  slotProps,
   ...rest
 }: RdsCompAiChatBotProps) => {
   if (iconName !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "iconName", "nothing (no effect)");
@@ -140,6 +145,7 @@ const RdsCompAiChatBot = ({
       <div className="rds-ai-chat-bot__input-wrapper">
         <div className="rds-ai-chat-bot__input">
           <RdsCompAiTypingSection
+            {...slotProps?.typingSection}
             onSend={handleSendMessage}
             placeholder={(placeholder ?? placeholderText) || "Ask me anything"}
             onAddComment={handleAddComment}

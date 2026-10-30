@@ -46,10 +46,12 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
     onAddComment,
     previewImage,
     imageSrc,
+    onNewProjectClick,
+    autocompleteOptions,
     ...props
   }: any) {
     previewImage = imageSrc ?? previewImage;
-    mockTypingProps.current = { onAddComment };
+    mockTypingProps.current = { onAddComment, onSend, onNewProjectClick, autocompleteOptions };
     return (
       <div data-testid="typing-section" {...props}>
         <input
@@ -734,6 +736,24 @@ describe('RdsCompAiChatBot', () => {
         "`onSend` (parent-owned `messages`)"
       );
     });
+  });
+});
+
+describe('RdsCompAiChatBot slotProps', () => {
+  it('forwards slotProps.typingSection without replacing the chat send handler', () => {
+    const onNewProjectClick = jest.fn();
+    const slotOnSend = jest.fn();
+    const options = [{ label: 'Raaghu', value: 1 }];
+    render(
+      <RdsCompAiChatBot
+        {...defaultProps}
+        slotProps={{ typingSection: { onNewProjectClick, autocompleteOptions: options, onSend: slotOnSend } as any }}
+      />
+    );
+    expect(mockTypingProps.current.onNewProjectClick).toBe(onNewProjectClick);
+    expect(mockTypingProps.current.autocompleteOptions).toBe(options);
+    act(() => mockTypingProps.current.onSend('Hi'));
+    expect(slotOnSend).not.toHaveBeenCalled();
   });
 });
 
