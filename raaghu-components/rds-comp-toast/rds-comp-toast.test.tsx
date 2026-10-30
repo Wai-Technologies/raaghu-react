@@ -1003,6 +1003,13 @@ describe('audit fixes', () => {
     expect(container.firstChild).toHaveClass('rds-comp-toast__container--bottom-right');
   });
 
+  it('falls back to position when anchorOrigin is incomplete', () => {
+    const { container } = render(
+      <RdsCompToast {...base} position="topLeft" anchorOrigin={{} as never} message="m" />
+    );
+    expect(container.firstChild).toHaveClass('rds-comp-toast__container--top-left');
+  });
+
   it('severity wins over state', () => {
     render(<RdsCompToast {...base} severity="error" message="m" />);
     expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--error');

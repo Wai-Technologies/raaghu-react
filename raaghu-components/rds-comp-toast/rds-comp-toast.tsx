@@ -10,7 +10,7 @@ import {
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,
-    anchorToPosition,
+    resolveToastPosition,
     getLayoutClass,
     getPositionClasses,
     getStateClass,
@@ -122,7 +122,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     if (props.progressWidth !== undefined) warnDeprecatedProp('RdsCompToast', 'progressWidth', '`progress`');
     const leadingIcon = props.icon ?? props.leadingIcon;
     const progress = props.progress ?? props.progressWidth;
-    const position = props.anchorOrigin ? anchorToPosition(props.anchorOrigin) : props.position;
+    const position = resolveToastPosition(props.anchorOrigin, props.position);
 
     const _stateClass = getStateClass(props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;

@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsCompToast> = {
             status: { type: 'stable' },
         layout: "padded",
         controls: {
-        exclude: ['delay', 'autohide', 'borderColor'],
+        exclude: ['delay', 'autohide', 'borderColor', 'anchorOrigin', 'action', 'onClose'],
         },
         docs: {
             story: {
@@ -37,6 +37,15 @@ const meta: Meta<typeof RdsCompToast> = {
         className: { control: 'text', description: 'CSS class applied to the toast root.' },
         sx: { control: 'object', description: 'MUI system styles applied to the toast root.' },
         ref: { control: false, description: 'React ref to the toast root; assign it in code.' },
+        action: {
+            control: false,
+            description: 'Action buttons (React node). Set in code for download, chat, or request layouts.',
+        },
+        anchorOrigin: {
+            control: false,
+            description: 'Screen anchor (`vertical` + `horizontal`). Wins over `position` when both are set.',
+        },
+        onClose: { control: false, description: 'Called when the toast closes (timeout or dismiss).' },
         severity: {
             options: Object.values(ToastSeverity),
             control: {

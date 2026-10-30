@@ -48,6 +48,17 @@ export const getPositionClasses = (position?: ToastPosition | `${ToastPosition}`
 export const anchorToPosition = ({ vertical, horizontal }: ToastAnchorOrigin) =>
     `${vertical}${horizontal.charAt(0).toUpperCase()}${horizontal.slice(1)}` as `${ToastPosition}`;
 
+export const resolveToastPosition = (
+    anchorOrigin?: ToastAnchorOrigin,
+    position?: ToastPosition | `${ToastPosition}`,
+) => {
+    const { vertical, horizontal } = anchorOrigin ?? {};
+    if (vertical && horizontal) {
+        return anchorToPosition({ vertical, horizontal });
+    }
+    return position;
+};
+
 export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
     const onTimeoutRef = useRef(onTimeout);
     useEffect(() => {
