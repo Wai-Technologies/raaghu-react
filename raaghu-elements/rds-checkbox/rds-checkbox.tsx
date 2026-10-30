@@ -1,36 +1,59 @@
-import { useRef, useState, type CSSProperties, type ChangeEvent } from 'react';
+import { useState, useRef, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
-  labeltext?: string;
-  isDisabled?: boolean;
-  style?: 'square' | 'circular';
-  state?: 'default' | 'disabled' | 'hover';
+  /** @deprecated Use `label`. Takes precedence over `label` when both are set. */
+  labelText?: string;
+  /** Text shown next to the checkbox. */
+  label?: string;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: 'square' | 'circular' | CSSProperties;
+  /** Checkbox shape. */
+  variant?: 'square' | 'circular';
+  /** Checked state: checked, unchecked or indeterminate. */
   status?: 'checked' | 'unchecked' | 'indeterminate';
+  /** Shows the label text. When hidden, the label is still used as the accessible name. */
   showText?: boolean;
+  /** Inline styles applied to the checkbox root. */
   cssStyle?: CSSProperties;
+  /** @deprecated Use `disabled`. */
+  isDisabled?: boolean;
 }
 
-
 const RdsCheckbox = ({
-  labeltext,
-  isDisabled = false,
+  labelText,
+  label,
+  isDisabled,
   disabled,
-  style = 'square',
-  state = 'default',
+  style,
+  variant,
   status,
   showText = true,
   className,
   cssStyle,
   color,
+  checked: checkedProp,
+  defaultChecked,
+  indeterminate,
   onChange,
+  slotProps,
+  'data-testid': dataTestId,
   ...props
-}:RdsCheckboxProps) => {
-  const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
+}: RdsCheckboxProps & { 'data-testid'?: string }) => {
+  if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
+  if (labelText !== undefined) warnDeprecatedProp('RdsCheckbox', 'labelText', '`label`');
 
-  const [internalChecked, setInternalChecked] = useState(status === 'checked');
+  const legacyShape = typeof style === 'string' ? style : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsCheckbox', 'style', '`variant`');
+  const styleObject = typeof style === 'object' ? style : undefined;
+
+  const resolvedLabelText = labelText ?? label;
+  const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled);
+
+  const [internalChecked, setInternalChecked] = useState(status === 'checked' || Boolean(defaultChecked));
   const prevStatusRef = useRef(status);
 
   if (status !== prevStatusRef.current) {
@@ -40,9 +63,9 @@ const RdsCheckbox = ({
     }
   }
 
-  const checked = internalChecked;
-
-  const currentIndeterminate = status === 'indeterminate';
+  const checked = checkedProp ?? internalChecked;
+  const currentIndeterminate = indeterminate ?? status === 'indeterminate';
+  const shape = variant ?? legacyShape ?? 'square';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setInternalChecked(value);
@@ -51,44 +74,48 @@ const RdsCheckbox = ({
 
   const checkboxClassName = clsx(
     'rds-checkbox',
-    style && `rds-checkbox__${style}`,
+    `rds-checkbox__${shape}`,
     checked && 'rds-checkbox__checked',
     isCheckboxDisabled && 'rds-checkbox__disabled',
     currentIndeterminate && 'rds-checkbox__indeterminate',
-    state && state !== 'default' && `rds-checkbox__${state}`,
     color && color !== 'default' && `rds-checkbox__${color}`,
-    labeltext && !showText && 'rds-checkbox__text-hidden',
+    resolvedLabelText && !showText && 'rds-checkbox__text-hidden',
     status && `rds-checkbox__${status}`,
     className,
   );
 
+  const inputSlot = slotProps?.input;
+  const needsHiddenLabel = Boolean(resolvedLabelText) && !showText && !props['aria-label'] && typeof inputSlot !== 'function';
+  const resolvedSlotProps = needsHiddenLabel
+    ? { ...slotProps, input: { 'aria-label': resolvedLabelText, ...(inputSlot as object | undefined) } }
+    : slotProps;
+
   const checkbox = (
     <MuiCheckbox
+      disableRipple
       checked={checked}
       disabled={isCheckboxDisabled}
       indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}
+      slotProps={resolvedSlotProps}
       {...props}
-      disableRipple
     />
   );
 
-  if (labeltext) {
-    return (
-      <div className={checkboxClassName} style={cssStyle}>
+  return (
+    <div
+      className={checkboxClassName}
+      style={styleObject ? { ...cssStyle, ...styleObject } : cssStyle}
+      data-testid={dataTestId}
+    >
+      {resolvedLabelText ? (
         <FormControlLabel
           control={checkbox}
-          label={showText ? labeltext : ''}
+          label={showText ? resolvedLabelText : ''}
           disabled={isCheckboxDisabled}
         />
-      </div>
-    );
-  }
-
-  return (
-    <div className={checkboxClassName} style={cssStyle}>
-      {checkbox}
+      ) : checkbox}
     </div>
   );
 };

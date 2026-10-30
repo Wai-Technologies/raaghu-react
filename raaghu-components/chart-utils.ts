@@ -1,15 +1,11 @@
 import { useSyncExternalStore } from 'react';
+import type { ChartArea, ChartType, Plugin } from 'chart.js/auto';
+import { warnDeprecatedProp } from '../raaghu-elements/shared/utils/deprecation';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
+/** Snapshot key for chart re-renders; uses the shared theme helper (G3-005). */
 function getChartThemeMode(): string {
-  if (typeof document === 'undefined') return 'light';
-  const attr = document.documentElement.getAttribute('data-theme') || 'light';
-  const hasDarkClass =
-    document.documentElement.classList.contains('theme-dark') ||
-    document.documentElement.classList.contains('rds-theme--dark') ||
-    document.body?.classList.contains('theme-dark') ||
-    document.body?.classList.contains('dark-theme');
-  return hasDarkClass ? 'dark' : attr;
+  return isDarkMode() ? 'dark' : 'light';
 }
 
 export function useChartThemeMode(): string {
@@ -77,19 +73,9 @@ export function cloneChartOptions<T>(options: T): T {
       return structuredClone(options);
     }
   } catch {
-    // Chart.js options often include functions that structuredClone cannot copy.
+    return deepClonePreservingFunctions(options);
   }
   return deepClonePreservingFunctions(options);
-}
-
-/** Attaches chart data to options when callers have not already done so. */
-export function attachChartData(
-  chartOptions: Record<string, any>,
-  chartData: { labels: unknown[]; datasets: unknown[] }
-): void {
-  if (!chartOptions.data) {
-    chartOptions.data = chartData;
-  }
 }
 
 export function getCSSVar(property: string, fallback = ''): string {
@@ -101,35 +87,78 @@ export function getCSSVar(property: string, fallback = ''): string {
 }
 
 export function chartTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  return getCSSVar('--rds-text-primary', 'var(--mui-palette-text-primary, currentColor)');
 }
 
 export function chartMutedColor(): string {
-  return getCSSVar('--rds-text-secondary', isDarkMode() ? '#9e9e9e' : '#757575');
+  return getCSSVar('--rds-text-secondary', 'var(--mui-palette-text-secondary, currentColor)');
+}
+
+/** Axis tick / label color — prefers shared chart chrome token. */
+export function chartAxisColor(): string {
+  return getCSSVar('--rds-chart-axis', getCSSVar('--rds-text-secondary', 'currentColor'));
+}
+
+/**
+ * CSS var() references for the shared chart series palette (1–12).
+ * Pass through {@link resolveDatasetColors} before handing to Chart.js.
+ */
+export const CHART_SERIES_VARS = [
+  'var(--rds-chart-series-1)',
+  'var(--rds-chart-series-2)',
+  'var(--rds-chart-series-3)',
+  'var(--rds-chart-series-4)',
+  'var(--rds-chart-series-5)',
+  'var(--rds-chart-series-6)',
+  'var(--rds-chart-series-7)',
+  'var(--rds-chart-series-8)',
+  'var(--rds-chart-series-9)',
+  'var(--rds-chart-series-10)',
+  'var(--rds-chart-series-11)',
+  'var(--rds-chart-series-12)',
+] as const;
+
+/** Named chart colors used by area / stacked / radar demos. */
+export const CHART_NAMED_VARS = {
+  cyanBright: 'var(--rds-chart-named-cyan-bright)',
+  purple: 'var(--rds-chart-named-purple)',
+  mint: 'var(--rds-chart-named-mint)',
+  lavender: 'var(--rds-chart-named-lavender)',
+  sand: 'var(--rds-chart-named-sand)',
+  greenSoft: 'var(--rds-chart-named-green-soft)',
+  blueBright: 'var(--rds-chart-named-blue-bright)',
+  blueSolid: 'var(--rds-chart-named-blue-solid)',
+} as const;
+
+/** Resolved series colors for Chart.js (requires DOM / injected tokens). */
+export function chartSeriesColors(count = CHART_SERIES_VARS.length): string[] {
+  return CHART_SERIES_VARS.slice(0, count).map((v) => {
+    const match = v.match(/var\((--[\w-]+)\)/);
+    return match ? getCSSVar(match[1], v) : v;
+  });
 }
 
 /**
  * Returns the current theme's grid line color for chart axes.
  */
 function chartGridColor(): string {
-  // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
-    ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
-    : getCSSVar('--rds-comp-chart-grid-color-light', 'rgba(0,0,0,0.12)');
+    ? getCSSVar('--rds-comp-chart-grid-color-dark', getCSSVar('--rds-divider'))
+    : getCSSVar('--rds-comp-chart-grid-color-light', getCSSVar('--rds-divider'));
 }
 
 /**
  * Returns the current theme's tooltip background color.
  */
 function chartTooltipBg(): string {
-  return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
+  return getCSSVar('--rds-background-paper', 'var(--mui-palette-background-paper, Canvas)');
 }
 
 /**
  * Returns the current theme's tooltip text color.
  */
 function chartTooltipTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  return getCSSVar('--rds-text-primary', 'var(--mui-palette-text-primary, currentColor)');
 }
 
 export function chartFont(
@@ -151,16 +180,86 @@ export function chartFont(
     '2xl': '--rds-font-size-2xl',
   };
 
-  const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
-  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
-  const family = getCSSVar('--rds-font-family-base', 'Poppins');
+  const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular');
+  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md');
+  const family = getCSSVar('--rds-font-family-base', 'var(--rds-font-family, sans-serif)');
 
   return `${weightVal} ${sizeVal} ${family}`;
 }
 
-/** Mutable Chart.js options shape used by theme helpers (accepts Chart.js DeepPartial options). */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ChartOptionsLike = Record<string, any>;
+/** Options for {@link createCenterTextPlugin}. */
+export interface CenterTextPluginOptions {
+  /** Chart.js plugin id. */
+  id: string;
+  /** Large text, drawn in the theme's text colour. */
+  title: string;
+  /** Smaller text, drawn in the theme's muted colour. */
+  subTitle: string;
+  /** Baseline y of the title, from the chart area. */
+  titleY: (area: ChartArea) => number;
+  /** Baseline y of the subtitle, from the chart area. */
+  subTitleY: (area: ChartArea) => number;
+  /** Font size of the subtitle. Default `'lg'`. */
+  subTitleSize?: Parameters<typeof chartFont>[1];
+  /** Line join left on the context after drawing. */
+  lineJoin?: CanvasLineJoin;
+}
+
+/** Inline plugin that draws a title and a muted subtitle centred in the chart (doughnut, gauge). */
+export function createCenterTextPlugin<TType extends ChartType = ChartType>({
+  id,
+  title,
+  subTitle,
+  titleY,
+  subTitleY,
+  subTitleSize = 'lg',
+  lineJoin,
+}: CenterTextPluginOptions): Plugin<TType> {
+  return {
+    id,
+    beforeDraw(chart) {
+      const { ctx, chartArea } = chart;
+      const x = chartArea.left + chartArea.width / 2;
+
+      ctx.save();
+      ctx.font = chartFont('bold', 'xl');
+      ctx.textAlign = 'center';
+      ctx.fillStyle = chartTextColor();
+      ctx.fillText(title, x, titleY(chartArea));
+      ctx.restore();
+
+      ctx.save();
+      ctx.font = chartFont('medium', subTitleSize);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = chartMutedColor();
+      ctx.fillText(subTitle, x, subTitleY(chartArea));
+      ctx.restore();
+
+      if (lineJoin) ctx.lineJoin = lineJoin;
+    },
+  };
+}
+
+/** Loose view of Chart.js options used internally while writing theme colours. */
+type ChartScaleConfig = {
+  grid?: { color?: string };
+  ticks?: { color?: string };
+  border?: { color?: string };
+  title?: { color?: string };
+};
+
+type ChartOptionsLike = {
+  scales?: Record<string, ChartScaleConfig | undefined>;
+  plugins?: {
+    legend?: { labels?: { color?: string } };
+    title?: { color?: string };
+    tooltip?: {
+      backgroundColor?: string;
+      titleColor?: string;
+      bodyColor?: string;
+    };
+  };
+};
 
 /**
  * Applies dark/light theme colors to a Chart.js options object in-place.
@@ -169,22 +268,23 @@ type ChartOptionsLike = Record<string, any>;
  *  - axis ticks, grid lines, borders, and titles (for x/y/r axes)
  *  - legend label color
  *  - chart title color
- *  - tooltip title/body/label colors
- *  - dataset colors (resolves CSS variables in backgroundColor and borderColor)
+ *  - tooltip background / title / body colours (series swatches keep Chart.js defaults)
  *
- * @param chartOptions  A mutable Chart.js options object (already deep-cloned)
- * @param axes          Which axis keys to apply scale colors to (default: ['x', 'y'])
+ * Dataset colours are resolved separately by {@link resolveDatasetColors}.
+ *
+ * @param options  A Chart.js options object that the caller owns (clone consumer options first)
+ * @param axes     Which axis keys to apply scale colors to (default: ['x', 'y'])
  */
-export function applyChartThemeColors(
-  chartOptions: ChartOptionsLike,
+export function applyChartThemeColors<TOptions extends object>(
+  options: TOptions,
   axes: string[] = ['x', 'y']
 ): void {
+  const chartOptions = options as ChartOptionsLike;
   const textColor   = chartTextColor();
   const gridColor   = chartGridColor();
   const tooltipBg   = chartTooltipBg();
   const tooltipText = chartTooltipTextColor();
 
-  // ── Scales ──────────────────────────────────────────────────────────────────
   if (axes.length > 0) {
     if (!chartOptions.scales) chartOptions.scales = {};
     const scales = chartOptions.scales;
@@ -202,41 +302,35 @@ export function applyChartThemeColors(
     });
   }
 
-  // ── Datasets ─────────────────────────────────────────────────────────────────
-  // Resolve CSS variables in dataset colors
-  if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
-    chartOptions.data.datasets.forEach((dataset) => {
-      if (dataset.backgroundColor) {
-        dataset.backgroundColor = resolveColorValue(dataset.backgroundColor);
-      }
-      if (dataset.borderColor) {
-        dataset.borderColor = resolveColorValue(dataset.borderColor);
-      }
-    });
-  }
-
-  // ── Plugins ─────────────────────────────────────────────────────────────────
   if (!chartOptions.plugins) chartOptions.plugins = {};
 
-  // Legend
   if (!chartOptions.plugins.legend)        chartOptions.plugins.legend        = {};
   if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
   chartOptions.plugins.legend.labels.color = textColor;
 
-  // Title
   if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
   chartOptions.plugins.title.color = textColor;
 
-  // Tooltip
-  if (chartOptions.plugins.tooltip) {
-    chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
-    chartOptions.plugins.tooltip.titleColor      = tooltipText;
-    chartOptions.plugins.tooltip.bodyColor       = tooltipText;
-    chartOptions.plugins.tooltip.labelColor      = () => ({
-      borderColor:     textColor,
-      backgroundColor: textColor,
-    });
-  }
+  if (!chartOptions.plugins.tooltip) chartOptions.plugins.tooltip = {};
+  chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
+  chartOptions.plugins.tooltip.titleColor      = tooltipText;
+  chartOptions.plugins.tooltip.bodyColor       = tooltipText;
+}
+
+/**
+ * Returns new dataset objects with `var(--rds-…)` colours in `backgroundColor` / `borderColor`
+ * resolved for the current theme. The consumer's datasets are never mutated, so the original
+ * `var()` strings are still there to re-resolve after a light/dark switch.
+ */
+export function resolveDatasetColors<T>(datasets: T[]): T[] {
+  return datasets.map((dataset) => {
+    const { backgroundColor, borderColor } = dataset as { backgroundColor?: unknown; borderColor?: unknown };
+    return {
+      ...dataset,
+      ...(backgroundColor ? { backgroundColor: resolveColorValue(backgroundColor) } : {}),
+      ...(borderColor ? { borderColor: resolveColorValue(borderColor) } : {}),
+    };
+  });
 }
 
 /**
@@ -246,13 +340,12 @@ export function applyChartThemeColors(
  * @param colorValue A color string with possible CSS var() syntax or array of such strings
  * @returns The resolved color value(s)
  */
-function resolveColorValue(colorValue: string | string[]): string | string[] {
+function resolveColorValue(colorValue: unknown): unknown {
   if (Array.isArray(colorValue)) {
-    return colorValue.map(color => resolveColorValue(color) as string);
+    return colorValue.map((color) => resolveColorValue(color));
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {
-    // Extract CSS variable name from "var(--rds-..., fallback)"
     const varMatch = colorValue.match(/var\(([^,)]+)(?:,\s*([^)]+))?\)/);
     if (varMatch) {
       const varName = varMatch[1].trim();
@@ -262,4 +355,39 @@ function resolveColorValue(colorValue: string | string[]): string | string[] {
   }
   
   return colorValue;
+}
+
+export function resolveChartLabel(
+  component: string,
+  ariaLabel: string | undefined,
+  chartLabel: string | undefined,
+  fallback: string,
+): string {
+  if (chartLabel !== undefined) warnDeprecatedProp(component, 'chartLabel', '`ariaLabel`');
+  return ariaLabel ?? chartLabel ?? fallback;
+}
+
+export function resolveChartData<L, D extends unknown[]>(
+  component: string,
+  data: { labels?: L; datasets: D } | undefined,
+  labels: L | undefined,
+  dataSets: D | undefined,
+  warn = true,
+): { labels: L | undefined; datasets: D } {
+  if (warn && labels !== undefined) warnDeprecatedProp(component, 'labels', '`data`');
+  if (warn && dataSets !== undefined) warnDeprecatedProp(component, 'dataSets', '`data`');
+  return {
+    labels: data?.labels ?? labels,
+    datasets: data?.datasets ?? dataSets ?? ([] as unknown as D),
+  };
+}
+
+export function applyCanvasSize(
+  canvas: HTMLCanvasElement,
+  height?: string | number,
+  width?: string | number,
+) {
+  const css = (value: string | number) => (typeof value === 'number' ? `${value}px` : value);
+  if (height !== undefined) canvas.style.height = css(height);
+  if (width !== undefined) canvas.style.width = css(width);
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsPaper from './rds-paper';
 import { Typography } from '@mui/material';
 
@@ -12,6 +12,7 @@ const meta: Meta<typeof RdsPaper> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    padding: { table: { disable: true } },
     elevation: {
       control: 'number',
       description: 'Shadow elevation (0-24)',
@@ -29,7 +30,7 @@ const meta: Meta<typeof RdsPaper> = {
       control: { disable: true },
       table: { disable: true },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -37,11 +38,11 @@ const meta: Meta<typeof RdsPaper> = {
       control: { disable: true },
       table: { disable: true },
     },
-    slots: {
+    ['slots' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
-    slotProps: {
+    ['slotProps' as string]: {
       control: { disable: true },
       table: { disable: true },
     },

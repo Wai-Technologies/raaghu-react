@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import RdsCompToast from './rds-comp-toast';
 import {
   ToastLayout,
-  ToastState,
+  ToastSeverity,
   ToastLeadingIcon,
   ToastPosition,
   RdsCompToastProps,
@@ -11,10 +11,8 @@ import {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toast.scss', () => ({}));
 
-// Mock RdsProgress component
 jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   return function MockRdsProgress(props: any) {
     return (
@@ -25,7 +23,6 @@ jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   };
 });
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -45,7 +42,7 @@ describe('RdsCompToast', () => {
   const defaultProps: RdsCompToastProps = {
     subText: 'This is a toast message',
     layout: ToastLayout.Text,
-    state: ToastState.Basic,
+    severity: ToastSeverity.Basic,
     showLeading: true,
     leadingIcon: ToastLeadingIcon.Circle,
   };
@@ -85,44 +82,44 @@ describe('RdsCompToast', () => {
     });
   });
 
-  describe('State Variants', () => {
+  describe('Severity Variants', () => {
     it('should apply basic state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Basic} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--basic');
     });
 
     it('should apply info state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--info');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
 
     it('should apply success state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Success} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Success} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--success');
-      expect(alert).toHaveClass('rds-comp-toast--border-primary');
+      expect(alert).toHaveClass('rds-comp-toast--border-success');
     });
 
     it('should apply error state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Error} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Error} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should apply correct border color for each state', () => {
       const { rerender } = render(
-        <RdsCompToast {...defaultProps} state={ToastState.Basic} />
+        <RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />
       );
       let alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-light');
+      expect(alert).toHaveClass('rds-comp-toast--border-basic');
 
-      rerender(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
+      rerender(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
   });
 
@@ -579,12 +576,13 @@ describe('RdsCompToast', () => {
       expect(screen.getByText('10:30 AM')).toBeInTheDocument();
     });
 
-    it('should render Reply and Mark As Read buttons in chat layout with header', () => {
+    it('should render action slot buttons in chat layout with header', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Chat}
           showHeader={true}
+          action={<><button data-testid="rds-button">Reply</button><button data-testid="rds-button">Mark As Read</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -633,12 +631,13 @@ describe('RdsCompToast', () => {
       expect(screen.getByText('document.xlsx')).toBeInTheDocument();
     });
 
-    it('should render Cancel and Go To Downloads buttons in download layout', () => {
+    it('should render action slot buttons in download layout', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Download}
           showHeader={true}
+          action={<><button data-testid="rds-button">Cancel</button><button data-testid="rds-button">Go To Downloads</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -649,12 +648,13 @@ describe('RdsCompToast', () => {
   });
 
   describe('Request Layout Features', () => {
-    it('should render Reject and Accept buttons in request layout', () => {
+    it('should render action slot buttons in request layout', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Request}
           showHeader={true}
+          action={<><button data-testid="rds-button">Reject</button><button data-testid="rds-button">Accept</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -663,12 +663,13 @@ describe('RdsCompToast', () => {
       expect(buttonTexts).toContain('Accept');
     });
 
-    it('should render Reject and Accept buttons without header', () => {
+    it('should render action slot buttons without header', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Request}
           showHeader={false}
+          action={<><button data-testid="rds-button">Reject</button><button data-testid="rds-button">Accept</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -685,7 +686,7 @@ describe('RdsCompToast', () => {
           headerText="Download Complete"
           subText="Your file has been downloaded"
           layout={ToastLayout.Download}
-          state={ToastState.Success}
+          severity={ToastSeverity.Success}
           showHeader={true}
           showSubText={true}
           showLeading={true}
@@ -712,7 +713,7 @@ describe('RdsCompToast', () => {
           headerText="Error Occurred"
           subText="Unable to process request"
           layout={ToastLayout.Text}
-          state={ToastState.Error}
+          severity={ToastSeverity.Error}
           showHeader={true}
           showSubText={true}
           position={ToastPosition.BottomLeft}
@@ -724,7 +725,7 @@ describe('RdsCompToast', () => {
 
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should render info toast with chat layout', () => {
@@ -733,7 +734,7 @@ describe('RdsCompToast', () => {
           headerText="New Message"
           subText="You have a new message"
           layout={ToastLayout.Chat}
-          state={ToastState.Info}
+          severity={ToastSeverity.Info}
           showHeader={true}
           showLeading={false}
           leadingIcon={ToastLeadingIcon.Circle}
@@ -816,7 +817,7 @@ describe('RdsCompToast', () => {
         <RdsCompToast
           subText="Test"
           layout={ToastLayout.Text}
-          state={ToastState.Basic}
+          severity={ToastSeverity.Basic}
           showLeading={false}
           leadingIcon={ToastLeadingIcon.Circle}
         />
@@ -832,13 +833,13 @@ describe('RdsCompToast', () => {
           <RdsCompToast
             {...defaultProps}
             subText="First toast"
-            state={ToastState.Success}
+            severity={ToastSeverity.Success}
             showSubText={true}
           />
           <RdsCompToast
             {...defaultProps}
             subText="Second toast"
-            state={ToastState.Error}
+            severity={ToastSeverity.Error}
             showSubText={true}
           />
         </div>
@@ -892,7 +893,6 @@ describe('RdsCompToast', () => {
   });
 
   describe('Accessibility', () => {
-    // jest-axe hangs (>2 min) on this component's role="alert"/aria-live tree under jsdom; manual a11y attrs covered by other tests.
     it.skip('has no axe accessibility violations', async () => {
       const { container, unmount } = render(
         <div>
@@ -912,5 +912,123 @@ describe('RdsCompToast', () => {
         unmount();
       }
     }, 120000);
+  });
+});
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+describe('audit fixes', () => {
+  const base = { layout: 'text', severity: 'basic', showSubText: true, showHeader: true, showDismiss: true } as const;
+
+  it('G6-134 action slot renders and dead buttons stay off by default', () => {
+    const { rerender } = render(<RdsCompToast {...base} layout="request" message="m" />);
+    expect(screen.queryByText('Accept')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reject')).not.toBeInTheDocument();
+    rerender(<RdsCompToast {...base} layout="request" message="m" action={<button>Custom</button>} />);
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
+
+  it('G6-135 controlled open and onClose reasons', () => {
+    const onClose = jest.fn();
+    const { rerender } = render(<RdsCompToast {...base} message="m" open={true} onClose={onClose} />);
+    fireEvent.click(screen.getByLabelText('Close'));
+    expect(onClose).toHaveBeenCalledWith(expect.anything(), 'closeClick');
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    rerender(<RdsCompToast {...base} message="m" open={false} onClose={onClose} />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--hidden');
+  });
+
+  it('G6-135/144 autoHideDuration fires timeout; null is sticky', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { unmount } = render(<RdsCompToast {...base} message="m" autoHideDuration={500} autohide={false} onClose={onClose} />);
+    act(() => { jest.advanceTimersByTime(600); });
+    expect(onClose).toHaveBeenCalledWith(null, 'timeout');
+    unmount();
+    render(<RdsCompToast {...base} message="m" autoHideDuration={null} autohide delay={100} />);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    jest.useRealTimers();
+  });
+
+  it('G6-136 resumed timer is cleared on unmount', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { unmount } = render(<RdsCompToast {...base} message="m" autoHideDuration={1000} pauseOnHover onClose={onClose} />);
+    const el = screen.getByRole('alert');
+    fireEvent.mouseEnter(el);
+    fireEvent.mouseLeave(el);
+    unmount();
+    act(() => { jest.advanceTimersByTime(2000); });
+    expect(onClose).not.toHaveBeenCalled();
+    jest.useRealTimers();
+  });
+
+  it('G6-140 title and message win over legacy props', () => {
+    render(<RdsCompToast {...base} title="New" headerText="Old" message="NewMsg" subText="OldMsg" />);
+    expect(screen.getByText('New')).toBeInTheDocument();
+    expect(screen.getByText('NewMsg')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('G6-142/143 string literals and optional leadingIcon', () => {
+    render(<RdsCompToast {...base} message="m" severity="error" layout="download" position="bottomRight" />);
+    const el = screen.getByRole('alert');
+    expect(el).toHaveClass('rds-comp-toast--error');
+    expect(el).toHaveClass('rds-comp-toast--download');
+  });
+});
+
+describe('audit fixes', () => {
+  const base = { layout: 'text', severity: 'basic', showSubText: true, showHeader: true, showLeading: true } as const;
+
+  it('icon wins over leadingIcon', () => {
+    const { container } = render(<RdsCompToast {...base} icon="plus" leadingIcon="circle" message="m" />);
+    expect(container.querySelector('.rds-comp-toast__icon--plus')).toBeInTheDocument();
+  });
+
+  it('progress wins over progressWidth', () => {
+    render(<RdsCompToast {...base} layout="download" progress={30} progressWidth={80} message="m" />);
+    expect(screen.getByTestId('rds-progress')).toHaveAttribute('data-value', '30');
+  });
+
+  it('is marked deprecated in favour of RdsSnackbar (G6-149)', () => {
+    expect(RdsCompToast.displayName).toBe('RdsCompToast');
+  });
+
+  it('anchorOrigin wins over position', () => {
+    const { container } = render(
+      <RdsCompToast {...base} position="topLeft" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} message="m" />
+    );
+    expect(container.firstChild).toHaveClass('rds-comp-toast__container--bottom-right');
+  });
+
+  it('falls back to position when anchorOrigin is incomplete', () => {
+    const { container } = render(
+      <RdsCompToast {...base} position="topLeft" anchorOrigin={{} as never} message="m" />
+    );
+    expect(container.firstChild).toHaveClass('rds-comp-toast__container--top-left');
+  });
+
+  it('severity wins over state', () => {
+    render(<RdsCompToast {...base} severity="error" message="m" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--error');
+  });
+});
+
+describe('RdsCompToast root attributes', () => {
+  it('forwards id, aria-label and style to the container', () => {
+    const { container } = render(<RdsCompToast layout={ToastLayout.Text} message="m" id="t1" aria-label="note" style={{ opacity: 0.5 }} />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveAttribute('id', 't1');
+    expect(root).toHaveAttribute('aria-label', 'note');
+    expect(root).toHaveStyle({ opacity: '0.5' });
+  });
+  it('adds none of them when omitted', () => {
+    const { container } = render(<RdsCompToast layout={ToastLayout.Text} message="m" />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).not.toHaveAttribute('id');
+    expect(root).not.toHaveAttribute('aria-label');
+    expect(root).not.toHaveAttribute('style');
   });
 });

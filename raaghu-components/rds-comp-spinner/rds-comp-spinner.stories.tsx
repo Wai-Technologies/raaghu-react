@@ -22,8 +22,11 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the spinner root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the spinner root.' },
+        ref: { control: false, description: 'React ref to the spinner root; assign it in code.' },
         size: {
-            options: ["Default", "Small", "Large",],
+            options: ["default", "small", "medium", "large"],
             control: { type: "select" },
             description: "Size of the spinner",
         },
@@ -32,7 +35,7 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Layout of the spinner",
         },
-        spinnerType: {
+        variant: {
             options: [
                 "grow",
                 "border"
@@ -40,10 +43,10 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Type of spinner",
         },
-        colorVariant: {
-            options: ["primary", "secondary", "success", "danger", "warning", "info", "dark"],
+        color: {
+            options: ["primary", "secondary", "success", "error", "warning", "dark"],
             control: { type: "select" },
-            description: "Color variant of the spinner",
+            description: "Color of the spinner (`danger` still accepted as an alias of `error`)",
         },
         level: {
             options: ["01", "02", "03", "04"],
@@ -61,11 +64,11 @@ export const Default: Story = {
         layout: SpinnerLayout.LabelAndSpinner,
         size: SpinnerSize.Default,
         showLabel: true,
-        labelText:"Loading...",
-        spinnerType: 'border',
+        label:"Loading...",
+        variant: 'border',
         width: '50px',
         height: '50px',
-        colorVariant: 'primary',
+        color: 'primary',
         level: SpinnerLevel.Level04,
     },
     play: async ({ canvas }) => {
@@ -73,5 +76,4 @@ export const Default: Story = {
         await expect(spinner).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };
-
+Default.parameters = { controls: { include: ['variant','size','color', 'showLabel', 'layout',"label", 'level', 'className', 'sx', 'ref'] } };

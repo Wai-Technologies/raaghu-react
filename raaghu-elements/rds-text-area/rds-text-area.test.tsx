@@ -1,12 +1,19 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './rds-text-area';
+import RdsTextArea from './rds-text-area';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-text-area.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: string, event: unknown) => void) | undefined, value: string, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 
 describe('RdsTextArea', () => {
   describe('Basic Rendering', () => {
@@ -21,13 +28,13 @@ describe('RdsTextArea', () => {
 
     it('should render textarea element', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toBeInTheDocument();
     });
 
     it('should apply rds-textarea class', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveClass('rds-textarea');
     });
 
@@ -49,120 +56,87 @@ describe('RdsTextArea', () => {
     });
 
     it('should show mandatory asterisk when isMandatory is true', () => {
-      render(<RdsTextArea label="Required Field" isMandatory={true} />);
+      render(<RdsTextArea label="Required Field" required />);
       expect(screen.getByText('*')).toBeInTheDocument();
     });
   });
 
-  describe('States', () => {
-    it('should render default state by default', () => {
-      render(<RdsTextArea dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-default');
+  describe('Semantic appearance', () => {
+    it('uses the error prop for error styling and accessibility', () => {
+      render(<RdsTextArea error dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea__error');
+      expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
-    it('should apply active state class', () => {
-      render(<RdsTextArea state={TextareaState.Active} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-active');
+    it('uses the disabled prop for disabled styling and behavior', () => {
+      render(<RdsTextArea disabled dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea__disabled');
+      expect(textarea).toBeDisabled();
     });
 
-    it('should apply selected state class', () => {
-      render(<RdsTextArea state={TextareaState.Selected} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-selected');
-    });
-
-    it('should apply error state class', () => {
-      render(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-error');
-    });
-
-    it('should apply disabled state class', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-disabled');
-    });
-
-    it('should disable textarea when state is Disabled', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
-      expect(textarea.disabled).toBe(true);
-    });
-
-    it('should transition to active state on focus', async () => {
-      const { container } = render(
-        <RdsTextArea state={TextareaState.Default} dataTestId="test-textarea" />
-      );
-      const textarea = screen.getByTestId('test-textarea');
-      
+    it('retains the error appearance when focused', () => {
+      render(<RdsTextArea error dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
       fireEvent.focus(textarea);
-      await waitFor(() => {
-        expect(textarea).toHaveClass('textarea-active');
-      });
+      expect(textarea).toHaveClass('rds-textarea__error');
     });
 
-    it('should not change disabled state on focus', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      
-      fireEvent.focus(textarea);
-      expect(textarea).toHaveClass('textarea-disabled');
+    it('uses the current value for the filled appearance', () => {
+      render(<RdsTextArea value="Existing text" placeholder="Write here" dataTestId="test-textarea" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Existing text');
     });
 
-    it('should not change error state on focus', () => {
-      render(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      
-      fireEvent.focus(textarea);
-      expect(textarea).toHaveClass('textarea-error');
+    it('applies the selected appearance when selected is true', () => {
+      render(<RdsTextArea selected dataTestId="test-textarea" />);
+      expect(screen.getByRole('textbox')).toHaveClass('rds-textarea__selected');
     });
   });
 
   describe('Styles', () => {
     it('should render default style by default', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-style-default');
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea__default');
     });
 
     it('should apply pill style class', () => {
-      render(<RdsTextArea style={TextareaStyle.Pill} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-pill');
-      expect(textarea.closest('.textarea-pill-wrapper')).toBeTruthy();
+      render(<RdsTextArea variant="Pill" dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea__pill');
+      expect(textarea.closest('.rds-textarea__pill-wrapper')).toBeTruthy();
     });
 
     it('should apply bottom outline style class', () => {
-      render(<RdsTextArea style={TextareaStyle.BottomOutline} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-bottom-outline');
+      render(<RdsTextArea variant="Bottom Outline" dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea__bottom-outline');
     });
   });
 
   describe('Rows and Placeholder', () => {
     it('should render default rows count', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.rows).toBe(4);
     });
 
     it('should apply custom rows count', () => {
       render(<RdsTextArea rows={10} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.rows).toBe(10);
     });
 
     it('should apply placeholder', () => {
       render(<RdsTextArea placeholder="Enter your text" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Enter your text');
     });
 
     it('should handle empty placeholder', () => {
       render(<RdsTextArea placeholder="" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('');
     });
   });
@@ -170,22 +144,22 @@ describe('RdsTextArea', () => {
   describe('Value and Change Handler', () => {
     it('should render with initial value', () => {
       render(<RdsTextArea value="initial text" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe('initial text');
     });
 
     it('should call onChange when text is entered', async () => {
       const onChange = jest.fn();
       render(<RdsTextArea onChange={onChange} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      await userEvent.type(textarea, 'test input');
-      expect(onChange).toHaveBeenCalled();
+      await userEvent.type(textarea, 'a');
+      expect(onChange).toHaveBeenCalledWith('a', expect.objectContaining({ type: 'change' }));
     });
 
     it('should update value on change', async () => {
       const { rerender } = render(<RdsTextArea value="" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       
       rerender(<RdsTextArea value="new value" dataTestId="test-textarea" />);
       expect(textarea.value).toBe('new value');
@@ -201,34 +175,33 @@ describe('RdsTextArea', () => {
       rerender(<RdsTextArea value="ab" onChange={onChange} dataTestId="test-textarea" />);
       rerender(<RdsTextArea value="abc" onChange={onChange} dataTestId="test-textarea" />);
       
-      // onChange may not be called on rerender with prop changes
       expect(onChange.mock.calls.length).toBeGreaterThanOrEqual(0);
     });
   });
 
   describe('Mandatory Field Validation', () => {
     it('should not show error for mandatory field with value', () => {
-      render(<RdsTextArea isMandatory={true} value="some text" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      render(<RdsTextArea required value="some text" dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error for mandatory field without value', () => {
-      render(<RdsTextArea isMandatory={true} value="" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      render(<RdsTextArea required value="" dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error message for mandatory field', () => {
-      render(<RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />);
+      render(<RdsTextArea required label="Required Field" value="" dataTestId="test-textarea" />);
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
     });
 
     it('should validate mandatory field on blur', async () => {
       const { container } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" dataTestId="test-textarea" />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
       fireEvent.focus(textarea);
       fireEvent.blur(textarea);
@@ -240,19 +213,19 @@ describe('RdsTextArea', () => {
 
     it('should clear error when mandatory field gets a value', async () => {
       const { rerender } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" value="" dataTestId="test-textarea" />
       );
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
       
       rerender(
-        <RdsTextArea isMandatory={true} label="Required Field" value="some text" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" value="some text" dataTestId="test-textarea" />
       );
       expect(screen.queryByText('Required Field is required')).not.toBeInTheDocument();
     });
 
     it('should consider whitespace-only value as invalid', () => {
-      render(<RdsTextArea isMandatory={true} value="   " dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      render(<RdsTextArea required value="   " dataTestId="test-textarea" />);
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
   });
@@ -267,9 +240,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change the value to trigger validation
       fireEvent.change(textarea, { target: { value: 'http://example.com' } });
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
@@ -283,9 +255,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change the value to trigger validation
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -300,9 +271,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change to invalid value to trigger error message
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(screen.getByText('Please enter a valid URL')).toBeInTheDocument();
     });
@@ -313,13 +283,12 @@ describe('RdsTextArea', () => {
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
-          isMultiUrl={true}
+          multiUrl
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change to valid multi-URL value
       fireEvent.change(textarea, { target: { value: 'http://example1.com\nhttp://example2.com' } });
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
@@ -330,13 +299,12 @@ describe('RdsTextArea', () => {
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
-          isMultiUrl={true}
+          multiUrl
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change to value with one invalid URL
       fireEvent.change(textarea, { target: { value: 'http://example.com\ninvalid-url' } });
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -346,18 +314,17 @@ describe('RdsTextArea', () => {
     it('should clear validation on reset', () => {
       const { rerender } = render(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           value="" 
           reset={false}
           dataTestId="test-textarea"
         />
       );
-      // The error message includes the default "Label" text
       expect(screen.getByText(/is required/)).toBeInTheDocument();
       
       rerender(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           value="" 
           reset={true}
           dataTestId="test-textarea"
@@ -377,9 +344,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Trigger validation with invalid value
       fireEvent.change(textarea, { target: { value: 'invalid' } });
       expect(screen.getByText('Invalid URL')).toBeInTheDocument();
       
@@ -400,7 +366,7 @@ describe('RdsTextArea', () => {
     it('should call onClick when clicked', () => {
       const onClick = jest.fn();
       render(<RdsTextArea onClick={onClick} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
       fireEvent.click(textarea);
       expect(onClick).toHaveBeenCalled();
@@ -409,7 +375,7 @@ describe('RdsTextArea', () => {
     it('should call onKeyDown on key press', () => {
       const onKeyDown = jest.fn();
       render(<RdsTextArea onKeyDown={onKeyDown} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
       fireEvent.keyDown(textarea, { key: 'Enter' });
       expect(onKeyDown).toHaveBeenCalled();
@@ -418,7 +384,7 @@ describe('RdsTextArea', () => {
     it('should call onFocus when focused', () => {
       const onFocus = jest.fn();
       render(<RdsTextArea onFocus={onFocus} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
       fireEvent.focus(textarea);
       expect(onFocus).toHaveBeenCalled();
@@ -427,7 +393,7 @@ describe('RdsTextArea', () => {
     it('should call onBlur when blurred', () => {
       const onBlur = jest.fn();
       render(<RdsTextArea onBlur={onBlur} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
       fireEvent.focus(textarea);
       fireEvent.blur(textarea);
@@ -437,10 +403,10 @@ describe('RdsTextArea', () => {
     it('should call onChange on value change', async () => {
       const onChange = jest.fn();
       render(<RdsTextArea onChange={onChange} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      await userEvent.type(textarea, 'test');
-      expect(onChange).toHaveBeenCalled();
+      await userEvent.type(textarea, 'ab');
+      expect(onChange).toHaveBeenLastCalledWith('ab', expect.objectContaining({ type: 'change' }));
     });
   });
 
@@ -448,11 +414,11 @@ describe('RdsTextArea', () => {
     it('should have aria-invalid attribute', () => {
       render(
         <RdsTextArea 
-          state={TextareaState.Error} 
+          error
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('aria-invalid');
   
     });
@@ -466,34 +432,34 @@ describe('RdsTextArea', () => {
     it('should have aria-required when isMandatory', () => {
       render(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('aria-required', 'true');
     });
 
     it('should not have aria-required when not mandatory', () => {
       render(
         <RdsTextArea 
-          isMandatory={false} 
+          required={false} 
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).not.toHaveAttribute('aria-required');
     });
 
     it('should have aria-describedby when error', () => {
       render(
         <RdsTextArea 
-          isMandatory={true}
+          required
           value=""
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('aria-describedby');
     });
 
@@ -513,21 +479,15 @@ describe('RdsTextArea', () => {
   describe('Custom ID and Classes', () => {
     it('should use custom id when provided', () => {
       render(<RdsTextArea id="custom-id" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveAttribute('id', 'custom-id');
     });
 
     it('should generate unique id when not provided', () => {
-      const { container: container1 } = render(<RdsTextArea dataTestId="textarea1" />);
-      const { container: container2 } = render(<RdsTextArea dataTestId="textarea2" />);
-      
-      const textarea1 = screen.getByTestId('textarea1');
-      const textarea2 = screen.getByTestId('textarea2');
-      
-      const id1 = textarea1.getAttribute('id');
-      const id2 = textarea2.getAttribute('id');
-      
-      expect(id1).not.toBe(id2);
+      render(<RdsTextArea dataTestId="textarea1" />);
+      render(<RdsTextArea dataTestId="textarea2" />);
+      const [textarea1, textarea2] = screen.getAllByRole('textbox');
+      expect(textarea1.getAttribute('id')).not.toBe(textarea2.getAttribute('id'));
     });
 
     it('should apply custom classes', () => {
@@ -537,21 +497,21 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       expect(textarea).toHaveClass('custom-class', 'another-class');
     });
 
-    it('should apply custom classes with state and style classes', () => {
+    it('should apply custom classes with semantic and style classes', () => {
       render(
         <RdsTextArea 
-          state={TextareaState.Active}
-          style={TextareaStyle.Pill}
+          error
+          variant="Pill"
           customClasses="my-custom"
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-active', 'textarea-pill', 'my-custom');
+      const textarea = screen.getByRole('textbox');
+      expect(textarea).toHaveClass('rds-textarea', 'rds-textarea__error', 'rds-textarea__pill', 'my-custom');
     });
   });
 
@@ -559,7 +519,6 @@ describe('RdsTextArea', () => {
     it('should not show error message by default', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
       const errorMessages = screen.queryAllByText(/.*is required|.*invalid|.*/i);
-      // Filter for actual error elements
       const errorElements = errorMessages.filter(el => el.classList.contains('error-message'));
       expect(errorElements.length).toBe(0);
     });
@@ -574,9 +533,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change to invalid value to trigger validation
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(screen.getByText('Invalid URL')).toBeInTheDocument();
     });
@@ -591,9 +549,8 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      // Change to invalid value
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       const errorElement = container.querySelector('.error-message');
       expect(errorElement).toBeInTheDocument();
@@ -605,7 +562,7 @@ describe('RdsTextArea', () => {
       const { container } = render(
         <RdsTextArea 
           label="Text Area" 
-          state={TextareaState.Disabled}
+          disabled
         />
       );
       const label = container.querySelector('.textarea-label');
@@ -616,7 +573,6 @@ describe('RdsTextArea', () => {
       const { container } = render(
         <RdsTextArea 
           label="Text Area" 
-          state={TextareaState.Default}
         />
       );
       const label = container.querySelector('.textarea-label');
@@ -635,10 +591,9 @@ describe('RdsTextArea', () => {
           label="Email"
           placeholder="Enter email"
           value=""
-          state={TextareaState.Default}
-          style={TextareaStyle.Pill}
+          variant="Pill"
           rows={6}
-          isMandatory={true}
+          required
           validationPattern={/^[\w.-]+@[\w.-]+\.\w+$/}
           validationMsg="Please enter a valid email"
           onChange={onChange}
@@ -650,87 +605,79 @@ describe('RdsTextArea', () => {
         />
       );
       
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       
-      // Check rendering
       expect(screen.getByText('Email')).toBeInTheDocument();
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-default', 'textarea-pill', 'custom');
+      expect(textarea).toHaveClass('rds-textarea', 'rds-textarea__error', 'rds-textarea__pill', 'custom');
       expect(textarea).toHaveAttribute('aria-required', 'true');
       
-      // Check focus
       fireEvent.focus(textarea);
       expect(onFocus).toHaveBeenCalled();
       
-      // Type invalid value
       fireEvent.change(textarea, { target: { value: 'invalid' } });
       expect(onChange).toHaveBeenCalled();
       expect(screen.getByText('Please enter a valid email')).toBeInTheDocument();
       
-      // Type valid value
       fireEvent.change(textarea, { target: { value: 'test@example.com' } });
       await waitFor(() => {
         expect(screen.queryByText('Please enter a valid email')).not.toBeInTheDocument();
       });
     });
 
-    it('should handle state changes gracefully', () => {
+    it('should handle semantic appearance changes gracefully', () => {
       const { rerender } = render(
-        <RdsTextArea state={TextareaState.Default} dataTestId="test-textarea" />
+        <RdsTextArea dataTestId="test-textarea" />
       );
-      const textarea = screen.getByTestId('test-textarea');
+      const textarea = screen.getByRole('textbox');
       
-      expect(textarea).toHaveClass('textarea-default');
+      expect(textarea).toHaveClass('rds-textarea__default');
       
-      rerender(<RdsTextArea state={TextareaState.Active} dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-active');
+      rerender(<RdsTextArea error dataTestId="test-textarea" />);
+      expect(textarea).toHaveClass('rds-textarea__error');
       
-      rerender(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-error');
-      
-      rerender(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-disabled');
+      rerender(<RdsTextArea disabled dataTestId="test-textarea" />);
+      expect(textarea).toHaveClass('rds-textarea__disabled');
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle empty string value', () => {
       render(<RdsTextArea value="" dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe('');
     });
 
     it('should handle very long text', () => {
       const longText = 'a'.repeat(10000);
       render(<RdsTextArea value={longText} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe(longText);
     });
 
     it('should handle special characters', () => {
       const specialText = '<>&"\'';
       render(<RdsTextArea value={specialText} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe(specialText);
     });
 
     it('should handle newlines in text', () => {
       const multilineText = 'line1\nline2\nline3';
       render(<RdsTextArea value={multilineText} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe(multilineText);
     });
 
     it('should handle unicode characters', () => {
       const unicodeText = '你好世界 🌍 مرحبا العالم';
       render(<RdsTextArea value={unicodeText} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       expect(textarea.value).toBe(unicodeText);
     });
 
     it('should handle zero rows property', () => {
       render(<RdsTextArea rows={0} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
-      // When rows is 0, the component defaults to 4 rows
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
       const rowsValue = parseInt(textarea.getAttribute('rows') || '4');
       expect(rowsValue).toBeGreaterThanOrEqual(0);
     });
@@ -739,5 +686,97 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea label="Label Only" dataTestId="test-textarea" />);
       expect(screen.getByText('Label Only')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-343: accepts string variant values', () => {
+    render(<RdsTextArea disabled variant="Pill" dataTestId="ta" />);
+    const ta = screen.getByRole('textbox');
+    expect(ta).toBeDisabled();
+    expect(ta).toHaveClass('rds-textarea__pill');
+  });
+
+  it('G2-346: passes className, name, maxLength, disabled, defaultValue and ref', () => {
+    const ref = React.createRef<HTMLTextAreaElement>();
+    const { container } = render(
+      <RdsTextArea ref={ref} className="root-x" sx={{ marginTop: '7px' }} name="notes" maxLength={10} defaultValue="hi" disabled data-testid="ta" />
+    );
+    const root = screen.getByTestId('ta');
+    const ta = screen.getByRole('textbox') as HTMLTextAreaElement;
+    expect(root).toHaveClass('rds-textarea-container', 'root-x');
+    expect(container.firstChild).toHaveStyle('margin-top: 7px');
+    expect(ta).toHaveAttribute('name', 'notes');
+    expect(ta).toHaveAttribute('maxLength', '10');
+    expect(ta.value).toBe('hi');
+    expect(ta).toBeDisabled();
+    expect(ref.current).toBe(ta);
+  });
+
+  it('G2-350: required behaves like isMandatory', () => {
+    render(<RdsTextArea required label="Notes" value="" dataTestId="ta" />);
+    expect(screen.getByText('Notes is required')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('B29: error forces the error state and helperText replaces validationMsg', () => {
+    render(<RdsTextArea error helperText="Bad" validationMsg="Old" data-testid="ta" />);
+    expect(screen.getByRole('textbox')).toHaveClass('rds-textarea__error');
+    expect(screen.getByText('Bad')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('shows helperText as a hint when there is no error', () => {
+    render(<RdsTextArea helperText="Max 200 characters" />);
+    const hint = screen.getByText('Max 200 characters');
+    expect(hint).toHaveClass('rds-textarea__helper-text');
+    expect(hint).not.toHaveAttribute('role');
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-describedby', hint.id);
+  });
+
+  it('B29: variant wins over the deprecated style string, and style accepts CSSProperties', () => {
+    const { container } = render(<RdsTextArea variant="Pill" style="Bottom Outline" data-testid="ta" />);
+    expect(screen.getByRole('textbox')).toHaveClass('rds-textarea__pill');
+    const { container: c2 } = render(<RdsTextArea style={{ marginTop: '12px' }} />);
+    expect(c2.firstChild).toHaveStyle({ marginTop: '12px' });
+    expect(container).toBeInTheDocument();
+  });
+
+  it('isMultiUrl still works as a deprecated alias of multiUrl', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    render(<RdsTextArea isMultiUrl validationPattern={/^a$/} data-testid="ta" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTextArea', 'isMultiUrl', expect.any(String));
+  });
+
+  it('B29: deprecated dataTestId, showTitle, reset and validationMsg warn', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    render(<RdsTextArea dataTestId="t" showTitle reset validationMsg="m" />);
+    ['dataTestId', 'showTitle', 'reset', 'validationMsg'].forEach((p) =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTextArea', p, expect.any(String))
+    );
+  });
+
+  it('G2-352: localeText.required overrides the empty-value message', () => {
+    render(<RdsTextArea required label="Notes" value="" localeText={{ required: 'Notes needed' }} dataTestId="ta" />);
+    expect(screen.getByText('Notes needed')).toBeInTheDocument();
+    expect(screen.queryByText('Notes is required')).not.toBeInTheDocument();
+  });
+
+  it('G2-353: keeps legacy class aliases alongside BEM', () => {
+    const { container } = render(
+      <RdsTextArea required label="Notes" value="" error variant="Pill" dataTestId="ta" />
+    );
+    const ta = screen.getByRole('textbox');
+    expect(ta).toHaveClass('textarea-error', 'rds-textarea__error', 'textarea-pill', 'rds-textarea__pill');
+    expect(container.querySelector('.textarea-label.rds-textarea__label')).toBeInTheDocument();
+    expect(container.querySelector('.required-asterisk.rds-textarea__required')).toBeInTheDocument();
+    expect(container.querySelector('.error-message.rds-textarea__error-message')).toBeInTheDocument();
+    expect(container.querySelector('.textarea-wrapper.rds-textarea__wrapper')).toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the root .rds-textarea-container', () => {
+    render(<RdsTextArea data-testid="notes-field" />);
+    expect(screen.getByTestId('notes-field')).toHaveClass('rds-textarea-container');
+    expect(screen.getByRole('textbox')).not.toHaveAttribute('data-testid');
   });
 });

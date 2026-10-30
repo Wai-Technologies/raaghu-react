@@ -4,6 +4,25 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsButton from './rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+const mockUseFormStatus = jest.fn(() => ({
+  pending: false,
+  data: null,
+  method: null,
+  action: null,
+}));
+
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  useFormStatus: () => mockUseFormStatus(),
+}));
+
+beforeEach(() => {
+  mockUseFormStatus.mockReturnValue({ pending: false, data: null, method: null, action: null });
+});
 
 describe('RdsButton', () => {
   it('renders with text', () => {
@@ -23,24 +42,17 @@ describe('RdsButton', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it('disables button when loading', () => {
-    render(<RdsButton text="Loading" isLoading={true} />);
+  it.each([['isLoading'], ['disabled']])('disables button when %s is true', prop => {
+    render(<RdsButton text="Btn" {...{ [prop]: true }} />);
     expect(screen.getByRole('button')).toBeDisabled();
   });
 
-  it('disables button when disabled prop is true', () => {
-    render(<RdsButton text="Disabled" disabled={true} />);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
-
-  it('applies correct variant styles', () => {
-  render(<RdsButton text="Primary" style="filled" />);
-    expect(screen.getByRole('button')).toHaveClass('MuiButton-contained');
-  });
-
-  it('applies correct size', () => {
-    render(<RdsButton text="Large" size="large" />);
-    expect(screen.getByRole('button')).toHaveClass('MuiButton-sizeLarge');
+  it.each([
+    [{ variant: 'filled' }, 'MuiButton-contained'],
+    [{ size: 'large' }, 'MuiButton-sizeLarge'],
+  ])('applies %j as class %s', (props, cls) => {
+    render(<RdsButton text="Btn" {...(props as any)} />);
+    expect(screen.getByRole('button')).toHaveClass(cls);
   });
 
   it('has proper accessibility attributes', () => {
@@ -50,7 +62,7 @@ describe('RdsButton', () => {
   });
 
   it('has no axe accessibility violations', async () => {
-    const { container } = render(<RdsButton text="Axe Test Button" color="primary" style="filled" />);
+    const { container } = render(<RdsButton text="Axe Test Button" color="primary" variant="filled" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
@@ -63,19 +75,11 @@ describe('RdsButton — keyboard navigation', () => {
     expect(screen.getByRole('button')).toHaveFocus();
   });
 
-  it('activates on Enter key', async () => {
+  it.each([['Enter', '{Enter}'], ['Space', ' ']])('activates on %s key', async (_name, key) => {
     const handleClick = jest.fn();
-    render(<RdsButton text="Press Enter" onClick={handleClick} />);
+    render(<RdsButton text="Press" onClick={handleClick} />);
     screen.getByRole('button').focus();
-    await userEvent.keyboard('{Enter}');
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('activates on Space key', async () => {
-    const handleClick = jest.fn();
-    render(<RdsButton text="Press Space" onClick={handleClick} />);
-    screen.getByRole('button').focus();
-    await userEvent.keyboard(' ');
+    await userEvent.keyboard(key);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
@@ -91,5 +95,124 @@ describe('RdsButton — keyboard navigation', () => {
     render(<RdsButton text="Disabled Tab" disabled />);
     await userEvent.tab();
     expect(screen.getByRole('button')).not.toHaveFocus();
+  });
+});
+
+describe('RdsButton audit fixes', () => {
+  it('applies the selected treatment when selected is true', () => {
+    const { rerender } = render(<RdsButton selected={false}>A</RdsButton>);
+    expect(screen.getByRole('button')).not.toHaveClass('rds-button--selected');
+    rerender(<RdsButton selected>A</RdsButton>);
+    expect(screen.getByRole('button')).toHaveClass('rds-button--selected');
+  });
+
+  it('keeps its own classes when a consumer passes className (G1-134)', () => {
+    render(<RdsButton className="my-button">Save</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Save' });
+    expect(button).toHaveClass('rds-button', 'my-button');
+  });
+
+  it('does not copy sx into the inline style (G1-136)', () => {
+    render(<RdsButton sx={{ padding: 2, minWidth: '120px', mr: 2, '&:hover': { color: 'red' } }}>Pad</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Pad' });
+    expect(button.style.padding).toBe('');
+    expect(button.style.minWidth).toBe('');
+    expect(button.getAttribute('style') ?? '').not.toContain('mr');
+    expect(button.getAttribute('style') ?? '').not.toContain('hover');
+  });
+
+  it('accepts an array sx without crashing (G1-136)', () => {
+    render(<RdsButton sx={[{ m: 1 }, { p: 1 }]}>Array</RdsButton>);
+    expect(screen.getByRole('button', { name: 'Array' })).toBeInTheDocument();
+  });
+
+  it('does not pin filled colours on the inline style so hover can win (G1-137)', () => {
+    render(<RdsButton variant="filled" color="primary">Fill</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Fill' });
+    expect(button.style.backgroundColor).toBe('');
+    expect(button.style.color).toBe('');
+  });
+
+  it('supports loading as the replacement for isLoading (G1-133/G1-138)', () => {
+    render(<RdsButton loading>Busy</RdsButton>);
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('rds-button__loading');
+    expect(button.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
+  });
+
+  it('renders MUI startIcon and endIcon (G1-139/G1-140)', () => {
+    render(<RdsButton startIcon={<span data-testid="start" />} endIcon={<span data-testid="end" />}>Icons</RdsButton>);
+    expect(screen.getByTestId('start')).toBeInTheDocument();
+    expect(screen.getByTestId('end')).toBeInTheDocument();
+  });
+
+  it('gives icon-only buttons an accessible name from text (G1-144)', () => {
+    render(<RdsButton layout="icon-only" showLeftIcon changeLeftIcon="add" text="Add item" />);
+    expect(screen.getByRole('button', { name: 'Add item' })).toBeInTheDocument();
+  });
+
+  it('keeps the Raaghu icon props working', () => {
+    const { container } = render(<RdsButton showLeftIcon changeLeftIcon="delete" text="Remove" />);
+    expect(container.querySelector('.MuiButton-startIcon svg')).toBeInTheDocument();
+    expect(container.querySelector('.MuiButton-root')).toHaveClass('rds-button--has-icon');
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsButton text="Old" isLoading={false} />);
+    ['text', 'isLoading'].forEach(name =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', name, expect.any(String))
+    );
+  });
+
+  it('does not warn for the supported API', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(
+      <RdsButton variant="filled" selected layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
+        New
+      </RdsButton>
+    );
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('warns when a variant string is passed to deprecated style', () => {
+    render(<RdsButton style="filled">Old</RdsButton>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'style', '`variant`');
+  });
+
+  it('follows useFormStatus pending for submit buttons when loading is omitted (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="submit">Save</RdsButton>);
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('rds-button__loading');
+  });
+
+  it('does not follow form pending for non-submit buttons (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="button">Cancel</RdsButton>);
+    expect(screen.getByRole('button')).not.toBeDisabled();
+  });
+
+  it('lets explicit loading={false} win over form pending (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="submit" loading={false}>Save</RdsButton>);
+    expect(screen.getByRole('button')).not.toBeDisabled();
+  });
+
+  it('forwards MUI component prop (G1-277)', () => {
+    render(
+      <RdsButton component="a" href="#go">
+        Link
+      </RdsButton>
+    );
+    const link = screen.getByRole('link', { name: 'Link' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '#go');
+  });
+
+  it('forwards data-testid to the root button', () => {
+    render(<RdsButton data-testid="save-btn">Save</RdsButton>);
+    expect(screen.getByTestId('save-btn')).toBe(screen.getByRole('button', { name: 'Save' }));
   });
 });

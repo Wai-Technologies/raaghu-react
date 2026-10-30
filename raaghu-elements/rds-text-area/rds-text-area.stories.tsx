@@ -1,60 +1,67 @@
-import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from 'storybook/test';
+import RdsTextArea from "./rds-text-area";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-const meta: Meta<typeof RdsTextArea> = {
+const meta = {
     title: 'Elements/Text Area',
     component: RdsTextArea,
     parameters: {
-            status: { type: 'stable' },
+        status: { type: 'stable' },
         layout: 'padded',
         controls: {
-            exclude: ['value', 'id', 'dataTestId', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
-        },
-        docs: {
-            source: {
-                transform: (code: string) => {
-                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TextareaState.${p1}}`);
-                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
-                    return code;
-                }
-            }
+            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'multiUrl', 'isMultiUrl', 'customClasses']
         }
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        state: {
-            control: 'select',
-            options: ['Default', 'Active', 'Selected', 'Disabled', 'Error'],
-            description: 'Current state of the text area'
+        className: {
+            control: 'text',
+            description: 'CSS class applied to the text area container.',
+            table: { category: 'Root props' }
         },
-        style: {
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the text area container.',
+            table: { category: 'Root props' }
+        },
+        ref: {
+            control: false,
+            description: 'React ref to the textarea element. Assign in code; refs cannot be set through Controls.',
+            table: { category: 'Root props' }
+        },
+        variant: {
             control: 'select',
             options: ['Default', 'Pill', 'Bottom Outline'],
             description: 'Visual style variant of the text area'
         },
-        isMandatory: {
+        required: {
             control: 'boolean',
             description: 'Whether the field is required'
         },
-        showTitle: {
+        error: {
             control: 'boolean',
-            description: 'Whether to show the label (true = show, false = hide)'
+            description: 'Forces the error appearance'
+        },
+        selected: {
+            control: 'boolean',
+            description: 'Applies the selected appearance'
+        },
+        helperText: {
+            control: 'text',
+            description: 'Text shown under the field when it is in error'
         }
-    } as any,
+    }
 } satisfies Meta<typeof RdsTextArea>;
 
 export default meta;
-type Story = StoryObj<typeof RdsTextArea>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
         label: "Label",
         placeholder: "Enter Description",
-        state: TextareaState.Default,
-        style: TextareaStyle.Default,
-        isMandatory: false,
-        showTitle: true,
+        variant: 'Default',
+        selected: false,
+        required: false,
         rows: 4
     }
 };

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box } from '@mui/material';
-import { Share, Favorite } from '@mui/icons-material';
+import Share from '@mui/icons-material/Share';
+import Favorite from '@mui/icons-material/Favorite';
 import RdsCardDetail from './rds-card-detail';
 import { expect } from 'storybook/test';
 
@@ -47,7 +48,7 @@ export const WithImage: Story = {
   args: {
     title: 'Beautiful Landscape',
     subtitle: 'Nature Photography',
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop',
+    slotProps: { media: { image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop' } },
     children: (
       <Typography variant="body2" color="text.secondary">
         A stunning landscape photograph showcasing the beauty of nature. Perfect for desktop wallpapers and art collections.
@@ -82,7 +83,7 @@ export const Complete: Story = {
   args: {
     title: 'Complete Card Example',
     subtitle: 'All features demonstrated',
-    image: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=400&h=200&fit=crop',
+    slotProps: { media: { image: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=400&h=200&fit=crop' } },
     elevation: 3,
     sx: { maxWidth: 345 },
     children: (

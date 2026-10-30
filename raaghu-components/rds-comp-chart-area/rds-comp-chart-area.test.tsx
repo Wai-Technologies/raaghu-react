@@ -1,13 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompAreaChart from './rds-comp-chart-area';
+import RdsCompAreaChart, { type RdsCompAreaChartProps } from './rds-comp-chart-area';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-chart-area.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
     static register = jest.fn();
@@ -22,7 +22,6 @@ jest.mock('chart.js/auto', () => {
       this.config = config;
       this.data = config.data;
       this.options = config.options;
-      // Create a mock canvas with style properties
       if (ctx) {
         this.canvas = {
           ...ctx.canvas,
@@ -126,7 +125,6 @@ describe('RdsCompAreaChart', () => {
   describe('Props Handling', () => {
     it('passes labels to chart', () => {
       render(<RdsCompAreaChart {...defaultProps} />);
-      // Chart should be created with labels
       expect(RdsCompAreaChart).toBeDefined();
     });
 
@@ -241,7 +239,6 @@ describe('RdsCompAreaChart', () => {
       const { container } = render(<RdsCompAreaChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
       expect(canvas).toBeInTheDocument();
-      // Height would be set by Chart.js instance
     });
 
     it('sets canvas width style', () => {
@@ -333,7 +330,6 @@ describe('RdsCompAreaChart', () => {
   describe('Chart Configuration', () => {
     it('creates chart with type line', () => {
       render(<RdsCompAreaChart {...defaultProps} />);
-      // Chart is created with type "line" for area chart
       expect(RdsCompAreaChart).toBeDefined();
     });
 
@@ -450,7 +446,7 @@ describe('RdsCompAreaChart', () => {
     it('renders with numeric labels', () => {
       const numericLabels = [1, 2, 3, 4, 5];
       render(
-        <RdsCompAreaChart {...defaultProps} labels={numericLabels} />
+        <RdsCompAreaChart {...defaultProps} labels={numericLabels as unknown as string[]} />
       );
       expect(RdsCompAreaChart).toBeDefined();
     });
@@ -662,7 +658,7 @@ describe('RdsCompAreaChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompAreaChart {...defaultProps} options={null} />
+        <RdsCompAreaChart {...defaultProps} options={null as unknown as RdsCompAreaChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -737,7 +733,7 @@ describe('RdsCompAreaChart', () => {
         },
       ];
       render(
-        <RdsCompAreaChart {...defaultProps} dataSets={stringDataSet} />
+        <RdsCompAreaChart {...defaultProps} dataSets={stringDataSet as unknown as RdsCompAreaChartProps['dataSets']} />
       );
       expect(RdsCompAreaChart).toBeDefined();
     });
@@ -846,5 +842,37 @@ describe('RdsCompAreaChart', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompAreaChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-area');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('warns about deprecated isGradient and renders without options/id', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    const { container } = render(
+      <RdsCompAreaChart labels={['a']} dataSets={[{ data: [1] }]} isGradient />
+    );
+    expect(container.querySelector('canvas')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAreaChart', 'isGradient', expect.any(String));
+  });
+});
+
+describe('RdsCompAreaChart sx', () => {
+  it('applies sx to the root only when passed', () => {
+    const a = render(<RdsCompAreaChart {...defaultProps} sx={{ opacity: 0.5 }} />);
+    expect(a.container.firstChild).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsCompAreaChart {...defaultProps} />);
+    expect(b.container.firstChild).not.toHaveStyle({ opacity: '0.5' });
   });
 });

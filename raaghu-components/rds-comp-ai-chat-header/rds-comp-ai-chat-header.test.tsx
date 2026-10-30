@@ -4,10 +4,10 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatHeader, { RdsCompAiChatHeaderProps, ChatHeaderSize } from './rds-comp-ai-chat-header';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 jest.mock('./rds-comp-ai-chat-header.scss', () => ({}));
 
-// Default props for testing
 const defaultProps: RdsCompAiChatHeaderProps = {
   logoUrl: 'https://example.com/logo.jpg',
   title: 'Chat Header',
@@ -435,7 +435,6 @@ describe('RdsCompAiChatHeader', () => {
           logoUrl=""
         />
       );
-      // Empty string is falsy, so logo should not render
       expect(screen.queryByAltText('Logo')).not.toBeInTheDocument();
     });
 
@@ -497,20 +496,18 @@ describe('RdsCompAiChatHeader', () => {
         />
       );
       const headerDiv = container.querySelector('.rds-comp-ai-chat-header');
-      // Should have only 1 child (h3) since logoUrl is not provided
       expect(headerDiv?.children.length).toBe(1);
     });
 
     it('renders both logo and text when logoUrl is provided', () => {
       const { container } = render(<RdsCompAiChatHeader {...defaultProps} />);
       const headerDiv = container.querySelector('.rds-comp-ai-chat-header');
-      // Should have 2 children (img and h3)
       expect(headerDiv?.children.length).toBe(2);
     });
   });
 
   describe('Enum Values', () => {
-    it('exports ChatHeaderSize enum with correct values', () => {
+    it('exports ChatHeaderSize constants with correct values', () => {
       expect(ChatHeaderSize.Small).toBe('small');
       expect(ChatHeaderSize.Medium).toBe('medium');
       expect(ChatHeaderSize.Large).toBe('large');
@@ -590,5 +587,34 @@ describe('RdsCompAiChatHeader', () => {
       );
       expect(screen.getByAltText('Logo')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompAiChatHeader title="Chat" ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-ai-chat-header', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('accepts string sizes, a heading component and a logo alt', () => {
+    render(
+      <RdsCompAiChatHeader title="Chat" size="large" component="h2" logoUrl="logo.png" logoAlt="" />
+    );
+    const heading = screen.getByRole('heading', { level: 2, name: 'Chat' });
+    expect(heading).toHaveClass('rds-comp-ai-chat-header__text--large');
+    expect(document.querySelector('img')).toHaveAttribute('alt', '');
+  });
+});
+
+describe('audit fixes: avatarSrc', () => {
+  it('avatarSrc wins over deprecated logoUrl and the old prop warns', () => {
+    render(<RdsCompAiChatHeader title="Chat" avatarSrc="new.png" logoUrl="old.png" />);
+    expect(screen.getByAltText('Logo')).toHaveAttribute('src', 'new.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiChatHeader', 'logoUrl', '`avatarSrc`');
   });
 });

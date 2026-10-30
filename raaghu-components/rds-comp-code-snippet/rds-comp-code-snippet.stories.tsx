@@ -100,7 +100,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
     theme: {
       control: { type: 'select' },
       options: ['light', 'dark'],
-      description: 'Theme variant',
+      description: 'Theme variant. The selected value always wins over the app/system mode.',
     },
     type: {
       control: { type: 'select' },
@@ -110,6 +110,10 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
     codeLines: {
       control: { type: 'boolean' },
       description: 'Whether to show line numbers',
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the code snippet root.',
     },
   },
 };
@@ -129,4 +133,3 @@ export const Default: Story = {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
-

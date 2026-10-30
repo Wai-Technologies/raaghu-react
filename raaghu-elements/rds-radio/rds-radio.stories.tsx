@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsRadio from './rds-radio';
 
@@ -23,27 +22,22 @@ const meta: Meta<typeof RdsRadio> = {
       control: 'object',
       description: 'Array of radio options',
     },
-    direction: {
-      control: 'select',
-      options: ['row', 'column'],
-      description: 'Direction of radio group layout',
+    row: {
+      control: 'boolean',
+      description: 'Lay the options out in a row instead of a column',
     },
     layout: {
       control: 'select',
       options: ['icon', 'icon with label', 'icon with bottom label'],
       description: 'Layout configuration for radio buttons',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled'],
-      description: 'State of the radio buttons',
+    disabled: {
+      control: 'boolean',
+      description: 'Disable all radio options',
     },
       value: {
-        control: 'text',
-        description: 'Selected value (leave empty for unchecked)',
-        table: {
-          defaultValue: { summary: 'undefined' },
-        },
+        control: false,
+        table: { disable: true },
       },
       selected: {
         control: 'boolean',
@@ -57,9 +51,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const basicOptions = [
-  { text: 'Option 1', value: 'option1' },
-  { text: 'Option 2', value: 'option2' },
-  { text: 'Option 3', value: 'option3' },
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
 ];
 
 function computeForcedValue(args: any) {
@@ -79,7 +73,7 @@ export const Default: Story = {
     return (
       <RdsRadio
         {...args}
-        value={valueToUse}
+        value={valueToUse ?? ''}
         onChange={(_e, val) => {
           if (typeof args.selected === 'undefined') setInternal(val);
         }}
@@ -88,12 +82,12 @@ export const Default: Story = {
   },
   args: {
     label: 'Choose an option',
-    options: [{ text: 'Option 1', value: 'option1' }],
+    options: [{ label: 'Option 1', value: 'option1' }],
     value: undefined,
     selected: true,
   },
 };
-Default.parameters = { controls: { include: ['label','options','value','selected', 'direction','layout','state'] } };
+Default.parameters = { controls: { include: ['label','options','value','selected', 'row','layout','disabled'] } };
 
 
 export const Horizontal: Story = {
@@ -110,11 +104,11 @@ export const Horizontal: Story = {
   args: {
     label: 'Horizontal Layout',
     options: basicOptions,
-    direction: 'row',
+    row: true,
     value: undefined,
   },
 };
-Horizontal.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+Horizontal.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 export const WithDisabledOptions: Story = {
   render: (args) => {
@@ -130,15 +124,15 @@ export const WithDisabledOptions: Story = {
   args: {
     label: 'Some Disabled Options',
     options: [
-      { text: 'Available Option', value: 'option1' },
-      { text: 'Disabled Option', value: 'option2', disabled: true },
-      { text: 'Another Available', value: 'option3' },
-      { text: 'Also Disabled', value: 'option4', disabled: true },
+      { label: 'Available Option', value: 'option1' },
+      { label: 'Disabled Option', value: 'option2', disabled: true },
+      { label: 'Another Available', value: 'option3' },
+      { label: 'Also Disabled', value: 'option4', disabled: true },
     ],
     value: undefined,
   },
 };
-WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 
 export const WithSelectedValue: Story = {
@@ -154,11 +148,11 @@ export const WithSelectedValue: Story = {
   },
   args: {
     label: 'Pre-selected Option',
-    options:  [{ text: 'Option 1', value: 'option1' }],
+    options:  [{ label: 'Option 1', value: 'option1' }],
     value: undefined,
   },
 };
-WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 
 export const WithoutLabel: Story = {
@@ -177,4 +171,4 @@ export const WithoutLabel: Story = {
     value: undefined,
   },
 };
-WithoutLabel.parameters = { controls: { include: ['options', 'value', 'direction', 'layout', 'state'] } };
+WithoutLabel.parameters = { controls: { include: ['options', 'value', 'row', 'layout', 'disabled'] } };

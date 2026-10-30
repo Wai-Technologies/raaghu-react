@@ -12,11 +12,12 @@ const meta: Meta<typeof RdsAvatar> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    colorVariant: {
+    color: {
       control: 'select',
-      options: ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
+      options: ['primary', 'success', 'error', 'warning', 'light', 'secondary', 'dark'],
       description: 'Color variant for activity ring and dot',
     },
+    colorVariant: { control: false, table: { disable: true } },
     showName: {
       control: 'boolean',
       description: 'Show title below/next to avatar',
@@ -25,11 +26,11 @@ const meta: Meta<typeof RdsAvatar> = {
       control: 'boolean',
       description: 'Show subText below/next to avatar',
     },
-    title: {
+    name: {
       control: 'text',
       description: 'Title to display initial from',
     },
-    subText: {
+    description: {
       control: 'text',
       description: 'Sub text to display below/next to avatar',
     },
@@ -50,15 +51,25 @@ const meta: Meta<typeof RdsAvatar> = {
       control: 'boolean',
       description: 'Show activity ring',
     },
+    status: {
+      control: 'select',
+      options: ['online', 'offline'],
+      description: 'Status dot (shown when online)',
+    },
+    statusPosition: {
+      control: 'select',
+      options: ['top', 'bottom', 'both'],
+      description: 'Status dot corner. Use "both" to show top and bottom dots together.',
+    },
     activeDotTop: {
       control: 'boolean',
-      description: 'Show dot at top',
+      description: 'Show top dot (combine with activeDotBottom for both). Ignored when status is set.',
     },
     activeDotBottom: {
       control: 'boolean',
-      description: 'Show dot at bottom',
+      description: 'Show bottom dot (combine with activeDotTop for both). Ignored when status is set.',
     },
-    maxVisibleAvatars: {
+    max: {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Maximum number of avatars to show in stacking mode (1-5)',
     },
@@ -69,7 +80,7 @@ const meta: Meta<typeof RdsAvatar> = {
     slots: { control: { disable: true }, table: { disable: true } },
     slotProps: { control: { disable: true }, table: { disable: true } },
     ref: { control: { disable: true }, table: { disable: true } },
-    component: { control: { disable: true }, table: { disable: true } },
+    ['component' as string]: { control: { disable: true }, table: { disable: true } },
     displayStyle: {
       control: 'select',
       options: ['with-name', 'name-bottom', 'stacking'],
@@ -82,8 +93,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
-    title: 'John Doe',
-    subText: 'Developer',
+    name: 'John Doe',
+    description: 'Developer',
     showName: true,
     showDesignation: true,
     displayStyle: 'with-name',
@@ -94,12 +105,12 @@ export const Default: Story = {
       { title: 'Mike Brown', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face' },
       { title: 'Sarah Wilson', src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face' },
     ],
-    maxVisibleAvatars: 3,
+    max: 3,
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src'
       ]
@@ -114,16 +125,16 @@ export const Fallback: Story = {
   args: {
     src: 'broken-image-url',
     alt: 'Broken image',
-    title: 'Fallback User',
+    name: 'Fallback User',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
         'showDesignation',
-        'subText'
+        'description'
       ]
     },
   },
@@ -131,17 +142,17 @@ export const Fallback: Story = {
 
 export const Large: Story = {
   args: {
-    title: 'Large User',
+    name: 'Large User',
     size: 'large',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
         'showDesignation',
-        'subText'
+        'description'
       ]
     },
   },
@@ -149,17 +160,17 @@ export const Large: Story = {
 
 export const Medium: Story = {
   args: {
-    title: 'Medium User',
+    name: 'Medium User',
     size: 'medium',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
         'showDesignation',
-        'subText'
+        'description'
       ]
     },
   },
@@ -167,15 +178,15 @@ export const Medium: Story = {
 
 export const NameOnBottom: Story = {
   args: {
-    title: 'Jane Doe',
-    subText: 'Designation',
+    name: 'Jane Doe',
+    description: 'Designation',
     displayStyle: 'name-bottom',
     size: 'large',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src'
       ]
@@ -187,7 +198,7 @@ export const Stacking: Story = {
   args: {
     displayStyle: 'stacking',
     size: 'medium',
-    maxVisibleAvatars: 3,
+    max: 3,
     avatars: [
       { title: 'Jane Doe', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
       { title: 'John Smith', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
@@ -204,11 +215,11 @@ export const Stacking: Story = {
         'activityRing',
         'activeDotTop',
         'activeDotBottom',
-        'subText',
-        'title',
+        'description',
+        'name',
         'showDesignation',
         'showName',
-        'colorVariant',
+        'color',
         'displayStyle',
         'avatars'
       ]
@@ -218,15 +229,15 @@ export const Stacking: Story = {
 
 export const Small: Story = {
   args: {
-    title: 'Small User',
+    name: 'Small User',
     size: 'small',
     showDesignation: false,
-    subText: 'Designation',
+    description: 'Designation',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
       ]
@@ -241,14 +252,14 @@ export const WithIcon: Story = {
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
         'size',
-        'title',
+        'name',
         'showDesignation',
         'showName',
-        'subText'
+        'description'
       ]
     },
   },
@@ -259,18 +270,18 @@ export const WithImage: Story = {
     src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     alt: 'User Avatar',
     displayStyle: 'with-name',
-    title: 'Jane Doe',
-    subText: 'Designation',
+    name: 'Jane Doe',
+    description: 'Designation',
     showName: true,
     showDesignation: true,
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
-        'subText'
+        'description'
       ]
     },
   },
@@ -278,22 +289,23 @@ export const WithImage: Story = {
 
 export const WithInitials: Story = {
   args: {
-    title: 'Wai Technologies',
-    subText: 'Developer',
+    name: 'Wai Technologies',
+    description: 'Developer',
     displayStyle: 'with-name',
     showName: true,
     showDesignation: true,
     activityRing: true,
-    activeDotTop: true,
-    colorVariant: 'primary',
+    status: 'online',
+    statusPosition: 'both',
+    color: 'primary',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
-        'subText'
+        'description'
       ]
     },
   },
@@ -301,18 +313,18 @@ export const WithInitials: Story = {
 
 export const WithName: Story = {
   args: {
-    title: 'Jane Doe',
-    subText: 'Designation',
+    name: 'Jane Doe',
+    description: 'Designation',
     displayStyle: 'with-name',
     size: 'medium',
   },
   parameters: {
     controls: {
       exclude: [
-        'maxVisibleAvatars',
+        'max',
         'alt',
         'src',
-        'subText'
+        'description'
       ]
     },
   },

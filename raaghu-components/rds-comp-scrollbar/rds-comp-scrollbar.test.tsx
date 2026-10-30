@@ -7,8 +7,6 @@ import RdsCompScrollBar, {
 } from './rds-comp-scrollbar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-
-// Mock SCSS
 jest.mock('./rds-comp-scrollbar.scss', () => ({}));
 
 describe('RdsCompScrollBar', () => {
@@ -478,7 +476,6 @@ describe('RdsCompScrollBar', () => {
       const { container } = render(
         <RdsCompScrollBar {...defaultProps} type={undefined} />
       );
-      // Should default to Mac
       expect(container.querySelector('.rds-scrollbar')).toBeInTheDocument();
     });
 
@@ -486,7 +483,6 @@ describe('RdsCompScrollBar', () => {
       const { container } = render(
         <RdsCompScrollBar {...defaultProps} showButtons={undefined} />
       );
-      // Should default to true, so controls should render
       expect(container.querySelector('.rds-scrollbar')).toBeInTheDocument();
     });
 
@@ -605,5 +601,32 @@ describe('RdsCompScrollBar', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('renders children instead of the placeholder', () => {
+    const { container } = render(<RdsCompScrollBar><p>Hello</p></RdsCompScrollBar>);
+    expect(screen.getByText('Hello')).toBeInTheDocument();
+    expect(container.querySelector('.rds-scrollbar__inner-content')).not.toBeInTheDocument();
+  });
+
+  it('accepts string literal enums', () => {
+    const { container } = render(<RdsCompScrollBar type="Simple" position="End" />);
+    expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
+  });
+
+  it('variant wins over type', () => {
+    const { container } = render(<RdsCompScrollBar variant="Simple" type="Mac" />);
+    expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
+  });
+});
+
+describe('RdsCompScrollBar style', () => {
+  it('forwards style to the root and adds none when omitted', () => {
+    const a = render(<RdsCompScrollBar style={{ opacity: 0.5 }} />);
+    expect(a.container.firstChild).toHaveStyle({ opacity: '0.5' });
+    const b = render(<RdsCompScrollBar />);
+    expect(b.container.firstChild).not.toHaveAttribute('style');
   });
 });

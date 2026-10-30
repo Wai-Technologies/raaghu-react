@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useMemo, useState, type ComponentType, type CSSProperties } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-code-snippet.scss";
 import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
@@ -10,16 +11,27 @@ import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlig
 // @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
+import { useRaaghuTheme } from "../../raaghu-react-themes/src/provider/RaaghuThemeProvider";
 type HighlighterStyle = Record<string, Record<string, string> | string>;
 
-const atomOneLightStyle = atomOneLight as HighlighterStyle;
+const atomOneLightBase = atomOneLight as HighlighterStyle;
+const atomOneLightHljs = typeof atomOneLightBase.hljs === 'object' ? atomOneLightBase.hljs : {};
+
+const atomOneLightStyle: HighlighterStyle = {
+  ...atomOneLightBase,
+  hljs: {
+    ...atomOneLightHljs,
+    // The snippet root paints the surface, so the code area follows light/dark in single- and multi-line.
+    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+  },
+};
 
 const darkStyle: HighlighterStyle = {
   ...atomOneLightStyle,
   hljs: {
-    ...(typeof atomOneLightStyle.hljs === 'object' ? atomOneLightStyle.hljs : {}),
-    background: 'var(--rds-code-bg, #0b1220)',
-    color: 'var(--rds-code-color, #e6eef6)',
+    ...atomOneLightHljs,
+    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+    color: 'var(--rds-code-color)',
   },
 };
 
@@ -57,10 +69,16 @@ export interface RdsCompCodeSnippetProps {
   code?: string;
   language?: string | boolean;
   codeLines?: boolean;
+  /**
+   * Color scheme of the snippet. An explicit value always wins over the app/system mode;
+   * omit it to follow the app (`RaaghuThemeProvider`, including `system`).
+   */
   theme?: "light" | "dark";
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
   className?: string;
+  /** MUI system styles applied to the code snippet root. */
+  sx?: SxProps<Theme>;
   sampleCodeSnippets?: Record<string, string>;
 }
 
@@ -68,12 +86,15 @@ const RdsCompCodeSnippet = ({
   code,
   language = "html",
   codeLines = false,
-  theme = "light",
+  theme: themeProp,
   type = "multiLine",
   maxHeight,
   className = "",
+  sx,
   sampleCodeSnippets,
 }: RdsCompCodeSnippetProps) => {
+  const { isDark } = useRaaghuTheme();
+  const theme = themeProp ?? (isDark ? "dark" : "light");
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
     typeof language === 'string' ? language : 'html'
@@ -95,8 +116,8 @@ const RdsCompCodeSnippet = ({
       await navigator.clipboard.writeText(currentCode);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      // Failed to copy text
+    } catch {
+      setCopied(false);
     }
   }, [currentCode]);
 
@@ -105,7 +126,7 @@ const RdsCompCodeSnippet = ({
   const highlighterStyle = theme === 'dark' ? darkStyle : atomOneLightStyle;
 
   return (
-    <div className={clsx("rds-comp-code-snippet", `rds-comp-code-snippet--${theme}`, `rds-comp-code-snippet--${type}`, className)}>
+    <Box className={clsx("rds-comp-code-snippet", `rds-comp-code-snippet--${theme}`, `rds-comp-code-snippet--${type}`, className)} sx={sx}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <div className="rds-comp-code-snippet__toolbar rds-comp-code-snippet__toolbar--single-line">
@@ -127,7 +148,7 @@ const RdsCompCodeSnippet = ({
                 onClick={handleCopy}
                 aria-label="Copy code"
                 size="small"
-                style="outlined"
+                variant="outlined"
                 text={copied ? "Copied!" : "Copy Code"}
                 showLeftIcon={true}
                 textCase="unset"
@@ -143,16 +164,17 @@ const RdsCompCodeSnippet = ({
                 {showLanguage && (
                   <div className="rds-comp-code-snippet__language-dropdown">
                     <RdsButtonDropdown
-                      buttonText={selectedLanguage || (languageLabel as string)}
                       options={LANGUAGE_OPTIONS}
                       showSearch={false}
-                      leftIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
-                      rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
+                      startIcon={<CodeOffIcon style={{ fontSize: 'var(--rds-font-size-md)' }} />}
+                      endIcon={<KeyboardArrowDownIcon style={{ fontSize: 'var(--rds-font-size-lg)' }} />}
                       onChange={handleLanguageChange}
                       showUserAvatar={false}
                       showRadio={false}
                       size="small"
-                    />
+                    >
+                      {selectedLanguage || (languageLabel as string)}
+                    </RdsButtonDropdown>
                   </div>
                 )}
                 <RdsButton
@@ -160,7 +182,7 @@ const RdsCompCodeSnippet = ({
                   onClick={handleCopy}
                   aria-label="Copy code"
                   size="small"
-                  style="outlined"
+                  variant="outlined"
                   text={copied ? "Copied!" : "Copy Code"}
                   showLeftIcon={true}
                   textCase="unset"
@@ -186,13 +208,13 @@ const RdsCompCodeSnippet = ({
             </div>
             <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" style="transparent" text="Show More" />
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent" text="Show More" />
               </div>
             </div>
           </>
         )}
       </div>
-    </div>
+    </Box>
   );
 };
 RdsCompCodeSnippet.displayName = 'RdsCompCodeSnippet';

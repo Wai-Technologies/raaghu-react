@@ -9,6 +9,11 @@ import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
 import { getDocsTheme } from './storybook-docs-theme';
 import './storybook-theme-sync';
+import {
+  reactNodeArgTypesEnhancer,
+  sanitizeArrayArgs,
+  sanitizeReactNodeArgs,
+} from './sanitize-react-node-args';
 
 const preview: Preview = {
   initialGlobals: {
@@ -31,6 +36,7 @@ const preview: Preview = {
       },
     },
   },
+  argTypesEnhancers: [reactNodeArgTypesEnhancer],
   parameters: {
     controls: {
       matchers: {
@@ -44,7 +50,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      viewports: {
+      options: {
         mobile: {
           name: 'Mobile',
           styles: {
@@ -69,48 +75,16 @@ const preview: Preview = {
       },
     },
     a11y: {
-      config: {},
-
       options: {
         checks: {
           'color-contrast': { enabled: false },
         },
         restoreScroll: true,
       },
-
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: 'off'
+      test: 'off',
     },
     docs: {
       theme: getDocsTheme('system'),
-    },
-    badgesConfig: {
-      stable: {
-        styles: {
-          backgroundColor: '#1a7f37',
-          borderColor: '#1a7f37',
-          color: '#fff',
-        },
-        title: 'Stable',
-      },
-      beta: {
-        styles: {
-          backgroundColor: '#9a6700',
-          borderColor: '#9a6700',
-          color: '#fff',
-        },
-        title: 'Beta',
-      },
-      experimental: {
-        styles: {
-          backgroundColor: '#cf222e',
-          borderColor: '#cf222e',
-          color: '#fff',
-        },
-        title: 'Experimental',
-      },
     },
   },
   decorators: [
@@ -125,11 +99,16 @@ const preview: Preview = {
         theme: docsTheme,
       };
 
+      const safeArgs = sanitizeArrayArgs(
+        sanitizeReactNodeArgs((context.args ?? {}) as Record<string, unknown>),
+        context.argTypes,
+      );
+      context.args = safeArgs;
+
       return React.createElement(
         RaaghuThemeProvider,
         {
           mode,
-          // Theme persistence is handled outside Storybook; avoid fighting toolbar globals.
           initializeOnMount: false,
         },
         React.createElement(Story),

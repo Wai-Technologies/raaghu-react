@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { ContentCut, ContentCopy, ContentPaste, Delete, KeyboardArrowDown, PersonAdd, Settings, Logout } from '@mui/icons-material';
 import RdsMenu from './rds-menu';
 import RdsButton from '../rds-button/rds-button';
@@ -20,6 +19,7 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    open: { table: { disable: true } },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
@@ -64,8 +64,7 @@ export const Default: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
-          style="outlined"
+          variant="outlined"
           textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
@@ -78,9 +77,10 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters = { controls: { include: ['open'] } };
+Default.parameters = { controls: { include: ['size'] } };
 
 export const WithIcon: Story = {
+  parameters: { controls: { include: ['size'] } },
   args: {
     items: [
       { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
@@ -158,7 +158,7 @@ export const Dense: Story = {
 
     return (
       <>
-        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -184,7 +184,7 @@ export const WithCustomColor: Story = {
   argTypes: {
     color: {
       control: { type: 'select' },
-      options: ['primary', 'success', 'danger', 'info', 'warning'],
+      options: ['primary', 'success', 'error', 'info', 'warning'],
       description: 'Color theme for all menu items',
     },
   },
@@ -203,7 +203,7 @@ export const WithCustomColor: Story = {
 
     return (
       <>
-        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -240,7 +240,7 @@ export const WithDisabled: Story = {
 
     return (
       <>
-        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -254,13 +254,14 @@ export const WithDisabled: Story = {
 };
 
 export const CustomizedMenu: Story = {
+  parameters: { controls: { include: ['size'] } },
   args: {
     items: [
       { id: 1, header: 'Header 1' },
       { id: 2, label: 'Item 1', color: 'primary', icon: <ContentCut fontSize="small" /> },
       { id: 3, label: 'Item 2', color: 'success', icon: <ContentCopy fontSize="small" /> },
       { id: 4, divider: true },
-      { id: 5, label: 'Item 3', color: 'danger', disabled: true, icon: <Delete fontSize="small" /> },
+      { id: 5, label: 'Item 3', color: 'error', disabled: true, icon: <Delete fontSize="small" /> },
       { id: 6, label: 'Item 4', color: 'info', icon: <ContentPaste fontSize="small" /> },
       { id: 7, header: 'Header 2' },
       { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },
@@ -298,7 +299,6 @@ export const CustomizedMenu: Story = {
           layout="text-only"
           shape="rectangle"
           size="medium"
-          state="default"
           style="outlined"
           textCase="uppercase"
         />

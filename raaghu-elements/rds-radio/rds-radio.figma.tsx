@@ -13,16 +13,16 @@ figma.connect(
         "Icon with Label": "icon with label",
         "Icon with bottom Label": "icon with bottom label"
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Disabled": "disabled"
+      disabled: figma.enum("💡 State", {
+        "Default": false,
+        "Hover": false,
+        "Disabled": true,
       }),
     },
     example: (props) => <RdsRadio
       options={[
         {
-          text: 'Option 1',
+          label: 'Option 1',
           value: 'option1'
         }
       ]}

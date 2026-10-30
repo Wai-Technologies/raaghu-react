@@ -1,11 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompChat, { UserData, Comment } from './rds-comp-chat';
+import RdsCompChat, { UserData } from './rds-comp-chat';
 
-// Mock dependencies
 jest.mock('./rds-comp-chat.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar({ children, ...props }: any) {
@@ -27,7 +26,7 @@ jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   return function MockRdsCompEmojiGenerator(props: any) {
     return (
       <div data-testid="emoji-generator">
-        <button onClick={() => props.onEmojiSelect?.('😊')}>Select Emoji</button>
+        <button onClick={() => props.onEmojiSelect?.('ðŸ˜Š')}>Select Emoji</button>
       </div>
     );
   };
@@ -46,7 +45,7 @@ const defaultUserData: UserData[] = [
     activeDotButton: true,
     status: 'online',
     size: 'medium',
-    colorVariant: 'primary',
+    color: 'primary',
     time: '10:30 AM',
     profilePic: 'https://example.com/john.jpg',
     messageStatus: 'Online',
@@ -55,7 +54,7 @@ const defaultUserData: UserData[] = [
       { firstName: 'Jane', lastName: 'Smith', comment: 'Hi there!' },
     ],
     profileType: 'user',
-    withProfilePic: true,
+    showProfilePic: true,
   },
   {
     firstName: 'Jane',
@@ -63,7 +62,7 @@ const defaultUserData: UserData[] = [
     activeDotButton: false,
     status: 'away',
     size: 'medium',
-    colorVariant: 'secondary',
+    color: 'secondary',
     time: '9:45 AM',
     profilePic: 'https://example.com/jane.jpg',
     messageStatus: 'Away',
@@ -72,9 +71,9 @@ const defaultUserData: UserData[] = [
 ];
 
 const defaultProps = {
-  isChatScreenEnabled: true,
+  chatScreenEnabled: true,
   userData: defaultUserData,
-  handleAddComment: jest.fn(),
+  onAddComment: jest.fn(),
 };
 
 describe('RdsCompChat', () => {
@@ -105,7 +104,7 @@ describe('RdsCompChat', () => {
   });
 
   describe('User List Display', () => {
-    it('renders user list when isChatScreenEnabled is true', () => {
+    it('renders user list when chatScreenEnabled is true', () => {
       const { container } = render(<RdsCompChat {...defaultProps} />);
       expect(container.querySelector('.rds-comp-chat__screen')).toBeInTheDocument();
     });
@@ -116,8 +115,8 @@ describe('RdsCompChat', () => {
       expect(avatars.length).toBeGreaterThanOrEqual(2);
     });
 
-    it('does not render user list when isChatScreenEnabled is false', () => {
-      const props = { ...defaultProps, isChatScreenEnabled: false };
+    it('does not render user list when chatScreenEnabled is false', () => {
+      const props = { ...defaultProps, chatScreenEnabled: false };
       const { container } = render(<RdsCompChat {...props} />);
       const userList = container.querySelector('.rds-comp-chat__screen');
       expect(userList).not.toBeInTheDocument();
@@ -243,10 +242,10 @@ describe('RdsCompChat', () => {
       expect(sendButton).toBeInTheDocument();
     });
 
-    it('calls handleAddComment when send button is clicked', async () => {
+    it('calls onAddComment when send button is clicked', async () => {
       const handleAddComment = jest.fn();
       render(
-        <RdsCompChat {...defaultProps} handleAddComment={handleAddComment} />
+        <RdsCompChat {...defaultProps} onAddComment={handleAddComment} />
       );
       const input = screen.getByPlaceholderText('Type comment...') as HTMLInputElement;
       await userEvent.type(input, 'Test message');
@@ -259,6 +258,14 @@ describe('RdsCompChat', () => {
       });
     });
 
+    it('still calls deprecated handleAddComment alias', async () => {
+      const handleAddComment = jest.fn();
+      render(<RdsCompChat {...defaultProps} onAddComment={undefined} handleAddComment={handleAddComment} />);
+      await userEvent.type(screen.getByPlaceholderText('Type comment...'), 'Test message');
+      fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+      await waitFor(() => expect(handleAddComment).toHaveBeenCalled());
+    });
+
     it('clears input after sending message', async () => {
       render(<RdsCompChat {...defaultProps} />);
       const input = screen.getByPlaceholderText('Type comment...') as HTMLInputElement;
@@ -269,7 +276,7 @@ describe('RdsCompChat', () => {
     it('sends message on Enter key press', async () => {
       const handleAddComment = jest.fn();
       render(
-        <RdsCompChat {...defaultProps} handleAddComment={handleAddComment} />
+        <RdsCompChat {...defaultProps} onAddComment={handleAddComment} />
       );
       const input = screen.getByPlaceholderText('Type comment...');
       await userEvent.type(input, 'Test{Enter}');
@@ -282,7 +289,7 @@ describe('RdsCompChat', () => {
     it('does not send on Shift+Enter', async () => {
       const handleAddComment = jest.fn();
       render(
-        <RdsCompChat {...defaultProps} handleAddComment={handleAddComment} />
+        <RdsCompChat {...defaultProps} onAddComment={handleAddComment} />
       );
       const input = screen.getByPlaceholderText('Type comment...');
       await userEvent.type(input, 'Test{Shift>}{Enter}{/Shift}');
@@ -316,7 +323,7 @@ describe('RdsCompChat', () => {
       
       const input = screen.getByPlaceholderText('Type comment...') as HTMLInputElement;
       await waitFor(() => {
-        expect(input.value).toContain('😊');
+        expect(input.value).toContain('ðŸ˜Š');
       });
     });
 
@@ -519,7 +526,7 @@ describe('RdsCompChat', () => {
         <RdsCompChat
           {...defaultProps}
           currentUserCommentTextColor="#FFFFFF"
-          OtherUserCommentTextColor="#000000"
+          otherUserCommentTextColor="#000000"
         />
       );
       expect(container.querySelector('.rds-comp-chat__window')).toBeInTheDocument();
@@ -611,18 +618,18 @@ describe('RdsCompChat', () => {
   });
 
   describe('Window Display Modes', () => {
-    it('renders full-width window when isChatScreenEnabled is false', () => {
+    it('renders full-width window when chatScreenEnabled is false', () => {
       const { container } = render(
-        <RdsCompChat {...defaultProps} isChatScreenEnabled={false} />
+        <RdsCompChat {...defaultProps} chatScreenEnabled={false} />
       );
       expect(
         container.querySelector('.rds-comp-chat__window--full-width')
       ).toBeInTheDocument();
     });
 
-    it('renders window with side panel when isChatScreenEnabled is true', () => {
+    it('renders window with side panel when chatScreenEnabled is true', () => {
       const { container } = render(
-        <RdsCompChat {...defaultProps} isChatScreenEnabled={true} />
+        <RdsCompChat {...defaultProps} chatScreenEnabled={true} />
       );
       expect(container.querySelector('.rds-comp-chat__screen')).toBeInTheDocument();
       expect(container.querySelector('.rds-comp-chat__window')).toBeInTheDocument();
@@ -709,3 +716,4 @@ describe('RdsCompChat', () => {
     });
   });
 });
+

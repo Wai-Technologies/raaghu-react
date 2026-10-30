@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {
@@ -22,27 +21,27 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'text',
       description: 'Helper text shown below the field',
     },
-    errorMessage: {
-      control: 'text',
-      description: 'Error text shown below the field',
+    error: {
+      control: 'boolean',
+      description: 'Puts the field in the error state',
     },
     placeholder: {
       control: 'text',
     },
-    inputPlaceholder: {
-      control: 'text',
+    inputPlaceholder: { table: { disable: true } },
+    labelPlacement: {
+      control: 'select',
+      options: ['floating', 'top'],
     },
-    labelposition: {
-      control: 'boolean',
-    },
-    isRequired: {
+    labelPosition: { table: { disable: true } },
+    required: {
       control: 'boolean',
     },
     size: {
       control: 'select',
       options: ['small', 'medium'],
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -90,8 +89,8 @@ export const Default: Story = {
   args: {
     label: 'Select Option',
     options: basicOptions,
-    inputPlaceholder: 'Please select...',
-    labelposition: true,
+    placeholder: 'Please select...',
+    labelPlacement: 'floating',
     size: 'small',
   },
 };
@@ -99,7 +98,7 @@ export const Default: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     options: basicOptions,
   },
 };
@@ -119,7 +118,8 @@ export const WithDisabledOptions: Story = {
 export const WithError: Story = {
   args: {
     label: 'Select with Error',
-    errorMessage: 'Please select a valid option',
+    error: true,
+    helperText: 'Please select a valid option',
     options: basicOptions,
   },
 };
@@ -146,4 +146,5 @@ export const WithValue: Story = {
     value: 'option2',
     options: basicOptions,
   },
+  parameters: { controls: { exclude: ['placeholder'] } },
 };

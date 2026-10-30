@@ -20,8 +20,8 @@ figma.connect(
         Youtube: VideoPlayerType.YouTube,
         Vimeo: VideoPlayerType.Vimeo,
       }),
-      autoplay: figma.boolean("AutoPlay"),
-      videoLink: figma.string("Video Link"),
+      autoPlay: figma.boolean("AutoPlay"),
+      src: figma.string("Video Link"),
     },
     example: (props) => (
       <RdsCompVideoPlayer
@@ -29,8 +29,8 @@ figma.connect(
         width="480px"
         height="240px"
         muted={false}
-        autoplay={props.autoplay ?? false}
-        videoLink={props.videoLink || "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
+        autoPlay={props.autoPlay ?? false}
+        src={props.src || "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
       />
     ),
   },

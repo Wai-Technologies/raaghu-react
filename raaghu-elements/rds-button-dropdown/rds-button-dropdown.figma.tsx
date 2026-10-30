@@ -8,19 +8,12 @@ figma.connect(
   RdsButtonDropdown,
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=484-11217",
   {
-    props: {
-      state: figma.enum("💡 State", {
-        Default: "default",
-        Selected: "selected"
-      })
-    },
     example: (props) => <RdsButtonDropdown 
-    buttonText="Button"
-    leftIcon={<CircleOutlinedIcon />}
-    rightIcon={<ExpandMoreOutlinedIcon/>}
+    startIcon={<CircleOutlinedIcon />}
+    endIcon={<ExpandMoreOutlinedIcon/>}
     showRadio
     showUserAvatar
-    multiSelect
+    multiple
     showSearch
     {...props}
      options={[
@@ -55,6 +48,8 @@ figma.connect(
       label: 'Option 5'
     },
   ]}
-    />,
+    >
+      Button
+    </RdsButtonDropdown>,
   },
 )

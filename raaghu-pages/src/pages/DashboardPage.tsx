@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState, type MouseEvent } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
-import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
 import RdsSidebar from '@raaghu/elements/rds-sidebar/rds-sidebar';
 import { useRaaghuLogoSrc } from '@raaghu/elements/shared/hooks/useRaaghuLogoSrc';
@@ -47,7 +46,20 @@ import {
   FlashOn as FlashIcon,
 } from '@mui/icons-material';
 
-// ─── Static data ────────────────────────────────────────────────────────────
+
+/** Soft tint from a semantic token — preferred over hardcoded rgba(hex). */
+const tint = (token: string, percent: number) =>
+  `color-mix(in srgb, ${token} ${percent}%, transparent)`;
+
+const COLOR = {
+  primary: 'var(--rds-primary-main)',
+  secondary: 'var(--rds-secondary-main)',
+  success: 'var(--rds-success-main)',
+  warning: 'var(--rds-warning-main)',
+  error: 'var(--rds-error-main)',
+  info: 'var(--rds-info-main)',
+  white: 'var(--rds-color-white)',
+} as const;
 
 const KPI_CARDS = [
   {
@@ -56,9 +68,9 @@ const KPI_CARDS = [
     trend: '+12%',
     trendUp: true,
     subtitle: 'vs last month',
-    accent: '#4F46E5',
-    iconBg: 'rgba(79,70,229,0.12)',
-    icon: <PeopleIcon sx={{ fontSize: 22, color: '#4F46E5' }} />,
+    accent: COLOR.primary,
+    iconBg: tint(COLOR.primary, 12),
+    icon: <PeopleIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.primary }} />,
     progress: 72,
   },
   {
@@ -67,9 +79,9 @@ const KPI_CARDS = [
     trend: '+8%',
     trendUp: true,
     subtitle: 'vs last month',
-    accent: '#059669',
-    iconBg: 'rgba(5,150,105,0.12)',
-    icon: <MoneyIcon sx={{ fontSize: 22, color: '#059669' }} />,
+    accent: COLOR.success,
+    iconBg: tint(COLOR.success, 12),
+    icon: <MoneyIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.success }} />,
     progress: 58,
   },
   {
@@ -78,9 +90,9 @@ const KPI_CARDS = [
     trend: '+3',
     trendUp: true,
     subtitle: 'new this week',
-    accent: '#7C3AED',
-    iconBg: 'rgba(124,58,237,0.12)',
-    icon: <WorkIcon sx={{ fontSize: 22, color: '#7C3AED' }} />,
+    accent: COLOR.secondary,
+    iconBg: tint(COLOR.secondary, 12),
+    icon: <WorkIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.secondary }} />,
     progress: 81,
   },
   {
@@ -89,33 +101,33 @@ const KPI_CARDS = [
     trend: '-6',
     trendUp: false,
     subtitle: 'resolved today',
-    accent: '#D97706',
-    iconBg: 'rgba(217,119,6,0.12)',
-    icon: <TicketIcon sx={{ fontSize: 22, color: '#D97706' }} />,
+    accent: COLOR.warning,
+    iconBg: tint(COLOR.warning, 12),
+    icon: <TicketIcon sx={{ fontSize: 'var(--rds-spacing-22)', color: COLOR.warning }} />,
     progress: 35,
   },
 ];
 
 const ACTIVITY = [
-  { initials: 'AM', user: 'Alice Martin',  action: 'Closed ticket #1284 — Login timeout',               time: '5m ago',  tag: 'Ticket',  avatarColor: '#4F46E5' },
-  { initials: 'BC', user: 'Bob Chen',      action: 'Created new project "Q3 Launch"',                   time: '23m ago', tag: 'Project', avatarColor: '#059669' },
-  { initials: 'SK', user: 'Sarah Kim',     action: 'Updated user permissions for Marketing team',       time: '1h ago',  tag: 'Users',   avatarColor: '#7C3AED' },
-  { initials: 'JP', user: 'James Patel',   action: 'Deployed release v2.4.1 to production',             time: '3h ago',  tag: 'Deploy',  avatarColor: '#DC2626' },
-  { initials: 'ED', user: 'Emily Davis',   action: 'Resolved ticket #1279 — Dashboard crash on mobile', time: '5h ago',  tag: 'Ticket',  avatarColor: '#0891B2' },
+  { initials: 'AM', user: 'Alice Martin',  action: 'Closed ticket #1284 — Login timeout',               time: '5m ago',  tag: 'Ticket',  avatarColor: COLOR.primary },
+  { initials: 'BC', user: 'Bob Chen',      action: 'Created new project "Q3 Launch"',                   time: '23m ago', tag: 'Project', avatarColor: COLOR.success },
+  { initials: 'SK', user: 'Sarah Kim',     action: 'Updated user permissions for Marketing team',       time: '1h ago',  tag: 'Users',   avatarColor: COLOR.secondary },
+  { initials: 'JP', user: 'James Patel',   action: 'Deployed release v2.4.1 to production',             time: '3h ago',  tag: 'Deploy',  avatarColor: COLOR.error },
+  { initials: 'ED', user: 'Emily Davis',   action: 'Resolved ticket #1279 — Dashboard crash on mobile', time: '5h ago',  tag: 'Ticket',  avatarColor: COLOR.info },
 ];
 
 const TAG_COLORS: Record<string, { bg: string; color: string }> = {
-  Ticket:  { bg: 'rgba(79,70,229,0.1)',  color: '#4F46E5' },
-  Project: { bg: 'rgba(5,150,105,0.1)',  color: '#059669' },
-  Users:   { bg: 'rgba(124,58,237,0.1)', color: '#7C3AED' },
-  Deploy:  { bg: 'rgba(220,38,38,0.1)',  color: '#DC2626' },
+  Ticket:  { bg: tint(COLOR.primary, 10),   color: COLOR.primary },
+  Project: { bg: tint(COLOR.success, 10),   color: COLOR.success },
+  Users:   { bg: tint(COLOR.secondary, 10), color: COLOR.secondary },
+  Deploy:  { bg: tint(COLOR.error, 10),     color: COLOR.error },
 };
 
 const QUICK_STATS = [
-  { label: 'Uptime',         value: '99.9%',  icon: <CheckIcon sx={{ fontSize: 18, color: '#059669' }} />, color: '#059669' },
-  { label: 'Avg. Response',  value: '142ms',  icon: <FlashIcon sx={{ fontSize: 18, color: '#4F46E5' }} />, color: '#4F46E5' },
-  { label: 'Critical Issues',value: '2',      icon: <ErrorIcon sx={{ fontSize: 18, color: '#DC2626' }} />, color: '#DC2626' },
-  { label: 'Pending Reviews',value: '18',     icon: <ClockIcon sx={{ fontSize: 18, color: '#D97706' }} />, color: '#D97706' },
+  { label: 'Uptime',          value: '99.9%', icon: <CheckIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.success }} />, color: COLOR.success, iconBg: tint(COLOR.success, 10) },
+  { label: 'Avg. Response',   value: '142ms', icon: <FlashIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.primary }} />, color: COLOR.primary, iconBg: tint(COLOR.primary, 10) },
+  { label: 'Critical Issues', value: '2',     icon: <ErrorIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.error }} />,   color: COLOR.error,   iconBg: tint(COLOR.error, 10) },
+  { label: 'Pending Reviews', value: '18',    icon: <ClockIcon sx={{ fontSize: 'var(--rds-size-18)', color: COLOR.warning }} />, color: COLOR.warning, iconBg: tint(COLOR.warning, 10) },
 ];
 
 const NAV_ITEMS = [
@@ -126,13 +138,12 @@ const NAV_ITEMS = [
   { id: 'help',      label: 'Help',      icon: <HelpIcon />      },
 ];
 
-// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const [themeMenuAnchor, setThemeMenuAnchor] = useState<HTMLElement | null>(null);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const { mode, setMode, isDark } = useRaaghuTheme();
 
   useEffect(() => {
@@ -141,7 +152,7 @@ export default function DashboardPage() {
     }
   }, [isMobile]);
 
-  const handleThemeMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleThemeMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
     setThemeMenuAnchor(event.currentTarget);
   }, []);
 
@@ -155,21 +166,20 @@ export default function DashboardPage() {
   }, [setMode]);
 
   const themeIcon = useMemo(() => (
-    mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 20 }} /> :
-    isDark ? <SunIcon sx={{ fontSize: 20 }} /> :
-    <MoonIcon sx={{ fontSize: 20 }} />
+    mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 'var(--rds-size-20)' }} /> :
+    isDark ? <SunIcon sx={{ fontSize: 'var(--rds-size-20)' }} /> :
+    <MoonIcon sx={{ fontSize: 'var(--rds-size-20)' }} />
   ), [mode, isDark]);
 
   const logoSrc = useRaaghuLogoSrc();
 
-  // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = useMemo(() => (
     <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
       <RdsAppBar
         color="default"
         title=""
         showLogo
-        logo={<img src={logoSrc} alt="Raaghu Design System" style={{ height: 28, objectFit: 'contain' }} />}
+        logo={<img src={logoSrc} alt="Raaghu Design System" style={{ height: 'var(--rds-size-28)', objectFit: 'contain' }} />}
         showMenuButton={isMobile}
         showSearch
         searchPlaceholder="Search…"
@@ -179,6 +189,7 @@ export default function DashboardPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <IconButton
                 size="small"
+                aria-label="notifications, 3 unread"
                 sx={{
                   color: 'text.secondary',
                   bgcolor: 'action.hover',
@@ -186,8 +197,8 @@ export default function DashboardPage() {
                   '&:hover': { bgcolor: 'action.selected' },
                 }}
               >
-                <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 10, minWidth: 16, height: 16 } }}>
-                  <BellIcon sx={{ fontSize: 20 }} />
+                <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 'var(--rds-dashboard-badge-font-size)', minWidth: 'var(--rds-size-md)', height: 'var(--rds-size-md)' } }}>
+                  <BellIcon sx={{ fontSize: 'var(--rds-size-20)' }} />
                 </Badge>
               </IconButton>
               <IconButton
@@ -209,19 +220,20 @@ export default function DashboardPage() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }}>
                 <Avatar
                   sx={{
-                    width: 34,
-                    height: 34,
-                    background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-                    fontSize: 13,
+                    width: 'var(--rds-spacing-34)',
+                    height: 'var(--rds-spacing-34)',
+                    background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
+                    color: COLOR.white,
+                    fontSize: 'var(--rds-dashboard-label-font-size)',
                     fontWeight: 700,
-                    boxShadow: '0 2px 8px rgba(79,70,229,0.4)',
+                    boxShadow: `0 var(--rds-spacing-xxs) var(--rds-spacing-sm-px) ${tint(COLOR.primary, 40)}`,
                   }}
                 >
                   JD
                 </Avatar>
                 <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                  <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 13 }}>John Doe</Typography>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 11 }}>Admin</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 'var(--rds-dashboard-label-font-size)' }}>John Doe</Typography>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 'var(--rds-dashboard-caption-font-size)' }}>Admin</Typography>
                 </Box>
               </Box>
             </Box>
@@ -241,13 +253,13 @@ export default function DashboardPage() {
               </MenuItem>
               <MenuItem selected={mode === 'light'} onClick={() => handleThemeModeSelect('light')}>
                 <ListItemIcon>
-                  <MoonIcon fontSize="small" />
+                  <SunIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Light" secondary="Always use light theme" />
               </MenuItem>
               <MenuItem selected={mode === 'dark'} onClick={() => handleThemeModeSelect('dark')}>
                 <ListItemIcon>
-                  <SunIcon fontSize="small" />
+                  <MoonIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Dark" secondary="Always use dark theme" />
               </MenuItem>
@@ -258,35 +270,32 @@ export default function DashboardPage() {
     </div>
   ), [logoSrc, mode, themeMenuAnchor, isMobile, themeIcon, handleThemeMenuOpen, handleThemeMenuClose, handleThemeModeSelect]);
 
-  // ── Sidebar ─────────────────────────────────────────────────────────────
-  // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
-  // We add a matching 64px header manually so the sidebar aligns with the AppBar.
   const sidebar = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box
         sx={{
-          height: 64,
+          height: 'var(--rds-size-3xl)',
           px: 2.5,
           display: 'flex',
           alignItems: 'center',
           flexShrink: 0,
           bgcolor: 'background.paper',
-          borderBottom: '1px solid var(--rds-divider)',
+          borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)',
         }}
       >
-        <img src={logoSrc} alt="Raaghu Design System" style={{ height: 26, objectFit: 'contain' }} />
+        <img src={logoSrc} alt="Raaghu Design System" style={{ height: 'var(--rds-dashboard-sidebar-logo-height)', objectFit: 'contain' }} />
       </Box>
       <RdsSidebar
-        avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+        user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
         avatarCollapsedSrc={logoSrc}
-        isOpen
+        open
         showLogo={false}
         variant="permanent"
         layout="raaghu"
         items={NAV_ITEMS.map(item => ({
           icon: item.icon,
           label: item.label,
-          active: activeNav === item.id,
+          selected: activeNav === item.id,
           onClick: () => {
             setActiveNav(item.id);
             if (isMobile) {
@@ -298,16 +307,13 @@ export default function DashboardPage() {
     </Box>
   );
 
-  // ── Main content ─────────────────────────────────────────────────────────
   const content = (
     <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Spacer so content clears the fixed AppBar */}
       <Toolbar />
 
-      {/* Page header */}
       <Box sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.3px' }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: 'var(--rds-dashboard-title-letter-spacing)' }}>
             Overview
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
@@ -315,21 +321,20 @@ export default function DashboardPage() {
           </Typography>
         </Box>
         <Chip
-          icon={<CheckIcon sx={{ fontSize: '14px !important', color: '#059669 !important' }} />}
+          icon={<CheckIcon sx={{ fontSize: 'var(--rds-size-14) !important', color: `${COLOR.success} !important` }} />}
           label="All systems operational"
           size="small"
           sx={{
-            bgcolor: 'rgba(5,150,105,0.1)',
-            color: '#059669',
+            bgcolor: tint(COLOR.success, 10),
+            color: COLOR.success,
             fontWeight: 600,
-            fontSize: 12,
-            border: '1px solid rgba(5,150,105,0.2)',
-            height: 28,
+            fontSize: 'var(--rds-dashboard-chip-font-size)',
+            border: `var(--rds-border-width-thin) solid ${tint(COLOR.success, 20)}`,
+            height: 'var(--rds-size-28)',
           }}
         />
       </Box>
 
-      {/* KPI cards — 4 cols desktop, 2 cols tablet, 1 col mobile */}
       <Box
         sx={{
           display: 'grid',
@@ -344,26 +349,25 @@ export default function DashboardPage() {
             sx={{
               p: 2.5,
               bgcolor: 'background.paper',
-              border: '1px solid var(--rds-divider)',
+              border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
-              transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+              boxShadow: 'var(--rds-elevation-1)',
+              transition: 'transform var(--rds-motion-duration-fast) ease, box-shadow var(--rds-motion-duration-fast) ease',
               cursor: 'default',
               '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                transform: 'translateY(var(--rds-spacing-neg-2))',
+                boxShadow: 'var(--rds-elevation-2)',
               },
             }}
           >
-            {/* Icon + label row */}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                 {kpi.label}
               </Typography>
               <Box
                 sx={{
-                  width: 38,
-                  height: 38,
+                  width: 'var(--rds-dashboard-icon-box-size)',
+                  height: 'var(--rds-dashboard-icon-box-size)',
                   borderRadius: 2,
                   bgcolor: kpi.iconBg,
                   display: 'flex',
@@ -376,21 +380,19 @@ export default function DashboardPage() {
               </Box>
             </Box>
 
-            {/* Value */}
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: '-0.5px', lineHeight: 1 }}>
+            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: 'var(--rds-dashboard-value-letter-spacing)', lineHeight: 1 }}>
               {kpi.value}
             </Typography>
 
-            {/* Trend */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
               {kpi.trendUp
-                ? <TrendingUp sx={{ fontSize: 15, color: '#059669' }} />
-                : <TrendingDown sx={{ fontSize: 15, color: '#D97706' }} />}
+                ? <TrendingUp sx={{ fontSize: 'var(--rds-spacing-15)', color: COLOR.success }} />
+                : <TrendingDown sx={{ fontSize: 'var(--rds-spacing-15)', color: COLOR.warning }} />}
               <Typography
                 variant="caption"
                 sx={{
                   fontWeight: 700,
-                  color: kpi.trendUp ? '#059669' : '#D97706',
+                  color: kpi.trendUp ? COLOR.success : COLOR.warning,
                 }}
               >
                 {kpi.trend}
@@ -400,12 +402,11 @@ export default function DashboardPage() {
               </Typography>
             </Box>
 
-            {/* Progress bar */}
             <LinearProgress
               variant="determinate"
               value={kpi.progress}
               sx={{
-                height: 4,
+                height: 'var(--rds-size-xs)',
                 borderRadius: 99,
                 bgcolor: kpi.iconBg,
                 '& .MuiLinearProgress-bar': {
@@ -418,30 +419,27 @@ export default function DashboardPage() {
         ))}
       </Box>
 
-      {/* Two-column row: Activity + Quick Stats */}
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', lg: '1fr 320px' },
+          gridTemplateColumns: { xs: '1fr', lg: '1fr var(--rds-dashboard-aside-width)' },
           gap: 2.5,
         }}
       >
-        {/* Recent activity */}
         <Box
           sx={{
             bgcolor: 'background.paper',
-            border: '1px solid var(--rds-divider)',
+            border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
             borderRadius: 'var(--rds-border-radius-md)',
             overflow: 'hidden',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+            boxShadow: 'var(--rds-elevation-1)',
           }}
         >
-          {/* Section header */}
           <Box
             sx={{
               px: 3,
               py: 2,
-              borderBottom: '1px solid var(--rds-divider)',
+              borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -458,42 +456,42 @@ export default function DashboardPage() {
             <Typography
               variant="caption"
               sx={{
-                color: '#4F46E5',
+                color: COLOR.primary,
                 cursor: 'pointer',
                 fontWeight: 600,
                 px: 1.5,
                 py: 0.5,
                 borderRadius: 1,
-                bgcolor: 'rgba(79,70,229,0.08)',
-                '&:hover': { bgcolor: 'rgba(79,70,229,0.14)' },
-                transition: 'background 0.15s',
+                bgcolor: tint(COLOR.primary, 8),
+                '&:hover': { bgcolor: tint(COLOR.primary, 14) },
+                transition: 'background var(--rds-motion-duration-fast)',
               }}
             >
               View all
             </Typography>
           </Box>
 
-          {/* Activity list */}
           <List disablePadding>
             {ACTIVITY.map((item, i) => (
-              <React.Fragment key={`${item.user}-${i}`}>
+              <Fragment key={`${item.user}-${i}`}>
                 <ListItem
                   sx={{
                     px: 3,
                     py: 1.75,
                     '&:hover': { bgcolor: 'action.hover' },
-                    transition: 'background 0.15s',
+                    transition: 'background var(--rds-motion-duration-fast)',
                   }}
                 >
                   <ListItemAvatar>
                     <Avatar
                       sx={{
-                        width: 38,
-                        height: 38,
+                        width: 'var(--rds-dashboard-icon-box-size)',
+                        height: 'var(--rds-dashboard-icon-box-size)',
                         bgcolor: item.avatarColor,
-                        fontSize: 13,
+                        color: COLOR.white,
+                        fontSize: 'var(--rds-dashboard-label-font-size)',
                         fontWeight: 700,
-                        boxShadow: `0 2px 6px ${item.avatarColor}55`,
+                        boxShadow: `0 var(--rds-spacing-xxs) var(--rds-spacing-compact) ${tint(item.avatarColor, 33)}`,
                       }}
                     >
                       {item.initials}
@@ -502,24 +500,26 @@ export default function DashboardPage() {
                   <ListItemText
                     primary={item.user}
                     secondary={item.action}
-                    primaryTypographyProps={{ variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } }}
-                    secondaryTypographyProps={{ variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } }}
+                    slotProps={{
+                      primary: { variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } },
+                      secondary: { variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } },
+                    }}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 0.75, ml: 2, flexShrink: 0 }}>
                     <Chip
                       label={item.tag}
                       size="small"
                       sx={{
-                        height: 22,
-                        fontSize: 11,
+                        height: 'var(--rds-spacing-22)',
+                        fontSize: 'var(--rds-dashboard-caption-font-size)',
                         fontWeight: 600,
                         bgcolor: TAG_COLORS[item.tag]?.bg ?? 'action.hover',
                         color: TAG_COLORS[item.tag]?.color ?? 'text.primary',
                         border: 'none',
-                        letterSpacing: '0.2px',
+                        letterSpacing: 'var(--rds-dashboard-tag-letter-spacing)',
                       }}
                     />
-                    <Typography variant="caption" sx={{ color: 'text.disabled', whiteSpace: 'nowrap', fontSize: 11 }}>
+                    <Typography variant="caption" sx={{ color: 'text.disabled', whiteSpace: 'nowrap', fontSize: 'var(--rds-dashboard-caption-font-size)' }}>
                       {item.time}
                     </Typography>
                   </Box>
@@ -527,24 +527,22 @@ export default function DashboardPage() {
                 {i < ACTIVITY.length - 1 && (
                   <Divider sx={{ borderColor: 'var(--rds-divider)', mx: 3 }} />
                 )}
-              </React.Fragment>
+              </Fragment>
             ))}
           </List>
         </Box>
 
-        {/* Quick Stats sidebar panel */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-          {/* System health */}
           <Box
             sx={{
               bgcolor: 'background.paper',
-              border: '1px solid var(--rds-divider)',
+              border: 'var(--rds-border-width-thin) solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               overflow: 'hidden',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+              boxShadow: 'var(--rds-elevation-1)',
             }}
           >
-            <Box sx={{ px: 2.5, py: 2, borderBottom: '1px solid var(--rds-divider)' }}>
+            <Box sx={{ px: 2.5, py: 2, borderBottom: 'var(--rds-border-width-thin) solid var(--rds-divider)' }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                 System Health
               </Typography>
@@ -558,10 +556,10 @@ export default function DashboardPage() {
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box
                       sx={{
-                        width: 30,
-                        height: 30,
+                        width: 'var(--rds-spacing-30)',
+                        height: 'var(--rds-spacing-30)',
                         borderRadius: 1.5,
-                        bgcolor: `${stat.color}18`,
+                        bgcolor: stat.iconBg,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -581,34 +579,33 @@ export default function DashboardPage() {
             </Box>
           </Box>
 
-          {/* Goal card */}
           <Box
             sx={{
               p: 2.5,
               borderRadius: 'var(--rds-border-radius-md)',
-              background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-              color: '#fff',
-              boxShadow: '0 4px 20px rgba(79,70,229,0.35)',
+              background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
+              color: COLOR.white,
+              boxShadow: `0 var(--rds-spacing-xs-px) var(--rds-spacing-20-px) ${tint(COLOR.primary, 35)}`,
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5, opacity: 0.9, fontSize: 13 }}>
+            <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5, opacity: 0.9, fontSize: 'var(--rds-dashboard-label-font-size)' }}>
               Monthly Goal
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: '-0.5px' }}>
+            <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: 'var(--rds-dashboard-value-letter-spacing)' }}>
               78%
             </Typography>
             <LinearProgress
               variant="determinate"
               value={78}
               sx={{
-                height: 6,
+                height: 'var(--rds-spacing-compact)',
                 borderRadius: 99,
-                bgcolor: 'rgba(255,255,255,0.25)',
+                bgcolor: tint(COLOR.white, 25),
                 mb: 1.5,
-                '& .MuiLinearProgress-bar': { bgcolor: '#fff', borderRadius: 99 },
+                '& .MuiLinearProgress-bar': { bgcolor: COLOR.white, borderRadius: 99 },
               }}
             />
-            <Typography variant="caption" sx={{ opacity: 0.75, fontSize: 12 }}>
+            <Typography variant="caption" sx={{ opacity: 0.75, fontSize: 'var(--rds-dashboard-chip-font-size)' }}>
               $37,668 of $48,300 target
             </Typography>
           </Box>
@@ -621,12 +618,12 @@ export default function DashboardPage() {
   return (
     <RdsCompAppShell
       displayType={AppShellDisplayType.Default}
-      topbar={topbar}
+      header={topbar}
       sidebar={sidebar}
-      mobileSidebarOpen={isMobile ? mobileSidebarOpen : false}
-      onMobileSidebarToggle={() => {
+      sidebarOpen={isMobile ? mobileSidebarOpen : false}
+      onSidebarOpenChange={(open) => {
         if (isMobile) {
-          setMobileSidebarOpen(open => !open);
+          setMobileSidebarOpen(open);
         }
       }}
     >

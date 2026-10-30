@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTooltip from './rds-tooltip';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tooltip.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -52,7 +54,6 @@ describe('RdsTooltip', () => {
           <button>Hover me</button>
         </RdsTooltip>
       );
-      // Tooltip popper is in portal, check for the wrapped element
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
     });
@@ -66,7 +67,6 @@ describe('RdsTooltip', () => {
       );
       const button = screen.getByRole('button');
       await user.hover(button);
-      // Tooltip popper is rendered in portal
       await waitFor(() => {
         const tooltip = document.querySelector('.rds-tooltip');
         expect(tooltip).toBeInTheDocument();
@@ -170,7 +170,7 @@ describe('RdsTooltip', () => {
     it('should apply top style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="top">
+        <RdsTooltip title="Test" placement="top">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -185,7 +185,7 @@ describe('RdsTooltip', () => {
     it('should apply bottom style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="bottom">
+        <RdsTooltip title="Test" placement="bottom">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -200,7 +200,7 @@ describe('RdsTooltip', () => {
     it('should apply left style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="left">
+        <RdsTooltip title="Test" placement="left">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -215,7 +215,7 @@ describe('RdsTooltip', () => {
     it('should apply right style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="right">
+        <RdsTooltip title="Test" placement="right">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -230,7 +230,7 @@ describe('RdsTooltip', () => {
     it('should handle top-start style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="top-start">
+        <RdsTooltip title="Test" placement="top-start">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -245,7 +245,7 @@ describe('RdsTooltip', () => {
     it('should handle top-end style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="top-end">
+        <RdsTooltip title="Test" placement="top-end">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -260,7 +260,7 @@ describe('RdsTooltip', () => {
     it('should handle bottom-start style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="bottom-start">
+        <RdsTooltip title="Test" placement="bottom-start">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -275,7 +275,7 @@ describe('RdsTooltip', () => {
     it('should handle bottom-end style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="bottom-end">
+        <RdsTooltip title="Test" placement="bottom-end">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -290,7 +290,7 @@ describe('RdsTooltip', () => {
     it('should handle left-start style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="left-start">
+        <RdsTooltip title="Test" placement="left-start">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -305,7 +305,7 @@ describe('RdsTooltip', () => {
     it('should handle left-end style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="left-end">
+        <RdsTooltip title="Test" placement="left-end">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -320,7 +320,7 @@ describe('RdsTooltip', () => {
     it('should handle right-start style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="right-start">
+        <RdsTooltip title="Test" placement="right-start">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -335,7 +335,7 @@ describe('RdsTooltip', () => {
     it('should handle right-end style', async () => {
       const user = userEvent.setup();
       renderWithTheme(
-        <RdsTooltip title="Test" style="right-end">
+        <RdsTooltip title="Test" placement="right-end">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -426,7 +426,6 @@ describe('RdsTooltip', () => {
           <button>Hover me</button>
         </RdsTooltip>
       );
-      // Verify component renders without crashing with multiple classes
       expect(screen.getByText('Hover me')).toBeInTheDocument();
     });
   });
@@ -726,7 +725,7 @@ describe('RdsTooltip', () => {
       renderWithTheme(
         <RdsTooltip
           title="Complete Tooltip"
-          style="right"
+          placement="right"
           arrow={true}
           className="custom-tooltip"
           tooltipStyle={{ maxWidth: '300px' }}
@@ -784,7 +783,7 @@ describe('RdsTooltip', () => {
     it('should handle switching between different styles', async () => {
       const user = userEvent.setup();
       const { rerender, container } = renderWithTheme(
-        <RdsTooltip title="Test" style="top">
+        <RdsTooltip title="Test" placement="top">
           <button>Hover me</button>
         </RdsTooltip>
       );
@@ -805,7 +804,7 @@ describe('RdsTooltip', () => {
       
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsTooltip title="Test" style="bottom">
+          <RdsTooltip title="Test" placement="bottom">
             <button>Hover me</button>
           </RdsTooltip>
         </ThemeProvider>
@@ -966,9 +965,8 @@ describe('RdsTooltip — keyboard navigation', () => {
       </RdsTooltip>
     );
     const trigger = screen.getByRole('button', { name: 'Blur Me' });
-    // Focus to open, wait for open, then blur
     await act(async () => { trigger.focus(); });
-    await waitFor(() => {}, { timeout: 300 }); // let enter delay pass
+    await waitFor(() => {}, { timeout: 300 });
     await act(async () => { trigger.blur(); });
     await waitFor(() => expect(onClose).toHaveBeenCalled());
   });
@@ -983,3 +981,58 @@ describe('RdsTooltip — keyboard navigation', () => {
   });
 });
 
+
+describe('RdsTooltip audit fixes', () => {
+  it('calls onOpen once when the child receives keyboard focus (G2-388)', async () => {
+    const onOpen = jest.fn();
+    renderWithTheme(
+      <RdsTooltip title="Tip" onOpen={onOpen}>
+        <button>Focus me</button>
+      </RdsTooltip>
+    );
+    await userEvent.tab();
+    expect(screen.getByText('Focus me')).toHaveFocus();
+    await waitFor(() => expect(onOpen).toHaveBeenCalled());
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  it('derives the popper class from placement (G2-387)', async () => {
+    renderWithTheme(
+      <RdsTooltip title="Tip" placement="left" open>
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    await waitFor(() => expect(document.querySelector('.rds-tooltip')).toHaveClass('rds-tooltip--left'));
+  });
+
+  it('does not leak the wrapper prop to the DOM (G2-392)', () => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {});
+    renderWithTheme(
+      <RdsTooltip title="Tip" wrapper>
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    expect(error.mock.calls.some(([msg]) => String(msg).includes('wrapper'))).toBe(false);
+    error.mockRestore();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    renderWithTheme(
+      <RdsTooltip label="Old" style="bottom">
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'label', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', '`placement`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', expect.any(String));
+  });
+
+  it('forwards data-testid to the trigger wrapper', () => {
+    renderWithTheme(
+      <RdsTooltip title="Tip" data-testid="help-tooltip">
+        <button>Child</button>
+      </RdsTooltip>,
+    );
+    expect(screen.getByTestId('help-tooltip')).toHaveClass('rds-tooltip__wrapper');
+  });
+});

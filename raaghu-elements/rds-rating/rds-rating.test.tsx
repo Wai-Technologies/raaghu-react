@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRating from './rds-rating';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-rating.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -190,7 +192,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="slider" value={2.5} showValue={true} />
       );
-      const displayValue = container.querySelector('.rds-rating__display-value');
+      const displayValue = container.querySelector('.rds-rating__value');
       expect(displayValue?.textContent).toBeTruthy();
     });
 
@@ -253,6 +255,7 @@ describe('RdsRating', () => {
         <RdsRating type="star" level={4} value={2} />
       );
       expect(container.querySelector('.rds-rating')).toBeInTheDocument();
+      expect(container.querySelectorAll('.MuiRating-iconFilled').length).toBe(8);
     });
   });
 
@@ -282,7 +285,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply multiple style variants together', () => {
@@ -313,11 +316,20 @@ describe('RdsRating', () => {
       expect(container.querySelector('.rds-rating--color-success')).toBeInTheDocument();
     });
 
-    it('should apply danger color variant', () => {
+    it('should apply danger color variant as error and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'color="danger"', '`color: "error"`');
+    });
+
+    it('should apply error color variant', () => {
+      const { container } = renderWithTheme(
+        <RdsRating type="star" color="error" />
+      );
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply warning color variant', () => {
@@ -431,7 +443,6 @@ describe('RdsRating', () => {
     });
 
     it('should be keyboard accessible for stars', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRating type="star" />
       );
@@ -527,7 +538,6 @@ describe('RdsRating', () => {
     });
 
     it('should support keyboard navigation in stars', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRating type="star" />
       );
@@ -669,7 +679,6 @@ describe('RdsRating', () => {
         <RdsRating type="star" label="" />
       );
       const label = container.querySelector('.rds-rating__label');
-      // Empty string label should still render element
       if (label) {
         expect(label.textContent).toBe('');
       }
@@ -726,5 +735,66 @@ describe('RdsRating', () => {
     it('should have correct displayName', () => {
       expect(RdsRating.displayName).toBe('RdsRating');
     });
+  });
+});
+describe('audit fixes', () => {
+  it('merges consumer className onto the star rating', () => {
+    const { container } = renderWithTheme(<RdsRating className="custom" />);
+    const stars = container.querySelector('.rds-rating__stars');
+    expect(stars).toHaveClass('custom');
+  });
+
+  it('forwards slider a11y props and falls back to label', () => {
+    const { container } = renderWithTheme(<RdsRating type="slider" label="Quality" name="q" disabled />);
+    const input = container.querySelector('.MuiSlider-root input') as HTMLInputElement;
+    expect(input).toHaveAttribute('aria-label', 'Quality');
+    expect(input).toHaveAttribute('name', 'q');
+    expect(input).toBeDisabled();
+  });
+
+  it('ignores slider changes when readOnly', () => {
+    const onChange = jest.fn();
+    const { container } = renderWithTheme(<RdsRating type="slider" readOnly onChange={onChange} />);
+    const input = container.querySelector('.MuiSlider-root input') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 5 } });
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('renders custom slider labels', () => {
+    renderWithTheme(<RdsRating type="slider" sliderLabels={['Bad', 'Ok', 'Good']} />);
+    expect(screen.getByText('Bad')).toBeInTheDocument();
+    expect(screen.getByText('Good')).toBeInTheDocument();
+  });
+
+  it('snaps slider to max/2 and max', () => {
+    const { container } = renderWithTheme(<RdsRating type="slider" max={10} value={4} />);
+    expect(container.querySelector('.MuiSlider-root input')).toHaveAttribute('aria-valuenow', '5');
+  });
+
+  it('warns when maxStars is used', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    renderWithTheme(<RdsRating maxStars={4} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'maxStars', '`max`');
+  });
+});
+
+describe('audit fixes', () => {
+  it('applies color and warns for colorVariant', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    const { container } = renderWithTheme(<RdsRating color="success" />);
+    expect(container.querySelector('.rds-rating--color-success')).toBeInTheDocument();
+    renderWithTheme(<RdsRating colorVariant="info" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'colorVariant', '`color`');
+  });
+
+  it('applies variant and defaultValue', () => {
+    const { container } = renderWithTheme(<RdsRating variant="filled" defaultValue={3} />);
+    expect(container.querySelector('.rds-rating--filled')).toBeInTheDocument();
+    expect(container.querySelector('input[value="3"]')).toBeChecked();
+  });
+
+  it('forwards data-testid to the root .rds-rating', () => {
+    renderWithTheme(<RdsRating data-testid="product-rating" />);
+    expect(screen.getByTestId('product-rating')).toHaveClass('rds-rating');
   });
 });

@@ -6,6 +6,14 @@ import RdsSearch from './rds-search';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-search.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -246,15 +254,13 @@ describe('RdsSearch', () => {
       
       const input = screen.getByRole('textbox') as HTMLInputElement;
       
-      // Type 'test' character by character
       await userEvent.type(input, 'test');
       
-      // Verify onChange was called for each character typed
       expect(handleChange).toHaveBeenCalled();
       expect(handleChange).toHaveBeenCalledTimes(4);
-      expect(handleChange).toHaveBeenCalledWith('t');
-      expect(handleChange).toHaveBeenCalledWith('e');
-      expect(handleChange).toHaveBeenCalledWith('s');
+      expect(handleChange).toHaveBeenCalledWith('t', expect.objectContaining({ type: 'change' }));
+      expect(handleChange).toHaveBeenCalledWith('e', expect.objectContaining({ type: 'change' }));
+      expect(handleChange).toHaveBeenCalledWith('s', expect.objectContaining({ type: 'change' }));
     });
 
     it('should update input value', async () => {
@@ -381,7 +387,7 @@ describe('RdsSearch', () => {
       const clearButton = screen.getByLabelText('clear');
       fireEvent.click(clearButton);
       
-      expect(handleChange).toHaveBeenCalledWith('');
+      expect(handleChange).toHaveBeenCalledWith('', expect.anything());
       expect(handleClear).toHaveBeenCalled();
     });
 
@@ -648,8 +654,8 @@ describe('RdsSearch', () => {
       );
       
       const input = screen.getByRole('textbox');
-      await user.tab(); // Focus on search button
-      await user.tab(); // Move to input
+      await user.tab();
+      await user.tab();
       expect(input).toHaveFocus();
     });
 
@@ -938,5 +944,46 @@ describe('RdsSearch', () => {
     it('should have correct displayName', () => {
       expect(RdsSearch.displayName).toBe('RdsSearch');
     });
+  });
+});
+describe('RdsSearch audit fixes', () => {
+  it('links the visible label to the input (G2-206)', () => {
+    render(<RdsSearch value="" onChange={jest.fn()} label="Find user" />);
+    expect(screen.getByLabelText('Find user')).toBe(screen.getByRole('textbox'));
+  });
+
+  it('keeps its own class when a consumer passes className (G2-207)', () => {
+    const { container } = render(<RdsSearch value="" onChange={jest.fn()} className="my-search" />);
+    const field = container.querySelector('.MuiTextField-root');
+    expect(field).toHaveClass('rds-search__input');
+    expect(field).toHaveClass('my-search');
+  });
+
+  it('accepts start/end as icon positions (G2-209)', () => {
+    const { container } = render(<RdsSearch value="" onChange={jest.fn()} iconPosition="end" />);
+    expect(container.querySelector('.MuiInputAdornment-positionEnd [aria-label="search"]')).toBeInTheDocument();
+    expect(container.querySelector('.MuiInputAdornment-positionStart')).not.toBeInTheDocument();
+  });
+
+  it('debounce enables auto search with that delay', async () => {
+    const onSearch = jest.fn();
+    render(<RdsSearch value="" onChange={jest.fn()} onSearch={onSearch} debounce={50} />);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'abc' } });
+    expect(onSearch).not.toHaveBeenCalled();
+    await waitFor(() => expect(onSearch).toHaveBeenCalledWith('abc'));
+  });
+
+  it('warns for deprecated left/right icon positions only', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    warnDeprecatedProp.mockClear();
+    const { rerender } = render(<RdsSearch value="" onChange={jest.fn()} iconPosition="start" />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    rerender(<RdsSearch value="" onChange={jest.fn()} iconPosition="right" />);
+    expect(warnDeprecatedProp).toHaveBeenCalled();
+  });
+
+  it('forwards data-testid to the root .rds-search', () => {
+    render(<RdsSearch value="" onChange={jest.fn()} data-testid="global-search" />);
+    expect(screen.getByTestId('global-search')).toHaveClass('rds-search');
   });
 });

@@ -1,6 +1,6 @@
 import { expect, within } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
+import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator";
 
 const meta: Meta = {
     title: 'Components/Emoji Generator',
@@ -9,7 +9,7 @@ const meta: Meta = {
             status: { type: 'stable' },
         layout: 'padded',
     controls: {
-    exclude: ['onEmojiSelect'],
+    exclude: ['onChange'],
     },
         docs: {
             description: {
@@ -19,26 +19,28 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        Type: {
+        className: { control: 'text', description: 'CSS class applied to the emoji generator root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the emoji generator root.' },
+        ref: { control: false, description: 'React ref to the emoji generator root; assign it in code.' },
+        type: {
             options: Object.values(EmojiGeneratorType),
             control: { type: "select" },
             description: "Type of emoji generator - Default shows full interface, Quick Reactions shows simplified version",
         },
-        Category: {
+        category: {
             options: Object.values(EmojiCategory),
             control: { type: "select" },
             description: "Category of emojis to display",
         },
-        State: {
-            options: Object.values(SkinToneState),
-            control: { type: "select" },
-            description: "State of skin tone selector (Default or Expanded)",
+        skinTonePickerOpen: {
+            control: { type: "boolean" },
+            description: "Keeps the skin tone picker open inline",
         },
-        "Show Skin Tone": {
+        showSkinTone: {
             control: { type: "boolean" },
             description: "Show skin tone selector toggle",
         },
-        "Show Footer": {
+        showFooter: {
             control: { type: "boolean" },
             description: "Show 'What's your mood?' footer section",
         },
@@ -46,7 +48,16 @@ const meta: Meta = {
             control: { type: "number", min: 10, max: 200, step: 10 },
             description: "Maximum number of emojis to display in grid",
         },
-        onEmojiSelect: {
+        flagBaseUrl: {
+            control: { type: "text" },
+            description: "Base URL (folder of 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL.",
+        },
+        quickReactions: {
+            control: { type: "object" },
+            description: "Emojis shown in quick reactions mode, as an array of strings. Defaults to the built-in set.",
+        },
+        variant: { table: { disable: true } },
+        onChange: {
             action: 'emoji-selected',
             description: "Callback when emoji is clicked",
         },
@@ -58,16 +69,15 @@ type Story = StoryObj<typeof RdsCompEmojiGenerator>;
 
 export const Default: Story = {
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
         const btn = canvasElement.querySelector('button');
         expect(btn).toBeTruthy();
     },
     args: {
-        Type: EmojiGeneratorType.Default,
-        Category: EmojiCategory.SmileysAndPeople,
-        "Show Skin Tone": true,
-        "Show Footer": true,
-        State: SkinToneState.Default,
+        type: EmojiGeneratorType.Default,
+        category: EmojiCategory.SmileysAndPeople,
+        showSkinTone: true,
+        showFooter: true,
+        skinTonePickerOpen: false,
         maxEmojis: 80,
     },
     parameters: {
@@ -81,14 +91,18 @@ export const Default: Story = {
 
 export const QuickReactions: Story = {
     args: {
-        Type: EmojiGeneratorType.QuickReactions,
-        Category: EmojiCategory.SmileysAndPeople,
-        "Show Skin Tone": false,
-        "Show Footer": false,
-        State: SkinToneState.Default,
+        type: EmojiGeneratorType.QuickReactions,
+        quickReactions: ["👍", "😊", "😞", "💯", "😎"],
+        category: EmojiCategory.SmileysAndPeople,
+        showSkinTone: false,
+        showFooter: false,
+        skinTonePickerOpen: false,
         maxEmojis: 32,
     },
     parameters: {
+        controls: {
+            exclude: ['onChange', 'category', 'showSkinTone', 'showFooter', 'skinTonePickerOpen', 'maxEmojis'],
+        },
         docs: {
             description: {
                 story: 'A simplified emoji generator for quick reactions. Shows only the category tabs and emoji grid without search or footer text. Perfect for chat applications or quick emoji picking scenarios.',

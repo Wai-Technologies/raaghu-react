@@ -1,14 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompPieChart from './rds-comp-chart-pie';
+import RdsCompPieChart, { type RdsCompPieProps } from './rds-comp-chart-pie';
 import Chart from 'chart.js/auto';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
 
-// Mock Chart.js
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -27,7 +26,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock Chart.getChart
 (Chart as any).getChart = jest.fn(() => null);
 
 const defaultProps = {
@@ -119,7 +117,7 @@ describe('RdsCompPieChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={customOptions} />
+        <RdsCompPieChart {...defaultProps} options={customOptions as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -499,7 +497,7 @@ describe('RdsCompPieChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={null} />
+        <RdsCompPieChart {...defaultProps} options={null as unknown as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -577,7 +575,6 @@ describe('RdsCompPieChart', () => {
       const { rerender, container } = render(
         <RdsCompPieChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompPieChart
@@ -699,7 +696,7 @@ describe('RdsCompPieChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompPieChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompPieChart {...defaultProps} options={optionsWithPlugins as RdsCompPieProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -746,5 +743,38 @@ describe('RdsCompPieChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  beforeEach(() => {
+    ChartMock.mockClear();
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+  });
+  afterEach(() => jest.restoreAllMocks());
+
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompPieChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-pie', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('uses options.radius when the deprecated radius prop is omitted', () => {
+    const { radius: _radius, ...props } = defaultProps;
+    render(<RdsCompPieChart {...props} options={{ radius: '80%' }} />);
+    expect(ChartMock.mock.calls[0][1].options.radius).toBe('80%');
+  });
+
+  it('keeps the radius prop working and warns', () => {
+    render(<RdsCompPieChart {...defaultProps} options={{ radius: '80%' }} radius={120} />);
+    expect(ChartMock.mock.calls[0][1].options.radius).toBe(120);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompPieChart', 'radius', '`options.radius`');
   });
 });

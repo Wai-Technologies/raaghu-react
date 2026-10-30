@@ -12,57 +12,44 @@
   }
 }
 
-// Storybook helper styles (used in stories to avoid inline sx)
 .rds-collapse__story-box {
   border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-background-surface);
-  color: var(--rds-text-primary);
+  color: var(--rds-collapse-story-box-text);
 }
 
 .rds-collapse__story-box--warning {
   background-color: var(--rds-warning-light);
-  color: var(--rds-text-primary);
+  color: var(--rds-collapse-story-box-variant-text);
 }
 
 .rds-collapse__story-box--primary {
   background-color: var(--rds-primary-light);
-  color: var(--rds-text-primary);
+  color: var(--rds-collapse-story-box-variant-text);
 }
 
 .rds-collapse__story-box--secondary {
   background-color: var(--rds-secondary-light);
-  color: var(--rds-text-primary);
+  color: var(--rds-collapse-story-box-variant-text);
 }
 
 .rds-collapse__story-box--success {
   background-color: var(--rds-success-light);
-  color: var(--rds-text-primary);
+  color: var(--rds-collapse-story-box-variant-text);
 }
 
 [data-theme=dark]
 { 
-  .rds-collapse__story-box {
-    background-color: var(--rds-background-surface) !important;
-    color: var(--rds-color-on-surface-dark) !important;
-  }
   .rds-collapse__story-box--warning {
-    background-color: var(--rds-warning-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    * { color: color-mix(in srgb, var(--rds-color-black) 87%, transparent); }
   }
   .rds-collapse__story-box--primary {
-    background-color: var(--rds-primary-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    * { color: color-mix(in srgb, var(--rds-color-black) 87%, transparent); }
   }
   .rds-collapse__story-box--secondary {
-    background-color: var(--rds-secondary-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    * { color: color-mix(in srgb, var(--rds-color-black) 87%, transparent); }
   }
   .rds-collapse__story-box--success {
-    background-color: var(--rds-success-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    * { color: color-mix(in srgb, var(--rds-color-black) 87%, transparent); }
   }
 }

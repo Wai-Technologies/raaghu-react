@@ -1,42 +1,81 @@
-import { Suspense, lazy, useCallback, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
+import { Box, FormHelperText, InputLabel as Label, type SxProps, type Theme } from "@mui/material";
+import type { ComponentType } from "react";
 import clsx from 'clsx';
-import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { sanitizeEditorHtml } from "./sanitize-html";
+
+type DraftWysiwygEditorProps = {
+    editorState: ReturnType<typeof EditorState.createEmpty>;
+    onEditorStateChange: (state: ReturnType<typeof EditorState.createEmpty>) => void;
+    readOnly?: boolean;
+    placeholder?: string;
+    toolbar?: unknown;
+    toolbarClassName?: string;
+    wrapperClassName?: string;
+    editorClassName?: string;
+    editorStyle?: CSSProperties;
+    ariaDescribedBy?: string;
+    ref?: Ref<unknown>;
+};
 
 const Editor = lazy(() =>
     import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
-) as React.ComponentType<any>;
+) as ComponentType<DraftWysiwygEditorProps>;
 import "./rds-comp-text-editor.scss";
 
-export interface RdsCompTextEditorProps {
+export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
+    /** HTML id applied to the editor element. */
     id?: string;
+    /** Called with the sanitized HTML value whenever the editor content changes. */
     onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
+    /** Placeholder text shown when the editor is empty. */
     placeholder?: string;
+    /** Makes the editor non-editable. */
     readOnly?: boolean;
+    /** Controlled HTML content of the editor. */
     value?: string;
+    /** Initial HTML content when `value` is not provided. */
+    defaultValue?: string;
+    /** Label shown above the editor when `showTitle` is true. */
     label?: string;
+    /** @deprecated Use `required` instead. */
     isMandatory?: boolean;
+    /** Marks the field as required. */
+    required?: boolean;
+    /** Applies the error style; falls back to `state === 'Error'` when omitted. */
+    error?: boolean;
+    /** Disables the editor; falls back to `state === 'Disabled'` when omitted. */
+    disabled?: boolean;
+    /** Extra class name applied to the label. */
     labelClass?: string;
-    State?: string;
+    /** Visual state: 'Selected', 'Active', 'Error' or 'Disabled'. */
+    state?: string;
+    /** Applies the active (focused) style. */
+    focused?: boolean;
+    /** Shows the label above the editor. */
     showTitle?: boolean;
+    /** Number of visible text rows used to size the editor. */
     rows?: number;
+    /** Whether the editor can be resized by the user. */
     resizable?: boolean;
+    /** Upload handler for toolbar images. Return a public URL (or data URL). When omitted, files are read as base64 data URLs. */
+    onImageUpload?: (file: File) => Promise<string> | string;
+    /** MUI system styles applied to the root element. */
+    sx?: SxProps<Theme>;
+    /** Ref forwarded to the root element. */
+    ref?: Ref<HTMLDivElement>;
 }
 
-interface DraftContentState {
-    getPlainText(): string;
-}
+type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
 
-interface DraftEditorStateInstance {
-    getCurrentContent(): DraftContentState;
-}
-
-const createEditorStateFromValue = (value?: string, showTitle?: boolean) => {
+const createEditorStateFromValue = (value?: string, showTitle?: boolean): DraftEditorState => {
     if (value) {
-        const contentBlock = htmlToDraft(value);
+        const contentBlock = htmlToDraft(sanitizeEditorHtml(value));
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             return EditorState.createWithContent(contentState);
@@ -54,29 +93,51 @@ const RdsCompTextEditor = ({
     placeholder,
     readOnly,
     value,
+    defaultValue,
     label,
     isMandatory,
+    required,
+    error,
+    disabled,
     labelClass,
-    State,
+    state,
+    focused,
     showTitle,
     rows,
     resizable,
+    onImageUpload,
+    className,
+    sx,
+    ref,
+    ...rest
 }: RdsCompTextEditorProps) => {
-    const [editorState, setEditorState] = useState(() =>
-        createEditorStateFromValue('', false)
+    if (isMandatory !== undefined) warnDeprecatedProp('RdsCompTextEditor', 'isMandatory', '`required`');
+    const isRequired = required ?? isMandatory;
+    const isError = error ?? state === "Error";
+    const isDisabled = disabled ?? state === "Disabled";
+    const uid = useId();
+    const labelId = `${uid}-label`;
+    const errorId = `${uid}-error`;
+
+    const [editorState, setEditorState] = useState<DraftEditorState>(() =>
+        createEditorStateFromValue(value ?? defaultValue, false)
     );
-    const prevValueRef = useRef(value);
-    const prevShowTitleRef = useRef(showTitle);
-    if (value !== prevValueRef.current || showTitle !== prevShowTitleRef.current) {
-        prevValueRef.current = value;
-        prevShowTitleRef.current = showTitle;
-        setEditorState(createEditorStateFromValue(value, showTitle));
+    const [prevValue, setPrevValue] = useState(value);
+    const [prevShowTitle, setPrevShowTitle] = useState(showTitle);
+    const [lastEmitted, setLastEmitted] = useState<string | undefined>(undefined);
+    if (value !== prevValue || showTitle !== prevShowTitle) {
+        setPrevValue(value);
+        setPrevShowTitle(showTitle);
+        if (value !== lastEmitted || showTitle !== prevShowTitle) {
+            setLastEmitted(undefined);
+            setEditorState(createEditorStateFromValue(value, showTitle));
+        }
     }
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<unknown>(null);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
-    const lineHeightVar = "var(--rds-line-height-body, 26px)";
+    const lineHeightVar = "var(--rds-line-height-body)";
     const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
     const isResizable = resizable !== false;
 
@@ -98,24 +159,30 @@ const RdsCompTextEditor = ({
                 uploadEnabled: true,
                 alignmentEnabled: true,
                 uploadCallback: (file: File) =>
-                    new Promise<{ data: { link: string } }>((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve({ data: { link: reader.result as string } });
-                        reader.readAsDataURL(file);
-                    }),
+                    Promise.resolve(
+                        onImageUpload
+                            ? onImageUpload(file)
+                            : new Promise<string>((resolve, reject) => {
+                                const reader = new FileReader();
+                                reader.onload = () => resolve(reader.result as string);
+                                reader.onerror = () => reject(reader.error);
+                                reader.readAsDataURL(file);
+                            }),
+                    ).then((link) => ({ data: { link } })),
                 previewImage: true,
-                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+                inputAccept: "image/gif,image/jpeg,image/jpg,image/png",
                 alt: { present: true, mandatory: false },
             },
         }),
-        [],
+        [onImageUpload],
     );
 
-    const handleEditorChange = useCallback((state: any) => {
+    const handleEditorChange = useCallback((state: DraftEditorState) => {
         setEditorState(state);
         setIsTouch(true);
         if (onChange) {
-            const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
+            const htmlContent = sanitizeEditorHtml(draftToHtml(convertToRaw(state.getCurrentContent())));
+            setLastEmitted(htmlContent);
             onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
         }
     }, [onChange]);
@@ -123,28 +190,35 @@ const RdsCompTextEditor = ({
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
     const stateClass = clsx(
-        State === "Selected" && "rds-comp-text-editor--selected",
-        State === "Error" && "rds-comp-text-editor--error",
-        State === "Active" && "rds-comp-text-editor--active",
-        State === "Disabled" && "rds-comp-text-editor--disabled",
+        state === "Selected" && "rds-comp-text-editor--selected",
+        isError && "rds-comp-text-editor--error",
+        (focused || state === "Active") && "rds-comp-text-editor--active",
+        isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );
 
     return (
         <>
             {showTitle && label && (
-                <Label className={clsx("rds-comp-text-editor-label", labelClass)}>
+                <Label id={labelId} className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
-                    {isMandatory && <span className="text-danger">*</span>}
+                    {isRequired && <span className="rds-comp-text-editor__required" aria-hidden>*</span>}
                 </Label>
             )}
-            <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
+            <Box
+                {...rest}
+                id={id}
+                ref={ref}
+                className={clsx("rds-comp-text-editor", stateClass, className)}
+                sx={sx}
+                {...(showTitle && label ? { role: "group", "aria-labelledby": labelId } : {})}
+            >
                 <Suspense fallback={<div className="rds-comp-text-editor__loading" />}>
                     <Editor
-                        key={placeholder}
                         editorState={editorState}
                         onEditorStateChange={handleEditorChange}
-                        readOnly={readOnly || State === "Disabled"}
+                        readOnly={readOnly || isDisabled}
+                        ariaDescribedBy={isRequired && isEmpty && isTouch ? errorId : undefined}
                         placeholder={placeholder}
                         ref={editorRef}
                         toolbarClassName="rds-comp-text-editor__toolbar"
@@ -154,11 +228,11 @@ const RdsCompTextEditor = ({
                         toolbar={toolbarConfig}
                     />
                 </Suspense>
-            </div>
-            {isMandatory && isEmpty && isTouch && (
-                <div className="form-control-feedback">
-                    <span className="text-danger">{label} is required</span>
-                </div>
+            </Box>
+            {isRequired && isEmpty && isTouch && (
+                <FormHelperText id={errorId} error role="alert" className="rds-comp-text-editor__error">
+                    {label} is required
+                </FormHelperText>
             )}
         </>
     );

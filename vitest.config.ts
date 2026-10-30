@@ -11,8 +11,6 @@ export default defineConfig({
     }),
   ],
   optimizeDeps: {
-    // Pre-scan ALL story files so Vite bundles their deps before the first test
-    // run, preventing mid-test page reloads that kill the vitest browser runner.
     entries: [
       './raaghu-elements/**/*.stories.tsx',
       './raaghu-components/**/*.stories.tsx',
@@ -25,7 +23,6 @@ export default defineConfig({
       'react-dom',
       'storybook/test',
       'storybook/preview-api',
-      // MUI material subpath imports discovered mid-test
       '@mui/material/FormControl',
       '@mui/material/Select',
       '@mui/material/MenuItem',
@@ -36,10 +33,8 @@ export default defineConfig({
       '@mui/material/ListItemText',
       '@mui/material/SvgIcon',
       '@mui/material/Grid',
-      // MUI lab
       '@mui/lab',
       '@mui/lab/Timeline',
-      // MUI icons discovered mid-test
       '@mui/icons-material/Remove',
       '@mui/icons-material/KeyboardArrowDown',
       '@mui/icons-material/SwapVert',
@@ -96,16 +91,12 @@ export default defineConfig({
       '@mui/icons-material/Edit',
       '@mui/icons-material/ThumbUpAlt',
       '@mui/icons-material/ThumbDownAlt',
-      // Chart libraries
       'chart.js',
       'chart.js/auto',
-      // Other discovered deps
       'react-syntax-highlighter/dist/esm/default-highlight',
       'react-syntax-highlighter/dist/esm/styles/hljs',
       'dayjs',
       'dayjs/plugin/customParseFormat',
-      'react-measure',
-      'react-color',
       'react-datepicker',
       'lottie-react',
       '@dnd-kit/core',
@@ -113,9 +104,6 @@ export default defineConfig({
       '@dnd-kit/utilities',
       'react-svg-worldmap',
     ],
-    // These CJS packages use runtime require() for missing/peer deps (immutable,
-    // draft-js). Excluding them prevents Vite's pre-bundle phase from crashing
-    // at test startup. They are loaded on-demand by the browser at story render.
     exclude: [
       'markdown-to-jsx',
       'immutable',

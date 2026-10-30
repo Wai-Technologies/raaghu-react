@@ -3,11 +3,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompTextEditor, { RdsCompTextEditorProps } from './rds-comp-text-editor';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import * as draft from 'draft-js';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-comp-text-editor.scss', () => ({}));
 
-// Mock draft-js
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('draft-js', () => ({
   EditorState: {
     createEmpty: jest.fn(() => ({
@@ -30,7 +32,6 @@ jest.mock('draft-js', () => ({
   convertToRaw: jest.fn(() => ({})),
 }));
 
-// Mock html-to-draftjs
 jest.mock('html-to-draftjs', () => {
   return jest.fn((html) => {
     if (!html) return null;
@@ -40,15 +41,12 @@ jest.mock('html-to-draftjs', () => {
   });
 });
 
-// Mock draftjs-to-html
 jest.mock('draftjs-to-html', () => {
   return jest.fn(() => '<p>Converted HTML</p>');
 });
 
-// Mock react-draft-wysiwyg CSS
 jest.mock('react-draft-wysiwyg/dist/react-draft-wysiwyg.css', () => ({}));
 
-// Mock react-draft-wysiwyg
 jest.mock('react-draft-wysiwyg', () => ({
   Editor: React.forwardRef(({
     editorState,
@@ -77,16 +75,27 @@ jest.mock('react-draft-wysiwyg', () => ({
   )),
 }));
 
-// Mock MUI InputLabel
 jest.mock('@mui/material', () => ({
+  Box: React.forwardRef(({ children, className, sx: _sx, ...props }: any, ref: any) => (
+    <div {...props} ref={ref} className={className}>{children}</div>
+  )),
   InputLabel: ({ children, className }: any) => (
     <label data-testid="input-label" className={className}>
       {children}
     </label>
   ),
+  FormHelperText: ({ children, className, error, id, role }: any) => (
+    <p
+      data-testid="form-helper-text"
+      id={id}
+      role={role}
+      className={[className, error ? 'Mui-error' : ''].filter(Boolean).join(' ')}
+    >
+      {children}
+    </p>
+  ),
 }));
 
-// Helper: render and wait for the editor to finish async loading
 const renderEditor = async (props: RdsCompTextEditorProps) => {
   const result = render(<RdsCompTextEditor {...props} />);
   await screen.findByTestId('draft-editor');
@@ -184,7 +193,7 @@ describe('RdsCompTextEditor', () => {
       await renderEditor({ ...defaultProps, isMandatory: true });
       const asterisk = screen.getByText('*');
       expect(asterisk).toBeInTheDocument();
-      expect(asterisk).toHaveClass('text-danger');
+      expect(asterisk).toHaveClass('rds-comp-text-editor__required');
     });
 
     it('should not render mandatory indicator when isMandatory is false', async () => {
@@ -235,44 +244,50 @@ describe('RdsCompTextEditor', () => {
 
       await waitFor(() => {
         const error = screen.getByText('Required Field is required');
-        expect(error).toHaveClass('text-danger');
+        expect(error).toHaveClass('rds-comp-text-editor__error', 'Mui-error');
       });
     });
   });
 
   describe('State Variants', () => {
+    it('should apply state styles using the lowerCamelCase prop', async () => {
+      await renderEditor({ ...defaultProps, state: 'Selected' });
+      const container = screen.getByTestId('draft-editor').parentElement;
+      expect(container).toHaveClass('rds-comp-text-editor--selected');
+    });
+
     it('should apply selected state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Selected' });
+      await renderEditor({ ...defaultProps, state: 'Selected' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--selected');
     });
 
     it('should apply error state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Error' });
+      await renderEditor({ ...defaultProps, state: 'Error' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--error');
     });
 
     it('should apply active state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Active' });
+      await renderEditor({ ...defaultProps, state: 'Active' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--active');
     });
 
     it('should apply disabled state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, state: 'Disabled' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--disabled');
     });
 
     it('should set readOnly when State is Disabled', async () => {
-      await renderEditor({ ...defaultProps, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, state: 'Disabled' });
       const editor = screen.getByTestId('editor-content');
       expect(editor).toHaveAttribute('data-readonly', 'true');
     });
 
     it('should not apply state class when State is not provided', async () => {
-      await renderEditor({ ...defaultProps, State: undefined });
+      await renderEditor({ ...defaultProps, state: undefined });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).not.toHaveClass('rds-comp-text-editor--selected');
       expect(container).not.toHaveClass('rds-comp-text-editor--error');
@@ -295,7 +310,7 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should be readOnly when State is Disabled regardless of readOnly prop', async () => {
-      await renderEditor({ ...defaultProps, readOnly: false, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, readOnly: false, state: 'Disabled' });
       const editor = screen.getByTestId('editor-content');
       expect(editor).toHaveAttribute('data-readonly', 'true');
     });
@@ -405,7 +420,7 @@ describe('RdsCompTextEditor', () => {
         label: 'Full Label',
         isMandatory: true,
         labelClass: 'custom-label',
-        State: 'Active',
+        state: 'Active',
         showTitle: true,
         rows: 8,
         resizable: true,
@@ -440,7 +455,7 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should combine multiple state classes', async () => {
-      await renderEditor({ ...defaultProps, State: 'Error', resizable: true });
+      await renderEditor({ ...defaultProps, state: 'Error', resizable: true });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container?.className).toContain('rds-comp-text-editor');
       expect(container?.className).toContain('rds-comp-text-editor--error');
@@ -461,7 +476,7 @@ describe('RdsCompTextEditor', () => {
         showTitle: true,
         rows: 8,
         onChange,
-        State: 'Active',
+        state: 'Active',
       });
 
       expect(screen.getByText('Complete Editor')).toBeInTheDocument();
@@ -474,13 +489,13 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should handle state transition from Active to Disabled', async () => {
-      const { rerender } = await renderEditor({ ...defaultProps, State: 'Active' });
+      const { rerender } = await renderEditor({ ...defaultProps, state: 'Active' });
 
       let container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--active');
       expect(container).not.toHaveClass('rds-comp-text-editor--disabled');
 
-      rerender(<RdsCompTextEditor {...defaultProps} State="Disabled" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Disabled" />);
 
       container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--disabled');
@@ -517,16 +532,16 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should handle undefined State prop gracefully', async () => {
-      const { container } = await renderEditor({ ...defaultProps, State: undefined });
+      const { container } = await renderEditor({ ...defaultProps, state: undefined });
       expect(container).toBeInTheDocument();
     });
 
     it('should handle rapid prop changes', async () => {
-      const { rerender } = await renderEditor({ ...defaultProps, State: 'Active' });
+      const { rerender } = await renderEditor({ ...defaultProps, state: 'Active' });
 
-      rerender(<RdsCompTextEditor {...defaultProps} State="Error" />);
-      rerender(<RdsCompTextEditor {...defaultProps} State="Disabled" />);
-      rerender(<RdsCompTextEditor {...defaultProps} State="Selected" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Error" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Disabled" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Selected" />);
 
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--selected');
@@ -539,5 +554,99 @@ describe('RdsCompTextEditor', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     }, 15000);
+  });
+
+  describe('audit fixes', () => {
+    it('G6-105 seeds the editor from value on mount', async () => {
+      await renderEditor({ value: '<p>Hi</p>' });
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).toHaveBeenCalled();
+    });
+
+    it('G6-106 does not rebuild state when value echoes the emitted html', async () => {
+      const { rerender } = await renderEditor({ onChange: jest.fn() });
+      fireEvent.blur(screen.getByTestId('editor-content'));
+      (draft.ContentState.createFromBlockArray as jest.Mock).mockClear();
+      rerender(<RdsCompTextEditor onChange={jest.fn()} value="<p>Converted HTML</p>" />);
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).not.toHaveBeenCalled();
+      rerender(<RdsCompTextEditor onChange={jest.fn()} value="<p>Other</p>" />);
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).toHaveBeenCalled();
+    });
+
+    it('G6-110 error/disabled win over State', async () => {
+      await renderEditor({ state: 'Active', error: true, disabled: true });
+      const c = screen.getByTestId('draft-editor').parentElement;
+      expect(c).toHaveClass('rds-comp-text-editor--error', 'rds-comp-text-editor--disabled');
+      expect(screen.getByTestId('editor-content')).toHaveAttribute('data-readonly', 'true');
+    });
+
+    it('G6-111 required shows the asterisk', async () => {
+      await renderEditor({ ...defaultProps, isMandatory: undefined, required: true });
+      expect(screen.getByText('*')).toBeInTheDocument();
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('G6-111 isMandatory warns', async () => {
+      await renderEditor({ ...defaultProps, isMandatory: true });
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompTextEditor', 'isMandatory', '`required`');
+    });
+
+    it('state applies without a legacy casing alias', async () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
+      await renderEditor({ state: 'Active' });
+      const container = screen.getByTestId('draft-editor').parentElement;
+      expect(container).toHaveClass('rds-comp-text-editor--active');
+      expect(container).not.toHaveClass('rds-comp-text-editor--error');
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('G6-112 wires label and error ids', async () => {
+      await renderEditor({ ...defaultProps, required: true });
+      const group = screen.getByRole('group');
+      expect(group).toHaveAttribute('aria-labelledby');
+      fireEvent.blur(screen.getByTestId('editor-content'));
+      await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Test Label is required'));
+      expect(screen.getByRole('alert')).toHaveAttribute('id');
+    });
+  });
+});
+
+describe('audit fixes focused/defaultValue', () => {
+  it('focused applies the active class', async () => {
+    const { container } = await renderEditor({ label: "L", showTitle: true, focused: true });
+    expect(container.querySelector('.rds-comp-text-editor--active')).toBeInTheDocument();
+  });
+
+  it('defaultValue seeds the editor', async () => {
+    const htmlToDraft = jest.requireMock('html-to-draftjs');
+    htmlToDraft.mockClear();
+    await renderEditor({ defaultValue: '<p>seed</p>' });
+    expect(htmlToDraft).toHaveBeenCalledWith('<p>seed</p>');
+  });
+
+  it('G6-108: sanitizeEditorHtml strips script tags', () => {
+    const { sanitizeEditorHtml } = jest.requireActual('./sanitize-html') as typeof import('./sanitize-html');
+    expect(sanitizeEditorHtml('<p>ok</p><script>alert(1)</script>')).toBe('<p>ok</p>');
+    expect(sanitizeEditorHtml('<img src="javascript:alert(1)">')).not.toContain('javascript:');
+  });
+
+  it('G6-108: onChange emits sanitised HTML', async () => {
+    const draftToHtml = jest.requireMock('draftjs-to-html') as jest.Mock;
+    draftToHtml.mockReturnValueOnce('<p>safe</p><script>x</script>');
+    const onChange = jest.fn();
+    await renderEditor({ onChange });
+    fireEvent.blur(screen.getByTestId('editor-content'));
+    expect(onChange).toHaveBeenCalledWith(
+      '<p>safe</p>',
+      expect.any(Object),
+      'user',
+      expect.any(Object),
+    );
+  });
+});
+
+describe('RdsCompTextEditor style', () => {
+  it('forwards style to the root element', async () => {
+    const { container } = await renderEditor({ style: { opacity: 0.5 } });
+    expect(container.querySelector('.rds-comp-text-editor')).toHaveStyle({ opacity: '0.5' });
   });
 });

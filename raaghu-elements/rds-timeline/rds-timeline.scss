@@ -2,14 +2,31 @@
   display: block;
   position: relative;
 
-  // Focus and disabled states are handled by Material-UI
+  --rds-timeline-separator-min-width: calc(
+    var(--rds-spacing-lg) + var(--rds-spacing-sm) + var(--rds-spacing-xs)
+  );
+
+  &__title {
+    font-weight: var(--rds-font-weight-bold, 700);
+  }
+
+  &__description {
+    margin-top: var(--rds-spacing-xs);
+    color: var(--rds-text-secondary);
+  }
+
+  .MuiTimelineSeparator-root {
+    min-width: var(--rds-timeline-separator-min-width);
+  }
+
+  .MuiTimelineDot-root {
+    align-self: center;
+  }
 }
 
-
-
-.MuiTimeline-root {
+.rds-timeline.MuiTimeline-root {
   .MuiTimelineContent-root {
-    div {
+    .rds-timeline__description {
       color: var(--rds-text-secondary);
     }
   }

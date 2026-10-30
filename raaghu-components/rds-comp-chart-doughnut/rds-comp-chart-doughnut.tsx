@@ -1,102 +1,118 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  chartFont,
-  chartMutedColor,
-  chartTextColor,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-doughnut.scss";
 
-export interface RdsCompDoughnutProps {
-  labels: string[];
+/** Props for {@link RdsCompDoughnutChart}. */
+export interface RdsCompDoughnutProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"doughnut">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"doughnut">;
-  dataSets: ChartDataset<"doughnut">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"doughnut">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** Large text drawn in the centre. */
+  title?: string;
+  /** @deprecated Use `title` instead. */
   titleText?: string;
+  /** Smaller text drawn under the title. */
+  subtitle?: string;
+  /** @deprecated Use `subtitle` instead. */
   subTitleText?: string;
+  /** Accessible label of the chart. Defaults to "Doughnut chart" followed by the title and subtitle text, if any. */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
-const createCenterTextPlugin = (title: string, subTitle: string) => ({
-  id: "counter3",
-  beforeDraw(chart: Chart) {
-    const {
-      ctx: canvasCtx,
-      chartArea: { top, width, height },
-    } = chart;
-    const centerY = top + height / 2;
-    const primaryColor = chartTextColor();
-    const mutedColor = chartMutedColor();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("bold", "xl");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = primaryColor;
-    canvasCtx.fillText(title, width / 2, centerY - 10);
-    canvasCtx.restore();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("medium", "lg");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = mutedColor;
-    canvasCtx.fillText(subTitle, width / 2, centerY + 16);
-    canvasCtx.restore();
-
-    canvasCtx.lineJoin = "round";
-  },
-});
-
 const RdsCompDoughnutChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
-  titleText = "",
-  subTitleText = "",
+  height,
+  width,
+  title,
+  titleText,
+  subtitle,
+  subTitleText,
+  ariaLabel,
   chartLabel,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompDoughnutProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const doughnutCanvas = new Chart(ctx, {
+  if (titleText !== undefined) {
+    warnDeprecatedProp("RdsCompDoughnutChart", "titleText", "`title`");
+  }
+  if (subTitleText !== undefined) {
+    warnDeprecatedProp("RdsCompDoughnutChart", "subTitleText", "`subtitle`");
+  }
+  const centerTitle = title ?? titleText ?? "";
+  const subTitle = subtitle ?? subTitleText ?? "";
+  const resolved = resolveChartData("RdsCompDoughnutChart", data, labels, dataSets);
+  const defaultLabel = ["Doughnut chart:", ...[centerTitle, subTitle].filter(Boolean)];
+  const { canvasRef } = useChart(
+    {
       type: "doughnut",
-      plugins: [createCenterTextPlugin(titleText, subTitleText)],
-      data: chartData,
-      options: chartOptions,
-    });
-
-    doughnutCanvas.canvas.style.width = "66vh";
-    doughnutCanvas.canvas.style.height = "66vh";
-
-    return () => {
-      doughnutCanvas.destroy();
-    };
-  }, [labels, options, dataSets, titleText, subTitleText, themeMode]);
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      themeAxes: [],
+      plugins: [
+        createCenterTextPlugin({
+          id: "counter3",
+          title: centerTitle,
+          subTitle,
+          titleY: ({ top, height }) => top + height / 2 - 10,
+          subTitleY: ({ top, height }) => top + height / 2 + 16,
+          lineJoin: "round",
+        }),
+      ],
+      onCreate: (chart) => {
+        chart.canvas.style.width = "66vh";
+        chart.canvas.style.height = "66vh";
+        applyCanvasSize(chart.canvas, height, width);
+      },
+    },
+    [resolved.labels, options, resolved.datasets, centerTitle, subTitle, height, width]
+  );
 
   return (
-    <div className="rds-comp-chart-doughnut">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-doughnut", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Doughnut chart"}
+        aria-label={resolveChartLabel(
+          "RdsCompDoughnutChart",
+          ariaLabel,
+          chartLabel,
+          defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart"
+        )}
       />
-    </div>
+    </Box>
   );
 };
 

@@ -1,29 +1,28 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-// RDS Tree Structure Component Styles
 .rds-comp-tree-structure {
-  // Base tree structure styles
+  --rds-tree-structure-dim-1: 22px;
+  --rds-tree-structure-dim-2: 25px;
+
   
-  // Tree node container
+  --rds-surface-hover: color-mix(in srgb, var(--rds-color-black) 4%, transparent);
+
   &__node-container {
     position: relative;
   }
   
-  // Tree node
   &__node {
     display: flex;
     align-items: center;
-    margin-bottom: var(--rds-spacing-xs, 5px);
-    padding: var(--rds-spacing-xs, 8px);
+    margin-bottom: var(--rds-spacing-xs);
+    padding: var(--rds-spacing-xs);
     cursor: pointer;
-    border-radius: var(--rds-border-radius-sm, 4px);
-    transition: background-color var(--rds-transition-duration-short, 0.2s) ease;
+    border-radius: var(--rds-border-radius-sm);
+    transition: background-color var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease;
     
-    // Node state modifiers
-    &--hover {
-      &:hover {
-        background-color: var(--rds-primary-light);
-      }
+    &:hover,
+    &:focus-visible {
+      background-color: var(--rds-primary-light);
     }
 
     &--selected {
@@ -31,30 +30,27 @@
     }
   }
   
-  // Node content
   &__node-content {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-xs, 6px);
-    max-height: 22px;
+    padding: var(--rds-spacing-xs);
+    max-height: var(--rds-tree-structure-dim-1);
     flex: 1;
   }
   
-  // Node children container
   &__node-children {
-    margin-left: var(--rds-spacing-lg, 20px);
+    margin-left: var(--rds-spacing-lg);
   }
   
-  // Chevron icon (plain arrow, no boxed border)
   &__chevron {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: auto;
     height: auto;
-    padding: 2px 6px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     cursor: pointer;
-    transition: transform var(--rds-transition-duration-short, 0.2s) ease, color 0.12s ease;
+    transition: transform var(--rds-transition-duration-short, var(--rds-motion-duration-quick)) ease, color var(--rds-tree-structure-color-duration) ease;
     color: var(--rds-text-secondary);
     background: transparent;
     border: none;
@@ -64,8 +60,8 @@
     line-height: 0;
 
     svg {
-      width: 14px;
-      height: 14px;
+      width: var(--rds-size-14);
+      height: var(--rds-size-14);
       display: block;
     }
 
@@ -78,22 +74,20 @@
     }
   }
   
-  // Checkbox container to prevent event bubbling
   &__checkbox-container {
     display: flex;
     align-items: center;
     cursor: default;
-    margin-bottom: var(--rds-spacing-xs, 4px);
+    margin-bottom: var(--rds-spacing-xs);
   }
   
-  // Icons
   &__icon {
-    margin-right: var(--rds-spacing-xs, 8px);
+    margin-right: var(--rds-spacing-xs);
     margin-top: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 20px;
+    min-width: var(--rds-size-20);
     
     &--folder {
       color: var(--rds-warning-main);
@@ -101,8 +95,8 @@
 
       svg,
       svg * {
-        fill: currentColor !important;
-        color: inherit !important;
+        fill: currentColor;
+        color: inherit;
       }
     }
     
@@ -112,24 +106,22 @@
     
     &--circle {
       display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-bottom: var(--rds-spacing-xs, 2px);
+      width: var(--rds-size-12);
+      height: var(--rds-size-12);
+      margin-bottom: var(--rds-spacing-xs);
       background-color: var(--rds-border-default);
       border-radius: var(--rds-border-radius-pill);
     }
   }
   
-  // Node text
   &__text {
-    margin-left: var(--rds-spacing-xs, 2px);
+    margin-left: var(--rds-spacing-xs);
     color: var(--rds-text-primary);
   }
   
-  // Action buttons
   &__actions {
     display: flex;
-    margin-left: var(--rds-spacing-md, 15px);
+    margin-left: var(--rds-spacing-md);
   }
   
   &__action-btn {
@@ -137,44 +129,43 @@
     align-items: center;
     justify-content: center;
     border: 0;
-    border-radius: 6px;
-    padding: 4px;
-    width: 28px;
-    height: 28px;
-    transition: background-color var(--rds-transition-duration-short, 0.15s) ease, color 0.15s ease;
+    border-radius: var(--rds-radius-md);
+    padding: var(--rds-spacing-xs);
+    width: var(--rds-size-28);
+    height: var(--rds-size-28);
+    transition: background-color var(--rds-transition-duration-short, var(--rds-motion-duration-fast)) ease, color var(--rds-motion-duration-fast) ease;
     cursor: pointer;
     background: transparent;
     color: var(--rds-text-secondary);
 
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       color: inherit;
     }
 
     &:hover {
-      background-color: var(--rds-surface-hover, rgba(0,0,0,0.04));
+      background-color: var(--rds-surface-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
       color: var(--rds-text-primary);
     }
   }
 }
 
-// Responsive styles
 @include bp.down(md) {
   .rds-comp-tree-structure {
     &__node {
-      margin-left: calc(-1 * var(--rds-spacing-md, 16px)) !important;
+      margin-left: calc(-1 * var(--rds-spacing-md));
     }
     &__actions {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       align-items: center;
-      margin-left: var(--rds-spacing-xs, 6px);
+      margin-left: var(--rds-spacing-xs);
     }
     &__action-btn {
-      width: 25px;
-      height: 25px;
-      padding: var(--rds-spacing-xxs, 2px);
+      width: var(--rds-tree-structure-dim-2);
+      height: var(--rds-tree-structure-dim-2);
+      padding: var(--rds-spacing-xxs);
       svg {
         width: var(--rds-size-md);
         height: var(--rds-size-md);

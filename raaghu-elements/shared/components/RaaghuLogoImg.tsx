@@ -8,10 +8,8 @@ export interface RaaghuLogoImgProps
 
 export function RaaghuLogoImg({
   alt = 'Raaghu Design System',
-  className,
-  style,
   ...props
 }: RaaghuLogoImgProps) {
   const src = useRaaghuLogoSrc();
-  return <img src={src} alt={alt} className={className} style={style} {...props} />;
+  return <img src={src} alt={alt} {...props} />;
 }

@@ -1,189 +1,95 @@
-
-function getPropsForState(args: any) {
-  const { state, ...rest } = args;
-  switch (state) {
-    case 'comment Thread':
-      return {
-        state,
-        threadTitle: rest.threadTitle,
-        text: rest.text,
-        time: rest.time,
-        meta: rest.meta,
-        translate: rest.translate,
-        imgSrc: rest.imgSrc,
-        imgProps: rest.imgProps,
-        editIcon: rest.editIcon,
-        deleteIcon: rest.deleteIcon,
-        commentThreadName: rest.commentThreadName,
-        score: rest.score,
-        avatarInitials: rest.avatarInitials,
-        yourLogo: rest.yourLogo,
-        editLabel: rest.editLabel,
-        deleteLabel: rest.deleteLabel,
-      };
-    case 'comment Hover':
-      return {
-        state,
-        hoverText: rest.hoverText,
-        hoverTime: rest.hoverTime,
-        hoverMeta: rest.hoverMeta,
-        commentHoverName: rest.commentHoverName,
-        editIcon: rest.editIcon,
-        deleteIcon: rest.deleteIcon,
-        avatarInitials: rest.avatarInitials,
-        editLabel: rest.editLabel,
-        deleteLabel: rest.deleteLabel,
-      };
-    case 'typing':
-      return {
-        state,
-        typingPlaceholderText: rest.typingPlaceholderText,
-        avatarInitials: rest.avatarInitials,
-        mentionUsers: rest.mentionUsers,
-        mentionSearchPlaceholder: rest.mentionSearchPlaceholder,
-        mentionInviteLabel: rest.mentionInviteLabel,
-      };
-    case 'comment Posted':
-      return {
-        state,
-        text: rest.text,
-        time: rest.time,
-        avatarInitials: rest.avatarInitials,
-      };
-    case 'selected':
-      return {
-        state,
-        avatarInitials: rest.avatarInitials,
-      };
-    default:
-      return {
-        state,
-        avatarInitials: rest.avatarInitials,
-      };
-  }
-}
-
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import RdsCommentBox from './rds-comp-comments-box';
 
-const meta: Meta<typeof RdsCommentBox> = {
+const meta = {
   title: 'Components/Comment Box',
   component: RdsCommentBox,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['editIcon', 'deleteIcon'],
+      include: ['avatarInitials', 'placeholderText', 'typingPlaceholderText', 'className', 'sx', 'ref'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    avatarInitials: { control: 'text', description: 'Initials for avatar' },
-    placeholderText: { control: 'text', description: 'Placeholder text for input' },
-    typingPlaceholderText: { control: 'text', description: 'Placeholder text for typing input' },
-    attachmentLabels: { control: 'object', description: 'Labels for attachment dropdown' },
-    mentionInviteLabel: { control: 'text', description: 'Label for mention invite button' },
-    mentionSearchPlaceholder: { control: 'text', description: 'Placeholder for mention search' },
-    mentionUsers: { control: 'object', description: 'User list for mention dropdown' },
-    noImageText: { control: 'text', description: 'Text to show when no image is provided' },
-    score: { control: 'text', description: 'Score for commentThread state' },
-    editLabel: { control: 'text', description: 'Custom label for Edit action' },
-    deleteLabel: { control: 'text', description: 'Custom label for Delete action' },
-    threadTitle: { control: 'text', description: 'Thread title for commentThread state' },
-    text: { control: 'text', description: 'Comment text for commentThread, typing, commentPosted states' },
-    time: { control: 'text', description: 'Time for commentThread state' },
-    hoverText: { control: 'text', description: 'Hover text for commentHover state' },
-    hoverTime: { control: 'text', description: 'Hover time for commentHover state' },
-    hoverMeta: { control: 'text', description: 'Hover meta for commentHover state' },
-    meta: { control: 'text', description: 'Meta info for commentThread state' },
-    translate: { control: 'text', description: 'Translate label for commentThread state' },
-    imgSrc: { control: 'text', description: 'Image source for commentThread state' },
-    imgProps: { control: 'object', description: 'Props for the image element in commentThread state' },
-    editIcon: { control: 'object', description: 'Custom React node for Edit icon in dropdown' },
-    deleteIcon: { control: 'object', description: 'Custom React node for Delete icon in dropdown' },
-    commentHoverName: { control: 'text', description: 'Name to display in commentHover state' },
-    commentThreadName: { control: 'text', description: 'Name to display in commentThread state' },
-    yourLogo: { control: 'text', description: 'Logo for commentThread state' },
+    className: { control: 'text', description: 'CSS class applied to the comment box root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the comment box root.' },
+    ref: { control: false, description: 'React ref to the comment box root; assign it in code.' },
+    state: {
+      control: 'select',
+      options: ['default', 'selected', 'typing', 'comment Posted', 'comment Hover', 'comment Thread'],
+      description: 'Fixed visual state. Omit it for the interactive composer.',
+    },
+    avatarInitials: { control: 'text', description: 'Initials for the avatar' },
+    placeholderText: { control: 'text', description: 'Placeholder text for the comment input' },
+    typingPlaceholderText: { control: 'text', description: 'Placeholder shown while entering a comment' },
+    attachmentLabels: { control: 'object', description: 'Labels for the attachment dropdown' },
+    mentionInviteLabel: { control: 'text', description: 'Label for the mention invite button' },
+    mentionSearchPlaceholder: { control: 'text', description: 'Placeholder for the mention search' },
+    mentionUsers: { control: 'object', description: 'User list for the mention dropdown' },
+    noImageText: { control: 'text', description: 'Text shown when no image is provided' },
+    score: { control: 'text', description: 'Vote score in the comment thread state' },
+    editLabel: { control: 'text', description: 'Label for the Edit action' },
+    deleteLabel: { control: 'text', description: 'Label for the Delete action' },
+    threadTitle: { control: 'text', description: 'Title of the comment thread' },
+    text: { control: 'text', description: 'Comment text in the comment thread state' },
+    time: { control: 'text', description: 'Timestamp in the comment thread state' },
+    hoverText: { control: 'text', description: 'Comment text in the comment hover state' },
+    hoverTime: { control: 'text', description: 'Timestamp in the comment hover state' },
+    hoverMeta: { control: 'text', description: 'Reply metadata in the comment hover state' },
+    meta: { control: 'text', description: 'Reply metadata in the comment thread state' },
+    translate: { control: 'text', description: 'Translate link label in the comment thread state' },
+    imgSrc: { control: 'text', description: 'Preview image in the comment thread state' },
+    imgProps: { control: 'object', description: 'Props for the preview image' },
+    editIcon: { control: false, description: 'Custom icon for the Edit action' },
+    deleteIcon: { control: false, description: 'Custom icon for the Delete action' },
+    commentHoverName: { control: 'text', description: 'Author name in the comment hover state' },
+    commentThreadName: { control: 'text', description: 'Author name in the comment thread state' },
+    yourLogo: { control: 'text', description: 'Avatar image for the reply box in the comment thread state' },
   },
-};
+} satisfies Meta<typeof RdsCommentBox>;
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Default: StoryObj<typeof RdsCommentBox> = {
+export const Default: Story = {
   args: {
-    state: 'default',
-    placeholderText: 'Placeholder',
     avatarInitials: 'RD',
+    placeholderText: 'Add a comment',
   },
-  parameters: {
-    controls: {
-      include: [
-         'avatarInitials'
-      ],
-    },
-  },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
   play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
+    await expect(canvasElement.querySelector('.rds-comments-box--composer')).toBeTruthy();
   },
 };
 
-export const Selected: StoryObj<typeof RdsCommentBox> = {
-  args: {
-    state: 'selected',
-    avatarInitials: 'RD',
-  },
-  parameters: {
-    controls: {
-      include: [ 'avatarInitials', ],
-    },
-  },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+export const Selected: Story = {
+  args: { state: 'selected', avatarInitials: 'RD' },
+  parameters: { controls: { include: ['avatarInitials', 'placeholderText'] } },
 };
 
-export const Typing: StoryObj<typeof RdsCommentBox> = {
+export const Typing: Story = {
   args: {
     state: 'typing',
     typingPlaceholderText: 'Placeholder',
-    avatarInitials: 'RD', 
+    avatarInitials: 'RD',
     mentionUsers: ['John Doe', 'Harry Cane', 'Romella', 'Jackson', 'Stephen'],
     attachmentLabels: { computer: 'Computer', googleDrive: 'Google Drive', oneDrive: 'One Drive' },
   },
-  parameters: {
-    controls: {
-      include: ['typingPlaceholderText', 'avatarInitials'],
-    },
-  },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  parameters: { controls: { include: ['typingPlaceholderText', 'avatarInitials'] } },
 };
 
-export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
-  args: {
-    state: 'comment Posted',
-    avatarInitials: 'RD',
-  },
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        story:
-          'Comment Posted state — floating 38×42 hug avatar with unread badge at top-right (matches Figma Commentbox State=Comment Posted, Type=Floating).',
-      },
-    },
-    controls: {
-      include: ['avatarInitials'],
-    },
-  },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+export const CommentPosted: Story = {
+  args: { state: 'comment Posted', avatarInitials: 'RD' },
+  parameters: { controls: { include: ['avatarInitials'] } },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.rds-comments-box--posted')).toBeTruthy();
-    await expect(canvasElement.querySelector('.rds-avatar__dot--top, .rds-comments-box__dot')).toBeTruthy();
+    await expect(canvasElement.querySelector('.rds-comments-box__dot')).toBeTruthy();
   },
 };
 
-export const CommentHover: StoryObj<typeof RdsCommentBox> = {
+export const CommentHover: Story = {
   args: {
     state: 'comment Hover',
     hoverText: 'This is the sample text...',
@@ -195,34 +101,15 @@ export const CommentHover: StoryObj<typeof RdsCommentBox> = {
     deleteLabel: 'Delete',
   },
   parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        story:
-          'Comment Hover state — white card with avatar, author, timestamp, pin/more actions, body text, and reply metadata (matches Figma Commentbox State=Comment Hover).',
-      },
-    },
-    controls: {
-      include: [
-        'hoverText',
-        'hoverTime',
-        'hoverMeta',
-        'commentHoverName',
-        'avatarInitials',
-        'editLabel',
-        'deleteLabel',
-      ],
-    },
+    controls: { include: ['hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'] },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.rds-comments-box--hover')).toBeTruthy();
     await expect(canvasElement.textContent).toContain('Renne Doe');
-    await expect(canvasElement.textContent).toContain('This is the sample text...');
   },
 };
 
-export const CommentThread: StoryObj<typeof RdsCommentBox> = {
+export const CommentThread: Story = {
   args: {
     state: 'comment Thread',
     threadTitle: 'Comment',
@@ -236,33 +123,16 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     score: '00',
     avatarInitials: 'RD',
     yourLogo: '/assets/your-logo.png',
-    editIcon: null,
-    deleteIcon: null,
     editLabel: 'Edit',
     deleteLabel: 'Delete',
   },
   parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        story:
-          'Comment Thread state — floating white card (~416×453 hug) with header actions, vote score, author row, preview image, meta/Translate, and reply input (matches Figma Commentbox State=Commentbox Thread, Type=Floating).',
-      },
-    },
     controls: {
-      include: [
-        'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
-      ],
+      include: ['threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.rds-comments-box--thread')).toBeTruthy();
-    await expect(canvasElement.textContent).toContain('Comment');
     await expect(canvasElement.textContent).toContain('Renne Doe');
-    await expect(canvasElement.textContent).toContain('This is the sample text...');
   },
 };
-
-
-

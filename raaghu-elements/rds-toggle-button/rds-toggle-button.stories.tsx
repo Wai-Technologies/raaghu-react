@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect, userEvent, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {FormatBold,FormatItalic,FormatUnderlined,FormatAlignLeft,FormatAlignCenter,FormatAlignRight,FormatAlignJustify,ViewList,ViewModule,ViewQuilt,Check,PhoneAndroid,Laptop,Tablet} from '@mui/icons-material';
 import RdsToggleButton, { RdsStandaloneToggleButton } from './rds-toggle-button';
@@ -51,7 +50,7 @@ const meta: Meta<typeof RdsToggleButton> = {
       control: { type: 'number' },
       description: 'Sets the spacing between toggle buttons.',
     },
-    enforceSelected: {
+    required: {
       control: { type: 'boolean' },
       description: 'Enforces that at least one toggle button must be selected.',
     }
@@ -141,14 +140,14 @@ ExclusiveSelection.parameters = {
 export const EnforceValueSet: Story = {
   args: {
     options: deviceOptions,
-    enforceSelected: true,
+    required: true,
     color: 'primary',
     defaultValue: 'laptop',
   },
   parameters: {
     docs: {
       description: {
-        story: 'Ensures at least one toggle button must always be selected. Try clicking on the selected button - it will not deselect. The component handles this behavior internally with the enforceSelected prop.',
+        story: 'Ensures at least one toggle button must always be selected. Try clicking on the selected button - it will not deselect. The component handles this behavior internally with the required prop.',
       },
     },
   }

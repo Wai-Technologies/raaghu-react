@@ -1,18 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompToolbar, {
   ToolbarLayout,
   ToolbarType,
-  ToolbarState,
   RdsCompToolbarProps,
 } from './rds-comp-toolbar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
 
-// Mock the toolbar config data and ToolbarButton component
 jest.mock('./rds-comp-toolbar-config-data', () => ({
   getToolbarConfig: jest.fn(() => ({
     sections: [
@@ -55,16 +52,17 @@ jest.mock('./rds-comp-toolbar-config-data', () => ({
 }));
 
 jest.mock('./rds-comp-toolbar-config', () => ({
-  ToolbarButton: ({ 
-    icon, 
-    action, 
-    hasDropdown, 
-    ariaLabel, 
-    isActive, 
-    isDisabled, 
+  ToolbarButton: ({
+    icon,
+    action,
+    hasDropdown,
+    ariaLabel,
+    className,
+    isActive,
+    disabled,
     dropdownAction,
     onClick,
-    onDropdownSelect 
+    onDropdownSelect
   }: any) => {
     const isDropdownOpen = Boolean(hasDropdown && dropdownAction === action);
     return (
@@ -73,10 +71,11 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       data-action={action}
       data-has-dropdown={hasDropdown}
       data-is-active={isActive}
-      data-is-disabled={isDisabled}
+      data-is-disabled={disabled}
       data-is-dropdown-open={isDropdownOpen}
+      className={className}
       aria-label={ariaLabel}
-      onClick={isDisabled ? undefined : onClick}
+      onClick={disabled ? undefined : onClick}
     >
       {icon}
       {hasDropdown && isDropdownOpen && (
@@ -90,7 +89,6 @@ jest.mock('./rds-comp-toolbar-config', () => ({
   },
 }));
 
-// Mock MUI Icons (not fully needed since we're mocking ToolbarButton)
 jest.mock('@mui/icons-material', () => ({
   FormatBold: () => <span>Bold</span>,
   FormatItalic: () => <span>Italic</span>,
@@ -122,7 +120,6 @@ jest.mock('@mui/icons-material', () => ({
   Highlight: () => <span>Highlight</span>,
 }));
 
-// Mock emoji generator
 jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   return function MockEmojiGenerator() {
     return <div data-testid="emoji-generator">Emoji Generator</div>;
@@ -133,7 +130,7 @@ describe('RdsCompToolbar', () => {
   const defaultProps: RdsCompToolbarProps = {
     layout: ToolbarLayout.Primary,
     type: ToolbarType.FullFeatured,
-    state: ToolbarState.On,
+
   };
 
   describe('Basic Rendering', () => {
@@ -251,38 +248,15 @@ describe('RdsCompToolbar', () => {
     });
   });
 
-  describe('State Variants', () => {
-    it('should apply On state class', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.On} />);
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+  describe('Disabled prop', () => {
+    it('applies disabled styling when disabled', () => {
+      render(<RdsCompToolbar {...defaultProps} disabled />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--disabled');
     });
 
-    it('should apply Off state class', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.Off} />);
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--off');
-    });
-
-    it('should apply DisabledOn state class', () => {
+    it('should disable buttons when disabled', () => {
       render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
-      );
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
-    });
-
-    it('should apply DisabledOff state class', () => {
-      render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOff} />
-      );
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-off');
-    });
-
-    it('should disable buttons when state is DisabledOn', () => {
-      render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
       const buttons = screen.getAllByTestId(/toolbar-button-/);
       buttons.forEach((button) => {
@@ -290,8 +264,8 @@ describe('RdsCompToolbar', () => {
       });
     });
 
-    it('should not disable buttons when state is On', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.On} />);
+    it('should not disable buttons when enabled', () => {
+      render(<RdsCompToolbar {...defaultProps} disabled={false} />);
       const buttons = screen.getAllByTestId(/toolbar-button-/);
       buttons.forEach((button) => {
         expect(button).toHaveAttribute('data-is-disabled', 'false');
@@ -329,7 +303,7 @@ describe('RdsCompToolbar', () => {
 
     it('should not toggle format when disabled', () => {
       render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
       const boldButton = screen.getByTestId('toolbar-button-bold');
 
@@ -435,7 +409,7 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           {...defaultProps}
-          state={ToolbarState.DisabledOn}
+          disabled={true}
           onAction={onAction}
         />
       );
@@ -443,7 +417,6 @@ describe('RdsCompToolbar', () => {
 
       fireEvent.click(boldButton);
 
-      // OnAction is still called even for disabled, it just doesn't toggle format
       expect(onAction).not.toHaveBeenCalled();
     });
   });
@@ -483,7 +456,7 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           type={ToolbarType.FullFeatured}
-          state={ToolbarState.On}
+          disabled={false}
         />
       );
       const toolbar = screen.getByRole('toolbar');
@@ -494,14 +467,14 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
-          state={ToolbarState.On}
+          disabled={false}
         />
       );
       const toolbar = screen.getByRole('toolbar');
       expect(toolbar).toHaveClass('rds-comp-toolbar--full-featured');
     });
 
-    it('should use default state of On', () => {
+    it('should not apply a disabled class by default', () => {
       render(
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
@@ -509,7 +482,7 @@ describe('RdsCompToolbar', () => {
         />
       );
       const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
     });
 
     it('should use default empty className', () => {
@@ -533,7 +506,6 @@ describe('RdsCompToolbar', () => {
       const sections = container.querySelectorAll('.rds-comp-toolbar__section');
       const dividers = container.querySelectorAll('.rds-comp-toolbar__divider');
       
-      // Number of dividers should be sections - 1 for primary layout
       if (sections.length > 1) {
         expect(dividers.length).toBe(sections.length - 1);
       }
@@ -547,7 +519,7 @@ describe('RdsCompToolbar', () => {
         <RdsCompToolbar
           layout={ToolbarLayout.Secondary}
           type={ToolbarType.InlineEditor}
-          state={ToolbarState.On}
+          disabled={false}
           onAction={onAction}
           className="custom-toolbar"
           data-testid="full-toolbar"
@@ -557,7 +529,7 @@ describe('RdsCompToolbar', () => {
       const toolbar = screen.getByTestId('full-toolbar');
       expect(toolbar).toHaveClass('rds-comp-toolbar--secondary');
       expect(toolbar).toHaveClass('rds-comp-toolbar--inline-editor');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
       expect(toolbar).toHaveClass('custom-toolbar');
     });
 
@@ -567,7 +539,7 @@ describe('RdsCompToolbar', () => {
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
           type={ToolbarType.FullFeatured}
-          state={ToolbarState.DisabledOn}
+          disabled={true}
           onAction={onAction}
           className="disabled-toolbar"
         />
@@ -576,7 +548,7 @@ describe('RdsCompToolbar', () => {
       const toolbar = screen.getByRole('toolbar');
       const buttons = screen.getAllByTestId(/toolbar-button-/);
 
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
+      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled');
       buttons.forEach((button) => {
         expect(button).toHaveAttribute('data-is-disabled', 'true');
       });
@@ -599,18 +571,18 @@ describe('RdsCompToolbar', () => {
 
     it('should handle state changes', () => {
       const { rerender } = render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.On} />
+        <RdsCompToolbar {...defaultProps} disabled={false} />
       );
 
       let toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
 
       rerender(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
 
       toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
+      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled');
     });
 
     it('should handle layout changes', () => {
@@ -706,6 +678,70 @@ describe('RdsCompToolbar', () => {
       );
       const rows = container.querySelectorAll('.rds-comp-toolbar__row');
       expect(rows.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Audit fixes', () => {
+    it('disables buttons for DisabledOff, and disabled wins over state', () => {
+      const { rerender } = render(<RdsCompToolbar {...defaultProps} disabled={true} />);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'true');
+      rerender(<RdsCompToolbar {...defaultProps} disabled={false} />);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'false');
+    });
+
+    it('supports controlled value with onChange', () => {
+      const onChange = jest.fn();
+      render(<RdsCompToolbar {...defaultProps} value={['italic']} onChange={onChange} />);
+      expect(screen.getByTestId('toolbar-button-italic')).toHaveAttribute('data-is-active', 'true');
+      fireEvent.click(screen.getByTestId('toolbar-button-bold'));
+      expect(onChange).toHaveBeenCalledWith(['italic', 'bold']);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-active', 'false');
+    });
+
+    it('calls onOptionSelect with the parent action and the value', () => {
+      const onAction = jest.fn();
+      const onOptionSelect = jest.fn();
+      render(<RdsCompToolbar {...defaultProps} onAction={onAction} onOptionSelect={onOptionSelect} />);
+      fireEvent.click(screen.getByTestId('toolbar-button-color'));
+      fireEvent.click(screen.getByText('Option 1'));
+      expect(onOptionSelect).toHaveBeenCalledWith('color', 'option1');
+      expect(onAction).toHaveBeenCalledWith('option1');
+    });
+
+    it('renders custom items and forwards ref', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <RdsCompToolbar
+          {...defaultProps}
+          ref={ref}
+          items={[[{ icon: 'x', action: 'custom', ariaLabel: 'Custom', options: [{ label: 'A', value: 'a' }] }]]}
+        />
+      );
+      expect(screen.getByTestId('toolbar-button-custom')).toHaveAttribute('data-has-dropdown', 'true');
+      expect(screen.queryByTestId('toolbar-button-bold')).not.toBeInTheDocument();
+      expect(ref.current).toBe(screen.getByRole('toolbar'));
+    });
+
+    it('applies per-button className from config (Undo/Redo muted)', () => {
+      render(
+        <RdsCompToolbar
+          {...defaultProps}
+          items={[[{ icon: 'u', action: 'undo', ariaLabel: 'Undo', className: 'rds-comp-toolbar__button--muted' }]]}
+        />
+      );
+      expect(screen.getByTestId('toolbar-button-undo')).toHaveClass('rds-comp-toolbar__button--muted');
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('variant is an alias of layout', () => {
+      render(<RdsCompToolbar variant="secondary" />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--secondary');
+    });
+
+    it('preset is an alias of type', () => {
+      render(<RdsCompToolbar preset="misc" />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--misc');
     });
   });
 });

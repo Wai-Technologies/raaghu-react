@@ -1,10 +1,17 @@
 .rds-menu {
+  --rds-menu-dim-1: 1px;
+  --rds-menu-dim-2: 225px;
+  --rds-menu-dim-3: 260px;
+  --rds-menu-dim-4: 340px;
+
+  --rds-menu-header-font-weight: var(--rds-font-weight-semibold);
+
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
     background: var(--rds-background-paper);
-    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
-    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: var(--rds-elevation-3);
+    border-radius: var(--rds-border-radius-sm);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -12,9 +19,9 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
     padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     min-height: var(--rds-menu-item-min-height);
     cursor: pointer;
     transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
@@ -26,7 +33,6 @@
     box-sizing: border-box;
     outline: none;
     position: relative;
-    // Collapse MUI ListItemText default vertical margins that inflate row height
     .MuiListItemText-root {
       margin-top: 0;
       margin-bottom: 0;
@@ -50,11 +56,9 @@
       justify-content: center;
       flex-shrink: 0;
       line-height: 0;
-      // Override MUI ListItemIcon default 56px min-width (causes large icon→text gap)
-      min-width: auto !important;
-      margin-right: 0 !important;
+      min-width: auto;
+      margin-right: 0;
 
-      // Constrain avatar chrome so wrap padding does not inflate the row
       .rds-avatar,
       .rds-avatar--with-name,
       .rds-avatar__avatar-outer,
@@ -66,14 +70,13 @@
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.25rem;
+        font-size: var(--rds-font-size-xl);
       }
 
-      // Keep avatars aligned with standard menu icon scale
       .rds-avatar .MuiAvatar-root {
-        width: 1.25rem !important;
-        height: 1.25rem !important;
-        font-size: 0.5625rem !important;
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: var(--rds-font-size-3xs);
       }
     }
     &__text {
@@ -95,21 +98,21 @@
   &--small {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-small);
-      max-width: 225px;
+      max-width: var(--rds-menu-dim-2);
     }
     .rds-menu__item {
-      font-size: 0.80rem;
+      font-size: var(--rds-menu-item-font-size-sm);
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1rem !important;
-      height: 1rem !important;
-      font-size: 0.5rem !important;
+      width: 1rem;
+      height: 1rem;
+      font-size: var(--rds-menu-avatar-font-size);
     }
     .rds-menu__header {
       font-size: 0.85em;
@@ -120,21 +123,21 @@
   &--medium {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-medium);
-      max-width: 260px;
+      max-width: var(--rds-menu-dim-3);
     }
     .rds-menu__item {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
       min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.25rem;
+      font-size: var(--rds-font-size-xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1.25rem !important;
-      height: 1.25rem !important;
-      font-size: 0.5625rem !important;
+      width: 1.25rem;
+      height: 1.25rem;
+      font-size: var(--rds-font-size-3xs);
     }
     .rds-menu__header {
       font-size: 0.98em;
@@ -145,21 +148,21 @@
   &--large {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-large);
-      max-width: 340px;
+      max-width: var(--rds-menu-dim-4);
     }
     .rds-menu__item {
-      font-size: 1.0625rem;
+      font-size: var(--rds-menu-item-font-size-lg);
       min-height: 2.75rem;
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) var(--rds-spacing-lg);
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.5rem;
+      font-size: var(--rds-font-size-2xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1.5rem !important;
-      height: 1.5rem !important;
-      font-size: 0.6875rem !important;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: var(--rds-font-size-2xs);
     }
     .rds-menu__header {
       font-size: 1.05em;
@@ -176,10 +179,10 @@
     letter-spacing: var(--rds-menu-letter-spacing);
     text-transform: uppercase;
     background: var(--rds-background-default);
-    border-bottom: 1px solid var(--rds-border-light);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-light);
   }
   &__divider {
-    height: 1px;
+    height: var(--rds-menu-dim-1);
     background: var(--rds-neutral-300);
     margin: var(--rds-spacing-xs) 0;
     border: none;
@@ -192,7 +195,7 @@
   &--enter-active {
     opacity: 1;
     transform: scale(1) translateY(0);
-    transition: opacity 120ms, transform 120ms;
+    transition: opacity var(--rds-menu-enter-duration), transform var(--rds-menu-enter-duration);
   }
   &--exit {
     opacity: 1;
@@ -200,14 +203,14 @@
   &--exit-active {
     opacity: 0;
     transform: scale(0.9) translateY(-8px);
-    transition: opacity 80ms, transform 80ms;
+    transition: opacity var(--rds-menu-exit-duration), transform var(--rds-menu-exit-duration);
   }
 
 }
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
   }
 
   .rds-menu__item {
@@ -218,9 +221,9 @@
     color: var(--rds-text-disabled);
   }
   .rds-menu__header {
-    color: var(--rds-neutral-200, #ccc);
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e));
-    border-bottom: 1px solid var(--rds-border-default);
+    color: var(--rds-neutral-200);
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
   }
 
   .rds-menu__divider {
@@ -239,21 +242,18 @@
     fill: var(--rds-neutral-0);
   }
 
-  /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
-    color: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0);
   }
 
-  /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
-    color: var(--rds-neutral-0, #fff) !important;
-    fill: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0);
+    fill: var(--rds-neutral-0);
   }
 
-  /* MuiPaper that wraps the dropdown */
   .rds-menu .MuiPaper-root {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,
@@ -261,8 +261,8 @@
   .rds-menu__item .rds-menu__item__icon--danger svg,
   .rds-menu__item .rds-menu__item__icon--info svg,
   .rds-menu__item .rds-menu__item__icon--warning svg {
-    color: inherit !important;
-    fill: currentColor !important;
+    color: inherit;
+    fill: currentColor;
   }
 
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,

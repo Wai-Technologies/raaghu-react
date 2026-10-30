@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
 import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-select.scss');
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -80,24 +79,24 @@ describe('RdsSelect', () => {
   });
 
   describe('Label Rendering', () => {
-    it('should render label when labelposition=true', () => {
+    it('should render label when labelPosition=true', () => {
       renderWithTheme(
         <RdsSelect 
           label="Select Option" 
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const labels = screen.getAllByText('Select Option');
       expect(labels.length).toBeGreaterThan(0);
     });
 
-    it('should render label when labelposition=false', () => {
+    it('should render label when labelPosition=false', () => {
       renderWithTheme(
         <RdsSelect 
           label="Select Option" 
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           inputPlaceholder="Choose..."
         />
       );
@@ -119,7 +118,7 @@ describe('RdsSelect', () => {
           label="Required Field" 
           options={mockOptions}
           isRequired={true}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const asterisk = container.querySelector('[aria-hidden="true"]');
@@ -132,7 +131,7 @@ describe('RdsSelect', () => {
           label="Optional Field" 
           options={mockOptions}
           isRequired={false}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const asterisks = container.querySelectorAll('[aria-hidden="true"]');
@@ -153,12 +152,12 @@ describe('RdsSelect', () => {
       expect(selectCombobox).toBeInTheDocument();
     });
 
-    it('should show inputPlaceholder with labelposition=false', () => {
+    it('should show inputPlaceholder with labelPosition=false', () => {
       renderWithTheme(
         <RdsSelect 
           inputPlaceholder="Pick one"
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           value=""
         />
       );
@@ -172,7 +171,7 @@ describe('RdsSelect', () => {
           placeholder="Placeholder"
           inputPlaceholder="InputPlaceholder"
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           value=""
         />
       );
@@ -477,7 +476,7 @@ describe('RdsSelect', () => {
         <RdsSelect 
           label="Select Option"
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const labels = screen.getAllByText('Select Option');
@@ -533,7 +532,7 @@ describe('RdsSelect', () => {
         <RdsSelect 
           label="Test Label"
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       
@@ -545,7 +544,7 @@ describe('RdsSelect', () => {
           <RdsSelect 
             label="Test Label"
             options={mockOptions}
-            labelposition={false}
+            labelPosition={false}
             inputPlaceholder="Choose..."
           />
         </ThemeProvider>
@@ -597,7 +596,6 @@ describe('RdsSelect', () => {
         />
       );
       
-      // Verify initial option exists
       const selects = container.querySelectorAll('.rds-select__field');
       expect(selects.length).toBeGreaterThan(0);
       
@@ -610,7 +608,6 @@ describe('RdsSelect', () => {
         </ThemeProvider>
       );
       
-      // Open dropdown and verify new options are available
       const selectCombobox = screen.getByRole('combobox');
       fireEvent.mouseDown(selectCombobox);
       
@@ -795,7 +792,7 @@ describe('RdsSelect', () => {
           size="medium"
           className="custom"
           value="option1"
-          labelposition={true}
+          labelPosition={true}
         />
       );
       
@@ -875,5 +872,86 @@ describe('RdsSelect — keyboard navigation', () => {
     select.focus();
     await userEvent.keyboard(' ');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+});
+describe('audit fixes', () => {
+  const opts: RdsSelectOption[] = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+  ];
+  const wrap = (ui: React.ReactElement) => render(<ThemeProvider theme={createTheme()}>{ui}</ThemeProvider>);
+
+  it('renders all selected labels for multiple (G2-215)', () => {
+    wrap(<RdsSelect options={opts} label="L" labelPosition={false} multiple value={['option1', 'option2']} onChange={jest.fn()} />);
+    expect(screen.getByRole('combobox')).toHaveTextContent('Option 1, Option 2');
+  });
+
+  it('associates the label with the select (G2-216)', () => {
+    wrap(<RdsSelect options={opts} label="Pick" labelPosition={false} value="" />);
+    expect(screen.getByRole('combobox')).toHaveAccessibleName(/Pick/);
+  });
+
+  it('supports placeholder and deprecated inputPlaceholder (G2-218)', () => {
+    wrap(<RdsSelect options={opts} label="L" labelPosition={false} inputPlaceholder="Old" value="" />);
+    expect(screen.getByText('Old')).toBeInTheDocument();
+  });
+
+  it('keeps floating label shrunk when placeholder is set so they do not overlap', () => {
+    wrap(
+      <RdsSelect
+        options={opts}
+        label="Select Option"
+        placeholder="Please select..."
+        labelPlacement="floating"
+        value=""
+      />,
+    );
+    const floatingLabel = document.querySelector('.rds-select__input-label');
+    expect(floatingLabel).toHaveClass('MuiInputLabel-shrink');
+    expect(screen.getByText('Please select...')).toBeInTheDocument();
+  });
+
+  it('sets aria-required for required and isRequired (G2-219/220)', () => {
+    const { unmount } = wrap(<RdsSelect options={opts} label="L" labelPosition={false} required value="" />);
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+    unmount();
+    wrap(<RdsSelect options={opts} label="L" labelPosition={false} isRequired value="" />);
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+    expect(screen.getAllByText('*')).toHaveLength(1);
+  });
+
+  it('shows error and helperText, and deprecated errorMessage still works', () => {
+    const { unmount } = wrap(<RdsSelect options={opts} label="L" error helperText="Pick one" value="" />);
+    expect(screen.getByText('Pick one')).toBeInTheDocument();
+    expect(document.querySelector('.rds-select--error')).toBeInTheDocument();
+    const field = document.querySelector('.rds-select__field');
+    const helper = document.querySelector('.rds-select__helper-text');
+    expect(field).toBeTruthy();
+    expect(helper).toBeTruthy();
+    expect(field!.compareDocumentPosition(helper!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    unmount();
+    wrap(<RdsSelect options={opts} label="L" errorMessage="Old error" value="" />);
+    expect(screen.getByText('Old error')).toBeInTheDocument();
+  });
+
+  it('labelPlacement top renders label above and wins over labelPosition', () => {
+    wrap(<RdsSelect options={opts} label="Above" labelPlacement="top" labelPosition value="" />);
+    expect(document.querySelector('label.rds-select__label')).toHaveTextContent('Above');
+  });
+
+  it('supports labelPosition and gives labelPlacement precedence', () => {
+    const { rerender } = wrap(<RdsSelect options={opts} label="Above" labelPosition={false} value="" />);
+    expect(document.querySelector('label.rds-select__label')).toHaveTextContent('Above');
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsSelect options={opts} label="Floating" labelPosition={false} labelPlacement="floating" value="" />
+      </ThemeProvider>,
+    );
+    expect(document.querySelector('label.rds-select__label')).not.toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the root .rds-select', () => {
+    wrap(<RdsSelect options={opts} data-testid="country-select" value="" />);
+    expect(screen.getByTestId('country-select')).toHaveClass('rds-select');
   });
 });

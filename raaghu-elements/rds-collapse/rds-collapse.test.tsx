@@ -3,11 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCollapse, { RdsCollapseProps } from './rds-collapse';
 import { axe } from 'jest-axe';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS imports
 jest.mock('./rds-collapse.scss', () => ({}));
 
-// Mock MUI ExpandMore icon
 jest.mock('@mui/icons-material/ExpandMore', () => {
   return function MockExpandMoreIcon() {
     return <span data-testid="ExpandMoreIcon">ExpandMoreIcon</span>;
@@ -26,6 +25,8 @@ const defaultProps: RdsCollapseProps = {
   expanded: false,
 };
 
+const wrap = (ui: React.ReactElement) => <ThemeProvider theme={theme}>{ui}</ThemeProvider>;
+
 describe('RdsCollapse', () => {
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
@@ -38,14 +39,13 @@ describe('RdsCollapse', () => {
     });
 
     it('should render with title', () => {
-      renderWithTheme(<RdsCollapse title="Section Title" >{"Content"}</RdsCollapse>);
+      renderWithTheme(<RdsCollapse title="Section Title">{'Content'}</RdsCollapse>);
       expect(screen.getByText('Section Title')).toBeInTheDocument();
     });
 
     it('should render without title when not provided', () => {
-      renderWithTheme(<RdsCollapse >{"Content"}</RdsCollapse>);
-      const content = screen.getByText('Content');
-      expect(content).toBeInTheDocument();
+      renderWithTheme(<RdsCollapse>{'Content'}</RdsCollapse>);
+      expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
     it('should render children content', () => {
@@ -57,18 +57,13 @@ describe('RdsCollapse', () => {
       expect(screen.getByText('Child Content')).toBeInTheDocument();
     });
 
-    it('should render with custom className', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse {...defaultProps} className="custom-class" />
-      );
-      const root = container.querySelector('.MuiBox-root');
-      expect(root).toBeInTheDocument();
+    it('should render with custom className on the outer shell', () => {
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} className="custom-class" />);
+      expect(container.querySelector('.rds-collapse.custom-class')).toBeInTheDocument();
     });
 
     it('should render empty collapse when children is empty string', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse title="Empty" >{""}</RdsCollapse>
-      );
+      renderWithTheme(<RdsCollapse title="Empty">{''}</RdsCollapse>);
       expect(screen.getByText('Empty')).toBeInTheDocument();
     });
 
@@ -79,9 +74,7 @@ describe('RdsCollapse', () => {
           <p>Paragraph 2</p>
         </div>
       );
-      renderWithTheme(
-        <RdsCollapse title="Multi Content" >{children}</RdsCollapse>
-      );
+      renderWithTheme(<RdsCollapse title="Multi Content">{children}</RdsCollapse>);
       expect(screen.getByText('Paragraph 1')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();
     });
@@ -90,59 +83,39 @@ describe('RdsCollapse', () => {
   describe('Collapse Behavior', () => {
     it('should be collapsed by default', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const collapse = container.querySelector('.MuiCollapse-entered');
-      // When collapsed, MuiCollapse doesn't have entered class
       expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
 
     it('should be expanded when expanded prop is true', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={true} />
-      );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} expanded={true} />);
+      expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
 
     it('should expand when toggle button is clicked', async () => {
       renderWithTheme(<RdsCollapse {...defaultProps} expanded={false} />);
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.click(toggleButton);
-      
+      fireEvent.click(screen.getByRole('button'));
       await waitFor(() => {
         expect(screen.getByText('Content')).toBeVisible();
       });
     });
 
     it('should collapse when toggle button is clicked while expanded', async () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={true} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.click(toggleButton);
-      
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} expanded={true} />);
+      fireEvent.click(screen.getByRole('button'));
       await waitFor(() => {
-        const collapse = container.querySelector('.MuiCollapse-root');
-        expect(collapse).toBeInTheDocument();
+        expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
       });
     });
 
     it('should toggle between expanded and collapsed states', async () => {
       renderWithTheme(<RdsCollapse {...defaultProps} expanded={false} />);
       const toggleButton = screen.getByRole('button');
-      
-      // Expand
       fireEvent.click(toggleButton);
       await waitFor(() => {
         expect(screen.getByText('Content')).toBeInTheDocument();
       });
-      
-      // Collapse
       fireEvent.click(toggleButton);
       await waitFor(() => {
-        const collapse = document.querySelector('.MuiCollapse-hidden');
-        // Just verify button exists
         expect(toggleButton).toBeInTheDocument();
       });
     });
@@ -151,24 +124,17 @@ describe('RdsCollapse', () => {
   describe('Toggle Button', () => {
     it('should show toggle button by default', () => {
       renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const toggleButton = screen.getByRole('button');
-      expect(toggleButton).toBeInTheDocument();
+      expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should show toggle button when showToggleButton is true', () => {
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} showToggleButton={true} />
-      );
-      const toggleButton = screen.getByRole('button');
-      expect(toggleButton).toBeInTheDocument();
+      renderWithTheme(<RdsCollapse {...defaultProps} showToggleButton={true} />);
+      expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should not show toggle button when showToggleButton is false', () => {
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} showToggleButton={false} />
-      );
-      const toggleButtons = screen.queryAllByRole('button');
-      expect(toggleButtons.length).toBe(0);
+      renderWithTheme(<RdsCollapse {...defaultProps} showToggleButton={false} />);
+      expect(screen.queryAllByRole('button').length).toBe(0);
     });
 
     it('should render ExpandMore icon in toggle button', () => {
@@ -177,264 +143,142 @@ describe('RdsCollapse', () => {
     });
 
     it('should rotate toggle button when expanded', async () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={false} />
-      );
+      renderWithTheme(<RdsCollapse {...defaultProps} expanded={false} />);
       const toggleButton = screen.getByRole('button');
-      
       fireEvent.click(toggleButton);
-      
       await waitFor(() => {
-        const btnElement = toggleButton as HTMLElement;
-        // Button should have transform rotate when expanded
-        expect(btnElement).toBeInTheDocument();
+        expect(toggleButton).toBeInTheDocument();
       });
-    });
-
-    it('should have correct initial rotation when expanded prop is true', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={true} />
-      );
-      const toggleButton = screen.getByRole('button');
-      expect(toggleButton).toBeInTheDocument();
     });
   });
 
   describe('Title Rendering', () => {
     it('should render title as h6 typography', () => {
-      renderWithTheme(<RdsCollapse title="Section" >{"Content"}</RdsCollapse>);
+      renderWithTheme(<RdsCollapse title="Section">{'Content'}</RdsCollapse>);
       const title = screen.getByText('Section');
       expect(title).toBeInTheDocument();
-      // Title is rendered as DIV within Typography component
       expect(title.tagName).toBe('DIV');
     });
 
     it('should render title and toggle button together', () => {
-      renderWithTheme(<RdsCollapse title="Title" >{"Content"}</RdsCollapse>);
+      renderWithTheme(<RdsCollapse title="Title">{'Content'}</RdsCollapse>);
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should update title when prop changes', () => {
-      const { rerender } = renderWithTheme(
-        <RdsCollapse title="Title 1" >{"Content"}</RdsCollapse>
-      );
+      const { rerender } = renderWithTheme(<RdsCollapse title="Title 1">{'Content'}</RdsCollapse>);
       expect(screen.getByText('Title 1')).toBeInTheDocument();
-
-      rerender(
-        <ThemeProvider theme={theme}>
-          <RdsCollapse title="Title 2" >{"Content"}</RdsCollapse>
-        </ThemeProvider>
-      );
+      rerender(wrap(<RdsCollapse title="Title 2">{'Content'}</RdsCollapse>));
       expect(screen.queryByText('Title 1')).not.toBeInTheDocument();
       expect(screen.getByText('Title 2')).toBeInTheDocument();
     });
 
-    it('should handle long title text', () => {
-      const longTitle = 'A'.repeat(100);
-      renderWithTheme(<RdsCollapse title={longTitle} >{"Content"}</RdsCollapse>);
-      expect(screen.getByText(longTitle)).toBeInTheDocument();
-    });
-
-    it('should handle special characters in title', () => {
-      const specialTitle = 'Title @#$%^&*()';
-      renderWithTheme(<RdsCollapse title={specialTitle} >{"Content"}</RdsCollapse>);
-      expect(screen.getByText(specialTitle)).toBeInTheDocument();
-    });
-
-    it('should handle unicode characters in title', () => {
-      const unicodeTitle = '🎉 Title 🎊';
-      renderWithTheme(<RdsCollapse title={unicodeTitle} >{"Content"}</RdsCollapse>);
-      expect(screen.getByText(unicodeTitle)).toBeInTheDocument();
+    it.each([
+      ['long', 'A'.repeat(100)],
+      ['special', 'Title @#$%^&*()'],
+      ['unicode', '🎉 Title 🎊'],
+    ])('should handle %s title text', (_n, title) => {
+      renderWithTheme(<RdsCollapse title={title}>{'Content'}</RdsCollapse>);
+      expect(screen.getByText(title)).toBeInTheDocument();
     });
   });
 
   describe('onToggle Callback', () => {
-    it('should call onToggle when toggle button is clicked', () => {
+    const setupToggle = (expanded: boolean) => {
       const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.click(toggleButton);
-      
-      expect(onToggle).toHaveBeenCalled();
-    });
+      renderWithTheme(<RdsCollapse {...defaultProps} onToggle={onToggle} expanded={expanded} />);
+      return { onToggle, toggleButton: screen.getByRole('button') };
+    };
 
-    it('should pass true to onToggle when expanding', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
+    it('should call onToggle with true when expanding', () => {
+      const { onToggle, toggleButton } = setupToggle(false);
       fireEvent.click(toggleButton);
-      
+      expect(onToggle).toHaveBeenCalled();
       expect(onToggle).toHaveBeenCalledWith(true);
     });
 
     it('should pass false to onToggle when collapsing', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={true} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
+      const { onToggle, toggleButton } = setupToggle(true);
       fireEvent.click(toggleButton);
-      
       expect(onToggle).toHaveBeenCalledWith(false);
     });
 
     it('should call onToggle multiple times on multiple toggles', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
+      const { onToggle, toggleButton } = setupToggle(false);
       fireEvent.click(toggleButton);
       fireEvent.click(toggleButton);
       fireEvent.click(toggleButton);
-      
       expect(onToggle).toHaveBeenCalledTimes(3);
     });
 
     it('should not call onToggle when showToggleButton is false and title clicked', () => {
       const onToggle = jest.fn();
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          title="Title" 
-          
-          onToggle={onToggle} 
-          showToggleButton={false}
-          expanded={false}
-        >{"Content"}</RdsCollapse>
+      renderWithTheme(
+        <RdsCollapse title="Title" onToggle={onToggle} showToggleButton={false} expanded={false}>
+          {'Content'}
+        </RdsCollapse>
       );
-      
-      const title = screen.getByText('Title');
-      fireEvent.click(title);
-      
+      fireEvent.click(screen.getByText('Title'));
       expect(onToggle).not.toHaveBeenCalled();
     });
 
     it('should call onToggle when title is clicked and showToggleButton is true', () => {
       const onToggle = jest.fn();
       renderWithTheme(
-        <RdsCollapse 
-          title="Title" 
-          
-          onToggle={onToggle} 
-          showToggleButton={true}
-          expanded={false}
-        >{"Content"}</RdsCollapse>
+        <RdsCollapse title="Title" onToggle={onToggle} showToggleButton={true} expanded={false}>
+          {'Content'}
+        </RdsCollapse>
       );
-      
       const header = screen.getByText('Title').parentElement;
       if (header) {
         fireEvent.click(header);
       }
-      
-      // onToggle should be called when clicking on the header area
       expect(onToggle).toHaveBeenCalled();
     });
   });
 
   describe('Expanded Prop Updates', () => {
-    it('should update internal state when expanded prop changes', () => {
-      const { rerender } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={false} />
-      );
-      
-      rerender(
-        <ThemeProvider theme={theme}>
-          <RdsCollapse {...defaultProps} expanded={true} />
-        </ThemeProvider>
-      );
-      
-      // Should show content when expanded
+    it.each([
+      [false, true],
+      [true, false],
+    ])('should update when expanded prop changes from %s to %s', (from, to) => {
+      const { rerender } = renderWithTheme(<RdsCollapse {...defaultProps} expanded={from} />);
+      rerender(wrap(<RdsCollapse {...defaultProps} expanded={to} />));
       expect(screen.getByText('Content')).toBeInTheDocument();
-    });
-
-    it('should collapse when expanded prop changes from true to false', () => {
-      const { rerender } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={true} />
-      );
-      
-      rerender(
-        <ThemeProvider theme={theme}>
-          <RdsCollapse {...defaultProps} expanded={false} />
-        </ThemeProvider>
-      );
-      
-      const content = screen.getByText('Content');
-      expect(content).toBeInTheDocument();
     });
   });
 
   describe('Props Integration', () => {
     it('should accept MuiCollapse props', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps} 
-          timeout={500}
-          unmountOnExit={true}
-        />
-      );
-      // Verify the component renders with MuiCollapse props
-      const buttonElement = screen.getByRole('button');
-      expect(buttonElement).toBeInTheDocument();
+      renderWithTheme(<RdsCollapse {...defaultProps} timeout={500} unmountOnExit={true} />);
+      expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should accept custom data attributes', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps}
-          data-testid="custom-collapse"
-        />
-      );
-      const root = container.querySelector('[data-testid="custom-collapse"]');
-      expect(root).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} data-testid="custom-collapse" />);
+      expect(container.querySelector('[data-testid="custom-collapse"]')).toBeInTheDocument();
     });
 
     it('should accept and apply sx prop', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps}
-          sx={{ margin: '16px' }}
-        />
-      );
-      const root = container.querySelector('.MuiBox-root');
-      expect(root).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} sx={{ margin: '16px' }} />);
+      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle rapid toggle clicks', () => {
       const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
+      renderWithTheme(<RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />);
       const toggleButton = screen.getByRole('button');
-      
       for (let i = 0; i < 10; i++) {
         fireEvent.click(toggleButton);
       }
-      
       expect(onToggle.mock.calls.length).toBeGreaterThan(0);
     });
 
-    it('should handle empty content', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse title="Empty" >{""}</RdsCollapse>
-      );
-      expect(screen.getByText('Empty')).toBeInTheDocument();
-    });
-
     it('should handle null children gracefully', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse title="Null Child" >{null}</RdsCollapse>
-      );
+      renderWithTheme(<RdsCollapse title="Null Child">{null}</RdsCollapse>);
       expect(screen.getByText('Null Child')).toBeInTheDocument();
     });
 
@@ -449,113 +293,48 @@ describe('RdsCollapse', () => {
           <p>Nested paragraph 2</p>
         </div>
       );
-      
-      renderWithTheme(
-        <RdsCollapse title="Complex" >{complexContent}</RdsCollapse>
-      );
+      renderWithTheme(<RdsCollapse title="Complex">{complexContent}</RdsCollapse>);
       expect(screen.getByText('Nested Title')).toBeInTheDocument();
       expect(screen.getByText('Deep nested content')).toBeInTheDocument();
     });
 
     it('should handle children with event handlers', () => {
-      const handleClick = jest.fn();
-      const childContent = (
-        <button onClick={handleClick}>Click me</button>
-      );
-      
       renderWithTheme(
-        <RdsCollapse title="With Handlers" >{childContent}</RdsCollapse>
+        <RdsCollapse title="With Handlers">
+          <button onClick={jest.fn()}>Click me</button>
+        </RdsCollapse>
       );
-      
-      const button = screen.getByText('Click me');
-      expect(button).toBeInTheDocument();
-    });
-
-    it('should handle multiple toggles in rapid succession', async () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.click(toggleButton);
-      fireEvent.click(toggleButton);
-      fireEvent.click(toggleButton);
-      fireEvent.click(toggleButton);
-      
-      expect(onToggle.mock.calls.length).toBeGreaterThanOrEqual(1);
+      expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
     it('should handle changing children content', () => {
-      const { rerender } = renderWithTheme(
-        <RdsCollapse title="Dynamic" >{"Content 1"}</RdsCollapse>
-      );
-      
+      const { rerender } = renderWithTheme(<RdsCollapse title="Dynamic">{'Content 1'}</RdsCollapse>);
       expect(screen.getByText('Content 1')).toBeInTheDocument();
-      
-      rerender(
-        <ThemeProvider theme={theme}>
-          <RdsCollapse title="Dynamic" >{"Content 2"}</RdsCollapse>
-        </ThemeProvider>
-      );
-      
+      rerender(wrap(<RdsCollapse title="Dynamic">{'Content 2'}</RdsCollapse>));
       expect(screen.queryByText('Content 1')).not.toBeInTheDocument();
       expect(screen.getByText('Content 2')).toBeInTheDocument();
     });
 
     it('should handle title and showToggleButton both false', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse showToggleButton={false} >{"Content"}</RdsCollapse>
-      );
-      const content = screen.getByText('Content');
-      expect(content).toBeInTheDocument();
+      renderWithTheme(<RdsCollapse showToggleButton={false}>{'Content'}</RdsCollapse>);
+      expect(screen.getByText('Content')).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
-    it('should have interactive button for toggle', () => {
-      renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const toggleButton = screen.getByRole('button');
-      expect(toggleButton).toBeInTheDocument();
-  
-    });
-
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCollapse {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      expect(await axe(container)).toHaveNoViolations();
     });
 
-    it('should be keyboard accessible', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} />
-      );
+    it.each([
+      [{ key: 'Enter', code: 'Enter' }],
+      [{ key: 'Enter' }],
+      [{ key: ' ' }],
+    ])('should support key %j on toggle button', (key) => {
+      renderWithTheme(<RdsCollapse {...defaultProps} onToggle={jest.fn()} expanded={false} />);
       const toggleButton = screen.getByRole('button');
-      
-      fireEvent.keyDown(toggleButton, { key: 'Enter', code: 'Enter' });
-      expect(toggleButton).toBeInTheDocument();
-    });
-
-    it('should support Enter key on toggle button', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.keyDown(toggleButton, { key: 'Enter' });
-      expect(toggleButton).toBeInTheDocument();
-    });
-
-    it('should support Space key on toggle button', () => {
-      const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} expanded={false} />
-      );
-      const toggleButton = screen.getByRole('button');
-      
-      fireEvent.keyDown(toggleButton, { key: ' ' });
+      fireEvent.keyDown(toggleButton, key);
       expect(toggleButton).toBeInTheDocument();
     });
 
@@ -567,55 +346,39 @@ describe('RdsCollapse', () => {
     });
 
     it('should have proper semantic HTML structure', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse title="Section" >{"Content"}</RdsCollapse>
-      );
-      const box = container.querySelector('.MuiBox-root');
-      expect(box).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse title="Section">{'Content'}</RdsCollapse>);
+      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
     });
   });
 
   describe('Styling and Classes', () => {
-    it('should have MuiBox root class', () => {
+    it('should have MuiBox root and MuiCollapse component', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const root = container.querySelector('.MuiBox-root');
-      expect(root).toBeInTheDocument();
-    });
-
-    it('should have MuiCollapse component', () => {
-      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toBeInTheDocument();
+      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
+      expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
 
     it('should apply sx styles correctly', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps}
-          sx={{ p: 2, m: 1 }}
-        />
-      );
-      const root = container.querySelector('.MuiBox-root');
-      expect(root).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} sx={{ p: 2, m: 1 }} />);
+      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
     });
   });
 
   describe('Combined Props', () => {
     it('should handle all props together', () => {
-      const onToggle = jest.fn();
       renderWithTheme(
-        <RdsCollapse 
+        <RdsCollapse
           title="Complete"
-         
           expanded={false}
-          onToggle={onToggle}
+          onToggle={jest.fn()}
           showToggleButton={true}
           timeout={300}
           data-testid="complete-collapse"
           className="custom-collapse"
-        >{"Full content"}</RdsCollapse>
+        >
+          {'Full content'}
+        </RdsCollapse>
       );
-      
       expect(screen.getByText('Complete')).toBeInTheDocument();
       expect(screen.getByText('Full content')).toBeInTheDocument();
       expect(screen.getByRole('button')).toBeInTheDocument();
@@ -623,106 +386,52 @@ describe('RdsCollapse', () => {
 
     it('should work with expanded and onToggle together', () => {
       const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps}
-          expanded={true}
-          onToggle={onToggle}
-        />
-      );
-      
-      const toggleButton = screen.getByRole('button');
-      fireEvent.click(toggleButton);
-      
+      renderWithTheme(<RdsCollapse {...defaultProps} expanded={true} onToggle={onToggle} />);
+      fireEvent.click(screen.getByRole('button'));
       expect(onToggle).toHaveBeenCalledWith(false);
     });
 
     it('should handle title with special formatting', () => {
       renderWithTheme(
-        <RdsCollapse 
-          title="Title with <special> & characters"
-          showToggleButton={true}
-        >{"Content"}</RdsCollapse>
+        <RdsCollapse title="Title with <special> & characters" showToggleButton={true}>
+          {'Content'}
+        </RdsCollapse>
       );
-      
       expect(screen.getByText('Title with <special> & characters')).toBeInTheDocument();
     });
   });
 
   describe('Default Props', () => {
-    it('should have expanded as false by default', () => {
-      renderWithTheme(
-        <RdsCollapse >{"Content"}</RdsCollapse>
-      );
-      const content = screen.getByText('Content');
-      expect(content).toBeInTheDocument();
-    });
-
-    it('should have showToggleButton as true by default', () => {
-      renderWithTheme(
-        <RdsCollapse title="Title" >{"Content"}</RdsCollapse>
-      );
-      expect(screen.getByRole('button')).toBeInTheDocument();
-    });
-
-    it('should not have title by default', () => {
-      renderWithTheme(
-        <RdsCollapse >{"Content"}</RdsCollapse>
-      );
+    it('should have expanded as false and no title by default', () => {
+      renderWithTheme(<RdsCollapse>{'Content'}</RdsCollapse>);
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
+    it('should have showToggleButton as true by default', () => {
+      renderWithTheme(<RdsCollapse title="Title">{'Content'}</RdsCollapse>);
+      expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
     it('should not call onToggle by default', () => {
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} />
-      );
+      renderWithTheme(<RdsCollapse {...defaultProps} />);
       const toggleButton = screen.getByRole('button');
-      // Should not throw when clicking
       fireEvent.click(toggleButton);
       expect(toggleButton).toBeInTheDocument();
     });
   });
 
   describe('Props Validation', () => {
-    it('should accept string title', () => {
-      renderWithTheme(<RdsCollapse title="Title" >{"Content"}</RdsCollapse>);
-      expect(screen.getByText('Title')).toBeInTheDocument();
-    });
-
-    it('should accept boolean expanded', () => {
-      const { rerender } = renderWithTheme(
-        <RdsCollapse {...defaultProps} expanded={true} />
-      );
-      expect(screen.getByText('Content')).toBeInTheDocument();
-
-      rerender(
-        <ThemeProvider theme={theme}>
-          <RdsCollapse {...defaultProps} expanded={false} />
-        </ThemeProvider>
-      );
-      expect(screen.getByText('Content')).toBeInTheDocument();
-    });
-
     it('should accept boolean showToggleButton', () => {
-      const { container: container1 } = renderWithTheme(
-        <RdsCollapse {...defaultProps} showToggleButton={true} />
-      );
+      renderWithTheme(<RdsCollapse {...defaultProps} showToggleButton={true} />);
       expect(screen.getByRole('button')).toBeInTheDocument();
-
-      const { container: container2 } = renderWithTheme(
-        <RdsCollapse {...defaultProps} showToggleButton={false} />
-      );
-      const buttons = container2.querySelectorAll('button');
-      expect(buttons.length).toBe(0);
+      const { container: container2 } = renderWithTheme(<RdsCollapse {...defaultProps} showToggleButton={false} />);
+      expect(container2.querySelectorAll('button').length).toBe(0);
     });
 
     it('should accept function onToggle', () => {
       const onToggle = jest.fn();
-      renderWithTheme(
-        <RdsCollapse {...defaultProps} onToggle={onToggle} />
-      );
-      const toggleButton = screen.getByRole('button');
-      fireEvent.click(toggleButton);
+      renderWithTheme(<RdsCollapse {...defaultProps} onToggle={onToggle} />);
+      fireEvent.click(screen.getByRole('button'));
       expect(onToggle).toHaveBeenCalled();
     });
 
@@ -732,22 +441,140 @@ describe('RdsCollapse', () => {
           <p>Content</p>
         </div>
       );
-      renderWithTheme(
-        <RdsCollapse title="Title" >{children}</RdsCollapse>
-      );
+      renderWithTheme(<RdsCollapse title="Title">{children}</RdsCollapse>);
       expect(screen.getByTestId('complex-children')).toBeInTheDocument();
     });
 
     it('should accept MuiCollapse props', () => {
-      const { container } = renderWithTheme(
-        <RdsCollapse 
-          {...defaultProps}
-          timeout={600}
-          collapsedSize={0}
-        />
-      );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsCollapse {...defaultProps} timeout={600} collapsedSize={0} />);
+      expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
+  });
+
+  describe('audit fixes', () => {
+    const getToggle = () => screen.getByRole('button');
+    const expanded = () => expect(getToggle());
+
+    it('opens and closes when only onToggle is given, and still calls onToggle', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(<RdsCollapse title="Title" onToggle={onToggle}>{'Content'}</RdsCollapse>);
+      expanded().toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(getToggle());
+      expanded().toHaveAttribute('aria-expanded', 'true');
+      expect(onToggle).toHaveBeenLastCalledWith(true);
+
+      fireEvent.click(getToggle());
+      expanded().toHaveAttribute('aria-expanded', 'false');
+      expect(onToggle).toHaveBeenLastCalledWith(false);
+      expect(onToggle).toHaveBeenCalledTimes(2);
+    });
+
+    it('starts from defaultExpanded when expanded is not given', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(
+        <RdsCollapse title="Title" defaultExpanded onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      expanded().toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.click(getToggle());
+      expanded().toHaveAttribute('aria-expanded', 'false');
+      expect(onToggle).toHaveBeenCalledWith(false);
+    });
+
+    it('stays controlled when both expanded and onToggle are given', () => {
+      const onToggle = jest.fn();
+      const { rerender } = renderWithTheme(
+        <RdsCollapse title="Title" expanded={false} onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      fireEvent.click(getToggle());
+      expect(onToggle).toHaveBeenCalledWith(true);
+      expanded().toHaveAttribute('aria-expanded', 'false');
+
+      rerender(wrap(<RdsCollapse title="Title" expanded={true} onToggle={onToggle}>{'Content'}</RdsCollapse>));
+      expanded().toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('expanded alone sets the initial state, follows prop changes and still toggles on click', () => {
+      const { rerender } = renderWithTheme(<RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>);
+      expanded().toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.click(getToggle());
+      expanded().toHaveAttribute('aria-expanded', 'false');
+
+      rerender(wrap(<RdsCollapse title="Title" expanded={false}>{'Content'}</RdsCollapse>));
+      expanded().toHaveAttribute('aria-expanded', 'false');
+
+      rerender(wrap(<RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>));
+      expanded().toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('keeps the latest expanded value when onToggle is removed', () => {
+      const onToggle = jest.fn();
+      const { rerender } = renderWithTheme(
+        <RdsCollapse title="Title" expanded={false} onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      rerender(wrap(<RdsCollapse title="Title" expanded={true} onToggle={onToggle}>{'Content'}</RdsCollapse>));
+      rerender(wrap(<RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>));
+      expanded().toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('links the toggle button to the content region with aria-controls', () => {
+      const { container } = renderWithTheme(<RdsCollapse title="Title">{'Content'}</RdsCollapse>);
+      const controls = getToggle().getAttribute('aria-controls');
+      expect(controls).toBeTruthy();
+      expect(container.querySelector('.MuiCollapse-root')).toHaveAttribute('id', controls);
+    });
+
+    it('uses a consumer id for the content region and aria-controls', () => {
+      const { container } = renderWithTheme(<RdsCollapse title="Title" id="my-region">{'Content'}</RdsCollapse>);
+      expanded().toHaveAttribute('aria-controls', 'my-region');
+      expect(container.querySelector('.MuiCollapse-root')).toHaveAttribute('id', 'my-region');
+    });
+
+    it('keeps a single keyboard control: the header itself is not a button', () => {
+      renderWithTheme(<RdsCollapse title="Title">{'Content'}</RdsCollapse>);
+      expect(screen.getAllByRole('button')).toHaveLength(1);
+      expect(getToggle().tagName).toBe('BUTTON');
+    });
+
+    it('toggles once when the toggle button itself is clicked', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(<RdsCollapse title="Title" onToggle={onToggle}>{'Content'}</RdsCollapse>);
+      fireEvent.click(getToggle());
+      expect(onToggle).toHaveBeenCalledTimes(1);
+    });
+
+    it('lets MUI `in` decide the content state and reports it in aria-expanded', () => {
+      renderWithTheme(<RdsCollapse title="Title" in={true}>{'Content'}</RdsCollapse>);
+      expanded().toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('has no axe violations when expanded', async () => {
+      const { container } = render(<RdsCollapse title="Title" defaultExpanded>{'Content'}</RdsCollapse>);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+});
+
+describe('RdsCollapse additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('hides the toggle with hideToggle', () => {
+    render(<RdsCollapse title="T" hideToggle>c</RdsCollapse>);
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns for showToggleButton and lets hideToggle win', () => {
+    render(<RdsCollapse title="T" showToggleButton hideToggle>c</RdsCollapse>);
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(warn).toHaveBeenCalledWith('RdsCollapse', 'showToggleButton', '`hideToggle`');
+  });
+
+  it('forwards data-testid to the root .rds-collapse', () => {
+    render(<RdsCollapse title="T" data-testid="details-collapse">c</RdsCollapse>);
+    expect(screen.getByTestId('details-collapse')).toHaveClass('rds-collapse');
   });
 });

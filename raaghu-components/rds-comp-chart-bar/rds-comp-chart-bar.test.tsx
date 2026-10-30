@@ -1,16 +1,19 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompBarChart from './rds-comp-chart-bar';
+import RdsCompBarChart, { type RdsCompBarChartProps } from './rds-comp-chart-bar';
+import { applyCanvasSize } from '../chart-utils';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-chart-bar.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
+    static configs: any[] = [];
     constructor(ctx: any, config: any) {
+      (MockChart as any).configs.push(config);
       this.ctx = ctx;
       this.config = config;
       this.canvas = ctx?.canvas || document.createElement('canvas');
@@ -340,7 +343,7 @@ describe('RdsCompBarChart', () => {
     it('renders with numeric labels', () => {
       const numLabels = [1, 2, 3, 4, 5];
       const { container } = render(
-        <RdsCompBarChart {...defaultProps} labels={numLabels} />
+        <RdsCompBarChart {...defaultProps} labels={numLabels as unknown as string[]} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -367,7 +370,7 @@ describe('RdsCompBarChart', () => {
         {
           label: 'Revenue',
           data: [100, 200, 300],
-          borderColor: "var(--rds-semantic-error-main, #ff0000)",
+          borderColor: "var(--rds-semantic-error-main)",
         },
       ];
       const { container } = render(
@@ -381,7 +384,7 @@ describe('RdsCompBarChart', () => {
         {
           label: 'Revenue',
           data: [100, 200, 300],
-          backgroundColor: "var(--rds-semantic-success-main, #00ff00)",
+          backgroundColor: "var(--rds-semantic-success-main)",
         },
       ];
       const { container } = render(
@@ -396,7 +399,7 @@ describe('RdsCompBarChart', () => {
       const options = {
         scales: {
           x: {
-            type: 'category',
+            type: 'category' as const,
             title: { display: true, text: 'X Axis' },
           },
         },
@@ -426,7 +429,7 @@ describe('RdsCompBarChart', () => {
       const options = {
         scales: {
           x: {
-            type: 'category',
+            type: 'category' as const,
             title: { display: true, text: 'Categories' },
           },
           y: {
@@ -524,8 +527,8 @@ describe('RdsCompBarChart', () => {
         plugins: {
           tooltip: {
             backgroundColor: 'rgba(0,0,0,0.8)',
-            titleColor: "var(--rds-neutral-0, #fff)",
-            bodyColor: "var(--rds-neutral-0, #fff)",
+            titleColor: "var(--rds-neutral-0)",
+            bodyColor: "var(--rds-neutral-0)",
           },
         },
       };
@@ -546,7 +549,7 @@ describe('RdsCompBarChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBarChart {...defaultProps} options={null} />
+        <RdsCompBarChart {...defaultProps} options={null as unknown as RdsCompBarChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -607,7 +610,7 @@ describe('RdsCompBarChart', () => {
       const dataSets = [
         {
           label: 'String Values',
-          data: ['10', '20', '30'],
+          data: ['10', '20', '30'] as unknown as number[],
         },
       ];
       const { container } = render(
@@ -792,5 +795,65 @@ describe('RdsCompBarChart', () => {
       const canvas = screen.getByTestId('sync-id');
       expect(canvas).toHaveAttribute('id', 'sync-id');
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBarChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-bar');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('lets consumer options override responsive and maintainAspectRatio', () => {
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    const Chart = jest.requireMock('chart.js/auto');
+    Chart.configs.length = 0;
+    render(<RdsCompBarChart {...defaultProps} options={{ responsive: false, maintainAspectRatio: true }} />);
+    expect(Chart.configs[0].options).toMatchObject({ responsive: false, maintainAspectRatio: true });
+    Chart.configs.length = 0;
+    render(<RdsCompBarChart {...defaultProps} id="other" />);
+    expect(Chart.configs[0].options).toMatchObject({ responsive: true, maintainAspectRatio: false });
+  });
+});
+
+describe('additive prop renames', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const getChart = () => jest.requireMock('chart.js/auto');
+
+  it('ariaLabel wins over the deprecated chartLabel', () => {
+    render(<RdsCompBarChart {...defaultProps} ariaLabel="New" chartLabel="Old" />);
+    expect(screen.getByRole('img')).toHaveAttribute('aria-label', 'New');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'chartLabel', '`ariaLabel`');
+  });
+
+  it('uses data over labels and dataSets', () => {
+    const Chart = getChart();
+    Chart.configs.length = 0;
+    const data = { labels: ['A'], datasets: [{ data: [1] }] };
+    render(<RdsCompBarChart id="d" options={{}} data={data} />);
+    expect(Chart.configs[0].data.labels).toEqual(['A']);
+    expect(Chart.configs[0].data.datasets[0].data).toEqual([1]);
+  });
+
+  it('warns when labels or dataSets are passed', () => {
+    render(<RdsCompBarChart {...defaultProps} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'labels', '`data`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'dataSets', '`data`');
+  });
+
+  it('applyCanvasSize sets only the passed dimensions', () => {
+    const canvas = document.createElement('canvas');
+    applyCanvasSize(canvas, undefined, 320);
+    expect(canvas.style.width).toBe('320px');
+    expect(canvas.style.height).toBe('');
+    applyCanvasSize(canvas, '50%');
+    expect(canvas.style.height).toBe('50%');
   });
 });

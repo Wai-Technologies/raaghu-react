@@ -14,10 +14,6 @@ import {
   Person,
   Settings,
   Help,
-  Inbox,
-  Star,
-  Send,
-  Drafts,
   CalendarToday as CalendarIcon,
   Folder as ProjectsIcon,
   People as DirectoryIcon,
@@ -41,6 +37,9 @@ const meta: Meta<typeof RdsCompAppShell> = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the application shell root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the application shell root.' },
+    ref: { control: false, description: 'React ref to the application shell root; assign it in code.' },
     displayType: {
       control: { type: "select" },
       options: [
@@ -212,7 +211,7 @@ const AppShellStory = (args: any) => {
         onClick: () => {},
       },
       {
-        active: true,
+        selected: true,
         icon: <Dashboard />,
         label: "Dashboard",
         onClick: () => {},
@@ -248,10 +247,10 @@ const AppShellStory = (args: any) => {
             <BrowserRouter>
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+                open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 showLogo
               />
@@ -263,10 +262,10 @@ const AppShellStory = (args: any) => {
               <BrowserRouter>
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  isOpen
+                  user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+                  open
                   items={sidebarItems}
-                  variant="permanent"
+                  variant="permanent" embedded
                   layout="toolbar"
                   typeOf="collapse"
                   anchor="right"
@@ -286,20 +285,20 @@ const AppShellStory = (args: any) => {
             <BrowserRouter>
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+                open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 typeOf="collapse"
                 anchor="left"
               />
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+                open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 typeOf="expanded"
               />
@@ -310,9 +309,10 @@ const AppShellStory = (args: any) => {
           </div>
           <div id="details-pane-app-shell">
             <RdsCompDetailsPane
+              className="rds-comp-details-pane--flush"
               headerSubText="Agent Information"
               headerText="Bayshore Transportation System"
-              style="Selection"
+              variant="Selection"
             />
           </div>
         </div>
@@ -325,10 +325,10 @@ const AppShellStory = (args: any) => {
           <div>
             <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-              avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-              isOpen
+              user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+              open
               items={sidebarItems}
-              variant="permanent"
+              variant="permanent" embedded
               layout="raaghu"
               showLogo={false}
             />
@@ -338,7 +338,8 @@ const AppShellStory = (args: any) => {
           </div>
           <div id="detail-pane-one-three-one">
             <RdsCompDetailsPane 
-              style="Toolbar" 
+              className="rds-comp-details-pane--flush-toolbar"
+              variant="Toolbar"
               headerText={""} 
               figmaIconSrc="assets/figma.png"
               storybookIconSrc="assets/storybook.png"
@@ -352,10 +353,10 @@ const AppShellStory = (args: any) => {
       <BrowserRouter>
         <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-          avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-          isOpen
+          user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+          open
           items={sidebarItems}
-          variant="permanent"
+          variant="permanent" embedded
           layout="raaghu"
           showLogo={args.displayType !== AppShellDisplayType.Default}
         />
@@ -404,8 +405,8 @@ const AppShellStory = (args: any) => {
               <BrowserRouter>
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  isOpen
+                  user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
+                  open
                   items={[
                     {
                       icon: <Home />,
@@ -413,7 +414,7 @@ const AppShellStory = (args: any) => {
                       onClick: () => {},
                     },
                     {
-                      active: true,
+                      selected: true,
                       icon: <Dashboard />,
                       label: "Dashboard",
                       onClick: () => {},
@@ -466,9 +467,10 @@ const AppShellStory = (args: any) => {
           <div className={`${args.displayType === AppShellDisplayType.DoubleNav ? 'doublenav' : 'tripane'}-mobile-toolbar ${mobileToolbarOpen ? 'open' : ''}`}>
             <div className={`${args.displayType === AppShellDisplayType.DoubleNav ? 'doublenav' : 'tripane'}-toolbar-content`}>
               <RdsCompDetailsPane
+                className={args.displayType === AppShellDisplayType.TriPane ? "rds-comp-details-pane--flush-toolbar" : "rds-comp-details-pane--flush"}
                 headerSubText="Agent Information"
                 headerText={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Bayshore Transportation System"}
-                style={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Selection"}
+                variant={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Selection"}
                 figmaIconSrc={args.displayType === AppShellDisplayType.TriPane ? "assets/figma.png" : undefined}
                 storybookIconSrc={args.displayType === AppShellDisplayType.TriPane ? "assets/storybook.png" : undefined}
               />
@@ -482,9 +484,8 @@ const AppShellStory = (args: any) => {
             />
           )}
           
-          {/* Add bottom navigation for DoubleNav and TriPane */}
           {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
-            <div className="rds-footer-navigation MuiBottomNavigation-root">
+            <div className="rds-footer-navigation rds-footer-navigation--docked MuiBottomNavigation-root">
               <div style={{ 
                 display: 'flex', 
                 width: '100%', 
@@ -504,7 +505,7 @@ const AppShellStory = (args: any) => {
                     textAlign: 'center',
                     fontSize: '11px',
                     fontWeight: selectedTab === 0 ? '600' : '400',
-                    color: selectedTab === 0 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    color: selectedTab === 0 ? 'var(--rds-color-primary)' : 'inherit',
                     minWidth: 0,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -529,7 +530,7 @@ const AppShellStory = (args: any) => {
                     textAlign: 'center',
                     fontSize: '11px',
                     fontWeight: selectedTab === 1 ? '600' : '400',
-                    color: selectedTab === 1 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    color: selectedTab === 1 ? 'var(--rds-color-primary)' : 'inherit',
                     minWidth: 0,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -554,7 +555,7 @@ const AppShellStory = (args: any) => {
                     textAlign: 'center',
                     fontSize: '11px',
                     fontWeight: selectedTab === 2 ? '600' : '400',
-                    color: selectedTab === 2 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    color: selectedTab === 2 ? 'var(--rds-color-primary)' : 'inherit',
                     minWidth: 0,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -579,7 +580,7 @@ const AppShellStory = (args: any) => {
                     textAlign: 'center',
                     fontSize: '11px',
                     fontWeight: selectedTab === 3 ? '600' : '400',
-                    color: selectedTab === 3 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    color: selectedTab === 3 ? 'var(--rds-color-primary)' : 'inherit',
                     minWidth: 0,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -617,10 +618,12 @@ const AppShellStory = (args: any) => {
   return (
     <RdsCompAppShell
       displayType={args.displayType}
-      mobileSidebarOpen={mobileSidebarOpen}
-      onMobileSidebarToggle={handleMobileSidebarToggle}
-      topbar={args.displayType !== AppShellDisplayType.SideNav ? renderTopbar() : renderTopbar()}
+      sidebarOpen={mobileSidebarOpen}
+      onSidebarOpenChange={handleMobileSidebarToggle}
+      header={renderTopbar()}
       sidebar={args.displayType !== AppShellDisplayType.TopNav ? renderSidebar() : undefined}
+      className={args.className}
+      sx={args.sx}
      
     >{renderChildren()}</RdsCompAppShell>
   );

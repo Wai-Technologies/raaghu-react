@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsChip from './rds-chip';
-import { Face, Delete, Done } from '@mui/icons-material';
+import Face from '@mui/icons-material/Face';
+import Delete from '@mui/icons-material/Delete';
+import Done from '@mui/icons-material/Done';
 
 const meta: Meta<typeof RdsChip> = {
   title: 'Elements/Chip',

@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompLineChart from './rds-comp-chart-line';
+import RdsCompLineChart, { type RdsCompLineProps } from './rds-comp-chart-line';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-line.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -575,14 +573,14 @@ describe('RdsCompLineChart', () => {
         },
       ];
       const { container } = render(
-        <RdsCompLineChart {...defaultProps} dataSets={stringDataset} />
+        <RdsCompLineChart {...defaultProps} dataSets={stringDataset as unknown as RdsCompLineProps['dataSets']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompLineChart {...defaultProps} options={null} />
+        <RdsCompLineChart {...defaultProps} options={null as unknown as RdsCompLineProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -650,7 +648,6 @@ describe('RdsCompLineChart', () => {
       const { rerender, container } = render(
         <RdsCompLineChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompLineChart
@@ -899,5 +896,17 @@ describe('RdsCompLineChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompLineChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-line', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
   });
 });

@@ -18,6 +18,8 @@ const meta: Meta = {
             },
             source: {
                 transform: (code: string) => {
+                    code = code.replace(/orientation="([^"]+)"/g, (match, p1) => `orientation={NotificationLayout.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={NotificationLayout.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: NotificationLayout.${p1.replace(/\s+/g, '')}`);
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
@@ -31,6 +33,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the notification root and cards.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the notification root.' },
+        ref: { control: false, description: 'React ref to the notification root; assign it in code.' },
         title: {
             control: { type: 'text' },
             description: 'Title for all notifications (overrides notification.title)',
@@ -41,16 +46,16 @@ const meta: Meta = {
             description: 'Description for all notifications (overrides notification.description)',
             defaultValue: '',
         },
-        defaultImage: {
+        fallbackImage: {
             control: { type: 'text' },
             description: 'Fallback image URL used when notification.image is not provided',
             defaultValue: RAAGHU_LOGO_LIGHT_URL,
         },
-        layout: {
+        orientation: {
             options: ["vertical", "horizontal"],
             control: { type: "select" },
         },
-        style: {
+        variant: {
             options: ["default", "avatar", "icon", "image"],
             control: { type: "select" },
         },
@@ -67,29 +72,29 @@ type Story = StoryObj<typeof RdsCompNotification>;
 export const Default: Story = {
     render: (args) => {
         const logoSrc = useRaaghuLogoSrc();
-        const notifications = args.notifications?.map((notification) => ({
+        const items = args.items?.map((notification) => ({
             ...notification,
             image: logoSrc,
         }));
         return (
             <RdsCompNotification
                 {...args}
-                defaultImage={logoSrc}
-                notifications={notifications ?? args.notifications}
+                fallbackImage={logoSrc}
+                items={items ?? args.items}
             />
         );
     },
     args: {
         title: 'Notification Title',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
-        layout: NotificationLayout.Horizontal,
-        style: NotificationStyle.Default,
+        orientation: NotificationLayout.Horizontal,
+        variant: NotificationStyle.Default,
         type: NotificationType.Info,
         showButton: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
         showDismiss: true,
-        notifications: [
+        items: [
             {
                 status: "success",
                 title: "Notification Title",
@@ -108,8 +113,7 @@ export const Default: Story = {
 
 Default.parameters = {
     controls: {
-        include: ['title', 'description', 'defaultImage', 'layout', 'style', 'type', 'notifications', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
+        include: ['title', 'description', 'fallbackImage', 'orientation', 'variant', 'type', 'items', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss', 'className', 'sx', 'ref']
     }
 };
-
 

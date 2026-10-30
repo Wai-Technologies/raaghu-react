@@ -1,15 +1,16 @@
 import clsx from "clsx";
-import { useCallback } from "react";
+import { useCallback, type ReactNode, type SyntheticEvent } from "react";
+import { Box } from "@mui/material";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
-import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
         type RdsCompToastProps,
         ToastLayout,
-        ToastLeadingIcon,
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,
+    resolveToastPosition,
     getLayoutClass,
     getPositionClasses,
     getStateClass,
@@ -21,34 +22,31 @@ const ToastFooter = ({
     progressWidth,
     filename,
     placeholder,
-    includeButtonClassName,
+    action,
 }: {
-    layout: ToastLayout;
+    action?: ReactNode;
+    layout: RdsCompToastProps["layout"];
     progressWidth?: number;
     filename?: string;
     placeholder?: string;
-    includeButtonClassName: boolean;
 }) => {
-    const buttonClassName = includeButtonClassName ? "rds-comp-toast__action-btn" : undefined;
     if (layout === ToastLayout.Download) {
         return (
             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
                 <div className="rds-comp-toast__progress">
                     <RdsProgress
-                        style="line"
-                        type="linear"
+                        shape="line"
                         value={progressWidth}
-                        variant="determinate"
+                        mode="determinate"
                         color="primary"
                         showLabel={true}
                         label={`${progressWidth}%`}
                     />
                 </div>
                 <div className="rds-comp-toast__filename">{filename}</div>
-                <div className="rds-comp-toast__actions">
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
-                </div>
+                {action != null && (
+                <div className="rds-comp-toast__actions">{action}</div>
+                )}
             </div>
         );
     }
@@ -63,33 +61,42 @@ const ToastFooter = ({
                         aria-label={placeholder || 'Toast reply input'}
                     />
                 </div>
-                <div className="rds-comp-toast__actions">
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Reply</RdsButton>
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
-                </div>
+                {action != null && (
+                <div className="rds-comp-toast__actions">{action}</div>
+                )}
             </div>
         );
     }
     if (layout === ToastLayout.Request) {
+        if (action == null) return null;
         return (
             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
-                <div className="rds-comp-toast__actions">
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Accept</RdsButton>
-                </div>
+                <div className="rds-comp-toast__actions">{action}</div>
+            </div>
+        );
+    }
+    if (action) {
+        return (
+            <div className="rds-comp-toast__footer">
+                <div className="rds-comp-toast__actions">{action}</div>
             </div>
         );
     }
     return null;
 };
 
+/** Maps severity → border modifier using palette severity names (not Bootstrap aliases). */
 const BORDER_TOKEN_MAP: Record<string, string> = {
-    basic: 'light',
-    info: 'dark',
-    success: 'primary',
-    error: 'danger',
+    basic: 'basic',
+    info: 'info',
+    success: 'success',
+    warning: 'warning',
+    error: 'error',
 };
 
+/**
+ * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
+ */
 const RdsCompToast = (props: RdsCompToastProps) => {
     const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
     const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;
@@ -101,40 +108,62 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const showDismiss = props.chrome?.dismiss ? props.chrome.dismiss === 'visible' : (legacyShowDismiss ?? false);
     const showSubText = props.chrome?.subText ? props.chrome.subText === 'visible' : (legacyShowSubText ?? false);
 
-    const _stateClass = getStateClass(props.state);
+    if (props.headerText !== undefined) warnDeprecatedProp('RdsCompToast', 'headerText', '`title`');
+    if (props.subText !== undefined) warnDeprecatedProp('RdsCompToast', 'subText', '`message`');
+    if (props.delay !== undefined) warnDeprecatedProp('RdsCompToast', 'delay', '`autoHideDuration`');
+    if (props.autohide !== undefined) warnDeprecatedProp('RdsCompToast', 'autohide', '`autoHideDuration`');
+    const titleText = props.title ?? props.headerText;
+    const messageText = props.message ?? props.subText;
+    const { autoHideDuration } = props;
+    const effectiveAutohide = autoHideDuration !== undefined ? autoHideDuration !== null : props.autohide;
+    const effectiveDelay = typeof autoHideDuration === 'number' ? autoHideDuration : props.delay;
+
+    if (props.leadingIcon !== undefined) warnDeprecatedProp('RdsCompToast', 'leadingIcon', '`icon`');
+    if (props.progressWidth !== undefined) warnDeprecatedProp('RdsCompToast', 'progressWidth', '`progress`');
+    const leadingIcon = props.icon ?? props.leadingIcon;
+    const progress = props.progress ?? props.progressWidth;
+    const position = resolveToastPosition(props.anchorOrigin, props.position);
+
+    const _stateClass = getStateClass(props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
-    const { showState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay);
-    const hideToast = useCallback(() => setShowState("hide"), [setShowState]);
+    const { onClose } = props;
+    const handleTimeout = useCallback(() => onClose?.(null, 'timeout'), [onClose]);
+    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(effectiveAutohide, effectiveDelay, handleTimeout);
+    const showState = props.open !== undefined ? (props.open ? "show" : "hide") : innerState;
+    const hideToast = useCallback((event: SyntheticEvent) => {
+        setShowState("hide");
+        onClose?.(event, 'closeClick');
+    }, [setShowState, onClose]);
 
     return (
-        <div className={clsx("rds-comp-toast__container", getPositionClasses(props.position))}>
+        <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx} id={props.id} aria-label={props['aria-label']} style={props.style}>
             <div
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
                 className={clsx(
                   "rds-comp-toast",
-                  `rds-comp-toast--${getStateClass(props.state)}`,
+                  `rds-comp-toast--${_stateClass}`,
                   `rds-comp-toast--${getLayoutClass(props.layout)}`,
                   borderColor,
                   showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"
                 )}
                 id="toastId"
-                onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
-                onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
+                onMouseEnter={effectiveAutohide && props.pauseOnHover ? pauseTimer : undefined}
+                onMouseLeave={effectiveAutohide && props.pauseOnHover ? resumeTimer : undefined}
             >
                 {showHeader && (
                     <div className="rds-comp-toast__header">
                         <div className="rds-comp-toast__header-content">
                             <div className="rds-comp-toast__leading-icon">
                                 {showLeading && props.layout !== ToastLayout.Chat && (
-                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(leadingIcon)}`)}></span>
                                 )}
                             </div>
 
                             <strong className="rds-comp-toast__title">
-                                {props.headerText}
+                                {titleText}
                             </strong>
 
                             <div className="rds-comp-toast__header-actions">
@@ -155,16 +184,16 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         
                         {showSubText && (
                             <div className="rds-comp-toast__body">
-                                {props.subText}
+                                {messageText}
                             </div>
                         )}
 
                         <ToastFooter
                             layout={props.layout}
-                            progressWidth={props.progressWidth}
+                            action={props.action}
+                            progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
-                            includeButtonClassName={true}
                         />
                     </div>
                 )}
@@ -174,12 +203,12 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__body-simple">
                             {showLeading && props.layout !== ToastLayout.Chat && (
                                 <div className="rds-comp-toast__leading-icon">
-                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(leadingIcon)}`)}></span>
                                 </div>
                             )}
                             
                             <div className="rds-comp-toast__text">
-                                {showSubText && props.subText}
+                                {showSubText && messageText}
                             </div>
                             
                             {showDismiss && (
@@ -194,15 +223,15 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         </div>
                         <ToastFooter
                             layout={props.layout}
-                            progressWidth={props.progressWidth}
+                            action={props.action}
+                            progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
-                            includeButtonClassName={false}
                         />
                     </div>
                 )}
             </div>
-        </div>
+        </Box>
     );
 };
 ToastFooter.displayName = "ToastFooter";

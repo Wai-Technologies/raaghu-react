@@ -1,57 +1,44 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsSwitch from './rds-switch';
 
 const meta: Meta<typeof RdsSwitch> = {
   title: 'Elements/Switch',
   component: RdsSwitch,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
+    controls: {
+      exclude: ['layout', 'showLabel', 'style', 'ref', 'component'],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    layout: {
-      control: 'select',
-      options: ["Switch + Label", "Label + Switch", "Top Label + Switch", "Bottom Label + Switch"],
-      description: 'Layout of the switch and label',
-      defaultValue: 'Switch + Label',
-    },
-    state: {
-      control: 'select',
-      options: ["Off", "On", "Disabled On", "Disabled Off"],
-      description: 'Control switch state for demo and Storybook',
-      defaultValue: 'Off',
-    },
-    showLabel: {
-      control: 'boolean',
-      description: 'Control to show/hide label',
-      defaultValue: true,
-    },
-    style: {
-      control: 'select',
-      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5"],
-      mapping: {
-        "Style 1": "style1",
-        "Style 2": "style2",
-        "Style 3": "style3",
-        "Style 4": "style4",
-        "Style 5": "style5",
-      },
-      description: 'Switch style variant',
-      defaultValue: 'Style 1',
-    },
-    color: {
-      control: 'select',
-      options: ["primary", "secondary", "error", "warning", "info", "success"],
-      description: 'Switch color variant',
-      defaultValue: 'primary',
+    label: {
+      control: 'text',
+      description: 'Label text shown next to the switch',
     },
     labelPlacement: {
       control: 'select',
       options: ['end', 'start', 'top', 'bottom'],
       description: 'Position of the label relative to the switch',
-      defaultValue: 'end',
+    },
+    defaultChecked: {
+      control: 'boolean',
+      description: 'Initial checked state for an uncontrolled switch',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable the switch',
+    },
+    variant: {
+      control: 'select',
+      options: ['style1', 'style2', 'style3', 'style4', 'style5'],
+      description: 'Switch style variant',
+    },
+    color: {
+      control: 'select',
+      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      description: 'Switch color variant',
     },
   },
 };
@@ -62,10 +49,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Default Switch',
-    layout: 'switch+label',
-    style: 'style1',
-    state: 'off',
-    showLabel: true,
+    labelPlacement: 'end',
+    variant: 'style1',
+    defaultChecked: false,
   },
 };
 
@@ -81,7 +67,6 @@ export const Colors: Story = {
     label: 'Secondary Color',
     color: 'secondary',
     defaultChecked: true,
-    showLabel: true,
   },
 };
 

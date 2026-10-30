@@ -5,10 +5,9 @@ import RdsHeader, { RdsHeaderProps } from './rds-header';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-header.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock ProfileMenu component
 jest.mock('./ProfileMenu', () => {
   return {
     ProfileMenu: (props: any) => (
@@ -20,7 +19,6 @@ jest.mock('./ProfileMenu', () => {
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Menu', () => {
   return function DummyIcon(props: any) {
     return <span data-testid="menu-icon" {...props} />;
@@ -535,5 +533,35 @@ describe('RdsHeader', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('renders uncontrolled tabs without tabValue/onTabChange', () => {
+    render(<RdsHeader tabs={['A', 'B']} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'B' }));
+    expect(screen.getByRole('tab', { name: 'B' })).toHaveAttribute('aria-selected', 'true');
+  });
+  it('lets consumer elevation win and labels the search input', () => {
+    const { container } = render(<RdsHeader elevation={4} searchValue="" onSearchChange={() => {}} searchPlaceholder="Find" />);
+    expect(container.querySelector('.MuiPaper-elevation4')).toBeInTheDocument();
+    expect(screen.getByLabelText('Find')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('tabsValue and onTabsChange work and legacy onTabChange still fires', () => {
+    const onTabsChange = jest.fn();
+    const onTabChange = jest.fn();
+    render(<RdsHeader tabs={['A', 'B']} tabsValue={0} onTabsChange={onTabsChange} onTabChange={onTabChange} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'B' }));
+    expect(onTabsChange).toHaveBeenCalledWith(expect.anything(), 1);
+    expect(onTabChange).toHaveBeenCalledWith(1);
+    expect(screen.getByRole('tab', { name: 'A' })).toHaveAttribute('aria-selected', 'true');
+  });
+  it('user object wins over legacy user props', () => {
+    render(<RdsHeader user={{ name: 'Ann', initials: 'A', email: 'a@x.com' }} userName="Old" userShortName="O" userEmail="o@x.com" />);
+    expect(screen.getByText('Ann')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
   });
 });

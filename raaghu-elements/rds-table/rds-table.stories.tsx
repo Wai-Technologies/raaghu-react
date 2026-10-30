@@ -1,5 +1,5 @@
 
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';
@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsTable> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],
+      exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selected','onSelectionChange','selectedRows','onRowSelect','className','component'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -237,8 +237,8 @@ const defaultColumns = [
           color="primary"
           stepperType="circle"
           steps={4}
-          style="line"
-          variant="determinate"
+          shape="line"
+          mode="determinate"
         />
         <span className="rds-table__progress-text">Text</span>
       </div>
@@ -322,52 +322,14 @@ const columns = [
   { id: 'role', label: 'Role', minWidth: 120, sortable: true },
 ];
 
-const advancedColumns = [
-  { 
-    id: 'checkbox', 
-    label: '', 
-    type: 'checkbox' as const,
-    minWidth: 50
-  },
-  { 
-    id: 'user', 
-    label: 'User', 
-    type: 'avatar' as const,
-    minWidth: 200
-  },
-  { 
-    id: 'badge', 
-    label: 'Badge', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'status', 
-    label: 'Status', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'actions', 
-    label: 'Actions', 
-    type: 'actions' as const,
-    minWidth: 120,
-    align: 'right' as const,
-    format: () => [
-      { type: 'edit', icon: <EditIcon fontSize="small" /> },
-      { type: 'delete', icon: <DeleteIcon fontSize="small" /> }
-    ]
-  },
-];
-
 export const Default: Story = {
   render: (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -391,8 +353,8 @@ export const SmallSize: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -412,8 +374,8 @@ export const StickyHeader: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -433,8 +395,8 @@ export const LargeDataset: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -459,8 +421,8 @@ export const WithActions: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -488,8 +450,8 @@ export const Empty: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />

@@ -1,12 +1,13 @@
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import RdsPopover from './rds-popover';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-popover.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -104,7 +105,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // When popover is open, content is visible
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -119,8 +119,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // MUI Popover handles Escape key internally
-      // Just verify that popover is open when rendering
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -147,8 +145,6 @@ describe('RdsPopover', () => {
           </RdsPopover>
         </ThemeProvider>
       );
-      // MUI Popover renders DOM but component handles visibility
-      // Just verify no errors occur during rerender
       expect(true).toBe(true);
     });
   });
@@ -178,7 +174,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // Only content should be provided when title is not provided
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -831,5 +826,64 @@ describe('RdsPopover', () => {
       expect(screen.getByText('Header')).toBeInTheDocument();
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const anchor = document.createElement('button');
+  document.body.appendChild(anchor);
+
+  it('supports open and merges consumer paper slotProps with aria-labelledby', () => {
+    render(
+      <RdsPopover
+        open
+        onClose={jest.fn()}
+        anchorEl={anchor}
+        title="Heading"
+        slotProps={{ paper: { className: 'extra', 'data-testid': 'paper' } as any }}
+      >
+        <div>Body</div>
+      </RdsPopover>
+    );
+    const paper = screen.getByTestId('paper');
+    expect(paper).toHaveClass('rds-popover__paper', 'extra');
+    expect(paper.getAttribute('aria-labelledby')).toBe(screen.getByText('Heading').id);
+  });
+
+  it('keeps legacy isOpen working', () => {
+    render(
+      <RdsPopover isOpen onClose={jest.fn()} anchorEl={anchor}>
+        <div>Legacy</div>
+      </RdsPopover>
+    );
+    expect(screen.getByText('Legacy')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('renders the arrow with placement and hides it with arrow={false}', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    const { rerender } = render(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} placement="top-center">Content</RdsPopover>);
+    expect(document.querySelector('.rds-popover__arrow--top-center')).toBeInTheDocument();
+    rerender(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} placement="top-center" arrow={false}>Content</RdsPopover>);
+    expect(document.querySelector('.rds-popover__arrow')).not.toBeInTheDocument();
+  });
+
+  it('warns when deprecated position is used', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    render(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} position="top-left">Content</RdsPopover>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPopover', 'position', '`placement` and `arrow`');
+  });
+
+  it('forwards data-testid to the popover root', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    render(
+      <RdsPopover open onClose={jest.fn()} anchorEl={anchor} data-testid="help-popover">
+        Content
+      </RdsPopover>,
+    );
+    expect(screen.getByTestId('help-popover')).toBeInTheDocument();
   });
 });

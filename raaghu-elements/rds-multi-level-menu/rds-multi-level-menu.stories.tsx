@@ -2,7 +2,7 @@
 import React from 'react';
 import { RdsMultiLevelMenu, MenuOption } from './rds-multi-level-menu';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 
 const meta = {
   title: 'Elements/Multi Level Menu',
@@ -11,25 +11,43 @@ const meta = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['onSelect'],
+      include: ['items', 'variant', 'size', 'selected', 'children', 'className', 'sx', 'ref'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    type: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the menu root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the menu root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the menu root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
+    items: {
+      control: 'object',
+      description: 'Menu options. Use variant="selectable" to highlight an item after it is clicked.',
+    },
+    variant: {
       control: { type: 'select' },
       options: ['expandable', 'selectable'],
       description: 'Defines the menu behavior, either expandable sub-menus or selectable items',
     },
     size: {
       control: { type: 'select' },
-      options: ['default', 'large'],
-      description: 'Sets the size of the menu items',
+      options: ['small', 'medium', 'large'],
+      description: 'Size of the trigger button and menu items. Standard scale; defaults to medium.',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'hover', 'selected'],
-      description: 'Sets the visual state of the menu items',
+    selected: {
+      control: 'boolean',
+      description: 'Selects the first item when using the selectable variant',
     },
   },
 } satisfies Meta<typeof RdsMultiLevelMenu>;
@@ -63,7 +81,7 @@ export const Default:Story ={
      expect(buttons.length).toBeGreaterThan(0);
    },
    render: (args) => {
-     const base: MenuOption[] = args.options ?? [];
+     const base: MenuOption[] = args.items ?? [];
      if (args.size === 'large') {
        const templateWithChildren = base.find(o => Array.isArray(o.children) && o.children.length > 0);
        const firstExtra: MenuOption = templateWithChildren
@@ -78,14 +96,23 @@ export const Default:Story ={
          : { label: 'Option', shortcut: 'Shortcut' };
        const secondExtra: MenuOption = { label: 'Option', shortcut: 'Shortcut' };
        const computedOptions: MenuOption[] = [...base, firstExtra, secondExtra];
-       return <RdsMultiLevelMenu {...args} options={computedOptions} />;
+       return <RdsMultiLevelMenu {...args} items={computedOptions} />;
      }
-     return <RdsMultiLevelMenu {...args} options={base} />;
+     return <RdsMultiLevelMenu {...args} items={base} />;
    },
    args: {
-      options: options,
-      type: 'expandable',
-      size: 'default',
-      state: 'default',
+      items: options,
+      variant: 'expandable',
+      size: 'medium',
+      selected: false,
    }
 }
+
+export const Selectable: Story = {
+  args: {
+    items: options,
+    variant: 'selectable',
+    size: 'medium',
+    selected: false,
+  },
+};

@@ -8,10 +8,9 @@ const config: StorybookConfig = {
   stories: [
     '../stories/Introduction.mdx',
     '../stories/**/*.mdx',
-    "../raaghu-elements/**/**/*.stories.@(js|jsx|ts|tsx)",
-    // Exclude internal/paid components (grid=paid, tree-structure=internal, date-and-time-picker=internal)
+    "../raaghu-elements/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/!(rds-comp-grid|rds-comp-tree-structure|rds-comp-date-and-time-picker)/**/*.stories.@(js|jsx|ts|tsx)",
-    "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-layouts/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     {
@@ -40,17 +39,29 @@ const config: StorybookConfig = {
     reactDocgenTypescriptOptions: {
       tsconfigPath: 'tsconfig.library.json',
       shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+      shouldRemoveUndefinedFromOptional: true,
+      propFilter: (prop) => {
+        if ((prop.tags && 'deprecated' in prop.tags) || /(^|\n)\s*@deprecated\b/.test(prop.description ?? '')) return false;
+        const files = [...(prop.declarations ?? []), ...(prop.parent ? [prop.parent] : [])].map((d) => d.fileName);
+        return files.some((file) => !/node_modules/.test(file));
+      },
       exclude: ['**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'],
     },
   },
   async viteFinal(config: InlineConfig) {
+    const reactPath = fileURLToPath(new URL('../node_modules/react', import.meta.url));
+    const reactDomPath = fileURLToPath(new URL('../node_modules/react-dom', import.meta.url));
     return {
       ...config,
       resolve: {
         ...config.resolve,
+        dedupe: [...new Set([...(config.resolve?.dedupe ?? []), 'react', 'react-dom', '@emotion/react'])],
         alias: {
           ...(typeof config.resolve?.alias === 'object' ? config.resolve.alias : {}),
+          react: reactPath,
+          'react-dom': reactDomPath,
+          'react/jsx-runtime': fileURLToPath(new URL('../node_modules/react/jsx-runtime.js', import.meta.url)),
+          'react/jsx-dev-runtime': fileURLToPath(new URL('../node_modules/react/jsx-dev-runtime.js', import.meta.url)),
           '@icons/material/UnfoldMoreHorizontalIcon': fileURLToPath(new URL('./shims/UnfoldMoreHorizontalIcon.tsx', import.meta.url)),
           '@icons/material/CheckIcon': fileURLToPath(new URL('./shims/CheckIcon.tsx', import.meta.url)),
         },
@@ -59,7 +70,9 @@ const config: StorybookConfig = {
         ...config.optimizeDeps,
         include: [
           ...(config.optimizeDeps?.include ?? []),
-          // MUI subpaths — Vite 7 cannot auto-resolve the wildcard "./*" export pattern
+          'react',
+          'react-dom',
+          'react/jsx-runtime',
           '@mui/material',
           '@mui/material/styles',
           '@mui/material/Box',

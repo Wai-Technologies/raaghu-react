@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler } from 'react';
+import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref, type HTMLAttributes } from 'react';
 import {
   Box,
   TextField,
@@ -23,6 +23,8 @@ import {
   Card,
   Tooltip,
   Popover,
+  type SxProps,
+  type Theme,
   List,
   ListItem,
   ListItemText,
@@ -44,10 +46,10 @@ import {
   SwapVert as ArrowUpDownIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -57,21 +59,17 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export type GridRow = Record<string, unknown>;
 
-// Types and Enums
-export enum ActionPosition {
-  Right = "right",
-  Left = "left",
-}
+export const ActionPosition = {
+  Right: 'right',
+  Left: 'left',
+} as const;
+export type ActionPosition = (typeof ActionPosition)[keyof typeof ActionPosition];
 
-export enum State {
-  Default = "default",
-  Collapsed = "collapsed",
-}
-
-export enum ActionColumnStyle {
-  ShowDots = "show dots",
-  ShowButtonsDirectly = "show buttons directly",
-}
+export const ActionColumnStyle = {
+  ShowDots: 'show dots',
+  ShowButtonsDirectly: 'show buttons directly',
+} as const;
+export type ActionColumnStyle = (typeof ActionColumnStyle)[keyof typeof ActionColumnStyle];
 
 export interface RdsCompGridColumn {
   key: string;
@@ -79,8 +77,14 @@ export interface RdsCompGridColumn {
   dataType?: string;
   dataLength?: number;
   required?: boolean;
+  sortable?: boolean;
+  /** @deprecated Use `sortable` instead. */
   isSort?: boolean;
+  filterable?: boolean;
+  /** @deprecated Use `filterable` instead. */
   isFilter?: boolean;
+  resizable?: boolean;
+  /** @deprecated Use `resizable` instead. */
   isResizable?: boolean;
   showHeader?: boolean;
   showSubHeader?: boolean;
@@ -200,15 +204,21 @@ export interface RdsCompGridRef {
   getSelectedRowCount: () => number;
 }
 
-export interface RdsCompGridProps {
+export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'ref'> {
   tableHeaders: RdsCompGridColumn[];
   tableData: GridRow[];
 
   controlledData?: GridRow[];
   onDataChange?: (newData: GridRow[]) => void;
   
+  sortable?: boolean;
+  /** @deprecated Use `sortable` instead. */
   isSort?: boolean;
+  filterable?: boolean;
+  /** @deprecated Use `filterable` instead. */
   isFilter?: boolean;
+  resizable?: boolean;
+  /** @deprecated Use `resizable` instead. */
   isResizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
@@ -220,7 +230,7 @@ export interface RdsCompGridProps {
   showHeader?: boolean;
   showSubHeader?: boolean;
   showAddNewColumn?: boolean;
-  state?: State;
+  collapsed?: boolean;
   
   actions?: RdsCompGridAction[];
   actionPosition?: ActionPosition;
@@ -234,6 +244,8 @@ export interface RdsCompGridProps {
   onActionSelection?: (rowData: GridRow, actionId: string) => void;
   onRowSelect?: (data: GridRow) => void;
   onRowClick?: (rowId: string) => void;
+  onPagination?: (currentPage: number, recordsPerPage: number) => void;
+  /** @deprecated Use `onPagination` instead. */
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
@@ -243,16 +255,17 @@ export interface RdsCompGridProps {
   onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
   onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
-  // Styling
   classes?: string;
   fontWeight?: string;
   illustration?: boolean;
   noDataTitle?: string;
   noDataHeaderTitle?: string;
   
-  
-  // Loading
+  loading?: boolean;
+  /** @deprecated Use `loading` instead. */
   isLoading?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<RdsCompGridRef>;
 }
 
 const EditableCell = ({ 
@@ -267,15 +280,15 @@ const EditableCell = ({
   tempValue, 
   validationError 
 }: {
-  value: any;
+  value: unknown;
   column: RdsCompGridColumn;
-  row: any;
+  row: GridRow;
   isEditing: boolean;
   onStartEdit: () => void;
-  onSave: (newValue: any) => void;
+  onSave: (newValue: unknown) => void;
   onCancel: () => void;
-  onValueChange: (newValue: any) => void;
-  tempValue: any;
+  onValueChange: (newValue: unknown) => void;
+  tempValue: unknown;
   validationError?: string;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -339,7 +352,7 @@ const EditableCell = ({
     return (
       <TextField
         ref={inputRef}
-        value={tempValue}
+        value={formatValueForDisplay(tempValue)}
         onChange={(e) => onValueChange(e.target.value)}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
@@ -350,17 +363,17 @@ const EditableCell = ({
         helperText={validationError}
         sx={{
           '& .MuiInputBase-input': {
-            padding: '4px 8px',
-            fontSize: '14px',
+            padding: 'var(--rds-spacing-xs-px) var(--rds-spacing-sm-px)',
+            fontSize: 'var(--rds-font-size-sm)',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
           },
           '& .MuiOutlinedInput-notchedOutline': {
-            borderWidth: '1px',
+            borderWidth: 'var(--rds-border-width-thin)',
           },
           '& .MuiOutlinedInput-root': {
-            height: '32px',
+            height: 'var(--rds-size-xl)',
           },
         }}
       />
@@ -375,19 +388,19 @@ const EditableCell = ({
       onClick={onStartEdit}
       sx={{
         cursor: 'pointer',
-        padding: '4px 8px',
-        minHeight: '32px',
+        padding: 'var(--rds-spacing-xs-px) var(--rds-spacing-sm-px)',
+        minHeight: 'var(--rds-size-xl)',
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        border: '1px solid transparent',
+        border: 'var(--rds-border-width-thin) solid transparent',
         borderRadius: 'var(--rds-border-radius-sm)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         '&:hover': {
           backgroundColor: 'action.hover',
-          border: '1px solid',
+          border: 'var(--rds-border-width-thin) solid',
           borderColor: 'divider',
         },
       }}
@@ -424,9 +437,9 @@ const EditableCell = ({
 };
 
 const ActionMenu = ({ row, actions, onActionSelection }: {
-  row: any;
+  row: GridRow;
   actions: RdsCompGridAction[];
-  onActionSelection?: (rowData: any, actionId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -452,7 +465,7 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
       case 'delete':
         return <DeleteIcon fontSize="small" />;
       case 'view':
-        return <ViewIcon fontSize="small" />;
+        return <VisibilityIcon fontSize="small" />;
       default:
         return <MoreIcon fontSize="small" />;
     }
@@ -487,9 +500,9 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
         slotProps={{
           paper: {
             sx: {
-              minWidth: 120,
+              minWidth: 'var(--rds-grid-control-min-width)',
               '& .MuiMenuItem-root': {
-                fontSize: '14px',
+                fontSize: 'var(--rds-font-size-sm)',
               },
             },
           },
@@ -505,7 +518,7 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
               },
             }}
           >
-            <ListItemIcon sx={{ minWidth: 32 }}>
+            <ListItemIcon sx={{ minWidth: 'var(--rds-size-xl)' }}>
               {getActionIcon(action.id)}
             </ListItemIcon>
             <ListItemText primary={action.displayName} />
@@ -516,14 +529,20 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
   );
 };
 
-const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
+const RdsCompGrid = ({
+  ref,
+  className,
+  sx,
   tableHeaders,
   tableData,
   controlledData,
   onDataChange,
-  isSort = true,
-  isFilter = true,
-  isResizable = true,
+  sortable: sortableProp,
+  isSort,
+  filterable: filterableProp,
+  isFilter,
+  resizable: resizableProp,
+  isResizable,
   enableCheckboxSelection = false,
   enableRadioButtonSelection = false,
   enableInlineEdit = false,
@@ -533,7 +552,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
-  state = State.Default,
+  collapsed = false,
   actions = [],
   actionPosition = ActionPosition.Right,
   actionColumnStyle = ActionColumnStyle.ShowDots,
@@ -544,6 +563,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   onActionSelection,
   onRowSelect,
   onRowClick,
+  onPagination: onPaginationProp,
   onPaginationHandler,
   onSortChange,
   onFilterChange,
@@ -557,9 +577,22 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   illustration = false,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
-  isLoading = false,
-}, ref) => {
-  const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
+  loading: loadingProp,
+  isLoading,
+  ...rest
+}: RdsCompGridProps) => {
+  if (isSort !== undefined) warnDeprecatedProp('RdsCompGrid', 'isSort', '`sortable`');
+  if (isFilter !== undefined) warnDeprecatedProp('RdsCompGrid', 'isFilter', '`filterable`');
+  if (isResizable !== undefined) warnDeprecatedProp('RdsCompGrid', 'isResizable', '`resizable`');
+  if (onPaginationHandler !== undefined) warnDeprecatedProp('RdsCompGrid', 'onPaginationHandler', '`onPagination`');
+  if (tableHeaders.some(h => h.isSort !== undefined || h.isFilter !== undefined || h.isResizable !== undefined)) {
+    warnDeprecatedProp('RdsCompGrid', 'tableHeaders[].isSort/isFilter/isResizable', '`sortable`/`filterable`/`resizable`');
+  }
+  const sortable = sortableProp ?? isSort ?? true;
+  const filterable = filterableProp ?? isFilter ?? true;
+  const loading = resolveDeprecatedProp(loadingProp, isLoading, 'RdsCompGrid', 'isLoading', '`loading`') ?? false;
+  const onPagination = onPaginationProp ?? onPaginationHandler;
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -577,7 +610,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [isFilterExpanded, setIsFilterExpanded] = useState(false);
   const [filterConditions, setFilterConditions] = useState([
     { id: 1, column: '', operator: 'contains', value: '' },
-    { id: 2, column: '', operator: 'contains', value: '' }
   ]);
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
   const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>(() => {
@@ -673,7 +705,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, []);
 
-  const reorder = (list: GridRow[], startIndex: number, endIndex: number) => {
+  const reorder = <T,>(list: T[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -791,7 +823,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     Object.entries(filterState).forEach(([columnKey, filter]) => {
       if (filter.value) {
         filtered = filtered.filter((row) => {
-          const cellValue = row[columnKey];
+          const cellValue = row[columnKey] as string;
           const filterValue = filter.value;
 
           const column = tableHeaders.find(h => h.key === columnKey);
@@ -853,8 +885,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
     if (sortColumn) {
       filtered = filtered.sort((a, b) => {
-        const aVal = a[sortColumn];
-        const bVal = b[sortColumn];
+        const aVal = a[sortColumn] as string;
+        const bVal = b[sortColumn] as string;
         if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
         if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
         return 0;
@@ -1044,7 +1076,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     e.stopPropagation();
     
     const header = tableHeaders.find(h => h.key === columnKey);
-    if (header?.isResizable !== false) {
+    if ((header?.resizable ?? header?.isResizable) !== false) {
       const currentWidth = columnWidths[columnKey] || header?.minWidth || 150;
       
       setIsResizing(true);
@@ -1058,7 +1090,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
       if (isFilterPopupOpen && filterAnchorEl) {
         const target = event.target as Element;
         if (!target.closest('.MuiPopover-root') && !target.closest('[data-filter-button]')) {
@@ -1074,7 +1106,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   }, [isFilterPopupOpen, filterAnchorEl]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: globalThis.MouseEvent) => {
       if (isResizing && resizingColumn) {
         const deltaX = e.clientX - resizeStartX;
         const header = tableHeaders.find(h => h.key === resizingColumn);
@@ -1141,14 +1173,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const columnToFilter = selectedColumnForFilter || filterConditions[0].column;
     
     if (columnToFilter && filterConditions[0].value) {
-      const filterValue = filterConditions[0].value instanceof Date ?
-        filterConditions[0].value.toISOString().split('T')[0] :
+      const filterValue = (filterConditions[0].value as unknown) instanceof Date ?
+        (filterConditions[0].value as unknown as Date).toISOString().split('T')[0] :
         filterConditions[0].value;
       
       const newFilterState = { ...filterState };
       newFilterState[columnToFilter] = {
         value: filterValue,
-        operator: filterConditions[0].operator
+        operator: filterConditions[0].operator as FilterState[string]['operator']
       };
       
       const newColumnFilterStates = { ...columnFilterStates };
@@ -1192,7 +1224,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const handleClearAdvancedFilter = () => {
     setFilterConditions([
       { id: 1, column: '', operator: 'contains', value: '' },
-      { id: 2, column: '', operator: 'contains', value: '' }
     ]);
     
     if (selectedColumnForFilter) {
@@ -1240,7 +1271,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    onPaginationHandler?.(page, recordsPerPage);
+    onPagination?.(page, recordsPerPage);
   };
 
   const handleRowSelect = (rowId: string, rowData: GridRow) => {
@@ -1290,14 +1321,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           break;
         case 'email': {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(newValue)) {
+          if (!emailRegex.test(newValue as string)) {
             validationError = 'Please enter a valid email address';
           }
           break;
         }
         case 'url':
           try {
-            new URL(newValue);
+            new URL(newValue as string);
           } catch {
             validationError = 'Please enter a valid URL';
           }
@@ -1331,7 +1362,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           processedValue = Boolean(newValue);
           break;
         default:
-          processedValue = newValue.toString();
+          processedValue = (newValue as string).toString();
       }
     }
 
@@ -1425,14 +1456,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             break;
           case 'email': {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
+            if (!emailRegex.test(value as string)) {
               error = 'Please enter a valid email address';
             }
             break;
           }
           case 'url':
             try {
-              new URL(value);
+              new URL(value as string);
             } catch {
               error = 'Please enter a valid URL';
             }
@@ -1501,7 +1532,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             processedValue = Boolean(value);
             break;
           default:
-            processedValue = value.toString();
+            processedValue = (value as string).toString();
         }
       }
 
@@ -1620,7 +1651,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     applyFilter: (columnKey: string, value: string, operator: string = 'contains') => {
       const newFilterState = { ...filterState };
       if (value) {
-        newFilterState[columnKey] = { value, operator };
+        newFilterState[columnKey] = { value, operator: operator as FilterState[string]['operator'] };
       } else {
         delete newFilterState[columnKey];
       }
@@ -1634,7 +1665,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       onFilterChange?.(newFilterState);
     },
 
-    // Sorting
     getSortState: () => ({ column: sortColumn, direction: sortDirection }),
     setSort: (column: string, direction: 'asc' | 'desc') => {
       setSortColumn(column);
@@ -1655,12 +1685,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     getCurrentPage: () => currentPage,
     setCurrentPage: (page: number) => {
       setCurrentPage(page);
-      onPaginationHandler?.(page, recordsPerPage);
+      onPagination?.(page, recordsPerPage);
     },
     getPageSize: () => recordsPerPage,
     setPageSize: (size: number) => {
       setCurrentPage(1);
-      onPaginationHandler?.(1, size);
+      onPagination?.(1, size);
     },
     getTotalPages: () => Math.ceil(currentData.length / recordsPerPage),
 
@@ -1685,13 +1715,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setColumnWidths(initialWidths);
     },
 
-    // Grid State
     isCollapsed: () => isCollapsed,
     toggleCollapse: () => setIsCollapsed(!isCollapsed),
     expand: () => setIsCollapsed(false),
     collapse: () => setIsCollapsed(true),
 
-    // Editing
     startEdit: (rowId: string, columnKey?: string) => {
       if (enableInlineEdit) {
         if (inlineEditMode === 'row') {
@@ -1769,7 +1797,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     currentPage,
     setCurrentPage,
     recordsPerPage,
-    onPaginationHandler,
+    onPagination,
     visibleColumns,
     setVisibleColumns,
     handleColumnVisibilityChange,
@@ -1801,10 +1829,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
-      <Card sx={{ p: 2 }}>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx] as SxProps<Theme>}>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="var(--rds-spacing-200)">
           <Typography variant="h6" color="text.secondary">
             Loading...
           </Typography>
@@ -1815,9 +1843,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   if (tableData.length === 0) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx] as SxProps<Theme>}>
         {showHeader && (
-          <Box p={2} borderBottom="1px solid" borderColor="divider">
+          <Box p={2} borderBottom="var(--rds-border-width-thin) solid" borderColor="divider">
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
               <TextField
                 placeholder="Search..."
@@ -1829,7 +1857,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     startAdornment: <SearchIcon color="action" />,
                   },
                 }}
-                sx={{ minWidth: 200 }}
+                sx={{ minWidth: 'var(--rds-spacing-200)' }}
               />
               <Stack direction="row" spacing={1}>
                 <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
@@ -1855,7 +1883,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             </Stack>
           </Box>
         )}
-        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="200px">
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="var(--rds-spacing-200)">
           <Typography variant="h6" color="text.secondary" gutterBottom>
             {noDataTitle}
           </Typography>
@@ -1868,7 +1896,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   }
 
   return (
-    <Card sx={{
+    <Card {...rest} className={className} sx={[{
       bgcolor: 'background.paper',
       color: 'text.primary',
       '& .MuiTableCell-root': {
@@ -1890,10 +1918,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         visibility: 'visible !important',
         opacity: '0.5 !important',
         backgroundColor: 'action.hover',
-        border: '2px dashed',
+        border: 'var(--rds-border-width-medium) dashed',
         borderColor: 'var(--rds-primary-main)',
       },
-    }}>
+    }, sx] as SxProps<Theme>}>
       {showHeader && (
         <Box
           ref={headerScrollRef}
@@ -1904,7 +1932,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             '&::-webkit-scrollbar': { height: 0 }, 
           }}
         >
-          <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          <Box p={2} borderBottom="var(--rds-border-width-thin) solid" borderColor="divider" sx={{
             bgcolor: 'background.paper'
           }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
@@ -1918,7 +1946,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   startAdornment: <SearchIcon color="action" />,
                 },
               }}
-              sx={{ minWidth: 200 }}
+              sx={{ minWidth: 'var(--rds-spacing-200)' }}
             />
             <Stack direction="row" spacing={1}>
               <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
@@ -1947,14 +1975,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
 
       {showFilters && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+        <Box p={2} borderBottom="var(--rds-border-width-thin) solid" borderColor="divider" sx={{
           bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
-            {tableHeaders.filter(header => header.isFilter).map((header) => (
+            {tableHeaders.filter(header => header.filterable ?? header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography variant="body2" fontWeight="medium" minWidth="87px">
+                  <Typography variant="body2" fontWeight="medium" minWidth="var(--rds-grid-filter-label-min-width)">
                     {header.name}:
                   </Typography>
                   <TextField
@@ -1964,17 +1992,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     size="small"
                     sx={{ flexGrow: 1 }}
                   />
-                  <FormControl size="small" sx={{ minWidth: 120 }}>
+                  <FormControl size="small" sx={{ minWidth: 'var(--rds-grid-control-min-width)' }}>
                     <Select
                       value={filterState[header.key]?.operator || 'contains'}
                       onChange={(e) => handleFilterChange(header.key, filterState[header.key]?.value || '', e.target.value as FilterState[string]['operator'])}
                     >
-                      <MenuItem value="contains">Contains</MenuItem>
-                      <MenuItem value="equals">Equals</MenuItem>
-                      <MenuItem value="startsWith">Starts With</MenuItem>
-                      <MenuItem value="endsWith">Ends With</MenuItem>
-                      <MenuItem value="greaterThan">Greater Than</MenuItem>
-                      <MenuItem value="lessThan">Less Than</MenuItem>
+                      {getOperatorsForDataType(header.dataType || 'string').map((op) => (
+                        <MenuItem key={op.value} value={op.value}>{op.label}</MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </Stack>
@@ -1990,11 +2015,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 color="secondary"
                 text="Clear All"
                 sx={{
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  height: '32px',
+                  fontSize: 'var(--rds-font-size-2xs)',
+                  fontWeight: 'var(--rds-font-weight-semibold)',
+                  height: 'var(--rds-size-xl)',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
+                  letterSpacing: 'var(--rds-letter-spacing-caps)',
                   borderRadius: 'var(--rds-border-radius-sm)',
                   boxShadow: 'none',
                   '&:hover': {
@@ -2011,7 +2036,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
 
       {showSubHeader && (
-        <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
+        <Box p={1.5} borderBottom="var(--rds-border-width-thin) solid" borderColor="divider" sx={{ 
           bgcolor: 'action.selected'
         }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -2055,9 +2080,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {enableRowSwapping && (
                   <TableCell 
                     sx={{ 
-                      width: '60px',
+                      width: 'var(--rds-spacing-60)',
                       padding: 'var(--rds-spacing-sm-px)',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2068,8 +2093,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   <TableCell 
                     padding="checkbox" 
                     sx={{ 
-                      width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      width: 'var(--rds-spacing-50)',
+                      borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2091,8 +2116,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   <TableCell 
                     padding="checkbox" 
                     sx={{ 
-                      width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      width: 'var(--rds-spacing-50)',
+                      borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2118,10 +2143,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         <Box
                           sx={{
                             position: 'absolute',
-                            left: '-2px',
+                            left: 'var(--rds-spacing-neg-2)',
                             top: 0,
                             bottom: 0,
-                            width: '4px',
+                            width: 'var(--rds-size-xs)',
                             backgroundColor: 'var(--rds-primary-main)',
                             zIndex: 'var(--rds-z-index-portal)',
                           }}
@@ -2165,7 +2190,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           }
                         }}
                         sx={{
-                          cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
+                          cursor: enableColumnSwapping ? 'grab' : (sortable && (header.sortable ?? header.isSort) ? 'pointer' : 'default'),
                           width: columnWidths[header.key] || header.minWidth || 150,
                           minWidth: header.minWidth || 50,
                           maxWidth: header.maxWidth || 800,
@@ -2175,9 +2200,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                          borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                           bgcolor: 'action.hover !important',
-                          transition: isDragging ? 'none' : 'all 0.2s ease',
+                          transition: isDragging ? 'none' : 'all var(--rds-motion-duration-quick) ease',
                           '&:last-child': {
                             borderRight: 'none',
                           },
@@ -2201,7 +2226,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         }}
                         onClick={(e: MouseEvent) => {
                           e.stopPropagation();
-                          if (!customDragState.isDragging && isSort && header.isSort) {
+                          if (!customDragState.isDragging && sortable && (header.sortable ?? header.isSort)) {
                             handleSort(header.key);
                           }
                         }}
@@ -2225,7 +2250,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           {header.required && (
                             <Typography color="error" variant="caption">*</Typography>
                           )}
-                          {isSort && header.isSort && (
+                          {sortable && (header.sortable ?? header.isSort) && (
                             <Tooltip title="Sort">
                               <IconButton size="small" aria-label={`Sort by ${header.name}`}>
                                 {(() => {
@@ -2240,7 +2265,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               </IconButton>
                             </Tooltip>
                           )}
-                          {isFilter && header.isFilter && (
+                          {filterable && (header.filterable ?? header.isFilter) && (
                             <Tooltip title="Click to open filters and column visibility">
                               <span>
                                 <IconButton 
@@ -2263,7 +2288,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           )}
                         </Stack>
                         
-                        {header.isResizable !== false && (
+                        {(header.resizable ?? header.isResizable) !== false && (
                           <Box
                             role="separator"
                             aria-label={`Resize ${header.name} column`}
@@ -2282,20 +2307,20 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               right: 0,
                               top: 0,
                               bottom: 0,
-                              width: '6px',
+                              width: 'var(--rds-spacing-compact)',
                               cursor: 'col-resize',
                               backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
                               zIndex: 'var(--rds-z-index-raised)',
-                              transition: 'all 0.2s ease',
+                              transition: 'all var(--rds-motion-duration-quick) ease',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
                                 opacity: 0.8,
-                                width: '3px',
+                                width: 'var(--rds-spacing-micro)',
                               },
                               '&:focus': {
-                                outline: '2px solid',
+                                outline: 'var(--rds-border-width-medium) solid',
                                 outlineColor: 'primary.main',
-                                outlineOffset: '1px',
+                                outlineOffset: 'var(--rds-border-width-thin)',
                               },
                             }}
                           />
@@ -2305,10 +2330,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             <Box
                               sx={{
                                 position: 'absolute',
-                                right: '-2px',
+                                right: 'var(--rds-spacing-neg-2)',
                                 top: 0,
                                 bottom: 0,
-                                width: '4px',
+                                width: 'var(--rds-size-xs)',
                                 backgroundColor: 'var(--rds-primary-main)',
                                 zIndex: 'var(--rds-z-index-portal)',
                               }}
@@ -2322,7 +2347,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {actions.length > 0 && (
                   <TableCell 
                     sx={{ 
-                      width: '100px',
+                      width: 'var(--rds-spacing-100)',
                       borderRight: 'none',
                       bgcolor: 'action.hover !important',
                     }}
@@ -2336,7 +2361,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {enableInlineEdit && inlineEditMode === 'row' && (
                   <TableCell 
                     sx={{ 
-                      width: '150px',
+                      width: 'var(--rds-grid-edit-column-width)',
                       borderRight: 'none',
                       bgcolor: 'action.hover !important',
                     }}
@@ -2384,9 +2409,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       >
                         {enableRowSwapping && (
                           <TableCell sx={{ 
-                            width: '60px', 
+                            width: 'var(--rds-spacing-60)',
                             padding: 'var(--rds-spacing-sm-px)',
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                             textAlign: 'center',
                             verticalAlign: 'middle'
                           }}>
@@ -2417,7 +2442,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2429,7 +2454,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2458,7 +2483,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2483,7 +2508,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
                             color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -2510,12 +2535,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 },
                                 '& .status-pill': {
                                   display: 'inline-block',
-                                  padding: '2px 8px',
+                                  padding: 'var(--rds-spacing-xxs) var(--rds-spacing-sm-px)',
                                   borderRadius: 'var(--rds-border-radius-lg)',
-                                  fontSize: '12px',
-                                  fontWeight: 500,
+                                  fontSize: 'var(--rds-font-size-xs)',
+                                  fontWeight: 'var(--rds-font-weight-medium)',
                                   textAlign: 'center',
-                                  minWidth: '60px',
+                                  minWidth: 'var(--rds-spacing-60)',
                                   '&.status-qualified': {
                                     backgroundColor: 'var(--rds-success-dark)', color: 'var(--rds-neutral-0)',
                                   },
@@ -2538,22 +2563,22 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 },
                                 '& .progress-bar': {
                                   width: '100%',
-                                  height: '8px',
+                                  height: 'var(--rds-size-sm)',
                                   backgroundColor: 'action.selected',
                                   borderRadius: 'var(--rds-border-radius-sm)',
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
                                     backgroundColor: 'primary.main',
-                                    transition: 'width 0.3s ease',
+                                    transition: 'width var(--rds-motion-duration-moderate) ease',
                                   },
                                 },
                                 '& .verification-icon': {
                                   display: 'inline-flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  width: '20px',
-                                  height: '20px',
+                                  width: 'var(--rds-size-20)',
+                                  height: 'var(--rds-size-20)',
                                   borderRadius: 'var(--rds-border-radius-pill)',
                                   '&.verified': {
                                     backgroundColor: 'success.main',
@@ -2565,15 +2590,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   },
                                 },
                                 '& img': {
-                                  maxWidth: '24px',
-                                  maxHeight: '24px',
+                                  maxWidth: 'var(--rds-size-lg)',
+                                  maxHeight: 'var(--rds-size-lg)',
                                   borderRadius: 'var(--rds-border-radius-pill)',
                                   verticalAlign: 'middle',
                                   marginRight: 'var(--rds-spacing-sm-px)',
                                 },
                                 '& .employee-name': {
                                   color: 'text.primary',
-                                  fontWeight: 'bold',
+                                  fontWeight: 'var(--rds-font-weight-bold)',
                                 },
                                 '& .employee-title': {
                                   color: 'text.secondary',
@@ -2598,8 +2623,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& .senior, & .lead, & .pending, & .active': {
                                   color: 'text.primary',
                                 },
-                                // Style attribute selectors removed - using CSS classes instead
-                                // See rds-comp-grid.scss for themed cell styling classes
                               }}
                             >
                               {cellText}
@@ -2683,7 +2706,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       </TableCell>
                     )}
 
-                    {/* Row editing controls */}
                     {enableInlineEdit && inlineEditMode === 'row' && (
                       <TableCell sx={{ borderRight: 'none' }}>
                         <Stack direction="row" spacing={0.5}>
@@ -2691,7 +2713,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             <>
                               <RdsButton
                                 size="small"
-                                style="filled"
+                                variant="filled"
                                 color="primary"
                                 onClick={() => {
                                   handleRowEditSave(rowId);
@@ -2702,7 +2724,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               />
                               <RdsButton
                                 size="small"
-                                style="outlined"
+                                variant="outlined"
                                 color="secondary"
                                 onClick={handleRowEditCancel}
                                 showLeftIcon={true}
@@ -2713,7 +2735,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           ) : (
                             <RdsButton
                               size="small"
-                              style="outlined"
+                              variant="outlined"
                               color="primary"
                               onClick={() => handleRowEditStart(rowId, row)}
                               showLeftIcon={true}
@@ -2738,7 +2760,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         </TableContainer>
       )}
 
-      {/* Filter and Column Visibility Popup */}
       <Popover
         open={isFilterPopupOpen}
         anchorEl={filterAnchorEl}
@@ -2755,8 +2776,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         slotProps={{
           paper: {
             sx: {
-              width: 200,
-              maxHeight: 250,
+              width: 'var(--rds-spacing-200)',
+              maxHeight: 'var(--rds-spacing-250)',
               overflow: 'auto',
               overflowY: 'auto',
               zIndex: 'var(--rds-z-index-modal, 1300)',
@@ -2772,7 +2793,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               borderColor: 'divider',
             },
             '&::-webkit-scrollbar': {
-              width: '6px',
+              width: 'var(--rds-spacing-compact)',
             },
               scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
@@ -2780,7 +2801,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             },
             '&::-webkit-scrollbar-thumb': {
               backgroundColor: 'var(--rds-action-disabled)',
-              borderRadius: '3px',
+              borderRadius: 'var(--rds-border-radius-micro)',
             },
             '&::-webkit-scrollbar-thumb:hover': {
               backgroundColor: 'var(--rds-action-disabled)',
@@ -2791,14 +2812,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       >
         <Box p={1}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: '12px' }}>
+            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: 'var(--rds-font-size-xs)' }}>
               {selectedColumnForFilter ? 
                 `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
                 'Controls'
               }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: '20px', height: '20px' }}>
-              <ClearIcon sx={{ fontSize: '14px' }} />
+            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: 'var(--rds-size-20)', height: 'var(--rds-size-20)' }}>
+              <ClearIcon sx={{ fontSize: 'var(--rds-font-size-sm)' }} />
             </IconButton>
           </Stack>
           
@@ -2812,7 +2833,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 cursor: 'pointer',
                 p: 1,
                 borderRadius: 0.5,
-                border: '1px solid',
+                border: 'var(--rds-border-width-thin) solid',
                 borderColor: 'divider',
                 width: '100%',
                 '&:hover': { backgroundColor: 'action.hover' }
@@ -2824,15 +2845,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '12px',
+                  fontSize: 'var(--rds-font-size-xs)',
                   color: 'text.primary',
                 }}
               >
                 Columns
               </Typography>
               {isColumnPanelExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
+                <ArrowUpIcon sx={{ fontSize: 'var(--rds-font-size-xs)', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: 'var(--rds-font-size-xs)', color: 'text.primary' }} />
               }
             </Box>
             
@@ -2841,13 +2862,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   mt: 0,
                   p: 0.25,
-                  border: '1px solid',
+                  border: 'var(--rds-border-width-thin) solid',
                   borderColor: 'divider',
                   borderTop: 'none',
-                  borderRadius: '0 0 4px 4px',
+                  borderRadius: '0 0 var(--rds-grid-panel-border-radius) var(--rds-grid-panel-border-radius)',
                   backgroundColor: 'action.hover',
                   width: '100%',
-                  maxHeight: '80px',
+                  maxHeight: 'var(--rds-size-4xl)',
                   overflowY: 'auto',
                   scrollbarWidth: 'thin !important',
                 }}
@@ -2859,7 +2880,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       sx={{ 
                         py: 0.5,
                         px: 1,
-                        minHeight: 24,
+                        minHeight: 'var(--rds-size-lg)',
                         cursor: 'pointer',
                         '&:hover': { backgroundColor: 'action.hover' }
                       }}
@@ -2868,7 +2889,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         handleColumnVisibilityChange(header.key, !isCurrentlyVisible);
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: 20 }}>
+                      <ListItemIcon sx={{ minWidth: 'var(--rds-size-20)' }}>
                         <Checkbox
                           checked={visibleColumns.includes(header.key)}
                           onChange={(e) => {
@@ -2877,10 +2898,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           }}
                           size="small"
                           sx={{ 
-                            padding: '2px',
+                            padding: 'var(--rds-spacing-xxs)',
                             color: 'text.primary',
                             '& .MuiSvgIcon-root': {
-                              fontSize: 14,
+                              fontSize: 'var(--rds-font-size-sm)',
                               color: 'text.primary',
                             }
                           }}
@@ -2891,8 +2912,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         primaryTypographyProps={{ 
                           variant: 'caption', 
                           sx: { 
-                            fontSize: '12px',
-                            fontWeight: '400',
+                            fontSize: 'var(--rds-font-size-xs)',
+                            fontWeight: 'var(--rds-font-weight-regular)',
                             color: 'text.primary' 
                           }
                         }}
@@ -2915,7 +2936,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 cursor: 'pointer',
                 p: 1,
                 borderRadius: 0.5,
-                border: '1px solid',
+                border: 'var(--rds-border-width-thin) solid',
                 borderColor: 'divider',
                 width: '100%',
                 mb: 0.5,
@@ -2928,15 +2949,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '12px',
+                  fontSize: 'var(--rds-font-size-xs)',
                   color: 'text.primary'
                 }}
               >
                 Filter
               </Typography>
               {isFilterExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
+                <ArrowUpIcon sx={{ fontSize: 'var(--rds-font-size-xs)', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: 'var(--rds-font-size-xs)', color: 'text.primary' }} />
               }
             </Box>
             
@@ -2944,9 +2965,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <Box 
                 sx={{ 
                   p: 0.5,
-                  border: '1px solid',
+                  border: 'var(--rds-border-width-thin) solid',
                   borderColor: 'divider',
-                  borderRadius: '0 0 4px 4px',
+                  borderRadius: '0 0 var(--rds-grid-panel-border-radius) var(--rds-grid-panel-border-radius)',
                   backgroundColor: 'action.hover',
                   width: '100%'
                 }}
@@ -2960,12 +2981,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     
                     return (
                       <Box>
-                        <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
+                        <FormControl size="small" sx={{ minWidth: 'var(--rds-grid-control-min-width)', mb: 1 }}>
                           <Typography 
                             variant="caption" 
                             sx={{ 
-                              fontSize: '12px', 
-                              fontWeight: '500', 
+                              fontSize: 'var(--rds-font-size-xs)', 
+                              fontWeight: 'var(--rds-font-weight-medium)', 
                               color: 'text.primary',
                               mb: 0.5,
                               display: 'block'
@@ -2977,8 +2998,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             value={filterConditions[0].operator}
                             onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
                             sx={{ 
-                              fontSize: '12px',
-                              height: '32px',
+                              fontSize: 'var(--rds-font-size-xs)',
+                              height: 'var(--rds-size-xl)',
                               color: 'text.primary',
                               backgroundColor: 'background.paper',
                               '& .MuiOutlinedInput-notchedOutline': {
@@ -2998,7 +3019,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 key={op.value} 
                                 value={op.value} 
                                 sx={{ 
-                                  fontSize: '12px',
+                                  fontSize: 'var(--rds-font-size-xs)',
                                   color: 'text.primary',
                                   '&.Mui-selected': {
                                     backgroundColor: 'action.selected',
@@ -3028,9 +3049,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     sx: {
                                       backgroundColor: 'background.paper',
                                       '& .MuiInputBase-input': {
-                                        fontSize: '10px',
-                                        height: '24px',
-                                        padding: '4px 8px',
+                                        fontSize: 'var(--rds-grid-font-size-xs)',
+                                        height: 'var(--rds-size-lg)',
+                                        padding: 'var(--rds-spacing-xs-px) var(--rds-spacing-sm-px)',
                                         color: 'text.primary',
                                       },
                                       '& .MuiOutlinedInput-notchedOutline': {
@@ -3050,8 +3071,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             <Typography 
                               variant="caption" 
                               sx={{ 
-                                fontSize: '12px', 
-                                fontWeight: '500', 
+                                fontSize: 'var(--rds-font-size-xs)', 
+                                fontWeight: 'var(--rds-font-weight-medium)', 
                                 color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
@@ -3069,13 +3090,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{
                                 backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
-                                  fontSize: '12px',
-                                  height: '20px',
-                                  padding: '6px 8px',
+                                  fontSize: 'var(--rds-font-size-xs)',
+                                  height: 'var(--rds-size-20)',
+                                  padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm-px)',
                                   color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
-                                  height: '32px'
+                                  height: 'var(--rds-size-xl)'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
                                   borderColor: 'divider',
@@ -3094,8 +3115,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             <Typography 
                               variant="caption" 
                               sx={{ 
-                                fontSize: '12px', 
-                                fontWeight: '500', 
+                                fontSize: 'var(--rds-font-size-xs)', 
+                                fontWeight: 'var(--rds-font-weight-medium)', 
                                 color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
@@ -3113,13 +3134,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{
                                 backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
-                                  fontSize: '12px',
-                                  height: '20px',
-                                  padding: '6px 8px',
+                                  fontSize: 'var(--rds-font-size-xs)',
+                                  height: 'var(--rds-size-20)',
+                                  padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm-px)',
                                   color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
-                                  height: '32px'
+                                  height: 'var(--rds-size-xl)'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
                                   borderColor: 'divider',
@@ -3138,57 +3159,21 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     );
                   })()}
 
-                  {/* Logical Operator */}
-                  {/* <FormControl size="small" sx={{ minWidth: 120 }}>
-                    <Select
-                      value={logicalOperator}
-                      onChange={(e) => setLogicalOperator(e.target.value)}
-                    >
-                      <MenuItem value="and">And</MenuItem>
-                      <MenuItem value="or">Or</MenuItem>
-                    </Select>
-                  </FormControl> */}
-
-                  {/* Second Condition */}
-                  {/* <Box>
-                    <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
-                      <Select
-                        value={filterConditions[1].operator}
-                        onChange={(e) => handleFilterConditionChange(2, 'operator', e.target.value)}
-                      >
-                        <MenuItem value="contains">Contains</MenuItem>
-                        <MenuItem value="equals">Equals</MenuItem>
-                        <MenuItem value="startsWith">Starts With</MenuItem>
-                        <MenuItem value="endsWith">Ends With</MenuItem>
-                        <MenuItem value="greaterThan">Greater Than</MenuItem>
-                        <MenuItem value="lessThan">Less Than</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <TextField
-                      placeholder="Enter value..."
-                      value={filterConditions[1].value}
-                      onChange={(e) => handleFilterConditionChange(2, 'value', e.target.value)}
-                      size="small"
-                      fullWidth
-                    />
-                  </Box> */}
-
-                  {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
                     <RdsButton
-                      style="filled"
+                      variant="filled"
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
                       text="Filter"
                       sx={{
                         flexGrow: 1,
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        height: '28px',
-                        minWidth: '60px',
+                        fontSize: 'var(--rds-font-size-2xs)',
+                        fontWeight: 'var(--rds-font-weight-semibold)',
+                        height: 'var(--rds-size-28)',
+                        minWidth: 'var(--rds-spacing-60)',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
+                        letterSpacing: 'var(--rds-letter-spacing-caps)',
                         backgroundColor: 'primary.main',
                         color: 'common.white',
                         '&:hover': {
@@ -3202,18 +3187,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       }}
                     />
                     <RdsButton
-                      style="outlined"
+                      variant="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
                       text="Clear"
                       sx={{
                         flexGrow: 1,
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        height: '28px',
-                        minWidth: '60px',
+                        fontSize: 'var(--rds-font-size-2xs)',
+                        fontWeight: 'var(--rds-font-weight-semibold)',
+                        height: 'var(--rds-size-28)',
+                        minWidth: 'var(--rds-spacing-60)',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
+                        letterSpacing: 'var(--rds-letter-spacing-caps)',
                         borderColor: 'divider',
                         color: 'text.secondary',
                         '&:hover': {
@@ -3229,10 +3214,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     />
                   </Stack>
                   
-                  {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
                     <RdsButton
-                      style="transparent"
+                      variant="transparent"
                       size="small"
                       onClick={() => {
                         setFilterState({});
@@ -3244,12 +3228,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       text="Clear All Filters"
                       sx={{
                         width: '100%',
-                        fontSize: '10px',
-                        fontWeight: 500,
-                        height: '24px',
+                        fontSize: 'var(--rds-grid-font-size-xs)',
+                        fontWeight: 'var(--rds-font-weight-medium)',
+                        height: 'var(--rds-size-lg)',
                         mt: 1,
                         textTransform: 'uppercase',
-                        letterSpacing: '0.3px',
+                        letterSpacing: 'var(--rds-grid-letter-spacing-caps)',
                         color: 'error.light',
                         '&:hover': {
                           backgroundColor: 'error.light',
@@ -3284,7 +3268,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
     </Card>
   );
-});
+};
 
 RdsCompGrid.displayName = 'RdsCompGrid';
 export default RdsCompGrid;

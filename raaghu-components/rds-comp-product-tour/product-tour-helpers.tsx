@@ -1,3 +1,5 @@
+import type { HTMLAttributes, KeyboardEvent, ReactNode, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import RdsInput from '../../raaghu-elements/rds-input/rds-input';
@@ -5,15 +7,55 @@ import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomp
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import clsx from 'clsx';
 
-export interface RdsCompProductTourProps {
-    state: "Image" | "Carousel" | "GIF" | "Form";
+export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
+export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+/** Single corner, pair shortcuts (`top` / `bottom`), all four (`all`), or an explicit list. */
+export type ProductTourAnchorCorner = ProductTourCorner | "all" | "top" | "bottom" | ProductTourCorner[];
+
+export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
+    /** Layout of the tour card: Image, Carousel, GIF or Form. */
+    variant?: ProductTourVariant;
+    /**
+     * Which corner anchor dots to show.
+     * - `"top-left"` | `"top-right"` | `"bottom-left"` | `"bottom-right"` — one dot
+     * - `"top"` — top-left + top-right
+     * - `"bottom"` — bottom-left + bottom-right
+     * - `"all"` — all four dots
+     * - `ProductTourCorner[]` — any combination, e.g. `["top-left", "bottom-right"]`
+     */
+    anchorCorner?: ProductTourAnchorCorner;
+    /** @deprecated Use `anchorCorner` instead. */
     topLeft?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     topRight?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     bottomLeft?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     bottomRight?: boolean;
+    /** @deprecated Use `title` instead. */
     header?: string;
+    /** Heading text of the tour card. */
+    title?: string;
+    /** Badge node rendered next to the heading. */
+    badge?: ReactNode;
+    /** Source of the image or GIF shown in the visual area. @default '/assets/animation.gif' */
+    imageSrc?: string;
+    children?: ReactNode;
+    /** Called when the primary (next) button is clicked. */
+    onNext?: () => void;
+    /** Called when the back button is clicked. */
+    onBack?: () => void;
+    /** Called when the skip button is clicked. */
+    onSkip?: () => void;
+    /** Descriptive text shown below the title. */
     description?: string;
+    /** Total number of steps shown in the step indicator. */
+    steps?: number;
+    /** Current step (1-based) shown in the step indicator. */
+    activeStep?: number;
+    /** @deprecated Use `steps` and `activeStep` instead. */
     stepsIndicator?: string;
+    /** Per-control visibility ('visible' | 'hidden') for dismiss, primary, secondary, tertiary buttons and visual placeholder. */
     controls?: {
         dismiss?: 'visible' | 'hidden';
         primary?: 'visible' | 'hidden';
@@ -21,11 +63,32 @@ export interface RdsCompProductTourProps {
         tertiary?: 'visible' | 'hidden';
         visual?: 'visible' | 'hidden';
     };
+    /** Slides (id and image URL) shown by the Carousel and GIF variants. */
     slides?: { id: number; imgUrl: string; }[];
+    /** Subtitle text shown in the Form variant. */
+    subtitle?: string;
+    /** @deprecated Use `subtitle` instead. */
     formTitle?: string;
+    /** Tab titles shown by the tour. */
+    items?: string[];
+    /** @deprecated Use `items` instead. */
     tabTitle?: string[];
+    /** Called when the tour is dismissed via the close button. */
     onClose?: () => void;
-    [key: string]: unknown;
+    /** Whether the dismiss button is shown; overridden by `controls.dismiss`. */
+    showDismiss?: boolean;
+    /** Whether the primary button is shown; overridden by `controls.primary`. */
+    showPrimaryButton?: boolean;
+    /** Whether the secondary button is shown; overridden by `controls.secondary`. */
+    showSecondaryButton?: boolean;
+    /** Whether the tertiary button is shown; overridden by `controls.tertiary`. */
+    showTertiaryButton?: boolean;
+    /** Whether the visual placeholder is shown; overridden by `controls.visual`. */
+    showVisualPlaceholder?: boolean;
+    /** MUI system styles applied to the root element. */
+    sx?: SxProps<Theme>;
+    /** Ref forwarded to the root element. */
+    ref?: Ref<HTMLDivElement>;
 }
 
 export const parseSteps = (s?: string) => {
@@ -59,11 +122,53 @@ export const arrowSvg = (isNext: boolean) => (
     </svg>
 );
 
+export const getSkipProps = (onSkip?: () => void) => onSkip ? {
+    role: 'button' as const,
+    tabIndex: 0,
+    onClick: onSkip,
+    onKeyDown: (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSkip();
+        }
+    }
+} : {};
+
 export const deleteIcon = (
     <svg fill="none" height="20" viewBox="0 0 14 14" width="20" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 3.81H13M4.46 3.76V3.3C4.46 2.69 4.73 2.1 5.21 1.67C5.69 1.24 6.34 1 7.01 1C7.69 1 8.34 1.24 8.82 1.67C9.3 2.1 9.57 2.69 9.57 3.3V3.76M5.51 5.57V10.62M8.52 5.57V10.62M2.53 3.81H11.5V12.08C11.5 12.2 11.48 12.32 11.43 12.43C11.38 12.54 11.3 12.64 11.21 12.73C11.12 12.81 11.01 12.88 10.89 12.93C10.77 12.97 10.63 13 10.5 13H3.53C3.26 13 3.01 12.9 2.82 12.73C2.63 12.55 2.53 12.32 2.53 12.08V3.81H2.53Z" stroke="var(--rds-error-main)" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
+
+export const resolveCornerDots = (
+    anchorCorner?: ProductTourAnchorCorner,
+    legacy?: { topLeft?: boolean; topRight?: boolean; bottomLeft?: boolean; bottomRight?: boolean }
+): { topLeft: boolean; topRight: boolean; bottomLeft: boolean; bottomRight: boolean } => {
+    if (anchorCorner !== undefined) {
+        if (anchorCorner === "all") {
+            return { topLeft: true, topRight: true, bottomLeft: true, bottomRight: true };
+        }
+        if (anchorCorner === "top") {
+            return { topLeft: true, topRight: true, bottomLeft: false, bottomRight: false };
+        }
+        if (anchorCorner === "bottom") {
+            return { topLeft: false, topRight: false, bottomLeft: true, bottomRight: true };
+        }
+        const selected = Array.isArray(anchorCorner) ? anchorCorner : [anchorCorner];
+        return {
+            topLeft: selected.includes("top-left"),
+            topRight: selected.includes("top-right"),
+            bottomLeft: selected.includes("bottom-left"),
+            bottomRight: selected.includes("bottom-right"),
+        };
+    }
+    return {
+        topLeft: legacy?.topLeft === true,
+        topRight: legacy?.topRight === true,
+        bottomLeft: legacy?.bottomLeft === true,
+        bottomRight: legacy?.bottomRight === true,
+    };
+};
 
 export const renderCornerDots = (topLeft: boolean, topRight: boolean, bottomLeft: boolean, bottomRight: boolean) => (
     <>
@@ -91,35 +196,10 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
     </IconButton>
 );
 
-const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
-    <Box className={clsx("rds-comp-product-tour__arrows", `rds-comp-product-tour__arrows--${variant}`)}>
-        {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
-    </Box>
-);
-
-const renderDirectionalButtons = (
-    showSecondaryButton: boolean,
-    showPrimaryButton: boolean,
-    goPrev: () => void,
-    goNext: () => void,
-    prevClassName: string,
-    nextClassName: string
-) => (
-    <>
-        {showSecondaryButton && <button type="button" onClick={goPrev} className={prevClassName}>{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className={nextClassName}>{arrowSvg(true)}</button>}
-    </>
-);
-
-const renderSkipButton = (showTertiaryButton: boolean, className: string) => showTertiaryButton && (
-    <Typography className={className}>Skip</Typography>
-);
-
-export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string) => (
+export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__navigation-row">
-        <Typography className={stepClass}>{currentIndicator}</Typography>
-        {showTertiaryButton && <Typography className={skipClass}>Skip</Typography>}
+        <Typography variant="inherit" component="span" className={stepClass}>{currentIndicator}</Typography>
+        {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
         <Box className={arrowClass}>
             <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
                 {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
@@ -129,13 +209,14 @@ export const renderNavRow = (currentIndicator: string, showTertiaryButton: boole
     </Box>
 );
 
-export const renderInfoSection = (header?: string, description?: string) => (
+export const renderInfoSection = (header?: string, description?: string, titleId?: string) => (
     <Box className="rds-comp-product-tour__info">
-        <Typography variant="h6" className="rds-comp-product-tour__title">{header}</Typography>
-        <Typography variant="body2" className="rds-comp-product-tour__desc">{description}</Typography>
+        <Typography variant="inherit" component="h2" id={titleId} className="rds-comp-product-tour__title">{header}</Typography>
+        <Typography variant="inherit" component="p" className="rds-comp-product-tour__desc">{description}</Typography>
     </Box>
 );
 
+/** Default form fields for the Form variant. Override by passing `children`. */
 export const renderFormInputs = () => (
     <>
         <Box className="rds-comp-product-tour__form-input-row">
@@ -145,13 +226,12 @@ export const renderFormInputs = () => (
                     placeholder="Enter Project Name"
                     size="small"
                     layout="text"
-                    showIcon={true}
                     variant="outlined"
-                    icon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
+                    endIcon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="Create" style="outlined" size="medium" layout="text-only" />
+                <RdsButton text="Create" variant="outlined" size="medium" layout="text-only" />
             </Box>
         </Box>
         </Box>
@@ -162,10 +242,10 @@ export const renderFormInputs = () => (
                     controlStyle="default"
                     helperText=""
                     hideClearAllOnMobile={true}
-                    isMandatory={false}
-                    isShowCheckbox={true}
-                    isShowRadio={false}
-                    isShowUser={true}
+                    required={false}
+                    showCheckbox={true}
+                    showRadio={false}
+                    showUser={true}
                     label={undefined}
                     options={[
                         { label: 'Option 1', value: 1 },
@@ -177,7 +257,7 @@ export const renderFormInputs = () => (
                     placeholder="Add Team Members"
                     popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-xl)' }} />}
                     selectSize="medium"
-                    allowMultiple={true}
+                    multiple
                     showHintText={false}
                     userIcon={true}
                     openOnFocus={true}
@@ -197,7 +277,7 @@ export const renderFormInputs = () => (
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">
-                    <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+                    <RdsButton text="Add" variant="outlined" size="medium" layout="text-only" />
                 </Box>
             </Box>
         </Box>
@@ -206,67 +286,46 @@ export const renderFormInputs = () => (
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+                <RdsButton text="Add" variant="outlined" size="medium" layout="text-only" />
             </Box>
         </Box>
     </>
 );
 
-const renderCarouselArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
-    <Box className="rds-comp-product-tour__carousel-arrows">
-        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
-    </Box>
-);
-
-export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__carousel-nav-row">
-        <Typography className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__carousel-nav-group">
-            {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip">Skip</button>}
+            {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip" onClick={onSkip}>Skip</button>}
             <Box className="rds-comp-product-tour__carousel-arrows">
-                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>
 );
 
-const renderGifArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
-    <Box className="rds-comp-product-tour__animation-nav-buttons">
-        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
-    </Box>
-);
-
-export const renderGifNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+export const renderGifNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__animation-navigation">
-        <Typography className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__animation-controls">
-            {showTertiaryButton && <Typography className="rds-comp-product-tour__animation-skip">Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
             <Box className="rds-comp-product-tour__animation-nav-buttons">
-                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>
 );
 
-const renderFormArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
-    <Box className="rds-comp-product-tour__form-arrows">
-        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
-    </Box>
-);
-
-export const renderFormNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+export const renderFormNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__form-navigation">
-        <Typography className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__form-navigation-actions">
-            {showTertiaryButton && <Typography className="rds-comp-product-tour__form-skip">Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
             <Box className="rds-comp-product-tour__form-arrows">
-                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>

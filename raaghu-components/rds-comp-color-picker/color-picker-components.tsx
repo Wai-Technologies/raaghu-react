@@ -1,53 +1,28 @@
 import clsx from "clsx";
-import { memo, type Dispatch, type RefObject, type SetStateAction } from "react";
-import { HuePicker, AlphaPicker, type ColorResult } from "react-color";
-import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
+import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
+import { Slider } from "@mui/material";
+import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker.types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-const SLIDER_TRACK_HEIGHT = "12px";
-const SLIDER_POINTER_SIZE = 12;
-
-const SliderPointer = ({ direction }: { direction?: string }) => {
-  if (direction === "vertical") {
-    return (
-      <div
-        className="rds-comp-color-picker__slider-pointer"
-        style={{
-          width: SLIDER_POINTER_SIZE,
-          height: SLIDER_POINTER_SIZE,
-          borderRadius: "50%",
-          transform: `translate(-3px, -${SLIDER_POINTER_SIZE / 2}px)`,
-          backgroundColor: "#ffffff",
-          boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
-        }}
-      />
-    );
-  }
-
-  return (
-    <div
-      className="rds-comp-color-picker__slider-pointer"
-      style={{
-        width: SLIDER_POINTER_SIZE,
-        height: SLIDER_POINTER_SIZE,
-        borderRadius: "50%",
-        backgroundColor: "#ffffff",
-        boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
-      }}
-    />
-  );
-};
+const HUE_TRACK_GRADIENT =
+  "linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)";
+const CHECKERBOARD =
+  "linear-gradient(45deg, var(--rds-color-picker-checkerboard) 25%, transparent 25%), linear-gradient(-45deg, var(--rds-color-picker-checkerboard) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--rds-color-picker-checkerboard) 75%), linear-gradient(-45deg, transparent 75%, var(--rds-color-picker-checkerboard) 75%)";
 
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
-const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"];
-const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #00D1B2)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #9B59B6)","var(--rds-neutral-400, #BDBDBD)"];
+const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main)", "var(--rds-semantic-error-main)", "var(--rds-info-main)", "var(--rds-primary-main)", "var(--rds-info-light)"];
+const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast-text)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
 
 const getSwatchHexDisplay = (swatchValue: string) => {
-  const hexMatch = swatchValue.match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
+  const varName = swatchValue.match(/^var\((--[\w-]+)\)$/)?.[1];
+  const resolved = varName && typeof window !== "undefined"
+    ? getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
+    : "";
+  const hexMatch = (resolved || swatchValue).match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
   return hexMatch ? hexMatch[0].toUpperCase() : swatchValue;
 };
 
@@ -64,14 +39,16 @@ interface ColorUpdate {
 interface SharedColorPickerProps {
   handleChange: (color: ColorUpdate) => void;
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
   colorModeDropdownRef: RefObject<HTMLDivElement | null>;
   selectedColorMode: ColorMode;
   showColorModeDropdown: boolean;
   setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  /** Disables every control in the panel. */
+  disabled?: boolean;
 }
 
 interface ColorPickerInfoProps {
@@ -82,6 +59,7 @@ interface ColorPickerInfoProps {
   setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  disabled?: boolean;
 }
 
 export const ColorPickerGrid = memo(({
@@ -95,6 +73,7 @@ export const ColorPickerGrid = memo(({
   setShowColorModeDropdown,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: SharedColorPickerProps) => {
   return (
     <div>
@@ -115,7 +94,6 @@ export const ColorPickerGrid = memo(({
                   const hue = colIndex * (360 / 11);
                   const lightness = 12 + rowIndex * 8;
                   bgColor = `hsl(${hue}, 100%, ${lightness}%)`;
-                  // Convert HSL to RGB for hex color
                   const l = lightness / 100;
                   const a = 1 * Math.min(l, 1 - l);
                   const f = (n: number) => {
@@ -134,15 +112,10 @@ export const ColorPickerGrid = memo(({
                     type="button"
                     key={`cell-${rowIndex}-${colIndex}`}
                     className="rds-comp-color-picker__color-cell"
+                    disabled={disabled}
                     style={{ backgroundColor: bgColor }}
                     onClick={() => handleChange({ hex: clickHex, rgb: clickRgb })}
                     aria-label={`Select color ${clickHex}`}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleChange({ hex: clickHex, rgb: clickRgb });
-                      }
-                    }}
                   />
                 );
               })}
@@ -151,11 +124,12 @@ export const ColorPickerGrid = memo(({
         })}
       </div>
 
-      <ColorPickerSliders 
-        selectedColorState={selectedColorState} 
+      <ColorPickerSliders
+        selectedColorState={selectedColorState}
         handleHueChange={handleHueChange}
         handleAlphaChange={handleAlphaChange}
-      />      
+        disabled={disabled}
+      />
       <ColorPickerInfo
         colorModeDropdownRef={colorModeDropdownRef}
         setShowColorModeDropdown={setShowColorModeDropdown}
@@ -164,6 +138,7 @@ export const ColorPickerGrid = memo(({
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
     </div>
   );
@@ -183,18 +158,29 @@ export const ColorPickerSpectrum = memo(({
   showSwatches,
   styleType,
   onSelectColorMode,
-}: SharedColorPickerProps & { selectedColorHex: string; showSwatches?: boolean; styleType?: string }) => {
+  swatches,
+  onAddSwatch,
+  disabled,
+}: SharedColorPickerProps & {
+  selectedColorHex: string;
+  showSwatches?: boolean;
+  styleType?: string;
+  swatches?: string[];
+  onAddSwatch?: () => void;
+}) => {
   return (
     <div className="rds-comp-color-picker__spectrum-type1">    
       <div className="rds-comp-color-picker__color-grid-container rds-comp-color-picker__color-grid-container--spectrum">
         <button
           type="button"
           className="rds-comp-color-picker__spectrum-area"
+          disabled={disabled}
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
+            const hue = selectedColorState.rgb ? (rgbToHsb(selectedColorState.rgb).h + 360) % 360 : 0;
             const result = handleSpectrumClick(
               e,
-              selectedColorState.rgb ? selectedColorState.rgb.r : 0,
+              hue,
               selectedColorState.rgb ? selectedColorState.rgb.a : 1
             );
             handleChange(result);
@@ -203,12 +189,13 @@ export const ColorPickerSpectrum = memo(({
         />
       </div>
       
-      <ColorPickerSliders 
-        selectedColorState={selectedColorState} 
+      <ColorPickerSliders
+        selectedColorState={selectedColorState}
         handleHueChange={handleHueChange}
         handleAlphaChange={handleAlphaChange}
+        disabled={disabled}
       />
-      
+
       <ColorPickerInfo
         colorModeDropdownRef={colorModeDropdownRef}
         setShowColorModeDropdown={setShowColorModeDropdown}
@@ -216,24 +203,32 @@ export const ColorPickerSpectrum = memo(({
         selectedColorMode={selectedColorMode}
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
-        onSelectColorMode={onSelectColorMode} 
+        onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
-      
+
       {showSwatches && (
         styleType === "Type 1" ? (
-          <ColorSwatchesType1 handleChange={handleChange} />
+          <ColorSwatchesType1 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} />
         ) : (
-          <ColorSwatchesType2 handleChange={handleChange} />
+          <ColorSwatchesType2 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} />
         )
       )}
     </div>
   );
 });
-export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange }: {
+export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange, disabled }: {
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
+  disabled?: boolean;
 }) => {
+  const hsb = rgbToHsb(selectedColorState.rgb);
+  const hue = ((hsb.h % 360) + 360) % 360;
+  const alphaPct = Math.round((selectedColorState.rgb.a ?? 1) * 100);
+  const { r, g, b } = selectedColorState.rgb;
+  const solid = `rgb(${r}, ${g}, ${b})`;
+
   return (
     <div className="rds-comp-color-picker__sliders-row">
       <div className="rds-comp-color-picker__eyedropper" aria-hidden="true">
@@ -241,25 +236,74 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
       </div>
       <div className="rds-comp-color-picker__sliders">
         <div className="rds-comp-color-picker__slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
-          <HuePicker
-            color={selectedColorState.hex}
-            onChange={handleHueChange}
-            width="230px"
-            height={SLIDER_TRACK_HEIGHT}
-            {...({ pointer: SliderPointer } as Record<string, unknown>)}
+          <Slider
             className="rds-comp-color-picker__hue-picker"
+            min={0}
+            max={360}
+            value={hue}
+            disabled={disabled}
+            aria-label="Hue"
+            onChange={(_, value) => {
+              const nextHue = Array.isArray(value) ? value[0] : value;
+              const rgb = hsvToRgb(nextHue / 360, hsb.s / 100, hsb.b / 100);
+              handleHueChange({
+                hex: rgbToHex(rgb.r, rgb.g, rgb.b),
+                rgb: { ...rgb, a: selectedColorState.rgb.a },
+              });
+            }}
+            sx={{
+              color: 'transparent',
+              height: 'var(--rds-size-12)',
+              padding: 'var(--rds-spacing-compact) 0',
+              '& .MuiSlider-rail': {
+                opacity: 1,
+                background: HUE_TRACK_GRADIENT,
+                borderRadius: 'var(--rds-border-radius-lg)',
+              },
+              '& .MuiSlider-track': { background: 'transparent', border: 'none' },
+              '& .MuiSlider-thumb': {
+                width: 'var(--rds-size-12)',
+                height: 'var(--rds-size-12)',
+                backgroundColor: 'var(--rds-color-surface-contrast)',
+                boxShadow: '0 0 var(--rds-spacing-xxs) var(--rds-shadow-color)',
+              },
+            }}
           />
-        </div>       
+        </div>
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
-          <AlphaPicker
-            color={selectedColorState.rgb}
-            onChange={handleAlphaChange}
-            width="230px"
-            height={SLIDER_TRACK_HEIGHT}
-            {...({ pointer: SliderPointer } as Record<string, unknown>)}
+          <Slider
             className="rds-comp-color-picker__alpha-picker"
+            min={0}
+            max={100}
+            value={alphaPct}
+            disabled={disabled}
+            aria-label="Opacity"
+            onChange={(_, value) => {
+              const pct = Array.isArray(value) ? value[0] : value;
+              handleAlphaChange({
+                hex: selectedColorState.hex,
+                rgb: { ...selectedColorState.rgb, a: pct / 100 },
+              });
+            }}
+            sx={{
+              color: 'transparent',
+              height: 'var(--rds-size-12)',
+              padding: 'var(--rds-spacing-compact) 0',
+              '& .MuiSlider-rail': {
+                opacity: 1,
+                backgroundImage: `linear-gradient(to right, transparent, ${solid}), ${CHECKERBOARD}`,
+                backgroundSize: '100% 100%, var(--rds-size-sm) var(--rds-size-sm)',
+                backgroundPosition: '0 0, 0 0, 0 var(--rds-size-xs), var(--rds-size-xs) calc(-1 * var(--rds-size-xs))',
+                borderRadius: 'var(--rds-border-radius-lg)',
+              },
+              '& .MuiSlider-track': { background: 'transparent', border: 'none' },
+              '& .MuiSlider-thumb': {
+                width: 'var(--rds-size-12)',
+                height: 'var(--rds-size-12)',
+                backgroundColor: 'var(--rds-color-surface-contrast)',
+                boxShadow: '0 0 var(--rds-spacing-xxs) var(--rds-shadow-color)',
+              },
+            }}
           />
         </div>
       </div>
@@ -337,19 +381,33 @@ export const ColorPickerInfo = memo(({
   selectedColorState,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
   const hsl = rgbToHsl(rgb);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeOnEscape = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'Escape' && showColorModeDropdown) {
+      e.preventDefault();
+      setShowColorModeDropdown(false);
+      triggerRef.current?.focus();
+    }
+  };
 
   return (
     <div className="rds-comp-color-picker__color-info">
       <div className="rds-comp-color-picker__dropdown-container" ref={colorModeDropdownRef}>
         <button
+          ref={triggerRef}
           type="button"
           className="rds-comp-color-picker__dropdown-button"
+          disabled={disabled}
           onClick={() => setShowColorModeDropdown(!showColorModeDropdown)}
+          onKeyDown={closeOnEscape}
           aria-label="Change color mode"
+          aria-haspopup="listbox"
+          aria-expanded={showColorModeDropdown}
         >
           <div className="rds-comp-color-picker__color-circle" style={{ backgroundColor: selectedColorState.hex }}></div>
           <span className="rds-comp-color-picker__dropdown-label">{selectedColorMode}</span>
@@ -357,7 +415,7 @@ export const ColorPickerInfo = memo(({
           <KeyboardArrowDownIcon/>
         </button>
         
-        {showColorModeDropdown && (
+        {showColorModeDropdown && !disabled && (
           <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label="Color format">
             {Object.values(ColorMode).map((mode) => (
               <button
@@ -367,6 +425,7 @@ export const ColorPickerInfo = memo(({
                 aria-selected={selectedColorMode === mode}
                 className={clsx("rds-comp-color-picker__dropdown-item", selectedColorMode === mode && "active")}
                 onMouseDown={(e) => e.preventDefault()}
+                onKeyDown={closeOnEscape}
                 onClick={() => {
                   if (onSelectColorMode) onSelectColorMode(mode);
                   setShowColorModeDropdown(false);
@@ -388,7 +447,7 @@ export const ColorPickerInfo = memo(({
       <div className="rds-comp-color-picker__percent-wrapper">
         <input
           type="text"
-          value={`100%`}
+          value={`${Math.round((rgb.a ?? 1) * 100)}%`}
           readOnly
           className="rds-comp-color-picker__percent-input"
           aria-label="Opacity percentage"
@@ -398,7 +457,17 @@ export const ColorPickerInfo = memo(({
   );
 });
 
-export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+interface ColorSwatchesProps {
+  handleChange: (color: { hex: string }) => void;
+  /** Swatch colours; defaults to the built-in list for the style. */
+  swatches?: string[];
+  /** Called when the add-swatch control is activated. */
+  onAddSwatch?: () => void;
+  /** Disables swatch selection and the add-swatch control. */
+  disabled?: boolean;
+}
+
+export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch, disabled }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -411,17 +480,19 @@ export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color
   shape="rectangle"
   showLeftIcon
   size="small"
-  state="default"
-  style="transparent"
+  variant="transparent"
   text="Default Button"
   textCase="capitalize"
+  aria-label="Add swatch"
+  disabled={disabled}
+  onClick={onAddSwatch}
 />
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
-        {SWATCHES_TYPE_1.map((hex) => {
+        {swatches.map((hex, index) => {
           const swatchHex = getSwatchHexDisplay(hex);
           return (
-          <button type="button" key={hex} className="rds-comp-color-picker__swatch-item" onClick={() => handleChange({ hex })} aria-label={`Select color ${swatchHex}`} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }}>
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-item" disabled={disabled} onClick={() => handleChange({ hex })} aria-label={`Select color ${swatchHex}`}>
             <div className="rds-comp-color-picker__swatch-color" style={{ backgroundColor: hex }} />
             <div className="rds-comp-color-picker__swatch-label">{swatchHex}</div>
           </button>
@@ -431,16 +502,30 @@ export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color
   );
 });
 
-export const ColorSwatchesType2 = memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch, disabled }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
         <span>Swatches</span>
       </div>
       <div className="rds-comp-color-picker__swatch-grid">
-        <div className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add">+</div>
-        {SWATCHES_TYPE_2.map(hex => (
-          <button type="button" key={hex} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }} />
+        <div
+          className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add"
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          aria-label="Add swatch"
+          aria-disabled={disabled || undefined}
+          onClick={() => { if (!disabled) onAddSwatch?.(); }}
+          onKeyDown={(e) => {
+            if (disabled) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onAddSwatch?.();
+            }
+          }}
+        >+</div>
+        {swatches.map((hex, index) => (
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-tile" disabled={disabled} style={{ backgroundColor: hex }} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} />
         ))}
       </div>
     </div>
@@ -511,7 +596,7 @@ export const GradientEditor = memo(({
           type="button"
           className={clsx(
             "rds-comp-color-picker__gradient-btn",
-            gradientType === "radial" && "rds-comp_color-picker__gradient-btn--active"
+            gradientType === "radial" && "rds-comp-color-picker__gradient-btn--active"
           )}
           onClick={() => onGradientTypeChange("radial")}
         >

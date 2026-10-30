@@ -1,3 +1,23 @@
+:is(.Default, .default, .relaxing, .top-nav, .side-nav, .double-nav, .triPane),
+.rds-appshell-appbar {
+  --rds-app-shell-divider-height: var(--rds-spacing-micro);
+  --rds-app-shell-header-offset-xs: var(--rds-spacing-52);
+  --rds-app-shell-header-offset-compact: var(--rds-spacing-68);
+  --rds-app-shell-header-offset-sm: var(--rds-spacing-98);
+  --rds-app-shell-header-offset-md: 112px;
+  --rds-app-shell-rail-max-width: 120px;
+  --rds-app-shell-header-offset-lg: 136px;
+  --rds-app-shell-toolbar-slot: 140px;
+  --rds-app-shell-header-offset-xl: 148px;
+  --rds-app-shell-header-offset-2xl: var(--rds-spacing-200);
+  --rds-app-shell-sidebar-width: var(--rds-spacing-240);
+  --rds-app-shell-sidebar-width-lg: 245px;
+  --rds-app-shell-content-max-width: 395px;
+  --rds-app-shell-panel-min-height: 400px;
+
+  --rds-surface-primary: var(--rds-neutral-0);
+}
+
 .rds-appshell-appbar {
   width: 100%;
   z-index: var(--rds-z-index-dropdown, 1000);
@@ -9,48 +29,83 @@
     right: 0;
     background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2);
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow var(--rds-motion-duration-quick) ease;
   }
 }
 
-.MuiTabs-root,
 .rds-header__navigation,
-.MuiBottomNavigation-root,
 .rds-footer-navigation {
-  .MuiTab-root.Mui-selected,
-  .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: var(--rds-font-weight-semibold);
   }
-  
-  .MuiTabs-indicator {
-    background-color: var(--rds-color-primary) !important;
-    height: 3px !important;
-  }
-  
-  .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
-  }
-  
-  .MuiTab-root:hover,
-  .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary) !important;
-    background-color: transparent !important;
-    opacity: 1;
+}
+
+.rds-footer-navigation--docked {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--rds-z-index-modal, 1400);
+  height: var(--rds-size-56);
+  display: flex;
+  align-items: center;
+  border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+  box-shadow: var(--rds-elevation-3);
+  background: var(--rds-surface-primary);
+  color: var(--rds-text-primary);
+
+  > div {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+
+    > button {
+      background: none;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      text-decoration: none;
+      text-shadow: none;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-xs);
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      font-size: var(--rds-font-size-caption);
+      font-weight: var(--rds-font-weight-regular);
+      color: inherit;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: var(--rds-action-hover);
+      }
+
+      &[data-active="true"] {
+        color: var(--rds-color-primary);
+        font-weight: var(--rds-font-weight-semibold);
+      }
+
+      &::before,
+      &::after {
+        content: none;
+        display: none;
+      }
+    }
   }
 
-  .MuiTab-root.Mui-selected:hover,
-  .MuiBottomNavigationAction-root.Mui-selected:hover {
-    color: var(--rds-color-primary) !important;
-    background-color: transparent !important;
-  }
-  
-  .MuiTab-root.Mui-focusVisible,
-  .MuiBottomNavigationAction-root.Mui-focusVisible {
-    background-color: var(--rds-color-primary-container) !important;
+  .MuiTabs-root,
+  .rds-header__navigation {
+    display: none;
   }
 }
 
@@ -62,7 +117,7 @@
   display: flex;
   
   #sidebar {
-    height: 100vh !important;
+    height: 100vh;
   }
   
   .sidebar-layout {
@@ -85,7 +140,7 @@
 
 .sidebar-layout {
   flex: 0 0 auto;
-  transition: width 0.3s ease;
+  transition: width var(--rds-motion-duration-moderate) ease;
 }
 
 .topnav-layout {
@@ -128,8 +183,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--rds-font-size-display-sm);
+  font-weight: var(--rds-font-weight-bold);
   z-index: var(--rds-z-index-layer-1);
   pointer-events: none;
 }
@@ -140,7 +195,7 @@
   align-items: center;
   justify-content: center;
   background: var(--rds-surface-subtle);
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
   width: 100%;
 }
 
@@ -148,7 +203,7 @@ html[data-theme="dark"] {
   .rds-appshell-add-layout-center,
   .rds-appshell-add-layout-flex-center,
   .side-nav .sidenav-mobile-content {
-    background: var(--rds-surface-dark-deep, #1b1d1f);
+    background: var(--rds-surface-dark-deep);
   }
 }
 
@@ -156,7 +211,7 @@ html[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 body[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 html[data-theme="dark"] .side-nav .sidenav-desktop-content,
 body[data-theme="dark"] .side-nav .sidenav-desktop-content {
-  background: var(--rds-surface-dark-deep, #1b1d1f);
+  background: var(--rds-surface-dark-deep);
 }
 
 @media (min-width: 769px) {
@@ -169,9 +224,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .topnav-layout .rds-footer-navigation,
     .triPane .topnav-layout .MuiBottomNavigation-root,
     .triPane .topnav-layout .rds-footer-navigation {
-      background: var(--rds-surface-dark, #1f2123) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      background: var(--rds-surface-dark);
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+      color: var(--rds-text-primary);
     }
 
     .double-nav .MuiBottomNavigation-root .MuiBottomNavigationAction-root,
@@ -182,7 +237,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .rds-footer-navigation .MuiTab-root,
     .triPane .MuiBottomNavigation-root .MuiTab-root,
     .triPane .rds-footer-navigation .MuiTab-root {
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      color: var(--rds-text-primary);
     }
   }
 }
@@ -209,8 +264,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-add-layout-text {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--rds-font-size-display-sm);
+  font-weight: var(--rds-font-weight-bold);
 }
 
 .rds-appshell-side-nav-layout {
@@ -218,29 +273,29 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: 400px;
+  min-height: var(--rds-app-shell-panel-min-height);
 }
 
 .rds-appshell-side-nav-center {
   flex: 1;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: calc(100vh - 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-xs));
   height: 100%;
   width: 100%;
   
   .rds-appshell-add-layout-flex-center {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     position: relative;
     
     .rds-appshell-add-layout-text {
-      font-size: 2rem;
-      font-weight: bold;
+      font-size: var(--rds-font-size-display-sm);
+      font-weight: var(--rds-font-weight-bold);
       color: var(--rds-text-secondary);
       text-align: center;
       position: absolute;
@@ -254,27 +309,27 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 
 .rds-appshell-side-nav-left {
   flex: 0 0 240px;
-  min-width: 240px;
-  max-width: 240px;
+  min-width: var(--rds-app-shell-sidebar-width);
+  max-width: var(--rds-app-shell-sidebar-width);
   height: 100%;
   align-self: stretch;
 
   .MuiDrawer-root,
   .MuiDrawer-paper {
-    height: 100% !important;
+    height: 100%;
   }
 }
 
 .rds-appshell-side-nav-right {
   flex: 0 0 80px;
-  min-width: 80px;
-  max-width: 120px;
+  min-width: var(--rds-size-4xl);
+  max-width: var(--rds-app-shell-rail-max-width);
   height: 100%;
   align-self: stretch;
 
   .MuiDrawer-root,
   .MuiDrawer-paper {
-    height: 100% !important;
+    height: 100%;
   }
 }
 
@@ -285,8 +340,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   justify-content: flex-start;
   align-items: stretch;
   width: 100%;
-  height: calc(100vh - 68px);
-  margin-top: 68px;
+  height: calc(100vh - var(--rds-app-shell-header-offset-compact));
+  margin-top: var(--rds-spacing-68);
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
@@ -297,7 +352,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   flex-direction: row;
   flex: 0 0 auto;
   align-items: stretch;
-  gap: calc(var(--rds-spacing-sm) - 1px);
+  gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-hairline));
   height: 100%;
   z-index: var(--rds-z-index-raised);
 }
@@ -308,21 +363,21 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   height: 100vh;
   width: 100%;
   position: relative;
-  margin-top: 50px;
+  margin-top: var(--rds-spacing-50);
 }
 
 .rds-story-relaxing-content {
   display: flex;
   flex-direction: row;
   min-height: 0;
-  padding-top: 50px;
+  padding-top: var(--rds-spacing-50);
   position: relative;
   z-index: var(--rds-z-index-layer-1);
 }
 
 .rds-story-relaxing-sidebar {
-  min-width: 245px;
-  max-width: 245px;
+  min-width: var(--rds-app-shell-sidebar-width-lg);
+  max-width: var(--rds-app-shell-sidebar-width-lg);
   height: 100%;
   position: relative;
   z-index: var(--rds-z-index-raised);
@@ -331,9 +386,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 .rds-story-standard-content {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 64px);
-  height: calc(100vh - 64px);
-  margin-top: 64px;
+  min-height: calc(100vh - var(--rds-size-3xl));
+  height: calc(100vh - var(--rds-size-3xl));
+  margin-top: var(--rds-spacing-3xl);
   z-index: var(--rds-z-index-layer-1);
   
   .rds-appshell-add-layout-center {
@@ -346,8 +401,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: var(--rds-font-size-display-sm);
+    font-weight: var(--rds-font-weight-bold);
     z-index: var(--rds-z-index-layer-1);
   }
 }
@@ -372,7 +427,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   }
 }
 
-.rds-story-sub-tabs {
+.rds-story-sub-tabs,
+.rds-header__sub-tabs.rds-story-sub-tabs {
   display: flex;
   gap: var(--rds-spacing-md);
 }
@@ -385,24 +441,24 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   cursor: pointer;
   padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   border-radius: var(--rds-border-radius-sm);
-  transition: background-color 0.2s;
+  transition: background-color var(--rds-motion-duration-quick);
   
   &:hover {
     background-color: var(--rds-action-hover);
   }
   
   &--primary {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: var(--rds-font-weight-semibold);
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary);
     }
   }
   
   &--inherit {
     color: inherit;
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     
     .rds-story-sub-tab-icon {
       color: inherit;
@@ -416,16 +472,16 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 
 #sidebar.toggle.hide,
 nav#sidebar {
-  box-shadow: var(--rds-elevation-2) !important;
-  z-index: var(--rds-z-index-layer-1) !important;
+  box-shadow: var(--rds-elevation-2);
+  z-index: var(--rds-z-index-layer-1);
 }
 
 #sidebar.toggle.hide {
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
 }
 
 nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.pt-xxl-0.pt-xl-0.pt-lg-0.pt-md-0.pt-4.shadow.px-2.side-navigation.hide.toggle-sidebar-menu.show {
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
 }
 
 #details-pane-app-shell {
@@ -439,31 +495,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   z-index: var(--rds-z-index-raised);
 }
 
-#details-pane-app-shell .rds-comp-details-pane {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0 !important;
-  // Override details-pane's global min-width:420px margin-left so right nav sits flush.
-  margin-left: 0 !important;
-}
-
-#details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row,
-#details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row--scrollable {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin: 0 !important;
-}
-
-#details-pane-app-shell .detail-pane-container {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
-  margin-top: 200px;
+  margin-top: var(--rds-spacing-200);
 }
 
 #detail-pane-one-three-one {
@@ -476,34 +509,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   align-self: stretch;
   overflow: hidden;
   z-index: var(--rds-z-index-raised);
-}
-
-#detail-pane-one-three-one .rds-comp-details-pane {
-  height: 100% !important;
-  flex-direction: column !important;
-  padding: calc(var(--rds-spacing-xs) * 1.25) !important;
-  overflow: hidden !important;
-  // Override details-pane's global min-width:420px margin-left so right nav sits flush.
-  margin-left: 0 !important;
-}
-
-#detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row,
-#detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row--scrollable {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin: 0 !important;
-}
-
-#detail-pane-one-three-one .detail-pane-container {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
-
-#detail-pane-one-three-one .custom-content-wrapper {
-  overflow: hidden !important;
 }
 
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1,
@@ -521,7 +526,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: flex;
   flex-direction: column;
 
-  // Stable selectors — do not target MUI emotion hashes (they change between builds).
   .rds-story-double-nav-content {
     .rds-sidebar.MuiDrawer-root,
     .rds-sidebar .MuiDrawer-root {
@@ -529,16 +533,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       height: 100%;
     }
 
-    .MuiDrawer-paper {
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      height: 100% !important;
-      margin-top: 0 !important;
-      margin-left: 0 !important;
-      box-shadow: none;
-      border-right: 1px solid var(--rds-border-default);
-    }
   }
 
   > .sidebar-layout {
@@ -564,7 +558,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   flex-direction: column;
   
   .rds-header__toolbar {
-    gap: 0 !important;
+    gap: 0;
   }
   
   .topnav-layout {
@@ -596,16 +590,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
       }
 
-      .MuiDrawer-paper {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        height: 100% !important;
-        margin-top: 0 !important;
-        margin-left: 0 !important;
-        box-shadow: none;
-        border-right: 1px solid var(--rds-border-default);
-      }
     }
   }
 
@@ -625,10 +609,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: block;
   
   &__header {
-    margin: 0 0 var(--rds-spacing-md, 16px);
+    margin: 0 0 var(--rds-spacing-md);
     padding: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: var(--rds-font-size-xl);
+    font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
   }
   
@@ -637,13 +621,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   &--small .rds-comp-app-shell-item__header {
-    font-size: 1rem;
-    margin-bottom: var(--rds-spacing-sm, 12px);
+    font-size: var(--rds-font-size-md);
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &--large .rds-comp-app-shell-item__header {
-    font-size: 1.5rem;
-    margin-bottom: var(--rds-spacing-lg, 20px);
+    font-size: var(--rds-font-size-2xl);
+    margin-bottom: var(--rds-spacing-lg);
   }
 }
 
@@ -654,17 +638,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header__navigation,
     .MuiTabs-root,
     .rds-header__tabs-inline {
-      display: none !important;
+      display: none;
     }
 
-    // Keep closed mobile drawer fully off-screen (avoids white strip flash on viewport resize).
     &:not(.mobile-sidebar-open) > .sidebar-layout {
       visibility: hidden;
       pointer-events: none;
     }
   }
 
-  // Only animate after first layout — Storybook mobile viewport often paints desktop width first.
   .Default,
   .relaxing,
   .side-nav,
@@ -675,7 +657,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
 
     &.rds-appshell--layout-ready > .sidebar-layout {
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
     }
   }
   
@@ -684,216 +666,128 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .MuiAppBar-root .MuiTabs-root,
   .rds-header__navigation .MuiTabs-root,
   .rds-header__toolbar .MuiTabs-root {
-    display: none !important;
+    display: none;
   }
   
   .TopNav {
     .rds-header__sub-tabs,
     .rds-story-sub-tabs {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      grid-gap: var(--rds-spacing-sm) !important;
-      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
-      justify-content: start !important;
-      width: 100% !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+      justify-content: start;
+      width: 100%;
       
       .MuiButton-root,
       .rds-story-sub-tab-button {
-        width: 100% !important;
-        justify-content: flex-start !important;
-        text-align: left !important;
-        padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-        font-size: var(--rds-font-size-xs, 13px) !important;
-        min-width: auto !important;
-        white-space: nowrap !important;
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+        padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        font-size: var(--rds-font-size-xs);
+        min-width: auto;
+        white-space: nowrap;
         
         .MuiSvgIcon-root,
         .rds-story-sub-tab-icon {
-          margin-right: 6px !important;
-          font-size: var(--rds-font-size-lg) !important;
+          margin-right: var(--rds-spacing-compact);
+          font-size: var(--rds-font-size-lg);
         }
       }
     }
     
     .rds-header__sub-tabs .MuiButton-root:nth-child(5),
     .rds-story-sub-tabs .rds-story-sub-tab-button:nth-child(5) {
-      grid-column: 1 / -1 !important;
-      max-width: 50% !important;
+      grid-column: 1 / -1;
+      max-width: 50%;
     }
     
     .rds-profile-menu__name,
     .rds-profile-menu__email,
     .rds-profile-menu__chevron {
-      display: none !important;
+      display: none;
     }
     
     .rds-profile-menu__button {
-      min-width: auto !important;
-      padding: var(--rds-spacing-sm) !important;
+      min-width: auto;
+      padding: var(--rds-spacing-sm);
     }
     
     .rds-story-topnav-content {
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl);
       
       .rds-appshell-add-layout-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
       }
     }
   }
   
-  // Top Nav story specific mobile fix
   .rds-story-topnav-content {
-    padding-bottom: 64px !important;
+    padding-bottom: var(--rds-spacing-3xl);
     overflow: hidden;
     box-sizing: border-box;
     
     .rds-appshell-add-layout-center {
-      position: relative !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      text-align: center !important;
-      top: auto !important;
-      left: auto !important;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      top: auto;
+      left: auto;
     }
   }
   
   .triPane {
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      font-family: var(--rds-font-family-base) !important;
+      font-family: var(--rds-font-family-base);
       
       button {
-        background: none !important;
-        border: none !important;
-        outline: none !important;
-        text-decoration: none !important;
-        text-shadow: none !important;
-        box-shadow: none !important;
-        font-variant: normal !important;
-        text-rendering: optimizeLegibility !important;
+        background: none;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        text-shadow: none;
+        box-shadow: none;
+        font-variant: normal;
+        text-rendering: optimizeLegibility;
         
         &::before,
         &::after {
-          content: '' !important;
-          display: none !important;
+          content: '';
+          display: none;
         }
       }
     }
   }
   
-  .rds-footer-navigation,
-  .MuiBottomNavigation-root {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: var(--rds-z-index-modal, 1400) !important;
-    border-top: 1px solid var(--rds-border-default) !important;
-    box-shadow: var(--rds-elevation-3) !important;
-    height: 56px !important;
-    display: flex !important;
-    align-items: center !important;
-    
-    .MuiTabs-root,
-    .rds-header__navigation {
-      display: none !important;
-    }
-    
-    > div {
-      display: flex !important;
-      width: 100% !important;
-      height: 100% !important;
-      align-items: center !important;
-      justify-content: space-around !important;
-      
-      > button {
-        background: none !important;
-        border: none !important;
-        padding: var(--rds-spacing-sm) var(--rds-spacing-xs) !important;
-        cursor: pointer !important;
-        flex: 1 !important;
-        text-align: center !important;
-        font-size: var(--rds-font-size-caption, 11px) !important;
-        font-weight: 400 !important;
-        color: inherit !important;
-        min-width: 0 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        height: 100% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-shadow: none !important;
-        text-decoration: none !important;
-        
-        &:hover {
-          background-color: var(--rds-action-hover) !important;
-        }
-        
-        &[data-active="true"] {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
-        }
-        
-        &::before,
-        &::after {
-          content: none !important;
-          display: none !important;
-        }
-      }
-    }
-    
-    .MuiTab-root.Mui-selected,
-    .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
-    }
-    
-    .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
-    }
-  }
   
   .double-nav, .triPane {
     .MuiTabs-root:not(.rds-footer-navigation *),
     .rds-header__navigation:not(.rds-footer-navigation *) {
-      display: none !important;
+      display: none;
     }
     
-    .rds-footer-navigation:not(:first-of-type),
-    .MuiBottomNavigation-root:not(:first-of-type) {
-      display: none !important;
-    }
-    
-    .rds-footer-navigation button,
-    .MuiBottomNavigation-root button {
-      text-indent: 0 !important;
-      letter-spacing: 0 !important;
-      text-shadow: none !important;
-      
-      &::before,
-      &::after {
-        content: none !important;
-        display: none !important;
-      }
+    .rds-footer-navigation:not(.rds-footer-navigation--docked),
+    .MuiBottomNavigation-root:not(.rds-footer-navigation):not(.rds-footer-navigation--docked) {
+      display: none;
     }
   }
   
   .double-nav, .side-nav, .triPane, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: 0;
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
         color: inherit;
       }
       
@@ -905,13 +799,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: 0;
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
         color: inherit;
       }
       
@@ -927,11 +821,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -940,11 +834,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -962,19 +856,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         top: 0;
         left: 0;
         height: 100vh;
-        width: 240px;
+        width: var(--rds-app-shell-sidebar-width);
         z-index: var(--rds-z-index-modal, 1400);
         transform: translateX(0);
-        transition: transform 0.3s ease;
-        background: var(--rds-background-paper, #ffffff);
+        transition: transform var(--rds-motion-duration-moderate) ease;
+        background: var(--rds-background-paper);
         box-shadow: var(--rds-elevation-3);
       }
       
       .rds-story-standard-content {
-        margin-left: 0 !important;
-        margin-top: 48px !important;
-        padding-bottom: 20px !important;
-        min-height: calc(100vh - 112px) !important;
+        margin-left: 0;
+        margin-top: var(--rds-spacing-2xl);
+        padding-bottom: var(--rds-spacing-5);
+        min-height: calc(100vh - var(--rds-app-shell-header-offset-md));
         overflow-y: auto;
       }
     }
@@ -984,11 +878,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -1003,27 +897,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-appshell-appbar,
     .MuiAppBar-root {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-drawer, 1200) !important;
-      width: 100% !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-drawer, 1200);
+      width: 100%;
     }
 
-    // Bottom nav is rendered by RdsAppBar (.rds-bottom-navigation); keep header tabs hidden.
     .MuiTabs-root,
     .rds-header__navigation,
     .rds-header__tabs-inline {
-      display: none !important;
+      display: none;
     }
     
     .rds-story-standard-content {
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      margin-bottom: 44px;
-      padding-bottom: 68px;
-      min-height: calc(100vh - 136px);
+      margin-bottom: var(--rds-spacing-44);
+      padding-bottom: var(--rds-spacing-68);
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-lg));
       padding-left: var(--rds-spacing-md);
       padding-right: var(--rds-spacing-md);
       overflow-y: auto;
@@ -1034,9 +927,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 200px);
-        font-size: 2rem;
-        font-weight: bold;
+        min-height: calc(100vh - var(--rds-app-shell-header-offset-2xl));
+        font-size: var(--rds-font-size-display-sm);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
       }
     }
@@ -1044,14 +937,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .double-nav {
     &.mobile-sidebar-open > .sidebar-layout {
-      left: 0 !important;
-      top: 0 !important;
-      width: 240px !important;
-      max-width: 85vw !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
+      left: 0;
+      top: 0;
+      width: var(--rds-app-shell-sidebar-width);
+      max-width: 85vw;
+      margin: 0;
+      padding: 0;
+      visibility: visible;
+      pointer-events: auto;
       overflow: hidden;
     }
 
@@ -1074,32 +967,32 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         > div:first-child {
-          display: none !important;
+          display: none;
         }
         
         > div:last-child {
-          display: block !important;
-          width: 100% !important;
+          display: block;
+          width: 100%;
         }
         
         .MuiDrawer-root,
         .rds-sidebar {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
         }
 
         .MuiDrawer-paper {
-          position: relative !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          left: 0 !important;
-          right: auto !important;
-          top: 0 !important;
-          box-sizing: border-box !important;
-          border-right: none !important;
-          box-shadow: none !important;
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          left: 0;
+          right: auto;
+          top: 0;
+          box-sizing: border-box;
+          border-right: none;
+          box-shadow: none;
         }
 
         .rds-sidebar__content {
@@ -1141,12 +1034,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      bottom: 63px;
+      bottom: var(--rds-spacing-63);
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -1162,8 +1055,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1178,7 +1071,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       
       &:hover {
@@ -1186,13 +1079,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
       }
     }
     
-    // Right panel: leave a thin strip on the left (hamburger/chrome).
-    // Cap width on tablet-sized viewports so 85% does not dominate the canvas.
     .doublenav-mobile-toolbar {
       position: fixed;
       top: 0;
@@ -1200,13 +1091,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
       height: 100vh;
       width: 85%;
-      max-width: 395px;
+      max-width: var(--rds-app-shell-content-max-width);
       margin: 0;
       padding: 0;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       box-sizing: border-box;
       overflow: hidden;
@@ -1224,20 +1115,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         box-sizing: border-box;
 
-        // Details pane must fill the panel — no fixed 338px width / side gutters.
         .rds-comp-details-pane {
-          width: 100% !important;
-          max-width: 100% !important;
-          min-width: 0 !important;
-          height: auto !important;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          height: auto;
           min-height: 100vh;
-          margin: 0 !important;
-          padding: var(--rds-spacing-sm) !important;
-          box-sizing: border-box !important;
-          box-shadow: none !important;
-          align-items: stretch !important;
-          border-radius: 0 !important;
-          gap: var(--rds-spacing-md) !important;
+          margin: 0;
+          padding: var(--rds-spacing-sm);
+          box-sizing: border-box;
+          box-shadow: none;
+          align-items: stretch;
+          border-radius: 0;
+          gap: var(--rds-spacing-md);
         }
 
         .rds-comp-details-pane__header,
@@ -1248,10 +1138,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-comp-details-pane__agent-list,
         .detail-pane-container,
         .custom-content-wrapper {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin-left: 0 !important;
-          margin-right: 0 !important;
+          width: 100%;
+          max-width: 100%;
+          margin-left: 0;
+          margin-right: 0;
           box-sizing: border-box;
         }
       }
@@ -1270,15 +1160,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - 148px);
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-xl));
     }
     
     .sidenav-mobile-content {
       position: fixed;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
       bottom: 0;
@@ -1297,8 +1187,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1331,8 +1221,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         overflow-y: auto;
         
         .MuiDrawer-paper {
-          margin-top: 0 !important;
-          margin-left: 0 !important;
+          margin-top: 0;
+          margin-left: 0;
         }
       }
       
@@ -1363,13 +1253,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .tripane-mobile-content {
       position: absolute;
-      top: 53px;
+      top: var(--rds-spacing-53);
       left: 0;
       right: 0;
-      bottom: 63px;
+      bottom: var(--rds-spacing-63);
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1381,8 +1271,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: 100%;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1397,7 +1287,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       
       &:hover {
@@ -1405,8 +1295,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
       }
     }
     
@@ -1417,13 +1307,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
       height: 100vh;
       width: 85%;
-      max-width: 395px;
+      max-width: var(--rds-app-shell-content-max-width);
       margin: 0;
       padding: 0;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       box-sizing: border-box;
       overflow: hidden;
@@ -1442,23 +1332,23 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         box-sizing: border-box;
 
         .rds-comp-details-pane {
-          width: 100% !important;
-          max-width: 100% !important;
-          min-width: 0 !important;
-          height: auto !important;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          height: auto;
           min-height: 100vh;
-          margin: 0 !important;
-          padding: var(--rds-spacing-sm) !important;
-          box-sizing: border-box !important;
-          box-shadow: none !important;
-          align-items: stretch !important;
-          border-radius: 0 !important;
+          margin: 0;
+          padding: var(--rds-spacing-sm);
+          box-sizing: border-box;
+          box-shadow: none;
+          align-items: stretch;
+          border-radius: 0;
         }
 
         .rds-comp-details-pane__header,
         .rds-comp-details-pane__header-container {
-          margin-left: 0 !important;
-          margin-right: 0 !important;
+          margin-left: 0;
+          margin-right: 0;
           width: 100%;
         }
       }
@@ -1499,8 +1389,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       position: relative;
       width: 100%;
       height: 100%;
-      margin-top: 52px;
-      padding-bottom: 56px;
+      margin-top: var(--rds-spacing-52);
+      padding-bottom: var(--rds-spacing-56-px);
     }
     
     .rds-story-relaxing-content {
@@ -1527,8 +1417,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-layer-1);
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-sm);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1540,30 +1430,30 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      z-index: var(--rds-z-index-toast, 1700) !important;
+      z-index: var(--rds-z-index-toast, 1700);
     }
 
     .rds-bottom-navigation {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 56px !important;
-      min-height: 56px !important;
-      max-height: 56px !important;
-      padding: 0 var(--rds-spacing-sm) !important;
-      align-items: center !important;
-      box-sizing: border-box !important;
-      overflow: hidden !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      background: var(--rds-background-paper, #ffffff) !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--rds-size-56);
+      min-height: var(--rds-size-56);
+      max-height: var(--rds-size-56);
+      padding: 0 var(--rds-spacing-sm);
+      align-items: center;
+      box-sizing: border-box;
+      overflow: hidden;
+      z-index: var(--rds-z-index-toast, 1700);
+      background: var(--rds-background-paper);
 
       .rds-bottom-nav-tab,
       .MuiButton-root {
-        min-height: 0 !important;
-        height: auto !important;
-        flex: 1 1 0 !important;
-        align-self: center !important;
+        min-height: 0;
+        height: auto;
+        flex: 1 1 0;
+        align-self: center;
       }
     }
   }
@@ -1572,29 +1462,29 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (max-width: 576px) {
   .double-nav {
     &.mobile-sidebar-open > .sidebar-layout {
-      left: 0 !important;
-      width: 240px !important;
-      max-width: 85vw !important;
+      left: 0;
+      width: var(--rds-app-shell-sidebar-width);
+      max-width: 85vw;
     }
 
     .doublenav-mobile-content {
-      bottom: 45px !important;
+      bottom: var(--rds-spacing-45);
     }
 
     .doublenav-mobile-toolbar {
-      width: 85% !important;
-      max-width: none !important;
-      right: 0 !important;
+      width: 85%;
+      max-width: none;
+      right: 0;
 
       .doublenav-toolbar-content {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        padding-left: 0;
+        padding-right: 0;
 
         .rds-comp-details-pane {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          box-shadow: none !important;
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          box-shadow: none;
         }
       }
     }
@@ -1602,49 +1492,49 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
   .triPane {
     .tripane-mobile-content {
-      bottom: 45px !important;
+      bottom: var(--rds-spacing-45);
     }
 
     .tripane-mobile-toolbar {
-      width: 85% !important;
-      max-width: none !important;
-      right: 0 !important;
+      width: 85%;
+      max-width: none;
+      right: 0;
 
       .tripane-toolbar-content {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        padding-left: 0;
+        padding-right: 0;
 
         .rds-comp-details-pane {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          box-shadow: none !important;
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          box-shadow: none;
         }
       }
     }
   }
 
   .rds-story-topnav-content {
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px);
 
     .rds-appshell-add-layout-center {
-      margin-top: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
 
 @media (max-width: 480px) {
   .rds-story-topnav-content {
-    padding-bottom: 44px !important;
+    padding-bottom: var(--rds-spacing-44);
 
     .rds-appshell-add-layout-center {
-      margin-top: 210px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+      margin-top: var(--rds-spacing-210);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -1656,29 +1546,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-appshell-appbar .MuiTabs-root,
     .rds-header .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root),
     .MuiAppBar-root .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
-      display: none !important;
+      display: none;
     }
     
     .rds-header__toolbar .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
-      display: none !important;
+      display: none;
     }
     
     .rds-header__sub-tabs,
     .rds-story-sub-tabs,
     .rds-header__sub-header {
-      display: flex !important;
-      position: relative !important;
+      display: flex;
+      position: relative;
     }
     
     .rds-header__sub-tabs .MuiTabs-root,
     .rds-story-sub-tabs .MuiButton-root,
     .rds-header__sub-header .MuiButton-root {
-      display: inline-flex !important;
+      display: inline-flex;
     }
   }
   
-  // Prefer AppBar's .rds-bottom-navigation over forcing header tabs to the bottom
-  // (avoids a tall broken tab strip while Storybook viewport is mid-resize).
   .Default .MuiTabs-root,
   .relaxing .MuiTabs-root,
   .side-nav .MuiTabs-root,
@@ -1689,31 +1577,31 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .side-nav .rds-header__tabs-inline,
   .double-nav .rds-header__tabs-inline,
   .triPane .rds-header__tabs-inline {
-    display: none !important;
+    display: none;
   }
 
   .MuiBottomNavigation-root,
   .rds-footer-navigation,
   .rds-bottom-navigation {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: var(--rds-z-index-toast, 1700) !important;
-    box-shadow: var(--rds-elevation-3) !important;
-    height: 56px !important;
-    min-height: 56px !important;
-    max-height: 56px !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--rds-z-index-toast, 1700);
+    box-shadow: var(--rds-elevation-3);
+    height: var(--rds-size-56);
+    min-height: var(--rds-size-56);
+    max-height: var(--rds-size-56);
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: var(--rds-app-shell-divider-height);
     }
   }
   
@@ -1721,26 +1609,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px);
     box-sizing: border-box;
     
     .rds-appshell-add-layout-center {
       flex: 1;
-      position: relative !important;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
       text-align: center;
-      top: auto !important;
-      left: auto !important;
+      top: auto;
+      left: auto;
     }
   }
   
   .side-nav, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: 0;
       padding: var(--rds-spacing-sm);
     }
@@ -1750,11 +1638,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -1763,11 +1651,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -1780,18 +1668,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - 148px);
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-xl));
     }
     
     .sidenav-mobile-content {
       position: fixed;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
-      bottom: 50px;
+      bottom: var(--rds-spacing-50);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1807,8 +1695,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1831,13 +1719,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .double-nav {
     .doublenav-mobile-content {
-      bottom: 70px !important;
+      bottom: var(--rds-spacing-70);
     }
   }
   
   .triPane {
     .tripane-mobile-content {
-      bottom: 70px !important;
+      bottom: var(--rds-spacing-70);
     }
   }
 }
@@ -1845,22 +1733,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (min-width: 834px) and (max-width: 1112px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
 
-    // Undo max-width:900px closed-drawer hide so tablet keeps a permanent sidebar
-    // (hamburger is hidden here; without this the left column stays blank).
     &:not(.mobile-sidebar-open) > .sidebar-layout,
     .sidebar-layout {
-      position: relative !important;
-      transform: none !important;
-      width: auto !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      z-index: var(--rds-z-index-layer-1) !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
-      display: block !important;
+      position: relative;
+      transform: none;
+      width: auto;
+      background: transparent;
+      box-shadow: none;
+      z-index: var(--rds-z-index-layer-1);
+      visibility: visible;
+      pointer-events: auto;
+      display: block;
     }
   }
 
@@ -1871,36 +1757,35 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      background: transparent !important;
-      border-top: 1px solid var(--rds-border-default) !important;
-      box-shadow: var(--rds-elevation-3) !important;
-      display: flex !important;
-      width: 100% !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-toast, 1700);
+      background: transparent;
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+      box-shadow: var(--rds-elevation-3);
+      display: flex;
+      width: 100%;
       .MuiTabs-flexContainer {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: space-between !important;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
       
       .MuiTab-root {
-        flex: 1 !important;
-        max-width: none !important;
-        min-width: 0 !important;
+        flex: 1;
+        max-width: none;
+        min-width: 0;
         
         &.Mui-selected {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
+          color: var(--rds-color-primary);
+          font-weight: var(--rds-font-weight-semibold);
         }
       }
       
-      // Match other shells' bottom nav: active = primary color only (no top indicator bar).
       .MuiTabs-indicator {
-        display: none !important;
+        display: none;
       }
     }
     
@@ -1909,21 +1794,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl);
       box-sizing: border-box;
       
       .rds-appshell-add-layout-center,
       .rds-appshell-add-layout-flex-center {
         flex: 1;
-        position: relative !important;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
         text-align: center;
-        top: auto !important;
-        left: auto !important;
+        top: auto;
+        left: auto;
       }
     }
   }
@@ -1935,59 +1820,31 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      display: none !important;
+      display: none;
     }
     
-    .MuiBottomNavigation-root,
-    .rds-footer-navigation {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      box-shadow: var(--rds-elevation-3) !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
-      display: flex !important;
-
-      .MuiTab-root.Mui-selected,
-      .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary) !important;
-        font-weight: 600 !important;
-      }
-
-      .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
-      }
-    }
-
-    // Higher-specificity rule to override .rds-footer-navigation:not(:first-of-type) { display: none }
-    // from the @media (max-width: 900px) block which has specificity (0,3,0).
-    .topnav-layout .MuiBottomNavigation-root,
-    .topnav-layout .rds-footer-navigation {
-      display: flex !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
+    .rds-footer-navigation--docked {
+      z-index: var(--rds-z-index-toast, 1700);
     }
 
     .doublenav-mobile-content,
     .tripane-mobile-content {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 70px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow-y: auto !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: var(--rds-spacing-70);
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
 
       .rds-appshell-add-layout-flex-center {
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        min-height: 100% !important;
-        border-radius: 0 !important;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        border-radius: 0;
       }
     }
   }
@@ -1999,39 +1856,39 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      position: relative !important;
-      bottom: auto !important;
-      left: auto !important;
-      right: auto !important;
-      z-index: auto !important;
-      background: transparent !important;
-      border-top: none !important;
-      box-shadow: none !important;
-      display: flex !important;
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      z-index: auto;
+      background: transparent;
+      border-top: none;
+      box-shadow: none;
+      display: flex;
     }
     
     .MuiBottomNavigation-root,
     .rds-footer-navigation {
-      display: none !important;
+      display: none;
     }
   }
   
   .double-nav {
     .rds-story-double-nav-layout {
-      display: none !important;
+      display: none;
     }
     
     .doublenav-mobile-content {
-      display: flex !important;
+      display: flex;
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 70px;
+      bottom: var(--rds-spacing-70);
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -2047,8 +1904,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -2061,11 +1918,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
     }
     
     .rds-toolbar-toggle-btn {
-      display: flex !important;
+      display: flex;
       align-items: center;
       justify-content: center;
       background: none;
@@ -2073,7 +1930,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -2083,8 +1940,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
       }
     }
     
@@ -2103,63 +1960,63 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
       box-shadow: none;
-      display: block !important;
-      visibility: visible !important;
+      display: block;
+      visibility: visible;
       
       .double-nav-sidebar {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
         padding: 0;
         margin: 0;
-        visibility: visible !important;
+        visibility: visible;
         
         .rds-story-double-nav-content {
-          display: block !important;
+          display: block;
           flex: 1;
           overflow-y: auto;
           height: 100%;
           padding-top: 0;
-          visibility: visible !important;
+          visibility: visible;
           
           > div:first-child {
-            display: none !important;
+            display: none;
           }
           
           > div:last-child {
-            display: block !important;
+            display: block;
             height: 100%;
-            visibility: visible !important;
+            visibility: visible;
             
             .MuiDrawer-root {
-              display: block !important;
-              visibility: visible !important;
+              display: block;
+              visibility: visible;
               
               .MuiDrawer-paper {
-                margin-left: 0 !important;
-                margin-top: 0 !important;
-                position: relative !important;
-                transform: none !important;
-                width: 100% !important;
-                height: 100% !important;
-                box-shadow: none !important;
-                background: transparent !important;
-                border-right: none !important;
-                display: block !important;
-                visibility: visible !important;
+                margin-left: 0;
+                margin-top: 0;
+                position: relative;
+                transform: none;
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                background: transparent;
+                border-right: none;
+                display: block;
+                visibility: visible;
                 
                 > div {
-                  height: 100% !important;
-                  display: flex !important;
-                  flex-direction: column !important;
-                  visibility: visible !important;
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  visibility: visible;
                 }
               }
             }
@@ -2178,15 +2035,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 395px;
-      background: var(--rds-background-paper, #ffffff);
+      width: var(--rds-app-shell-content-max-width);
+      background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
-        transform: translateX(0) !important;
+        transform: translateX(0);
       }
       
       .doublenav-toolbar-content {
@@ -2200,10 +2057,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     &.mobile-sidebar-open {
       .sidebar-layout {
-        transform: translateX(0) !important;
+        transform: translateX(0);
         box-shadow: var(--rds-elevation-3);
-        display: block !important;
-        visibility: visible !important;
+        display: block;
+        visibility: visible;
       }
       
       .doublenav-mobile-content {
@@ -2212,24 +2069,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .doublenav-mobile-toolbar {
-        transform: translateX(100%) !important;
+        transform: translateX(100%);
       }
       
       .sidebar-layout .double-nav-sidebar {
-        display: flex !important;
-        visibility: visible !important;
+        display: flex;
+        visibility: visible;
         
         .rds-story-double-nav-content {
-          display: block !important;
-          visibility: visible !important;
+          display: block;
+          visibility: visible;
           
           > div:first-child {
-            display: none !important;
+            display: none;
           }
           
           > div:last-child {
-            display: block !important;
-            visibility: visible !important;
+            display: block;
+            visibility: visible;
           }
         }
       }
@@ -2248,27 +2105,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-story-double-nav-content .MuiDrawer-paper {
-      margin-left: 0 !important;
-      margin-top: 0 !important;
+      margin-left: 0;
+      margin-top: 0;
     }
   }
   
   .triPane {
     .rds-story-tripane-layout {
-      display: none !important;
+      display: none;
     }
     
     .tripane-mobile-content {
-      display: flex !important;
+      display: flex;
       position: absolute;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
-      bottom: 70px;
+      bottom: var(--rds-spacing-70);
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--rds-motion-duration-moderate) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -2279,8 +2136,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         border-radius: var(--rds-border-radius-md);
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          font-size: var(--rds-font-size-display-md);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -2289,18 +2146,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
       button {
-        font-family: inherit !important;
-        text-transform: none !important;
-        line-height: 1 !important;
+        font-family: inherit;
+        text-transform: none;
+        line-height: var(--rds-line-height-none);
         
         &::before,
         &::after {
-          content: none !important;
-          display: none !important;
+          content: none;
+          display: none;
         }
         
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
     }
     
@@ -2311,11 +2168,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
     }
     
     .rds-toolbar-toggle-btn {
-      display: flex !important;
+      display: flex;
       align-items: center;
       justify-content: center;
       background: none;
@@ -2323,7 +2180,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      transition: background-color var(--rds-motion-duration-quick) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -2333,8 +2190,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-size-lg);
+        height: var(--rds-size-lg);
       }
     }
     
@@ -2353,55 +2210,55 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      transition: transform var(--rds-motion-duration-moderate) ease;
+      background: var(--rds-background-paper);
       box-shadow: none;
-      display: block !important;
-      visibility: visible !important;
+      display: block;
+      visibility: visible;
       
       .tripane-sidebar {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
         padding: 0;
         margin: 0;
-        visibility: visible !important;
+        visibility: visible;
         
         > div:first-child {
-          display: block !important;
+          display: block;
           flex: 1;
           overflow-y: auto;
           height: 100%;
           padding-top: 0;
-          visibility: visible !important;
+          visibility: visible;
           
           .MuiDrawer-root {
-            height: 100% !important;
-            display: block !important;
-            visibility: visible !important;
+            height: 100%;
+            display: block;
+            visibility: visible;
             
             .MuiDrawer-paper {
-              margin-left: 0 !important;
-              margin-top: 0 !important;
-              position: relative !important;
-              transform: none !important;
-              width: 100% !important;
-              height: 100% !important;
-              box-shadow: none !important;
-              background: transparent !important;
-              border-right: none !important;
-              display: block !important;
-              visibility: visible !important;
+              margin-left: 0;
+              margin-top: 0;
+              position: relative;
+              transform: none;
+              width: 100%;
+              height: 100%;
+              box-shadow: none;
+              background: transparent;
+              border-right: none;
+              display: block;
+              visibility: visible;
               
               > div {
-                height: 100% !important;
-                display: flex !important;
-                flex-direction: column !important;
-                visibility: visible !important;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                visibility: visible;
               }
             }
           }
@@ -2419,15 +2276,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 395px;
-      background: var(--rds-background-paper, #ffffff);
+      width: var(--rds-app-shell-content-max-width);
+      background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform var(--rds-motion-duration-moderate) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
-        transform: translateX(0) !important;
+        transform: translateX(0);
       }
       
       .tripane-toolbar-content {
@@ -2440,10 +2297,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     &.mobile-sidebar-open {
       .sidebar-layout {
-        transform: translateX(0) !important;
+        transform: translateX(0);
         box-shadow: var(--rds-elevation-3);
-        display: block !important;
-        visibility: visible !important;
+        display: block;
+        visibility: visible;
       }
       
       .tripane-mobile-content {
@@ -2452,16 +2309,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .tripane-mobile-toolbar {
-        transform: translateX(100%) !important;
+        transform: translateX(100%);
       }
       
       .sidebar-layout .tripane-sidebar {
-        display: flex !important;
-        visibility: visible !important;
+        display: flex;
+        visibility: visible;
         
         > div:first-child {
-          display: block !important;
-          visibility: visible !important;
+          display: block;
+          visibility: visible;
         }
       }
     }
@@ -2482,16 +2339,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (min-width: 834px) {
   .side-nav {
-    --rds-side-nav-top-height: 64px;
+    --rds-side-nav-top-height: var(--rds-size-3xl);
 
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
 
     .rds-header__logo,
     .rds-header__actions,
     .rds-profile-menu {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout,
@@ -2502,9 +2359,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       height: 100vh;
       background: transparent;
       box-shadow: none;
-      display: block !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
+      display: block;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     .rds-appshell-side-nav-layout {
@@ -2517,182 +2374,181 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
       .MuiDrawer-root,
       .MuiDrawer-paper {
-        height: 100vh !important;
-        top: 0 !important;
+        height: 100vh;
+        top: 0;
       }
 
       .rds-sidebar__header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         box-sizing: border-box;
-        height: var(--rds-side-nav-top-height) !important;
-        min-height: var(--rds-side-nav-top-height) !important;
-        max-height: var(--rds-side-nav-top-height) !important;
-        margin: 0 !important;
-        padding: 0 var(--rds-spacing-md, 16px) !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        border-bottom: 1px solid var(--rds-border-default);
+        height: var(--rds-side-nav-top-height);
+        min-height: var(--rds-side-nav-top-height);
+        max-height: var(--rds-side-nav-top-height);
+        margin: 0;
+        padding: 0 var(--rds-spacing-md);
+        visibility: visible;
+        opacity: 1;
+        border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
       }
 
       .rds-sidebar__logo {
-        display: block !important;
-        visibility: visible !important;
-        max-height: 32px !important;
-        max-width: 140px !important;
-        width: auto !important;
-        height: auto !important;
+        display: block;
+        visibility: visible;
+        max-height: var(--rds-size-xl);
+        max-width: var(--rds-app-shell-toolbar-slot);
+        width: auto;
+        height: auto;
         object-fit: contain;
       }
     }
     
     .sidenav-mobile-content {
-      display: none !important;
+      display: none;
     }
     
     .sidenav-desktop-content {
-      position: fixed !important;
-      top: var(--rds-side-nav-top-height) !important;
-      left: 240px !important;
-      right: 64px !important;
-      bottom: 0 !important;
-      display: flex !important;
-      align-items: stretch !important;
-      justify-content: stretch !important;
+      position: fixed;
+      top: var(--rds-side-nav-top-height);
+      left: var(--rds-spacing-240);
+      right: var(--rds-spacing-3xl);
+      bottom: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
       
       .rds-appshell-add-layout-flex-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        height: 100% !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
         background: var(--rds-surface-subtle);
       }
       
       .rds-appshell-add-layout-text {
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: var(--rds-font-size-display-sm);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
         text-align: center;
       }
     }
     
     .rds-appshell-side-nav-right {
-      position: fixed !important;
-      right: 0 !important;
-      top: 0 !important;
-      bottom: 0 !important;
-      width: 64px !important;
-      min-width: 64px !important;
-      max-width: 64px !important;
-      height: 100vh !important;
-      z-index: var(--rds-z-index-raised) !important;
-      display: flex !important;
-      align-items: stretch !important;
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--rds-size-3xl);
+      min-width: var(--rds-size-3xl);
+      max-width: var(--rds-size-3xl);
+      height: 100vh;
+      z-index: var(--rds-z-index-raised);
+      display: flex;
+      align-items: stretch;
 
       .rds-story-side-nav-right-content,
       .MuiDrawer-root,
       .MuiDrawer-paper {
-        height: 100vh !important;
-        top: 0 !important;
+        height: 100vh;
+        top: 0;
       }
 
       .rds-sidebar__header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         box-sizing: border-box;
-        height: var(--rds-side-nav-top-height) !important;
-        min-height: var(--rds-side-nav-top-height) !important;
-        max-height: var(--rds-side-nav-top-height) !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        border-bottom: 1px solid var(--rds-border-default);
+        height: var(--rds-side-nav-top-height);
+        min-height: var(--rds-side-nav-top-height);
+        max-height: var(--rds-side-nav-top-height);
+        margin: 0;
+        padding: 0;
+        visibility: visible;
+        opacity: 1;
+        border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
       }
 
       .rds-sidebar__logo,
       .rds-avatar,
       .MuiAvatar-root {
-        display: flex !important;
-        visibility: visible !important;
-        width: 32px !important;
-        height: 32px !important;
-        max-width: 32px !important;
-        max-height: 32px !important;
+        display: flex;
+        visibility: visible;
+        width: var(--rds-size-xl);
+        height: var(--rds-size-xl);
+        max-width: var(--rds-size-xl);
+        max-height: var(--rds-size-xl);
       }
     }
     
     .topnav-layout {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       flex: 1 1 auto;
-      width: auto !important;
+      width: auto;
       min-width: 0;
-      margin-right: 64px;
+      margin-right: var(--rds-spacing-3xl);
       box-sizing: border-box;
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      overflow: hidden !important;
-      overflow-x: hidden !important;
-      overflow-y: hidden !important;
+      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: hidden;
 
       .MuiAppBar-root,
       .rds-header {
-        position: relative !important;
-        left: auto !important;
-        right: auto !important;
-        top: auto !important;
-        width: 100% !important;
-        height: var(--rds-side-nav-top-height) !important;
-        min-height: var(--rds-side-nav-top-height) !important;
-        max-height: var(--rds-side-nav-top-height) !important;
-        box-shadow: none !important;
-        border-bottom: 1px solid var(--rds-border-default);
-        background: var(--rds-color-surface, #ffffff) !important;
-        color: var(--rds-text-primary) !important;
-        overflow: hidden !important;
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        width: 100%;
+        height: var(--rds-side-nav-top-height);
+        min-height: var(--rds-side-nav-top-height);
+        max-height: var(--rds-side-nav-top-height);
+        box-shadow: none;
+        border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
+        background: var(--rds-color-surface);
+        color: var(--rds-text-primary);
+        overflow: hidden;
       }
 
       .MuiToolbar-root {
-        display: flex !important;
-        align-items: center !important;
-        height: var(--rds-side-nav-top-height) !important;
-        min-height: var(--rds-side-nav-top-height) !important;
-        max-height: var(--rds-side-nav-top-height) !important;
-        padding: 0 var(--rds-spacing-md, 16px) !important;
-        overflow: hidden !important;
-        background: transparent !important;
+        display: flex;
+        align-items: center;
+        height: var(--rds-side-nav-top-height);
+        min-height: var(--rds-side-nav-top-height);
+        max-height: var(--rds-side-nav-top-height);
+        padding: 0 var(--rds-spacing-md);
+        overflow: hidden;
+        background: transparent;
       }
 
       .rds-header__toolbar {
-        display: flex !important;
-        align-items: center !important;
+        display: flex;
+        align-items: center;
         flex: 1 1 auto;
         min-width: 0;
-        height: 100% !important;
-        overflow: hidden !important;
+        height: 100%;
+        overflow: hidden;
       }
 
       .rds-header__tabs-inline,
       .MuiTabs-root {
-        display: flex !important;
-        align-items: center !important;
+        display: flex;
+        align-items: center;
         flex: 0 1 auto;
         min-width: 0;
-        min-height: 48px !important;
-        height: 48px !important;
-        max-height: 48px !important;
-        overflow: hidden !important;
+        min-height: var(--rds-size-2xl);
+        height: var(--rds-size-2xl);
+        max-height: var(--rds-size-2xl);
+        overflow: hidden;
       }
 
       .MuiTabs-scroller {
-        overflow: hidden !important;
-        margin: 0 !important;
+        overflow: hidden;
+        margin: 0;
 
-        // Kill native scrollbars on the tabs strip
         scrollbar-width: none;
         -ms-overflow-style: none;
 
@@ -2704,29 +2560,29 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
 
       .MuiTabs-flexContainer {
-        display: flex !important;
-        align-items: center !important;
-        height: 100% !important;
+        display: flex;
+        align-items: center;
+        height: 100%;
       }
 
       .MuiTabs-indicator {
-        bottom: 0 !important;
+        bottom: 0;
       }
 
       .MuiTab-root {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: 48px !important;
-        height: 48px !important;
-        max-height: 48px !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        overflow: hidden !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--rds-size-2xl);
+        height: var(--rds-size-2xl);
+        max-height: var(--rds-size-2xl);
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
       }
 
       .MuiTabs-scrollButtons {
-        display: none !important;
+        display: none;
       }
     }
 
@@ -2739,7 +2595,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout,
@@ -2749,32 +2605,32 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: auto;
       background: transparent;
       box-shadow: none;
-      visibility: visible !important;
-      pointer-events: auto !important;
-      display: block !important;
+      visibility: visible;
+      pointer-events: auto;
+      display: block;
     }
     
     .rds-story-relaxing-sidebar {
-      display: block !important;
-      min-width: 0px;
-      max-width: 0px;
-      height: calc(100vh - 52px);
+      display: block;
+      min-width: 0;
+      max-width: 0;
+      height: calc(100vh - var(--rds-app-shell-header-offset-xs));
       position: relative;
       z-index: var(--rds-z-index-raised);
     }
     
     .rds-story-relaxing-content {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       min-height: 0;
       padding-top: 0;
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      height: calc(100vh - 52px);
+      height: calc(100vh - var(--rds-app-shell-header-offset-xs));
     }
     
     .rds-story-relaxing-layout {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       height: 100vh;
       width: 100%;
@@ -2786,7 +2642,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (min-width: 1025px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout,
@@ -2796,9 +2652,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: auto;
       background: transparent;
       box-shadow: none;
-      visibility: visible !important;
-      pointer-events: auto !important;
-      display: block !important;
+      visibility: visible;
+      pointer-events: auto;
+      display: block;
     }
   }
 }
@@ -2810,20 +2666,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root,
   .rds-header__toolbar .MuiTabs-root {
-    display: flex !important;
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    z-index: auto !important;
-    background: transparent !important;
-    border-top: none !important;
-    box-shadow: none !important;
+    display: flex;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    background: transparent;
+    border-top: none;
+    box-shadow: none;
   }
   
   .MuiBottomNavigation-root,
   .rds-footer-navigation {
-    display: none !important;
+    display: none;
   }
   
   .rds-story-topnav-content {
@@ -2833,21 +2689,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-appshell-add-layout-center {
       flex: 1;
-      position: relative !important;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
       text-align: center;
-      top: auto !important;
-      left: auto !important;
+      top: auto;
+      left: auto;
     }
   }
   
   .double-nav, .triPane {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .rds-toolbar-toggle-btn {
@@ -2875,30 +2731,30 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
     .rds-story-double-nav-layout,
     .rds-story-tripane-layout {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       align-items: stretch;
       width: 100%;
-      height: calc(100vh - 68px);
-      margin-top: 68px;
+      height: calc(100vh - var(--rds-app-shell-header-offset-compact));
+      margin-top: var(--rds-spacing-68);
     }
 
     .rds-appshell-add-layout-flex-center {
-      position: relative !important;
-      flex: 1 1 auto !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      width: auto !important;
-      height: auto !important;
-      min-height: 0 !important;
+      position: relative;
+      flex: 1 1 auto;
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: auto;
+      height: auto;
+      min-height: 0;
     }
 
     #details-pane-app-shell,
     #detail-pane-one-three-one {
-      margin-top: 0 !important;
-      height: 100% !important;
+      margin-top: 0;
+      height: 100%;
     }
     
     .doublenav-mobile-content,
@@ -2921,13 +2777,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: var(--rds-app-shell-divider-height);
     }
   }
 }
@@ -2952,7 +2808,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .sidebar-layout {
     flex: 0 0 auto;
-    transition: width 0.3s ease;
+    transition: width var(--rds-motion-duration-moderate) ease;
     width: fit-content;
     height: 100%;
     z-index: var(--rds-z-index-layer-1);

@@ -2,18 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompTreeStructure, { TreeLevel, NodeState, IconType } from './rds-comp-tree-structure';
+import RdsCompTreeStructure, { TreeLevel, IconType } from './rds-comp-tree-structure';
 
 jest.mock('./rds-comp-tree-structure.scss', () => ({}));
-jest.mock('./fileTypeIcons', () => ({
-  fileTypeIcons: {},
-  getFileIcon: jest.fn(() => null),
-  TreeLevel: { Level1: 'Level1', Level2: 'Level2', Level3: 'Level3', Level4: 'Level4' },
-  NodeState: { Default: 'Default', Hover: 'Hover', Selected: 'Selected' },
-  IconType: { Circle: 'Circle', Folder: 'Folder' },
-  getAllNodeIds: (nodes: any[]) => nodes.map((n: any) => n.id),
-  TreeNode: ({ node }: any) => <div data-testid="tree-node">{node?.name}</div>,
-}), { virtual: false });
 jest.mock('../../raaghu-elements/rds-checkbox/rds-checkbox', () => ({
   __esModule: true,
   default: ({ checked, onChange }: any) => (
@@ -26,7 +17,6 @@ jest.mock('@mui/icons-material/Add', () => ({ __esModule: true, default: () => <
 jest.mock('@mui/icons-material/Edit', () => ({ __esModule: true, default: () => <span data-testid="edit-icon" /> }));
 jest.mock('@mui/icons-material/Delete', () => ({ __esModule: true, default: () => <span data-testid="delete-icon" /> }));
 jest.mock('@mui/icons-material/OpenWith', () => ({ __esModule: true, default: () => <span data-testid="open-with-icon" /> }));
-jest.mock('../../raaghu-react-themes/tokens/design-tokens', () => ({ fileTypeIconColors: {} }));
 
 const sampleTreeData = [
   {
@@ -41,6 +31,19 @@ const sampleTreeData = [
 ];
 
 describe('RdsCompTreeStructure', () => {
+  it('uses the language prop for file icons', () => {
+    const getFileIcon = jest.fn(() => null);
+    render(
+      <RdsCompTreeStructure
+        showFile
+        language="TypeScript"
+        getFileIcon={getFileIcon}
+        treeData={[{ id: 1, name: 'index' }]}
+      />,
+    );
+    expect(getFileIcon).toHaveBeenCalledWith('TypeScript');
+  });
+
   describe('Basic Rendering', () => {
     it('renders without crashing', () => {
       const { container } = render(
@@ -58,6 +61,11 @@ describe('RdsCompTreeStructure', () => {
 
     it('renders with empty treeData', () => {
       const { container } = render(<RdsCompTreeStructure treeData={[]} />);
+      expect(container.querySelector('.rds-comp-tree-structure')).toBeInTheDocument();
+    });
+
+    it('renders with showCollapsed true when treeData is omitted', () => {
+      const { container } = render(<RdsCompTreeStructure showCollapsed />);
       expect(container.querySelector('.rds-comp-tree-structure')).toBeInTheDocument();
     });
   });

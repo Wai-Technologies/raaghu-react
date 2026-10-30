@@ -2,10 +2,12 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSwitch from './rds-switch';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-switch.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -108,99 +110,71 @@ describe('RdsSwitch', () => {
     });
   });
 
-  describe('Layout Property', () => {
-    it('should apply switch+label layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="switch+label" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply label+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="label+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply toplabel+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="toplabel+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should apply bottomlabel+switch layout', () => {
-      renderWithTheme(
-        <RdsSwitch label="Test Label" layout="bottomlabel+switch" />
-      );
-      const formControlLabel = screen.getByText('Test Label').closest('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should handle layout with extra spaces', () => {
+  describe('Deprecated layout prop', () => {
+    it('maps switch+label layout to end placement', () => {
       const { container } = renderWithTheme(
         <RdsSwitch label="Test Label" layout="switch+label" />
       );
-      const muiSwitch = container.querySelector('.MuiSwitch-root');
-      expect(muiSwitch).toBeInTheDocument();
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementEnd')).toBeInTheDocument();
+    });
+
+    it('maps label+switch layout to start placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="label+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementStart')).toBeInTheDocument();
+    });
+
+    it('maps toplabel+switch layout to top placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="toplabel+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementTop')).toBeInTheDocument();
+    });
+
+    it('maps bottomlabel+switch layout to bottom placement', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch label="Test Label" layout="bottomlabel+switch" />
+      );
+      expect(container.querySelector('.MuiFormControlLabel-labelPlacementBottom')).toBeInTheDocument();
     });
   });
 
-  describe('State Property', () => {
-    it('should render in on state', () => {
+  describe('Checked Property', () => {
+    it('should render checked when defaultChecked is true', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="on" />
+        <RdsSwitch defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeChecked();
     });
 
-    it('should render in off state', () => {
+    it('should render unchecked when defaultChecked is false', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="off" />
+        <RdsSwitch defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).not.toBeChecked();
     });
 
-    it('should render in disabled on state', () => {
+    it('should render checked and disabled from semantic props', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
+        <RdsSwitch disabled defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
       expect(input).toBeChecked();
     });
 
-    it('should render in disabled off state', () => {
+    it('should render unchecked and disabled from semantic props', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled off" />
+        <RdsSwitch disabled defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
       expect(input).not.toBeChecked();
     });
 
-    it('should handle state with extra spaces', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch state="on" />
-      );
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toBeChecked();
-    });
-
-    it('should handle disabled on state', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
-      );
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toBeDisabled();
-      expect(input).toBeChecked();
-    });
   });
 
   describe('Style Variations', () => {
@@ -214,7 +188,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style1', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style1" />
+        <RdsSwitch variant="style1" />
       );
       const switchElement = container.querySelector('.rds-switch--style1');
       expect(switchElement).toBeInTheDocument();
@@ -222,7 +196,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style2', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style2" />
+        <RdsSwitch variant="style2" />
       );
       const switchElement = container.querySelector('.rds-switch--style2');
       expect(switchElement).toBeInTheDocument();
@@ -230,7 +204,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style3', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style3" />
+        <RdsSwitch variant="style3" />
       );
       const switchElement = container.querySelector('.rds-switch--style3');
       expect(switchElement).toBeInTheDocument();
@@ -238,7 +212,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style4', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style4" />
+        <RdsSwitch variant="style4" />
       );
       const switchElement = container.querySelector('.rds-switch--style4');
       expect(switchElement).toBeInTheDocument();
@@ -246,7 +220,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style5', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style5" />
+        <RdsSwitch variant="style5" />
       );
       const switchElement = container.querySelector('.rds-switch--style5');
       expect(switchElement).toBeInTheDocument();
@@ -254,7 +228,7 @@ describe('RdsSwitch', () => {
 
     it('should map legacy style6 to style5', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style={'style6' as never} />
+        <RdsSwitch variant={'style6' as never} />
       );
       const switchElement = container.querySelector('.rds-switch--style5');
       expect(switchElement).toBeInTheDocument();
@@ -262,10 +236,17 @@ describe('RdsSwitch', () => {
 
     it('should handle style with spaces', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style1" />
+        <RdsSwitch variant="style1" />
       );
       const switchElement = container.querySelector('.rds-switch--style1');
       expect(switchElement).toBeInTheDocument();
+    });
+
+    it('should apply CSSProperties style to the wrapper', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch style={{ marginTop: '12px' }} />
+      );
+      expect(container.querySelector('.rds-switch--row')).toHaveStyle('margin-top: 12px');
     });
   });
 
@@ -328,17 +309,17 @@ describe('RdsSwitch', () => {
       expect(input).toBeDisabled();
     });
 
-    it('should disable switch when state is disabled on', () => {
+    it('should disable a checked switch', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
+        <RdsSwitch disabled defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
     });
 
-    it('should disable switch when state is disabled off', () => {
+    it('should disable an unchecked switch', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled off" />
+        <RdsSwitch disabled defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
@@ -421,16 +402,16 @@ describe('RdsSwitch', () => {
       expect(input.checked).toBe(initialState);
     });
 
-    it('should update state when state prop changes', async () => {
+    it('should update when the controlled checked prop changes', async () => {
       const { container, rerender } = renderWithTheme(
-        <RdsSwitch state="off" />
+        <RdsSwitch checked={false} />
       );
       let input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(input.checked).toBe(false);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsSwitch state="on" />
+          <RdsSwitch checked />
         </ThemeProvider>
       );
 
@@ -472,34 +453,31 @@ describe('RdsSwitch', () => {
       );
       const input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       fireEvent.click(input);
-      // Note: onClick might still be called but onChange logic won't execute
       expect(input).toBeDisabled();
     });
   });
 
   describe('Custom ClassName', () => {
-    it('should apply custom className', () => {
+    it('should apply custom className on the outer row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="custom-switch" />
       );
-      const switchElement = container.querySelector('.custom-switch');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.custom-switch')).toBeInTheDocument();
     });
 
-    it('should combine rds-switch with custom className', () => {
+    it('should keep rds-switch on the control and custom className on the row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="custom-switch" />
       );
-      const switchElement = container.querySelector('.rds-switch.custom-switch');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.custom-switch')).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch')).toBeInTheDocument();
     });
 
-    it('should apply multiple custom classes', () => {
+    it('should apply multiple custom classes on the outer row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="class1 class2" />
       );
-      const switchElement = container.querySelector('.class1.class2');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.class1.class2')).toBeInTheDocument();
     });
   });
 
@@ -525,19 +503,11 @@ describe('RdsSwitch', () => {
   });
 
   describe('Edge Cases', () => {
-    it('should handle both layout and labelPlacement props', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch label="Test" layout="switch+label" labelPlacement="start" />
-      );
-      const formControlLabel = container.querySelector('.MuiFormControlLabel-root');
-      expect(formControlLabel).toBeInTheDocument();
-    });
-
-    it('should prefer layout over labelPlacement', () => {
+    it('should prefer labelPlacement over deprecated layout', () => {
       const { container } = renderWithTheme(
         <RdsSwitch label="Test" layout="label+switch" labelPlacement="end" />
       );
-      const formControlLabel = container.querySelector('.MuiFormControlLabel-root');
+      const formControlLabel = container.querySelector('.MuiFormControlLabel-labelPlacementEnd');
       expect(formControlLabel).toBeInTheDocument();
     });
 
@@ -553,24 +523,23 @@ describe('RdsSwitch', () => {
       const { container } = renderWithTheme(
         <RdsSwitch
           label={undefined}
-          state={undefined}
-          style={undefined}
+          variant={undefined}
           layout={undefined}
         />
       );
       expect(container).toBeInTheDocument();
     });
 
-    it('should handle multiple state and style changes', async () => {
+    it('should handle checked and style changes', async () => {
       const { container, rerender } = renderWithTheme(
-        <RdsSwitch state="on" style="style1" />
+        <RdsSwitch checked variant="style1" />
       );
       let input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(input.checked).toBe(true);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsSwitch state="off" style="style2" />
+          <RdsSwitch checked={false} variant="style2" />
         </ThemeProvider>
       );
 
@@ -627,5 +596,49 @@ describe('RdsSwitch', () => {
       expect(input).toHaveAttribute('id', 'test-switch');
       expect(input).toHaveAttribute('name', 'test-name');
     });
+  });
+
+  describe('audit fixes', () => {
+    it('merges consumer inputProps and slotProps.input onto the input', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch
+          label="L"
+          inputProps={{ 'data-a': '1' } as React.InputHTMLAttributes<HTMLInputElement>}
+          slotProps={{ input: { 'data-b': '2' } as React.InputHTMLAttributes<HTMLInputElement> }}
+        />
+      );
+      const input = container.querySelector('input[type="checkbox"]');
+      expect(input).toHaveAttribute('data-a', '1');
+      expect(input).toHaveAttribute('data-b', '2');
+      expect(input).toHaveAttribute('aria-label', 'L');
+    });
+
+    it('renders plain switch when showLabel is false even with a label', () => {
+      renderWithTheme(<RdsSwitch label="Hidden" showLabel={false} />);
+      expect(screen.queryByText('Hidden')).not.toBeInTheDocument();
+    });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated showLabel is passed', () => {
+    renderWithTheme(<RdsSwitch label="L" showLabel={false} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'showLabel', expect.any(String));
+  });
+
+  it('warns when deprecated layout is passed', () => {
+    renderWithTheme(<RdsSwitch label="L" layout="switch+label" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'layout', '`labelPlacement`');
+  });
+
+  it('variant wins over a deprecated style string, which warns', () => {
+    const { container } = renderWithTheme(<RdsSwitch variant="style3" style="style1" />);
+    expect(container.querySelector('.rds-switch--style3')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
+  });
+
+  it('forwards data-testid to the root .rds-switch--row', () => {
+    renderWithTheme(<RdsSwitch label="Notify" data-testid="notify-switch" />);
+    expect(screen.getByTestId('notify-switch')).toHaveClass('rds-switch--row');
   });
 });

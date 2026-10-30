@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
 const createActionLogger = (actionName: string) => {
@@ -24,8 +25,8 @@ const createActionLogger = (actionName: string) => {
                     }
                 });
             }
-        } catch (e) {
-          // handled
+        } catch {
+            return;
         }
     };
 };
@@ -45,8 +46,8 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         cardTitle: { control: 'text', description: 'Title of the card' },
         showBtn1: { control: 'boolean', description: 'Show Button 1' },
         showBtn2: { control: 'boolean', description: 'Show Button 2' },
-        btn1style: { control: 'text', description: 'Style of Button 1' },
-        btn2style: { control: 'text', description: 'Style of Button 2' },
+        btn1style: { control: 'select', options: ['filled', 'outlined', 'transparent'], description: 'Style of Button 1' },
+        btn2style: { control: 'select', options: ['filled', 'outlined', 'transparent'], description: 'Style of Button 2' },
         btn1Label: { control: 'text', description: 'Label of Button 1' },
         btn2Label: { control: 'text', description: 'Label of Button 2' },
         smallText: { control: 'text', description: 'Small text below the title' },
@@ -118,7 +119,7 @@ export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
         showHeader: true,
         showBtn1: true,
         showBtn2: true,
-        btn1style: 'outline',
+        btn1style: 'outlined',
         btn2style: 'filled',
         btn1Label: 'Button',
         btn2Label: 'Click Here',
@@ -154,8 +155,8 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
         showHeader: true,
         showBtn1: true,
         showBtn2: true,
-        btn1style: 'outline',
-        btn2style: 'outline',
+        btn1style: 'outlined',
+        btn2style: 'outlined',
         btn1Label: 'snooze',
         btn2Label: "I'll be Late",
         smallText: '20:30 - 09:30',
@@ -405,7 +406,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
             side: '',
             drink: ''
         });
-        const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const handleChange = (e: SelectChangeEvent<string>) => {
             setOrder({ ...order, [e.target.name]: e.target.value });
         };
         const handlePlaceOrder = () => {

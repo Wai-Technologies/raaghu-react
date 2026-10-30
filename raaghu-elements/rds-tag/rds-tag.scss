@@ -5,12 +5,6 @@
   justify-content: center;
 }
 
-.rds-tag .MuiChip-root {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .rds-tag .MuiChip-label {
   display: flex;
   align-items: center;
@@ -19,7 +13,6 @@
 }
 
 [data-theme="dark"] {
-  // Default filled tag — keep container tint visible against dark surfaces
   .rds-tag.MuiChip-filled.MuiChip-colorDefault,
   .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) {
     background-color: var(--rds-color-primary-container);
@@ -37,10 +30,10 @@
 
   .rds-tag.MuiChip-filled.MuiChip-colorDefault .MuiChip-deleteIcon,
   .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) .MuiChip-deleteIcon {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
   }
 
   .rds-tag.MuiChip-outlined .MuiChip-deleteIcon {
-    color: inherit !important;
+    color: inherit;
   }
 }

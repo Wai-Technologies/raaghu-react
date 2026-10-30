@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSnackbar from './rds-snackbar';
 import { useState, useEffect } from 'react';
 import RdsButton from '../rds-button/rds-button';
@@ -17,7 +16,7 @@ const meta: Meta<typeof RdsSnackbar> = {
       control: 'text',
       description: 'Message to display',
     },
-    type: {
+    severity: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
       description: 'Type of snackbar',
@@ -50,8 +49,7 @@ const SnackbarTemplate = (args: any) => {
         layout="text-only"
         shape="rectangle"
         size="medium"
-        state="default"
-        style="filled"
+        variant="filled"
         text="Show Snackbar"
         textCase="unset"
         onClick={() => setOpen(true)}
@@ -65,19 +63,21 @@ const SnackbarTemplate = (args: any) => {
   );
 };
 
-export const Success = {
+export const Default = {
   render: SnackbarTemplate,
   args: {
     message: 'Operation completed successfully!',
-    type: 'success',
+    severity: 'success' as const,
   },
 };
+
+export const Success: Story = { ...Default };
 
 export const Error = {
   render: SnackbarTemplate,
   args: {
     message: 'An error occurred. Please try again.',
-    type: 'error',
+    severity: 'error',
   },
 };
 
@@ -85,7 +85,7 @@ export const Warning = {
   render: SnackbarTemplate,
   args: {
     message: 'This action cannot be undone.',
-    type: 'warning',
+    severity: 'warning',
   },
 };
 
@@ -93,7 +93,7 @@ export const Info = {
   render: SnackbarTemplate,
   args: {
     message: 'Your changes have been saved.',
-    type: 'info',
+    severity: 'info',
   },
 };
 
@@ -101,9 +101,8 @@ export const AutoHide = {
   render: SnackbarTemplate,
   args: {
     message: 'This will disappear in 2 seconds',
-    type: 'info',
+    severity: 'info',
     autoHideDuration: 2000,
   },
 };
 
-export const Default: Story = { ...Success };

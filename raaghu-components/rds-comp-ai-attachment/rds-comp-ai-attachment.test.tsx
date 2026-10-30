@@ -1,21 +1,18 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiAttachment, { RdsCompAiAttachmentProps, UserData, Comment } from './rds-comp-ai-attachment';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-attachment.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/Attachment', () => {
   return function MockAttachmentIcon() {
     return <span data-testid="attachment-icon">Attachment</span>;
   };
 });
 
-// Mock child components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
     return (
@@ -71,16 +68,21 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
 });
 
 jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
-  return function MockRdsCompAiFabMenu({ listItems, menuIcon, alignment, backgroundType, isShowBorder, ...props }: any) {
+  return function MockRdsCompAiFabMenu({ items, listItems, icon, menuIcon, placement, alignment, variant: _variant, backgroundType: _backgroundType, bordered: _bordered, isShowBorder: _isShowBorder, dense: _dense, ...props }: any) {
     return (
-      <div data-testid="rds-fab-menu" data-alignment={alignment} {...props}>
+      <div data-testid="rds-fab-menu" data-alignment={placement ?? alignment} {...props}>
         <button data-testid="fab-menu-trigger" style={{ cursor: 'pointer' }}>
-          {menuIcon}
+          {icon ?? menuIcon}
         </button>
         <div data-testid="fab-menu-items">
-          {listItems?.map((item: any, idx: number) => (
-            <div key={item.key || idx} data-testid={`fab-item-${item.key}`} style={{ cursor: 'pointer' }}>
-              {item.value}
+          {(items ?? listItems)?.map((item: any, idx: number) => (
+            <div
+              key={item.key || idx}
+              data-testid={`fab-item-${item.key}`}
+              style={{ cursor: 'pointer' }}
+              onClick={() => item.onClick?.()}
+            >
+              {item.label ?? item.value}
             </div>
           ))}
         </div>
@@ -110,7 +112,7 @@ describe('RdsCompAiAttachment', () => {
   ];
 
   const defaultProps: RdsCompAiAttachmentProps = {
-    menuIcon: 'attach',
+    menuIcon: <span>attach</span>,
     modalTitle: 'Import Design',
     hintText: 'Enter Figma URL',
     inputPlaceholder: 'https://figma.com/...',
@@ -153,7 +155,7 @@ describe('RdsCompAiAttachment', () => {
           {...defaultProps}
           showBadge={true}
           badgeLabel="NEW"
-          badgeColor="red"
+          badgeColor={"red" as unknown as RdsCompAiAttachmentProps['badgeColor']}
         />
       );
       expect(screen.getByTestId('rds-badge')).toBeInTheDocument();
@@ -217,10 +219,8 @@ describe('RdsCompAiAttachment', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a mock image file
       const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
 
-      // Mock FileReader
       const mockRead = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockRead;
@@ -252,12 +252,10 @@ describe('RdsCompAiAttachment', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a non-image file
       const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
 
       fireEvent.change(fileInput, { target: { files: [file] } });
 
-      // Should not call handleAddComment for non-image files
       expect(handleAddComment).not.toHaveBeenCalled();
     });
 
@@ -265,7 +263,6 @@ describe('RdsCompAiAttachment', () => {
       const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Mock FileReader
       const mockReadAsDataURL = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockReadAsDataURL;
@@ -309,7 +306,7 @@ describe('RdsCompAiAttachment', () => {
       render(
         <RdsCompAiAttachment
           {...defaultProps}
-          menuIcon="custom-icon"
+          menuIcon={<span>custom-icon</span>}
         />
       );
       expect(screen.getByTestId('fab-menu-trigger')).toHaveTextContent('custom-icon');
@@ -429,5 +426,83 @@ describe('RdsCompAiAttachment', () => {
       );
       expect(screen.getByTestId('rds-badge')).toBeInTheDocument();
     });
+  });
+
+  describe('audit fixes', () => {
+    const mockReader = () => {
+      const instances: any[] = [];
+      global.FileReader = jest.fn(function (this: any) {
+        this.result = 'data:image/png;base64,abc';
+        this.readAsDataURL = () => this.onloadend?.();
+        instances.push(this);
+      }) as any;
+    };
+
+    it('calls onFileSelect and onAddComment for an image file (G3-069, G3-079)', () => {
+      mockReader();
+      const onFileSelect = jest.fn();
+      const onAddComment = jest.fn();
+      const { container } = render(
+        <RdsCompAiAttachment {...defaultProps} onFileSelect={onFileSelect} onAddComment={onAddComment} />
+      );
+      const file = new File(['x'], 'a.png', { type: 'image/png' });
+      fireEvent.change(container.querySelector('input[type="file"]')!, { target: { files: [file] } });
+      expect(onFileSelect).toHaveBeenCalledWith(file);
+      expect(onAddComment).toHaveBeenCalledWith(expect.objectContaining({ image: 'data:image/png;base64,abc' }));
+    });
+
+    it('fires onFigmaUrlChange on input change (G3-072)', () => {
+      const onFigmaUrlChange = jest.fn();
+      render(<RdsCompAiAttachment {...defaultProps} onFigmaUrlChange={onFigmaUrlChange} />);
+      fireEvent.click(screen.getByText(defaultProps.uploadText as string));
+      fireEvent.change(screen.getByTestId('rds-input'), { target: { value: 'https://figma.com/x' } });
+      expect(onFigmaUrlChange).toHaveBeenCalledWith('https://figma.com/x');
+    });
+
+    it('forwards className and rest props to the root, and the file input accepts images (G3-076, G3-077)', () => {
+      const { container } = render(
+        <RdsCompAiAttachment {...defaultProps} className="custom" data-testid="root" />
+      );
+      const root = screen.getByTestId('root');
+      expect(root).toHaveClass('rds-comp-ai-attachment', 'rds-comp-ai-attachment__dropdown', 'custom');
+      expect(container.querySelector('input[type="file"]')).toHaveAttribute('accept', 'image/*');
+    });
+
+    it("uses icon, placement, badge and badgeProps.color over the deprecated props", () => {
+      render(<RdsCompAiAttachment {...defaultProps} icon={<span>new_icon</span>} placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
+      expect(screen.getByTestId("fab-menu-trigger")).toHaveTextContent("new_icon");
+      expect(screen.getByTestId("rds-fab-menu")).toHaveAttribute("data-alignment", "right");
+      expect(screen.getByTestId("rds-badge")).toHaveTextContent("Pro");
+      expect(screen.getByTestId("rds-badge")).toHaveAttribute("data-color", "success");
+    });
+
+    it("uses slotProps texts and currentUser over the deprecated props", () => {
+      mockReader();
+      const onAddComment = jest.fn();
+      const { container } = render(
+        <RdsCompAiAttachment
+          {...defaultProps}
+          currentUser={{ firstName: "Ann", lastName: "Lee" }}
+          onAddComment={onAddComment}
+          slotProps={{ menu: { uploadText: "Up", importText: "Imp" }, dialog: { title: "T", text: "Body", placeholder: "P" } }}
+        />
+      );
+      expect(screen.getByText("Imp")).toBeInTheDocument();
+      fireEvent.click(screen.getByText("Up"));
+      expect(screen.getByTestId("modal-title")).toHaveTextContent("T");
+      expect(screen.getByText("Body")).toBeInTheDocument();
+      expect(screen.getByTestId("rds-input")).toHaveAttribute("placeholder", "P");
+      fireEvent.change(container.querySelector("input[type=\"file\"]")!, { target: { files: [new File(["x"], "a.png", { type: "image/png" })] } });
+      expect(onAddComment).toHaveBeenCalledWith(expect.objectContaining({ firstName: "Ann", lastName: "Lee" }));
+    });
+  });
+});
+
+describe('RdsCompAiAttachment id', () => {
+  it('forwards id to the root and adds none when omitted', () => {
+    const a = render(<RdsCompAiAttachment id="at" />);
+    expect(a.container.firstChild).toHaveAttribute('id', 'at');
+    const b = render(<RdsCompAiAttachment />);
+    expect(b.container.firstChild).not.toHaveAttribute('id');
   });
 });

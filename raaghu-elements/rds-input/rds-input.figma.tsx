@@ -8,11 +8,11 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1290-3640",
   {
     props: {
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      required: figma.boolean("❗ Is Mandatory"),
       label: figma.string("✏️ Label"),
-      hintText: figma.string("✍ Hint Text"),
+      helperText: figma.string("✍ Hint Text"),
       placeholder: figma.string("📝 Placeholder - Text"),
-      showIcon: figma.boolean("👀 - Show Icon"),
+      endIcon: figma.boolean("👀 - Show Icon", { true: <Info />, false: undefined }),
       layout: figma.enum("📱 Layout", {
         "Text": "text",
         "Password": "password",
@@ -23,21 +23,34 @@ figma.connect(
         "Small": "small",
         "Medium": "medium"
       }),
-      style: figma.enum("✨ Style", {
+      shape: figma.enum("✨ Style", {
         "Default": "default",
         "Pill": "pill",
         "Bottom Outline": "bottom outline"
       }),
-      state: figma.enum("💡 State",  {
-        "Default": "default",
-        "Active": "active",
-        "Selected": "selected",
-        "Error": "error",
-        "Disabled": "disabled"
+      selected: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": true,
+        "Error": false,
+        "Disabled": false,
+      }),
+      error: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": false,
+        "Error": true,
+        "Disabled": false,
+      }),
+      disabled: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": false,
+        "Error": false,
+        "Disabled": true,
       }),
     },
       example: (props) => <RdsInput
-      titlePosition="title-above"
-      icon={<Info />} iconPosition="end" {...props} />,
+      labelPlacement="top" {...props} />,
   },
 )

@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import {
   Box as MuiBox,
   type BoxProps
@@ -6,9 +5,12 @@ import {
 import clsx from 'clsx';
 import './rds-box.scss';
 
-export interface RdsBoxProps extends Omit<BoxProps, 'component'> {
-  children?: ReactNode;
-}
+/**
+ * Props for RdsBox. Same as MUI `BoxProps`, including the polymorphic
+ * `component` prop (e.g. `component="section"` or a component type) and
+ * `children` (`ReactNode`).
+ */
+export type RdsBoxProps = BoxProps;
 
 const RdsBox = ({
   children,
@@ -18,7 +20,7 @@ const RdsBox = ({
   const mergedClassName = clsx('rds-box', className);
 
   return (
-    <MuiBox className={mergedClassName} {...props}>
+    <MuiBox {...props} className={mergedClassName}>
       {children}
     </MuiBox>
   );

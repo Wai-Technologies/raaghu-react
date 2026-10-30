@@ -1,13 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
+import type { ChartIconName } from './chart-icons';
+import type { ChartOptions } from 'chart.js/auto';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-chart-boolean.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -28,7 +30,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock chart-icons
 jest.mock('./chart-icons', () => ({
   ChartIcons: {
     circle: '<svg></svg>',
@@ -42,7 +43,7 @@ const defaultProps = {
   dataSets: [
     {
       data: [65, 35],
-      backgroundColor: ["var(--rds-semantic-success-main, #4CAF50)", "var(--rds-semantic-error-main, #FF6B6B)"],
+      backgroundColor: ["var(--rds-semantic-success-main)", "var(--rds-semantic-error-main)"],
     },
   ],
   options: {
@@ -50,7 +51,7 @@ const defaultProps = {
     maintainAspectRatio: false,
   },
   id: 'boolean-chart-1',
-  centerIconName: 'circle',
+  centerIconName: 'circle' as ChartIconName,
 };
 
 describe('RdsCompBooleanChart', () => {
@@ -99,7 +100,7 @@ describe('RdsCompBooleanChart', () => {
       const customDatasets = [
         {
           data: [50, 50],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -109,7 +110,7 @@ describe('RdsCompBooleanChart', () => {
     });
 
     it('passes options to chart', () => {
-      const customOptions = {
+      const customOptions: ChartOptions<'doughnut'> = {
         responsive: true,
         maintainAspectRatio: true,
         plugins: {
@@ -182,14 +183,12 @@ describe('RdsCompBooleanChart', () => {
     it('sets canvas height style', () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
-      // The component sets height to 20vh in the effect
       expect(canvas).toBeInTheDocument();
     });
 
     it('sets canvas width style', () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
-      // The component sets width to 20vh in the effect
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -236,7 +235,6 @@ describe('RdsCompBooleanChart', () => {
     it('destroys chart on unmount', () => {
       const { unmount } = render(<RdsCompBooleanChart {...defaultProps} />);
       unmount();
-      // Component should cleanup without errors
       expect(true).toBe(true);
     });
 
@@ -248,7 +246,6 @@ describe('RdsCompBooleanChart', () => {
           labels={['Yes', 'No']}
         />
       );
-      // Component should update and destroy previous chart
       expect(true).toBe(true);
     });
   });
@@ -291,7 +288,7 @@ describe('RdsCompBooleanChart', () => {
           dataSets={[
             {
               data: [75, 25],
-                backgroundColor: ["var(--rds-semantic-success-main, #00FF00)", "var(--rds-semantic-error-main, #FF0000)"],
+                backgroundColor: ["var(--rds-semantic-success-main)", "var(--rds-semantic-error-main)"],
             },
           ]}
         />
@@ -321,11 +318,11 @@ describe('RdsCompBooleanChart', () => {
       const multiDatasets = [
           {
           data: [65, 35],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
         {
           data: [45, 55],
-          backgroundColor: ["var(--rds-info-main, #0000FF)", "var(--rds-warning-main, #FFFF00)"],
+          backgroundColor: ["var(--rds-info-main)", "var(--rds-warning-main)"],
         },
       ];
       const { container } = render(
@@ -387,7 +384,7 @@ describe('RdsCompBooleanChart', () => {
       const customDataset = [
         {
           data: [60, 40],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF5733)", "var(--rds-semantic-success-main, #33FF57)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -400,7 +397,7 @@ describe('RdsCompBooleanChart', () => {
       const customDataset = [
         {
           data: [60, 40],
-          borderColor: ["var(--rds-neutral-900, #000000)", "var(--rds-neutral-0, #FFFFFF)"],
+          borderColor: ["var(--rds-neutral-900)", "var(--rds-neutral-0)"],
           borderWidth: 2,
         },
       ];
@@ -443,7 +440,7 @@ describe('RdsCompBooleanChart', () => {
       const largeDataset = [
         {
               data: [999999, 1],
-              backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+              backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -456,7 +453,7 @@ describe('RdsCompBooleanChart', () => {
       const smallDataset = [
         {
           data: [0.1, 0.9],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -469,7 +466,7 @@ describe('RdsCompBooleanChart', () => {
       const zeroDataset = [
         {
           data: [0, 100],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -482,7 +479,7 @@ describe('RdsCompBooleanChart', () => {
       const skewedDataset = [
         {
           data: [100, 0],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -495,7 +492,7 @@ describe('RdsCompBooleanChart', () => {
       const balancedDataset = [
         {
           data: [50, 50],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -506,7 +503,7 @@ describe('RdsCompBooleanChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBooleanChart {...defaultProps} options={null} />
+        <RdsCompBooleanChart {...defaultProps} options={null as unknown as ChartOptions<'doughnut'>} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -586,7 +583,6 @@ describe('RdsCompBooleanChart', () => {
       const { rerender, container } = render(
         <RdsCompBooleanChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompBooleanChart
@@ -596,7 +592,6 @@ describe('RdsCompBooleanChart', () => {
       );
       const canvas2 = container.querySelector('canvas');
 
-      // Same canvas element should be present
       expect(canvas2).toBeInTheDocument();
     });
   });
@@ -714,9 +709,55 @@ describe('RdsCompBooleanChart', () => {
 
     it('plugin handles missing icon gracefully', () => {
       const { container } = render(
-        <RdsCompBooleanChart {...defaultProps} centerIconName="nonexistent" />
+        <RdsCompBooleanChart {...defaultProps} centerIconName={"nonexistent" as ChartIconName} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBooleanChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('adds no centre-icon plugin for a missing or unknown icon name', () => {
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    const Chart = jest.requireMock('chart.js/auto');
+    Chart.mockClear();
+    render(<RdsCompBooleanChart {...defaultProps} centerIconName={"nope" as ChartIconName} />);
+    render(<RdsCompBooleanChart {...defaultProps} centerIconName={undefined} id="b2" />);
+    expect(Chart.mock.calls[0][1].plugins).toBeUndefined();
+    expect(Chart.mock.calls[1][1].plugins).toBeUndefined();
+    Chart.mockClear();
+    render(<RdsCompBooleanChart {...defaultProps} id="b3" />);
+    expect(Chart.mock.calls[0][1].plugins).toHaveLength(1);
+  });
+
+  it('warns about deprecated chartStyle', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompBooleanChart {...defaultProps} chartStyle="x" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBooleanChart', 'chartStyle', 'nothing (it has no effect)');
+  });
+});
+
+describe('additive prop renames', () => {
+  it('renders centerIcon over the chart and not when unused', () => {
+    const { container, rerender } = render(<RdsCompBooleanChart {...defaultProps} />);
+    expect(container.querySelector('span')).toBeNull();
+    rerender(<RdsCompBooleanChart {...defaultProps} centerIcon={<i data-testid="ic" />} />);
+    expect(screen.getByTestId('ic')).toBeInTheDocument();
+  });
+
+  it('ariaLabel wins over chartLabel', () => {
+    render(<RdsCompBooleanChart {...defaultProps} ariaLabel="New" chartLabel="Old" />);
+    expect(screen.getByRole('img')).toHaveAttribute('aria-label', 'New');
   });
 });

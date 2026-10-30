@@ -1,22 +1,11 @@
-@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
-
 .rds-comp-chart-mixed {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    // Canvas sizing: prefer centralized theme tokens
     .rds-chart-canvas,
     canvas {
         width: 100%;
         height: var(--rds-comp-chart-bar-default-height);
-    }
-
-    // Tablet view - use tablet-specific token
-    @include bp.between(md, lg) {
-        .rds-chart-canvas,
-        canvas {
-            height: var(--rds-comp-chart-bar-tablet-height) !important;
-        }
     }
 }

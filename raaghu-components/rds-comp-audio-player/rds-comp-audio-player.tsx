@@ -1,5 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type MouseEvent as ReactMouseEvent, type KeyboardEvent as ReactKeyboardEvent, type Ref } from "react";
 import clsx from 'clsx';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Box from "@mui/material/Box";
+import type { SxProps, Theme } from "@mui/material/styles";
 import "./rds-comp-audio-player.scss";
 import Forward10OutlinedIcon from "@mui/icons-material/Forward10Outlined";
 import RestoreOutlinedIcon from "@mui/icons-material/RestoreOutlined";
@@ -7,54 +10,116 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import RdsSlider from "../../raaghu-elements/rds-slider/rds-slider";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import MusicNote from "@mui/icons-material/MusicNote";
+import Pause from "@mui/icons-material/Pause";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 import SettingsSuggestSharpIcon from "@mui/icons-material/SettingsSuggestSharp";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import RdsCompAiFabMenu from "../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
+import RdsCompAiFabMenu, { type RdsCompAiFabMenuItem } from "../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
-import {
-  VolumeSliderComponent,
-  SettingsModalComponent,
-  AudioEditionControls,
-} from "./audio-player-components";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { VolumeSliderComponent } from "./VolumeSliderComponent";
+import { SettingsModalComponent } from "./SettingsModalComponent";
+import { AudioEditionControls } from "./AudioEditionControls";
+import { extendedBreakpointTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
 registerMaterialIcons({
   share_icon: IosShareIcon,
   pending_icon: PendingOutlinedIcon,
 });
 
-interface AudioPlayerProps {
+type AudioPlayerType = "Audio Edition" | "Audio Player" | "Collapsed";
+type ControlVisibility = 'visible' | 'hidden';
+
+/** A trim selection in seconds. */
+export interface RdsCompAudioPlayerRange {
+  start: number;
+  end: number;
+}
+
+export interface RdsCompAudioPlayerProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'id' | 'children' | 'onChange' | 'onCancel'> {
+  /** URL of the audio file to play. */
   src: string;
-  type: "Audio Edition" | "Audio Player" | "Collapsed";
+  /** Figma variant name. */
+  type?: AudioPlayerType;
+  /** Variant alias for `type` (`player` = "Audio Player", `editor` = "Audio Edition", `collapsed` = "Collapsed"); wins over `type`. */
+  variant?: 'player' | 'editor' | 'collapsed';
+  /**
+   * @deprecated Prefer `showSettings` / `showVolume` / `showExport` / `showMoreOptions`.
+   * String `'visible' | 'hidden'` map; also shadows native `<audio controls>`.
+   */
   controls?: {
-    settings?: 'visible' | 'hidden';
-    transcript?: 'visible' | 'hidden';
-    export?: 'visible' | 'hidden';
-    moreOptions?: 'visible' | 'hidden';
+    settings?: ControlVisibility;
+    /** Shows the volume button. */
+    volume?: ControlVisibility;
+    /** @deprecated Use `volume` instead. */
+    transcript?: ControlVisibility;
+    export?: ControlVisibility;
+    moreOptions?: ControlVisibility;
   };
-  [key: string]: unknown;
+  /** Show the settings control. */
+  showSettings?: boolean;
+  /** Show the volume control. */
+  showVolume?: boolean;
+  /** @deprecated Use `showVolume` instead. */
+  showTranscript?: boolean;
+  /** Show the export menu. */
+  showExport?: boolean;
+  /** Show the more-options menu. */
+  showMoreOptions?: boolean;
+  /** Items of the export menu (defaults to the built-in sample items). */
+  exportItems?: RdsCompAiFabMenuItem[];
+  /** Items of the "more options" menu (defaults to the built-in sample items). */
+  moreItems?: RdsCompAiFabMenuItem[];
+  /** Called when the editor's Cancel button is clicked. */
+  onCancel?: () => void;
+  /** Called when the editor's Save button is clicked. */
+  onSave?: () => void;
+  /** Called with the current trim selection (seconds) when Trim is clicked. */
+  onTrim?: (range: RdsCompAudioPlayerRange) => void;
+  /** Called with the current trim selection (seconds) when Delete is clicked. */
+  onDelete?: (range: RdsCompAudioPlayerRange) => void;
+  /** Editor waveform bar heights (SVG units, viewBox height 200); defaults to generated sample data. */
+  waveform?: number[];
+  /** Ref to the variant's root element. */
+  ref?: Ref<HTMLDivElement>;
+  /** Id of the variant's root element. */
+  id?: string;
+  /** System styles applied to the variant's root element. */
+  sx?: SxProps<Theme>;
 }
 
 const SLIDER_MAX = 120;
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_QUERY = `(max-width:${extendedBreakpointTokens["tablet-sm"]})`;
+
+const VARIANT_TO_TYPE: Record<NonNullable<RdsCompAudioPlayerProps['variant']>, AudioPlayerType> = {
+  player: "Audio Player",
+  editor: "Audio Edition",
+  collapsed: "Collapsed",
+};
 
 const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
 
-const EXPORT_MENU_ITEMS = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", some: "value", value: "Share Link" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", some: "value", value: "Export Audio" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", some: "value", value: "Export Transcript" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", some: "value", value: "Export Summary" },
-  { icon: "download", iconHeight: "22px", iconWidth: "22px", key: "download", some: "value", value: "Export Mind Map" },
+const EXPORT_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Share Link" },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Export Audio" },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Export Transcript" },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Export Summary" },
+  { icon: "download", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "download", label: "Export Mind Map" },
 ];
 
-const MORE_OPTIONS_MENU_ITEMS = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", some: "value", value: "Move to folder" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", some: "value", value: "Find & Replace" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", some: "value", value: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", some: "value", value: "Re-Summarize" },
+const MORE_OPTIONS_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Move to folder" },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Find & Replace" },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Re-Transcribe" },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Re-Summarize" },
 ];
+
+const DEFAULT_WAVEFORM: number[] = Array.from({ length: 150 }, (_, barIndex) =>
+  Math.max(20, Math.abs(Math.sin(barIndex * 0.1) * 60 + Math.cos(barIndex * 0.27) * 40))
+);
 
 type AudioPlayerState = {
   isPlaying: boolean;
@@ -66,32 +131,69 @@ type AudioPlayerState = {
   rightTrimPosition: number;
   isDraggingLeft: boolean;
   isDraggingRight: boolean;
-  showTranscriptSlider: boolean;
+  showVolumeSlider: boolean;
   volumeLevel: number;
   showSettingsModal: boolean;
   playbackSpeed: number;
-  isMobileView: boolean;
 };
 
 const RdsCompAudioPlayer = ({
   src,
   type = "Audio Player",
+  variant,
   controls,
-  ...legacyProps
-}: AudioPlayerProps) => {
-  const legacyShowSettings = typeof legacyProps['showSettings'] === 'boolean' ? (legacyProps['showSettings'] as boolean) : undefined;
-  const legacyShowTranscript = typeof legacyProps['showTranscript'] === 'boolean' ? (legacyProps['showTranscript'] as boolean) : undefined;
-  const legacyShowExport = typeof legacyProps['showExport'] === 'boolean' ? (legacyProps['showExport'] as boolean) : undefined;
-  const legacyShowMoreOptions = typeof legacyProps['showMoreOptions'] === 'boolean' ? (legacyProps['showMoreOptions'] as boolean) : undefined;
+  showSettings: legacyShowSettings,
+  showVolume: legacyShowVolume,
+  showTranscript: legacyShowTranscript,
+  showExport: legacyShowExport,
+  showMoreOptions: legacyShowMoreOptions,
+  exportItems = EXPORT_MENU_ITEMS,
+  moreItems = MORE_OPTIONS_MENU_ITEMS,
+  onCancel,
+  onSave,
+  onTrim,
+  onDelete,
+  waveform = DEFAULT_WAVEFORM,
+  className,
+  ref,
+  id,
+  sx,
+  ...rest
+}: RdsCompAudioPlayerProps) => {
+  if (controls !== undefined) {
+    warnDeprecatedProp('RdsCompAudioPlayer', 'controls', '`showSettings` / `showVolume` / `showExport` / `showMoreOptions`');
+  }
+  if (controls?.transcript !== undefined) warnDeprecatedProp('RdsCompAudioPlayer', 'controls.transcript', '`controls.volume`');
+  if (legacyShowTranscript !== undefined) warnDeprecatedProp('RdsCompAudioPlayer', 'showTranscript', '`showVolume`');
 
-  const showSettings = controls?.settings ? controls.settings === 'visible' : (legacyShowSettings ?? false);
-  const showTranscript = controls?.transcript ? controls.transcript === 'visible' : (legacyShowTranscript ?? false);
-  const showExport = controls?.export ? controls.export === 'visible' : (legacyShowExport ?? false);
-  const showMoreOptions = controls?.moreOptions ? controls.moreOptions === 'visible' : (legacyShowMoreOptions ?? false);
+  const resolvedType: AudioPlayerType = variant ? VARIANT_TO_TYPE[variant] : type;
 
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const asBool = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
+  const fromVisibility = (value: ControlVisibility | undefined) =>
+    value === undefined ? undefined : value === 'visible';
+
+  const showSettings = asBool(legacyShowSettings) ?? fromVisibility(controls?.settings) ?? false;
+  const showVolume =
+    asBool(legacyShowVolume) ??
+    asBool(legacyShowTranscript) ??
+    fromVisibility(controls?.volume) ??
+    fromVisibility(controls?.transcript) ??
+    false;
+  const showExport = asBool(legacyShowExport) ?? fromVisibility(controls?.export) ?? false;
+  const showMoreOptions = asBool(legacyShowMoreOptions) ?? fromVisibility(controls?.moreOptions) ?? false;
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+  const setAudioRef = useCallback((node: HTMLAudioElement | null) => {
+    audioRef.current = node;
+    setAudioElement(node);
+  }, []);
   const volumeSliderRef = useRef<HTMLDivElement>(null);
-  const transcriptButtonRef = useRef<HTMLButtonElement>(null);
+  const volumeButtonRef = useRef<HTMLButtonElement>(null);
+  const waveformRef = useRef<HTMLDivElement>(null);
+  const settingsModalRef = useRef<HTMLDivElement>(null);
+  const settingsButtonRef = useRef<HTMLButtonElement>(null);
+  const isMobileView = useMediaQuery(MOBILE_QUERY, { noSsr: true });
   const [audioState, setAudioState] = useState<AudioPlayerState>({
     isPlaying: false,
     currentTime: 0,
@@ -102,11 +204,10 @@ const RdsCompAudioPlayer = ({
     rightTrimPosition: 90,
     isDraggingLeft: false,
     isDraggingRight: false,
-    showTranscriptSlider: false,
+    showVolumeSlider: false,
     volumeLevel: 50,
     showSettingsModal: false,
     playbackSpeed: 1.0,
-    isMobileView: typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT,
   });
   const updateAudioState = useCallback(
     (updates: Partial<AudioPlayerState> | ((prev: AudioPlayerState) => Partial<AudioPlayerState>)) => {
@@ -127,38 +228,27 @@ const RdsCompAudioPlayer = ({
     rightTrimPosition,
     isDraggingLeft,
     isDraggingRight,
-    showTranscriptSlider,
+    showVolumeSlider,
     volumeLevel,
     showSettingsModal,
     playbackSpeed,
-    isMobileView,
   } = audioState;
-
-  useEffect(() => {
-    const checkMobileView = () => {
-      setAudioState((prev) => ({
-        ...prev,
-        isMobileView: window.innerWidth <= MOBILE_BREAKPOINT,
-      }));
-    };
-
-    window.addEventListener("resize", checkMobileView);
-
-    return () => {
-      window.removeEventListener("resize", checkMobileView);
-    };
-  }, []);
 
   const timeMarkConfig = useMemo(
     () =>
       isMobileView
-        ? { interval: "00:30", count: 5 }
-        : { interval: "00:10", count: 13 },
+        ? { intervalSec: 30, count: 5 }
+        : { intervalSec: 10, count: 13 },
     [isMobileView]
   );
 
   useEffect(() => {
-    const audio = audioRef.current;
+    if (!audioElement) return;
+    audioElement.volume = volumeLevel / 100;
+  }, [audioElement, volumeLevel]);
+
+  useEffect(() => {
+    const audio = audioElement;
     if (!audio) return;
 
     const handleLoadedMetadata = () => {
@@ -169,20 +259,29 @@ const RdsCompAudioPlayer = ({
       updateAudioState({ currentTime: audio.currentTime, sliderValue: audio.currentTime });
     };
 
+    const handlePlay = () => updateAudioState({ isPlaying: true });
+    const handlePause = () => updateAudioState({ isPlaying: false });
+
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("ended", handlePause);
 
     return () => {
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("ended", handlePause);
     };
-  }, [src, updateAudioState]);
+  }, [audioElement, updateAudioState]);
 
   useEffect(() => {
     if (!isDraggingLeft && !isDraggingRight) return;
 
     const handleDocumentMouseMove = (e: MouseEvent) => {
-      const waveformElement = document.querySelector(".rds-comp-audio-player__edition-waveform");
+      const waveformElement = waveformRef.current;
       if (!waveformElement) return;
 
       const rect = waveformElement.getBoundingClientRect();
@@ -209,24 +308,24 @@ const RdsCompAudioPlayer = ({
   }, [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, updateAudioState]);
 
   useEffect(() => {
-    if (!showTranscriptSlider && !showSettingsModal) return;
+    if (!showVolumeSlider && !showSettingsModal) return;
 
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
 
       if (
-        showTranscriptSlider &&
+        showVolumeSlider &&
         volumeSliderRef.current &&
         !volumeSliderRef.current.contains(target) &&
-        transcriptButtonRef.current &&
-        !transcriptButtonRef.current.contains(target)
+        volumeButtonRef.current &&
+        !volumeButtonRef.current.contains(target)
       ) {
-        updateAudioState({ showTranscriptSlider: false });
+        updateAudioState({ showVolumeSlider: false });
       }
 
       if (showSettingsModal) {
-        const settingsModal = document.querySelector(".rds-comp-audio-player__settings-modal");
-        const settingsButton = document.querySelector(".rds-comp-audio-player__settings-button");
+        const settingsModal = settingsModalRef.current;
+        const settingsButton = settingsButtonRef.current;
         if (
           settingsModal &&
           !settingsModal.contains(target) &&
@@ -238,13 +337,24 @@ const RdsCompAudioPlayer = ({
       }
     };
 
+    const handleEscape = (event: KeyboardEvent) => {
+      if (showSettingsModal && event.key === "Escape") {
+        updateAudioState({ showSettingsModal: false });
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showTranscriptSlider, showSettingsModal, updateAudioState]);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [showVolumeSlider, showSettingsModal, updateAudioState]);
 
   const handleSeek = useCallback(
     (_: Event, value: number | number[]) => {
-      const time = Array.isArray(value) ? value[0] : value;
+      const raw = Array.isArray(value) ? value[0] : value;
+      const time = Math.max(0, Math.min(raw, duration > 0 ? duration : SLIDER_MAX));
       updateAudioState({ sliderValue: time, currentTime: time });
       if (audioRef.current && time <= duration) {
         audioRef.current.currentTime = time;
@@ -254,11 +364,21 @@ const RdsCompAudioPlayer = ({
   );
 
   const getSelectedTimeRange = useCallback(() => {
-    const totalDuration = duration > 0 ? duration : 120;
+    const totalDuration = duration > 0 ? duration : SLIDER_MAX;
     const startTime = (leftTrimPosition / 100) * totalDuration;
     const endTime = (rightTrimPosition / 100) * totalDuration;
     return { startTime, endTime, selectedDuration: endTime - startTime };
   }, [duration, leftTrimPosition, rightTrimPosition]);
+
+  const handleTrim = useCallback(() => {
+    const { startTime, endTime } = getSelectedTimeRange();
+    onTrim?.({ start: startTime, end: endTime });
+  }, [getSelectedTimeRange, onTrim]);
+
+  const handleDelete = useCallback(() => {
+    const { startTime, endTime } = getSelectedTimeRange();
+    onDelete?.({ start: startTime, end: endTime });
+  }, [getSelectedTimeRange, onDelete]);
 
   const handleZoomChange = useCallback((_: Event, value: number | number[]) => {
     updateAudioState({ zoomLevel: Array.isArray(value) ? value[0] : value });
@@ -280,35 +400,18 @@ const RdsCompAudioPlayer = ({
     });
   }, [updateAudioState]);
 
-  const handleWaveformMouseMove = useCallback(
-    (e: ReactMouseEvent<HTMLDivElement>) => {
-      if (!isDraggingLeft && !isDraggingRight) return;
-
-      const rect = e.currentTarget.getBoundingClientRect();
-      const percentage = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
-
-      if (isDraggingLeft && percentage < rightTrimPosition - 5) {
-        updateAudioState({ leftTrimPosition: percentage });
-      } else if (isDraggingRight && percentage > leftTrimPosition + 5) {
-        updateAudioState({ rightTrimPosition: percentage });
-      }
-    },
-    [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, updateAudioState]
-  );
-
-  const handleWaveformMouseUp = useCallback(() => {
-    updateAudioState({ isDraggingLeft: false, isDraggingRight: false });
-  }, [updateAudioState]);
-
   const togglePlayPause = useCallback(() => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => updateAudioState({ isPlaying: false }));
+      }
     } else {
-      audioRef.current.play();
+      audio.pause();
     }
-    updateAudioState((prev) => ({ isPlaying: !prev.isPlaying }));
-  }, [isPlaying, updateAudioState]);
+  }, [updateAudioState]);
 
   const skipBackward = useCallback(() => {
     if (!audioRef.current) return;
@@ -347,8 +450,8 @@ const RdsCompAudioPlayer = ({
     [updateAudioState]
   );
 
-  const toggleTranscriptSlider = useCallback(() => {
-    updateAudioState((prev) => ({ showTranscriptSlider: !prev.showTranscriptSlider }));
+  const toggleVolumeSlider = useCallback(() => {
+    updateAudioState((prev) => ({ showVolumeSlider: !prev.showVolumeSlider }));
   }, [updateAudioState]);
 
   const handleVolumeChange = useCallback((_: Event, value: number | number[]) => {
@@ -361,6 +464,10 @@ const RdsCompAudioPlayer = ({
 
   const toggleSettingsModal = useCallback(() => {
     updateAudioState((prev) => ({ showSettingsModal: !prev.showSettingsModal }));
+  }, [updateAudioState]);
+
+  const closeSettingsModal = useCallback(() => {
+    updateAudioState({ showSettingsModal: false });
   }, [updateAudioState]);
 
   const handlePlaybackSpeedChange = useCallback((_: Event, value: number | number[]) => {
@@ -383,27 +490,40 @@ const RdsCompAudioPlayer = ({
     [leftTrimPosition, rightTrimPosition]
   );
 
+  const rootProps = (baseClassName: string) => ({
+    ...rest,
+    ref,
+    ...(id !== undefined && { id }),
+    ...(sx !== undefined && { sx }),
+    className: clsx(baseClassName, className),
+  });
+
+  const audioNode = (
+    <audio ref={setAudioRef} src={src} aria-label="Audio playback">
+      <track kind="captions" srcLang="en" label="English captions" />
+    </audio>
+  );
+
   return (
     <>
-      {type === "Collapsed" && (
-        <div className="rds-comp-audio-player__collapsed-container">
+      {resolvedType === "Collapsed" && (
+        <Box {...rootProps("rds-comp-audio-player__collapsed-container")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
-            <CircleOutlinedIcon />
+            <MusicNote />
           </span>
           <span className="rds-comp-audio-player__icon-settings">
             <SettingsSuggestSharpIcon />
           </span>
-        </div>
+          {audioNode}
+        </Box>
       )}
-      {type === "Audio Player" && (
-        <div className="rds-comp-audio-player__player rds-comp-audio-player__player--image-layout">
+      {resolvedType === "Audio Player" && (
+        <Box {...rootProps("rds-comp-audio-player__player rds-comp-audio-player__player--image-layout")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
-            <CircleOutlinedIcon />
+            <MusicNote />
           </span>
           <div className="rds-comp-audio-player__main-controls">
-            <audio ref={audioRef} src={src} aria-label="Audio playback">
-              <track kind="captions" srcLang="en" label="English captions" />
-            </audio>
+            {audioNode}
             <button
               type="button"
               className="rds-comp-audio-player__control-btn"
@@ -417,8 +537,9 @@ const RdsCompAudioPlayer = ({
               className="rds-comp-audio-player__play-btn"
               onClick={togglePlayPause}
               aria-label="Play or pause"
+              aria-pressed={isPlaying}
             >
-              <CircleOutlinedIcon />
+              {isPlaying ? <Pause /> : <PlayArrow />}
             </button>
             <button
               type="button"
@@ -431,7 +552,7 @@ const RdsCompAudioPlayer = ({
             <span className="rds-comp-audio-player__current-time">{formatTime(sliderValue)}</span>
             <RdsSlider
               min={0}
-              max={duration > 0 ? Math.max(duration, SLIDER_MAX) : SLIDER_MAX}
+              max={duration > 0 ? duration : SLIDER_MAX}
               value={sliderValue}
               onChange={handleSeek}
               className="rds-comp-audio-player__slider"
@@ -448,6 +569,7 @@ const RdsCompAudioPlayer = ({
             {showSettings && (
               <button
                 type="button"
+                ref={settingsButtonRef}
                 className="rds-comp-audio-player__settings-button"
                 onClick={toggleSettingsModal}
                 aria-label="Open settings"
@@ -455,36 +577,34 @@ const RdsCompAudioPlayer = ({
                 <SettingsIcon />
               </button>
             )}
-            <CircleOutlinedIcon />
             {showExport && (
               <RdsCompAiFabMenu
-                alignment="right"
-                backgroundType="none"
-                colorVariant="secondary"
-                listItems={EXPORT_MENU_ITEMS}
-                menuIcon="share_icon"
+                placement="right"
+                variant="text"
+                color="secondary"
+                items={exportItems}
+                icon="share_icon"
                 size="small"
               />
             )}
             {showMoreOptions && (
               <RdsCompAiFabMenu
-                alignment="right"
-                backgroundType="none"
-                colorVariant="secondary"
-                listItems={MORE_OPTIONS_MENU_ITEMS}
-                menuIcon="pending_icon"
+                placement="right"
+                variant="text"
+                color="secondary"
+                items={moreItems}
+                icon="pending_icon"
                 size="small"
               />
             )}
-            <CircleOutlinedIcon />
             <div className="rds-comp-audio-player__volume-control">
-              {showTranscript && (
+              {showVolume && (
                 <button
                   type="button"
-                  ref={transcriptButtonRef}
-                  onClick={toggleTranscriptSlider}
+                  ref={volumeButtonRef}
+                  onClick={toggleVolumeSlider}
                   aria-label="Toggle volume"
-                  aria-expanded={showTranscriptSlider}
+                  aria-expanded={showVolumeSlider}
                 >
                   <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -497,7 +617,7 @@ const RdsCompAudioPlayer = ({
                 </button>
               )}
               <VolumeSliderComponent
-                showTranscriptSlider={showTranscriptSlider}
+                showVolumeSlider={showVolumeSlider}
                 volumeSliderRef={volumeSliderRef}
                 volumeLevel={volumeLevel}
                 handleVolumeChange={handleVolumeChange}
@@ -506,13 +626,16 @@ const RdsCompAudioPlayer = ({
           </div>
           <SettingsModalComponent
             showSettingsModal={showSettingsModal}
+            settingsModalRef={settingsModalRef}
+            anchorEl={settingsButtonRef.current}
             playbackSpeed={playbackSpeed}
             handlePlaybackSpeedChange={handlePlaybackSpeedChange}
+            onClose={closeSettingsModal}
           />
-        </div>
+        </Box>
       )}
-      {type === "Audio Edition" && (
-        <div className="rds-comp-audio-player__edition-container">
+      {resolvedType === "Audio Edition" && (
+        <Box {...rootProps("rds-comp-audio-player__edition-container")}>
           <div className="rds-comp-audio-player__edition-buttons-top">
             <RdsButton
               color="primary"
@@ -520,8 +643,8 @@ const RdsCompAudioPlayer = ({
               text="Cancel"
               layout="text-only"
               shape="rectangle"
-              state="default"
-              style="transparent"
+              variant="transparent"
+              onClick={onCancel}
             />
             <RdsButton
               color="primary"
@@ -529,18 +652,19 @@ const RdsCompAudioPlayer = ({
               text="Save"
               layout="text-only"
               shape="rectangle"
-              state="default"
-              style="filled"
+              variant="filled"
+              onClick={onSave}
             />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {Array.from({ length: timeMarkConfig.count }, (_, markNumber) => markNumber + 1).map((markNumber) => (
-              <span key={`timemark-${markNumber}`} className="rds-comp-audio-player__edition-timemark">
-                {timeMarkConfig.interval}
+            {Array.from({ length: timeMarkConfig.count }, (_, index) => (
+              <span key={`timemark-${index}`} className="rds-comp-audio-player__edition-timemark">
+                {formatTime(index * timeMarkConfig.intervalSec)}
               </span>
             ))}
           </div>
           <div
+            ref={waveformRef}
             className={clsx(
               "rds-comp-audio-player__edition-waveform",
               (isDraggingLeft || isDraggingRight) && "rds-comp-audio-player__edition-waveform--dragging"
@@ -551,10 +675,9 @@ const RdsCompAudioPlayer = ({
               <div className="rds-comp-audio-player__waveform-disabled-overlay rds-comp-audio-player__waveform-disabled-overlay--left" />
               <div className="rds-comp-audio-player__waveform-disabled-overlay rds-comp-audio-player__waveform-disabled-overlay--right" />
               <div className="rds-comp-audio-player__waveform-selection" />
-              <svg width="100%" height="200" viewBox="0 0 1200 200" preserveAspectRatio="none">
-                {Array.from({ length: 150 }, (_, barIndex) => barIndex).map((barIndex) => {
+              <svg width="100%" height="200" viewBox={`0 0 ${waveform.length * 8} 200`} preserveAspectRatio="none">
+                {waveform.map((height, barIndex) => {
                   const x = barIndex * 8;
-                  const height = Math.max(20, Math.abs(Math.sin(barIndex * 0.1) * 60 + Math.cos(barIndex * 0.27) * 40));
                   const adjustedHeight = height * Math.max(0.1, zoomLevel / 50);
                   return (
                     <rect
@@ -563,7 +686,7 @@ const RdsCompAudioPlayer = ({
                       y={(200 - adjustedHeight) / 2}
                       width="5"
                       height={adjustedHeight}
-                      fill="white"
+                      fill="var(--rds-color-on-primary-container)"
                       rx="2"
                       opacity={0.9}
                     />
@@ -597,12 +720,16 @@ const RdsCompAudioPlayer = ({
             formatTime={formatTime}
             getSelectedTimeRange={getSelectedTimeRange}
             togglePlayPause={togglePlayPause}
+            isPlaying={isPlaying}
             zoomLevel={zoomLevel}
             handleZoomOut={handleZoomOut}
             handleZoomIn={handleZoomIn}
             handleZoomChange={handleZoomChange}
+            onTrim={handleTrim}
+            onDelete={handleDelete}
           />
-        </div>
+          {audioNode}
+        </Box>
       )}
     </>
   );

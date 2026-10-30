@@ -17,23 +17,22 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompPieChart
-        dataSets={[
+        data={{ labels: ["red", "Orange", "Yellow", "Green", "Blue"], datasets: [
           {
             backgroundColor: [
-              "#ff6384",
-              "#ff9f40",
-              "#ffcd56",
-              "#4bc0c0",
-              "#059bff",
+              "var(--rds-chart-series-1)",
+              "var(--rds-chart-series-5)",
+              "var(--rds-chart-series-3)",
+              "var(--rds-chart-series-4)",
+              "var(--rds-chart-named-blue-bright)",
             ],
-            borderColor: ["#fff"],
+            borderColor: ["var(--rds-neutral-0)"],
             borderWidth: 1,
             data: [20, 10, 20, 40, 10],
             label: "Dataset1",
           },
-        ]}
+        ] }}
         id="chart pie"
-        labels={["red", "Orange", "Yellow", "Green", "Blue"]}
         options={{
           animation: {
             animateRotate: false,
@@ -46,12 +45,10 @@ figma.connect(
               labels: {
                 boxHeight: 10,
                 boxWidth: 10,
-                height: 5,
                 padding: 30,
                 pointStyleWidth: 13,
                 usePointStyle: true,
               },
-              pointStyle: "line",
               position: "top",
             },
             title: {
@@ -60,8 +57,8 @@ figma.connect(
             },
           },
           responsive: true,
+          radius: 100,
         }}
-        radius={100}
       />
     ),
   }

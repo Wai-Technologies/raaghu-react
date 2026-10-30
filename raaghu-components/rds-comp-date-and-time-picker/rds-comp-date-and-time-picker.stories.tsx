@@ -27,10 +27,11 @@ const meta: Meta = {
             control: { type: 'text' },
             description: 'Label for the date picker'
         },
-        disabled: {
-            control: { type: 'boolean' },
-            description: 'Whether the date picker is disabled'
-        },
+       
+           disabled: {
+    control: { type: "boolean" },
+    description: "Disables the date picker when true.",
+},
         readOnly: {
             control: { type: 'boolean' },
             description: 'Whether the date picker is read-only'
@@ -57,18 +58,22 @@ const meta: Meta = {
             options: ['dropdown', 'selector'],
             description: 'Type of the date picker'
         },
-        style: {
+        appearance: {
             control: { type: 'select' },
             options: ['default', 'custom'],
-            description: 'Variant of the date picker'
+            description: 'Appearance of the date picker'
         },
         showSeconds: {
             control: { type: 'boolean' },
             description: 'Whether to show seconds in time-related pickers (time, datetime, timerange, datetimerange)'
         },
-        isRequired: {
+        required: {
             control: { type: 'boolean' },
             description: 'Whether the field is required (shows * indicator)'
+        },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the date picker root.',
         }
     },
 } satisfies Meta<typeof RdsCompDatePicker>;
@@ -83,8 +88,8 @@ export const Default: Story = {
         label: 'Select Date',
         placeholder: 'Choose a date...',
         size: 'small',
-        style: 'default',
-        isRequired: true,
+        appearance: 'default',
+        required: true,
     },
     render: (args) => (
         <RdsCompDatePicker
@@ -130,7 +135,7 @@ export const DateRangePicker: Story = {
     args: {
         variant: 'daterange',
         placeholder: 'Start date - End date',
-        style: 'default',
+        appearance: 'default',
         size: 'small',
     },
     argTypes: {

@@ -1,27 +1,35 @@
 import { type ReactNode } from 'react';
-import MuiTimeline from '@mui/lab/Timeline';
-import { 
-  TimelineItem as MuiTimelineItem,
-  TimelineSeparator as MuiTimelineSeparator,
-  TimelineConnector as MuiTimelineConnector,
-  TimelineContent as MuiTimelineContent,
-  TimelineDot as MuiTimelineDot,
-  TimelineOppositeContent as MuiTimelineOppositeContent,
-  type TimelineProps
-} from '@mui/lab';
+import clsx from 'clsx';
+import Typography from '@mui/material/Typography';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import MuiTimeline, { type TimelineProps } from '@mui/lab/Timeline';
+import MuiTimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
+import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
+import MuiTimelineConnector from '@mui/lab/TimelineConnector';
+import MuiTimelineContent from '@mui/lab/TimelineContent';
+import MuiTimelineDot from '@mui/lab/TimelineDot';
+import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import './rds-timeline.scss';
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
   description?: string;
+  /** @deprecated Use `opposite` instead. */
   time?: string;
+  /** Content shown opposite the item. */
+  opposite?: ReactNode;
   icon?: ReactNode;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'grey';
   variant?: 'filled' | 'outlined';
 }
 
+/** Vertical timeline built on MUI Lab `Timeline`. `alternating` is shorthand for `position="alternate"`. */
 export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
+  /** Timeline entries to render, in order. */
   items: RdsTimelineItem[];
+  /** Shows each item's deprecated `time` as its opposite content when `opposite` is not set. @default false */
   showTime?: boolean;
+  /** @deprecated Use `position="alternate"` instead. */
   alternating?: boolean;
 }
 
@@ -30,17 +38,35 @@ const RdsTimeline = ({
   showTime = false,
   alternating = false,
   position,
+  className,
   ...props
 }: RdsTimelineProps) => {
+  if (alternating) warnDeprecatedProp('RdsTimeline', 'alternating', '`position="alternate"`');
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
+  const isAlternate = timelinePosition === 'alternate' || timelinePosition === 'alternate-reverse';
 
   return (
-    <MuiTimeline position={timelinePosition} {...props}>
-      {items.map((item, index) => (
-          <MuiTimelineItem key={item.id}>
-            {showTime && item.time && (
+    <MuiTimeline position={timelinePosition} {...props} className={clsx('rds-timeline', className)}>
+      {items.map((item, index) => {
+        if (item.time !== undefined) warnDeprecatedProp('RdsTimeline', 'items[].time', '`items[].opposite`');
+        const opposite = item.opposite ?? (showTime ? item.time : undefined);
+        return (
+          <MuiTimelineItem
+            key={item.id}
+            sx={
+              !opposite && !isAlternate
+                ? {
+                    [`&.${timelineItemClasses.missingOppositeContent}:before`]: {
+                      flex: 0,
+                      padding: 0,
+                    },
+                  }
+                : undefined
+            }
+          >
+            {opposite && (
               <MuiTimelineOppositeContent color="text.secondary">
-                {item.time}
+                {opposite}
               </MuiTimelineOppositeContent>
             )}
             <MuiTimelineSeparator>
@@ -50,15 +76,18 @@ const RdsTimeline = ({
               {index < items.length - 1 && <MuiTimelineConnector />}
             </MuiTimelineSeparator>
             <MuiTimelineContent>
-              <strong>{item.title}</strong>
+              <Typography component="span" variant="subtitle2" className="rds-timeline__title">
+                {item.title}
+              </Typography>
               {item.description && (
-                <div style={{ marginTop: 'var(--rds-timeline-description-margin-top, var(--rds-spacing-xs))' }}>
+                <Typography component="div" variant="body2" className="rds-timeline__description">
                   {item.description}
-                </div>
+                </Typography>
               )}
             </MuiTimelineContent>
           </MuiTimelineItem>
-        ))}
+        );
+      })}
     </MuiTimeline>
   );
 };

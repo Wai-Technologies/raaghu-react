@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIsomorphicLayoutEffect } from '../utils/use-isomorphic-layout-effect';
 
 interface MotionSnackbarTransitionProps extends React.HTMLAttributes<HTMLDivElement> {
   in?: boolean;
@@ -12,13 +13,12 @@ interface MotionSnackbarTransitionProps extends React.HTMLAttributes<HTMLDivElem
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionSnackbarTransition = React.forwardRef<HTMLDivElement, MotionSnackbarTransitionProps>(
-  ({ in: isIn, children, onEnter, onEntered, onExit, onExited, onDismiss, durationMs, appear, timeout, ...rest }, ref) => {
+const MotionSnackbarTransition = ({ ref, in: isIn, children, onEnter, onEntered, onExit, onExited, onDismiss, durationMs, appear, timeout, ...rest }: MotionSnackbarTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
     const onExitedRef = React.useRef(onExited);
-    React.useLayoutEffect(() => { onEnterRef.current = onEnter; onEnteredRef.current = onEntered; onExitRef.current = onExit; onExitedRef.current = onExited; });
+    useIsomorphicLayoutEffect(() => { onEnterRef.current = onEnter; onEnteredRef.current = onEntered; onExitRef.current = onExit; onExitedRef.current = onExited; });
     React.useEffect(() => {
       if (isIn) { onEnterRef.current?.(); onEnteredRef.current?.(); }
       else { onExitRef.current?.(); onExitedRef.current?.(); }
@@ -26,8 +26,7 @@ const MotionSnackbarTransition = React.forwardRef<HTMLDivElement, MotionSnackbar
 
     if (!isIn) return null;
     return <div ref={ref} {...rest}>{children}</div>;
-  }
-);
+  };
 
 MotionSnackbarTransition.displayName = 'MotionSnackbarTransition';
 export default MotionSnackbarTransition;

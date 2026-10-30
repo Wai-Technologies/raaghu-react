@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompVideoPlayer, { VideoPlayerType } from "./rds-comp-video-player";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
@@ -44,7 +43,7 @@ const meta: Meta = {
             table: { disable: true },
             control: false,
         },
-        autoplay: {
+        autoPlay: {
             control: 'boolean',
             description: 'Auto-play the video when loaded',
         },
@@ -64,9 +63,13 @@ const meta: Meta = {
             control: 'boolean',
             description: 'Disable the video player',
         },
-        videoLink: {
+        src: {
             control: 'text',
             description: 'URL of the video to play',
+        },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the video player root.',
         },
     },
 } satisfies Meta<typeof RdsCompVideoPlayer>;
@@ -77,14 +80,12 @@ type Story = StoryObj<typeof RdsCompVideoPlayer>;
 export const Default: Story = {
     args: {
         type: VideoPlayerType.Default,
-        width: "100%",
-        height: "400px",
-        autoplay: false,
+        autoPlay: false,
         muted: false,
         controls: true,
         volume: 0.8,
         disabled: false,
-        videoLink: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();

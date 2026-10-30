@@ -1,31 +1,31 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAlert, { RdsAlertProps } from './rds-alert';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-alert.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
       <button
         className={props.className}
         data-testid="rds-button"
-        data-text={props.text}
-        data-style={props.style}
+        data-text={props.text ?? props.children}
+        data-style={props.variant ?? props.placement ?? props.style}
         data-size={props.size}
         data-color={props.color}
+        onClick={props.onClick}
       >
-        {props.text}
+        {props.text ?? props.children}
       </button>
     );
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/InfoOutlined', () => {
   return function MockInfoIcon() {
     return <span data-testid="info-icon">InfoIcon</span>;
@@ -309,7 +309,6 @@ describe('RdsAlert', () => {
 
     it('should apply icon class to default icon', () => {
       render(<RdsAlert {...defaultProps} />);
-      // The default icon is rendered by the mocked InfoIcon component
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
   });
@@ -537,7 +536,6 @@ describe('RdsAlert', () => {
         <RdsAlert {...defaultProps} className="custom-class" />
       );
       const alert = screen.getByRole('alert');
-      // Verify the alert exists and custom class is applied
       expect(alert).toBeInTheDocument();
       expect(alert).toHaveClass('custom-class');
     });
@@ -553,7 +551,6 @@ describe('RdsAlert', () => {
         />
       );
       const alert = screen.getByRole('alert');
-      // Verify alert exists with MUI error styling and custom class
       expect(alert).toBeInTheDocument();
       expect(alert).toHaveClass('MuiAlert-colorError');
       expect(alert).toHaveClass('my-custom-class');
@@ -765,19 +762,19 @@ describe('RdsAlert', () => {
       expect(container.querySelector('.rds-alert--multiline')).not.toBeInTheDocument();
     });
 
-    it('should use default showButtons as true', () => {
-      const { container } = render(<RdsAlert showButtons={true} />);
+    it('should show the actions area when showButtons is true', () => {
+      const { container } = render(<RdsAlert showButtons={true} showLink={true} />);
       expect(container.querySelector('.rds-alert__actions')).toBeInTheDocument();
     });
 
-    it('should use default showLink as true', () => {
+    it('should show the link button when showLink is true', () => {
       const { container } = render(
         <RdsAlert showButtons={true} showLink={true} />
       );
       expect(container.querySelector('.rds-alert__link-button')).toBeInTheDocument();
     });
 
-    it('should use default showPrimary as true', () => {
+    it('should show the primary button when showPrimary is true', () => {
       render(<RdsAlert showButtons={true} showPrimary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const primaryButton = buttons.find(
@@ -786,7 +783,7 @@ describe('RdsAlert', () => {
       expect(primaryButton).toBeInTheDocument();
     });
 
-    it('should use default showSecondary as true', () => {
+    it('should show the secondary button when showSecondary is true', () => {
       render(<RdsAlert showButtons={true} showSecondary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const secondaryButton = buttons.find(
@@ -802,5 +799,77 @@ describe('RdsAlert', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsAlert audit fixes', () => {
+  it('keeps its own classes when a consumer passes className (G1-013)', () => {
+    render(<RdsAlert description="Message" className="my-alert" />);
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveClass('rds-alert');
+    expect(alert).toHaveClass('rds-alert--info');
+    expect(alert).toHaveClass('my-alert');
+  });
+
+  it('wires the action buttons to callbacks and custom labels (G1-014)', () => {
+    const onLinkClick = jest.fn();
+    const onSecondaryClick = jest.fn();
+    const onPrimaryClick = jest.fn();
+    render(
+      <RdsAlert
+        description="Message"
+        showButtons
+        showLink
+        showSecondary
+        showPrimary
+        linkText="Details"
+        secondaryText="Dismiss"
+        primaryText="Confirm"
+        onLinkClick={onLinkClick}
+        onSecondaryClick={onSecondaryClick}
+        onPrimaryClick={onPrimaryClick}
+      />
+    );
+    fireEvent.click(screen.getByText('Details'));
+    fireEvent.click(screen.getByText('Dismiss'));
+    fireEvent.click(screen.getByText('Confirm'));
+    expect(onLinkClick).toHaveBeenCalledTimes(1);
+    expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+    expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('hides action buttons by default (G1-014)', () => {
+    render(<RdsAlert description="Message" />);
+    expect(screen.queryByText('Link')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+    expect(screen.queryByText('Okay')).not.toBeInTheDocument();
+  });
+
+  it('uses severity (G1-015)', () => {
+    render(<RdsAlert description="Message" severity="error" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-alert--error');
+  });
+
+  it('accepts the MUI icon prop and hides it with false (G1-016)', () => {
+    const { rerender, container } = render(
+      <RdsAlert description="Message" icon={<span data-testid="custom-alert-icon" />} />
+    );
+    expect(screen.getByTestId('custom-alert-icon')).toHaveClass('rds-alert__icon');
+    rerender(<RdsAlert description="Message" icon={false} />);
+    expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsAlert description="Message" type="warning" changeIconName={null} content={{ title: 'visible' }} actions={{ link: 'hidden' }} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'type', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'changeIconName', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'content', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'actions', expect.any(String));
+  });
+
+  it('does not warn for the boolean props, which are the supported API', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsAlert description="Message" showTitle showLink={false} multiline />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 });

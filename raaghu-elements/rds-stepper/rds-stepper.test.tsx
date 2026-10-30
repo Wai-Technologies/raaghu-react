@@ -1,13 +1,14 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsStepper from './rds-stepper';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { RdsStepperStep } from './rds-stepper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-stepper.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -75,7 +76,6 @@ describe('RdsStepper', () => {
       const { container } = renderWithTheme(
         <RdsStepper steps={steps} className="custom-stepper" />
       );
-      const stepper = container.querySelector('.rds-stepper.custom-class');
       expect(container.querySelector('.custom-stepper')).toBeInTheDocument();
     });
   });
@@ -500,7 +500,6 @@ describe('RdsStepper', () => {
       renderWithTheme(
         <RdsStepper steps={steps} direction="vertical" currentStep={2} />
       );
-      // In vertical stepper, only active step content is shown in the collapsed state
       expect(screen.getByText('Active content')).toBeInTheDocument();
     });
 
@@ -641,5 +640,33 @@ describe('RdsStepper', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated currentStep/direction are passed', () => {
+    renderWithTheme(<RdsStepper steps={createSteps(2)} currentStep={1} direction="vertical" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsStepper', 'currentStep', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsStepper', 'direction', expect.any(String));
+  });
+
+  it('renders a node as the optional caption', () => {
+    renderWithTheme(
+      <RdsStepper steps={[{ label: 'A', optional: <em>Custom caption</em> }, { label: 'B', optional: true }]} />
+    );
+    expect(screen.getByText('Custom caption')).toBeInTheDocument();
+    expect(screen.getByText('Optional')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes hideLabels', () => {
+  it('hides labels when hideLabels is true', () => {
+    const { container } = renderWithTheme(<RdsStepper steps={createSteps(2)} hideLabels />);
+    expect(container.querySelector('.rds-stepper--hide-labels')).toBeInTheDocument();
+  });
+
+  it('hideLabels={false} wins over showContent={false}', () => {
+    const { container } = renderWithTheme(<RdsStepper steps={createSteps(2)} hideLabels={false} showContent={false} />);
+    expect(container.querySelector('.rds-stepper--hide-labels')).not.toBeInTheDocument();
   });
 });

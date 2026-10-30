@@ -1,15 +1,24 @@
-import { useEffect, useRef } from "react";
-import Chart, { ChartConfiguration } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
 import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
 export type { ScatterChartType } from "./rds-comp-chart-scatter-utils";
+
+/** The dataset keys this file reads; Chart.js dataset types differ per chart type. */
+type DatasetColors = {
+  backgroundColor?: unknown;
+  borderColor?: unknown;
+  borderWidth?: unknown;
+  pointBackgroundColor?: unknown;
+  pointBorderColor?: unknown;
+};
 
 function resolveDatasetColor(
   color: unknown,
@@ -22,7 +31,7 @@ function resolveDatasetColor(
 }
 
 function normalizeScatterDataset(
-  dataset: any,
+  dataset: ChartDataset,
   chartType: ScatterChartType
 ) {
   const normalized = {
@@ -34,9 +43,10 @@ function normalizeScatterDataset(
     return normalized;
   }
 
+  const colors = dataset as DatasetColors;
   const lineColor = resolveDatasetColor(
-    dataset.borderColor ?? dataset.backgroundColor,
-    "rgb(255, 99, 132)"
+    colors.borderColor ?? colors.backgroundColor,
+    getCSSVar("--rds-primary-main")
   );
 
   return {
@@ -44,77 +54,95 @@ function normalizeScatterDataset(
     showLine: true,
     fill: false,
     borderColor: lineColor,
-    borderWidth: dataset.borderWidth ?? 2,
+    borderWidth: colors.borderWidth ?? 2,
     pointBackgroundColor: resolveDatasetColor(
-      dataset.pointBackgroundColor ?? dataset.backgroundColor,
+      colors.pointBackgroundColor ?? colors.backgroundColor,
       lineColor
     ),
     pointBorderColor: resolveDatasetColor(
-      dataset.pointBorderColor ?? dataset.backgroundColor,
+      colors.pointBorderColor ?? colors.backgroundColor,
       lineColor
     ),
   };
 }
 
-export interface RdsCompScatterChartProps {
-  labels: any[];
+/** Props for {@link RdsCompScatterChart}. */
+export interface RdsCompScatterChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: unknown[];
+  /** Chart.js options (never mutated). */
   options: ChartConfiguration["options"];
-  dataSets: ChartConfiguration["data"]["datasets"];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartConfiguration["data"]["datasets"];
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** Accessible label of the chart. Default "Scatter chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** @deprecated Use `showLine` on the datasets to connect the points. Chart.js type to draw. Default `"scatter"`. */
   chartType?: ScatterChartType;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompScatterChart = ({
   id,
+  data,
   labels,
   options,
   dataSets,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
   chartType,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompScatterChartProps) => {
-  const chartRef = useRef<Chart | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    chartRef.current?.destroy();
-
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const resolvedChartType = resolveScatterChartType(chartType);
-    const chartOptions = cloneChartOptions(options);
-    const chartData = {
-      labels,
-      datasets: dataSets.map((dataset) =>
-        normalizeScatterDataset(dataset, resolvedChartType)
-      ),
-    };
-
-    attachChartData(chartOptions ?? {}, chartData);
-    applyChartThemeColors(chartOptions ?? {});
-
-    chartRef.current = new Chart(ctx, {
+  if (chartType !== undefined) {
+    warnDeprecatedProp("RdsCompScatterChart", "chartType", "`showLine` on the datasets");
+  }
+  const resolvedChartType = resolveScatterChartType(chartType);
+  const resolved = resolveChartData<unknown[], ChartDataset[]>(
+    "RdsCompScatterChart",
+    data as { labels?: unknown[]; datasets: ChartDataset[] } | undefined,
+    labels,
+    dataSets as ChartDataset[] | undefined
+  );
+  const { canvasRef } = useChart<"scatter">(
+    {
       type: resolvedChartType,
-      data: chartData as any,
-      options: chartOptions,
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [id, labels, options, dataSets, themeMode, chartType]);
+      labels: resolved.labels,
+      datasets: resolved.datasets.map((dataset) =>
+        normalizeScatterDataset(dataset, resolvedChartType)
+      ) as ChartData<"scatter">["datasets"],
+      options: options as ChartConfiguration<"scatter">["options"],
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
+    },
+    [id, resolved.labels, options, resolved.datasets, height, width]
+  );
 
   return (
-    <div className="rds-comp-chart-scatter">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-scatter", className)} sx={sx}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Scatter chart"}
+        aria-label={resolveChartLabel("RdsCompScatterChart", ariaLabel, chartLabel, "Scatter chart")}
       />
-    </div>
+    </Box>
   );
 };
 

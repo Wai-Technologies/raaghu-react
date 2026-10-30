@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsTextField from './rds-text-field';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
@@ -19,9 +18,9 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'text',
       description: 'Label for the text field',
     },
-    errorMessage: {
+    helperText: {
       control: 'text',
-      description: 'Error message shown below the field',
+      description: 'Helper or error text shown below the field',
     },
     placeholder: {
       control: 'text',
@@ -46,7 +45,7 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'boolean',
       description: 'Whether the field is disabled',
     },
-    isRequired: {
+    required: {
       control: 'boolean',
       description: 'Whether the field is required',
     },
@@ -62,7 +61,7 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'text',
       description: 'Default value for the text field',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -137,7 +136,7 @@ export const Standard: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     placeholder: 'This field is required',
   },
 };
@@ -145,7 +144,8 @@ export const Required: Story = {
 export const WithError: Story = {
   args: {
     label: 'Email',
-    errorMessage: 'Please enter a valid email address',
+    error: true,
+    helperText: 'Please enter a valid email address',
     defaultValue: 'invalid-email',
   },
 };

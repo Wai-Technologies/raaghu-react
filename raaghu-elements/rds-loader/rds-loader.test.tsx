@@ -5,7 +5,6 @@ import RdsLoader from './rds-loader';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-loader.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -291,7 +290,6 @@ describe('RdsLoader', () => {
       );
       const overlayBox = container.firstChild as HTMLElement;
       expect(overlayBox).toBeInTheDocument();
-      // Check that it's a overlay container with flex display
       const childCircularProgress = overlayBox.querySelector('.MuiCircularProgress-root');
       expect(childCircularProgress).toBeInTheDocument();
     });
@@ -544,7 +542,6 @@ describe('RdsLoader', () => {
 
       expect(screen.getByText('Processing...')).toBeInTheDocument();
       expect(screen.getByText('60%')).toBeInTheDocument();
-      // Check that loader is rendered
       const circularProgress = container.querySelector('.MuiCircularProgress-root');
       expect(circularProgress).toBeInTheDocument();
     });
@@ -625,5 +622,21 @@ describe('RdsLoader', () => {
       expect(screen.getByText('Upload progress')).toBeInTheDocument();
       expect(screen.getByText('75%')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('forwards className, sx, ref and rest to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    renderWithTheme(<RdsLoader className="x" ref={ref} data-testid="r" sx={{ margin: '3px' }} />);
+    const el = screen.getByTestId('r');
+    expect(el).toHaveClass('x');
+    expect(ref.current).toBe(el);
+  });
+
+  it('forwards props on overlay and type paths', () => {
+    renderWithTheme(<RdsLoader overlay className="o" data-testid="o" />);
+    expect(screen.getByTestId('o')).toHaveClass('rds-loader--overlay', 'o');
+    renderWithTheme(<RdsLoader type="hash" className="t" data-testid="t" />);
+    expect(screen.getByTestId('t')).toHaveClass('t', 'rds-loader__type-wrap');
   });
 });

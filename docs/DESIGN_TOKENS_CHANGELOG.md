@@ -31,6 +31,7 @@ Each entry follows this structure:
 
 ### Internal
 - MUI palette (`raaghu-react-themes/src/mui/palette.ts`) now imports resolved token values directly from `colorTokens` rather than duplicating hex strings
+- Shared `tokens/semantic-palette.ts` is the single map of semantic slots → scale steps; both `build-rds-css-vars.ts` and MUI `palette.ts` consume it (parity test in `src/mui/semantic-palette.parity.test.ts`)
 
 ---
 
@@ -74,5 +75,5 @@ Token renames are breaking changes. Before renaming:
 ### Value-only Changes
 
 Changes to token values (not names) are not breaking at the API level, but they are visual breaking changes. Always:
-- Check contrast ratios with `utils/accessibility/index.ts → ColorContrastUtils`
+- Check contrast ratios meet WCAG 2.1 AA (4.5:1 for text, 3:1 for UI elements)
 - Note the change here so UI reviewers know what to look for in Storybook

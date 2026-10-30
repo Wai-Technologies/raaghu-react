@@ -1,6 +1,6 @@
 import React from "react";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-import { Meta, StoryFn, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsScrollBar, { ScrollBarType, ScrollPosition } from "./rds-comp-scrollbar";
  import { ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
 
@@ -14,10 +14,11 @@ const meta: Meta = {
       docs:{
         source :{
           transform: (code: string) => {
+            code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={ScrollBarType.${p1}}`);
             code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={ScrollBarType.${p1}}`);
             code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: ScrollBarType.${p1}`);
-            code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ScrollPosition.${p1}}`);
-            code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: ScrollPosition.${p1}`);
+            code = code.replace(/scrollTo="([^"]+)"/g, (match, p1) => `scrollTo={ScrollPosition.${p1}}`);
+            code = code.replace(/scrollTo:\s*"([^"]+)"/g, (match, p1) => `scrollTo: ScrollPosition.${p1}`);
             return code;
           }
         }
@@ -25,15 +26,18 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
     argTypes: {
-        type: {
+        className: { control: 'text', description: 'CSS class applied to the scrollbar root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the scrollbar root.' },
+        ref: { control: false, description: 'React ref to the scrollbar root; assign it in code.' },
+        variant: {
           control: "select",
           options: ["Mac", "Simple"],
           description: "Type of scrollbar",
         },
-        position: {
+        scrollTo: {
           control: "select",
           options: ["Start", "Middle", "End"],
-          description: "Initial scroll position",
+          description: "Initial scroll offset within the content",
         },
         showButtons: {
           control: "boolean",
@@ -47,8 +51,8 @@ type Story = StoryObj<typeof RdsScrollBar>;
 
 export const Default: Story = {
     args: {
-      type: ScrollBarType.Mac,
-      position: ScrollPosition.Start,
+      variant: ScrollBarType.Mac,
+      scrollTo: ScrollPosition.Start,
       showButtons: true,
       startIcon: <ArrowDropUp />,
       endIcon: <ArrowDropDown />,
@@ -58,5 +62,5 @@ export const Default: Story = {
       expect(el).toBeTruthy();
     },
 } satisfies Story;
-   Default.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
+   Default.parameters = { controls: { include: ['variant', 'scrollTo', 'showButtons', 'className', 'sx', 'ref'] } };
     

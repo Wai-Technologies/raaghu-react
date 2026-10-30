@@ -3,133 +3,85 @@
   position: relative;
 
   .MuiFab-root {
-    background-color: var(--rds-surface-subtle) !important;
-    color: var(--rds-text-primary) !important;
+    background-color: var(--rds-surface-subtle);
+    color: var(--rds-text-primary);
 
     .MuiFab-label,
     span,
     svg,
     .MuiSvgIcon-root {
-      color: var(--rds-text-primary) !important;
-      fill: currentColor !important;
+      color: inherit;
+      fill: currentColor;
     }
 
     &:hover {
-      background-color: var(--rds-color-surface-variant-hover) !important;
+      background-color: var(--rds-color-surface-variant-hover);
     }
 
     &.Mui-disabled {
-      background-color: var(--rds-surface-subtle) !important;
+      background-color: var(--rds-surface-subtle);
 
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-text-disabled) !important;
-        fill: var(--rds-text-disabled) !important;
-        opacity: 0.5 !important;
+        color: var(--rds-text-disabled);
+        fill: var(--rds-text-disabled);
+        opacity: 0.5;
       }
     }
 
     &.MuiFab-primary {
-      background-color: var(--rds-primary-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-primary-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-primary-dark) !important;
+        background-color: var(--rds-primary-dark);
       }
     }
 
     &.MuiFab-secondary {
-      background-color: var(--rds-secondary-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-secondary-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-secondary-dark) !important;
+        background-color: var(--rds-secondary-dark);
       }
     }
 
     &.MuiFab-error {
-      background-color: var(--rds-semantic-error-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-semantic-error-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-error-dark) !important;
+        background-color: var(--rds-error-dark);
       }
     }
 
     &.MuiFab-warning {
-      background-color: var(--rds-warning-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-warning-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-warning-dark) !important;
+        background-color: var(--rds-warning-dark);
       }
     }
 
     &.MuiFab-success {
-      background-color: var(--rds-semantic-success-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-semantic-success-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-success-dark) !important;
+        background-color: var(--rds-success-dark);
       }
     }
 
     &.MuiFab-info {
-      background-color: var(--rds-info-main) !important;
-      color: var(--rds-neutral-0) !important;
-      
-      .MuiFab-label,
-      span,
-      svg,
-      .MuiSvgIcon-root {
-        color: var(--rds-neutral-0) !important;
-        fill: currentColor !important;
-      }
+      background-color: var(--rds-info-main);
+      color: var(--rds-neutral-0);
 
       &:hover {
-        background-color: var(--rds-info-dark) !important;
+        background-color: var(--rds-info-dark);
       }
     }
   }

@@ -3,7 +3,7 @@ import { Slider } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 interface VolumeSliderProps {
-  showTranscriptSlider: boolean;
+  showVolumeSlider: boolean;
   volumeSliderRef: RefObject<HTMLDivElement | null>;
   volumeLevel: number;
   handleVolumeChange: (event: Event, value: number | number[]) => void;
@@ -11,12 +11,12 @@ interface VolumeSliderProps {
 
 export const VolumeSliderComponent = memo(
   ({
-    showTranscriptSlider,
+    showVolumeSlider,
     volumeSliderRef,
     volumeLevel,
     handleVolumeChange,
   }: VolumeSliderProps) => {
-    if (!showTranscriptSlider) return null;
+    if (!showVolumeSlider) return null;
 
     return (
       <div ref={volumeSliderRef as Ref<HTMLDivElement>} className="rds-comp-audio-player__volume-slider-container">
@@ -29,23 +29,23 @@ export const VolumeSliderComponent = memo(
             min={0}
             max={100}
             sx={{
-              height: 120,
+              height: "var(--rds-audio-player-volume-slider-height)",
               color: "var(--rds-primary-main)",
               "& .MuiSlider-thumb": {
-                width: 16,
-                height: 16,
+                width: "var(--rds-size-md)",
+                height: "var(--rds-size-md)",
                 backgroundColor: "var(--rds-primary-main)",
                 "&:hover": {
-                  boxShadow: "0 0 0 8px var(--rds-primary-focus-ring, rgba(25, 118, 210, 0.16))",
+                  boxShadow: "0 0 0 var(--rds-size-sm) color-mix(in srgb, var(--rds-primary-main) 16%, transparent)",
                 },
               },
               "& .MuiSlider-track": {
-                width: 4,
+                width: "var(--rds-size-xs)",
                 backgroundColor: "var(--rds-primary-main)",
               },
               "& .MuiSlider-rail": {
-                width: 4,
-                backgroundColor: "var(--rds-neutral-300, #e0e0e0)",
+                width: "var(--rds-size-xs)",
+                backgroundColor: "var(--rds-neutral-300, var(--rds-grey-300))",
               },
             }}
           />

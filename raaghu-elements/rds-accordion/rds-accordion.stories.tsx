@@ -1,20 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
-import RdsAccordion from './rds-accordion';
+import RdsAccordion, { type RdsAccordionProps } from './rds-accordion';
 import RdsTypography from '../rds-typography/rds-typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddIcon from '@mui/icons-material/Add';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const meta: Meta<typeof RdsAccordion> = {
   title: 'Elements/Accordion',
   component: RdsAccordion,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
-     controls: {
-      exclude: ['disableGutters','expanded','TransitionComponent','TransitionProps','slots','slotProps','component','children','icon','classes','onChange','sx'],
+    controls: {
+      exclude: [
+        'disableGutters', 'expanded', 'TransitionComponent', 'TransitionProps', 'slots', 'slotProps',
+        'component', 'children', 'classes', 'onChange', 'sx', 'expandIcon', 'startIcon',
+        'icon', 'accordionStyle',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -30,38 +33,32 @@ const meta: Meta<typeof RdsAccordion> = {
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
-      description: 'Accordion size variant',
-      defaultValue: 'medium',
+      description: 'Accordion size',
     },
-    state: {
+    variant: {
       control: { type: 'select' },
-      options: ['default', 'hover', 'selected'],
-      description: 'Accordion state variant',
-      defaultValue: 'default',
+      options: ['outlined', 'underline', 'plain'],
+      description: 'outlined: full border, underline: bottom border only, plain: no borders',
     },
-    accordionStyle: {
-      name: 'style',
-      control: { type: 'select' },
-      options: ['border', 'bottomline', 'borderhide'],
-      description: 'Accordion style variant - border: full border, bottomline: only bottom border, borderhide: no borders',
-      defaultValue: 'border',
+    selected: {
+      control: 'boolean',
+      description: 'Highlights the accordion as selected. Hover styling comes from CSS `:hover`.',
     },
-  ShowLeftIcon: {
-      control: { type: 'boolean' },
-      description: 'Show expand/collapse icon in accordion header',
-      defaultValue: true,
+    showLeftIcon: {
+      control: 'boolean',
+      description: 'Show or hide the leading icon.',
     },
-    changeleftIcon: {
+    changeLeftIcon: {
       control: 'select',
-      options: ['Add', 'ExpandMore', 'ArrowDropDown', 'None'],
+      options: ['Default', 'Add', 'ExpandMore', 'ArrowDropDown', 'None'],
       mapping: {
+        Default: undefined,
         Add: <AddIcon />,
         ExpandMore: <ExpandMoreIcon />,
         ArrowDropDown: <ArrowDropDownIcon />,
         None: null,
       },
-      description: 'Custom left icon for the accordion header',
-      defaultValue: null,
+      description: 'Choose the leading icon. `Default` uses the default add icon.',
     },
     children: {
       control: false,
@@ -73,234 +70,56 @@ const meta: Meta<typeof RdsAccordion> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const content = (
+  <RdsTypography color="text.secondary">
+    Replace with your content component
+  </RdsTypography>
+);
+
+const ControlledAccordion = ({ defaultExpanded = false, ...args }: RdsAccordionProps) => {
+  const [expanded, setExpanded] = useState(defaultExpanded);
+  useEffect(() => setExpanded(defaultExpanded), [defaultExpanded]);
+  return (
+    <RdsAccordion {...args} expanded={expanded} onChange={(_, isExpanded) => setExpanded(isExpanded)} />
+  );
+};
+
+const baseArgs = {
+  size: 'medium',
+  variant: 'outlined',
+  selected: false,
+  defaultExpanded: false,
+  showLeftIcon: true,
+  children: content,
+} satisfies Partial<RdsAccordionProps>;
+
 export const Default: Story = {
-  args: {
-    title: 'Accordion Title',
-    size: 'medium',
-    state: 'default',
-    accordionStyle: 'bottomline',
-    ShowLeftIcon: true,
-    defaultExpanded: false,
-    changeleftIcon: null,
-  },
-  render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, title, disabled }) => {
-    const [expanded1, setExpanded1] = useState(defaultExpanded);
-    const [expanded2, setExpanded2] = useState(defaultExpanded);
-    const [expanded3, setExpanded3] = useState(defaultExpanded);
-
-    React.useEffect(() => {
-      setExpanded1(defaultExpanded);
-      setExpanded2(defaultExpanded);
-      setExpanded3(defaultExpanded);
-    }, [defaultExpanded]);
-
-    return (
-      <>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
-          disabled={disabled}
-          expanded={expanded1}
-          onChange={(_, isExpanded) => setExpanded1(isExpanded)}
-          changeleftIcon={changeleftIcon}
-        >
-          <RdsTypography color="text.secondary">
-            Replace with your content component
-          </RdsTypography>
-        </RdsAccordion>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
-          disabled={disabled}
-          expanded={expanded2}
-          onChange={(_, isExpanded) => setExpanded2(isExpanded)}
-          changeleftIcon={changeleftIcon}
-        >
-          <RdsTypography color="text.secondary">
-            Replace with your content component
-          </RdsTypography>
-        </RdsAccordion>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
-          disabled={disabled}
-          expanded={expanded3}
-          onChange={(_, isExpanded) => setExpanded3(isExpanded)}
-          changeleftIcon={changeleftIcon}
-        >
-          <RdsTypography color="text.secondary">
-            Replace with your content component
-          </RdsTypography>
-        </RdsAccordion>
-      </>
-    );
-  },
+  args: { ...baseArgs, title: 'Accordion Title', variant: 'underline' },
+  render: (args) => (
+    <>
+      <ControlledAccordion {...args} />
+      <ControlledAccordion {...args} />
+      <ControlledAccordion {...args} />
+    </>
+  ),
 };
 
 export const CustomIcon: Story = {
-  args: {
-    title: 'Custom Icon Accordion',
-    icon: <ArrowDropDownIcon />,
-    defaultExpanded: false,
-    accordionStyle: 'bottomline',
-    ShowLeftIcon: true,
-    state: 'default',
-    changeleftIcon: null,
-    children: (
-      <RdsTypography color="text.secondary">
-        Replace with your content component
-      </RdsTypography>
-    ),
-  },
-  render: ({ title, icon, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
-    const [expanded, setExpanded] = useState(defaultExpanded);
-
-    React.useEffect(() => {
-      setExpanded(defaultExpanded);
-    }, [defaultExpanded]);
-
-    return (
-      <RdsAccordion
-        title={title}
-        icon={icon}
-        size={size}
-        disabled={disabled}
-        accordionStyle={accordionStyle}
-        ShowLeftIcon={ShowLeftIcon}
-        state={state}
-        expanded={expanded}
-        onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        changeleftIcon={changeleftIcon}
-      >
-        {children}
-      </RdsAccordion>
-    );
-  },
+  args: { ...baseArgs, title: 'Custom Icon Accordion', variant: 'underline', changeLeftIcon: 'ArrowDropDown' },
+  render: (args) => <ControlledAccordion {...args} />,
 };
 
 export const Disabled: Story = {
-  args: {
-    title: 'Disabled Accordion',
-    disabled: true,
-    defaultExpanded: false,
-    accordionStyle: 'border',
-    ShowLeftIcon: true,
-    state: 'default',
-    changeleftIcon: null,
-    children: (
-      <RdsTypography color="text.secondary">
-        Replace with your content component
-      </RdsTypography>
-    ),
-  },
-  render: ({ title, disabled, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, state }) => {
-    const [expanded, setExpanded] = useState(defaultExpanded);
-
-    React.useEffect(() => {
-      setExpanded(defaultExpanded);
-    }, [defaultExpanded]);
-
-    return (
-      <RdsAccordion
-        title={title}
-        size={size}
-        accordionStyle={accordionStyle}
-        ShowLeftIcon={ShowLeftIcon}
-        disabled={disabled}
-        state={state}
-        expanded={expanded}
-        onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        changeleftIcon={changeleftIcon}
-      >
-        {children}
-      </RdsAccordion>
-    );
-  },
+  args: { ...baseArgs, title: 'Disabled Accordion', disabled: true },
+  render: (args) => <ControlledAccordion {...args} />,
 };
 
 export const Expanded: Story = {
-  args: {
-    title: 'Expanded Accordion',
-    defaultExpanded: true,
-    accordionStyle: 'border',
-    ShowLeftIcon: true,
-    state: 'default',
-    changeleftIcon: null,
-    children: (
-      <RdsTypography color="text.secondary">
-        Replace with your content component
-      </RdsTypography>
-    ),
-  },
-  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
-    const [expanded, setExpanded] = useState(defaultExpanded);
-
-    React.useEffect(() => {
-      setExpanded(defaultExpanded);
-    }, [defaultExpanded]);
-
-    return (
-      <RdsAccordion
-        title={title}
-        size={size}
-        accordionStyle={accordionStyle}
-        ShowLeftIcon={ShowLeftIcon}
-        disabled={disabled}
-        state={state}
-        expanded={expanded}
-        onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        changeleftIcon={changeleftIcon}
-      >
-        {children}
-      </RdsAccordion>
-    );
-  },
+  args: { ...baseArgs, title: 'Expanded Accordion', defaultExpanded: true },
+  render: (args) => <ControlledAccordion {...args} />,
 };
 
 export const LongContent: Story = {
-  args: {
-    title: 'Accordion with Long Content',
-    defaultExpanded: false,
-    accordionStyle: 'border',
-    ShowLeftIcon: true,
-    state: 'default',
-    changeleftIcon: null,
-    children: (
-      <RdsTypography color="text.secondary">
-        Replace with your content component
-      </RdsTypography>
-    ),
-  },
-  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
-    const [expanded, setExpanded] = useState(defaultExpanded);
-
-    React.useEffect(() => {
-      setExpanded(defaultExpanded);
-    }, [defaultExpanded]);
-
-    return (
-      <RdsAccordion
-        title={title}
-        size={size}
-        accordionStyle={accordionStyle}
-        ShowLeftIcon={ShowLeftIcon}
-        disabled={disabled}
-        state={state}
-        expanded={expanded}
-        onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        changeleftIcon={changeleftIcon}
-      >
-        {children}
-      </RdsAccordion>
-    );
-  },
+  args: { ...baseArgs, title: 'Accordion with Long Content' },
+  render: (args) => <ControlledAccordion {...args} />,
 };

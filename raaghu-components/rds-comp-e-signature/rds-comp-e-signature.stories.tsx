@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsCompESignature from './rds-comp-e-signature';
 
 const meta: Meta<typeof RdsCompESignature> = {
@@ -12,14 +12,13 @@ const meta: Meta<typeof RdsCompESignature> = {
       exclude: [
         'mode',
         'onSignatureChange',
-        'signatureData',
-        'predefinedSignatures',
+        'defaultPenColor',
+        'options',
         'width',
         'height',
         'penColor',
         'title',
-        'disabledMessage',
-        'disabledFooterMessage',
+        'slotProps',
       ],
     },
     docs: {
@@ -31,6 +30,9 @@ const meta: Meta<typeof RdsCompESignature> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the signature component root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the signature component root.' },
+    ref: { control: false, description: 'React ref to the signature component root; assign it in code.' },
     type: {
       control: 'select',
       options: ['fullname', 'initials'],
@@ -39,7 +41,7 @@ const meta: Meta<typeof RdsCompESignature> = {
         defaultValue: { summary: 'fullname' },
       },
     },
-    colourSwatch: {
+    showColorPicker: {
       control: 'boolean',
       description: 'Show color palette for drawing',
       table: {
@@ -57,14 +59,36 @@ const meta: Meta<typeof RdsCompESignature> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    mode: 'draw',
+    type: 'fullname',
+    showColorPicker: true,
+  },
+  argTypes: {
+    mode: {
+      control: 'select',
+      options: ['draw', 'upload', 'choose'],
+      description: 'Signature mode: draw on a canvas, upload an image, or choose a generated style',
+      table: { defaultValue: { summary: 'draw' } },
+    },
+  },
+  parameters: {
+    controls: { include: ['mode', 'type', 'showColorPicker', 'disabled', 'className', 'sx', 'ref'], exclude: [] },
+  },
+  play: async ({ canvasElement }) => {
+    expect(canvasElement.querySelector('canvas')).toBeTruthy();
+  },
+};
+
 export const Draw: Story = {
   args: {
     mode: 'draw',
     type: 'fullname',
-    colourSwatch: true,
+    showColorPicker: true,
   },
   parameters: {
-    controls: { include: ['type', 'colourSwatch', 'disabled'] },
+    controls: { include: ['type', 'showColorPicker', 'disabled', 'className', 'sx', 'ref'] },
   },
   play: async ({ canvasElement }) => {
     const c = canvasElement.querySelector('canvas');
@@ -78,7 +102,7 @@ export const Upload: Story = {
     type: 'fullname',
   },
   parameters: {
-    controls: { include: ['type', 'disabled'] },
+    controls: { include: ['type', 'disabled', 'className', 'sx', 'ref'] },
   },
 };
 
@@ -88,6 +112,6 @@ export const Choose: Story = {
     type: 'fullname',
   },
   parameters: {
-    controls: { include: ['type', 'disabled'] },
+    controls: { include: ['type', 'disabled', 'className', 'sx', 'ref'] },
   },
 };

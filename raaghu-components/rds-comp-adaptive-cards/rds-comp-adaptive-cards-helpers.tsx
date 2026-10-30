@@ -1,4 +1,4 @@
-import React, { useMemo, useState, type ChangeEvent } from "react";
+import { useMemo, useState, type ChangeEvent, type ReactNode } from "react";
 import clsx from 'clsx';
 import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
 import RdsCard from "../../raaghu-elements/rds-card/rds-card";
@@ -157,13 +157,6 @@ export function InputFormCard(props: AdaptiveCardProps) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const nameRef = React.useRef(name);
-  const emailRef = React.useRef(email);
-  const phoneRef = React.useRef(phone);
-  nameRef.current = name;
-  emailRef.current = email;
-  phoneRef.current = phone;
-
   return (
     <div>
       <div className="rds-adaptive-cards__input-form-label">{label}</div>
@@ -176,7 +169,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           required 
           aria-label={nameLabel || 'Name'}
           value={nameValue !== undefined ? nameValue : name} 
-          onChange={onNameChange ? onNameChange : (e => { const v = e.target.value; setName(v); onChange?.({ name: v, email: emailRef.current, phone: phoneRef.current }); })} 
+          onChange={onNameChange ? onNameChange : (e => { const v = e.target.value; setName(v); onChange?.({ name: v, email, phone }); })} 
           name="name" 
         />
         {nameError && <div className="rds-adaptive-cards__error-message">{nameError}</div>}
@@ -190,7 +183,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           type="email" 
           aria-label={emailLabel || 'Email'}
           value={emailValue !== undefined ? emailValue : email} 
-          onChange={onEmailChange ? onEmailChange : (e => { const v = e.target.value; setEmail(v); onChange?.({ name: nameRef.current, email: v, phone: phoneRef.current }); })} 
+          onChange={onEmailChange ? onEmailChange : (e => { const v = e.target.value; setEmail(v); onChange?.({ name, email: v, phone }); })} 
           name="email" 
         />
         {emailError && <div className="rds-adaptive-cards__error-message">{emailError}</div>}
@@ -204,7 +197,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           type="tel" 
           aria-label={phoneLabel || 'Phone number'}
           value={phoneValue !== undefined ? phoneValue : phone} 
-          onChange={onPhoneChange ? onPhoneChange : (e => { const v = e.target.value; setPhone(v); onChange?.({ name: nameRef.current, email: emailRef.current, phone: v }); })} 
+          onChange={onPhoneChange ? onPhoneChange : (e => { const v = e.target.value; setPhone(v); onChange?.({ name, email, phone: v }); })} 
           name="phone" 
         />
         {phoneError && <div className="rds-adaptive-cards__error-message">{phoneError}</div>}
@@ -218,7 +211,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
-          <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
+          <RdsStack direction="row" spacing={0} alignItems="center" className="rds-adaptive-cards__header-title-row">
             {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
@@ -229,13 +222,13 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
       )}
       <div className="rds-adaptive-cards__content">
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</RdsTypography>
-        <ImageList cols={4} className="rds-adaptive-cards__image-list">
-          {(images ?? []).reduce<React.ReactNode[]>((items, src, index) => {
+        <ImageList cols={4} className="rds-adaptive-cards__image-list" style={{ gridTemplateColumns: undefined }}>
+          {(images ?? []).reduce<ReactNode[]>((items, src, index) => {
             if (!src) {
               return items;
             }
             items.push(
-              <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" onClick={() => onImageClick && onImageClick(index)}>
+              <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" style={{ height: undefined }} onClick={() => onImageClick && onImageClick(index)}>
                 <img src={src} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
               </ImageListItem>
             );
@@ -306,8 +299,8 @@ export function FootballScorecardCard({
             <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{homeTeam?.status}</RdsTypography>
           </RdsStack>
 
-          <RdsStack alignItems="center" className="rds-adaptive-cards__football-score-section">
-            <RdsStack direction="row" spacing={1} alignItems="center" className="rds-adaptive-cards__football-score-row">
+          <RdsStack alignItems="center" spacing={0} className="rds-adaptive-cards__football-score-section">
+            <RdsStack direction="row" spacing={0} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-score-row">
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{homeScore}</RdsTypography>
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score rds-adaptive-cards__football-score-colon">:</RdsTypography>
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{awayScore}</RdsTypography>
@@ -408,12 +401,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={snoozeLabel || btn1Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={snoozeLabel || btn1Label} />
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={lateLabel || btn2Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={lateLabel || btn2Label} />
           </RdsBox>
         )}
       </RdsStack>
@@ -504,7 +497,7 @@ export function RestaurantOrderForm({
   const drinkRenderValue = renderSelectValue(drinkPlaceholder);
 
   return (
-    <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
+    <RdsStack spacing={1} {...({ component: "form" } as object)} className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
         <RdsStack direction="row" spacing={0.5} alignItems="center">
           <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">

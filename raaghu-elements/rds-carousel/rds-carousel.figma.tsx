@@ -8,16 +8,16 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1539-9671",
   {
     props: {
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Default": "default",
         "With Title": "with title",
         "Full Width Image": "full width image",
       }),
-      state: figma.enum("💡 State", {
-        "1": "1",
-        "2": "2", 
-        "3": "3",
-        "4": "4"
+      activeIndex: figma.enum("💡 Active Slide", {
+        "1": 0,
+        "2": 1,
+        "3": 2,
+        "4": 3,
       }),
     },
     example: (props) => (

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import SpeedIcon from '@mui/icons-material/Speed';
 import ShareIcon from '@mui/icons-material/Share';
 import PrintIcon from '@mui/icons-material/Print';
@@ -21,6 +21,7 @@ const meta: Meta<typeof RdsSpeedDial> = {
     },
     open: {
       control: { type: 'boolean' },
+      description: 'Controls the dial. Leave unset to open on hover/focus; `false` keeps it closed.',
     },
     hidden: {
       control: { type: 'boolean' },
@@ -34,7 +35,7 @@ const meta: Meta<typeof RdsSpeedDial> = {
     openIcon: {
       control: { disable: true },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -58,7 +59,6 @@ export const Default: Story = {
   args: {
     ariaLabel: 'SpeedDial basic example',
     icon: <SpeedIcon />,
-    open: false,
     actions: speedDialActions,
   },
   play: async ({ canvasElement }) => {
@@ -81,7 +81,6 @@ export const DirectionDown: Story = {
     ariaLabel: 'SpeedDial down example',
     icon: <SpeedIcon />,
     direction: 'down',
-    open: false,
     actions: speedDialActions,
   },
 };
@@ -91,7 +90,6 @@ export const DirectionLeft: Story = {
     ariaLabel: 'SpeedDial left example',
     icon: <SpeedIcon />,
     direction: 'left',
-    open: false,
     actions: speedDialActions,
   },
 };
@@ -101,7 +99,6 @@ export const DirectionRight: Story = {
     ariaLabel: 'SpeedDial right example',
     icon: <SpeedIcon />,
     direction: 'right',
-    open: false,
     actions: speedDialActions,
   },
 };
@@ -111,7 +108,6 @@ export const Hidden: Story = {
     ariaLabel: 'SpeedDial hidden example',
     icon: <SpeedIcon />,
     hidden: true,
-    open: false,
     actions: speedDialActions,
   },
 };
@@ -120,7 +116,6 @@ export const WithTooltips: Story = {
   args: {
     ariaLabel: 'SpeedDial with tooltips',
     icon: <SpeedIcon />,
-    open: false,
     actions: [
       { icon: <ShareIcon />, name: 'Share', tooltipTitle: 'Share this item', onClick: () => {} },
       { icon: <PrintIcon />, name: 'Print', tooltipTitle: 'Print this item', onClick: () => {} },

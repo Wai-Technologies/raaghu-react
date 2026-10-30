@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
-import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
+import { boardInfo, RdsCompKanbanBoardProps, colorClass, type KanbanSubCard } from './kanban-board-helpers';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Card: ({ children, ...props }: any) => <div data-testid="card" {...props}>{children}</div>,
   CardContent: ({ children, ...props }: any) => <div data-testid="card-content" {...props}>{children}</div>,
@@ -45,7 +45,6 @@ jest.mock('@mui/material', () => ({
   Paper: ({ children, ...props }: any) => <div data-testid="paper" {...props}>{children}</div>,
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   MoreVert: () => <span data-testid="more-vert-icon">⋮</span>,
   Close: () => <span data-testid="close-icon">✕</span>,
@@ -55,9 +54,9 @@ jest.mock('@mui/icons-material', () => ({
   DeleteIcon: () => <span data-testid="delete-icon">🗑</span>,
 }));
 
-// Mock @dnd-kit
 jest.mock('@dnd-kit/core', () => ({
   DndContext: ({ children }: any) => <div data-testid="dnd-context">{children}</div>,
+  DragOverlay: ({ children }: any) => <>{children}</>,
   closestCenter: jest.fn(),
   KeyboardSensor: jest.fn(),
   PointerSensor: jest.fn(),
@@ -89,7 +88,6 @@ jest.mock('@dnd-kit/utilities', () => ({
   CSS: { Transform: { toString: () => '' } },
 }));
 
-// Mock Raaghu components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, ...props }: any) {
     return <span data-testid="rds-badge" {...props}>{badgeContent}</span>;
@@ -116,16 +114,18 @@ const mockBoardData: boardInfo[] = [
         ticketId: 'TKT001',
         ticketPriority: 'High',
         ticketQuestion: 'Sample Question 1',
+        badge: 'Open',
         ticketDate: '15 Feb 2024',
         SubcardId: 1,
         assignedToName: 'John Doe',
         assignedTo: 'john.doe',
         actions: [{ key: 'Edit', value: 'edit' }],
-      },
+      } as KanbanSubCard,
       {
         ticketId: 'TKT002',
         ticketPriority: 'Low',
         ticketQuestion: 'Sample Question 2',
+        badge: 'Closed',
         ticketDate: '16 Feb 2024',
         SubcardId: 2,
         actions: [{ key: 'Edit', value: 'edit' }],
@@ -144,6 +144,16 @@ const mockBoardData: boardInfo[] = [
   },
 ];
 
+const makeBoard = (name: string, colorType: any = 'primary', subCards: any[] = [], key = name): boardInfo => ({
+  cardId: 1,
+  name,
+  subCardIndex: 0,
+  colorType,
+  actions: [],
+  key,
+  subCards,
+});
+
 describe('RdsCompKanbanBoard', () => {
   const renderComponent = (props: Partial<RdsCompKanbanBoardProps> = {}) => {
     const defaultProps: RdsCompKanbanBoardProps = {
@@ -154,11 +164,15 @@ describe('RdsCompKanbanBoard', () => {
     };
     return render(<RdsCompKanbanBoard {...defaultProps} />);
   };
+  const dnd = () => expect(screen.getByTestId('dnd-context'));
+  const findButton = (text: string) => screen.queryAllByTestId('button').find((btn) => btn.textContent?.includes(text));
+  const findTypography = (text: string) =>
+    screen.getAllByTestId('typography').find((el) => el.textContent?.includes(text));
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       renderComponent();
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
@@ -167,82 +181,60 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should render kanban container', () => {
       renderComponent();
-      const boxes = screen.getAllByTestId('box');
-      const container = boxes.find((box) => box.className?.includes('rds-kanban-board-container'));
+      const container = screen.getAllByTestId('box').find((box) => box.className?.includes('rds-kanban-board-container'));
       expect(container).toHaveClass('rds-kanban-board-container');
     });
 
-    it('should render without any board data', () => {
-      renderComponent({ boardData: [] });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should render with null board data', () => {
-      renderComponent({ boardData: undefined });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+    it.each([[[]], [undefined]])('should render with board data %j', (boardData) => {
+      renderComponent({ boardData: boardData as any });
+      dnd().toBeInTheDocument();
     });
   });
 
   describe('Board Display', () => {
     it('should render all boards from boardData', () => {
       renderComponent();
-      const boards = screen.getAllByTestId('card');
-      expect(boards.length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
     });
 
     it('should render board names', () => {
       renderComponent();
-      const typographies = screen.getAllByTestId('typography');
-      const boardNames = typographies.filter((el) => el.textContent?.includes('Board'));
+      const boardNames = screen.getAllByTestId('typography').filter((el) => el.textContent?.includes('Board'));
       expect(boardNames.length).toBeGreaterThan(0);
     });
 
-    it('should display board with correct color type', () => {
+    it('should display board with correct color type and class', () => {
       renderComponent();
       const boxes = screen.getAllByTestId('box');
       expect(boxes.length).toBeGreaterThan(0);
-    });
-
-    it('should apply correct color class to board', () => {
-      renderComponent();
-      const boxes = screen.getAllByTestId('box');
-      const coloredBox = boxes.find((box) => box.className?.includes('kanban-'));
-      expect(coloredBox).toBeTruthy();
+      expect(boxes.find((box) => box.className?.includes('kanban-'))).toBeTruthy();
     });
 
     it('should display sub card count for boards', () => {
       renderComponent();
-      const typographies = screen.getAllByTestId('typography');
-      const countText = typographies.find((el) => el.textContent?.includes('(2)'));
-      expect(countText).toBeInTheDocument();
+      expect(findTypography('(2)')).toBeInTheDocument();
     });
   });
 
   describe('Sub Cards', () => {
     it('should render sub cards for each board', () => {
       renderComponent();
-      const subCards = document.querySelectorAll('.rds-kanban-board__sub-card');
-      expect(subCards.length).toBeGreaterThan(0);
+      expect(document.querySelectorAll('.rds-kanban-board__sub-card').length).toBeGreaterThan(0);
     });
 
     it('should render sub card content', () => {
       renderComponent();
-      const typographies = screen.getAllByTestId('typography');
-      const subCardContent = typographies.find((el) => el.textContent?.includes('TKT001'));
-      expect(subCardContent).toBeInTheDocument();
+      expect(findTypography('TKT001')).toBeInTheDocument();
     });
 
     it('should render badge in sub cards', () => {
       renderComponent();
-      const badges = screen.getAllByTestId('rds-badge');
-      expect(badges.length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('rds-badge').length).toBeGreaterThan(0);
     });
 
     it('should render avatar in sub cards when avatarData is provided', () => {
-      const avatarData = [{ title: 'User 1', src: 'user1.jpg' }];
-      renderComponent({ avatarData });
-      const avatars = screen.queryAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
+      renderComponent({ avatarData: [{ title: 'User 1', src: 'user1.jpg' }] });
+      expect(screen.queryAllByTestId('rds-avatar').length).toBeGreaterThan(0);
     });
 
     it('should not render avatar when avatarData is not provided', () => {
@@ -252,105 +244,71 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should render sub card menu button', () => {
       renderComponent();
-      const iconButtons = screen.getAllByTestId('icon-button');
-      expect(iconButtons.length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('icon-button').length).toBeGreaterThan(0);
     });
 
     it('should display sub card footer with date', () => {
       renderComponent();
-      const typographies = screen.getAllByTestId('typography');
-      const dateContent = typographies.find((el) => el.textContent?.includes('Feb 2024'));
-      expect(dateContent).toBeInTheDocument();
+      expect(findTypography('Feb 2024')).toBeInTheDocument();
     });
 
-    it('should render sample text when ticketQuestion is default', () => {
-      const customBoardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Test Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'test',
-          subCards: [
-            {
-              ticketId: '',
-              ticketQuestion: 'Question 1',
-              ticketDate: '15 Feb 2024',
-              SubcardId: 1,
-              actions: [],
-            },
-          ],
-        },
-      ];
-      renderComponent({ boardData: customBoardData });
-      const typographies = screen.getAllByTestId('typography');
-      const sampleText = typographies.find((el) => el.textContent?.includes('This is a sample text'));
-      expect(sampleText).toBeInTheDocument();
+    it('should render the title and no sample text when ticketQuestion is default', () => {
+      const subCard = { ticketId: '', ticketQuestion: 'Question 1', ticketDate: '15 Feb 2024', SubcardId: 1, actions: [] };
+      renderComponent({ boardData: [makeBoard('Test Board', 'primary', [subCard], 'test')] });
+      expect(screen.queryByText(/This is a sample text/)).not.toBeInTheDocument();
+      expect(screen.getByText('Question 1')).toBeInTheDocument();
+      expect(screen.queryByText('RDS110110')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-badge')).not.toBeInTheDocument();
     });
   });
 
   describe('Add Board Button', () => {
     it('should render add board button when allowAddingNewCard is true', () => {
       renderComponent({ allowAddingNewCard: true });
-      const buttons = screen.getAllByTestId('button');
-      const addBoardBtn = buttons.find((btn) => btn.textContent?.includes('Add Board'));
-      expect(addBoardBtn).toBeInTheDocument();
+      expect(findButton('Add Board')).toBeInTheDocument();
     });
 
     it('should not render add board button when allowAddingNewCard is false', () => {
       renderComponent({ allowAddingNewCard: false });
-      const buttons = screen.queryAllByTestId('button');
-      const addBoardBtn = buttons.find((btn) => btn.textContent?.includes('Add Board'));
-      expect(addBoardBtn).not.toBeTruthy();
+      expect(findButton('Add Board')).not.toBeTruthy();
     });
 
     it('should handle add board button click', () => {
       renderComponent({ allowAddingNewCard: true });
-      const buttons = screen.getAllByTestId('button');
-      const addBoardBtn = buttons.find((btn) => btn.textContent?.includes('Add Board'));
+      const addBoardBtn = findButton('Add Board');
       expect(addBoardBtn).toBeInTheDocument();
       fireEvent.click(addBoardBtn!);
     });
 
     it('should show input field when add board button is clicked initially', () => {
       renderComponent({ allowAddingNewCard: true, boardData: [] });
-      const inputs = screen.queryAllByTestId('text-field');
-      expect(inputs.length).toBeGreaterThanOrEqual(0);
+      expect(screen.queryAllByTestId('text-field').length).toBeGreaterThanOrEqual(0);
     });
 
     it('should have cancel button for add board form', () => {
       renderComponent({ allowAddingNewCard: true });
-      const buttons = screen.getAllByTestId('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('button').length).toBeGreaterThan(0);
     });
   });
 
   describe('Add Sub Card', () => {
     it('should render add item button when allowAddingNewSubCard is true', () => {
       renderComponent({ allowAddingNewSubCard: true });
-      const buttons = screen.getAllByTestId('button');
-      const addItemBtn = buttons.find((btn) => btn.textContent?.includes('Add Item'));
-      expect(addItemBtn).toBeInTheDocument();
+      expect(findButton('Add Item')).toBeInTheDocument();
     });
 
     it('should not render add item button when allowAddingNewSubCard is false', () => {
       renderComponent({ allowAddingNewSubCard: false });
-      const buttons = screen.queryAllByTestId('button');
-      const addItemBtn = buttons.find((btn) => btn.textContent?.includes('Add Item'));
-      expect(addItemBtn).not.toBeTruthy();
+      expect(findButton('Add Item')).not.toBeTruthy();
     });
 
     it('should show form fields when add item button is clicked', async () => {
       renderComponent({ allowAddingNewSubCard: true });
-      const buttons = screen.getAllByTestId('button');
-      const addItemBtn = buttons.find((btn) => btn.textContent?.includes('Add Item'));
-      
+      const addItemBtn = findButton('Add Item');
       if (addItemBtn) {
         fireEvent.click(addItemBtn);
         await waitFor(() => {
-          const selects = screen.queryAllByTestId('select');
-          expect(selects.length).toBeGreaterThanOrEqual(0);
+          expect(screen.queryAllByTestId('select').length).toBeGreaterThanOrEqual(0);
         });
       }
     });
@@ -360,12 +318,8 @@ describe('RdsCompKanbanBoard', () => {
         { label: 'Category 1', val: 'cat1' },
         { label: 'Category 2', val: 'cat2' },
       ];
-      renderComponent({
-        allowAddingNewSubCard: true,
-        allCategoriesList: categories,
-      });
-      const selects = screen.queryAllByTestId('select');
-      expect(selects.length).toBeGreaterThanOrEqual(0);
+      renderComponent({ allowAddingNewSubCard: true, allCategoriesList: categories });
+      expect(screen.queryAllByTestId('select').length).toBeGreaterThanOrEqual(0);
     });
 
     it('should render tags autocomplete in add item form', () => {
@@ -373,107 +327,51 @@ describe('RdsCompKanbanBoard', () => {
         { label: 'Tag 1', val: 'tag1' },
         { label: 'Tag 2', val: 'tag2' },
       ];
-      renderComponent({
-        allowAddingNewSubCard: true,
-        allTagsList: tags,
-      });
-      const autocompletes = screen.queryAllByTestId('autocomplete');
-      expect(autocompletes.length).toBeGreaterThanOrEqual(0);
+      renderComponent({ allowAddingNewSubCard: true, allTagsList: tags });
+      expect(screen.queryAllByTestId('autocomplete').length).toBeGreaterThanOrEqual(0);
     });
   });
 
-  describe('Board Menu', () => {
-    it('should render board menu button', () => {
+  describe('Board and Sub Card Menu', () => {
+    it('should render board menu button and sub card dropdown button', () => {
       renderComponent();
-      const iconButtons = screen.getAllByTestId('icon-button');
-      expect(iconButtons.length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('icon-button').length).toBeGreaterThan(1);
     });
 
-    it('should open menu when board menu button is clicked', async () => {
+    it.each([0, 1])('should open menu when icon button %s is clicked', async (i) => {
       renderComponent();
       const iconButtons = screen.getAllByTestId('icon-button');
-      if (iconButtons[0]) {
-        fireEvent.click(iconButtons[0]);
+      if (iconButtons[i]) {
+        fireEvent.click(iconButtons[i]);
         await waitFor(() => {
-          const menus = screen.queryAllByTestId('menu');
-          expect(menus.length).toBeGreaterThanOrEqual(0);
+          expect(screen.queryAllByTestId('menu').length).toBeGreaterThanOrEqual(0);
         });
       }
     });
 
-    it('should render delete option in menu', async () => {
-      renderComponent();
-      const iconButtons = screen.getAllByTestId('icon-button');
-      if (iconButtons[0]) {
-        fireEvent.click(iconButtons[0]);
-        await waitFor(() => {
-          const menus = screen.queryAllByTestId('menu');
-          expect(menus.length).toBeGreaterThanOrEqual(0);
-        });
-      }
-    });
-
-    it('should call onCardOption callback when menu item is clicked', () => {
+    it('should call onCardOption and onSubCardOption callbacks', () => {
       const onCardOption = jest.fn();
-      renderComponent({ onCardOption });
-      // Menu interaction handled by component state
+      const onSubCardOption = jest.fn();
+      renderComponent({ onCardOption, onSubCardOption });
       expect(onCardOption).toBeDefined();
+      expect(onSubCardOption).toBeDefined();
     });
 
     it('should render custom board actions in menu', async () => {
-      const customBoardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Test Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [{ key: 'Archive', value: 'archive' }],
-          key: 'test',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData: customBoardData });
+      const board = { ...makeBoard('Test Board', 'primary', [], 'test'), actions: [{ key: 'Archive', value: 'archive' }] };
+      renderComponent({ boardData: [board] });
       const iconButtons = screen.getAllByTestId('icon-button');
       if (iconButtons[0]) {
         fireEvent.click(iconButtons[0]);
         await waitFor(() => {
-          const menuItems = screen.queryAllByTestId('menu-item');
-          expect(menuItems.length).toBeGreaterThanOrEqual(0);
+          expect(screen.queryAllByTestId('menu-item').length).toBeGreaterThanOrEqual(0);
         });
       }
-    });
-  });
-
-  describe('Sub Card Menu', () => {
-    it('should render sub card dropdown button', () => {
-      renderComponent();
-      const iconButtons = screen.getAllByTestId('icon-button');
-      // First icon button is for board menu, others for sub cards
-      expect(iconButtons.length).toBeGreaterThan(1);
-    });
-
-    it('should render sub card menu on dropdown click', async () => {
-      renderComponent();
-      const iconButtons = screen.getAllByTestId('icon-button');
-      // Click a sub card dropdown button (not the first one which is board menu)
-      if (iconButtons[1]) {
-        fireEvent.click(iconButtons[1]);
-        await waitFor(() => {
-          const menus = screen.queryAllByTestId('menu');
-          expect(menus.length).toBeGreaterThanOrEqual(0);
-        });
-      }
-    });
-
-    it('should call onSubCardOption callback', () => {
-      const onSubCardOption = jest.fn();
-      renderComponent({ onSubCardOption });
-      expect(onSubCardOption).toBeDefined();
     });
 
     it('should render sub card actions in menu', () => {
       renderComponent();
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
     });
   });
 
@@ -488,11 +386,7 @@ describe('RdsCompKanbanBoard', () => {
     });
 
     it('should handle category selection change', () => {
-      const categories = [{ label: 'Category 1', val: 'cat1' }];
-      renderComponent({
-        allowAddingNewSubCard: true,
-        allCategoriesList: categories,
-      });
+      renderComponent({ allowAddingNewSubCard: true, allCategoriesList: [{ label: 'Category 1', val: 'cat1' }] });
       const selects = screen.queryAllByTestId('select');
       if (selects[0]) {
         fireEvent.change(selects[0], { target: { value: 'cat1' } });
@@ -500,23 +394,17 @@ describe('RdsCompKanbanBoard', () => {
       }
     });
 
-    it('should handle title input in add sub card form', () => {
+    it.each([
+      ['Title', 'New Ticket'],
+      ['Description', 'Sample Description'],
+    ])('should handle %s input in add sub card form', (placeholder, value) => {
       renderComponent({ allowAddingNewSubCard: true });
-      const inputs = screen.queryAllByTestId('text-field');
-      const titleInput = inputs.find((input) => input.getAttribute('placeholder')?.includes('Title'));
-      if (titleInput) {
-        fireEvent.change(titleInput, { target: { value: 'New Ticket' } });
-        expect(titleInput).toHaveValue('New Ticket');
-      }
-    });
-
-    it('should handle description input in add sub card form', () => {
-      renderComponent({ allowAddingNewSubCard: true });
-      const inputs = screen.queryAllByTestId('text-field');
-      const descInput = inputs.find((input) => input.getAttribute('placeholder')?.includes('Description'));
-      if (descInput) {
-        fireEvent.change(descInput, { target: { value: 'Sample Description' } });
-        expect(descInput).toHaveValue('Sample Description');
+      const input = screen
+        .queryAllByTestId('text-field')
+        .find((el) => el.getAttribute('placeholder')?.includes(placeholder));
+      if (input) {
+        fireEvent.change(input, { target: { value } });
+        expect(input).toHaveValue(value);
       }
     });
   });
@@ -524,25 +412,17 @@ describe('RdsCompKanbanBoard', () => {
   describe('Drag and Drop', () => {
     it('should render DragDropContext', () => {
       renderComponent();
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
     });
 
     it('should render Droppable zones for each board', () => {
       renderComponent();
-      const boards = document.querySelectorAll('.kanban-board');
-      expect(boards.length).toBeGreaterThan(0);
+      expect(document.querySelectorAll('.kanban-board').length).toBeGreaterThan(0);
     });
 
     it('should render Draggable items for sub cards', () => {
       renderComponent();
-      const draggables = screen.queryAllByTestId('draggable');
-      expect(draggables.length).toBeGreaterThanOrEqual(0);
-    });
-
-    it('should have correct droppableId format', () => {
-      renderComponent();
-      const boards = document.querySelectorAll('.kanban-board');
-      expect(boards.length).toBeGreaterThan(0);
+      expect(screen.queryAllByTestId('draggable').length).toBeGreaterThanOrEqual(0);
     });
 
     it('should have correct draggableId format', () => {
@@ -555,220 +435,67 @@ describe('RdsCompKanbanBoard', () => {
   });
 
   describe('Empty States', () => {
-    it('should render empty board', () => {
-      const emptyBoardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Empty Board',
-          subCardIndex: 0,
-          colorType: 'warning',
-          actions: [],
-          key: 'empty',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData: emptyBoardData });
-      const typographies = screen.getAllByTestId('typography');
-      const emptyBoardTitle = typographies.find((el) => el.textContent?.includes('Empty Board'));
-      expect(emptyBoardTitle).toBeInTheDocument();
-    });
-
-    it('should render with no sub cards', () => {
-      const noBoardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'No Cards',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'no-cards',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData: noBoardData });
-      const typographies = screen.getAllByTestId('typography');
-      const title = typographies.find((el) => el.textContent?.includes('No Cards'));
-      expect(title).toBeInTheDocument();
+    it.each(['Empty Board', 'No Cards'])('should render empty board %s', (name) => {
+      renderComponent({ boardData: [makeBoard(name, 'warning')] });
+      expect(findTypography(name)).toBeInTheDocument();
     });
 
     it('should render add item button on empty board', () => {
-      const noBoardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Empty',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'empty',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData: noBoardData, allowAddingNewSubCard: true });
-      const buttons = screen.queryAllByTestId('button');
-      const addItemBtn = buttons.find((btn) => btn.textContent?.includes('Add Item'));
-      expect(addItemBtn).toBeInTheDocument();
+      renderComponent({ boardData: [makeBoard('Empty')], allowAddingNewSubCard: true });
+      expect(findButton('Add Item')).toBeInTheDocument();
     });
   });
 
   describe('Board Color Types', () => {
-    it('should apply primary color class', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Primary Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'primary',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      const boxes = screen.getAllByTestId('box');
-      const coloredBox = boxes.find((box) => box.className?.includes('kanban-primary'));
-      expect(coloredBox).toBeTruthy();
-    });
-
-    it('should apply success color class', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Success Board',
-          subCardIndex: 0,
-          colorType: 'success',
-          actions: [],
-          key: 'success',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      const boxes = screen.getAllByTestId('box');
-      const coloredBox = boxes.find((box) => box.className?.includes('kanban-success'));
-      expect(coloredBox).toBeTruthy();
-    });
-
-    it('should apply warning color class', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Warning Board',
-          subCardIndex: 0,
-          colorType: 'warning',
-          actions: [],
-          key: 'warning',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      const boxes = screen.getAllByTestId('box');
-      const coloredBox = boxes.find((box) => box.className?.includes('kanban-warning'));
-      expect(coloredBox).toBeTruthy();
-    });
-
-    it('should apply error color class', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Error Board',
-          subCardIndex: 0,
-          colorType: 'error',
-          actions: [],
-          key: 'error',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      const boxes = screen.getAllByTestId('box');
-      const coloredBox = boxes.find((box) => box.className?.includes('kanban-error'));
+    it.each(['primary', 'success', 'warning', 'error'])('should apply %s color class', (color) => {
+      renderComponent({ boardData: [makeBoard(`${color} Board`, color)] });
+      const coloredBox = screen.getAllByTestId('box').find((box) => box.className?.includes(`kanban-${color}`));
       expect(coloredBox).toBeTruthy();
     });
   });
 
   describe('Props Propagation', () => {
-    it('should accept boardData prop', () => {
-      renderComponent({ boardData: mockBoardData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+    it.each([
+      ['boardData', { boardData: mockBoardData }],
+      ['allowAddingNewCard', { allowAddingNewCard: true }],
+      ['allowAddingNewSubCard', { allowAddingNewSubCard: true }],
+      ['avatarData', { avatarData: [{ title: 'User 1' }] }],
+      ['allTagsList', { allTagsList: [{ label: 'Tag 1', val: 'tag1' }] }],
+      ['allCategoriesList', { allCategoriesList: [{ label: 'Cat 1', val: 'cat1' }] }],
+    ])('should accept %s prop', (_n, props) => {
+      renderComponent(props);
+      dnd().toBeInTheDocument();
     });
 
-    it('should accept allowAddingNewCard prop', () => {
-      renderComponent({ allowAddingNewCard: true });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should accept allowAddingNewSubCard prop', () => {
-      renderComponent({ allowAddingNewSubCard: true });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should accept avatarData prop', () => {
-      const avatarData = [{ title: 'User 1' }];
-      renderComponent({ avatarData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should accept allTagsList prop', () => {
-      const tags = [{ label: 'Tag 1', val: 'tag1' }];
-      renderComponent({ allTagsList: tags });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should accept allCategoriesList prop', () => {
-      const categories = [{ label: 'Cat 1', val: 'cat1' }];
-      renderComponent({ allCategoriesList: categories });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should accept onCardOption callback', () => {
-      const onCardOption = jest.fn();
-      renderComponent({ onCardOption });
-      expect(onCardOption).toBeDefined();
-    });
-
-    it('should accept onSubCardOption callback', () => {
-      const onSubCardOption = jest.fn();
-      renderComponent({ onSubCardOption });
-      expect(onSubCardOption).toBeDefined();
+    it.each(['onCardOption', 'onSubCardOption'])('should accept %s callback', (name) => {
+      const cb = jest.fn();
+      renderComponent({ [name]: cb });
+      expect(cb).toBeDefined();
     });
   });
 
   describe('Integration', () => {
     it('should render complete kanban board with all features', () => {
       renderComponent();
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
       expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('button').length).toBeGreaterThan(0);
-    });
-
-    it('should render board with multiple sub cards and actions', () => {
-      renderComponent();
-      expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('icon-button').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('rds-badge').length).toBeGreaterThan(0);
     });
 
-    it('should handle board with actions and sub cards', () => {
-      renderComponent();
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
     it('should display all components together', () => {
-      const avatarData = [{ title: 'User 1', src: 'user1.jpg' }];
-      const categories = [{ label: 'Category 1', val: 'cat1' }];
-      const tags = [{ label: 'Tag 1', val: 'tag1' }];
-      
       renderComponent({
-        avatarData,
-        allCategoriesList: categories,
-        allTagsList: tags,
+        avatarData: [{ title: 'User 1', src: 'user1.jpg' }],
+        allCategoriesList: [{ label: 'Category 1', val: 'cat1' }],
+        allTagsList: [{ label: 'Tag 1', val: 'tag1' }],
         allowAddingNewCard: true,
         allowAddingNewSubCard: true,
       });
-
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
       expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('button').length).toBeGreaterThan(0);
-      const avatars = screen.queryAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
+      expect(screen.queryAllByTestId('rds-avatar').length).toBeGreaterThan(0);
     });
   });
 
@@ -781,36 +508,20 @@ describe('RdsCompKanbanBoard', () => {
         fireEvent.click(iconButtons[0]);
         fireEvent.click(iconButtons[0]);
         await waitFor(() => {
-          expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+          dnd().toBeInTheDocument();
         });
       }
     });
 
     it('should handle very long board names', () => {
-      const longName = 'A'.repeat(100);
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: longName,
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'long',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      renderComponent({ boardData: [makeBoard('A'.repeat(100), 'primary', [], 'long')] });
+      dnd().toBeInTheDocument();
     });
 
     it('should handle many boards', () => {
       const manyBoards: boardInfo[] = Array.from({ length: 10 }, (_, i) => ({
+        ...makeBoard(`Board ${i + 1}`, 'primary', [], `board-${i}`),
         cardId: i,
-        name: `Board ${i + 1}`,
-        subCardIndex: 0,
-        colorType: 'primary' as const,
-        actions: [],
-        key: `board-${i}`,
         subCards: [
           {
             ticketId: `TKT${i}01`,
@@ -818,7 +529,7 @@ describe('RdsCompKanbanBoard', () => {
             ticketDate: '15 Feb 2024',
             SubcardId: i * 10 + 1,
             actions: [],
-          },
+          } as unknown as KanbanSubCard,
         ],
       }));
       renderComponent({ boardData: manyBoards });
@@ -834,35 +545,16 @@ describe('RdsCompKanbanBoard', () => {
         SubcardId: i,
         actions: [],
       }));
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Busy Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'busy',
-          subCards: manySubCards,
-        },
-      ];
-      renderComponent({ boardData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      renderComponent({ boardData: [makeBoard('Busy Board', 'primary', manySubCards, 'busy')] });
+      dnd().toBeInTheDocument();
     });
 
-    it('should handle empty allCategoriesList', () => {
-      renderComponent({
-        allowAddingNewSubCard: true,
-        allCategoriesList: [],
-      });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
-    });
-
-    it('should handle empty allTagsList', () => {
-      renderComponent({
-        allowAddingNewSubCard: true,
-        allTagsList: [],
-      });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+    it.each([
+      ['allCategoriesList', { allCategoriesList: [] }],
+      ['allTagsList', { allTagsList: [] }],
+    ])('should handle empty %s', (_n, props) => {
+      renderComponent({ allowAddingNewSubCard: true, ...props });
+      dnd().toBeInTheDocument();
     });
 
     it('should handle undefined callbacks', () => {
@@ -871,55 +563,196 @@ describe('RdsCompKanbanBoard', () => {
         onSubCardOption: undefined,
         onAddQuestionSaveHandler: undefined,
       });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      dnd().toBeInTheDocument();
     });
 
     it('should handle board with no actions', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'No Actions Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'no-actions',
-          subCards: [],
-        },
-      ];
-      renderComponent({ boardData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      renderComponent({ boardData: [makeBoard('No Actions Board', 'primary', [], 'no-actions')] });
+      dnd().toBeInTheDocument();
     });
 
     it('should handle sub card with no actions', () => {
-      const boardData: boardInfo[] = [
-        {
-          cardId: 1,
-          name: 'Board',
-          subCardIndex: 0,
-          colorType: 'primary',
-          actions: [],
-          key: 'board',
-          subCards: [
-            {
-              ticketId: 'TKT001',
-              ticketQuestion: 'Question',
-              ticketDate: '15 Feb 2024',
-              SubcardId: 1,
-              actions: [],
-            },
-          ],
-        },
-      ];
-      renderComponent({ boardData });
-      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
+      const subCard = { ticketId: 'TKT001', ticketQuestion: 'Question', ticketDate: '15 Feb 2024', SubcardId: 1, actions: [] };
+      renderComponent({ boardData: [makeBoard('Board', 'primary', [subCard], 'board')] });
+      dnd().toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = renderComponent();
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      expect(await axe(container)).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const base: RdsCompKanbanBoardProps = { boardData: mockBoardData, allowAddingNewCard: false, allowAddingNewSubCard: false };
+  const openBoardMenu = (i: number) => {
+    const headers = document.querySelectorAll('.kanban-board__header-button');
+    fireEvent.click(headers[i]);
+  };
+  const clickMenuItem = (text: string) => {
+    fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent?.includes(text))!);
+  };
+
+  it('G5-115: renders the sub-card displayId, badge and description when present', () => {
+    const boardData = [{ ...mockBoardData[1], subCards: [{ ...mockBoardData[0].subCards[0], displayId: 'T-9', badge: 'Urgent', description: 'Real body' }] }];
+    render(<RdsCompKanbanBoard {...base} boardData={boardData} />);
+    expect(screen.getByText('T-9')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-badge')).toHaveTextContent('Urgent');
+    expect(screen.getByText(/Real body/)).toBeInTheDocument();
+    expect(screen.queryByText('RDS110110')).not.toBeInTheDocument();
+  });
+
+  it('G5-116: renders the board name as given', () => {
+    render(<RdsCompKanbanBoard {...base} />);
+    expect(document.querySelectorAll('.card-name')[0]).toHaveTextContent('Board 1');
+  });
+
+  it('G5-117/G5-122: onBoardDataChange gets the new boards, new board appended last', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} allowAddingNewCard onBoardDataChange={onBoardDataChange} />);
+    fireEvent.change(screen.getByPlaceholderText('Enter Board Title'), { target: { value: 'New' } });
+    fireEvent.click(screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Board'))!);
+    const boards = onBoardDataChange.mock.calls[0][0];
+    expect(boards.map((b: boardInfo) => b.name)).toEqual(['Board 1', 'Board 2', 'New']);
+  });
+
+  it('G5-117: onBoardDataChange fires on board delete', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} onBoardDataChange={onBoardDataChange} />);
+    openBoardMenu(0);
+    clickMenuItem('Delete Board');
+    expect(onBoardDataChange).toHaveBeenCalledWith([mockBoardData[1]]);
+  });
+
+  it('G5-123/G5-126: Add Item disabled until a title, ticketId not taken from description', () => {
+    const onBoardDataChange = jest.fn();
+    const onAddQuestionSaveHandler = jest.fn();
+    render(<RdsCompKanbanBoard {...base} boardData={[mockBoardData[1]]} allowAddingNewSubCard allCategoriesList={[{ label: 'Cat', val: 'c1' }]} onBoardDataChange={onBoardDataChange} onAddQuestionSaveHandler={onAddQuestionSaveHandler} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    const addBtn = () => screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Item'))!;
+    expect(addBtn()).toBeDisabled();
+    fireEvent.change(screen.getByPlaceholderText('Enter Title'), { target: { value: 'Title' } });
+    fireEvent.change(screen.getByPlaceholderText('Enter Description'), { target: { value: 'Desc' } });
+    expect(addBtn()).not.toBeDisabled();
+    fireEvent.click(addBtn());
+    const sub = onBoardDataChange.mock.calls[0][0][0].subCards[0];
+    expect(sub.ticketId).not.toBe('Desc');
+    expect(sub.description).toBe('Desc');
+    expect(onAddQuestionSaveHandler).toHaveBeenCalledWith({ title: 'Title', description: 'Desc' });
+  });
+
+  it('G5-124: deleting a board keeps the edit state on the right board', () => {
+    render(<RdsCompKanbanBoard {...base} />);
+    openBoardMenu(1);
+    clickMenuItem('Edit');
+    expect(screen.getByDisplayValue('Board 2')).toBeInTheDocument();
+    openBoardMenu(0);
+    clickMenuItem('Delete Board');
+    expect(screen.getByDisplayValue('Board 2')).toBeInTheDocument();
+  });
+
+  it('G5-125: onSubCardOption receives the sub-card index', () => {
+    const onSubCardOption = jest.fn();
+    render(<RdsCompKanbanBoard {...base} onSubCardOption={onSubCardOption} />);
+    fireEvent.click(document.querySelectorAll('.rds-kanban-board__subcard-dropdown-button')[1]);
+    clickMenuItem('Edit');
+    expect(onSubCardOption).toHaveBeenCalledWith('edit', 1, 2);
+  });
+
+  it('G5-129: warns for props that have no effect', () => {
+    render(<RdsCompKanbanBoard {...base} noDataTitle="x" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompKanbanBoard', 'noDataTitle', 'nothing (it has no effect)');
+  });
+
+  it('G5-137: forwards className, ref and rest to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompKanbanBoard {...base} ref={ref} className="extra" data-foo="bar" />);
+    expect(ref.current).toHaveClass('rds-kanban-board-container', 'extra');
+    expect(ref.current).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('G5-139: colorClass has no stray spaces', () => {
+    expect(colorClass('')).toBe('kanban-primary');
+    expect(colorClass('success')).toBe('kanban-success');
+  });
+});
+
+describe('audit fixes', () => {
+  const openMenu = (selector: string, i: number) => fireEvent.click(document.querySelectorAll(selector)[i]);
+  const clickItem = (text: string) =>
+    fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent?.includes(text))!);
+
+  it('305/306: allowAddColumn and allowAddCard show the add controls', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} allowAddColumn allowAddCard />);
+    expect(screen.getByPlaceholderText('Enter Board Title')).toBeInTheDocument();
+    expect(screen.getAllByText('Add Item').length).toBeGreaterThan(0);
+  });
+
+  it('305: warns for allowAddingNewCard', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} allowAddingNewCard />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompKanbanBoard', 'allowAddingNewCard', '`allowAddColumn`');
+  });
+
+  it('307: categoryOptions wins over allCategoriesList', () => {
+    render(<RdsCompKanbanBoard defaultColumns={[mockBoardData[1]]} allowAddCard categoryOptions={[{ label: 'New', val: 'n' }]} allCategoriesList={[{ label: 'Old', val: 'o' }]} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    expect(screen.getByText('New')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('308: card assignees override avatarData', () => {
+    const columns = [{ ...mockBoardData[1], subCards: [{ ...mockBoardData[0].subCards[1], assignees: [{ title: 'A' }] }] }];
+    render(<RdsCompKanbanBoard defaultColumns={columns} avatarData={[{ title: 'X' }, { title: 'Y' }]} />);
+    expect(screen.getByTestId('rds-avatar')).toHaveTextContent('1 avatars');
+  });
+
+  it('309: controlled columns only change through onColumnsChange', () => {
+    const onColumnsChange = jest.fn();
+    render(<RdsCompKanbanBoard columns={mockBoardData} onColumnsChange={onColumnsChange} />);
+    openMenu('.kanban-board__header-button', 0);
+    clickItem('Delete Board');
+    expect(onColumnsChange).toHaveBeenCalledWith([mockBoardData[1]]);
+    expect(screen.getByText('Board 1')).toBeInTheDocument();
+  });
+
+  it('309: defaultColumns is uncontrolled', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} />);
+    openMenu('.kanban-board__header-button', 0);
+    clickItem('Delete Board');
+    expect(screen.queryByText('Board 1')).not.toBeInTheDocument();
+  });
+
+  it('311: onCardAdd gets the event and the new card', () => {
+    const onCardAdd = jest.fn();
+    const onAddQuestionSaveHandler = jest.fn();
+    render(<RdsCompKanbanBoard defaultColumns={[mockBoardData[1]]} allowAddCard onCardAdd={onCardAdd} onAddQuestionSaveHandler={onAddQuestionSaveHandler} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    fireEvent.change(screen.getByPlaceholderText('Enter Title'), { target: { value: 'T' } });
+    fireEvent.click(screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Item'))!);
+    expect(onCardAdd).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), expect.objectContaining({ ticketQuestion: 'T' }));
+    expect(onAddQuestionSaveHandler).not.toHaveBeenCalled();
+  });
+
+  it('312: onColumnAction gets the event, action and column id', () => {
+    const onColumnAction = jest.fn();
+    const onCardOption = jest.fn();
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} onColumnAction={onColumnAction} onCardOption={onCardOption} />);
+    openMenu('.kanban-board__header-button', 1);
+    clickItem('Edit');
+    expect(onColumnAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 2 });
+    expect(onCardOption).not.toHaveBeenCalled();
+  });
+
+  it('314/315: onCardAction gets column and card ids, id/title aliases apply', () => {
+    const onCardAction = jest.fn();
+    const columns = [{ ...mockBoardData[0], subCards: [{ ...mockBoardData[0].subCards[1], id: 7, title: 'Alias title' }] }];
+    render(<RdsCompKanbanBoard defaultColumns={columns} onCardAction={onCardAction} />);
+    expect(screen.getByText('Alias title')).toBeInTheDocument();
+    openMenu('.rds-kanban-board__subcard-dropdown-button', 0);
+    clickItem('Edit');
+    expect(onCardAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 1, cardId: 7 });
   });
 });

@@ -1,20 +1,18 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-chat-bot.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock child components
 jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
   const ChatHeaderSize = { Small: 'small', Medium: 'medium', Large: 'large' } as const;
-  function MockRdsCompAiChatHeader({ logoUrl, title, ...props }: any) {
+  function MockRdsCompAiChatHeader({ avatarSrc, logoUrl, title, ...props }: any) {
     return (
       <div data-testid="chat-header" {...props}>
-        <img src={logoUrl} alt="logo" data-testid="header-logo" />
+        <img src={avatarSrc ?? logoUrl} alt="logo" data-testid="header-logo" />
         <h2 data-testid="header-title">{title}</h2>
       </div>
     );
@@ -23,36 +21,43 @@ jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
 });
 
 jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {
-  return function MockRdsCompAiMessageBox({ avtar, isImage, message, src, ...props }: any) {
+  return function MockRdsCompAiMessageBox({ avatar, avtar, isImage, imageSrc, children, message, src, ...props }: any) {
     return (
       <div data-testid="message-box" {...props}>
-        <img src={avtar} alt="avatar" data-testid="message-avatar" />
-        {isImage && src ? (
-          <img src={src} alt="message" data-testid="message-image" />
+        <img src={avatar ?? avtar} alt="avatar" data-testid="message-avatar" />
+        {(imageSrc ?? (isImage && src)) ? (
+          <img src={imageSrc ?? src} alt="message" data-testid="message-image" />
         ) : (
-          <p data-testid="message-text">{message}</p>
+          <p data-testid="message-text">{children ?? message}</p>
         )}
       </div>
     );
   };
 });
 
+const mockTypingProps: { current: any } = { current: null };
 jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   return function MockRdsCompAiTypingSection({
     colorVariant,
     onSend,
+    placeholder,
     placeholderText,
     iconName,
     onAddComment,
     previewImage,
+    imageSrc,
+    onNewProjectClick,
+    autocompleteOptions,
     ...props
   }: any) {
+    previewImage = imageSrc ?? previewImage;
+    mockTypingProps.current = { onAddComment, onSend, onNewProjectClick, autocompleteOptions };
     return (
       <div data-testid="typing-section" {...props}>
         <input
           data-testid="message-input"
           type="text"
-          placeholder={placeholderText}
+          placeholder={placeholder ?? placeholderText}
           onKeyPress={(e: any) => {
             if (e.key === 'Enter') {
               onSend(e.target.value);
@@ -97,7 +102,6 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiChatBotProps = {
   aiLogoUrl: 'https://example.com/ai-logo.jpg',
   userAvatarUrl: 'https://example.com/user-avatar.jpg',
@@ -641,5 +645,123 @@ describe('RdsCompAiChatBot', () => {
         expect(firstChild).toHaveAttribute('data-testid', 'chat-header');
       }
     });
+  });
+
+  describe('audit fixes', () => {
+    it('ignores a partly typed Figma URL and accepts a data URL directly (G3-084, G3-085)', () => {
+      render(<RdsCompAiChatBot {...defaultProps} />);
+      expect(() => act(() => mockTypingProps.current.onAddComment({ image: 'h' }))).not.toThrow();
+      expect(screen.queryByTestId('image-preview')).not.toBeInTheDocument();
+      act(() => mockTypingProps.current.onAddComment({ image: 'data:image/png;base64,abc' }));
+      expect(screen.getByTestId('image-preview')).toHaveAttribute('src', 'data:image/png;base64,abc');
+    });
+
+    it('does not request "undefined" as the avatar URL (G3-089)', () => {
+      render(
+        <RdsCompAiChatBot {...defaultProps} userAvatarUrl={undefined} messages={[{ id: 1, text: 'Hi', sender: false }]} />
+      );
+      expect(screen.getByTestId('message-avatar')).not.toHaveAttribute('src', 'undefined');
+    });
+
+    it('supports title, className, rest props and a live message log (G3-090, G3-093, G3-096)', () => {
+      const { container } = render(
+        <RdsCompAiChatBot {...defaultProps} title="Support" className="custom" data-testid="root" />
+      );
+      expect(screen.getByTestId('header-title')).toHaveTextContent('Support');
+      expect(screen.getByTestId('root')).toHaveClass('rds-ai-chat-bot', 'custom');
+      expect(container.querySelector('.rds-ai-chat-bot__messages')).toHaveAttribute('role', 'log');
+    });
+
+    it("uses assistantAvatar, userAvatar and placeholder over the deprecated names", () => {
+      render(
+        <RdsCompAiChatBot
+          {...defaultProps}
+          assistantAvatar="a.png"
+          userAvatar="u.png"
+          placeholder="New"
+          messages={[{ id: 1, text: "Hi", role: "user" }, { id: 2, text: "Yo", role: "assistant", sender: false }]}
+        />
+      );
+      expect(screen.getByTestId("header-logo")).toHaveAttribute("src", "a.png");
+      const avatars = screen.getAllByTestId("message-avatar");
+      expect(avatars[0]).toHaveAttribute("src", "u.png");
+      expect(avatars[1]).toHaveAttribute("src", "a.png");
+      expect(screen.getByTestId("message-input")).toHaveAttribute("placeholder", "New");
+    });
+
+    it("calls onSend with the sent user message", () => {
+      const onSend = jest.fn();
+      render(<RdsCompAiChatBot assistantAvatar="a.png" messages={[]} onSend={onSend} />);
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Hello";
+      fireEvent.click(screen.getByTestId("send-button"));
+      expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ text: "Hello", role: "user" }));
+    });
+
+    it("omits legacy sender on newly composed messages (G3-088)", () => {
+      const onSend = jest.fn();
+      render(<RdsCompAiChatBot assistantAvatar="a.png" messages={[]} onSend={onSend} />);
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Hello";
+      fireEvent.click(screen.getByTestId("send-button"));
+      const sent = onSend.mock.calls[0][0];
+      expect(sent.role).toBe("user");
+      expect(sent).not.toHaveProperty("sender");
+    });
+
+    it("assigns message ids from max existing id + 1 (G3-087)", () => {
+      const onSend = jest.fn();
+      render(
+        <RdsCompAiChatBot
+          assistantAvatar="a.png"
+          messages={[{ id: 1, text: "kept", role: "user" }, { id: 5, text: "gap", role: "assistant" }]}
+          onSend={onSend}
+        />
+      );
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Next";
+      fireEvent.click(screen.getByTestId("send-button"));
+      expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ id: 6, text: "Next" }));
+    });
+
+    it("warns that setMessages is deprecated in favour of onSend (G3-086)", () => {
+      const { warnDeprecatedProp } = jest.requireMock("../../raaghu-elements/shared/utils/deprecation");
+      (warnDeprecatedProp as jest.Mock).mockClear();
+      render(
+        <RdsCompAiChatBot assistantAvatar="a.png" messages={[]} setMessages={jest.fn()} onSend={jest.fn()} />
+      );
+      expect(warnDeprecatedProp).toHaveBeenCalledWith(
+        "RdsCompAiChatBot",
+        "setMessages",
+        "`onSend` (parent-owned `messages`)"
+      );
+    });
+  });
+});
+
+describe('RdsCompAiChatBot slotProps', () => {
+  it('forwards slotProps.typingSection without replacing the chat send handler', () => {
+    const onNewProjectClick = jest.fn();
+    const slotOnSend = jest.fn();
+    const options = [{ label: 'Raaghu', value: 1 }];
+    render(
+      <RdsCompAiChatBot
+        {...defaultProps}
+        slotProps={{ typingSection: { onNewProjectClick, autocompleteOptions: options, onSend: slotOnSend } as any }}
+      />
+    );
+    expect(mockTypingProps.current.onNewProjectClick).toBe(onNewProjectClick);
+    expect(mockTypingProps.current.autocompleteOptions).toBe(options);
+    act(() => mockTypingProps.current.onSend('Hi'));
+    expect(slotOnSend).not.toHaveBeenCalled();
+  });
+});
+
+describe('RdsCompAiChatBot id', () => {
+  it('forwards id to the root and adds none when omitted', () => {
+    const a = render(<RdsCompAiChatBot {...defaultProps} id="cb" />);
+    expect(a.container.firstChild).toHaveAttribute('id', 'cb');
+    const b = render(<RdsCompAiChatBot {...defaultProps} />);
+    expect(b.container.firstChild).not.toHaveAttribute('id');
   });
 });

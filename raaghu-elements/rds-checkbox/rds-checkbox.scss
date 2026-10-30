@@ -1,4 +1,8 @@
 .rds-checkbox {
+  --rds-checkbox-dim-1: 2px;
+  --rds-checkbox-dim-2: 6px;
+  --rds-checkbox-dim-3: 10px;
+
   display: inline-flex;
   align-items: center;
 
@@ -15,18 +19,19 @@
   .MuiFormControlLabel-label {
     color: var(--rds-text-primary);
     font-family: var(--rds-font-family-base);
-    font-size: var(--rds-font-size-md, 14px);
-    line-height: 1.5;
+    font-size: var(--rds-font-size-md);
+    line-height: var(--rds-line-height-normal);
   }
 
   .MuiCheckbox-root {
     position: relative;
-    padding: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm);
     color: var(--rds-border-default);
     transition: var(--rds-checkbox-transition);
 
-    &:hover {
+    &:hover:not(.Mui-disabled) {
       background-color: transparent;
+      color: var(--rds-primary-main);
     }
 
     &:active,
@@ -61,12 +66,6 @@
 
     .MuiFormControlLabel-label {
       color: var(--rds-text-disabled);
-    }
-  }
-
-  &__hover {
-    .MuiCheckbox-root:not(.Mui-disabled) {
-      color: var(--rds-primary-main);
     }
   }
 
@@ -108,7 +107,7 @@
         height: var(--rds-checkbox-size);
         transform: translate(-50%, -50%);
         border: var(--rds-checkbox-border-width) solid var(--rds-border-default);
-        border-radius: var(--rds-border-radius-sm, 4px);
+        border-radius: var(--rds-border-radius-sm);
         background: transparent;
         transition: var(--rds-checkbox-transition);
         box-sizing: border-box;
@@ -120,9 +119,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
-        border: solid var(--rds-primary-contrast-text, #fff);
+        width: var(--rds-checkbox-dim-2);
+        height: var(--rds-checkbox-dim-3);
+        border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transform-origin: center;
@@ -150,11 +149,11 @@
         }
 
         &::after {
-          width: 8px;
-          height: 2px;
+          width: var(--rds-size-sm);
+          height: var(--rds-checkbox-dim-1);
           border: none;
-          background-color: var(--rds-primary-contrast-text, #fff);
-          border-radius: 2px;
+          background-color: var(--rds-primary-contrast-text);
+          border-radius: var(--rds-border-radius-xs);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }
@@ -212,9 +211,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
-        border: solid var(--rds-primary-contrast-text, #fff);
+        width: var(--rds-checkbox-dim-2);
+        height: var(--rds-checkbox-dim-3);
+        border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transform-origin: center;
@@ -242,11 +241,11 @@
         }
 
         &::after {
-          width: 8px;
-          height: 2px;
+          width: var(--rds-size-sm);
+          height: var(--rds-checkbox-dim-1);
           border: none;
-          background-color: var(--rds-primary-contrast-text, #fff);
-          border-radius: 2px;
+          background-color: var(--rds-primary-contrast-text);
+          border-radius: var(--rds-border-radius-xs);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }

@@ -3,52 +3,48 @@
  * These tokens define the foundation of the design system
  */
 
-// Color Tokens
 export const colorTokens = {
-  // Primary Colors
   primary: {
     50: '#e3f2fd',
     100: '#bbdefb',
-    200: '#3C98FF', // Dark theme normal
-    250: '#66B2FF', // Dark theme hover
+    200: '#3C98FF',
+    250: '#66B2FF',
     300: '#64b5f6',
     400: '#42a5f5',
-    500: '#2196f3', // Primary
+    500: '#2196f3',
     600: '#1e88e5',
-    700: '#3C98FF', // Light theme normal
-    750: '#2E7CE0', // Light theme hover
+    700: '#3C98FF',
+    750: '#2E7CE0',
     800: '#1565c0',
     900: '#0d47a1',
   },
   
-  // Secondary Colors
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
-    200: '#2534E9', // Dark theme normal
-    250: '#4666FF', // Dark theme hover
+    200: '#2534E9',
+    250: '#4666FF',
     300: '#f06292',
     400: '#ec407a',
-    500: '#e91e63', // Secondary
+    500: '#e91e63',
     600: '#d81b60',
-    700: '#2534E9', // Light theme normal
-    750: '#1827BB', // Light theme hover
+    700: '#2534E9',
+    750: '#1827BB',
     800: '#ad1457',
     900: '#880e4f',
   },
   
-  // Semantic Colors
   success: {
     50: '#e8f5e8',
     100: '#c8e6c8',
-    200: '#1F7630', // Dark theme normal
-    250: '#31B64A', // Dark theme hover
+    200: '#1F7630',
+    250: '#31B64A',
     300: '#81c784',
     400: '#66bb6a',
-    500: '#4caf50', // Success
+    500: '#4caf50',
     600: '#43a047',
-    700: '#1F7630', // Light theme normal
-    750: '#1D5E2A', // Light theme hover
+    700: '#1F7630',
+    750: '#1D5E2A',
     800: '#2e7d32',
     900: '#1b5e20',
   },
@@ -56,14 +52,14 @@ export const colorTokens = {
   warning: {
     50: '#fffde7',
     100: '#fff9c4',
-    200: '#C2510C', // Dark theme normal
-    250: '#F98816', // Dark theme hover
+    200: '#C2510C',
+    250: '#F98816',
     300: '#fff176',
     400: '#ffee58',
-    500: '#ffeb3b', // Warning
+    500: '#ffeb3b',
     600: '#fdd835',
-    700: '#C2510C', // Light theme normal
-    750: '#9A4012', // Light theme hover
+    700: '#C2510C',
+    750: '#9A4012',
     800: '#f9a825',
     900: '#f57f17',
   },
@@ -71,31 +67,30 @@ export const colorTokens = {
   error: {
     50: '#ffebee',
     100: '#ffcdd2',
-    200: '#BD0D1D', // Dark theme normal
-    250: '#FF544F', // Dark theme hover
+    200: '#BD0D1D',
+    250: '#FF544F',
     300: '#e57373',
     400: '#ef5350',
-    500: '#f44336', // Error
+    500: '#f44336',
     600: '#e53935',
-    700: '#BD0D1D', // Light theme normal
-    750: '#930011', // Light theme hover
+    700: '#BD0D1D',
+    750: '#930011',
     800: '#c62828',
     900: '#b71c1c',
   },
   
-  // Neutral Colors
   neutral: {
     0: '#ffffff',
     50: '#fafafa',
     100: '#f5f5f5',
     200: '#eeeeee',
-    250: '#969696', // Dark theme hover
+    250: '#969696',
     300: '#e0e0e0',
     400: '#bdbdbd',
     500: '#9e9e9e',
     600: '#757575',
-    700: '#646464', // Light theme normal
-    750: '#4C4C4C', // Light theme hover
+    700: '#646464',
+    750: '#4C4C4C',
     800: '#424242',
     900: '#212121',
     1000: '#000000',
@@ -127,10 +122,19 @@ export const colorTokens = {
     700: '#1565C0',
     800: '#0D47A1',
     900: '#0B3D91',
+    /** Accent cyan used by color-picker swatches / charts */
+    variant: '#00E5FF',
+  },
+
+  /** Fixed accent pairs used by color-palette / utility UI (not full 50–900 scales). */
+  accent: {
+    cyan:   { light: '#80DEEA', dark: '#00838F' },
+    indigo: { light: '#9FA8DA', dark: '#1A237E' },
+    lime:   { light: '#E6EE9C', dark: '#827717' },
+    pink:   { light: '#F48FB1', dark: '#880E4F' },
+    teal:   { light: '#80CBC4', dark: '#004D40' },
   },
 };
-
-// (component-specific blocks for detailsPane and eSignature relocated below)
 
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
@@ -153,6 +157,7 @@ export const extendedBreakpointTokens = {
   '400': '400px',
   '420': '420px',
   '430': '430px',
+  '480': '480px',
   '514': '514px',
   '568': '568px',
   '576': '576px',
@@ -178,7 +183,6 @@ export const extendedBreakpointTokens = {
   '1600': '1600px',
 } as const;
 
-// Typography Tokens
 export const typographyTokens = {
   fontFamily: {
     primary: '"Poppins", sans-serif',
@@ -187,28 +191,21 @@ export const typographyTokens = {
   },
   
   fontSize: {
-    xs: '0.75rem',    // 12px
-    sm: '0.875rem',   // 14px
-    base: '1rem',     // 16px
-    lg: '1.125rem',   // 18px
-    xl: '1.25rem',    // 20px
-    popover: {
-      containerMaxWidth: '400px',
-      containerMinWidth: '200px',
-      wideMinWidth: '300px',
-      wideMaxWidth: '600px',
-      narrowMinWidth: '150px',
-      narrowMaxWidth: '250px',
-      positionGridMaxWidth: '120px',
-      listMobileMaxWidth: '220px',
-      listMobileMinWidth: '120px',
-    },
-    '2xl': '1.5rem',  // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem', // 36px
-    '5xl': '3rem',    // 48px
-    '6xl': '3.75rem', // 60px
-    '7xl': '4.5rem',  // 72px
+    '3xs': '0.5625rem',
+    '2xs': '0.6875rem',
+    xs: '0.75rem',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
+    '2xl': '1.5rem',
+    '3xl': '1.875rem',
+    '4xl': '2.25rem',
+    '5xl': '3rem',
+    '6xl': '3.75rem',
+    '7xl': '4.5rem',
+    'display-sm': '2rem',
+    'display-md': '2.5rem',
   },
   
   fontWeight: {
@@ -224,8 +221,11 @@ export const typographyTokens = {
   
   lineHeight: {
     none: 1,
+    compact: 1.2,
     tight: 1.25,
+    dense: 1.3,
     snug: 1.375,
+    comfortable: 1.4,
     normal: 1.5,
     relaxed: 1.625,
     loose: 2,
@@ -237,36 +237,34 @@ export const typographyTokens = {
     normal: '0em',
     wide: '0.025em',
     wider: '0.05em',
-      // Secondary Colors (blue/indigo brand palette)
     widest: '0.1em',
+    caps: '0.5px',
   }
 };
 
-// Spacing Tokens
 export const spacingTokens = {
   0: '0px',
-  1: '0.25rem',   // 4px
-  2: '0.5rem',    // 8px
-  3: '0.75rem',   // 12px
-  4: '1rem',      // 16px
-  5: '1.25rem',   // 20px
-  6: '1.5rem',    // 24px
-  7: '1.75rem',   // 28px
-  8: '2rem',      // 32px
-  9: '2.25rem',   // 36px
-  10: '2.5rem',   // 40px
-  12: '3rem',     // 48px
-  16: '4rem',     // 64px
-  20: '5rem',     // 80px
-  24: '6rem',     // 96px
-  32: '8rem',     // 128px
-  40: '10rem',    // 160px
-  48: '12rem',    // 192px
-  56: '14rem',    // 224px
-  64: '16rem',    // 256px
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '0.75rem',
+  4: '1rem',
+  5: '1.25rem',
+  6: '1.5rem',
+  7: '1.75rem',
+  8: '2rem',
+  9: '2.25rem',
+  10: '2.5rem',
+  12: '3rem',
+  16: '4rem',
+  20: '5rem',
+  24: '6rem',
+  32: '8rem',
+  40: '10rem',
+  48: '12rem',
+  56: '14rem',
+  64: '16rem',
 };
 
-// Exact pixel aliases for spacing (useful for CSS var injection when exact px needed)
 export const spacingExact = {
   hairline: '1px',
   xxs: '2px',
@@ -277,12 +275,10 @@ export const spacingExact = {
   xl: '32px',
   '2xl': '48px',
   '3xl': '64px',
-  // Sub-token fills (gaps between named sizes, present in legacy SCSS)
   micro: '3px',
   tight: '5px',
   compact: '6px',
   cozy: '10px',
-  // Exact oddball values (legacy SCSS only — avoid in new components)
   '7': '7px',
   '13': '13px',
   '14': '14px',
@@ -290,7 +286,6 @@ export const spacingExact = {
   '18': '18px',
   '22': '22px',
   '52': '52px',
-  // Additional component-specific values (legacy SCSS — not for new code)
   '25': '25px',
   '27': '27px',
   '29': '29px',
@@ -317,7 +312,20 @@ export const spacingExact = {
   '170': '170px',
   '235': '235px',
   '240': '240px',
-  // Negative offsets (layout adjustments in legacy components — not for new code)
+  '17': '17px',
+  '35': '35px',
+  '45': '45px',
+  '50': '50px',
+  '55': '55px',
+  '63': '63px',
+  '70': '70px',
+  '76': '76px',
+  '84': '84px',
+  '90': '90px',
+  '100': '100px',
+  '200': '200px',
+  '210': '210px',
+  '250': '250px',
   'neg-1': '-1px',
   'neg-2': '-2px',
   'neg-4': '-4px',
@@ -327,26 +335,68 @@ export const spacingExact = {
   'neg-9': '-9px',
   'neg-14': '-14px',
   'neg-16': '-16px',
+  'neg-17': '-17px',
+  'neg-18': '-18px',
   'neg-20': '-20px',
   'neg-25': '-25px',
   'neg-35': '-35px',
+  'neg-67': '-67px',
   'neg-80': '-80px',
+  'neg-93': '-93px',
+  'neg-180': '-180px',
 } as const;
 
-// Border Radius Tokens
 export const radiusTokens = {
   none: '0px',
-  sm: '0.125rem',    // 2px
-  base: '0.25rem',   // 4px
-  md: '0.375rem',    // 6px
-  lg: '0.5rem',      // 8px
-  xl: '0.75rem',     // 12px
-  '2xl': '1rem',     // 16px
-  '3xl': '1.5rem',   // 24px
+  sm: '0.125rem',
+  base: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
+  '2xl': '1rem',
+  '3xl': '1.5rem',
   full: '9999px',
 };
 
-// Shadow Tokens
+/** Border width tokens (exact px for hairline / chrome borders) */
+export const borderWidthTokens = {
+  none: '0px',
+  hairline: '0.5px',
+  thin: '1px',
+  emphasis: '1.5px',
+  medium: '2px',
+  bold: '2.5px',
+  thick: '3px',
+  heavy: '4px',
+} as const;
+
+/**
+ * Control / icon / chrome size tokens (exact px for layout snapping).
+ * Prefer these for width/height — not spacing tokens.
+ */
+export const sizeTokens = {
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '48px',
+  '3xl': '64px',
+  '4xl': '80px',
+  '5xl': '96px',
+  '6xl': '96px',
+  '12': '12px',
+  '14': '14px',
+  '18': '18px',
+  '20': '20px',
+  '28': '28px',
+  '36': '36px',
+  '40': '40px',
+  '44': '44px',
+  '56': '56px',
+  colorBtn: '32px',
+} as const;
+
 export const shadowTokens = {
   none: 'none',
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -358,11 +408,13 @@ export const shadowTokens = {
   inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
 };
 
-// Animation Tokens
 export const animationTokens = {
   duration: {
+    instant: '100ms',
     fast: '150ms',
+    quick: '200ms',
     normal: '250ms',
+    moderate: '300ms',
     slow: '350ms',
     slower: '500ms',
   },
@@ -374,7 +426,6 @@ export const animationTokens = {
   },
 };
 
-// Motion tokens — canonical alias for animationTokens used by the design system pipeline
 export const motionTokens = {
   duration: animationTokens.duration,
   easing: animationTokens.easing,
@@ -386,7 +437,6 @@ export const motionTokens = {
   },
 };
 
-// Z-Index Tokens
 export const zIndexTokens = {
   hide: -1,
   auto: 'auto',
@@ -404,7 +454,6 @@ export const zIndexTokens = {
   tooltip: 1800,
 };
 
-// Breakpoint Tokens
 export const breakpointTokens = {
   xs: '320px',
   sm: '600px',
@@ -413,9 +462,6 @@ export const breakpointTokens = {
   xl: '1536px',
 };
 
-// Component Tokens
-// The `& Record<string, any>` allows dynamic property assignment after declaration
- 
 const _componentTokensBase = {
   button: {
     height: {
@@ -511,18 +557,15 @@ const _componentTokensBase = {
   },
   chart: {
     bar: {
-      // Heights for various presets used by the component
       barchart1Height: '65vh',
       histogramSize: '50px',
       defaultHeight: '76vh',
       tabletHeight: '600px',
-      // Pie chart height token (used by pie component)
       pieHeight: '335px',
-      // Dataset default colors (source of truth for component examples)
       dataset: {
-        ds1Bg: '#4BC0C0', // rgba(75,192,192,1)
+        ds1Bg: '#4BC0C0',
         ds1Border: '#4BC0C0',
-        ds2Bg: '#36A2EB', // rgba(54,162,235,1)
+        ds2Bg: '#36A2EB',
         ds2Border: '#36A2EB',
         datasetBg: '#4BC0C0',
         datasetBorder: '#36A2EB',
@@ -604,22 +647,18 @@ const _componentTokensBase = {
     headerMarginBottom: '2px',
     focusRing: '2px',
     letterSpacing: '0.5px',
-    /* Multi-level menu specific tokens */
     mlmMinWidth: '220px',
     mlmRootOffset: '43px',
   }
   ,
-  // Avatar tokens used across components
   avatar: {
     size: {
       small: '28px',
       medium: '32px',
       large: '40px',
     },
-    // fallback font-size for avatar initials
     initialsFontSize: '0.875rem',
   },
-  // Chat component size tokens
   chat: {
     height: '600px',
     maxHeight: '80vh',
@@ -627,9 +666,7 @@ const _componentTokensBase = {
     messageMaxWidth: '280px',
   }
   ,
-  // Kanban board component tokens
   kanban: {
-    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
     headerBgDark: '#1f5fb9',
     subcardBgDark: '#9fbce6',
     subcardBorderDark: '#81a7d9',
@@ -652,7 +689,6 @@ const _componentTokensBase = {
     addItemMargin: '6px 0px',
     subcardsContainerPadding: '0px 8px 8px 8px',
   },
-  // Map component tokens (heatmap palette)
   map: {
     heatmapPalette: [
       '#FFAF00',
@@ -670,159 +706,153 @@ const _componentTokensBase = {
     ],
   },
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const componentTokens: typeof _componentTokensBase & Record<string, any> = _componentTokensBase as any;
+export const componentTokens = {
+  ..._componentTokensBase,
 
-  // Toolbar component tokens (used by rds-comp-toolbar)
-  componentTokens.toolbar = {
+  toolbar: {
     height: '40px',
     heightMobile: '32px',
-    spacingXxs: spacingExact.xxs, // 2px
-  };
-
-// Component-specific tokens for details pane + e-signature (relocated)
-componentTokens.detailsPane = {
-  width: '338.098px',
-  height: '671px',
-  padding: '14px 7px',
-  headerMarginLeft: '17px',
-  tabUnderlineOffset: '-2px',
-  tabUnderlineHeight: '3px',
-  activityItemPadding: '8px 5px',
-  sectionLineHeight: '1px',
-  agentCardBeforeWidth: '5px',
-  agentNameMarginBottom: '3px',
-  agentRadioSize: '16px',
-  footerFixedMarginLeft: '-28px',
-  footerButtonHeight: '36px',
-  footerButtonMaxWidth: '360px',
-  favouriteCardImageMaxWidth: '340px',
-  carouselIndicatorsTop: '180px',
-  thumbnailViewWidth: '329px',
-  thumbnailViewHeight: '596px',
-  downloadButtonContainerMarginRight: '3px',
-  historyItemPadding: '10px 8px',
-  historyIconSize: '36px',
-  carouselMobileMarginRight: '-30px',
-  carouselMobileHeight: '152px',
-  mobileWidth: '281.098px',
-  mobileHeight: '543px',
-};
-
-componentTokens.eSignature = {
-  paddingBottom: '68px',
-  controlsPadding: '14px 24px 12px',
-  drawHeightCompact: '200px',
-  compactMaxWidth: '420px',
-  compactPaddingBottom: '56px',
-  uploadPanelMaxWidth: '420px',
-  uploadPanelPadding: '20px',
-  fileButtonHeight: '32px',
-  fileButtonMinWidth: '108px',
-  fileButtonFontSize: '13px',
-  fileButtonPadding: '0 12px',
-  fileTextHeight: '32px',
-  fileTextFontSize: '13px',
-  fileTextPaddingHorizontal: '12px',
-  fileDeleteHeight: '32px',
-  fileDeletePaddingHorizontal: '8px',
-  colorPaletteGap: '10px',
-  colorButtonSize: '32px',
-};
-
-// Pagination component tokens
-componentTokens.pagination = {
-  itemSize: {
-    xs: '18px',
-    sm: '22px',
-    md: '24px',
-    lg: '28px',
-    xl: '30px',
+    spacingXxs: spacingExact.xxs,
   },
-  buttonMinWidth: '60px',
-  textFieldWidth: '64px',
-  smallGapOffset: '3px',
-  dropdownMinWidth: '120px',
-  fontSize: {
-    xs: '0.65rem',
-    sm: '0.7rem',
-    md: '0.75rem',
-    lg: '0.85rem',
-  }
-};
 
-// Progress component tokens
-componentTokens.progress = {
-  dashWidth: '50px',
-  dashHeight: '5px',
-  blockWidth: '80px',
-  blockHeight: '40px',
-  stepSize: '40px',
-  stepSizeMobile: '30px',
-  connectorWidth: '60px',
-  connectorWidthMobile: '35px',
-  innerDotSize: '20px',
-  transition: '0.2s ease-in-out',
-};
+  detailsPane: {
+    width: '338.098px',
+    height: '671px',
+    padding: '14px 7px',
+    headerMarginLeft: '17px',
+    tabUnderlineOffset: '-2px',
+    tabUnderlineHeight: '3px',
+    activityItemPadding: '8px 5px',
+    sectionLineHeight: '1px',
+    agentCardBeforeWidth: '5px',
+    agentNameMarginBottom: '3px',
+    agentRadioSize: '16px',
+    footerFixedMarginLeft: '-28px',
+    footerButtonHeight: '36px',
+    footerButtonMaxWidth: '360px',
+    favouriteCardImageMaxWidth: '340px',
+    carouselIndicatorsTop: '180px',
+    thumbnailViewWidth: '329px',
+    thumbnailViewHeight: '596px',
+    downloadButtonContainerMarginRight: '3px',
+    historyItemPadding: '10px 8px',
+    historyIconSize: '36px',
+    carouselMobileMarginRight: '-30px',
+    carouselMobileHeight: '152px',
+    mobileWidth: '281.098px',
+    mobileHeight: '543px',
+  },
 
-// Range component tokens (used by rds-range)
-componentTokens.range = {
-  maxWidthSm: '370px',
-  maxWidthXs: '275px',
-  sliderWidthMobile: '288px',
-  sliderWidthTablet: '382px',
-  disabledOpacity: '0.6',
-};
+  eSignature: {
+    paddingBottom: '68px',
+    controlsPadding: '14px 24px 12px',
+    drawHeightCompact: '200px',
+    compactMaxWidth: '420px',
+    compactPaddingBottom: '56px',
+    uploadPanelMaxWidth: '420px',
+    uploadPanelPadding: '20px',
+    fileButtonHeight: '32px',
+    fileButtonMinWidth: '108px',
+    fileButtonFontSize: '13px',
+    fileButtonPadding: '0 12px',
+    fileTextHeight: '32px',
+    fileTextFontSize: '13px',
+    fileTextPaddingHorizontal: '12px',
+    fileDeleteHeight: '32px',
+    fileDeletePaddingHorizontal: '8px',
+    colorPaletteGap: '10px',
+    colorButtonSize: '32px',
+  },
 
-// Component tokens for emoji generator and empty state (used by components)
-componentTokens.emojiGenerator = {
-  width: '360px',
-  height: '420px',
-  iconSizeSm: '29px',
-  iconSizeXs: '22px',
-  popoverWidth: '45px',
-  inlineMinWidth: '36px',
-};
+  pagination: {
+    itemSize: {
+      xs: '18px',
+      sm: '22px',
+      md: '24px',
+      lg: '28px',
+      xl: '30px',
+    },
+    buttonMinWidth: '60px',
+    textFieldWidth: '64px',
+    smallGapOffset: '3px',
+    dropdownMinWidth: '120px',
+    fontSize: {
+      xs: '0.65rem',
+      sm: '0.7rem',
+      md: '0.75rem',
+      lg: '0.85rem',
+    },
+  },
 
-componentTokens.emptyState = {
-  maxWidth: '640px',
-  padding: '32px',
-  buttonPadding: '6px 15px',
-};
+  progress: {
+    dashWidth: '50px',
+    dashHeight: '5px',
+    blockWidth: '80px',
+    blockHeight: '40px',
+    stepSize: '40px',
+    stepSizeMobile: '30px',
+    connectorWidth: '60px',
+    connectorWidthMobile: '35px',
+    innerDotSize: '20px',
+    transition: '0.2s ease-in-out',
+  },
 
-// Table component tokens
-componentTokens.table = {
-  stickyMaxHeight: '440px',
-  actionsWidth: '120px',
-  checkbox: {
-    size: '18px',
-    borderWidth: '2px',
-    checkWidth: '6px',
-    checkHeight: '10px',
-    indeterminateWidth: '8px',
-    indeterminateHeight: '2px',
-    hoverRingSize: '4px',
-    focusRingSize: '2px',
+  range: {
+    maxWidthSm: '370px',
+    maxWidthXs: '275px',
+    sliderWidthMobile: '288px',
+    sliderWidthTablet: '382px',
     disabledOpacity: '0.6',
   },
-  focus: {
-    ringWidth: '2px',
-    ringOffset: '2px',
-  }
-};
 
-/**
- * Surface / UI chrome tokens — named semantic aliases used by build-rds-css-vars.ts.
- * These are NOT raw palette entries; they carry intent (e.g. "code background").
- */
-export const surfaceTokens = {
-  /** Dark code-block background */
-  codeBg: '#0b1220',
-  /** Light code-block foreground */
-  codeColor: '#e6eef6',
+  emojiGenerator: {
+    width: '360px',
+    height: '420px',
+    iconSizeSm: '29px',
+    iconSizeXs: '22px',
+    popoverWidth: '45px',
+    inlineMinWidth: '36px',
+    skinToneSize: '32px',
+  },
 
-  // ── Light-theme surface neutrals ──────────────────────────────────────────
-  // Adaptive Cards component tokens (component-scoped defaults)
+  emptyState: {
+    maxWidth: '640px',
+    padding: '32px',
+    buttonPadding: '6px 15px',
+  },
+
+  table: {
+    stickyMaxHeight: '440px',
+    actionsWidth: '120px',
+    checkbox: {
+      size: '18px',
+      borderWidth: '2px',
+      checkWidth: '6px',
+      checkHeight: '10px',
+      indeterminateWidth: '8px',
+      indeterminateHeight: '2px',
+      hoverRingSize: '4px',
+      focusRingSize: '2px',
+      disabledOpacity: '0.6',
+    },
+    focus: {
+      ringWidth: '2px',
+      ringOffset: '2px',
+    },
+  },
+
+  popover: {
+    containerMaxWidth: '400px',
+    containerMinWidth: '200px',
+    wideMinWidth: '300px',
+    wideMaxWidth: '600px',
+    narrowMinWidth: '150px',
+    narrowMaxWidth: '250px',
+    positionGridMaxWidth: '120px',
+    listMobileMaxWidth: '220px',
+    listMobileMinWidth: '120px',
+  },
+
   adaptiveCards: {
     thumbWidth: '20px',
     minThumbWidth: '32px',
@@ -849,8 +879,20 @@ export const surfaceTokens = {
     fontSizeMd: '15px',
     errorRing: '0 0 0 2px rgba(189,13,29,0.2)',
     imageListItemHeightMobile: '120px',
-    footballLogoSizeMobile: '72px'
+    footballLogoSizeMobile: '72px',
   },
+};
+
+/**
+ * Surface / UI chrome tokens — named semantic aliases used by build-rds-css-vars.ts.
+ * These are NOT raw palette entries; they carry intent (e.g. "code background").
+ */
+export const surfaceTokens = {
+  /** Dark code-block background */
+  codeBg: '#0b1220',
+  /** Light code-block foreground */
+  codeColor: '#e6eef6',
+
   /** Darkest neutral surface (light theme) */
   neutralDarker: '#202020',
   /** Dark neutral surface (light theme) */
@@ -860,7 +902,6 @@ export const surfaceTokens = {
   /** Light neutral surface (light theme) */
   neutralLight: '#E1E3EA',
 
-  // ── Dark-mode UI chrome ───────────────────────────────────────────────────
   /** Standard dark surface (cards, panels) */
   darkBase: '#424242',
   /** Hovered dark surface */
@@ -892,7 +933,6 @@ export const surfaceTokens = {
  * These represent specific design decisions for interactive states.
  */
 export const interactiveTokens = {
-  // ── Light-theme secondary button ──────────────────────────────────────────
   /** Secondary button hover background */
   secondaryBgHover: '#EBDCFF',
   /** Secondary button active background */
@@ -905,7 +945,6 @@ export const interactiveTokens = {
   /** Variant text background used for text-buttons hover (semi-transparent blue) */
   variantTextBg: 'rgba(60, 152, 255, 0.04)',
 
-  // ── Alert backgrounds ─────────────────────────────────────────────────────
   /** Alert success border (uses primary purple brand) */
   alertSuccessBorder: '#7825E9',
   /** Alert error background */
@@ -918,7 +957,6 @@ export const interactiveTokens = {
  * Alpha / overlay tokens — semi-transparent values used for overlays, actions, borders.
  */
 export const alphaTokens = {
-  // ── Overlays ──────────────────────────────────────────────────────────────
   /** Standard modal/overlay scrim */
   overlayDark: 'rgba(0, 0, 0, 0.5)',
   /** Heavy overlay scrim */
@@ -926,45 +964,50 @@ export const alphaTokens = {
   /** Semi-transparent grey overlay */
   overlaySemi: 'rgba(128, 128, 128, 0.4)',
 
-  // ── Light-theme action states ─────────────────────────────────────────────
   /** Hover state background (light) */
   actionHoverLight: 'rgba(0, 0, 0, 0.04)',
   /** Active state (light) */
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */
   actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+  /** Disabled background (light) — MUI action.disabledBackground */
+  actionDisabledBgLight: 'rgba(0, 0, 0, 0.12)',
+  /** Selected state background (light) — MUI action.selected */
+  actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
 
-  // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
   actionHoverDark: 'rgba(255, 255, 255, 0.08)',
   /** Active state (dark) */
   actionActiveDark: 'rgba(255, 255, 255, 0.16)',
   /** Disabled state (dark) */
   actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+  /** Disabled background (dark) — MUI action.disabledBackground */
+  actionDisabledBgDark: 'rgba(255, 255, 255, 0.12)',
+  /** Selected state background (dark) — MUI action.selected */
+  actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
 
-  // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
   borderOpacityLight: 'rgba(0, 0, 0, 0.12)',
   /** Dark-theme border with opacity */
   borderOpacityDark: 'rgba(255, 255, 255, 0.12)',
 
-  // ── Placeholder colors ────────────────────────────────────────────────────
   /** Placeholder text (light theme) */
   placeholderLight: 'rgba(0, 0, 0, 0.6)',
   /** Placeholder text (dark theme) */
   placeholderDark: 'rgba(255, 255, 255, 0.65)',
 
-  // ── Modal backdrop ────────────────────────────────────────────────────────
   /** Modal backdrop scrim */
   modalBackdrop: 'rgba(0, 0, 0, 0.5)',
+  /** Light chart tick / label backdrop */
+  backdropLight: 'rgba(255, 255, 255, 0.75)',
+  /** Generic soft shadow color (slider thumbs, overlays) */
+  shadowColor: 'rgba(0, 0, 0, 0.6)',
 
-  // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
   /** Toggle group border (dark) */
   toggleGroupBorderDark: 'rgba(255, 255, 255, 0.23)',
   /** Toggle group disabled border (dark) */
   toggleGroupBorderDisabledDark: 'rgba(100, 100, 100, 0.5)',
 
-  // ── Dark-theme elevation shadows ──────────────────────────────────────────
   /** Elevation shadow level 2 (dark) */
   elevation2Dark: '0 4px 8px rgba(0, 0, 0, 0.6)',
   /** Focus ring elevation (dark) */
@@ -1104,7 +1147,7 @@ export const tooltipTokens = {
  * E-signature component tokens.
  */
 export const esignatureTokens = {
-  drawHeight: 'var(--rds-signature-draw-height, 280px)',
+  drawHeight: '280px',
   spacingMd: 'var(--rds-spacing-md)',
 };
 
@@ -1129,6 +1172,8 @@ export const aiGradientTokens = {
  */
 export const switchTokens = {
   disabledSecondaryBg: 'rgba(24, 39, 187, 0.24)',
+  disabledWarningBg: 'rgba(255, 152, 0, 0.24)',
+  disabledDefaultBg: 'rgba(158, 158, 158, 0.24)',
   /** Track border radius for styled switches (exact 25px when requested) */
   trackBorderRadius: '25px',
 };
@@ -1161,7 +1206,7 @@ export const semanticAliasTokens = {
   /** On-secondary contrast text */
   colorOnSecondary: '#ffffff',
   /** Popover surface border */
-    popoverSurfaceBorder: '1px solid var(--rds-border-default)', // uses theme-aware border-default token
+    popoverSurfaceBorder: '1px solid var(--rds-border-default)',
   /** Sidebar overlay background */
   sidebarOverlayBg: 'var(--rds-action-hover)',
   /** Font size body alias */
@@ -1213,11 +1258,45 @@ export const mapTokens = {
   },
 };
 
+/**
+ * Shared chart series + chrome palette.
+ * Emitted as --rds-chart-series-* / --rds-chart-axis / --rds-chart-muted.
+ * Prefer these over per-file hex in chart components and *.figma.tsx demos.
+ */
 export const chartPaletteTokens = {
   dataset: {
     teal: '#4BC0C0',
     blue: '#36A2EB',
   },
+  /** Ordered series colors for multi-dataset / pie / doughnut / gauge charts */
+  series: {
+    1: '#FF6384',
+    2: '#36A2EB',
+    3: '#FFCE56',
+    4: '#4BC0C0',
+    5: '#FF9F40',
+    6: '#9966FF',
+    7: '#28A745',
+    8: '#17A2B8',
+    9: '#FFC107',
+    10: '#FD7E14',
+    11: '#6F42C1',
+    12: '#DC3545',
+  },
+  /** Extra named colors used by area/stacked/radar demos */
+  named: {
+    cyanBright: '#4DCFFF',
+    purple: '#863BFF',
+    mint: '#62D5D9',
+    lavender: '#928AE0',
+    sand: '#EDB371',
+    greenSoft: '#83BE5A',
+    blueBright: '#059BFF',
+    blueSolid: '#0000FF',
+  },
+  /** Axis ticks / labels / muted chrome (was hardcoded #666 across figma files) */
+  axis: '#666666',
+  muted: '#666666',
 };
 
 /** Emoji skin-tone modifier colors (Unicode standard) */
@@ -1237,25 +1316,26 @@ export const eSignaturePenColors = {
   red:   '#FF0000',
 };
 
-/** File-type icon colors — used by rds-comp-tree-structure/fileTypeIcons.tsx */
+/** File-type icon colors */
 export const fileTypeIconColors = {
-  blue:      '#2534E9',  // CSS, C++, TypeScript, JavaScript
-  pink:      '#F55385',  // SQL / database
-  orange:    '#E37933',  // Python / Jupyter
-  lightGray: '#D4D7D6',  // Plain text / unknown
-  yellow:    '#CBCB41',  // YAML / config
-  purple:    '#A074C4',  // Env / Markdown
-  red:       '#CC3E44',  // Git / error
-  steel:     '#6D8086',  // Settings / config
-  darkSteel: '#41535B',  // Git / Stencil
+  blue:      '#2534E9',
+  pink:      '#F55385',
+  orange:    '#E37933',
+  lightGray: '#D4D7D6',
+  yellow:    '#CBCB41',
+  purple:    '#A074C4',
+  red:       '#CC3E44',
+  steel:     '#6D8086',
+  darkSteel: '#41535B',
 };
 
-// Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
   typography: typographyTokens,
   spacing: spacingTokens,
   radius: radiusTokens,
+  borderWidth: borderWidthTokens,
+  size: sizeTokens,
   shadow: shadowTokens,
   animation: animationTokens,
   zIndex: zIndexTokens,
@@ -1306,3 +1386,177 @@ export const syntaxTokens = {
 } as const;
 
 export default designTokens;
+
+export const componentStyleTokens = {
+  'appbar-badge-bg-fallback': 'rgba(25, 118, 210, 0.1)',
+  'audio-player-primary-container': 'rgba(25, 118, 210, 0.1)',
+  'audio-player-primary-outline': 'rgba(25, 118, 210, 0.3)',
+  'audio-player-primary-overlay': 'rgba(25, 118, 210, 0.2)',
+  'audio-player-primary-overlay-soft': 'rgba(15, 119, 223, 0.2)',
+  'audio-player-primary-overlay-strong': 'rgba(25, 118, 210, 0.3)',
+  'audio-player-surface-disabled': 'rgba(108, 117, 125, 0.15)',
+  'audio-player-volume-slider-height': '120px',
+  'autocomplete-option-selected-bg': 'rgba(135, 46, 252, 0.12)',
+  'autocomplete-overflow-chip-surface': 'rgba(45, 44, 44, 0.04)',
+  'avatar-font-size-largest': '1.3125rem',
+  'avatar-font-size-overflow-smallest': '0.5rem',
+  'badge-shadow-color': 'rgba(108, 46, 183, 0.08)',
+  'button-dropdown-menu-max-height': '220px',
+  'button-dropdown-panel-min-width': '176px',
+  'card-shadow-base': '#102d56',
+  'color-picker-checkerboard': '#cccccc',
+  'comments-box-send-button-min-width': '26px',
+  'comp-map-heatmap-fade-lime': '#b5e43e',
+  'comp-map-heatmap-fade-orange': '#fc4703',
+  'comp-map-text': '#333333',
+  'emoji-generator-focus-ring-color': 'rgba(59, 130, 246, 0.2)',
+  'emoji-generator-hover-shadow-color': 'rgba(59, 130, 246, 0.3)',
+  'kanban-surface-subtle': 'rgba(144, 76, 236, 0.04)',
+  'layout-card-shadow-color': 'rgba(77, 82, 89, 0.07)',
+  'loader-ball-amber': 'rgba(233, 169, 32, 0.75)',
+  'loader-ball-cyan': 'rgba(111, 202, 220, 0.75)',
+  'loader-ball-green': 'rgba(61, 184, 143, 0.75)',
+  'loader-ball-pink': 'rgba(225, 20, 98, 0.75)',
+  'notification-icon-size': '38px',
+  'product-tour-dot-bg-color': 'rgba(124, 58, 237, 0.3)',
+  'product-tour-dot-shadow-color': 'rgba(135, 46, 252, 0.15)',
+  'product-tour-shadow-color': 'rgba(162, 89, 255, 0.18)',
+  'toggle-button-border-disabled-base': '#646464',
+  'adaptive-cards-error-font-size': '0.8rem',
+  'adaptive-cards-league-letter-spacing': '0.3px',
+  'adaptive-cards-line-height-tight': '1.1',
+  'adaptive-cards-title-text-font-size': '1.3rem',
+  'appbar-action-font-size-xs': '10px',
+  'appbar-language-menu-max-height': '360px',
+  'appbar-language-menu-max-height-sm': '300px',
+  'appbar-language-menu-max-height-xs': '280px',
+  'appbar-language-menu-max-width': '260px',
+  'appbar-language-menu-width': '220px',
+  'appbar-language-menu-width-sm': '180px',
+  'appbar-line-height-tight': '1.1',
+  'appbar-search-width-lg': '140px',
+  'appbar-search-width-md': '120px',
+  'appbar-settings-offset': '72px',
+  'appbar-title-reserved-width': '130px',
+  'avatar-name-line-height': '1.1',
+  'badge-line-height': '20px',
+  'badge-small-font-size': '0.625rem',
+  'banner-primary-button-font-size': '0.8125rem',
+  'bottom-navigation-icon-font-size': '1.4rem',
+  'bottom-navigation-label-font-size-sm': '0.7rem',
+  'button-dropdown-item-line-height': '1.35',
+  'carousel-subtitle-font-size': '0.85rem',
+  'carousel-subtitle-font-size-sm': '0.8rem',
+  'code-snippet-line-number-line-height': '1.55',
+  'comments-box-hover-duration': '0.12s',
+  'comments-box-line-height-lg': '20px',
+  'comments-box-line-height-md': '18px',
+  'comments-box-line-height-sm': '16px',
+  'contribution-label-letter-spacing': '-0.01em',
+  'contribution-month-letter-spacing': '0.02em',
+  'counter-footer-font-size': '1.1rem',
+  'counter-header-font-size': '1.2rem',
+  'dashboard-aside-width': '320px',
+  'dashboard-badge-font-size': '10px',
+  'dashboard-caption-font-size': '11px',
+  'dashboard-chip-font-size': '12px',
+  'dashboard-icon-box-size': '38px',
+  'dashboard-label-font-size': '13px',
+  'dashboard-sidebar-logo-height': '26px',
+  'dashboard-tag-letter-spacing': '0.2px',
+  'dashboard-title-letter-spacing': '-0.3px',
+  'dashboard-value-letter-spacing': '-0.5px',
+  'date-and-time-picker-font-size-sm': '0.8rem',
+  'datepicker-font-size-md': '0.9rem',
+  'datepicker-header-select-font-size': '0.8125rem',
+  'dialog-content-line-height': '1.45',
+  'dialog-line-height-md': '20px',
+  'dialog-line-height-sm': '16px',
+  'e-signature-disabled-text-line-height': '1.35',
+  'e-signature-letter-spacing': '0.2px',
+  'filter-button-header-title-line-height': '22px',
+  'grid-control-min-width': '120px',
+  'grid-edit-column-width': '150px',
+  'grid-filter-label-min-width': '87px',
+  'grid-font-size-xs': '10px',
+  'grid-letter-spacing-caps': '0.3px',
+  'grid-panel-border-radius': '4px',
+  'kanban-board-small-font-size': '0.65rem',
+  'list-secondary-line-height': '1.43',
+  'list-subheader-line-height': '48px',
+  'loader-bounce-easing': 'cubic-bezier(0.3, 1, 0, 1)',
+  'loader-dash-duration': '1.4s',
+  'loader-duration-1s': '1s',
+  'loader-duration-1-5s': '1.5s',
+  'loader-duration-2s': '2s',
+  'loader-duration-2-5s': '2.5s',
+  'loader-duration-3s': '3s',
+  'loader-duration-5s': '5s',
+  'loader-rolling-rock-easing': 'cubic-bezier(.79, 0, .47, .97)',
+  'loader-rotate-delay': '0.1s',
+  'map-label-letter-spacing': '0.2px',
+  'menu-avatar-font-size': '0.5rem',
+  'menu-enter-duration': '120ms',
+  'menu-exit-duration': '80ms',
+  'menu-item-font-size-lg': '1.0625rem',
+  'menu-item-font-size-sm': '0.8rem',
+  'multi-level-menu-item-line-height-lg': '24px',
+  'popover-list-font-size': '0.95rem',
+  'progress-indeterminate-duration': '1.5s',
+  'spinner-large-line-height': '1.6',
+  'switch-warning-base': '#ff9800',
+  'tree-structure-color-duration': '0.12s',
+  'typography-body1-letter-spacing': '0.00938em',
+  'typography-body2-letter-spacing': '0.01071em',
+  'typography-body2-line-height': '1.43',
+  'typography-caption-letter-spacing': '0.03333em',
+  'typography-caption-line-height': '1.66',
+  'typography-h1-letter-spacing': '-0.01562em',
+  'typography-h1-line-height': '1.167',
+  'typography-h2-letter-spacing': '-0.00833em',
+  'typography-h3-line-height': '1.167',
+  'typography-h4-letter-spacing': '0.00735em',
+  'typography-h4-line-height': '1.235',
+  'typography-h5-line-height': '1.334',
+  'typography-h6-letter-spacing': '0.0075em',
+  'typography-h6-line-height': '1.6',
+  'typography-overline-letter-spacing': '0.08333em',
+  'typography-overline-line-height': '2.66',
+} as const;
+
+export const componentModeTokens = {
+  light: {
+    'audio-player-base-background': 'var(--rds-color-surface-variant)',
+    'audio-player-base-color': 'var(--rds-color-on-surface-variant)',
+    'audio-player-base-hover-disabled-background': 'var(--rds-color-primary-container)',
+    'audio-player-base-hover-disabled-border-color': 'var(--rds-color-primary)',
+    'audio-player-edition-btn-active-background': 'var(--rds-color-primary-container)',
+    'audio-player-edition-btn-active-color': 'var(--rds-color-primary)',
+    'audio-player-settings-modal-background': 'var(--rds-color-surface, white)',
+    'backdrop-bg': 'var(--rds-overlay-dark)',
+    'collapse-story-box-text': 'var(--rds-text-primary)',
+    'collapse-story-box-variant-text': 'var(--rds-text-primary)',
+    'date-and-time-picker-muidatecalendar-root-background': 'var(--rds-color-surface)',
+    'date-and-time-picker-muidaycalendar-weekdaylabel-color': 'var(--rds-color-text-secondary)',
+    'empty-state-title-color': 'var(--rds-text-primary)',
+    'toast-accent-info-color': 'var(--rds-color-info, var(--rds-info-main))',
+    'toast-accent-success-color': 'var(--rds-color-success, var(--rds-success-main))',
+  },
+  dark: {
+    'audio-player-base-background': 'var(--rds-color-surface-overlay, color-mix(in srgb, var(--rds-color-white) 5%, transparent))',
+    'audio-player-base-color': 'var(--rds-color-on-surface-overlay, color-mix(in srgb, var(--rds-color-white) 70%, transparent))',
+    'audio-player-base-hover-disabled-background': 'var(--rds-color-primary-overlay-soft, var(--rds-audio-player-primary-overlay-soft))',
+    'audio-player-base-hover-disabled-border-color': 'var(--rds-color-primary-light)',
+    'audio-player-edition-btn-active-background': 'var(--rds-color-primary-overlay, var(--rds-audio-player-primary-overlay))',
+    'audio-player-edition-btn-active-color': 'var(--rds-color-primary-light)',
+    'audio-player-settings-modal-background': 'var(--rds-color-surface, black)',
+    'backdrop-bg': 'rgba(128, 128, 128, 0.4)',
+    'collapse-story-box-text': 'var(--rds-color-on-surface-dark)',
+    'collapse-story-box-variant-text': 'color-mix(in srgb, var(--rds-color-black) 87%, transparent)',
+    'date-and-time-picker-muidatecalendar-root-background': 'var(--rds-color-surface-dark)',
+    'date-and-time-picker-muidaycalendar-weekdaylabel-color': 'var(--rds-color-text-secondary-dark)',
+    'empty-state-title-color': 'var(--rds-neutral-0)',
+    'toast-accent-info-color': 'var(--rds-color-on-surface, var(--rds-text-primary))',
+    'toast-accent-success-color': 'var(--rds-color-primary, var(--rds-primary-main))',
+  },
+} as const;

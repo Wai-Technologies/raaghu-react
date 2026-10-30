@@ -1,81 +1,100 @@
-import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartData, ChartOptions } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-stacked.scss";
 
-export interface RdsCompStackedProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+/** Props for {@link RdsCompStackedChart}. */
+export interface RdsCompStackedProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"bar">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: ChartData<"bar">["labels"];
+  /** Chart.js bar options (never mutated). Axes default to `stacked: true`; pass `false` to opt out. */
+  options: ChartOptions<"bar">;
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartData<"bar">["datasets"];
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** Accessible label of the chart. Default "Stacked chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompStackedChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompStackedProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    chartRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    chartRef.current = new Chart(ctx, {
+  const resolved = resolveChartData("RdsCompStackedChart", data, labels, dataSets);
+  const { canvasRef } = useChart<"bar">(
+    {
       type: "bar",
-      data: chartData,
-      options: {
-        ...chartOptions,
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      overrides: (chartOptions) => ({
         maintainAspectRatio: false,
         scales: {
           ...(chartOptions?.scales || {}),
           x: {
+            stacked: true,
             ...(chartOptions?.scales?.x || {}),
             offset: true,
-            categoryPercentage: 0.1,
-            barPercentage: 0.1,
             ticks: {
               ...(chartOptions?.scales?.x?.ticks || {}),
               padding: 20,
               align: "center",
             },
           },
+          y: {
+            stacked: true,
+            ...(chartOptions?.scales?.y || {}),
+          },
         },
-      },
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, dataSets, options, themeMode]);
+      }),
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
+    },
+    [resolved.labels, resolved.datasets, options, height, width]
+  );
 
   return (
-    <div className="stack-chart-container">
+    <Box
+      {...rest}
+      ref={ref}
+      className={clsx("rds-comp-chart-stacked", "stack-chart-container", className)}
+      sx={sx}
+    >
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Stacked chart"}
+        aria-label={resolveChartLabel("RdsCompStackedChart", ariaLabel, chartLabel, "Stacked chart")}
       />
-    </div>
+    </Box>
   );
 };
 

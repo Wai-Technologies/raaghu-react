@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsCounter from './rds-counter';
@@ -11,11 +11,43 @@ const meta: Meta<typeof RdsCounter> = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['onChange', 'controlsClassName','disabled','defaultValue'],
+          include: [
+            'label',
+            'min',
+            'max',
+            'step',
+            'size',
+            'variant',
+            'layout',
+            'disabled',
+            'selected',
+            'showInput',
+            'showTitle',
+            'required',
+            'placeholder',
+            'className',
+            'sx',
+            'ref',
+          ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the root element. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
@@ -31,6 +63,11 @@ const meta: Meta<typeof RdsCounter> = {
     },
     disabled: {
       control: 'boolean',
+      description: 'Disables the counter and its controls',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Applies the selected visual treatment',
     },
     showInput: {
       control: 'boolean',
@@ -44,25 +81,40 @@ const meta: Meta<typeof RdsCounter> = {
     step: {
       control: 'number',
     },
-    controlsClassName: {
-      control: false,
-    },
     showTitle: { control: 'boolean', },
-    isMandatory: { control: 'boolean', description: 'Show required indicator on label.' },
-    state: {
-      control: 'select',
-      options: ['default', 'selected', 'disabled'],
-      description: 'Visual state: Default, Selected or Disabled',
-    },
+    required: { control: 'boolean', description: 'Show required indicator on label.' },
     placeholder: {
       control: 'text',
       description: 'Placeholder text shown when input is empty',
     },
-    titleText: {
+    label: {
       control: 'text',
       description: 'Label text displayed above the counter',
     },
+    value: {
+      control: { type: 'number' },
+      description: 'Controlled value. Leave unset for uncontrolled (plus/minus update internal state).',
+    },
   },
+};
+
+const CounterWithState = (args: React.ComponentProps<typeof RdsCounter>) => {
+  const [count, setCount] = useState<number | undefined>(
+    typeof args.value === 'number' ? args.value : typeof args.defaultValue === 'number' ? args.defaultValue : undefined
+  );
+  React.useEffect(() => {
+    if (typeof args.value === 'number') setCount(args.value);
+  }, [args.value]);
+  return (
+    <RdsCounter
+      {...args}
+      value={count}
+      onChange={(next) => {
+        setCount(next);
+        (args.onChange as ((value: number) => void) | undefined)?.(next);
+      }}
+    />
+  );
 };
 
 export default meta;
@@ -70,7 +122,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    titleText: 'Quantity',
+    label: 'Quantity',
     min: 0,
     max: 100,
     size: 'medium',
@@ -80,12 +132,17 @@ export const Default: Story = {
     showInput: true,
     step: 1,
     showTitle: true,
-    isMandatory: false,
+    required: false,
     placeholder: '00',
+    // Keep uncontrolled — do not set value/defaultValue so placeholder "00" shows (matches production).
+    value: undefined,
+    defaultValue: undefined,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => {
+    const { value: _value, defaultValue: _defaultValue, ...rest } = args;
+    return <RdsCounter {...rest} />;
+  },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
     const display = canvasElement.querySelector('input, [class*=value], [class*=count]') || canvasElement.firstElementChild;
@@ -95,7 +152,7 @@ export const Default: Story = {
 
 export const Compact: Story = {
   args: {
-    titleText: 'Items',
+    label: 'Items',
     variant: 'compact',
     min: 1,
     max: 10,
@@ -104,20 +161,22 @@ export const Compact: Story = {
     disabled: false,
     showInput: true,
     placeholder: '00',
+    defaultValue: 1,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const WithoutInput: Story = {
   args: {
-    titleText: 'Score',
+    label: 'Score',
     showInput: false,
     min: 0,
     max: 10,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 0,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const Sizes: Story = {
@@ -127,22 +186,23 @@ export const Sizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'size'] } },
   render: (args) => {
     return (
       <Box className="rds-counter__responsive">
         <RdsCounter
           {...args}
-          titleText="Small"
+          label="Small"
           size="small"
         />
         <RdsCounter
           {...args}
-          titleText="Medium"
+          label="Medium"
           size="medium"
         />
         <RdsCounter
           {...args}
-          titleText="Large"
+          label="Large"
           size="large"
         />
       </Box>
@@ -158,22 +218,23 @@ export const CompactSizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'size'] } },
   render: (args) => {
     return (
       <Box className="rds-counter__responsive">
         <RdsCounter
           {...args}
-          titleText="Small"
+          label="Small"
           size="small"
         />
         <RdsCounter
           {...args}
-          titleText="Medium"
+          label="Medium"
           size="medium"
         />
         <RdsCounter
           {...args}
-          titleText="Large"
+          label="Large"
           size="large"
         />
       </Box>
@@ -183,26 +244,28 @@ export const CompactSizes: Story = {
 
 export const WithConstraints: Story = {
   args: {
-    titleText: 'Limited Range (2-8)',
+    label: 'Limited Range (2-8)',
     min: 2,
     max: 8,
     step: 1,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 2,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const StepExample: Story = {
   args: {
-    titleText: 'Step by 5',
+    label: 'Step by 5',
     min: 0,
     max: 100,
     step: 5,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 0,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const Disabled: Story = {
@@ -213,6 +276,7 @@ export const Disabled: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'variant', 'value'] } },
   render: (args) => {
     const defaultDisabled = 5;
     const compactDisabled = 3;
@@ -222,14 +286,14 @@ export const Disabled: Story = {
           {...args}
           value={defaultDisabled}
           onChange={() => {}}
-          titleText="Disabled Default"
+          label="Disabled Default"
           variant="default"
         />
         <RdsCounter
           {...args}
           value={compactDisabled}
           onChange={() => {}}
-          titleText="Disabled Compact"
+          label="Disabled Compact"
           variant="compact"
         />
       </Box>
@@ -249,7 +313,7 @@ export const Interactive: Story = {
   },
   parameters: {
     controls: {
-      exclude: ['titleText', 'showTitle', 'isMandatory'],
+      exclude: ['label', 'showTitle', 'required'],
     },
   },
   render: (args) => {

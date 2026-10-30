@@ -1,12 +1,47 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { Typography, Box } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import RdsDialog from './rds-dialog';
 import RdsButton from '../rds-button/rds-button';
 import RdsTypography from '../rds-typography/rds-typography';
 
+type DialogArgs = ComponentProps<typeof RdsDialog>;
+
+/** Keeps Storybook `open` control in sync with local open/close interactions. */
+const DialogWithOpenControl = (args: DialogArgs) => {
+  const [open, setOpen] = useState(Boolean(args.open));
+  useEffect(() => {
+    setOpen(Boolean(args.open));
+  }, [args.open]);
+
+  return (
+    <>
+      <RdsButton
+        changeLeftIcon="add"
+        changeRightIcon="save"
+        color="primary"
+        layout="text-only"
+        shape="rectangle"
+        showLeftIcon
+        size="medium"
+        variant="filled"
+        textCase="uppercase"
+        onClick={() => setOpen(true)}
+      >
+        {' Open Dialog'}
+      </RdsButton>
+      <RdsDialog
+        {...args}
+        open={open}
+        onClose={(event, reason) => {
+          setOpen(false);
+          args.onClose?.(event, reason);
+        }}
+      />
+    </>
+  );
+};
 
 const meta: Meta = {
   title: 'Elements/Dialog',
@@ -21,19 +56,23 @@ const meta: Meta = {
   tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-  size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
+    maxWidth: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', false],
+      description:
+        'Dialog max width (MUI 5-breakpoint scale). Unlike button/badge size, dialogs use xs–xl. Pass false to remove the max-width cap so the paper sizes to its content.',
+    },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
-    variant: { control: { type: 'select' }, options: ['standard', 'default'] },
-    ShowDissmiss: { control: 'boolean' },
-    showTitle: { control: 'boolean' },
+    variant: { control: { type: 'select' }, options: ['default', 'confirm'] },
+    showCloseButton: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
-    ShowPrimary: {
+    showPrimary: {
       control: 'boolean'
     },
-    ShowSecondary: {
+    showSecondary: {
       control: 'boolean'
     }
   },
@@ -43,36 +82,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog
-          {...args}
-          open={open}
-          onClose={() => setOpen(false)}
-        />
-      </>
-    );
-  },
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
-    size: 'medium',
+    open: false,
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Dialog Title',
+    variant: 'confirm',
+    showPrimary: true,
+    showSecondary: true,
     children: (
       <div>
         <RdsTypography variant="body1">
@@ -84,118 +102,48 @@ export const Default: Story = {
 };
 
 export const FullWidth: Story = {
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog
-          {...args}
-          open={open}
-          onClose={() => setOpen(false)}
-        />
-      </>
-    );
-  },
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
+    open: false,
     fullWidth: true,
-  size: 'small',
+    maxWidth: 'sm',
     title: 'Full Width Dialog',
+
     children: (
       <Typography variant="body1">
         This dialog uses the full width available for its size.
       </Typography>
     ),
+
+    fullScreen: false
   },
 };
 
 export const Interactive: Story = {
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog
-          {...args}
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <Typography variant="body1" gutterBottom>
-            This dialog can be opened and closed.
-          </Typography>
-          {args.variant !== 'standard' && (
-            <RdsButton style="filled" onClick={() => setOpen(false)}>
-              Close
-            </RdsButton>
-          )}
-        </RdsDialog>
-      </>
-    );
-  },
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
+    open: false,
     title: 'Interactive Dialog',
-    ShowDissmiss: true,
-    size: 'small',
+    showCloseButton: true,
+    maxWidth: 'sm',
     fullWidth: true,
     variant: 'default',
+
+    children: (
+      <Typography variant="body1" gutterBottom>
+        This dialog can be opened and closed.
+      </Typography>
+    ),
+
+    fullScreen: false
   },
 };
 
 export const LargeContent: Story = {
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog
-          {...args}
-          open={open}
-          onClose={() => setOpen(false)}
-        />
-      </>
-    );
-  },
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
-    size: 'medium',
+    open: false,
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Large Content Dialog',
     children: (
@@ -215,31 +163,31 @@ export const LargeContent: Story = {
 
 export const WithActions: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
           color="primary"
           layout="text-only"
           shape="rectangle"
-          showLeftIcon
           size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
           onClose={() => setOpen(false)}
           actions={(
             <>
-              <RdsButton style="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
-              <RdsButton style="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
+              <RdsButton variant="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
+              <RdsButton variant="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
             </>
           )}
         />
@@ -247,7 +195,8 @@ export const WithActions: Story = {
     );
   },
   args: {
-    size: 'medium',
+    open: false,
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Confirm Action',
     children: (
@@ -259,14 +208,15 @@ export const WithActions: Story = {
 };
 export const WithIcon: Story = {
   args: {
-    size: 'medium',
+    open: false,
+    maxWidth: 'md',
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
-    ShowDissmiss: true,
-    variant: 'standard',
-    ShowPrimary: true,
-    ShowSecondary: true,
+    showCloseButton: true,
+    variant: 'confirm',
+    showPrimary: true,
+    showSecondary: true,
     children: (
       <Box display="flex" flexDirection="column" alignItems="center" width="100%" sx={{ mt: 1, mb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2, mt: 1 }}>
@@ -281,48 +231,27 @@ export const WithIcon: Story = {
     ),
   },
   argTypes: {
-    ShowPrimary: { control: false },
-    ShowSecondary: { control: false },
+    showPrimary: { control: false },
+    showSecondary: { control: false },
   },
   parameters: {
     controls: {
       include: [
-        'size',
+        'maxWidth',
         'fullWidth',
         'fullScreen',
         'title',
-        'ShowDissmiss',
+        'showCloseButton',
         'variant',
-        'ShowPrimary',
-        'ShowSecondary',
-        'showTitle',
+        'showPrimary',
+        'showSecondary',
+        'primaryText',
+        'secondaryText',
       ],
     },
     docs: { disable: true },
 
   },
 
-  render: (args) => {
-    const { showTitle = true, ...rest } = args;
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
-      </>
-    );
-  },
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
 };

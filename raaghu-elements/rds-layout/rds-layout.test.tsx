@@ -5,10 +5,8 @@ import RdsLayout from './rds-layout';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-layout.scss', () => ({}));
 
-// Mock RdsHeader component
 jest.mock('../rds-header/rds-header', () => {
   return function DummyHeader(props: any) {
     return (
@@ -424,12 +422,12 @@ describe('RdsLayout', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional Container props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsLayout data-testid="custom-layout" className="custom-class">
           <div>Content</div>
         </RdsLayout>
       );
-      expect(screen.getByTestId('custom-layout')).toBeInTheDocument();
+      expect(screen.getByTestId('custom-layout')).toHaveClass('rds-layout', 'custom-class');
     });
 
     it('should apply custom className', () => {
@@ -438,8 +436,8 @@ describe('RdsLayout', () => {
           <div>Content</div>
         </RdsLayout>
       );
-      const muiContainer = container.querySelector('.MuiContainer-root');
-      expect(muiContainer).toHaveClass('my-layout');
+      const root = container.querySelector('.rds-layout');
+      expect(root).toHaveClass('my-layout');
     });
 
     it('should apply style prop', () => {
@@ -597,5 +595,14 @@ describe('RdsLayout', () => {
       expect(main).toBeInTheDocument();
       expect(screen.getByText('Page Title')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('sets the header height css var and margin-top from sx only', () => {
+    const { container } = render(<RdsLayout headerHeight={72} header={{ title: 'T' }}>x</RdsLayout>);
+    const main = container.querySelector('main') as HTMLElement;
+    expect(main).toHaveStyle('margin-top: 72px');
+    expect(main.getAttribute('style')).toBeNull();
+    expect(container.firstChild).toHaveStyle('--rds-header-height: 72px');
   });
 });

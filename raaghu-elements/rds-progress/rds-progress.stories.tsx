@@ -12,14 +12,29 @@ const meta: Meta<typeof RdsProgress> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    style: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the progress root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the progress root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the progress root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
+    shape: {
       control: {
         type: 'select',
       },
       options: ['circular', 'line', 'stepper', 'dash', 'block'],
-      description: 'The visual style of the progress indicator',
+      description: 'The shape of the progress indicator',
     },
-    variant: { control: 
+    mode: { control:
       { type: 'select' },
       options: ['determinate', 'indeterminate', 'buffer', 'query'] 
     },
@@ -37,13 +52,13 @@ const meta: Meta<typeof RdsProgress> = {
       options: [0, 1, 2, 3, 4, 5],
       description: 'Progress steps (1=20%, 2=40%, 3=60%, 4=80%, 5=100%). Only works for circular, stepper, dash, and block styles.',
     },
-    stepperType: {
+    stepIcon: {
       control: {
         type: 'select',
       },
-      options: ['number', 'circle'],
-      description: 'The type of stepper indicator. Only applies when style is stepper.',
-      if: { arg: 'style', eq: 'stepper' },
+      options: ['number', 'dot'],
+      description: 'The type of stepper indicator. Only applies when shape is stepper.',
+      if: { arg: 'shape', eq: 'stepper' },
     },
   }
 };
@@ -51,10 +66,10 @@ const meta: Meta<typeof RdsProgress> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Circular: Story = {
+export const Default: Story = {
   args: {
-    style: 'circular',
-    variant: 'determinate',
+    shape: 'circular',
+    mode: 'determinate',
     steps: 4,
     showLabel: true,
     color: 'primary',
@@ -64,38 +79,44 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+Default.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'className', 'sx', 'ref'] } };
+
+export const Circular: Story = { ...Default };
 
 export const Stepper: Story = {
   args: {
-    style: 'stepper',
+    shape: 'stepper',
     steps: 2,
     color: 'primary',
-    stepperType: 'circle',
+    stepIcon: 'dot',
   },
 };
-Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepperType'] } };
+Stepper.parameters = { controls: { include: ['shape', 'steps', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
 
 export const ColorVariants: Story = {
   args: {
-    variant: 'determinate',
+    mode: 'determinate',
     value: 60,
+    valueBuffer: 80,
     color: 'secondary',
   },
 };
-ColorVariants.parameters = { controls: { include: ['variant', 'value', 'color'] } };
+ColorVariants.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'color', 'className', 'sx', 'ref'] } };
 
 export const Indeterminate: Story = {
   args: {
-    variant: 'indeterminate',
+    mode: 'indeterminate',
+    value: 60,
+    valueBuffer: 80,
   },
 };
-Indeterminate.parameters = { controls: { include: ['variant'] } };
+Indeterminate.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'className', 'sx', 'ref'] } };
 
 export const Linear: Story = {
   args: {
-    variant: 'determinate',
+    mode: 'determinate',
     value: 75,
+    valueBuffer: 90,
   },
   decorators: [
     (Story) => (
@@ -105,6 +126,5 @@ export const Linear: Story = {
     ),
   ],
 };
-Linear.parameters = { controls: { include: ['variant', 'value'] } };
+Linear.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'className', 'sx', 'ref'] } };
 
-export const Default: Story = { ...Circular };

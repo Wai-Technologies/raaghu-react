@@ -1,6 +1,6 @@
 import React from "react"
 import  RdsDatepicker from "./rds-comp-datepicker"
-import { DatePickerLayout, DatePickerState, DatePickerStyleType } from "./rds-comp-datepicker.types"
+import { DatePickerLayout } from "./rds-comp-datepicker.types"
 import figma from "@figma/code-connect"
 
 
@@ -9,17 +9,12 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=443-15972",
   {
     props: {
-      isMandatory: figma.boolean("❗ - Is Mandatory"),
+      required: figma.boolean("❗ - Is Mandatory"),
       showTitle: figma.boolean("🆕 - Show Title"),
-      placeholderText: figma.string("✏️ Placeholder Text"),
-      state: figma.enum("💡 State", {
-        Default: DatePickerState.Default,
-        Expanded: DatePickerState.Expanded,
-        Selected: DatePickerState.Selected,
-      }),
-      datePickerStyleType: figma.enum("⚠️ Type", {
-        Default: DatePickerStyleType.Dropdown,
-        Selector: DatePickerStyleType.Selector,
+      placeholder: figma.string("✏️ Placeholder Text"),
+      variant: figma.enum("⚠️ Type", {
+        Default: "dropdown",
+        Selector: "selector",
       }),
 
       type: figma.enum("⚠️ Type", {
@@ -28,11 +23,10 @@ figma.connect(
       })
     },
     example: (props) =>  <RdsDatepicker 
-    titleText="Select Date"
+    label="Select Date"
     isDropdownOpen={false} 
     layout={DatePickerLayout.Default}
     {...props} 
-    changeIcon="calendar" 
     />,
   },
 )

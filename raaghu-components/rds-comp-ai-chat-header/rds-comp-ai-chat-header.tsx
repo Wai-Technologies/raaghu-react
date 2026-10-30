@@ -1,33 +1,62 @@
 import clsx from "clsx";
-import { memo } from "react";
+import type { ElementType, HTMLAttributes, Ref } from "react";
 import "./rds-comp-ai-chat-header.scss";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 export { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
-import { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
+import type { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export interface RdsCompAiChatHeaderProps {
+/** Props for {@link RdsCompAiChatHeader}. */
+export interface RdsCompAiChatHeaderProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** URL of the logo shown before the title. */
+  avatarSrc?: string;
+  /** @deprecated Use `avatarSrc` instead. */
   logoUrl?: string;
+  /** Alt text of the logo. Default "Logo". */
+  logoAlt?: string;
+  /** Header title text. */
   title?: string;
+  /** Size of the title and logo. Default `'medium'`. */
   size?: ChatHeaderSize;
+  /** Element used for the title. Default `'h3'`. */
+  component?: ElementType;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
-const RdsCompAiChatHeader = memo(({
+const RdsCompAiChatHeader = ({
+  avatarSrc,
   logoUrl,
+  logoAlt = "Logo",
   title,
-  size = ChatHeaderSize.Medium,
-}: RdsCompAiChatHeaderProps) => (
-  <div className="rds-comp-ai-chat-header">
-    {logoUrl && (
+  size = "medium",
+  component: Heading = "h3",
+  className,
+  ref,
+  sx,
+  ...rest
+}: RdsCompAiChatHeaderProps) => {
+  if (logoUrl !== undefined) warnDeprecatedProp("RdsCompAiChatHeader", "logoUrl", "`avatarSrc`");
+  const logoSrc = avatarSrc ?? logoUrl;
+  return (
+  <Box {...rest} ref={ref} className={clsx("rds-comp-ai-chat-header", className)} sx={sx}>
+    {logoSrc && (
       <img
-        src={logoUrl}
-        alt="Logo"
+        src={logoSrc}
+        alt={logoAlt}
         className={clsx("rds-comp-ai-chat-header__logo", `rds-comp-ai-chat-header__logo--${size}`)}
       />
     )}
-    <h3 className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
+    <Heading className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
       {title}
-    </h3>
-  </div>
-));
+    </Heading>
+  </Box>
+  );
+};
 
 RdsCompAiChatHeader.displayName = "RdsCompAiChatHeader";
 export default RdsCompAiChatHeader;

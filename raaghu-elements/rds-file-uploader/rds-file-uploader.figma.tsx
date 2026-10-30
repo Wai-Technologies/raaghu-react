@@ -10,16 +10,12 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
-      title: figma.string("✏️ Title"),
-      style: figma.enum("✨ Style", {
+      required: figma.boolean("❗ Is Mandatory"),
+      label: figma.string("✏️ Title"),
+      variant: figma.enum("✨ Style", {
         "Drop Area - Side Icon": "Drop Area - Side Icon",
         "Drop Area - Top Icon": "Drop Area - Top Icon",
         "Drop Area - With Upload Button": "Drop Area - With Upload Button",
-      }),
-      state:figma.enum("💡 State",{
-        "Default": "default",
-        "Selected": "selected",
       }),
     },
     example: (props) => <RdsFileUploader 
@@ -30,7 +26,7 @@ figma.connect(
     multiple
     maxSize={10485760}
     showPreview
-    hintText="Maximum 5MB"
+    helperText="Maximum 5MB"
     mode="default"
     />,
   },
@@ -45,12 +41,8 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
-      title: figma.string("✏️ Title"),
-      state:figma.enum("💡 State",{
-        "Default": "default",
-        "Selected": "selected",
-      }),
+      required: figma.boolean("❗ Is Mandatory"),
+      label: figma.string("✏️ Title"),
     },
     example: (props) => <RdsFileUploader 
     {...props}
@@ -60,7 +52,7 @@ figma.connect(
     multiple
     maxSize={10485760}
     showPreview
-    hintText="Maximum 5MB"
+    helperText="Maximum 5MB"
     mode="standard"
     />,
   },

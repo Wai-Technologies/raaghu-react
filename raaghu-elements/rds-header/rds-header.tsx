@@ -1,31 +1,55 @@
-import { type ReactNode } from 'react';
-import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, type AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
-import { ProfileMenu } from './ProfileMenu';
+import { useState, type ComponentProps, type ReactNode, type SyntheticEvent } from 'react';
+import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab } from '@mui/material';
+import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Person from '@mui/icons-material/Person';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';
 
+/** Props for {@link RdsHeader}. Extends MUI `AppBar` props. */
 export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
+  /** Title text of the header. */
   title?: string;
+  /** Logo node shown at the start of the header. */
   logo?: ReactNode;
+  /** Called when the menu button is clicked. */
   onMenuClick?: () => void;
+  /** Shows the menu button. @default false */
   showMenuButton?: boolean;
+  /** Content rendered at the end of the header. */
   actions?: ReactNode;
+  /** Signed-in user shown in the profile menu. */
+  user?: { name?: string; initials?: string; email?: string };
+  /** @deprecated Use `user.name` instead. */
   userName?: string;
+  /** @deprecated Use `user.initials` instead. */
   userShortName?: string;
+  /** @deprecated Use `user.email` instead. */
   userEmail?: string;
+  /** Value of the search input. */
   searchValue?: string;
+  /** Called with the new value when the search input changes. */
   onSearchChange?: (value: string) => void;
+  /** Placeholder of the search input. */
   searchPlaceholder?: string;
+  /** Tabs shown in the header, as labels or objects with a `label`. */
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
+  /** Selected tab index (controlled). */
+  tabsValue?: number;
+  /** Called with `(event, value)` when a tab is selected. */
+  onTabsChange?: (event: SyntheticEvent, value: number) => void;
+  /** @deprecated Use `tabsValue` instead. */
   tabValue?: number;
+  /** @deprecated Use `onTabsChange` instead. */
   onTabChange?: (value: number) => void;
+  /** Items of the profile menu shown when `user.name`, `user.initials` and `user.email` are set. Pass explicitly; there is no demo default. */
+  profileMenuItems?: ProfileMenuItem[];
+  /** Content rendered below the header. */
   subHeader?: ReactNode;
   children?: ReactNode;
 }
+/** Page header with logo, title, search, profile menu, actions and optional tabs. */
 const RdsHeader = ({
   title,
   logo,
@@ -36,15 +60,31 @@ const RdsHeader = ({
   onSearchChange,
   searchPlaceholder,
   tabs,
+  tabsValue,
+  onTabsChange,
   tabValue,
   onTabChange,
+  user,
   subHeader,
   children,
-  userName,
-  userShortName,
-  userEmail,
+  userName: legacyUserName,
+  userShortName: legacyUserShortName,
+  userEmail: legacyUserEmail,
+  profileMenuItems,
+  elevation = 0,
   ...props
 }: RdsHeaderProps) => {
+  const [innerTab, setInnerTab] = useState(0);
+  if (tabValue !== undefined) warnDeprecatedProp('RdsHeader', 'tabValue', '`tabsValue`');
+  if (onTabChange) warnDeprecatedProp('RdsHeader', 'onTabChange', '`onTabsChange`');
+  if (legacyUserName !== undefined) warnDeprecatedProp('RdsHeader', 'userName', '`user.name`');
+  if (legacyUserShortName !== undefined) warnDeprecatedProp('RdsHeader', 'userShortName', '`user.initials`');
+  if (legacyUserEmail !== undefined) warnDeprecatedProp('RdsHeader', 'userEmail', '`user.email`');
+  const userName = user?.name ?? legacyUserName;
+  const userShortName = user?.initials ?? legacyUserShortName;
+  const userEmail = user?.email ?? legacyUserEmail;
+  const controlledTab = tabsValue ?? tabValue;
+  const currentTab = typeof controlledTab === 'number' ? controlledTab : innerTab;
   const colorClass =
     props.color === 'primary' ? 'rds-header--primary' :
     props.color === 'secondary' ? 'rds-header--secondary' :
@@ -55,7 +95,7 @@ const RdsHeader = ({
       {...props}
       className={clsx('rds-header', colorClass, props.className)}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
-      elevation={0}
+      elevation={elevation}
     >
       <div className="rds-header__toolbar">
         {showMenuButton && (
@@ -78,6 +118,7 @@ const RdsHeader = ({
             <InputBase
               className="rds-header__search"
               placeholder={searchPlaceholder || 'Search…'}
+              slotProps={{ input: { 'aria-label': searchPlaceholder || 'Search…' } }}
               value={searchValue}
               onChange={e => onSearchChange(e.target.value)}
             />
@@ -100,10 +141,7 @@ const RdsHeader = ({
               name={userName}
               shortName={userShortName}
               email={userEmail}
-              menuItems={[
-               { label: 'My Profile', icon: <Person />, onClick: () => alert('Profile clicked!') },
-    { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'var(--rds-error-main)' } }
-              ]}
+              items={profileMenuItems}
             />
           </span>
         ) : (
@@ -111,11 +149,11 @@ const RdsHeader = ({
         )}
         {children}
       </div>
-      {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
+      {Array.isArray(tabs) && tabs.length > 0 && (
         <Tabs
           className="rds-header__tabs"
-          value={tabValue}
-          onChange={(_, v) => onTabChange(v)}
+          value={currentTab}
+          onChange={(e, v: number) => { if (typeof controlledTab !== 'number') setInnerTab(v); onTabsChange?.(e, v); onTabChange?.(v); }}
           textColor="primary"
           indicatorColor="primary"
         >
@@ -123,7 +161,7 @@ const RdsHeader = ({
             typeof tab === 'string' ? (
               <Tab label={tab} key={tab} />
             ) : (
-              <Tab {...(tab as React.ComponentProps<typeof Tab>)} key={tab.label || idx} />
+              <Tab {...(tab as ComponentProps<typeof Tab>)} key={tab.label || idx} />
             )
           )}
         </Tabs>

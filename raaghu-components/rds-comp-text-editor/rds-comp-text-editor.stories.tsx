@@ -1,7 +1,6 @@
-import React from "react";
 import RdsCompTextEditor from "./rds-comp-text-editor";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Text Editor',
@@ -12,7 +11,10 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        State: {
+        className: { control: 'text', description: 'CSS class applied to the text editor root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the text editor root.' },
+        ref: { control: false, description: 'React ref to the text editor root; assign it in code.' },
+        state: {
             options: [
                 "Default"   ,
                 "Active"  ,
@@ -31,10 +33,10 @@ type Story = StoryObj<typeof RdsCompTextEditor>;
 
 export const Default: Story = {
     args: {
-        State: "Default",
+        state: "Default",
         showTitle: true,
         label:"Label",
-        isMandatory: false,
+        required: false,
         rows:6,
         resizable:false,
         placeholder:"Enter Description"
@@ -44,4 +46,4 @@ export const Default: Story = {
         expect(editor).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };
+Default.parameters = { controls: { include: ['state', 'showTitle', 'label', 'required','rows','resizable','placeholder','className','sx','ref'] } };

@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSnackbar from './rds-snackbar';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-snackbar.scss', () => ({}));
 
 const theme = createTheme();
@@ -27,7 +26,6 @@ describe('RdsSnackbar', () => {
       renderWithTheme(
         <RdsSnackbar open={false} message="Test message" />
       );
-      // When open=false, the message should not be visible in the DOM
       expect(screen.queryByText('Test message')).not.toBeInTheDocument();
     });
 
@@ -83,7 +81,6 @@ describe('RdsSnackbar', () => {
       renderWithTheme(
         <RdsSnackbar open={true} message="Content" />
       );
-      // Type defaults to 'info', so Alert will render
       expect(screen.getByRole('alert')).toBeInTheDocument();
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
@@ -162,8 +159,6 @@ describe('RdsSnackbar', () => {
           showCloseButton={false}
         />
       );
-      // With showCloseButton false, onClose is not set on Alert
-      // Alert won't render a close button
       const buttons = container.querySelectorAll('button');
       expect(buttons.length).toBe(0);
     });
@@ -241,8 +236,7 @@ describe('RdsSnackbar', () => {
           autoHideDuration={1000}
         />
       );
-      // autoHideDuration should take precedence
-      expect(true).toBe(true); // Visual verification test
+      expect(true).toBe(true);
     });
   });
 
@@ -273,8 +267,6 @@ describe('RdsSnackbar', () => {
           onClose={onClose}
         />
       );
-      // Simulate clickaway by triggering close with clickaway reason
-      // This is tested indirectly through the component behavior
       expect(onClose).not.toHaveBeenCalled();
     });
 
@@ -366,7 +358,6 @@ describe('RdsSnackbar', () => {
           <RdsSnackbar open={false} message="Message" />
         </ThemeProvider>
       );
-      // Message should still be in DOM but snackbar hidden
       expect(screen.queryByText('Message')).toBeInTheDocument();
     });
 
@@ -452,7 +443,6 @@ describe('RdsSnackbar', () => {
         />
       );
       const alert = screen.getByRole('alert');
-      // MUI Alert renders svg icons based on severity
       const icon = alert.querySelector('svg');
       expect(icon).toBeInTheDocument();
     });
@@ -482,7 +472,6 @@ describe('RdsSnackbar', () => {
           type="info"
         />
       );
-      // Text should be escaped, not executed
       expect(screen.getByText(specialMessage)).toBeInTheDocument();
     });
 
@@ -580,7 +569,6 @@ describe('RdsSnackbar', () => {
 
   describe('Complex Scenarios', () => {
     test('should handle multiple rapid changes', async () => {
-      const user = userEvent.setup();
       const onClose = jest.fn();
       const { rerender } = renderWithTheme(
         <RdsSnackbar
@@ -629,18 +617,15 @@ describe('RdsSnackbar', () => {
         <RdsSnackbar open={true} message="Message" type="info" />
       );
 
-      // Should render as Alert with info severity
       let alert = screen.getByRole('alert');
       expect(alert).toHaveClass('MuiAlert-standardInfo');
 
-      // Change to success type
       rerender(
         <ThemeProvider theme={theme}>
           <RdsSnackbar open={true} message="Message" type="success" />
         </ThemeProvider>
       );
 
-      // Should now render as Alert with success severity
       alert = screen.getByRole('alert');
       expect(alert).toHaveClass('MuiAlert-standardSuccess');
     });
@@ -660,5 +645,30 @@ describe('RdsSnackbar', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('severity takes precedence over type', () => {
+    const { container } = render(<RdsSnackbar open message="Hi" severity="error" type="success" />);
+    expect(container.ownerDocument.querySelector('.MuiAlert-standardError')).toBeInTheDocument();
+  });
+  it('accepts a ReactNode message', () => {
+    render(<RdsSnackbar open message={<b>Bold msg</b>} />);
+    expect(screen.getByText('Bold msg')).toBeInTheDocument();
+  });
+});
+describe('audit fixes 526', () => {
+  it('hideCloseButton hides the close button', () => {
+    render(<RdsSnackbar open message="Hi" hideCloseButton />);
+    expect(screen.queryByRole('button', { name: /close/i })).toBeNull();
+  });
+  it('hideCloseButton wins over showCloseButton', () => {
+    render(<RdsSnackbar open message="Hi" hideCloseButton={false} showCloseButton={false} />);
+    expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the snackbar root', () => {
+    render(<RdsSnackbar open message="Hi" data-testid="toast-snackbar" />);
+    expect(screen.getByTestId('toast-snackbar')).toBeInTheDocument();
   });
 });

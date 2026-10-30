@@ -1,35 +1,94 @@
 import RdsCompLineChart from "./rds-comp-chart-line";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 
-const meta: Meta = {
-    title: 'Components/Charts/Line Chart',
+const meta = {
+    title: "Components/Charts/Line Chart",
     component: RdsCompLineChart,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
-        docs:{
+        status: { type: "stable" },
+        layout: "padded",
+        docs: {
             description: {
-  component: 'The **Line Chart** element is designed to display continuous data trends over time or categories using connected points along a line. It supports customizable **labels** to define the x-axis, and multiple **datasets** for plotting different series of data. The chart offers extensive styling options such as point shapes (e.g., stars), radius size, line tension (curvature), colors, and fill behavior. It is fully **responsive** and allows configuration of legends, tooltips, titles, and interaction modes for precise user experience. This flexibility lets you tailor the chart’s appearance and behavior to fit various data visualization needs within dashboards, reports, or analytics tools.'
-}
+                component:
+                    "The Line Chart displays continuous data trends over time or categories using connected points. It supports multiple datasets, customizable point shapes, colors, line tension, fill behavior, legends, tooltips, titles, and interaction settings.",
+            },
+        },
+    },
+    tags: ["autodocs", "stable"],
+   argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
+    },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    ariaLabel: {
+        control: "text",
+        description: "Accessible label for the chart.",
+    },
 
-        }
+    labels: {
+        control: false,
+        table: { disable: true },
     },
-    tags: ['autodocs', 'stable'],
-    argTypes: {
+    dataSets: {
+        control: false,
+        table: { disable: true },
     },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompLineChart>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompLineChart>;
 
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: {        
-        labels: ["January", "February", "March", "April", "May", "Jun", "July"],
+    args: {
+        id: "linechart",
+        ariaLabel: "Line chart showing monthly data trends",
+        data: {
+            labels: [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+            ],
+            datasets: [
+                {
+                    label: "My First Dataset",
+                    data: [65, 59, 80, 78, 56, 55, 40],
+                    fill: false,
+                    borderColor: "rgb(75, 192, 192)",
+                    pointStyle: "star",
+                    pointRadius: 7,
+                    tension: 0.1,
+                    backgroundColor: "red",
+                },
+            ],
+        },
         options: {
-            pointStyle: "star",
-            radius: 7,
             responsive: true,
             maintainAspectRatio: false,
             aspectRatio: 1,
@@ -37,11 +96,9 @@ export const Default: Story = {
                 legend: {
                     position: "top",
                     align: "center",
-                    pointStyle: "bottom",
                     labels: {
                         usePointStyle: true,
                     },
-
                 },
                 tooltip: {
                     usePointStyle: true,
@@ -51,27 +108,16 @@ export const Default: Story = {
                 },
                 title: {
                     display: true,
-                    text: "Line Chart with boundries"
-                }
+                    text: "Line Chart with boundaries",
+                },
             },
             interaction: {
                 intersect: false,
-            }
-        },
-        dataSets: [
-            {
-                label: "My First Dataset",
-                data: [65, 59, 80, 78, 56, 55, 40],
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                tension: 0.1,
-                backgroundColor: "red"
             },
-        ],
-        id: "linechart",
+        },
     },
     play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
+        const chart = await canvas.findByRole("img");
         await expect(chart).toBeInTheDocument();
     },
 } satisfies Story;

@@ -1,134 +1,160 @@
 import clsx from "clsx";
-import { useCallback, useState, type Dispatch, type SetStateAction, type ChangeEvent } from "react";
+import { useCallback, useState, type Dispatch, type HTMLAttributes, type ReactNode, type Ref, type SetStateAction } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
-import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
-import { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
-import RdsCompAiChatHeader, { ChatHeaderSize } from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import RdsCompAiTypingSection, { type RdsCompAiTypingSectionProps } from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
+import type { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
+import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-ai-chat-bot.scss";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export interface RdsCompAiChatBotProps {
-  aiLogoUrl: string;
+export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
+  /** Avatar of the assistant, also shown in the header. */
+  assistantAvatar?: string;
+  /** @deprecated Use `assistantAvatar` instead. */
+  aiLogoUrl?: string;
+  /** Avatar of the user. */
+  userAvatar?: string;
+  /** @deprecated Use `userAvatar` instead. */
   userAvatarUrl?: string;
+  /** Placeholder of the prompt input. */
+  placeholder?: string;
+  /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
+  /** Chat messages rendered in the conversation log. */
   messages: Message[];
-  setMessages: Dispatch<SetStateAction<Message[]>>;
-  iconName: string;
+  /** Called with the message the user sent. Prefer this over `setMessages`. */
+  onSend?: (message: Message) => void;
+  /**
+   * Appends sent messages to `messages`.
+   * @deprecated Use `onSend` and update `messages` in the parent instead.
+   */
+  setMessages?: Dispatch<SetStateAction<Message[]>>;
+  /** @deprecated Has no effect. */
+  iconName?: ReactNode;
+  /** Title of the chat header. */
+  title?: string;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
+  /** Props passed to inner slots; `typingSection` reaches the prompt input (e.g. project buttons, frontend options). */
+  slotProps?: {
+    typingSection?: Omit<RdsCompAiTypingSectionProps, "onSend" | "onAddComment">;
+  };
 }
 
 export interface Message {
   id: number;
   text: string;
   image?: string;
-  sender: boolean;
+  /** Author of the message. */
+  role?: "user" | "assistant";
+  /** @deprecated Use `role` instead (`true` = assistant). */
+  sender?: boolean;
 }
 
+const isAssistant = (message: Message) => (message.role ? message.role === "assistant" : !!message.sender);
+
+/** AI chat: header, message list and the typing section. */
 const RdsCompAiChatBot = ({
+  assistantAvatar,
   aiLogoUrl,
+  userAvatar,
   userAvatarUrl,
+  placeholder,
   placeholderText,
   messages,
+  onSend,
   setMessages,
   iconName,
+  title = "New Chat Started",
+  className,
+  ref,
+  sx,
+  slotProps,
+  ...rest
 }: RdsCompAiChatBotProps) => {
+  if (iconName !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "iconName", "nothing (no effect)");
+  if (aiLogoUrl !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "aiLogoUrl", "`assistantAvatar`");
+  if (userAvatarUrl !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "userAvatarUrl", "`userAvatar`");
+  if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "placeholderText", "`placeholder`");
+  if (setMessages !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "setMessages", "`onSend` (parent-owned `messages`)");
+  if (messages.some((m) => m.sender !== undefined && m.role === undefined)) warnDeprecatedProp("RdsCompAiChatBot", "Message.sender", "`Message.role`");
+  const assistantSrc = assistantAvatar ?? aiLogoUrl;
+  const userSrc = userAvatar ?? userAvatarUrl;
+
   const [inputImage, setInputImage] = useState<string | null>(null);
 
-  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setInputImage(reader.result as string);
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  }, []);
-
   const handleSendMessage = useCallback(
-    async (messageText: string, image?: string) => {
+    (messageText: string, image?: string) => {
       if (!messageText && !image) return;
 
+      const nextId =
+        messages.reduce((max, m) => (typeof m.id === "number" && m.id > max ? m.id : max), 0) + 1;
+
       const newMessage: Message = {
-        id: messages.length + 1,
+        id: nextId,
         text: messageText,
         image: image || inputImage || undefined,
-        sender: false,
+        role: "user",
       };
 
-      setMessages((prev) => [...prev, newMessage]);
+      setMessages?.((prev) => [...prev, newMessage]);
+      onSend?.(newMessage);
       setInputImage(null);
     },
-    [inputImage, messages.length, setMessages]
+    [inputImage, messages, onSend, setMessages]
   );
 
-  const handleAddComment = useCallback(
-    (comment: AttachmentComment) => {
-      if (!comment.image) return;
-
-      if (comment.image.startsWith("http")) {
-        setInputImage(comment.image);
-        return;
-      }
-
-      const byteString = atob(comment.image.split(",")[1]);
-      const mimeString = comment.image.split(",")[0].split(":")[1].split(";")[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      const blob = new Blob([ab], { type: mimeString });
-      const syntheticEvent = {
-        target: {
-          files: [blob],
-        },
-      } as unknown as ChangeEvent<HTMLInputElement>;
-
-      handleImageChange(syntheticEvent);
-    },
-    [handleImageChange]
-  );
+  const handleAddComment = useCallback((comment: AttachmentComment) => {
+    const image = comment.image;
+    if (image && (image.startsWith("http") || /^data:[^,]*;base64,/.test(image))) {
+      setInputImage(image);
+    }
+  }, []);
 
   return (
-    <div className="rds-ai-chat-bot">
-      <div className="rds-ai-chat-bot__messages">
+    <Box {...rest} ref={ref} className={clsx("rds-ai-chat-bot", className)} sx={sx}>
+      <div className="rds-ai-chat-bot__messages" role="log" aria-live="polite">
         <RdsCompAiChatHeader
-          logoUrl={aiLogoUrl}
-          title="New Chat Started"
-          size={ChatHeaderSize.Medium}
+          avatarSrc={assistantSrc}
+          title={title}
+          size="medium"
         />
         {messages.map((message) => (
           <div
             key={message.id}
             className={clsx(
               "rds-ai-chat-bot__message",
-              message.sender
+              isAssistant(message)
                 ? "rds-ai-chat-bot__message--sender"
                 : "rds-ai-chat-bot__message--receiver"
             )}
           >
             <RdsCompAiMessageBox
-              avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
-              isImage={!!message.image}
-              message={message.text}
-              src={message.image}
-            />
+              avatar={isAssistant(message) ? assistantSrc : userSrc}
+              imageSrc={message.image || undefined}
+            >
+              {message.text}
+            </RdsCompAiMessageBox>
           </div>
         ))}
       </div>
       <div className="rds-ai-chat-bot__input-wrapper">
         <div className="rds-ai-chat-bot__input">
           <RdsCompAiTypingSection
-            colorVariant="var(--rds-text-secondary)"
+            {...slotProps?.typingSection}
             onSend={handleSendMessage}
-            placeholderText={placeholderText || "Ask me anything"}
-            iconName={iconName}
+            placeholder={(placeholder ?? placeholderText) || "Ask me anything"}
             onAddComment={handleAddComment}
-            previewImage={inputImage || undefined}
+            imageSrc={inputImage || undefined}
+            iconName={iconName}
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

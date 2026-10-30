@@ -17,7 +17,7 @@ figma.connect(
   {
     props: {},
     example: (props) => <RdsCompFilterButton
-  filters={[
+  options={[
     {
       id: 'filter1',
       name: 'Filter Name',
@@ -49,11 +49,11 @@ figma.connect(
       ]
     }
   ]}
-  leftIcon={<Circle sx={{fontSize: 16}} />}
+  startIcon={<Circle sx={{fontSize: 16}} />}
   onApply={() => {}}
   onClear={() => {}}
   onFiltersChange={() => {}}
-  rightIcon={<Circle sx={{fontSize: 16}} />}
+  endIcon={<Circle sx={{fontSize: 16}} />}
   shape="rectangle"
   showLeftIcon
   showRightIcon

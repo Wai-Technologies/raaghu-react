@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
@@ -17,13 +16,18 @@ const meta: Meta<typeof RdsModal> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    open: { table: { disable: true } },
+    visibility: { table: { disable: true } },
+    headerChrome: { table: { disable: true } },
+    media: { table: { disable: true } },
+    body: { table: { disable: true } },
     title: {
       control: 'text',
       description: 'Title of the modal',
     },
-    showCloseButton: {
+    hideCloseButton: {
       control: 'boolean',
-      description: 'Whether to show the close button',
+      description: 'Whether to hide the close button',
     },
     maxWidth: {
       control: 'select',
@@ -42,19 +46,18 @@ const meta: Meta<typeof RdsModal> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 const ModalTemplate = (args: any) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" onClick={() => setOpen(true)}>
+      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" onClick={() => setOpen(true)}>
         Open Modal
       </RdsButton>
       <RdsModal
         {...args}
-        isOpen={open}
+        open={open}
         onClose={() => setOpen(false)}
       >
         {args.children}
@@ -110,11 +113,10 @@ export const WithActions = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },
@@ -129,7 +131,7 @@ export const WithoutCloseButton = {
   },
   args: {
     title: 'No Close Button',
-    showCloseButton: false,
+    hideCloseButton: true,
     children: (
       <Typography>
         This modal doesn't have a close button in the header. You must use the action buttons to close it.
@@ -143,8 +145,7 @@ export const WithoutCloseButton = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />    ),
   },
@@ -183,11 +184,10 @@ export const LargeModal = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },
@@ -217,11 +217,10 @@ export const SmallModal = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },

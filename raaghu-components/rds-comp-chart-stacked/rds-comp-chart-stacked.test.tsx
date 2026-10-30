@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompStackedChart from './rds-comp-chart-stacked';
+import RdsCompStackedChart, { type RdsCompStackedProps } from './rds-comp-chart-stacked';
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -25,7 +24,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-stacked.scss', () => ({}));
 
 const defaultProps = {
@@ -637,7 +635,7 @@ describe('RdsCompStackedChart', () => {
 
     it('handles undefined options', () => {
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={undefined} />
+        <RdsCompStackedChart {...defaultProps} options={undefined as unknown as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -711,7 +709,6 @@ describe('RdsCompStackedChart', () => {
       const { rerender, container } = render(
         <RdsCompStackedChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompStackedChart
@@ -787,7 +784,6 @@ describe('RdsCompStackedChart', () => {
         <RdsCompStackedChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
 
@@ -950,7 +946,7 @@ describe('RdsCompStackedChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={customOptions} />
+        <RdsCompStackedChart {...defaultProps} options={customOptions as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -965,9 +961,44 @@ describe('RdsCompStackedChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompStackedChart {...defaultProps} options={categoryOptions} />
+        <RdsCompStackedChart {...defaultProps} options={categoryOptions as RdsCompStackedProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div and keeps the legacy class', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompStackedChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-stacked', 'stack-chart-container', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('no longer writes the dead bar percentages onto scales.x', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(<RdsCompStackedChart {...defaultProps} />);
+    const x = ChartMock.mock.calls[0][1].options.scales.x;
+    expect(x).toMatchObject({ offset: true });
+    expect(x).not.toHaveProperty('categoryPercentage');
+    expect(x).not.toHaveProperty('barPercentage');
+    spy.mockRestore();
+  });
+
+  it('defaults x/y axes to stacked (G3-066)', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(<RdsCompStackedChart {...defaultProps} />);
+    const scales = ChartMock.mock.calls[0][1].options.scales;
+    expect(scales.x).toMatchObject({ stacked: true });
+    expect(scales.y).toMatchObject({ stacked: true });
+    spy.mockRestore();
   });
 });

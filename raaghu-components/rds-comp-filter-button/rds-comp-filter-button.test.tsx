@@ -1,13 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-filter-button.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return React.forwardRef((props: any, ref: any) => {
     const { 
@@ -24,7 +23,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       ...rest 
     } = props;
     
-    // Filter out MUI-specific props that shouldn't go on a button element
     const cleanProps = Object.fromEntries(
       Object.entries(rest).filter(([key]) => 
         !['sx', 'variant', 'color', 'fullWidth', 'state', 'textCase', 'changeLeftIcon', 'changeRightIcon', 'showLeftIcon', 'showRightIcon', 'isLoading', 'children'].includes(key)
@@ -44,13 +42,13 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       >
         {startIcon}
         {text}
+        {props.children}
         {endIcon}
       </button>
     );
   });
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -127,6 +125,11 @@ jest.mock('@mui/icons-material', () => {
   };
 });
 
+jest.mock('@mui/icons-material/FilterList', () => ({
+  __esModule: true,
+  default: () => <span data-testid="FilterListIcon">☰</span>,
+}));
+
 describe('RdsCompFilterButton', () => {
   const mockFilters: FilterOption[] = [
     {
@@ -195,23 +198,21 @@ describe('RdsCompFilterButton', () => {
       expect(screen.getByTestId('filter-trigger-button')).toBeInTheDocument();
     });
 
-    it('should show left icon by default', () => {
-      renderComponent({ showLeftIcon: true });
-      const icons = screen.getAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeGreaterThan(0);
-      expect(icons[0]).toBeInTheDocument();
+    it('should show FilterList start icon by default', () => {
+      renderComponent();
+      expect(screen.getByTestId('FilterListIcon')).toBeInTheDocument();
+      expect(screen.queryByTestId('expand-more-icon')).not.toBeInTheDocument();
     });
 
     it('should hide left icon when showLeftIcon is false', () => {
       renderComponent({ showLeftIcon: false });
-      const icons = screen.queryAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeLessThanOrEqual(1); // Only right icon if shown
+      expect(screen.queryByTestId('FilterListIcon')).not.toBeInTheDocument();
     });
 
-    it('should show right icon by default', () => {
+    it('should show ExpandMore when showRightIcon is true', () => {
       renderComponent({ showRightIcon: true });
-      const icons = screen.getAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeGreaterThanOrEqual(2);
+      expect(screen.getByTestId('FilterListIcon')).toBeInTheDocument();
+      expect(screen.getByTestId('expand-more-icon')).toBeInTheDocument();
     });
 
     it('should use custom left icon', () => {
@@ -699,17 +700,14 @@ describe('RdsCompFilterButton', () => {
       
       renderComponent({ onFiltersChange, onApply, onClear });
       
-      // Open popover
       fireEvent.click(screen.getByTestId('filter-trigger-button'));
       expect(screen.getByTestId('popover')).toBeInTheDocument();
       
-      // Select filters
       const checkboxes = screen.getAllByTestId('filter-checkbox');
       fireEvent.click(checkboxes[0]);
       fireEvent.click(checkboxes[1]);
       expect(onFiltersChange).toHaveBeenCalled();
       
-      // Apply filters
       const applyButton = screen.getAllByRole('button').find(b => b.textContent === 'Apply');
       fireEvent.click(applyButton!);
       expect(onApply).toHaveBeenCalled();
@@ -822,7 +820,6 @@ describe('RdsCompFilterButton', () => {
       const searchInput = screen.getByTestId('search-input');
       fireEvent.change(searchInput, { target: { value: 'xyz123notfound' } });
       
-      // Component should still render without errors
       expect(screen.getByTestId('popover')).toBeInTheDocument();
     });
   });
@@ -833,5 +830,76 @@ describe('RdsCompFilterButton', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+
+  describe('audit fixes', () => {
+    it('children wins over text and startIcon/endIcon win and null hides', () => {
+      renderComponent({ children: 'Kids', text: 'Old', startIcon: <span data-testid="s-icon" />, endIcon: null, leftIcon: <span data-testid="l-icon" />, showRightIcon: true });
+      const btn = screen.getByTestId('filter-trigger-button');
+      expect(btn).toHaveTextContent('Kids');
+      expect(screen.getByTestId('s-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('l-icon')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('CircleOutlinedIcon')).not.toBeInTheDocument();
+    });
+
+    it('warns for deprecated props', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      renderComponent({ text: 'x', leftIcon: <span />, rightIcon: <span /> });
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'text', expect.any(String));
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'leftIcon', expect.any(String));
+    });
+
+    it('trigger exposes popover aria and toggles', () => {
+      renderComponent();
+      const btn = screen.getByTestId('filter-trigger-button');
+      expect(btn).toHaveAttribute('aria-haspopup', 'dialog');
+      expect(btn).toHaveAttribute('aria-expanded', 'false');
+      fireEvent.click(btn);
+      expect(btn).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getByTestId('popover')).toHaveAttribute('id', btn.getAttribute('aria-controls'));
+    });
+
+    it('per-filter icon wins over itemIcon and images have empty alt', () => {
+      const { container } = renderComponent({ itemIcon: 'a.png', filters: [{ id: 'f', name: 'F', values: ['v'], icon: 'b.png' }] });
+      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+      const img = container.ownerDocument.querySelector('[src]') as HTMLElement;
+      expect(img.getAttribute('src')).toBe('b.png');
+      expect(img.getAttribute('alt')).toBe('');
+    });
+
+    it('localeText overrides labels and search resets on close', () => {
+      renderComponent({ localeText: { title: 'T', searchPlaceholder: 'S', apply: 'A', clearAll: 'C' } });
+      const btn = screen.getByTestId('filter-trigger-button');
+      fireEvent.click(btn);
+      expect(screen.getByText('T')).toBeInTheDocument();
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('C')).toBeInTheDocument();
+      fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'zz' } });
+      fireEvent.click(btn);
+      fireEvent.click(btn);
+      expect((screen.getByTestId('search-input') as HTMLInputElement).value).toBe('');
+      expect(screen.getByTestId('search-input')).toHaveAttribute('placeholder', 'S');
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('options wins over filters', () => {
+      render(<RdsCompFilterButton options={[{ id: 'o', name: 'Opt', values: ['a'], selectedValues: ['a'] }]} filters={mockFilters} />);
+      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('(1)');
+    });
+
+    it('warns when deprecated filters is used', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      renderComponent();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'filters', '`options`');
+    });
+  });
+});
+
+describe('RdsCompFilterButton ref', () => {
+  it('forwards ref to the root element', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsCompFilterButton ref={ref} />);
+    expect(ref.current).toBe(container.firstChild);
   });
 });

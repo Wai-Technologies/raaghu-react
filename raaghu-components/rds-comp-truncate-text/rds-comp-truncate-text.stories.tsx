@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import RdsCompTruncatedText, { TruncateTextState } from './rds-comp-truncate-text';
+import RdsCompTruncatedText from './rds-comp-truncate-text';
 
 const meta: Meta = {
   title: 'Components/Truncated Text',
@@ -8,30 +8,23 @@ const meta: Meta = {
   parameters: {
         status: { type: 'stable' },
     layout: 'padded',
-    docs: {
-      source: {
-        transform: (code: string) => {
-          code = code.replace(/state="([^"]+)"/g, 'state={TruncateTextState.$1}');
-          code = code.replace(/state:\s*"([^"]+)"/g, 'state: TruncateTextState.$1');
-          return code;
-        }
-      }
-    }
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    state: {
-      options: Object.values(TruncateTextState),
-      control: { type: 'select' },
-      description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
-    },
-    text: {
+    className: { control: 'text', description: 'CSS class applied to the truncated text root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the truncated text root.' },
+    ref: { control: false, description: 'React ref to the truncated text root; assign it in code.' },
+    children: {
       control: 'text',
       description: 'The content of the text that will be truncated or displayed fully based on the component state.',
     },
     maxLength: {
       control: 'number',
       description: 'The maximum number of characters to display before truncating the text.',
+    },
+    showTooltip: {
+      control: 'boolean',
+      description: 'Show the full text in a tooltip on hover or focus.',
     },
   },
 } satisfies Meta<typeof RdsCompTruncatedText>;
@@ -41,8 +34,8 @@ type Story = StoryObj<typeof RdsCompTruncatedText>;
 
 export const Default: Story = {
   args: {
-    state: TruncateTextState.Hover,
-    text: 'This is a sample text',
+    showTooltip: true,
+    children: 'This is a sample text',
     maxLength: 16,
   },
   play: async ({ canvas }) => {
@@ -52,6 +45,5 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['state', 'text', 'maxLength'] },
+  controls: { include: ['children', 'maxLength', 'showTooltip', 'className', 'sx', 'ref'] },
 };
-

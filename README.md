@@ -256,10 +256,10 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 ## <a name='started'></a> Getting Started with Raaghu
 
 ```bash
-npm install @waiin/raaghu-react
+npm install @waiin/raaghu-react @mui/material @mui/system @mui/icons-material @mui/lab @mui/x-date-pickers @emotion/react @emotion/styled
 ```
 
-`@mui/material`, `@emotion/react`, and `@emotion/styled` are installed automatically with the package. Peer dependency: `react` / `react-dom` (`^19.0.0`) — normally already present in the app.
+Peer dependencies: `react` / `react-dom` (`^19.0.0`), plus MUI 7 / Emotion 11 (listed above) so the host app owns a single theme tree.
 
 ```tsx
 import '@waiin/raaghu-react/styles.css';

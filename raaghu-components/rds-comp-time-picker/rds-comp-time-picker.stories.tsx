@@ -1,6 +1,5 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsCompTimePicker from "./rds-comp-time-picker";
 
 const meta: Meta = {
@@ -15,7 +14,10 @@ const meta: Meta = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
-    colorVariant: {
+    className: { control: 'text', description: 'CSS class applied to the time picker root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the time picker root.' },
+    ref: { control: false, description: 'React ref to the time picker root; assign it in code.' },
+    color: {
       options: [
         "primary",
         "secondary",
@@ -28,17 +30,19 @@ const meta: Meta = {
       defaultValue: "primary",
       description: "Color variant of the time picker",
     },
-    style: {
+    variant: {
       options: ["default", "compact"],
       control: { type: "select" },
       defaultValue: "default",
-      description: "Style variant of the time picker",
+      description: "Layout variant of the time picker",
     },
-    state: {
-      options: ["default", "expanded", "selected"],
-      control: { type: "select" },
-      defaultValue: "default",
-      description: "State of the time picker",
+    open: {
+      control: { type: "boolean" },
+      description: "Controls whether the time picker popup is open",
+    },
+    selected: {
+      control: { type: "boolean" },
+      description: "Applies the selected appearance to the input",
     },
   },
 } satisfies Meta<typeof RdsCompTimePicker>;
@@ -48,9 +52,9 @@ type Story = StoryObj<typeof RdsCompTimePicker>;
 
 export const Default: Story = {
   args: {
-    colorVariant: "primary",
-    style: "default",
-    state: "default",
+    color: "primary",
+    variant: "default",
+    selected: false,
   },
   play: async ({ canvasElement }) => {
     const el = canvasElement.querySelector('input');

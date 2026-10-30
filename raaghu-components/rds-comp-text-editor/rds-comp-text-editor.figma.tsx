@@ -17,8 +17,8 @@ figma.connect(
     props: {
       showTitle: figma.boolean("✏️Show Title"),
       label: figma.string("📝Label"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
-      State: figma.enum("💡 State", {
+      required: figma.boolean("❗ Is Mandatory"),
+      state: figma.enum("💡 State", {
         "Default": "Default",
         "Active": "Active",
         "Selected": "Selected",

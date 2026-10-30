@@ -1,28 +1,41 @@
-import React from "react";
-import RdsCompAiIcon, { registerMaterialIcon, registerMaterialIcons } from "./rds-comp-ai-icon";
+import RdsCompAiIcon from "./rds-comp-ai-icon";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from "storybook/test";
 
-const meta: Meta = {
-    title: 'Components/AI ChatBox/Icon',
+const meta: Meta<typeof RdsCompAiIcon> = {
+    title: "Components/AI ChatBox/Icon",
     component: RdsCompAiIcon,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
+        status: { type: "stable" },
+        layout: "padded",
     },
-    tags: ['autodocs', 'stable'],
+    tags: ["autodocs", "stable"],
     argTypes: {
-        colorVariant: {
-            options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
+        className: { control: "text", description: "CSS class applied to the rendered icon." },
+        sx: { control: "object", description: "MUI system styles applied to the rendered icon." },
+        ref: { control: false, description: "React ref to the rendered icon element; assign it in code." },
+        svgIcon: { control: false, description: "Custom SVG icon component." },
+        color: {
+            options: [
+                "primary",
+                "success",
+                "error",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
             control: { type: "select" },
         },
         name: {
-            options: ["person-outline","users"],
+            options: ["person-outline", "users"],
             control: { type: "select" },
-            description: "Material-UI icon name (can be extended using registerMaterialIcon)",
-        }
+            description:
+                "Material-UI icon name (can be extended using registerMaterialIcon)",
+        },
     },
-} satisfies Meta<typeof RdsCompAiIcon>;
+};
 
 export default meta;
 type Story = StoryObj<typeof RdsCompAiIcon>;
@@ -34,12 +47,26 @@ export const Default: Story = {
         height: "24px",
         fill: false,
         stroke: true,
-        colorVariant: "primary",
-        isCursorPointer: true,
+        color: "primary",
+        cursorPointer: true,
     },
     play: async ({ canvasElement }) => {
         const el = canvasElement.firstElementChild;
         expect(el).toBeTruthy();
     },
-} satisfies Story;
-Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };
+};
+
+Default.parameters = {
+    controls: {
+        include: [
+            "name",
+            "width",
+            "height",
+            "color",
+            "cursorPointer",
+            "className",
+            "sx",
+            "ref",
+        ],
+    },
+};

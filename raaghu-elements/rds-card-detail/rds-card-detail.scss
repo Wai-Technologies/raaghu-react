@@ -1,6 +1,5 @@
 .rds-card-detail {
   display: block;
   position: relative;
-  border-radius: var(--rds-border-radius-md, 8px);
-  /* Shadows provided by centralized tokens: --rds-card-detail-shadow-light / --rds-card-detail-shadow-dark */
+  border-radius: var(--rds-border-radius-md);
 }

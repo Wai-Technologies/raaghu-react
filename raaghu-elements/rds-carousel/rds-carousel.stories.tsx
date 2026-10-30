@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { Box } from '@mui/material';
 import RdsCarousel from './rds-carousel';
 
@@ -10,13 +9,23 @@ const meta: Meta<typeof RdsCarousel> = {
         status: { type: 'stable' },
     layout: 'fullscreen',
     controls: {
-        exclude: ['titles', 'subtitles'],
-        },
+      include: [
+        'autoPlay',
+        'autoPlayInterval',
+        'showArrows',
+        'showIndicators',
+        'height',
+        'type',
+        'variant',
+        'title',
+        'subtitle',
+      ],
+    },
   },
   decorators: [
     (Story, context) => {
-      if (context.args && context.args.style === 'full width image') {
-        context.args = { ...context.args, showDots: false };
+      if (context.args && context.args.variant === 'full width image') {
+        context.args = { ...context.args, showIndicators: false };
       }
       return (
         <Box sx={{ width: '100%', maxWidth: '100vw', minWidth: 0, overflowX: 'hidden', p: 1 }}>
@@ -39,9 +48,9 @@ const meta: Meta<typeof RdsCarousel> = {
       control: 'boolean',
       description: 'Show navigation arrows for previous/next slide',
     },
-    showDots: {
+    showIndicators: {
     control: 'boolean',
-    if: { arg: 'style', neq: 'full width image' },
+    if: { arg: 'variant', neq: 'full width image' },
     description: 'Show indicator dots/lines for slide navigation',
     },
     height: {
@@ -53,12 +62,15 @@ const meta: Meta<typeof RdsCarousel> = {
       options: ['circle', 'line'],
       description: 'Indicator style: circle (dot) or line',
     },
-    state: {
-      control: 'select',
-      options: ['1', '2', '3', '4'],
-      description: 'Initial active slide (1-based index)',
+    activeIndex: {
+      control: { type: 'number', min: 0 },
+      description: 'Controlled active slide index (0-based). Use defaultIndex for an uncontrolled initial slide.',
     },
-    style: {
+    onActiveIndexChange: {
+      action: 'active index changed',
+      description: 'Called when a user interaction requests a different slide while activeIndex is controlled.',
+    },
+    variant: {
       control: 'select',
       options: ['default', 'with title', 'full width image'],
       description: 'Carousel style variant: default, with title overlay, or full width image',
@@ -107,17 +119,16 @@ export const Default: Story = {
     ],
     autoPlay: false,
     showArrows: true,
-    showDots: true,
+    showIndicators: true,
     height: '400px',
     type: 'circle',
-  style: 'default',
+  variant: 'default',
   title: 'Card Title',
   subtitle: 'In a laoreet purus. Integer turpis quam, laoreet id',
   },
 };
 
 export const AutoPlay: Story = {
-  argTypes: { state: { options: ['1', '2', '3'] } },
   args: {
     children: [
       <SampleSlide key={1} image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" text="Auto Slide 1" />,
@@ -127,9 +138,9 @@ export const AutoPlay: Story = {
     autoPlay: true,
     autoPlayInterval: 2000,
     showArrows: true,
-    showDots: true,
+    showIndicators: true,
     height: '300px',
-    style: 'default',
+    variant: 'default',
     className: 'rds-carousel--auto-play',
   title: 'Auto Slide Title',
   subtitle: 'Auto-play subtitle text',
@@ -137,14 +148,13 @@ export const AutoPlay: Story = {
 };
 
 export const NoControls: Story = {
-  argTypes: { state: { options: ['1', '2'] } },
   args: {
     children: [
       <SampleSlide key={1} image="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" text="No Controls 1" />,
       <SampleSlide key={2} image="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" text="No Controls 2" />,
     ],
     showArrows: false,
-    showDots: false,
+    showIndicators: false,
     height: '400px',
   title: 'No Controls Title',
   subtitle: 'No controls subtitle',

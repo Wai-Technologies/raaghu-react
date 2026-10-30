@@ -8,16 +8,16 @@ figma.connect(
   {
     props: {
       showTitle: figma.boolean("🆕 - Show Title"),
-      titleText: figma.string("✏️ Change Title"),
-      isMandatory: figma.boolean("❗ - Is Mandatory"),
-      disabled: figma.boolean("💡 State"),
+      label: figma.string("✏️ Change Title"),
+      required: figma.boolean("❗ - Is Mandatory"),
+      disabled: figma.boolean("Disabled"),
+      selected: figma.boolean("Selected"),
     },
   example: (props) => <RdsCounter 
   min={0} 
   max={50} 
   {...props} 
   placeholder={'0'} 
-  disabled={false}
   onChange={() => {}} />, 
   },
 )

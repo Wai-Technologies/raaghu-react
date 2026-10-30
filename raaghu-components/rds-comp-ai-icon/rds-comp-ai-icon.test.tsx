@@ -4,10 +4,25 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiIcon, { RdsCompAiIconProps } from './rds-comp-ai-icon';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-icon.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
+  const warnDeprecatedProp = jest.fn();
+  return {
+    warnDeprecatedProp,
+    resolveDeprecatedProp: (
+      canonical: unknown,
+      legacy: unknown,
+      component: string,
+      legacyName: string,
+      replacement: string,
+    ) => {
+      if (legacy !== undefined) warnDeprecatedProp(component, legacyName, replacement);
+      return canonical !== undefined ? canonical : legacy;
+    },
+  };
+});
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-// Mock Material UI Icons - properly render all SVG props passed to them
 jest.mock('@mui/icons-material/PersonOutline', () => {
   return React.forwardRef((props: any, ref: any) => (
     <svg
@@ -28,14 +43,12 @@ jest.mock('@mui/icons-material/GroupOutlined', () => {
   ));
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiIconProps = {
   name: 'person-outline',
   width: '24px',
   height: '24px',
 };
 
-// Helper to get the main icon SVG element
 const getIcon = (container: HTMLElement) => {
   return container.querySelector('.rds-comp-ai-icon');
 };
@@ -124,7 +137,7 @@ describe('RdsCompAiIcon', () => {
     });
 
     it('applies different color variants', () => {
-      const variants = ['primary', 'secondary', 'success', 'danger', 'warning'];
+      const variants: RdsCompAiIconProps['colorVariant'][] = ['primary', 'secondary', 'success', 'danger', 'warning'];
       variants.forEach((variant) => {
         const { container, unmount } = render(
           <RdsCompAiIcon
@@ -133,7 +146,8 @@ describe('RdsCompAiIcon', () => {
           />
         );
         const icon = getIcon(container);
-        expect(icon).toHaveClass(`rds-comp-ai-icon--${variant}`);
+        const expected = variant === 'danger' ? 'error' : variant;
+        expect(icon).toHaveClass(`rds-comp-ai-icon--${expected}`);
         unmount();
       });
     });
@@ -379,7 +393,7 @@ describe('RdsCompAiIcon', () => {
       );
       const icon = getIcon(container);
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveClass('rds-comp-ai-icon--danger');
+      expect(icon).toHaveClass('rds-comp-ai-icon--error');
       expect(icon).toHaveClass('rds-comp-ai-icon--cursor');
       expect(icon).toHaveClass('custom');
       expect(icon).toHaveAttribute('id', 'my-icon');
@@ -602,7 +616,7 @@ describe('RdsCompAiIcon', () => {
         <RdsCompAiIcon {...defaultProps} colorVariant="danger" />
       );
       icon = getIcon(container);
-      expect(icon).toHaveClass('rds-comp-ai-icon--danger');
+      expect(icon).toHaveClass('rds-comp-ai-icon--error');
       expect(icon).not.toHaveClass('rds-comp-ai-icon--primary');
     });
 
@@ -619,5 +633,61 @@ describe('RdsCompAiIcon', () => {
       icon = getIcon(container);
       expect(icon).toHaveStyle({ width: '40px', height: '40px' });
     });
+  });
+});
+describe('audit fixes', () => {
+  it('G3-118/119: deprecated props warn and keep working; rest passes through', () => {
+    const { container } = render(
+      <RdsCompAiIcon {...defaultProps} classes="old" dataTestId="old-id" isAnimate aria-label="x" data-foo="bar" />
+    );
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveClass('old');
+    expect(el).toHaveAttribute('data-testid', 'old-id');
+    expect(el).toHaveAttribute('aria-label', 'x');
+    expect(el).toHaveAttribute('data-foo', 'bar');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'isAnimate', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'classes', '`className`');
+  });
+
+  it('G3-119: new names win over deprecated ones', () => {
+    const { container } = render(
+      <RdsCompAiIcon {...defaultProps} className="new" classes="old" data-testid="new-id" dataTestId="old-id" />
+    );
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveClass('new');
+    expect(el).not.toHaveClass('old');
+    expect(el).toHaveAttribute('data-testid', 'new-id');
+  });
+
+  it('G3-120: clickable svg is keyboard accessible', () => {
+    const onClick = jest.fn();
+    const { container } = render(<RdsCompAiIcon {...defaultProps} onClick={onClick} />);
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveAttribute('role', 'button');
+    expect(el).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(el, { key: 'Enter' });
+    fireEvent.keyDown(el, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('audit fixes: aliases', () => {
+  it('prefers svgIcon over component', () => {
+    const Canonical = jest.fn(() => <svg />);
+    const Other = jest.fn(() => <svg />);
+    render(
+      <RdsCompAiIcon svgIcon={Canonical} component={Other}  />,
+    );
+    expect(Canonical).toHaveBeenCalled();
+    expect(Other).not.toHaveBeenCalled();
+  });
+
+  it('src and component aliases work; imageUrl warns', () => {
+    const Custom = (props: any) => <svg {...props} />;
+    const { container, rerender } = render(<RdsCompAiIcon component={Custom} />);
+    expect(container.querySelector('svg.rds-comp-ai-icon__svg')).toBeInTheDocument();
+    rerender(<RdsCompAiIcon src="a.png" imageUrl="b.png" />);
+    expect(container.querySelector('img')).toHaveAttribute('src', 'a.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'imageUrl', '`src`');
   });
 });

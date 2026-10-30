@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
@@ -46,17 +46,27 @@ When a platform is specified, the component automatically displays the appropria
       }
     },
     controls: {
-    exclude: ['component', 'slots', 'slotProps', 'onClose'],
+      include: [
+        'isOpen',
+        'width',
+        'variant',
+        'anchor',
+        'layout',
+        'typeOf',
+        'showLogo',
+        'showSearch',
+        'user',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
     isOpen: {
       control: 'boolean',
-      description: 'Whether the sidebar is open',
+      description: 'Whether the sidebar is open. Has no effect when `variant` is `permanent`.',
     },
     width: {
-      control: 'number',
+      control: { type: 'number', min: 64, max: 400, step: 8 },
       description: 'Width of the sidebar in pixels',
     },
     variant: {
@@ -72,28 +82,35 @@ When a platform is specified, the component automatically displays the appropria
     layout: {
       control: 'select',
       options: ['raaghu', 'list', 'toolbar'],
+      description: 'Sidebar layout style',
     },
     typeOf: {
       control: 'select',
       options: ['collapse', 'expanded', 'fixed'],
-    },
-    platform: {
-      control: 'select',
-      options: ['abp-list', 'anz-list'],
-      description: 'Platform type for the sidebar',
+      description: 'Collapse / expand behavior',
     },
     showSearch: {
       control: 'boolean',
       description: 'Toggle whether the search box is shown in the sidebar',
     },
-    hideMainParagraph: {
+    showLogo: {
       control: 'boolean',
-      description: 'Hide the main content area paragraph in the story preview',
+      description: 'Show the default logo in the sidebar header',
     },
-    hideToggleButton: {
-      control: 'boolean',
-      description: 'Hide the Open/Close sidebar toggle button in the story preview',
+    user: {
+      control: 'object',
+      description: 'User shown in the avatar area (`name`, `subtitle`, `avatarSrc`)',
     },
+  },
+  args: {
+    isOpen: true,
+    width: 240,
+    variant: 'permanent',
+    anchor: 'left',
+    layout: 'raaghu',
+    typeOf: 'expanded',
+    showLogo: true,
+    showSearch: true,
   },
 };
 
@@ -105,7 +122,7 @@ const basicItems = [
   {
     label: 'Dashboard',
     icon: <Dashboard />,
-    active: true,
+    selected: true,
     children: [
       { label: 'Overview', icon: <Star />, onClick: () => {} },
       { label: 'Stats', icon: <Inbox />, onClick: () => {} },
@@ -115,7 +132,7 @@ const basicItems = [
   { label: 'Profile', icon: <Person />, onClick: () => {} },
   { label: 'Settings', icon: <Settings />, onClick: () => {} },
   { label: 'Requests', icon: <Drafts />,
-    active: true,
+    selected: true,
     children: [
       { label: 'New Requests', icon: <Star />, onClick: () => {} },
       { label: 'Pending', icon: <Drafts />, onClick: () => {} },
@@ -132,35 +149,16 @@ const mailItems = [
   { label: 'Drafts', icon: <Drafts />, onClick: () => {} },
 ];
 
-const anzMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
-  { label: 'Saas', icon: <Business />, onClick: () => {} },
-  { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => {} },
-  { label: 'Demo UI Components', icon: <Widgets />, onClick: () => {} },
-];
-
-const abpMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
-  { label: 'Saas', icon: <Business />, onClick: () => {} },
-  { label: 'Invoices', icon: <Receipt />, onClick: () => {} },
-  { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => {} },
-  { label: 'Communication', icon: <Chat />, onClick: () => {} },
-  { label: 'Advertisements', icon: <Campaign />, onClick: () => {} },
-  { label: 'Requests', icon: <Assignment />, onClick: () => {} },
-];
-
 const SidebarTemplate = (args: any) => {
   const logoSrc = useRaaghuLogoSrc();
   const [open, setOpen] = useState(!!args.isOpen);
   const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
   const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
   const sidebarWidth = sidebarArgs.width ?? 240;
-  // Embedded preview uses a local container — permanent avoids modal scroll/focus lock in Docs.
   const variant = sidebarArgs.variant ?? 'permanent';
   const isPermanent = variant === 'permanent';
   const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
 
-  // Keep local open state in sync with the Storybook isOpen control
   useEffect(() => {
     setOpen(!!args.isOpen);
   }, [args.isOpen]);
@@ -245,8 +243,8 @@ export const Default = {
   args: {
     items: basicItems,
     isOpen: true,
-    variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    variant: 'persistent',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -262,7 +260,7 @@ export const MailApp = {
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showSearch: true,
     hideMainParagraph: false,
     hideToggleButton: false,
@@ -277,7 +275,7 @@ export const NarrowSidebar = {
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     hideToggleButton: true,
   },
   parameters: {
@@ -298,7 +296,7 @@ export const Permanent: Story = {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
   },
 };
@@ -309,7 +307,7 @@ export const WideSidebar = {
     items: basicItems,
     width: 250,
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
@@ -318,13 +316,13 @@ export const WithDisabledItems = {
   args: {
     items: [
       { label: 'Home', icon: <Home />, onClick: () => {} },
-      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, active: true },
+      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, selected: true },
       { label: 'Profile', icon: <Person />, disabled: true },
       { label: 'Settings', icon: <Settings />, onClick: () => {} },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
@@ -336,13 +334,13 @@ export const WithoutIcons: Story = {
   args: {
     items: [
       { label: 'Home', onClick: () => {} },
-      { label: 'About', onClick: () => {}, active: true },
+      { label: 'About', onClick: () => {}, selected: true },
       { label: 'Services', onClick: () => {} },
       { label: 'Contact', onClick: () => {} },
     ],
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };

@@ -1,6 +1,6 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
-import RdsCompToolbar, { ToolbarLayout, ToolbarType, ToolbarState } from "./rds-comp-toolbar";
+import RdsCompToolbar, { ToolbarLayout, ToolbarType } from "./rds-comp-toolbar";
 
 const meta: Meta<typeof RdsCompToolbar> = {
     title: "Components/Toolbar",
@@ -35,25 +35,6 @@ const meta: Meta<typeof RdsCompToolbar> = {
                             'misc': 'Misc'
                         };
                         return `type: ToolbarType.${enumMap[p1]}`;
-                    });
-                    
-                    code = code.replace(/state="(off|on|disabled-on|disabled-off)"/g, (match, p1) => {
-                        const enumMap: Record<string, string> = {
-                            'off': 'Off',
-                            'on': 'On',
-                            'disabled-on': 'DisabledOn',
-                            'disabled-off': 'DisabledOff'
-                        };
-                        return `state={ToolbarState.${enumMap[p1]}}`;
-                    });
-                    code = code.replace(/state:\s*"(off|on|disabled-on|disabled-off)"/g, (match, p1) => {
-                        const enumMap: Record<string, string> = {
-                            'off': 'Off',
-                            'on': 'On',
-                            'disabled-on': 'DisabledOn',
-                            'disabled-off': 'DisabledOff'
-                        };
-                        return `state: ToolbarState.${enumMap[p1]}`;
                     });
                     
                     return code;
@@ -97,22 +78,13 @@ const meta: Meta<typeof RdsCompToolbar> = {
             },
             if: { arg: 'layout', eq: 'secondary' },
         },
-        state: {
-            control: {
-                type: 'select',
-                labels: {
-                    [ToolbarState.Off]: 'Off',
-                    [ToolbarState.On]: 'On',
-                    [ToolbarState.DisabledOn]: 'Disabled On',
-                    [ToolbarState.DisabledOff]: 'Disabled Off'
-                }
-            },
-            options: Object.values(ToolbarState),
-            description: 'State of the toolbar',
-            table: {
-                type: { summary: 'ToolbarState' },
-                defaultValue: { summary: 'ToolbarState.On' },
-            },
+        disabled: {
+            control: 'boolean',
+            description: 'Disables every toolbar button',
+        },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the toolbar root.',
         },
     },
     tags: ['autodocs', 'stable'],
@@ -125,10 +97,9 @@ export const Default: Story = {
     args: {
         layout: ToolbarLayout.Primary,
         type: ToolbarType.FullFeatured,
-        state: ToolbarState.On,
+        disabled: false,
     },
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
         const buttons = canvasElement.querySelectorAll('button');
         expect(buttons.length).toBeGreaterThan(0);
     },

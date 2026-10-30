@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
-import React from 'react';
 import RdsButton from './rds-button';
 
 const meta: Meta<typeof RdsButton> = {
@@ -13,15 +11,15 @@ const meta: Meta<typeof RdsButton> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    text: {
+    children: {
       control: 'text',
-      description: 'The text to display on the button',
+      description: 'The button label',
     },
-    style: {
-      control: 'select',
-      options: ['filled', 'outlined', 'transparent'],
-      description: 'The style of the button',
-    },
+ variant: {
+  control: 'select',
+  options: ['filled', 'outlined', 'transparent'],
+  description: 'The visual variant of the button',
+},
     color: {
       control: 'select',
       options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
@@ -36,7 +34,7 @@ const meta: Meta<typeof RdsButton> = {
       control: 'boolean',
       description: 'Whether the button is disabled',
     },
-    isLoading: {
+    loading: {
       control: 'boolean',
       description: 'Whether the button is in loading state',
     },
@@ -45,15 +43,9 @@ const meta: Meta<typeof RdsButton> = {
       options: ['pill', 'rectangle'],
       description: 'The shape of the button',
     },
-    textCase: {
-      control: { type: "select" },
-      options: ["uppercase", "lowercase", "capitalize", "unset"],
-      description: 'The text case of the button',
-    },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled', 'selected'],
-      description: 'The state of the button',
+    selected: {
+      control: 'boolean',
+      description: 'Applies the selected treatment for toggle-style buttons',
     },
     layout: {
       control: 'select',
@@ -84,15 +76,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'Default Button',
-    style: 'filled',
+    children: 'Default Button',
+    variant: 'filled',
     color: 'primary',
     size: 'medium',
     disabled: false,
-    isLoading: false,
+    loading: false,
     shape: 'rectangle',
-    textCase: 'uppercase',
-    state: 'default',
     layout: 'text-only',
     showLeftIcon: true,
     showRightIcon: false,
@@ -103,69 +93,69 @@ export const Default: Story = {
 
 export const Disabled: Story = {
   args: {
-    text: 'Disabled Button',
+    children: 'Disabled Button',
     disabled: true,
   },
 };
 
 export const Large: Story = {
   args: {
-    text: 'Large Button',
+    children: 'Large Button',
     size: 'large',
-    style: 'filled',
+   variant: 'filled',
   },
 };
 
 export const Loading: Story = {
   args: {
-    text: 'Loading Button',
-    isLoading: true,
-    style: 'filled',
+    children: 'Loading Button',
+    loading: true,
+    variant: 'filled',
   },
 };
 
 export const Outlined: Story = {
   args: {
-    text: 'Outlined Button',
-    style: 'outlined',
+    children: 'Outlined Button',
+    variant: 'outlined',
   },
 };
 
 export const Primary: Story = {
   args: {
-    text: 'Primary Button',
-    style: 'filled',
+    children: 'Primary Button',
+    variant: 'filled',
     color: 'primary',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    text: 'Secondary Button',
-    style: 'filled',
+    children: 'Secondary Button',
+   variant: 'filled',
     color: 'secondary',
   },
 };
 
 export const Small: Story = {
   args: {
-    text: 'Small Button',
+    children: 'Small Button',
     size: 'small',
-    style: 'filled',
+    variant: 'filled',
   },
 };
 
 export const Transparent: Story = {
   args: {
-    text: 'Transparent Button',
-    style: 'transparent',
+    children: 'Transparent Button',
+   variant: 'transparent',
   },
 };
 
 export const WithEndIcon: Story = {
   args: {
-    text: 'Save Item',
-    style: 'filled',
+    children: 'Save Item',
+   variant: 'filled',
     color: 'primary',
     showRightIcon: true,
     changeRightIcon: 'save',
@@ -174,10 +164,9 @@ export const WithEndIcon: Story = {
 
 export const WithStartIcon: Story = {
   args: {
-    text: 'Add Item',
-    style: 'filled',
+    children: 'Add Item',
+    variant: 'filled',
     showLeftIcon: true,
     changeLeftIcon: 'add',
   },
 };
-

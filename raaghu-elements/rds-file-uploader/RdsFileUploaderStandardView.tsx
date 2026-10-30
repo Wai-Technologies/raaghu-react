@@ -1,15 +1,21 @@
-import { useState, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
+import Close from '@mui/icons-material/Close';
+import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
-import { type FileWithProgress } from './rds-file-uploader';
+import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 interface RdsFileUploaderStandardViewProps {
-  viewConfig: {
-    showTitle: boolean;
-    isMandatory: boolean;
-    showHint: boolean;
-    showPreview: boolean;
-  };
+  /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
+  rootProps?: RdsFileUploaderRootProps & { style?: CSSProperties };
+  accept?: string;
+ viewConfig: {
+  showTitle: boolean;
+  mandatory: boolean;
+  showHint: boolean;
+  showPreview: boolean;
+};
   interactionConfig: {
     disabled: boolean;
     dragAndDrop: boolean;
@@ -20,15 +26,21 @@ interface RdsFileUploaderStandardViewProps {
   hintText: string;
   selectedFileName: string | null;
   handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
-  addFiles: (files: File[]) => void;
+  addFiles: (files: File[], event?: SyntheticEvent) => void;
   setSelectedFileName: (name: string | null) => void;
   setFiles: Dispatch<SetStateAction<FileWithProgress[]>>;
-  onFilesChange?: (files: FileWithProgress[]) => void;
+  onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   children?: ReactNode;
   title?: string;
 }
 
+type SxArray = Extract<SxProps<Theme>, ReadonlyArray<unknown>>;
+const toSxArray = (sx: SxProps<Theme> | undefined): SxArray =>
+  (Array.isArray(sx) ? sx : sx ? [sx] : []) as SxArray;
+
 const RdsFileUploaderStandardView = ({
+  rootProps,
+  accept,
   viewConfig,
   interactionConfig,
   mandatoryError,
@@ -42,15 +54,24 @@ const RdsFileUploaderStandardView = ({
   children,
   title
 }: RdsFileUploaderStandardViewProps) => {
-  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+const { showTitle, mandatory, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
+  const { className, sx, ...restRootProps } = rootProps ?? {};
+  const titleId = useId();
 
   return (
-    <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
+    <Box
+      {...restRootProps}
+      className={clsx('rds-file-uploader__standard', className)}
+      sx={[{ width: '100%' }, ...toSxArray(sx)]}
+    >
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
-          <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
-            {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
+          <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 'var(--rds-font-weight-medium)' }}>
+            {title || 'File'}
+{mandatory && (
+  <span className="rds-file-uploader__mandatory">*</span>
+)}
           </Typography>
         </Box>
       )}
@@ -65,25 +86,27 @@ const RdsFileUploaderStandardView = ({
         }}
         onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files), e); } : undefined}
       >
         <RdsButton
-          style="filled"
+          variant="filled"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
-            minWidth: 'var(--rds-file-uploader-btn-min-width, 120px)',
-            fontSize: 'var(--rds-font-size-md, 0.9375rem)',
-            fontWeight: 'var(--rds-font-weight-medium, 500)',
-            padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
+            minWidth: 'var(--rds-file-uploader-btn-min-width)',
+            fontSize: 'var(--rds-font-size-md)',
+            fontWeight: 'var(--rds-font-weight-medium)',
+            padding: 'var(--rds-file-uploader-upload-padding-y) var(--rds-file-uploader-upload-padding-x)',
             flexShrink: 0,
           }}
-          {...({ component: 'label' } as Record<string, unknown>)}
+          aria-describedby={showTitle ? titleId : undefined}
+          component="label"
         >
           Choose File
           <input
             type="file"
             hidden
+            accept={accept}
             multiple={multiple}
             disabled={disabled}
             onChange={handleFileSelect}
@@ -96,43 +119,42 @@ const RdsFileUploaderStandardView = ({
           noWrap
           sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
-          {showPreview
-            ? (selectedFileName ? selectedFileName : 'No file chosen')
-            : 'No file chosen'}
+          {selectedFileName || 'No file chosen'}
         </Typography>
         {showPreview && selectedFileName && (
           <IconButton
             className="rds-file-uploader__file-remove"
             size="small"
-            aria-label="Remove file"
-            onClick={() => {
+            aria-label={`Remove ${selectedFileName}`}
+            onClick={(event) => {
               setSelectedFileName(null);
               setFiles([]);
-              onFilesChange?.([]);
+              onFilesChange?.([], event);
             }}
             disabled={disabled}
-            sx={{ ml: 'var(--rds-spacing-xs, 4px)' }}
+            sx={{ ml: 'var(--rds-spacing-xs)' }}
           >
-            {children}
+            {children ?? <Close />}
           </IconButton>
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs)', minHeight: 'var(--rds-file-uploader-hint-row-height)' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"
-          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
+          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 'var(--rds-font-weight-regular)', textAlign: 'right', minWidth: 0 }}
         >
           {showHint ? hintText : '\u00A0'}
         </Typography>
       </Box>
 
-      {isMandatory && mandatoryError && (
-        <Typography variant="caption" color="error" sx={{ mt: 1 }}>
-          {mandatoryError}
-        </Typography>
-      )}
+   {mandatory && mandatoryError && (
+  <Typography variant="caption" color="error" sx={{ mt: 1 }}>
+    {mandatoryError}
+  </Typography>
+)}
+    
     </Box>
   );
 };

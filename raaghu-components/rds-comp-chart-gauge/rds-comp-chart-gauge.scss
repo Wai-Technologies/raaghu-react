@@ -1,16 +1,12 @@
-@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
-
 .rds-comp-chart-gauge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  --rds-comp-chart-gauge-size: 45vh;
 
-    // Tablet view - full screen
-    @include bp.between(md, lg) {
-       
-        canvas {
-            height: 317.9px !important;
-            width: 1196px !important;
-        }
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  canvas {
+    width: var(--rds-comp-chart-gauge-size, 45vh);
+    height: var(--rds-comp-chart-gauge-size, 45vh);
+  }
 }

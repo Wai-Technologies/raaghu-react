@@ -1,3 +1,6 @@
+import type { ReactNode, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
+
 export enum TreeLevel {
   Level1 = "Level1",
   Level2 = "Level2",
@@ -5,21 +8,18 @@ export enum TreeLevel {
   Level4 = "Level4",
 }
 
-export enum NodeState {
-  Default = "Default",
-  Hover = "Hover",
-  Selected = "Selected",
-}
-
-export enum IconType {
-  Circle = "Circle",
-  Folder = "Folder",
-}
+export const IconType = {
+  Circle: 'Circle',
+  Folder: 'Folder',
+} as const;
+export type IconType = (typeof IconType)[keyof typeof IconType];
 
 export interface TreeNode {
   id: number;
   name: string;
   language?: string;
+  /** Icon hint carried in the data; not read by the component. */
+  icon?: string;
   children?: TreeNode[];
 }
 
@@ -30,12 +30,13 @@ export interface RdsCompTreeStructureProps {
   showFolder?: boolean;
   showFile?: boolean;
   showCollapsed?: boolean;
-  state?: NodeState;
+  selected?: boolean;
   type?: IconType;
   showActions?: boolean;
   treeData?: TreeNode[];
-  Language?: string;
-  iconName?: string;
+  language?: string;
+  /** @deprecated Has no effect. */
+  iconName?: ReactNode;
   text?: string;
   fileTypeIcons?: { [key: string]: React.ReactNode };
   getFileIcon?: (fileType: string) => React.ReactNode;
@@ -47,4 +48,7 @@ export interface RdsCompTreeStructureProps {
   onCreateSubUnit?: (node: TreeNode) => void;
   onMoveNode?: (id: number) => void;
   onCheckboxChange?: (nodeId: number, checked: boolean) => void;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }

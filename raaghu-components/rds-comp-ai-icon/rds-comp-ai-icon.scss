@@ -4,10 +4,10 @@
   justify-content: center;
   line-height: 0;
   background: transparent;
-  border-radius: var(--rds-border-radius, 4px);
+  border-radius: var(--rds-border-radius);
 
   &:focus-visible {
-    outline: 2px solid var(--rds-primary-main);
+    outline: var(--rds-border-width-medium) solid var(--rds-primary-main);
     outline-offset: 2px;
   }
 
@@ -42,9 +42,9 @@
   }
 
   &--primary {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
     .rds-comp-ai-icon__svg {
-      color: var(--rds-primary-main) !important;
+      color: var(--rds-primary-main);
     }
   }
 
@@ -58,7 +58,8 @@
     .rds-comp-ai-icon__svg { color: var(--rds-color-success); }
   }
 
-  &--danger {
+  &--danger,
+  &--error {
     color: var(--rds-color-danger);
     .rds-comp-ai-icon__svg { color: var(--rds-color-danger); }
   }

@@ -1,33 +1,63 @@
-import { useState, useEffect, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-collapse.scss';
-import { ExpandMore } from '@mui/icons-material';
 
 export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
+  /** Text shown in the header next to the toggle button. */
   title?: string;
   children: ReactNode;
+  /**
+   * Expanded state.
+   * - With `onToggle`: fully controlled; the component only shows what `expanded` says.
+   * - Without `onToggle`: sets the initial state and re-syncs whenever it changes; clicks still toggle.
+   *
+   * If MUI's `in` prop is also given, `in` decides what the content area shows.
+   */
   expanded?: boolean;
+  /** Initial expanded state when `expanded` is not given. Defaults to `false`. */
+  defaultExpanded?: boolean;
+  /** Called with the new expanded state on every toggle. */
   onToggle?: (expanded: boolean) => void;
+  /** Hides the toggle button and makes the header non-clickable. Defaults to `false`. */
+  hideToggle?: boolean;
+  /** @deprecated Use `hideToggle` instead. */
   showToggleButton?: boolean;
 }
 
 const RdsCollapse = ({
   title,
   children,
-  expanded = false,
+  expanded,
+  defaultExpanded,
   onToggle,
-  showToggleButton = true,
+  hideToggle,
+  showToggleButton,
+  in: inProp,
+  id: idProp,
+  className,
+  'data-testid': dataTestId,
   ...props
-}: RdsCollapseProps) => {
-  const isControlled = onToggle !== undefined;
-  const [internalExpanded, setInternalExpanded] = useState(expanded ?? false);
-  const currentExpanded = isControlled ? expanded : internalExpanded;
+}: RdsCollapseProps & { 'data-testid'?: string }) => {
+  if (showToggleButton !== undefined) warnDeprecatedProp('RdsCollapse', 'showToggleButton', '`hideToggle`');
+  const showToggle = hideToggle === undefined ? (showToggleButton ?? true) : !hideToggle;
+  const generatedId = useId();
+  const contentId = idProp ?? generatedId;
 
-  useEffect(() => {
-    if (!isControlled) {
-      setInternalExpanded(expanded ?? false);
-    }
-  }, [expanded, isControlled]);
+  const isControlled = expanded !== undefined && onToggle !== undefined;
+  const [internalExpanded, setInternalExpanded] = useState(expanded ?? defaultExpanded ?? false);
+
+  const [prevExpanded, setPrevExpanded] = useState(expanded);
+  if (expanded !== prevExpanded) {
+    setPrevExpanded(expanded);
+    setInternalExpanded(expanded ?? false);
+  }
+
+  const currentExpanded = isControlled ? expanded : internalExpanded;
+  const contentOpen = inProp ?? currentExpanded;
+  const hasTitle = typeof title === 'string' && title !== '';
 
   const handleToggle = () => {
     const newExpanded = !currentExpanded;
@@ -36,30 +66,32 @@ const RdsCollapse = ({
   };
 
   return (
-    <Box>
-      {((typeof title === 'string' && title) || showToggleButton) && (
+    <Box className={clsx('rds-collapse', className)} data-testid={dataTestId}>
+      {(hasTitle || showToggle) && (
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             gap: 1,
-            cursor: showToggleButton ? 'pointer' : 'default',
+            cursor: showToggle ? 'pointer' : 'default',
             py: 1,
           }}
-          onClick={showToggleButton ? handleToggle : undefined}
+          onClick={showToggle ? handleToggle : undefined}
         >
-          {typeof title === 'string' && title && (
+          {hasTitle && (
             <Typography variant="h6" component="div">
               {title}
             </Typography>
           )}
-          {showToggleButton && (
+          {showToggle && (
             <IconButton
               aria-label={currentExpanded ? 'Collapse' : 'Expand'}
+              aria-expanded={contentOpen}
+              aria-controls={contentId}
               size="small"
               sx={{
                 transform: currentExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.2s',
+                transition: 'transform var(--rds-motion-duration-quick)',
                 p: 0,
                 ml: 0,
               }}
@@ -69,8 +101,8 @@ const RdsCollapse = ({
           )}
         </Box>
       )}
-      <MuiCollapse in={currentExpanded} {...props}>
-        <Box sx={{ pt: typeof title === 'string' && title ? 1 : 0 }}>
+      <MuiCollapse {...props} in={contentOpen} id={contentId}>
+        <Box sx={{ pt: hasTitle ? 1 : 0 }}>
           {children}
         </Box>
       </MuiCollapse>

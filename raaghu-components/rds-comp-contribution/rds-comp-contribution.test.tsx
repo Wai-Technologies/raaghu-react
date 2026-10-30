@@ -5,24 +5,30 @@ import { axe } from 'jest-axe';
 import RdsCompContribution from './rds-comp-contribution';
 import dayjs from 'dayjs';
 
-// Mock the SCSS file
 jest.mock('./rds-comp-contribution.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock react-measure
-jest.mock('react-measure', () => {
-  return function MockMeasure({ children, onResize }: any) {
-    React.useEffect(() => {
-      onResize({ bounds: { width: 1200, height: 300 } });
-    }, [onResize]);
-
-    return children({
-      measure: { ref: jest.fn() },
-      measureRef: jest.fn(),
-    });
-  };
+beforeAll(() => {
+  class MockResizeObserver {
+    private cb: ResizeObserverCallback;
+    constructor(cb: ResizeObserverCallback) {
+      this.cb = cb;
+    }
+    observe(target: Element) {
+      const width = 1200;
+      const height = 300;
+      this.cb(
+        [{ contentRect: { width, height, top: 0, left: 0, bottom: height, right: width, x: 0, y: 0, toJSON: () => ({}) } } as ResizeObserverEntry],
+        this as unknown as ResizeObserver,
+      );
+      void target;
+    }
+    unobserve() {}
+    disconnect() {}
+  }
+  global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 });
 
-// Mock MUI SvgIcon
 jest.mock('@mui/material/SvgIcon', () => {
   return function MockSvgIcon({ children, className, viewBox, sx, ...props }: any) {
     return (
@@ -776,5 +782,89 @@ describe('RdsCompContribution', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const base = {
+    values: { '2024-01-01': 2 },
+    until: '2024-12-31',
+    panelColors: ['#eee', '#aaa', '#555'],
+    monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  };
+
+  it('G4-051: svg exposes an accessible name', () => {
+    render(<RdsCompContribution {...base} />);
+    const svg = screen.getByTestId('svg-icon');
+    expect(svg.tagName.toLowerCase()).toBe('svg');
+    expect(svg).toHaveAttribute('aria-label', 'Contribution graph');
+    expect(svg.querySelector('title')).toHaveTextContent('Contribution graph');
+    const panelTitle = svg.querySelector('rect[data-date="2024-01-01"] title');
+    expect(panelTitle).toHaveTextContent('2024-01-01: 2');
+  });
+
+  it('G4-050: mobile panel size scales from panelSize', async () => {
+    global.innerWidth = 320;
+    const { container, rerender } = render(
+      <RdsCompContribution {...base} panelSize={22} panelMargin={4} />
+    );
+    fireEvent(window, new Event('resize'));
+    await waitFor(() => {
+      const rect = container.querySelector('rect.rds-comp-contribution__panel');
+      expect(rect).toHaveAttribute('width', '16');
+    });
+    global.innerWidth = 1200;
+    rerender(<RdsCompContribution {...base} panelSize={22} panelMargin={4} />);
+    fireEvent(window, new Event('resize'));
+    await waitFor(() => {
+      const rect = container.querySelector('rect.rds-comp-contribution__panel');
+      expect(rect).toHaveAttribute('width', '22');
+    });
+  });
+
+  it('G4-055: root forwards className, ref and rest props', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsCompContribution {...base} className="custom" ref={ref} data-testid="root" />);
+    const root = container.querySelector('.rds-comp-contribution.custom');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute('data-testid', 'root');
+    expect(ref.current).toBe(root);
+  });
+});
+
+describe('audit fixes', () => {
+  const base = {
+    data: { '2024-12-30': 1 },
+    colors: ['#ffffff', '#808080'],
+    weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    showWeekLabels: true,
+  };
+
+  it('renders with the new prop names and slotProps', () => {
+    const { container } = render(
+      <RdsCompContribution
+        {...base}
+        endDate={dayjs('2024-12-31')}
+        slotProps={{ panel: { 'data-x': 'p' }, weekLabel: { 'data-x': 'w' }, monthLabel: { 'data-x': 'm' } }}
+      />
+    );
+    expect(container.querySelector('rect[data-date="2024-12-30"]')).toHaveAttribute('fill', '#808080');
+    expect(container.querySelector('rect[data-x="p"]')).toBeInTheDocument();
+    expect(container.querySelector('text[data-x="w"]')).toHaveTextContent('S');
+    expect(container.querySelector('text[data-x="m"]')).toBeInTheDocument();
+  });
+
+  it('accepts a Date endDate', () => {
+    const { container } = render(<RdsCompContribution {...base} endDate={new Date(2024, 11, 31)} />);
+    expect(container.querySelector('rect[data-date="2024-12-31"]')).toBeInTheDocument();
+  });
+
+  it('warns for deprecated props', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompContribution values={{}} until="2024-12-31" panelColors={['#fff']} weekNames={[]} monthNames={[]} panelAttributes={{}} />);
+    ['values', 'until', 'panelColors', 'weekNames', 'monthNames', 'panelAttributes'].forEach((name) =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompContribution', name, expect.any(String))
+    );
   });
 });

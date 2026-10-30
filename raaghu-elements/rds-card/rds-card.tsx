@@ -1,10 +1,35 @@
-import { type ReactElement, type ReactNode } from 'react';
+import { type ReactElement, type ReactNode, type AriaAttributes, type CSSProperties } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
-import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
-         Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
-         Download, Upload, Share, Notifications,
-} from '@mui/icons-material';
+import Person from '@mui/icons-material/Person';
+import Home from '@mui/icons-material/Home';
+import Settings from '@mui/icons-material/Settings';
+import Favorite from '@mui/icons-material/Favorite';
+import Star from '@mui/icons-material/Star';
+import Email from '@mui/icons-material/Email';
+import Phone from '@mui/icons-material/Phone';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Camera from '@mui/icons-material/Camera';
+import Image from '@mui/icons-material/Image';
+import MusicNote from '@mui/icons-material/MusicNote';
+import VideoLibrary from '@mui/icons-material/VideoLibrary';
+import Description from '@mui/icons-material/Description';
+import Folder from '@mui/icons-material/Folder';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import Check from '@mui/icons-material/Check';
+import Close from '@mui/icons-material/Close';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Download from '@mui/icons-material/Download';
+import Upload from '@mui/icons-material/Upload';
+import Share from '@mui/icons-material/Share';
+import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-card.scss';
 
 const ICON_MAP: Record<string, ReactElement> = {
@@ -38,15 +63,29 @@ const ICON_MAP: Record<string, ReactElement> = {
   notification: <Notifications />,
 };
 
-export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
+/** Roles on which `aria-selected` is allowed; other roles get `aria-current` instead. */
+const ARIA_SELECTED_ROLES = new Set(['option', 'tab', 'row', 'gridcell', 'columnheader', 'rowheader', 'treeitem']);
+
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content'> {
+export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content' | 'variant'> {
+  /** @deprecated Use `sx` instead. */
   padding?: number | string;
-  state?: CardState;
-  style?: CardStyle;
+  /** Shows the card as selected and sets `aria-selected` (or `aria-current`). */
+  selected?: boolean;
+  /** Shows the card as disabled and sets `aria-disabled`. */
+  disabled?: boolean;
+  /** Visual variant (Figma): `'default'`, `'outlined'` or `'filled'`. MUI's `'elevation'` is still accepted. */
+  variant?: CardStyle | CardProps['variant'];
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: CardStyle | CSSProperties;
+  /** Card layout, vertical or horizontal. @default 'vertical' */
   layout?: CardLayout;
+  /**
+   * Shows or hides each section with `'visible'`/`'hidden'`. When a key is set it takes precedence
+   * over the matching `show*` boolean.
+   */
   content?: {
     indicator?: 'visible' | 'hidden';
     title?: 'visible' | 'hidden';
@@ -54,75 +93,108 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
     description?: 'visible' | 'hidden';
     icon?: 'visible' | 'hidden';
   };
+  /** Shows the indicator strip. Defaults to `true`. */
+  showIndicator?: boolean;
+  /** Shows `title`. Defaults to `true`. */
+  showTitle?: boolean;
+  /** Shows `cardSubtext`. Defaults to `true`. */
+  showSubtext?: boolean;
+  /** Shows `description`. Defaults to `true`. */
+  showDescription?: boolean;
+  /** Shows the icon. Defaults to `true`. Use `icon={false}` to hide it as well. */
+  showIcon?: boolean;
+  /** Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. Defaults to a person icon. */
+  icon?: ReactNode;
+  /** @deprecated Use `icon` instead. */
   changeIcon?: CardIconName;
   children?: ReactNode;
-  title?: string; 
-  cardSubtext?: string; 
+  /** Title text shown in the card. */
+  title?: string;
+  /** Secondary line under the title. */
+  subtitle?: string;
+  /** @deprecated Use `subtitle` instead. */
+  cardSubtext?: string;
+  /** Description text shown in the card. */
   description?: string;
-  [key: string]: unknown;
 }
 
 const RdsCard = ({
   padding,
   children,
   sx,
-  state = 'default',
+  selected,
+  disabled,
   className,
-  style: cardStyleProp = 'default',
+  style,
+  variant,
   layout = 'vertical',
   content,
-  changeIcon = 'person',
+  showIndicator: showIndicatorProp,
+  showTitle: showTitleProp,
+  showSubtext: showSubtextProp,
+  showDescription: showDescriptionProp,
+  showIcon: showIconProp,
+  icon,
+  changeIcon,
   title,
   cardSubtext,
+  subtitle,
   description,
-  ...props
+  'aria-disabled': ariaDisabledProp,
+  'aria-selected': ariaSelectedProp,
+  'aria-current': ariaCurrentProp,
+  ...muiCardProps
 }: RdsCardProps) => {
-  const legacyShowIndicator = typeof props['showIndicator'] === 'boolean' ? (props['showIndicator'] as boolean) : undefined;
-  const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
-  const legacyShowSubtext = typeof props['showSubtext'] === 'boolean' ? (props['showSubtext'] as boolean) : undefined;
-  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
-  const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
+  if (changeIcon !== undefined) warnDeprecatedProp('RdsCard', 'changeIcon', '`icon`');
+  if (cardSubtext !== undefined) warnDeprecatedProp('RdsCard', 'cardSubtext', '`subtitle`');
+  if (padding !== undefined) warnDeprecatedProp('RdsCard', 'padding', '`sx`');
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsCard', 'style', '`variant`');
+  const cardVariant: CardStyle = (variant && variant !== 'elevation' ? variant : undefined) ?? legacyVariant ?? 'default';
+  const resolvedSubtitle = subtitle ?? cardSubtext;
 
-  const showIndicator = content?.indicator ? content.indicator === 'visible' : (legacyShowIndicator ?? true);
-  const showTitle = content?.title ? content.title === 'visible' : (legacyShowTitle ?? true);
-  const showSubtext = content?.subtext ? content.subtext === 'visible' : (legacyShowSubtext ?? true);
-  const showDescription = content?.description ? content.description === 'visible' : (legacyShowDescription ?? true);
-  const showIcon = content?.icon ? content.icon === 'visible' : (legacyShowIcon ?? true);
+  const legacy = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
+  const iconHiddenByProp = icon === null || icon === false;
 
-  const {
-    showIndicator: _legacyShowIndicator,
-    showTitle: _legacyShowTitle,
-    showSubtext: _legacyShowSubtext,
-    showDescription: _legacyShowDescription,
-    showIcon: _legacyShowIcon,
-    ...muiCardProps
-  } = props as typeof props & {
-    showIndicator?: boolean;
-    showTitle?: boolean;
-    showSubtext?: boolean;
-    showDescription?: boolean;
-    showIcon?: boolean;
+  const showIndicator = content?.indicator ? content.indicator === 'visible' : (legacy(showIndicatorProp) ?? true);
+  const showTitle = content?.title ? content.title === 'visible' : (legacy(showTitleProp) ?? true);
+  const showSubtext = content?.subtext ? content.subtext === 'visible' : (legacy(showSubtextProp) ?? true);
+  const showDescription = content?.description ? content.description === 'visible' : (legacy(showDescriptionProp) ?? true);
+  const showIcon = !iconHiddenByProp && (content?.icon ? content.icon === 'visible' : (legacy(showIconProp) ?? true));
+
+  const isDisabled = Boolean(disabled);
+  const isSelected = !isDisabled && Boolean(selected);
+
+  const useAriaSelected = typeof muiCardProps.role === 'string' && ARIA_SELECTED_ROLES.has(muiCardProps.role);
+  const ariaProps: AriaAttributes = {
+    'aria-disabled': ariaDisabledProp ?? (isDisabled || undefined),
+    'aria-selected': ariaSelectedProp ?? (useAriaSelected && isSelected ? true : undefined),
+    'aria-current': ariaCurrentProp ?? (!useAriaSelected && isSelected ? true : undefined),
   };
+
+  const hasCustomIcon = icon !== undefined && !iconHiddenByProp;
+  const iconName = changeIcon ?? 'person';
 
   const cardClassName = clsx(
     'rds-card',
-    `rds-card--${state}`,
-    `rds-card--style-${cardStyleProp}`,
+    isDisabled && 'rds-card--disabled',
+    isSelected && 'rds-card--selected',
+    `rds-card--style-${cardVariant}`,
     `rds-card--layout-${layout}`,
     showIndicator && 'rds-card--with-indicator',
     !showTitle && 'rds-card--hide-title',
     !showSubtext && 'rds-card--hide-subtext',
     !showDescription && 'rds-card--hide-description',
     !showIcon && 'rds-card--hide-icon',
-    showIcon && `rds-card--icon-${changeIcon}`,
+    showIcon && !hasCustomIcon && `rds-card--icon-${iconName}`,
     className,
   );
 
   const cardInlineStyle = padding ? { padding } : undefined;
 
   const iconElement = !showIcon ? null : (
-    <Avatar className={`rds-card__icon rds-card__icon--${changeIcon}`}>
-      {ICON_MAP[changeIcon] ?? <Person />}
+    <Avatar className={clsx('rds-card__icon', !hasCustomIcon && `rds-card__icon--${iconName}`)}>
+      {hasCustomIcon ? icon : (ICON_MAP[iconName] ?? <Person />)}
     </Avatar>
   );
 
@@ -137,13 +209,13 @@ const RdsCard = ({
           {title}
         </Typography>
       )}
-      {cardSubtext && showSubtext && (
-        <Typography 
+      {resolvedSubtitle && showSubtext && (
+        <Typography
           variant="body2"
           component="p"
           className="rds-card__subtext"
         >
-          {cardSubtext}
+          {resolvedSubtitle}
         </Typography>
       )}
     </div>
@@ -152,7 +224,7 @@ const RdsCard = ({
   const descriptionAndChildrenElement = !description && !children ? null : (
     <div className="rds-card__below-content">
       {description && showDescription && (
-        <Typography 
+        <Typography
           variant="body2"
           component="p"
           className="rds-card__description"
@@ -170,12 +242,15 @@ const RdsCard = ({
 
   return (
     <MuiCard
+      {...muiCardProps}
+      {...ariaProps}
+      variant={variant === 'outlined' || variant === 'elevation' ? variant : undefined}
       className={cardClassName}
+      style={typeof style === 'object' ? style : undefined}
       sx={[
         cardInlineStyle,
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
-      {...muiCardProps}
     >
       {showIndicator && (
         <div className="rds-card__indicator">

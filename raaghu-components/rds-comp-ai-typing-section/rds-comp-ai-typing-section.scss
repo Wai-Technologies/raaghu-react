@@ -1,309 +1,611 @@
 .rds-comp-ai-typing-section {
+  --rds-ai-typing-section-dim-1: 160px;
+  --rds-ai-typing-section-dim-2: 220px;
+
+
+  --rds-ai-typing-toolbar-control-height: 40px;
+
   display: block;
 
-  /* Use global --rds-* tokens (falls back to component defaults) */
-  --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height, 100px);
-  --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width, 190px);
-  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 260px);
-  --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width, 140px);
-  --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height, 40px);
-  --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset, -129px);
-  --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right, 5px);
+
+
+  --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height);
+
+  --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width);
+
+  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width);
+
+  --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width);
+
+  --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height);
+
+  --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset);
+
+  --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right);
+
   
+
   &__input-wrapper {
-    border-radius: var(--rds-border-radius, 5px);
-    border: 1px solid var(--rds-color-border);
+
+    border-radius: var(--rds-border-radius);
+
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
+
     background: var(--rds-color-surface);
-    box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
-    padding: var(--rds-spacing-md, 12px);
+
+    box-shadow: var(--rds-elevation-2);
+
+    padding: var(--rds-spacing-md);
+
     position: relative;
+
     transition: all var(--rds-transition-base);
+
     
+
     &:focus-within {
+
       border-color: var(--rds-primary-main);
-      box-shadow: var(--rds-elevation-3, 0px 0px 16px 0px rgba(0, 0, 0, 0.25));
+
+      box-shadow: var(--rds-elevation-3);
+
     }
+
   }
+
   
+
   &__input-with-image {
+
     display: flex;
+
     align-items: flex-end;
+
     flex-wrap: wrap;
-    gap: var(--rds-spacing-sm, 10px);
+
+    gap: var(--rds-spacing-sm);
+
     justify-content: flex-end;
+
     position: relative;
+
     
+
     &--mobile {
-      padding-right: var(--rds-spacing-md, 12px);
+
+      padding-right: var(--rds-spacing-md);
+
     }
+
   }
+
   
+
   &__input-box {
+
   flex: 1;
-  padding: var(--rds-spacing-md, 15px);
-  font-size: var(--rds-font-size-body, 14px);
+
+  padding: var(--rds-spacing-md);
+
+  font-size: var(--rds-font-size-body);
+
   background-color: var(--rds-color-surface);
+
   color: var(--rds-color-on-surface);
+
   height: var(--ai-typing-textarea-height);
+
     box-sizing: border-box;
-    line-height: 1.5;
+
+    line-height: var(--rds-line-height-normal);
+
     resize: none;
-    border-radius: var(--rds-border-radius-sm, 3px);
+
+    border-radius: var(--rds-border-radius-sm);
+
     font-family: var(--rds-font-family-base);
+
     font-weight: var(--rds-font-weight-medium, 500);
+
     border: none;
+
     outline: none;
+
     margin: 0;
+
     transition: all var(--rds-transition-base);
+
     
+
     &::placeholder {
+
       font-weight: var(--rds-font-weight-medium, 500);
+
       color: var(--rds-placeholder-color);
+
       font-family: var(--rds-font-family-base);
-      font-size: var(--rds-font-size-body, 14px);
-      line-height: var(--rds-line-height-body, 16px);
+
+      font-size: var(--rds-font-size-body);
+
+      line-height: var(--rds-line-height-body);
+
     }
+
     
+
     &:focus {
+
       border: none;
+
       outline: none;
+
     }
+
     
+
     &--muted-placeholder::placeholder {
+
       color: var(--rds-text-disabled);
+
       opacity: 1;
+
     }
+
   }
+
+
 
   &__input-icon {
+
     color: var(--rds-color-text-secondary);
-    font-size: var(--rds-font-size-icon, 20px);
-    top: var(--rds-spacing-sm, 8px);
-    right: var(--rds-spacing-md, 12px);
+
+    font-size: var(--rds-font-size-icon);
+
+    top: var(--rds-spacing-sm);
+
+    right: var(--rds-spacing-md);
+
     position: absolute;
+
     pointer-events: none;
+
     display: flex;
+
     align-items: center;
+
     transition: color var(--rds-transition-base);
 
-    // Icon color uses --rds-primary-main which responds to dark mode automatically
+
+
     .rds-comp-ai-icon--primary,
+
     .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
-      color: var(--rds-primary-main) !important;
+
+      color: var(--rds-primary-main);
+
     }
+
   }
+
   
+
   &__actions {
+
     display: flex;
+
     justify-content: flex-end;
-    gap: var(--rds-spacing-sm, 8px);
-    margin-top: var(--rds-spacing-sm, 8px);
+
+    gap: var(--rds-spacing-sm);
+
+    margin-top: var(--rds-spacing-sm);
+
     
+
     &--mobile {
-      margin-top: var(--rds-spacing-md, 12px);
+
+      margin-top: var(--rds-spacing-md);
+
     }
+
   }
+
   
+
   &__action-icons {
+
     display: flex;
+
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
+
+    gap: var(--rds-spacing-md);
+
   }
+
   
+
   &__attach {
+
     position: relative;
 
+
+
     .rds-fab-menu__dropdown-container {
+
       position: absolute;
+
       right: 0;
-      top: auto !important;
-      margin-bottom: var(--rds-spacing-sm, 8px);
+
+      top: auto;
+
+      margin-bottom: var(--rds-spacing-sm);
+
     }
+
   }
+
+
 
   @media (max-width: 375px) {
+
     &__attach {
+
       .rds-fab-menu__dropdown-container--open {
+
         right: auto;
-        left: -129px;
+
+        left: var(--ai-typing-fab-left-offset);
+
       }
+
     }
-  }
-  
-  &__send {
-    display: flex;
-    align-items: center;
-  }
-  
-  &__button-sections {
-    display: flex;
-    margin-top: var(--rds-spacing-md, 12px);
-    margin-bottom: var(--rds-spacing-sm, 8px);
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--rds-spacing-md, 12px);
-    flex-direction: row;
-    flex-wrap: wrap;
+
   }
 
-  /* Tablet (768px) and above: keep New Project, Import From Figma, and Select Frontend on one row */
-  @media (min-width: 768px) {
-    &__button-sections {
-      /* Top-align so buttons line up with the autocomplete input (not helper-text height) */
-      align-items: flex-start;
-      flex-wrap: nowrap;
-    }
-  }
   
-  &__project-actions {
+
+  &__send {
+
     display: flex;
+
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
+
+  }
+
+  
+
+  &__button-sections {
+
+    display: flex;
+
+    margin-top: var(--rds-spacing-md);
+
+    margin-bottom: var(--rds-spacing-sm);
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: var(--rds-spacing-md);
+
+    flex-direction: row;
+
     flex-wrap: wrap;
-    min-width: 0;
+
   }
+
+
+
+  @media (min-width: 768px) {
+
+    &__button-sections {
+
+      align-items: flex-start;
+
+      flex-wrap: nowrap;
+
+    }
+
+  }
+
   
-  &__action-button {
+
+  &__project-actions {
+
     display: flex;
+
     align-items: center;
-    flex: 0 1 auto;
+
+    gap: var(--rds-spacing-md);
+
+    flex-wrap: wrap;
+
     min-width: 0;
+
+  }
+
+  
+
+  &__action-button {
+
+    display: flex;
+
+    align-items: center;
+
+    flex: 0 1 auto;
+
+    min-width: 0;
+
     height: var(--ai-typing-toolbar-control-height);
 
+
+
     .rds-button,
+
     .MuiButton-root,
+
     .MuiButtonBase-root {
-      min-height: var(--ai-typing-toolbar-control-height) !important;
-      height: var(--ai-typing-toolbar-control-height) !important;
+
+      min-height: var(--ai-typing-toolbar-control-height);
+
+      height: var(--ai-typing-toolbar-control-height);
+
       max-width: 100%;
+
     }
+
+
 
     & > * {
+
       white-space: nowrap;
+
       overflow: hidden;
+
       text-overflow: ellipsis;
+
       max-width: 100%;
+
     }
+
   }
+
+
 
   &__autocomplete {
+
     flex: 1 1 auto;
-    max-width: var(--ai-typing-autocomplete-max-width, 260px);
+
+    max-width: var(--ai-typing-autocomplete-max-width);
+
     min-width: min(var(--ai-typing-autocomplete-min-width), 100%);
+
     display: flex;
+
     align-items: flex-start;
 
+
+
     .rds-autocomplete,
+
     .rds-autocomplete--root {
+
       width: 100%;
+
     }
+
+
 
     .MuiInputBase-root,
+
     .MuiOutlinedInput-root {
+
       min-height: var(--ai-typing-toolbar-control-height);
+
       height: var(--ai-typing-toolbar-control-height);
+
       box-sizing: border-box;
+
     }
 
-    /* Helper text is not shown in this toolbar; collapse reserved space so controls share one baseline */
+
+
     .MuiFormHelperText-root {
+
       display: none;
+
     }
+
   }
 
-  /* Mobile only: stack project actions above the frontend select */
+
+
   @media (max-width: 767px) {
+
     &__button-sections {
+
       align-items: stretch;
-      gap: var(--rds-spacing-sm, 8px);
+
+      gap: var(--rds-spacing-sm);
+
     }
+
+
 
     &__project-actions {
+
       flex: 1 1 100%;
+
       width: 100%;
+
       flex-wrap: nowrap;
-      gap: var(--rds-spacing-sm, 8px);
+
+      gap: var(--rds-spacing-sm);
+
     }
+
+
 
     &__action-button {
+
       flex: 1 1 0;
+
       min-width: 0;
+
     }
 
+
+
     &__autocomplete {
+
       flex: 1 1 100%;
+
       width: 100%;
+
       max-width: 100%;
+
     }
+
   }
+
+
 
   @media (max-width: 375px) {
+
     &__button-sections {
-      gap: var(--rds-spacing-xs, 6px);
-      margin-top: var(--rds-spacing-xs, 6px);
-      margin-bottom: var(--rds-spacing-xs, 4px);
+
+      gap: var(--rds-spacing-xs);
+
+      margin-top: var(--rds-spacing-xs);
+
+      margin-bottom: var(--rds-spacing-xs);
+
     }
+
+
 
     &__project-actions {
+
       flex-direction: column;
+
       align-items: stretch;
-      gap: var(--rds-spacing-xs, 6px);
+
+      gap: var(--rds-spacing-xs);
+
     }
 
+
+
     &__action-button {
+
       flex: 1 1 100%;
+
       width: 100%;
+
     }
+
   }
+
+
 
   @media (min-width: 1536px) {
+
     &__button-sections {
-      gap: calc(var(--rds-spacing-md, 12px) * 1.5);
+
+      gap: calc(var(--rds-spacing-md) * 1.5);
+
     }
+
+
 
     &__project-actions {
-      gap: calc(var(--rds-spacing-md, 12px) * 1.5);
+
+      gap: calc(var(--rds-spacing-md) * 1.5);
+
       flex-wrap: nowrap;
+
     }
 
+
+
     &__action-button {
+
       flex: 0 1 auto;
+
       min-width: var(--ai-typing-action-button-min-width);
+
     }
+
   }
+
+
 
   @media (min-width: 768px) {
+
     &__project-actions {
+
       flex: 0 1 auto;
+
       flex-wrap: nowrap;
+
       min-width: 0;
+
     }
+
+
 
     &__action-button {
+
       flex: 0 1 auto;
+
       min-width: 0;
+
     }
 
+
+
     &__autocomplete {
-      flex: 0 1 var(--ai-typing-autocomplete-max-width, 260px);
+
+      flex: 0 1 var(--ai-typing-autocomplete-max-width);
+
       min-width: min(var(--ai-typing-autocomplete-min-width), 100%);
+
     }
+
   }
+
+
 
   @media (min-width: 768px) and (max-width: 1024px) {
+
     &__button-sections {
-      gap: var(--rds-spacing-sm, 10px);
+
+      gap: var(--rds-spacing-sm);
+
     }
+
+
 
     &__project-actions {
-      gap: var(--rds-spacing-sm, 10px);
+
+      gap: var(--rds-spacing-sm);
+
       flex: 1 1 auto;
+
     }
 
+
+
     &__autocomplete {
+
       flex: 1 1 auto;
-      min-width: 160px;
-      max-width: 220px;
+
+      min-width: var(--rds-ai-typing-section-dim-1);
+
+      max-width: var(--rds-ai-typing-section-dim-2);
+
     }
+
   }
+
 }
+

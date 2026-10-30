@@ -1,8 +1,12 @@
 .rds-ai-chat-bot {
+  --rds-ai-chat-bot-dim-1: 400px;
+
+  --rds-ai-chat-bot-min-height: 500px;
+
     display: flex;
     flex-direction: column;
     height: 95vh;
-    min-height: var(--rds-ai-chat-bot-min-height, 500px);
+    min-height: var(--rds-ai-chat-bot-min-height);
     max-height: 100vh;
     width: 100%;
     max-width: 100%;
@@ -17,7 +21,7 @@
     }
 
     &__message {
-        margin-bottom: var(--rds-spacing-xxs, 2px);
+        margin-bottom: var(--rds-spacing-xxs);
         
         &--sender {
             text-align: right;
@@ -30,7 +34,7 @@
 
     &__input-wrapper {
         flex-shrink: 0;
-        padding: var(--rds-spacing-md, 10px);
+        padding: var(--rds-spacing-md);
     }
 
     &__input {
@@ -39,41 +43,13 @@
 
 }
 
-.chat-box {
-    @extend .rds-ai-chat-bot;
-}
-
-.chat-messages {
-    @extend .rds-ai-chat-bot__messages;
-}
-
-.chat-message {
-    @extend .rds-ai-chat-bot__message;
-    
-    &.sender {
-        @extend .rds-ai-chat-bot__message--sender;
-    }
-    
-    &.receiver {
-        @extend .rds-ai-chat-bot__message--receiver;
-    }
-}
-
-.chat-input-wrapper {
-    @extend .rds-ai-chat-bot__input-wrapper;
-}
-
-.chat-input {
-    @extend .rds-ai-chat-bot__input;
-}
-
 @media (max-width: 900px) {
     .rds-ai-chat-bot {
         height: 100vh;
-        min-height: 400px;
+        min-height: var(--rds-ai-chat-bot-dim-1);
 
         &__input-wrapper {
-            padding: var(--rds-spacing-sm, 8px);
+            padding: var(--rds-spacing-sm);
         }
     }
 }

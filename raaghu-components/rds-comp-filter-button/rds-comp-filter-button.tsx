@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useMemo, useRef, useState, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type ReactNode, type Ref, type MouseEvent as ReactMouseEvent } from 'react';
 import { 
   Box, 
   Typography, 
@@ -9,68 +9,139 @@ import {
   AccordionDetails,
   TextField,
 } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-filter-button.scss';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 export interface FilterOption {
   id: string;
   name: string;
   values: string[];
   selectedValues?: string[];
+  /** Optional image URL for this filter; wins over `itemIcon`. */
+  icon?: string;
 }
 
-export interface RdsCompFilterButtonProps {
+export interface RdsCompFilterButtonLocaleText {
+  title?: string;
+  searchPlaceholder?: string;
+  apply?: string;
+  clearAll?: string;
+}
+
+export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** Shape of the trigger button. @default 'rectangle' */
   shape?: 'rectangle' | 'pill';
+  /** Button label. Wins over `text`. */
+  children?: ReactNode;
+  /** @deprecated Use `children` instead. */
   text?: string;
+  /** Shows the start icon on the trigger button. @default true */
   showLeftIcon?: boolean;
+  /** Shows the end icon on the trigger button. @default false */
   showRightIcon?: boolean;
+  /** Start icon. Wins over `leftIcon`; `null` hides it. */
+  startIcon?: ReactNode;
+  /** End icon. Wins over `rightIcon`; `null` hides it. */
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
+  /** Filters (with their values and selected values) listed in the popover. */
+  options?: FilterOption[];
+  /** @deprecated Use `options` instead. */
   filters?: FilterOption[];
+  /** Called with the updated filters whenever a value is checked or unchecked. */
   onFiltersChange?: (filters: FilterOption[]) => void;
+  /** Called with the current filters when Apply is clicked. */
   onApply?: (selectedFilters: FilterOption[]) => void;
+  /** Called when Clear All is clicked. */
   onClear?: () => void;
+  /** Disables the trigger button. @default false */
   disabled?: boolean;
+  /** Extra class name applied to the root element. */
   className?: string;
+  /** MUI system styles applied to the filter button root. */
+  sx?: SxProps<Theme>;
+  /** Default icon shown next to each filter in the popover; overridden by a filter's own `icon`. */
   itemIcon?: string | ReactNode;
+  /** Overrides for the popover texts (title, search placeholder, apply, clear all). */
+  localeText?: RdsCompFilterButtonLocaleText;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
+const DEFAULT_START_ICON = <FilterListIcon sx={{ fontSize: 'var(--rds-icon-size-sm)' }} />;
+const DEFAULT_END_ICON = <ExpandMore sx={{ fontSize: 'var(--rds-icon-size-sm)' }} />;
 
 const RdsCompFilterButton = ({
   shape = 'rectangle',
-  text = 'Filter',
+  children,
+  text,
   showLeftIcon = true,
-  showRightIcon = true,
-  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
+  showRightIcon = false,
+  startIcon,
+  endIcon,
+  leftIcon,
+  rightIcon,
+  options,
   filters,
   onFiltersChange,
   onApply,
   onClear,
   disabled = false,
   className,
+  sx,
   itemIcon,
+  localeText,
+  ref,
   ...props
-}) => {
-  const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
+}: RdsCompFilterButtonProps) => {
+  if (text !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'text', '`children`');
+  if (leftIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'leftIcon', '`startIcon`');
+  if (rightIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'rightIcon', '`endIcon`');
+  if (filters !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'filters', '`options`');
+  const popoverId = useId();
+  const labels = {
+    title: localeText?.title ?? 'Add Filters',
+    searchPlaceholder: localeText?.searchPlaceholder ?? 'Search',
+    apply: localeText?.apply ?? 'Apply',
+    clearAll: localeText?.clearAll ?? 'Clear All',
+  };
+  const resolvedStartIcon = startIcon !== undefined ? startIcon : (leftIcon !== undefined ? leftIcon : DEFAULT_START_ICON);
+  const resolvedEndIcon = endIcon !== undefined ? endIcon : (rightIcon !== undefined ? rightIcon : DEFAULT_END_ICON);
+  const label: ReactNode = children ?? text ?? 'Filter';
+  const resolvedFilters = options ?? filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
-  const prevFiltersRef = useRef(resolvedFilters);
-  if (resolvedFilters !== prevFiltersRef.current) {
-    prevFiltersRef.current = resolvedFilters;
+  const [prevFilters, setPrevFilters] = useState(resolvedFilters);
+  if (resolvedFilters !== prevFilters) {
+    setPrevFilters(resolvedFilters);
     setLocalFilters(resolvedFilters);
   }
   const [searchTerm, setSearchTerm] = useState('');
+  const [prevOpen, setPrevOpen] = useState(isOpen);
+  /** Freeze trigger label while open so width changes don't shift the popover. */
+  const [frozenTriggerLabel, setFrozenTriggerLabel] = useState<ReactNode | null>(null);
+  if (isOpen !== prevOpen) {
+    setPrevOpen(isOpen);
+    if (!isOpen) {
+      setSearchTerm('');
+      setFrozenTriggerLabel(null);
+    }
+  }
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+    setIsOpen((o) => !o);
+  };
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
@@ -112,7 +183,15 @@ const RdsCompFilterButton = ({
   }, [localFilters, onClear, onFiltersChange]);
 
   const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
-  const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
+  const countedLabel: ReactNode = activeFiltersCount > 0
+    ? (typeof label === 'string' || typeof label === 'number'
+      ? `${label} (${activeFiltersCount})`
+      : <>{label} ({activeFiltersCount})</>)
+    : label;
+  if (isOpen && frozenTriggerLabel === null) {
+    setFrozenTriggerLabel(countedLabel);
+  }
+  const buttonText = isOpen && frozenTriggerLabel != null ? frozenTriggerLabel : countedLabel;
 
   const filteredFilters = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
@@ -135,33 +214,41 @@ const RdsCompFilterButton = ({
   }, [localFilters, searchTerm]);
 
   return (
-    <Box className={clsx("rds-comp-filter-button", className)} {...props}>
+    <Box ref={ref} className={clsx("rds-comp-filter-button", className)} sx={sx} {...props}>
       <RdsButton
         ref={buttonRef}
-        text={buttonText}
         size={'medium'}
-        shape={shape as 'rectangle' | 'pill'}
+        shape={shape}
         layout={'icon+text'}
         style={'filled'}
         disabled={disabled}
-        startIcon={showLeftIcon ? leftIcon : undefined}
-        endIcon={showRightIcon ? rightIcon : undefined}
+        startIcon={showLeftIcon ? (resolvedStartIcon ?? undefined) : undefined}
+        endIcon={showRightIcon ? (resolvedEndIcon ?? undefined) : undefined}
         onClick={handleButtonClick}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        aria-controls={popoverId}
         className={clsx("rds-button__primary", "rds-filter-button__trigger", isOpen && "rds-filter-button__trigger--open")}
-      />
+      >
+        {buttonText}
+      </RdsButton>
 
       <Popover
+        id={popoverId}
         open={isOpen}
         anchorEl={buttonRef.current}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        disableScrollLock
+        // Keep placement below the trigger when content height changes (e.g. checkbox selection).
+        marginThreshold={null}
         slotProps={{ paper: { className: "rds-filter-button__popover" } }}
       >
         <Box className="rds-filter-button__content">
           <Box className="rds-filter-button__header">
             <Typography className="rds-filter-button__header-title">
-              Add Filters
+              {labels.title}
             </Typography>
           </Box>
 
@@ -169,31 +256,14 @@ const RdsCompFilterButton = ({
             <TextField
               fullWidth
               variant="outlined"
-              placeholder="Search"
+              placeholder={labels.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               size="small"
             />
           </Box>
 
-          <Box sx={{ 
-            flex: 1,
-            overflowY: 'auto',
-            minHeight: 0,
-            '&::-webkit-scrollbar': {
-              width: '6px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: 'var(--rds-background-default)',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: 'var(--rds-neutral-400)',
-              borderRadius: '3px',
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              background: 'var(--rds-neutral-500)',
-            },
-          }}>
+          <Box className="rds-filter-button__filters">
             {filteredFilters.map((filter, index) => (
               <Accordion 
                 key={filter.id}
@@ -213,7 +283,7 @@ const RdsCompFilterButton = ({
                 <AccordionSummary
                   expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)' }} />}
                   sx={{
-                    minHeight: '48px',
+                    minHeight: 'var(--rds-size-2xl)',
                     px: 2,
                     py: 1,
                     position: 'relative',
@@ -228,26 +298,28 @@ const RdsCompFilterButton = ({
                       content: '""',
                       position: 'absolute',
                       bottom: 0,
-                      left: 'var(--rds-spacing-md, 16px)',
-                      right: 'var(--rds-spacing-md, 16px)',
-                      height: '1px',
+                      left: 'var(--rds-spacing-md)',
+                      right: 'var(--rds-spacing-md)',
+                      height: 'var(--rds-border-width-thin)',
                       backgroundColor: 'var(--rds-border-default)',
                       display: index === filteredFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {itemIcon ? (
+                    {filter.icon ? (
+                      <Box component="img" src={filter.icon} alt="" />
+                    ) : itemIcon ? (
                       typeof itemIcon === 'string' ? (
-                        <Box component="img" src={itemIcon} />
+                        <Box component="img" src={itemIcon} alt="" />
                       ) : (
                         itemIcon
                       )
                     ) : null}
 
                     <Typography sx={{ 
-                      fontSize: 'var(--rds-font-size-md, 14px)', 
-                      fontWeight: 'var(--rds-font-weight-medium, 500)',
+                      fontSize: 'var(--rds-font-size-md)', 
+                      fontWeight: 'var(--rds-font-weight-medium)',
                       color: 'var(--rds-text-primary)'
                     }}>
                       {filter.name}
@@ -264,7 +336,7 @@ const RdsCompFilterButton = ({
                       <RdsCheckbox
                         key={value}
                         className="rds-filter-button__option"
-                        labeltext={value}
+                        labelText={value}
                         showText
                         color="primary"
                         size="small"
@@ -278,30 +350,25 @@ const RdsCompFilterButton = ({
             ))}
           </Box>
 
-          <Box sx={{ 
-            p: 1.5, 
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            flexShrink: 0,
-            backgroundColor: 'var(--rds-background-paper)'
-          }}>
+          <Box className="rds-filter-button__footer">
             <RdsButton
-              style="filled"
+              variant="filled"
               fullWidth
-              text="Apply"
               textCase="capitalize"
               onClick={handleApply}
               sx={{ py: 1 }}
-            />
+            >
+              {labels.apply}
+            </RdsButton>
             <RdsButton
-              style="outlined"
+              variant="outlined"
               fullWidth
-              text="Clear All"
               textCase="capitalize"
               onClick={handleClearAll}
               sx={{ py: 1 }}
-            />
+            >
+              {labels.clearAll}
+            </RdsButton>
           </Box>
         </Box>
       </Popover>

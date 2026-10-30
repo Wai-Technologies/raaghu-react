@@ -9,13 +9,12 @@
   color: var(--rds-color-on-surface);
 
   &:focus-within {
-    outline: 2px solid var(--rds-primary-main);
+    outline: var(--rds-border-width-medium) solid var(--rds-primary-main);
     outline-offset: 2px;
     border-radius: var(--rds-border-radius-xs);
   }
 }
 
-/* Multiline clamp helpers (2-5 lines) */
 .rds-comp-truncate-text--lines-2 span,
 .rds-comp-truncate-text--lines-3 span,
 .rds-comp-truncate-text--lines-4 span,

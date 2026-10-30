@@ -1,27 +1,22 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-// Import breakpoint variables so @media queries use the token scale
 .rds-typography {
   margin: 0;
   font-family: var(--rds-font-family-base);
 
-  // ── Component-scoped size tokens ─────────────────────────────────────────────
-  // These are overridable per-instance via inline style or a parent selector.
-  // They reference the global --rds-font-size-* scale defined in custom-properties.scss.
-  --rds-typography-h1-size:        var(--rds-font-size-5xl, 3rem);
-  --rds-typography-h2-size:        var(--rds-font-size-4xl, 2.125rem);
-  --rds-typography-h3-size:        var(--rds-font-size-3xl, 1.5rem);
-  --rds-typography-h4-size:        var(--rds-font-size-2xl, 1.25rem);
-  --rds-typography-h5-size:        var(--rds-font-size-xl, 1.125rem);
-  --rds-typography-h6-size:        var(--rds-font-size-lg, 1rem);
-  --rds-typography-body1-size:     var(--rds-font-size-lg, 1rem);
-  --rds-typography-body2-size:     var(--rds-font-size-md, 0.875rem);
-  --rds-typography-caption-size:   var(--rds-font-size-sm, 0.75rem);
-  --rds-typography-overline-size:  var(--rds-font-size-sm, 0.75rem);
-  --rds-typography-h1-size-mobile: var(--rds-font-size-5xl, 2.8rem);
-  --rds-typography-h2-size-mobile: var(--rds-font-size-4xl, 2.3rem);
+  --rds-typography-h1-size:        var(--rds-font-size-5xl);
+  --rds-typography-h2-size:        var(--rds-font-size-4xl);
+  --rds-typography-h3-size:        var(--rds-font-size-3xl);
+  --rds-typography-h4-size:        var(--rds-font-size-2xl);
+  --rds-typography-h5-size:        var(--rds-font-size-xl);
+  --rds-typography-h6-size:        var(--rds-font-size-lg);
+  --rds-typography-body1-size:     var(--rds-font-size-lg);
+  --rds-typography-body2-size:     var(--rds-font-size-md);
+  --rds-typography-caption-size:   var(--rds-font-size-sm);
+  --rds-typography-overline-size:  var(--rds-font-size-sm);
+  --rds-typography-h1-size-mobile: var(--rds-font-size-5xl);
+  --rds-typography-h2-size-mobile: var(--rds-font-size-4xl);
 
-  // ── Font weight tokens ───────────────────────────────────────────────────────
   --rds-typography-font-weight-light:   var(--rds-font-weight-light, 300);
   --rds-typography-font-weight-regular: var(--rds-font-weight-regular, 400);
   --rds-typography-font-weight-medium:  var(--rds-font-weight-medium, 500);
@@ -29,64 +24,64 @@
   &--h1 {
     font-size: var(--rds-typography-h1-size);
     font-weight: var(--rds-typography-font-weight-light);
-    line-height: 1.167;
-    letter-spacing: -0.01562em;
+    line-height: var(--rds-typography-h1-line-height);
+    letter-spacing: var(--rds-typography-h1-letter-spacing);
   }
   
   &--h2 {
     font-size: var(--rds-typography-h2-size);
     font-weight: var(--rds-typography-font-weight-light);
-    line-height: 1.2;
-    letter-spacing: -0.00833em;
+    line-height: var(--rds-line-height-compact);
+    letter-spacing: var(--rds-typography-h2-letter-spacing);
   }
   
   &--h3 {
     font-size: var(--rds-typography-h3-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.167;
+    line-height: var(--rds-typography-h3-line-height);
     letter-spacing: 0;
   }
   
   &--h4 {
     font-size: var(--rds-typography-h4-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.235;
-    letter-spacing: 0.00735em;
+    line-height: var(--rds-typography-h4-line-height);
+    letter-spacing: var(--rds-typography-h4-letter-spacing);
   }
   
   &--h5 {
     font-size: var(--rds-typography-h5-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.334;
+    line-height: var(--rds-typography-h5-line-height);
     letter-spacing: 0;
   }
   
   &--h6 {
     font-size: var(--rds-typography-h6-size);
     font-weight: var(--rds-typography-font-weight-medium);
-    line-height: 1.6;
-    letter-spacing: 0.0075em;
+    line-height: var(--rds-typography-h6-line-height);
+    letter-spacing: var(--rds-typography-h6-letter-spacing);
   }
   
   &--body1 {
     font-size: var(--rds-typography-body1-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.5;
-    letter-spacing: 0.00938em;
+    line-height: var(--rds-line-height-normal);
+    letter-spacing: var(--rds-typography-body1-letter-spacing);
   }
   
   &--body2 {
     font-size: var(--rds-typography-body2-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.43;
-    letter-spacing: 0.01071em;
+    line-height: var(--rds-typography-body2-line-height);
+    letter-spacing: var(--rds-typography-body2-letter-spacing);
   }
   
   &--caption {
     font-size: var(--rds-typography-caption-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 1.66;
-    letter-spacing: 0.03333em;
+    line-height: var(--rds-typography-caption-line-height);
+    letter-spacing: var(--rds-typography-caption-letter-spacing);
     display: block;
   }
   
@@ -97,21 +92,20 @@
   &--overline {
     font-size: var(--rds-typography-overline-size);
     font-weight: var(--rds-typography-font-weight-regular);
-    line-height: 2.66;
-    letter-spacing: 0.08333em;
+    line-height: var(--rds-typography-overline-line-height);
+    letter-spacing: var(--rds-typography-overline-letter-spacing);
     text-transform: uppercase;
     display: block;
   }
 
-  // Use the breakpoint token instead of a hardcoded 320px literal
   @include bp.down(mobile-sm) {
     &--h1 {
       font-size: var(--rds-typography-h1-size-mobile);
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
     &--h2 {
       font-size: var(--rds-typography-h2-size-mobile);
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
   }
   

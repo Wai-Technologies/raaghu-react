@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { RenderFileUploader } from './rds-file-uploader-render';
 
@@ -17,7 +17,26 @@ const meta: Meta<typeof RdsFileUploader> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['onFilesChange', 'onUpload'],
+      include: [
+        'label',
+        'mode',
+        'variant',
+        'accept',
+        'multiple',
+        'disabled',
+        'selected',
+        'dragAndDrop',
+        'maxFiles',
+        'maxSize',
+        'showPreview',
+        'showTitle',
+        'showHint',
+        'required',
+        'helperText',
+        'className',
+        'sx',
+        'ref',
+      ],
     },
   },
   decorators: [
@@ -29,9 +48,24 @@ const meta: Meta<typeof RdsFileUploader> = {
   ],
   tags: ['autodocs', 'stable'],
   argTypes: {
-    title: {
+    className: {
       control: 'text',
-      description: 'Title text for the uploader',
+      description: 'CSS class applied to the uploader root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the uploader root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the uploader root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
+    label: {
+      control: 'text',
+      description: 'Label text for the uploader',
       defaultValue: 'File Upload',
     },
     multiple: {
@@ -39,6 +73,10 @@ const meta: Meta<typeof RdsFileUploader> = {
     },
     disabled: {
       control: 'boolean',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Applies the selected appearance to the uploader',
     },
     showPreview: {
       control: 'boolean',
@@ -55,24 +93,20 @@ const meta: Meta<typeof RdsFileUploader> = {
     showTitle: {
       control: 'boolean',
     },
-    isMandatory: {
+    required: {
       control: 'boolean',
     },
     showHint: {
       control: 'boolean',
     },
-    hintText: {
+    helperText: {
       control: 'text',
     },
     mode: {
       control: 'select',
       options: ['default', 'standard'],
     },
-    state: {
-      control: 'select',
-      options: ['default', 'selected']
-    },
-    style: {
+    variant: {
       control: 'select',
       options: [
         'Drop Area - Top Icon',
@@ -88,20 +122,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: 'Upload your files',
+    label: 'Upload your files',
     mode:'default',
     multiple: true,
     showTitle: true,
-    isMandatory: true,
+    required: true,
     maxFiles: 5,
     maxSize: 10 * 1024 * 1024,
     accept: ".png,.jpg,.jpeg,.doc,.pdf,.ppt",
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    selected: false,
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -119,18 +154,18 @@ export const Default: Story = {
 
 export const SingleFile: Story = {
   args: {
-    title: 'Upload a single file',
+    label: 'Upload a single file',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     multiple: false,
     maxFiles: 1,
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -143,10 +178,10 @@ export const SingleFile: Story = {
 
 export const ImagesOnly: Story = {
   args: {
-    title: 'Upload images only',
+    label: 'Upload images only',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     accept: "image/*",
     multiple: true,
     maxFiles: 3,
@@ -154,9 +189,9 @@ export const ImagesOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -169,17 +204,17 @@ export const ImagesOnly: Story = {
 
 export const NoDragAndDrop: Story = {
   args: {
-    title: 'No drag and drop',
+    label: 'No drag and drop',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     dragAndDrop: false,
     multiple: true,
     showPreview: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -192,17 +227,17 @@ export const NoDragAndDrop: Story = {
 
 export const NoPreview: Story = {
   args: {
-    title: 'No preview',
+    label: 'No preview',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     showPreview: false,
     multiple: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -215,10 +250,10 @@ export const NoPreview: Story = {
 
 export const DocumentsOnly: Story = {
   args: {
-    title: 'Documents only',
+    label: 'Documents only',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     accept: ".pdf,.doc,.docx,.txt",
     multiple: true,
     maxFiles: 10,
@@ -226,9 +261,9 @@ export const DocumentsOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -241,17 +276,18 @@ export const DocumentsOnly: Story = {
 
 export const Disabled: Story = {
   args: {
-    title: 'Disabled uploader',
+    label: 'Disabled uploader',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     disabled: true,
+    accept: ".png,.jpg,.doc,.pdf,.ppt",
     multiple: true,
     showPreview: true,
     dragAndDrop: true,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -262,21 +298,39 @@ export const Disabled: Story = {
   },
 };
 
+export const SelectedFile: Story = {
+  args: {
+    label: 'Selected file',
+    mode: 'default',
+    multiple: false,
+    showTitle: true,
+    showPreview: true,
+    dragAndDrop: true,
+    variant: 'Drop Area - Top Icon',
+  },
+  play: async ({ canvasElement }) => {
+    const input = canvasElement.querySelector<HTMLInputElement>('input[type="file"]');
+    if (!input) throw new Error('File uploader input was not rendered');
+    await userEvent.upload(input, new File(['Example file'], 'example.pdf', { type: 'application/pdf' }));
+    await expect(await within(canvasElement).findByText('example.pdf')).toBeInTheDocument();
+  },
+};
+
 export const WithValidation: Story = {
 args: {
-  title: 'With validation',
+  label: 'With validation',
   showTitle: true,
   mode:'default',
-  isMandatory: true,
+  required: true,
   multiple: true,
   maxFiles: 3,
   maxSize: 1 * 1024 * 1024,
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-  style:'Drop Area - Top Icon',
+  variant:'Drop Area - Top Icon',
   showHint: true,
-  hintText: 'Maximum 5MB',
+  helperText: 'Maximum 5MB',
 },
 render: (args) => {
   const updatedArgs = {...args};
@@ -289,19 +343,19 @@ render: (args) => {
 
 export const Interactive: Story = {
 args: {
-  title: 'Interactive uploader',
+  label: 'Interactive uploader',
   showTitle: true,
   mode:'default',
-  isMandatory: true,
+  required: true,
   multiple: true,
   maxFiles: 5,
-  accept: "image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  accept: ".png,.jpg,.doc,.pdf,.ppt",
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-  style:'Drop Area - Top Icon',
+  variant:'Drop Area - Top Icon',
   showHint: true,
-  hintText: 'Maximum 5MB',
+  helperText: 'Maximum 5MB',
 },
 render: (args) => {
   const updatedArgs = {...args};
@@ -314,11 +368,11 @@ render: (args) => {
 
 export const Standard: Story = {
   args: {
-    title: 'Standard uploader',
+    label: 'Standard uploader',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
     mode: 'standard',
     maxFiles: 1,
     multiple: false,
@@ -340,8 +394,6 @@ export const Standard: Story = {
       updatedArgs.children = <DeleteIcon />;
     }
     
-    return <RdsFileUploader {...updatedArgs} onFilesChange={setFiles} />;
+    return <RdsFileUploader {...updatedArgs} onChange={(_, nextFiles) => setFiles(nextFiles)} />;
   },
 };
-
-

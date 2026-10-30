@@ -61,28 +61,30 @@ export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploade
 export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
 export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
 export {default as RdsTextArea} from './rds-text-area/rds-text-area';
+export type { TextareaStyle } from './rds-text-area/rds-text-area';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';
 export type { RdsTextFieldProps } from './rds-text-field/rds-text-field';
-export type { RdsCardProps } from './rds-card/rds-card';
+export type { RdsCardProps, CardStyle, CardLayout, CardIconName } from './rds-card/rds-card';
 export type { RdsChipProps } from './rds-chip/rds-chip';
 export type { RdsAvatarProps } from './rds-avatar/rds-avatar';
 export type { RdsCheckboxProps } from './rds-checkbox/rds-checkbox';
 export type { RdsInputProps } from './rds-input/rds-input';
-export type { RdsSelectProps } from './rds-select/rds-select';
+export type { RdsSelectProps, RdsSelectOption } from './rds-select/rds-select';
 export type { RdsAccordionProps } from './rds-accordion/rds-accordion';
 export type { RdsAlertProps } from './rds-alert/rds-alert';
-export type { RdsAppBarProps } from './rds-app-bar/rds-app-bar';
+export type { RdsAppBarProps, RdsAppBarTab, RdsAppBarSize, RdsAppBarVariantStyle } from './rds-app-bar/rds-app-bar';
 export type { RdsAutocompleteProps } from './rds-autocomplete/rds-autocomplete';
 export type { RdsBackdropProps } from './rds-backdrop/rds-backdrop';
 export type { RdsBadgeProps } from './rds-badge/rds-badge';
 export type { RdsBottomNavigationProps, RdsBottomNavigationItem } from './rds-bottom-navigation/rds-bottom-navigation';
 export type { RdsBoxProps } from './rds-box/rds-box';
-export type { RdsBreadcrumbsProps, RdsBreadcrumbItem } from './rds-breadcrumbs/rds-breadcrumbs';
+export type { RdsBreadcrumbsProps, RdsBreadcrumbItem, RdsBreadcrumbIcon } from './rds-breadcrumbs/rds-breadcrumbs';
+export { BreadcrumbSeparator } from './rds-breadcrumbs/rds-breadcrumbs-types';
 export type { RdsContainerProps } from './rds-container/rds-container';
 export type { RdsDialogProps } from './rds-dialog/rds-dialog';
-export type { RdsDividerProps } from './rds-divider/rds-divider';
+export type { RdsDividerProps, RdsDividerIconName } from './rds-divider/rds-divider';
 export type { RdsModalProps } from './rds-modal/rds-modal';
 export type { RdsDrawerProps } from './rds-drawer/rds-drawer';
 export type { RdsFabProps } from './rds-fab/rds-fab';
@@ -91,7 +93,7 @@ export type { RdsGridProps } from './rds-grid/rds-grid';
 export type { RdsHeaderProps } from './rds-header/rds-header';
 export type { RdsIconButtonProps } from './rds-icon-button/rds-icon-button';
 export type { RdsLayoutProps } from './rds-layout/rds-layout';
-export type { RdsListProps, RdsListItem } from './rds-list/rds-list';
+export type { RdsListProps, RdsListItem, RdsListSection } from './rds-list/rds-list';
 export type { RdsMenuProps, RdsMenuItem } from './rds-menu/rds-menu';
 export type { RdsPaginationProps } from './rds-pagination/rds-pagination';
 export type { RdsPaperProps } from './rds-paper/rds-paper';
@@ -107,7 +109,7 @@ export type { RdsStackProps } from './rds-stack/rds-stack';
 export type { RdsStepperProps, RdsStepperStep } from './rds-stepper/rds-stepper';
 export type { RdsSwitchProps } from './rds-switch/rds-switch';
 export type { RdsTableProps, RdsTableColumn } from './rds-table/rds-table';
-export type { RdsTabsProps, RdsTabItem } from './rds-tabs/rds-tabs';
+export type { RdsTabsProps, RdsTabItem, RdsTabsLayout } from './rds-tabs/rds-tabs';
 export type { RdsTimelineProps, RdsTimelineItem } from './rds-timeline/rds-timeline';
 export type { 
   RdsToggleButtonProps, 
@@ -117,6 +119,16 @@ export type {
 export type { RdsTooltipProps } from './rds-tooltip/rds-tooltip';
 export type { RdsCarouselProps } from './rds-carousel/rds-carousel';
 export type { RdsTagProps } from './rds-tag/rds-tag';
+export type { RdsTextAreaProps } from './rds-text-area/rds-text-area';
+export type {
+  RdsButtonDropdownProps,
+  RdsButtonDropdownOption,
+  RdsButtonDropdownCloseReason,
+} from './rds-button-dropdown/rds-button-dropdown';
+export type {
+  RdsMultiLevelMenuProps,
+  MenuOption as RdsMultiLevelMenuOption,
+} from './rds-multi-level-menu/rds-multi-level-menu';
 export type { RdsCardDetailProps } from './rds-card-detail/rds-card-detail';
 export type { RdsCollapseProps } from './rds-collapse/rds-collapse';
 export type { RdsLoaderProps } from './rds-loader/rds-loader';
@@ -131,6 +143,7 @@ export {
   RAAGHU_LOGO_DARK_URL,
   getRaaghuLogoUrl,
   getRaaghuLogoUrlFromDark,
+  setRaaghuLogoBase,
 } from './shared/constants/raaghu-logo';
 export { useRaaghuLogoSrc } from './shared/hooks/useRaaghuLogoSrc';
 export { RaaghuLogoImg } from './shared/components/RaaghuLogoImg';

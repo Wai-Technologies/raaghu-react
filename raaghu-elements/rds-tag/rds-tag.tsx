@@ -1,9 +1,16 @@
+import type { ReactNode } from 'react';
 import { Chip as MuiChip, type ChipProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-tag.scss';
+
+/** Compact label built on MUI `Chip`. Set `removable` with `onDelete` to show the delete icon. */
 export interface RdsTagProps extends Omit<ChipProps, 'label' | 'component'> {
-  label: string;
+  /** Content shown inside the tag. */
+  label: ReactNode;
+  /** Shows the delete icon (needs `onDelete` or `onRemove`). Without it, `onDelete` is ignored. */
   removable?: boolean;
+  /** @deprecated Use `onDelete` instead. */
   onRemove?: () => void;
 }
 
@@ -15,6 +22,7 @@ const RdsTag = ({
   className,
   ...props
 }: RdsTagProps) => {
+  if (onRemove !== undefined) warnDeprecatedProp('RdsTag', 'onRemove', '`onDelete`');
   const combinedClassName = clsx('rds-tag', className);
 
   return (

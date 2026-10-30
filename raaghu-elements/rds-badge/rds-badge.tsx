@@ -1,87 +1,155 @@
 import { type ReactNode } from 'react';
-import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
+import { Badge as MuiBadge, Box, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'component'> {
+type BadgePaletteColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
+type BadgeStyleVariant = 'primary' | 'outline' | 'transparent';
+
+const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
+const STYLE_VARIANTS: readonly string[] = ['primary', 'outline', 'transparent'];
+
+export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant' | 'color'> {
+  /** MUI badge variant (`standard` | `dot`), or the visual style (`primary` | `outline` | `transparent`). Preferred over `styleType`. */
+  variant?: BadgeProps['variant'] | BadgeStyleVariant;
+  /** Disables the badge. */
+  disabled?: boolean;
+  /** Icon before the content (standalone badge). Overrides the `layout`-derived icon; `null` hides it. */
+  startIcon?: ReactNode;
+  /** Icon after the content (standalone badge). Overrides the `layout`-derived icon; `null` hides it. */
+  endIcon?: ReactNode;
   children?: ReactNode;
-  showZero?: boolean;
-  max?: number;
+  /** Badge size. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Badge shape. @default 'pill' */
   shape?: 'rectangle' | 'pill';
+  /** Placement of `icon` next to the content. Applies to the standalone badge (no `children`). */
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
-  styleType?: 'primary' | 'outline' | 'transparent';
-  state?: 'default' | 'disabled';
-  colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success';
+  /** Icon used by the `icon`, `icon-text` and `text-icon` layouts. Defaults to a bell. */
+  icon?: ReactNode;
+  /** @deprecated Use `variant` (`primary` | `outline` | `transparent`). */
+  styleType?: BadgeStyleVariant;
+  /**
+   * Palette used for standalone / BEM styling.
+   * Prefer this over `colorVariant`. `'danger'` is deprecated; use `'error'`.
+   */
+  color?: BadgeProps['color'] | BadgePaletteColor;
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: BadgePaletteColor;
 }
 
-
-const RdsBadge= ({
+const RdsBadge = ({
   children,
   showZero = false,
   max = 99,
   badgeContent,
   size = 'medium',
-  color = 'primary',
+  color: colorProp,
   shape = 'pill',
   layout = 'text',
-  styleType = 'primary',
-  state = 'default',
-  colorVariant = 'primary',
+  icon,
+  startIcon,
+  endIcon,
+  variant,
+  disabled,
+  styleType,
+  colorVariant,
+  className,
   ...props
-}:RdsBadgeProps) => {
+}: RdsBadgeProps) => {
   const isZeroContent = badgeContent === 0 || badgeContent === '0';
+  const isHidden = isZeroContent && !showZero;
+  const isStyleVariant = variant !== undefined && STYLE_VARIANTS.includes(variant);
+  const resolvedStyleType =
+    resolveDeprecatedProp(
+      isStyleVariant ? (variant as BadgeStyleVariant) : undefined,
+      styleType,
+      'RdsBadge',
+      'styleType',
+      '`variant`',
+    ) ?? 'primary';
+  const muiVariant = isStyleVariant ? undefined : variant;
+
+  if (colorProp === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsBadge', 'color="danger"', '`color: "error"`');
+  }
+
+  const paletteFromColor =
+    colorProp !== undefined && typeof colorProp === 'string' && PALETTE_COLORS.includes(colorProp)
+      ? (colorProp as BadgePaletteColor)
+      : undefined;
+  const bemColor = normalizePaletteColor(
+    resolveDeprecatedProp(paletteFromColor, colorVariant, 'RdsBadge', 'colorVariant', '`color`') ?? 'primary',
+  );
+
+  const color = colorProp ?? 'primary';
+  const muiColor =
+    color === 'danger' || colorVariant === 'danger'
+      ? 'error'
+      : (color as BadgeProps['color']);
 
   const bemClass = clsx(
     'rds-badge',
     `rds-badge--${size}`,
     `rds-badge--${shape}`,
-    `rds-badge--${styleType}`,
-    `rds-badge--${colorVariant || 'primary'}`,
-    state === 'disabled' && 'rds-badge--disabled',
+    `rds-badge--${resolvedStyleType}`,
+    `rds-badge--${bemColor || 'primary'}`,
+    disabled && 'rds-badge--disabled',
+    className,
   );
-  
-  
-  let badgeInner: ReactNode;
-  switch (layout) {
-    case 'icon':
-      badgeInner = <Notifications fontSize="small" sx={{ marginRight: 0 }} />;
-      break;
-    case 'icon-text':
-      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: '6px' }} />{badgeContent?.toString()}</>;
-      break;
-    case 'text-icon':
-      badgeInner = <>{badgeContent?.toString()}<Notifications fontSize="small" sx={{ marginLeft: '6px' }} /></>;
-      break;
-    case 'text':
-    default:
-      badgeInner = badgeContent?.toString();
-      break;
-  }
-  
+
   if (!children) {
-    if (isZeroContent && !showZero) {
-      return null;
-    }
+    if (isHidden) return null;
+    const {
+      sx,
+      ref,
+      anchorOrigin: _anchorOrigin,
+      overlap: _overlap,
+      invisible: _invisible,
+      slots: _slots,
+      slotProps: _slotProps,
+      classes: _classes,
+      components: _components,
+      componentsProps: _componentsProps,
+      ...spanProps
+    } = props;
+    const text = typeof badgeContent === 'number' && badgeContent > max ? `${max}+` : badgeContent?.toString();
+    const renderIcon = (margin: { marginLeft?: number | string; marginRight?: number | string }) =>
+      icon ?? <Notifications fontSize="small" sx={margin} />;
+    const layoutStart =
+      layout === 'icon' ? renderIcon({ marginRight: 0 })
+      : layout === 'icon-text' ? renderIcon({ marginRight: 'var(--rds-spacing-compact)' })
+      : null;
+    const layoutEnd = layout === 'text-icon' ? renderIcon({ marginLeft: 'var(--rds-spacing-compact)' }) : null;
+    const badgeInner = (
+      <>
+        {startIcon !== undefined ? startIcon : layoutStart}
+        {layout === 'icon' ? null : text}
+        {endIcon !== undefined ? endIcon : layoutEnd}
+      </>
+    );
+
     return (
-      <span className={bemClass}>
+      <Box component="span" {...spanProps} ref={ref} sx={sx} className={bemClass}>
         <span className="rds-badge__badge">{badgeInner}</span>
-      </span>
+      </Box>
     );
   }
-  const shouldRenderBadge = !(isZeroContent && !showZero);
-  
-  if (!shouldRenderBadge) {
+
+  if (isHidden) {
     return <>{children}</>;
   }
-  
+
   return (
     <MuiBadge
       badgeContent={badgeContent}
       showZero={showZero}
       max={max}
-      color={color}
+      color={muiColor}
+      variant={muiVariant as BadgeProps['variant']}
       {...props}
       className={bemClass}
     >

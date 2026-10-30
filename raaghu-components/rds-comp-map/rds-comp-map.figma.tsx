@@ -11,7 +11,7 @@ figma.connect(
     },
     example: (props) => <RdsCompMap   
   color="#A478E6"
-  mapList={[
+  data={[
     {
       country: 'cn',
       value: 1389618778

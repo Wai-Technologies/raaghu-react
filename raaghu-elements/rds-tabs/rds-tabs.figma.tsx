@@ -8,7 +8,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=380-3338",
   {
     props: {
-      type:figma.enum("⚠️ Type", {
+      orientation:figma.enum("⚠️ Type", {
         Horizontal: "horizontal",
         Vertical: "vertical"
       }),
@@ -25,22 +25,16 @@ figma.connect(
         "Line - Top Solid": "line-top-solid",
         "Pill": "pill"
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled"
-      }),
     },
     example: (props) => <RdsTabs 
-    tabs={[
+    items={[
       {
         disabled: false,
         id: 0,
         label: 'Overview'
       }
     ]} 
-    activeTab={0}
+    value={0}
     {...props} />,
   },
 )

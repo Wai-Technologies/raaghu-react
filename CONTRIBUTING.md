@@ -42,6 +42,23 @@ Create component and element files manually following existing folder convention
 | Story exports | PascalCase | `export const Default`, `export const Disabled` |
 | SCSS classes | BEM with `rds-` prefix | `.rds-badge`, `.rds-badge--large` |
 
+### Prop naming conventions
+
+Use MUI-aligned canonical prop names for shared concepts. Prefer these for new APIs and Storybook controls. Keep legacy names only as `@deprecated` aliases with `warnDeprecatedProp` / `resolveDeprecatedProp` until a major release.
+
+| Concept | Canonical | Deprecated aliases |
+|---------|-----------|--------------------|
+| Disabled / loading / open | `disabled`, `loading`, `open` | `isDisabled`, `isLoading`, `isOpen` |
+| Size / color / visual | `size`, `color`, `variant` | `selectSize`, `buttonSize`, `colorVariant`, `colorType`, `styleType`, string `style` (use `style` only for CSSProperties) |
+| Form meta | `label`, `required`, `helperText`, `placeholder` | `labelText`, `isMandatory`, `isRequired`, `hintText`, `placeholderText` |
+| Icons | `startIcon`, `endIcon`, `icon` | `leftIcon`, `rightIcon`, `changeLeftIcon`, `isShowLeftIcon` |
+| Close | `onClose` | Prefer over `onDismiss` when the intent is the same |
+| Enum style | lowercase `'small' \| 'medium' \| 'large'` | Avoid PascalCase string enums for new APIs |
+| `onChange` (custom controls) | `(value) => void` — value-first; optional `(value, event)` when the DOM/MUI event is useful | Event-only `(event) => void` on custom controls (migrate with a deprecation warning when practical) |
+| `onChange` (thin MUI wrappers) | Keep MUI `(event, value) => void` (e.g. toggle group, file uploader, emoji picker, `RdsInput` / TextField) | Do not rewrite these to value-only |
+
+Do not unify names when semantics differ (e.g. Accordion `expanded` vs Dialog `open`; Tooltip `placement` vs FAB `position`).
+
 ---
 
 ## Design token rules

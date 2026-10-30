@@ -9,7 +9,6 @@ import RdsCompSpinner, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-spinner.scss', () => ({}));
 
 describe('RdsCompSpinner', () => {
@@ -77,25 +76,25 @@ describe('RdsCompSpinner', () => {
     it('should render Default size spinner (30x30)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Default} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '30px', height: '30px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-default)', height: 'var(--rds-spinner-size-default)' });
     });
 
     it('should render Small size spinner (15x15)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Small} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-small)', height: 'var(--rds-spinner-size-small)' });
     });
 
     it('should render Medium size spinner (35x35)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Medium} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '35px', height: '35px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-medium)', height: 'var(--rds-spinner-size-medium)' });
     });
 
     it('should render Large size spinner (45x45)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Large} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '45px', height: '45px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-large)', height: 'var(--rds-spinner-size-large)' });
     });
 
     it('should use custom width and height when size not specified', () => {
@@ -114,7 +113,7 @@ describe('RdsCompSpinner', () => {
         />
       );
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '45px', height: '45px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-large)', height: 'var(--rds-spinner-size-large)' });
     });
   });
 
@@ -318,10 +317,11 @@ describe('RdsCompSpinner', () => {
       expect(spinner).toHaveClass('text-warning');
     });
 
-    it('should apply info color variant', () => {
+    it('should apply info color variant as primary', () => {
       render(<RdsCompSpinner {...defaultProps} colorVariant="info" />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveClass('text-info');
+      expect(spinner).toHaveClass('text-primary');
+      expect(spinner).not.toHaveClass('text-info');
     });
 
     it('should not apply color class when colorVariant not specified', () => {
@@ -380,7 +380,7 @@ describe('RdsCompSpinner', () => {
       const label = container.querySelector('.spinner-label');
 
       expect(spinner).toHaveClass('spinner-grow', 'text-success');
-      expect(spinner).toHaveStyle({ width: '45px', height: '45px', opacity: '0.75' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-large)', height: 'var(--rds-spinner-size-large)', opacity: '0.75' });
       expect(label).toHaveTextContent('Processing...');
       expect(container.querySelector('.spinner-container')).toHaveClass(
         'spinner-container--label-top'
@@ -488,7 +488,7 @@ describe('RdsCompSpinner', () => {
             <RdsCompSpinner spinnerType={type} colorVariant={color} />
           );
           const spinner = screen.getByRole('status');
-          expect(spinner).toHaveClass(`text-${color}`);
+          expect(spinner).toHaveClass(`text-${color === 'info' ? 'primary' : color}`);
           unmount();
         });
       });
@@ -540,7 +540,7 @@ describe('RdsCompSpinner', () => {
       const spinnerContainer = container.querySelector('.spinner-container');
 
       expect(spinner).toHaveClass('spinner-border', 'text-primary');
-      expect(spinner).toHaveStyle({ width: '35px', height: '35px', opacity: '1' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-medium)', height: 'var(--rds-spinner-size-medium)', opacity: '1' });
       expect(label).toHaveTextContent('Uploading files...');
       expect(spinnerContainer).toHaveClass('spinner-container--label-bottom');
     });
@@ -559,7 +559,7 @@ describe('RdsCompSpinner', () => {
       );
 
       let spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-small)', height: 'var(--rds-spinner-size-small)' });
       expect(spinner).toHaveClass('text-primary');
 
       rerender(
@@ -567,8 +567,71 @@ describe('RdsCompSpinner', () => {
       );
 
       spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '45px', height: '45px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spinner-size-large)', height: 'var(--rds-spinner-size-large)' });
       expect(spinner).toHaveClass('text-danger');
     });
+  });
+});
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
+describe('audit fixes', () => {
+  it('uses new props and they win over deprecated ones', () => {
+    const { container } = render(
+      <RdsCompSpinner variant="grow" spinnerType="border" color="danger" colorVariant="info" label="New" labelText="Old" showLabel />
+    );
+    const spinner = screen.getByRole('status');
+    expect(spinner).toHaveClass('spinner-grow', 'text-danger');
+    expect(container.querySelector('.spinner-label')).toHaveTextContent('New');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompSpinner', 'labelText', expect.any(String));
+  });
+
+  it('labels the spinner and accepts string literals', () => {
+    const { container } = render(<RdsCompSpinner size="Large" showLabel label="Wait" />);
+    const spinner = screen.getByRole('status');
+    const label = container.querySelector('.spinner-label') as HTMLElement;
+    expect(spinner).toHaveAttribute('aria-labelledby', label.id);
+    expect(spinner).toHaveClass('spinner--large');
+  });
+
+  it('defaults aria-label to Loading', () => {
+    render(<RdsCompSpinner />);
+    expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading');
+  });
+
+  it('accepts numeric size in px (G6-102)', () => {
+    render(<RdsCompSpinner size={42} />);
+    expect(screen.getByRole('status')).toHaveStyle({ width: '42px', height: '42px' });
+  });
+});
+
+describe('audit fixes labelPlacement', () => {
+  it('maps labelPlacement to layout and wins over layout', () => {
+    const { container } = render(<RdsCompSpinner showLabel label="x" labelPlacement="top" layout="Label on bottom" />);
+    expect(container.firstChild).toHaveClass('spinner-container--label-top');
+  });
+
+  it('maps start and end', () => {
+    const a = render(<RdsCompSpinner labelPlacement="start" />);
+    expect(a.container.firstChild).toHaveClass('spinner-container--label-spinner');
+    const b = render(<RdsCompSpinner labelPlacement="end" />);
+    expect(b.container.firstChild).toHaveClass('spinner-container--spinner-label');
+  });
+});
+
+describe('RdsCompSpinner root attributes', () => {
+  it('forwards id, aria-label and style to the root', () => {
+    const { container } = render(<RdsCompSpinner id="sp" aria-label="busy" style={{ opacity: 0.5 }} />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveAttribute('id', 'sp');
+    expect(root).toHaveAttribute('aria-label', 'busy');
+    expect(root).toHaveStyle({ opacity: '0.5' });
+  });
+  it('adds none of them when omitted', () => {
+    const { container } = render(<RdsCompSpinner />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).not.toHaveAttribute('id');
+    expect(root).not.toHaveAttribute('aria-label');
+    expect(root).not.toHaveAttribute('style');
   });
 });

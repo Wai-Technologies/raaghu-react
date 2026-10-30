@@ -1,17 +1,17 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
-import { axe, configureAxe } from 'jest-axe';
+import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock the SCSS file
 jest.mock('./rds-sidebar.scss');
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock child components
 jest.mock('../rds-avatar/rds-avatar', () => {
   return function MockAvatar(props: any) {
-    return <div data-testid="rds-avatar" className="rds-avatar">{props.title}</div>;
+    return <div data-testid="rds-avatar" className="rds-avatar" data-src={props.src}>{props.name ?? props.title}</div>;
   };
 });
 
@@ -35,25 +35,12 @@ jest.mock('../rds-tooltip/rds-tooltip', () => {
   };
 });
 
-// Helper function to render with theme
-const renderWithTheme = (component: React.ReactElement) => {
-  const theme = createTheme();
-  return render(
-    <ThemeProvider theme={theme}>
-      {component}
-    </ThemeProvider>
-  );
-};
+const renderWithTheme = (component: React.ReactElement) =>
+  render(<ThemeProvider theme={createTheme()}>{component}</ThemeProvider>);
 
 describe('RdsSidebar', () => {
   const mockItems: RdsSidebarItem[] = [
-    {
-      label: 'Home',
-      icon: <span>🏠</span>,
-      onClick: jest.fn(),
-      active: false,
-      disabled: false,
-    },
+    { label: 'Home', icon: <span>🏠</span>, onClick: jest.fn(), active: false, disabled: false },
     {
       label: 'Settings',
       icon: <span>⚙️</span>,
@@ -61,55 +48,25 @@ describe('RdsSidebar', () => {
       active: false,
       disabled: false,
       children: [
-        {
-          label: 'Profile',
-          icon: <span>👤</span>,
-          onClick: jest.fn(),
-          active: false,
-          disabled: false,
-        },
-        {
-          label: 'Security',
-          icon: <span>🔒</span>,
-          onClick: jest.fn(),
-          active: false,
-          disabled: false,
-        },
+        { label: 'Profile', icon: <span>👤</span>, onClick: jest.fn(), active: false, disabled: false },
+        { label: 'Security', icon: <span>🔒</span>, onClick: jest.fn(), active: false, disabled: false },
       ],
     },
   ];
 
-  describe('Basic Rendering', () => {
-    it('should render sidebar component', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      const drawer = screen.getByRole('presentation');
-      expect(drawer).toBeInTheDocument();
-    });
+  const setup = (props: Record<string, any> = {}) =>
+    renderWithTheme(<RdsSidebar items={mockItems} isOpen={true} {...props} />);
 
-    it('should render menu items', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
+  describe('Basic Rendering', () => {
+    it('should render sidebar component with menu items', () => {
+      setup();
+      expect(screen.getByRole('presentation')).toBeInTheDocument();
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('Settings')).toBeInTheDocument();
     });
 
-    it('should render without errors with default props', () => {
-      expect(() => {
-        renderWithTheme(
-          <RdsSidebar items={mockItems} isOpen={true} />
-        );
-      }).not.toThrow();
-    });
-
     it('should handle empty items array', () => {
-      expect(() => {
-        renderWithTheme(
-          <RdsSidebar items={[]} isOpen={true} />
-        );
-      }).not.toThrow();
+      expect(() => setup({ items: [] })).not.toThrow();
     });
 
     it('should have correct displayName', () => {
@@ -118,28 +75,14 @@ describe('RdsSidebar', () => {
   });
 
   describe('Sidebar States', () => {
-    it('should be open when isOpen=true', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
     it('should be closed when isOpen=false', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={false} />
-      );
-      // When closed, sidebar should not be visible (or might not render in modal mode)
-      const sidebar = document.querySelector('.rds-sidebar');
-      // Just verify it doesn't crash
-      expect(sidebar).toBeNull();
+      setup({ isOpen: false });
+      expect(document.querySelector('.rds-sidebar')).toBeNull();
     });
 
     it('should call onClose when backdrop clicked', () => {
       const handleClose = jest.fn();
-      const { container } = renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} onClose={handleClose} variant="temporary" />
-      );
+      const { container } = setup({ onClose: handleClose, variant: 'temporary' });
       const backdrop = container.querySelector('.MuiBackdrop-root');
       if (backdrop) {
         fireEvent.click(backdrop);
@@ -149,98 +92,34 @@ describe('RdsSidebar', () => {
   });
 
   describe('Menu Items', () => {
-    it('should render all items', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-      expect(screen.getByText('Settings')).toBeInTheDocument();
-    });
-
     it('should call onClick when item clicked', async () => {
-      const user = userEvent.setup();
       const onClick = jest.fn();
-      const items = [{
-        label: 'Home',
-        onClick,
-        icon: <span>🏠</span>,
-      }];
-      
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      
-      const homeButton = screen.getByText('Home');
-      await user.click(homeButton);
+      setup({ items: [{ label: 'Home', onClick, icon: <span>🏠</span> }] });
+      await userEvent.setup().click(screen.getByText('Home'));
       expect(onClick).toHaveBeenCalled();
     });
 
     it('should highlight active item', () => {
-      const items = [{ label: 'Home', active: true, icon: <span>🏠</span> }];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      const button = screen.getByText('Home').closest('[role="button"]');
-      expect(button).toHaveAttribute('class');
+      setup({ items: [{ label: 'Home', active: true, icon: <span>🏠</span> }] });
+      expect(screen.getByText('Home').closest('[role="button"]')).toHaveAttribute('class');
     });
 
     it('should disable disabled items', () => {
-      const items = [{ label: 'Home', disabled: true, icon: <span>🏠</span> }];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      const button = screen.getByText('Home').closest('[role="button"]');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-    });
-
-    it('should render item icons', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      setup({ items: [{ label: 'Home', disabled: true, icon: <span>🏠</span> }] });
+      expect(screen.getByText('Home').closest('[role="button"]')).toHaveAttribute('aria-disabled', 'true');
     });
   });
 
   describe('Collapsible Items', () => {
-    it('should render children when parent expanded', async () => {
+    it('should expand, collapse and re-expand children when the parent is clicked', async () => {
       const user = userEvent.setup();
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
+      setup();
       const settingsButton = screen.getByText('Settings');
       await user.click(settingsButton);
-      
       expect(screen.getByText('Profile')).toBeInTheDocument();
       expect(screen.getByText('Security')).toBeInTheDocument();
-    });
-
-    it('should hide children when parent collapsed', async () => {
-      const user = userEvent.setup();
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
-      const settingsButton = screen.getByText('Settings');
-      // Expand
-      await user.click(settingsButton);
-      expect(screen.getByText('Profile')).toBeInTheDocument();
-      
-      // Collapse
       await user.click(settingsButton);
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
-    });
-
-    it('should toggle expand/collapse icon', async () => {
-      const user = userEvent.setup();
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
-      const settingsButton = screen.getByText('Settings');
-      expect(settingsButton).toBeInTheDocument();
-      
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
@@ -248,164 +127,86 @@ describe('RdsSidebar', () => {
     it('should call child onClick when clicked', async () => {
       const user = userEvent.setup();
       const childOnClick = jest.fn();
-      const items: RdsSidebarItem[] = [
-        {
-          label: 'Parent',
-          children: [{ label: 'Child', onClick: childOnClick }],
-        },
-      ];
-      
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      
-      // Expand parent
-      const parentButton = screen.getByText('Parent');
-      await user.click(parentButton);
-      
-      // Click child
-      const childButton = screen.getByText('Child');
-      await user.click(childButton);
+      setup({ items: [{ label: 'Parent', children: [{ label: 'Child', onClick: childOnClick }] }] });
+      await user.click(screen.getByText('Parent'));
+      await user.click(screen.getByText('Child'));
       expect(childOnClick).toHaveBeenCalled();
+    });
+
+    it('should handle multiple nested children', async () => {
+      const complexItems: RdsSidebarItem[] = [
+        { label: 'Level 1', children: [{ label: 'Level 2-A' }, { label: 'Level 2-B' }, { label: 'Level 2-C' }] },
+      ];
+      setup({ items: complexItems });
+      await userEvent.setup().click(screen.getByText('Level 1'));
+      expect(screen.getByText('Level 2-A')).toBeInTheDocument();
+      expect(screen.getByText('Level 2-B')).toBeInTheDocument();
+      expect(screen.getByText('Level 2-C')).toBeInTheDocument();
     });
   });
 
   describe('Search Functionality', () => {
-    it('should render search when showSearch=true', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} />
-      );
-      expect(screen.getByTestId('rds-search')).toBeInTheDocument();
-    });
-
-    it('should not render search when showSearch=false', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={false} />
-      );
-      expect(screen.queryByTestId('rds-search')).not.toBeInTheDocument();
+    it.each([
+      [{ showSearch: true }, true],
+      [{ showSearch: false }, false],
+      [{ showSearch: true, layout: 'raaghu', typeOf: 'collapse' }, true],
+      [{ showSearch: true, layout: 'toolbar', typeOf: 'collapse' }, true],
+      [{ showSearch: false, layout: 'toolbar', typeOf: 'collapse' }, false],
+    ])('should render search for %j -> %s', (props, shown) => {
+      setup(props);
+      if (shown) expect(screen.getByTestId('rds-search')).toBeInTheDocument();
+      else expect(screen.queryByTestId('rds-search')).not.toBeInTheDocument();
     });
 
     it('should update search value', async () => {
-      const user = userEvent.setup();
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} />
-      );
-      
+      setup({ showSearch: true });
       const searchInput = screen.getByTestId('rds-search') as HTMLInputElement;
-      await user.type(searchInput, 'test');
+      await userEvent.setup().type(searchInput, 'test');
       expect(searchInput.value).toBe('test');
     });
 
     it('should have search placeholder in expanded mode', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} typeOf="expanded" />
-      );
-      const searchInput = screen.getByTestId('rds-search');
-      expect(searchInput).toHaveAttribute('placeholder', 'Search...');
-    });
-
-    it('should render search in collapsed raaghu layout when showSearch=true', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} layout="raaghu" typeOf="collapse" />
-      );
-      expect(screen.getByTestId('rds-search')).toBeInTheDocument();
-    });
-
-    it('should render search in collapsed toolbar layout when showSearch=true', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} layout="toolbar" typeOf="collapse" />
-      );
-      expect(screen.getByTestId('rds-search')).toBeInTheDocument();
-    });
-
-    it('should not render search in collapsed toolbar layout when showSearch=false', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showSearch={false} layout="toolbar" typeOf="collapse" />
-      );
-      expect(screen.queryByTestId('rds-search')).not.toBeInTheDocument();
+      setup({ showSearch: true, typeOf: 'expanded' });
+      expect(screen.getByTestId('rds-search')).toHaveAttribute('placeholder', 'Search...');
     });
   });
 
   describe('Sidebar Width', () => {
-    it('should use default width of 240', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      const sidebar = document.querySelector('.rds-sidebar');
-      expect(sidebar).toBeInTheDocument();
-    });
-
-    it('should use custom width', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} width={300} />
-      );
-      const sidebar = document.querySelector('.rds-sidebar');
-      expect(sidebar).toBeInTheDocument();
+    it.each([undefined, 300])('should render with width %s', width => {
+      setup({ width });
+      expect(document.querySelector('.rds-sidebar')).toBeInTheDocument();
     });
 
     it('should show icons only when width < 200', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} width={150} />
-      );
-      // Should have narrow-collapsed class when width < 200
-      const sidebar = document.querySelector('.rds-sidebar');
-      const hasNarrowClass = sidebar?.className.includes('rds-sidebar--narrow-collapsed');
-      expect(hasNarrowClass).toBe(true);
+      setup({ width: 150 });
+      expect(document.querySelector('.rds-sidebar')?.className.includes('rds-sidebar--narrow-collapsed')).toBe(true);
     });
   });
 
   describe('Sidebar Types', () => {
-    it('should render expanded sidebar', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} typeOf="expanded" />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should render collapsed sidebar', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} typeOf="collapse" />
-      );
-      expect(document.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
-    });
-
-    it('should render fixed sidebar', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} typeOf="fixed" />
-      );
-      expect(document.querySelector('.rds-sidebar--fixed')).toBeInTheDocument();
+    it.each([
+      ['collapse', '.rds-sidebar--collapse'],
+      ['fixed', '.rds-sidebar--fixed'],
+    ])('should render %s sidebar', (typeOf, selector) => {
+      setup({ typeOf });
+      expect(document.querySelector(selector)).toBeInTheDocument();
     });
 
     it('should show tooltips in collapsed mode', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} typeOf="collapse" />
-      );
-      const tooltips = screen.getAllByTestId('rds-tooltip');
-      expect(tooltips.length).toBeGreaterThan(0);
+      setup({ typeOf: 'collapse' });
+      expect(screen.getAllByTestId('rds-tooltip').length).toBeGreaterThan(0);
     });
   });
 
   describe('Platforms', () => {
-    it('should use custom items when no platform specified', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-      expect(screen.getByText('Settings')).toBeInTheDocument();
-    });
-
     it('should use abp-list items when platform=abp-list', () => {
-      renderWithTheme(
-        <RdsSidebar items={[]} isOpen={true} platform="abp-list" />
-      );
+      setup({ items: [], platform: 'abp-list' });
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
       expect(screen.getByText('Invoices')).toBeInTheDocument();
     });
 
     it('should use anz-list items when platform=anz-list', () => {
-      renderWithTheme(
-        <RdsSidebar items={[]} isOpen={true} platform="anz-list" />
-      );
+      setup({ items: [], platform: 'anz-list' });
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
       expect(screen.getByText('Saas')).toBeInTheDocument();
       expect(screen.getByText('Administration')).toBeInTheDocument();
@@ -413,158 +214,41 @@ describe('RdsSidebar', () => {
   });
 
   describe('Layouts', () => {
-    it('should render raaghu layout', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} layout="raaghu" />
-      );
+    it.each([
+      [{ layout: 'raaghu' }],
+      [{ layout: 'list' }],
+      [{ layout: 'toolbar', showLogo: true }],
+      [{ typeOf: 'expanded' }],
+    ])('should render Home for %j', props => {
+      setup(props);
       expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should render list layout', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} layout="list" />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should render toolbar layout', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} layout="toolbar" showLogo={true} />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should show avatar in toolbar layout header', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} layout="toolbar" showLogo={true} avatarSrc="/avatar.png" />
-      );
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
     });
   });
 
   describe('Avatar Display', () => {
-    it('should show avatar when showLogo=true and layout=toolbar', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} layout="toolbar" showLogo={true} avatarSrc="/avatar.png" />
-      );
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
+    it.each([
+      [{ layout: 'toolbar', showLogo: true, avatarSrc: '/avatar.png' }],
+      [{ avatarSrc: '/avatar.png' }],
+    ])('should show avatar for %j', props => {
+      setup(props);
+      expect(screen.getAllByTestId('rds-avatar').length).toBeGreaterThan(0);
     });
 
     it('should not show logo when showLogo=false', () => {
-      const { container } = renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showLogo={false} />
-      );
+      const { container } = setup({ showLogo: false });
       expect(container.querySelector('.rds-sidebar__header')).not.toBeInTheDocument();
     });
 
-    it('should show avatar in footer by default', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} avatarSrc="/avatar.png" />
-      );
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
-    });
-
     it('should use avatarCollapsedSrc in collapsed mode', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} showLogo={true} layout="raaghu" avatarCollapsedSrc="/collapsed-logo.png" typeOf="collapse" />
-      );
-      // Sidebar should render in collapsed mode
+      setup({ showLogo: true, layout: 'raaghu', avatarCollapsedSrc: '/collapsed-logo.png', typeOf: 'collapse' });
       expect(document.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
     });
   });
 
-  describe('Complex Scenarios', () => {
-    it('should handle rapid item toggles', async () => {
-      const user = userEvent.setup();
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
-      const settingsButton = screen.getByText('Settings');
-      
-      // Expand
-      await user.click(settingsButton);
-      expect(screen.getByText('Profile')).toBeInTheDocument();
-      
-      // Collapse
-      await user.click(settingsButton);
-      expect(screen.queryByText('Profile')).not.toBeInTheDocument();
-      
-      // Expand again
-      await user.click(settingsButton);
-      expect(screen.getByText('Profile')).toBeInTheDocument();
-    });
-
-    it('should handle sidebar type change', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} typeOf="expanded" />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should handle width change', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} width={150} />
-      );
-      // Sidebar should render with updated width
-      expect(document.querySelector('.rds-sidebar')).toBeInTheDocument();
-    });
-
-    it('should handle isOpen toggle', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should handle multiple nested children', async () => {
-      const user = userEvent.setup();
-      const complexItems: RdsSidebarItem[] = [
-        {
-          label: 'Level 1',
-          children: [
-            { label: 'Level 2-A' },
-            { label: 'Level 2-B' },
-            { label: 'Level 2-C' },
-          ],
-        },
-      ];
-      
-      renderWithTheme(
-        <RdsSidebar items={complexItems} isOpen={true} />
-      );
-      
-      const level1 = screen.getByText('Level 1');
-      await user.click(level1);
-      
-      expect(screen.getByText('Level 2-A')).toBeInTheDocument();
-      expect(screen.getByText('Level 2-B')).toBeInTheDocument();
-      expect(screen.getByText('Level 2-C')).toBeInTheDocument();
-    });
-  });
-
   describe('Theme Integration', () => {
-    it('should work with light theme', () => {
-      const lightTheme = createTheme({ palette: { mode: 'light' } });
-      expect(lightTheme).toBeDefined();
-      
+    it.each(['light', 'dark'] as const)('should work with %s theme', mode => {
       render(
-        <ThemeProvider theme={lightTheme}>
-          <RdsSidebar items={mockItems} isOpen={true} />
-        </ThemeProvider>
-      );
-      expect(screen.getByText('Home')).toBeInTheDocument();
-    });
-
-    it('should work with dark theme', () => {
-      const darkTheme = createTheme({ palette: { mode: 'dark' } });
-      expect(darkTheme).toBeDefined();
-      
-      render(
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode } })}>
           <RdsSidebar items={mockItems} isOpen={true} />
         </ThemeProvider>
       );
@@ -574,135 +258,151 @@ describe('RdsSidebar', () => {
 
   describe('Accessibility', () => {
     it('should have accessible buttons', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      setup();
+      expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
     });
 
-    it('should have aria-expanded for collapsible items', async () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
-      const settingsButton = screen.getByText('Settings').closest('[role="button"]');
-      expect(settingsButton).toHaveAttribute('aria-expanded');
+    it('should have aria-expanded for collapsible items', () => {
+      setup();
+      expect(screen.getByText('Settings').closest('[role="button"]')).toHaveAttribute('aria-expanded');
     });
 
     it('should have list semantics', () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      const lists = screen.getAllByRole('list');
-      expect(lists.length).toBeGreaterThan(0);
-    });
-
-    it('should support keyboard navigation', async () => {
-      renderWithTheme(
-        <RdsSidebar items={mockItems} isOpen={true} />
-      );
-      
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      setup();
+      expect(screen.getAllByRole('list').length).toBeGreaterThan(0);
     });
   });
 
   describe('Edge Cases', () => {
-    it('should handle items with no icons', () => {
-      const items = [{ label: 'No Icon Item' }];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      expect(screen.getByText('No Icon Item')).toBeInTheDocument();
+    it.each([
+      [{ label: 'No Icon Item' }],
+      [{ label: 'This is a very long item label that should be handled gracefully in the sidebar' }],
+      [{ label: 'Item & Special <>' }],
+      [{ label: 'Disabled Parent', disabled: true, children: [{ label: 'Child' }] }],
+      [{ label: 'Parent with Empty Children', children: [] }],
+    ])('should render item %j', item => {
+      setup({ items: [item] });
+      expect(screen.getByText(item.label)).toBeInTheDocument();
     });
 
     it('should handle items with no onClick', async () => {
-      const user = userEvent.setup();
-      const items = [{ label: 'No Click' }];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-
+      setup({ items: [{ label: 'No Click' }] });
       const button = screen.getByText('No Click');
-      await user.click(button);
+      await userEvent.setup().click(button);
       expect(button).toBeInTheDocument();
     });
 
-    it('should handle very long item labels', () => {
-      const items = [
-        { label: 'This is a very long item label that should be handled gracefully in the sidebar' }
-      ];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      expect(screen.getByText(/very long/)).toBeInTheDocument();
-    });
-
-    it('should handle items with special characters', () => {
-      const items = [
-        { label: 'Item & Special <>' }
-      ];
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-      expect(screen.getByText('Item & Special <>')).toBeInTheDocument();
-    });
-
-    it('should handle disabled parent with children', async () => {
-      const items: RdsSidebarItem[] = [
-        {
-          label: 'Disabled Parent',
-          disabled: true,
-          children: [{ label: 'Child' }],
-        },
-      ];
-
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-
-      expect(screen.getByText('Disabled Parent')).toBeInTheDocument();
-    });
-
-    it('should handle empty children array', () => {
-      const items: RdsSidebarItem[] = [
-        {
-          label: 'Parent with Empty Children',
-          children: [],
-        },
-      ];
-
-      renderWithTheme(
-        <RdsSidebar items={items} isOpen={true} />
-      );
-
-      expect(screen.getByText('Parent with Empty Children')).toBeInTheDocument();
-    });
-
     it('should handle all props at once', () => {
-      renderWithTheme(
-        <RdsSidebar
-          items={mockItems}
-          isOpen={true}
-          onClose={jest.fn()}
-          width={300}
-          showSearch={true}
-          layout="toolbar"
-          typeOf="expanded"
-          avatarSrc="/avatar.png"
-          avatarCollapsedSrc="/collapsed.png"
-          showLogo={true}
-        />
-      );
-
+      setup({
+        onClose: jest.fn(),
+        width: 300,
+        showSearch: true,
+        layout: 'toolbar',
+        typeOf: 'expanded',
+        avatarSrc: '/avatar.png',
+        avatarCollapsedSrc: '/collapsed.png',
+        showLogo: true,
+      });
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByTestId('rds-search')).toBeInTheDocument();
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = renderWithTheme(<RdsSidebar items={[{ label: 'Home', onClick: () => {} }]} isOpen={true} variant="permanent" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      const { container } = setup({ items: [{ label: 'Home', onClick: () => {} }], variant: 'permanent' });
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 });
+
+describe('audit fixes', () => {
+  const items: RdsSidebarItem[] = [
+    { label: 'Home', icon: <span>h</span> },
+    { label: 'Parent', icon: <span>p</span>, children: [{ label: 'Kid' }] },
+  ];
+
+  it('renders custom user name and default user', () => {
+    const { unmount } = renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" user={{ name: 'Ann', subtitle: 'Boss' }} />
+    );
+    expect(screen.getByText('Ann')).toBeInTheDocument();
+    unmount();
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" />);
+    expect(screen.getByText('Jane Doe')).toBeInTheDocument();
+  });
+
+  it('supports controlled and uncontrolled search', async () => {
+    const onSearchChange = jest.fn();
+    const { unmount } = renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" defaultSearchValue="abc" onSearchChange={onSearchChange} />
+    );
+    const input = screen.getByTestId('rds-search') as HTMLInputElement;
+    expect(input.value).toBe('abc');
+    await userEvent.type(input, 'd');
+    expect(input.value).toBe('abcd');
+    expect(onSearchChange).toHaveBeenCalledWith('abcd');
+    unmount();
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" searchValue="fixed" />);
+    const controlled = screen.getByTestId('rds-search') as HTMLInputElement;
+    await userEvent.type(controlled, 'x');
+    expect(controlled.value).toBe('fixed');
+  });
+
+  it('renders custom logo', () => {
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" showLogo logo={<span>MyLogo</span>} />);
+    expect(screen.getByText('MyLogo')).toBeInTheDocument();
+    expect(screen.queryByAltText('Raaghu Design System Logo')).not.toBeInTheDocument();
+  });
+
+  it('open overrides isOpen', () => {
+    renderWithTheme(<RdsSidebar items={items} open={false} isOpen />);
+    expect(screen.queryByText('Home')).not.toBeInTheDocument();
+  });
+
+  it('merges className and sets aria-expanded only on parents', () => {
+    const { container } = renderWithTheme(<RdsSidebar items={items} open variant="permanent" className="custom-x" />);
+    expect(container.querySelector('.rds-sidebar.custom-x')).toBeInTheDocument();
+    expect(screen.getByText('Home').closest('[role="button"], .MuiListItemButton-root')).not.toHaveAttribute('aria-expanded');
+    expect(screen.getByText('Parent').closest('.MuiListItemButton-root')).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('512: user.avatarSrc wins over deprecated avatarSrc', () => {
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" user={{ avatarSrc: '/new.png' }} avatarSrc="/old.png" />);
+    expect(screen.getByTestId('rds-avatar')).toHaveAttribute('data-src', '/new.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'avatarSrc', '`user.avatarSrc`');
+  });
+
+  it('514: items[].selected marks the item and wins over active', () => {
+    renderWithTheme(
+      <RdsSidebar items={[{ label: 'A', selected: true }, { label: 'B', selected: false, active: true }]} open variant="permanent" />
+    );
+    expect(screen.getByText('A').closest('.MuiListItemButton-root')).toHaveClass('Mui-selected');
+    expect(screen.getByText('B').closest('.MuiListItemButton-root')).not.toHaveClass('Mui-selected');
+  });
+
+  it('515: header and footer slots replace the default content', () => {
+    renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" header={<span>Head</span>} footer={<span>Foot</span>} />
+    );
+    expect(screen.getByText('Head').closest('.rds-sidebar__header')).toBeInTheDocument();
+    expect(screen.getByText('Foot').closest('.rds-sidebar__avatar-container')).toBeInTheDocument();
+    expect(screen.queryByTestId('rds-avatar')).not.toBeInTheDocument();
+  });
+
+  it('516: platform still selects the built-in menu and warns', () => {
+    renderWithTheme(<RdsSidebar items={[]} open variant="permanent" platform="abp-list" />);
+    expect(screen.getByText('Ticket Allocation')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'platform', '`items`');
+  });
+
+  it('517: collapsed wins over typeOf', () => {
+    const { container, rerender } = renderWithTheme(<RdsSidebar items={items} open variant="permanent" collapsed typeOf="expanded" />);
+    expect(container.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsSidebar items={items} open variant="permanent" collapsed={false} typeOf="fixed" />
+      </ThemeProvider>
+    );
+    expect(container.querySelector('.rds-sidebar--expanded')).toBeInTheDocument();
+  });
+});
+

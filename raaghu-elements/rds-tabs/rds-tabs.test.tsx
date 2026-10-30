@@ -1,13 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('@mui/icons-material/Person', () => {
   return function MockPersonIcon() {
     return <div data-testid="person-icon">PersonIcon</div>;
@@ -84,12 +84,11 @@ describe('RdsTabs', () => {
       expect(tabsElement).toBeInTheDocument();
     });
 
-    it('should apply state class', () => {
+    it('should mark the selected tab using the value prop', () => {
       const { container } = renderWithTheme(
-        <RdsTabs tabs={mockTabs} state="selected" />
+        <RdsTabs tabs={mockTabs} value="tab1" />
       );
-      const tabsElement = container.querySelector('.rds-state--selected');
-      expect(tabsElement).toBeInTheDocument();
+      expect(container.querySelector('[role="tab"][aria-selected="true"]')).toBeInTheDocument();
     });
   });
 
@@ -429,7 +428,6 @@ describe('RdsTabs', () => {
       );
       const tabs = container.querySelectorAll('[role="tab"]');
       tabs.forEach(tab => {
-        // Check that tab has disabled attribute or aria-disabled
         const isDisabled = tab.hasAttribute('disabled') || tab.getAttribute('aria-disabled') === 'true';
         expect(isDisabled).toBe(true);
       });
@@ -575,16 +573,14 @@ describe('RdsTabs', () => {
       expect(container).toBeInTheDocument();
     });
 
-    it('should work with custom state and layout', () => {
+    it('should work with layout and native hover styling', () => {
       const { container } = renderWithTheme(
         <RdsTabs 
           tabs={mockTabs}
           layout="line-bottom"
-          state="hover"
         />
       );
       expect(container.querySelector('.rds-tabs--line-bottom')).toBeInTheDocument();
-      expect(container.querySelector('.rds-state--hover')).toBeInTheDocument();
     });
   });
 
@@ -628,7 +624,6 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={disabledTabs} />
       );
       const tab = container.querySelector('[role="tab"]');
-      // Check that tab is actually disabled (either has disabled attribute or proper aria-disabled)
       const isDisabled = tab?.hasAttribute('disabled') || tab?.classList.contains('Mui-disabled');
       expect(isDisabled).toBe(true);
     });
@@ -699,5 +694,59 @@ describe('RdsTabs — keyboard navigation', () => {
     screen.getByRole('tab', { name: /alpha/i }).focus();
     await userEvent.keyboard('{ArrowRight}');
     expect(screen.getByRole('tab', { name: /gamma/i })).toHaveFocus();
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-325/326: keeps rds-tabs classes with a consumer className and does not spread level to the DOM', () => {
+    const { container } = renderWithTheme(
+      <RdsTabs tabs={mockTabs} className="custom-class" value="tab1" level={2} />
+    );
+    const root = container.querySelector('.rds-tabs');
+    expect(root).toHaveClass('custom-class', 'rds-tabs--filled');
+    expect(root).not.toHaveAttribute('state');
+    expect(root).not.toHaveAttribute('level');
+  });
+
+  it('G2-328/329: value and orientation work; deprecated activeTab/type still apply', () => {
+    const { rerender } = renderWithTheme(<RdsTabs tabs={mockTabs} value="tab2" orientation="vertical" />);
+    expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
+    expect(screen.getAllByRole('tab')[1]).toHaveAttribute('aria-selected', 'true');
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsTabs tabs={mockTabs} activeTab="tab3" type="vertical" />
+      </ThemeProvider>
+    );
+    expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
+    expect(screen.getAllByRole('tab')[2]).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('548: items renders tabs and wins over deprecated tabs', () => {
+    renderWithTheme(<RdsTabs items={[{ id: 'x', label: 'xray' }]} tabs={mockTabs} />);
+    expect(screen.getAllByRole('tab')).toHaveLength(1);
+    expect(screen.getByRole('tab', { name: /xray/i })).toBeInTheDocument();
+  });
+
+  it('545: startIcon/endIcon win over deprecated leftIcon/rightIcon at component and item level', () => {
+    renderWithTheme(
+      <RdsTabs
+        items={[{ id: 'a', label: 'a', startIcon: <i data-testid="item-start" />, leftIcon: <i data-testid="item-left" /> }, { id: 'b', label: 'b' }]}
+        startIcon={<i data-testid="start" />}
+        leftIcon={<i data-testid="left" />}
+        endIcon={<i data-testid="end" />}
+        rightIcon={<i data-testid="right" />}
+      />
+    );
+    expect(screen.getByTestId('item-start')).toBeInTheDocument();
+    expect(screen.getByTestId('start')).toBeInTheDocument();
+    expect(screen.getAllByTestId('end')).toHaveLength(2);
+    expect(screen.queryByTestId('item-left')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('left')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('right')).not.toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the root .rds-tabs', () => {
+    renderWithTheme(<RdsTabs items={[{ id: 'a', label: 'a' }]} data-testid="nav-tabs" />);
+    expect(screen.getByTestId('nav-tabs')).toHaveClass('rds-tabs');
   });
 });

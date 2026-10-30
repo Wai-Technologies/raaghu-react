@@ -1,7 +1,5 @@
-import React from "react";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import RdsCompOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-comp-off-canvas";
-import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -28,8 +26,8 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    placement: {
-      options: ["top", "bottom", "end", "start"],
+    anchor: {
+      options: ["top", "bottom", "right", "left"],
       control: { type: "select" },
     },
     backDrop: {
@@ -39,6 +37,14 @@ const meta: Meta = {
     showPrimaryButton: { control: 'boolean' },
     showSecondaryButton: { control: 'boolean' },
     showTertiaryButton: { control: 'boolean' },
+    onClick: {
+      action: 'opened',
+      description: 'Called with true when the canvas is opened.',
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the off-canvas Drawer.',
+    },
   },
 } satisfies Meta<typeof RdsCompOffcanvas>;
 
@@ -47,20 +53,19 @@ type Story = StoryObj<typeof RdsCompOffcanvas>;
 
 export const Default: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
   },
   args: {
-    offId: "canvasExample",
-    canvasTitle: "NEW TENANT",
+    id: "canvasExample",
+    title: "NEW TENANT",
     scrolling: false,
-    placement: RdsOffcanvasPlacement.End, 
+    anchor: RdsOffcanvasPlacement.End,
     backDrop: RdsOffcanvasBackDrop.Static,
-    offcanvaswidth: 650,
+    width: 650,
     showPrimaryButton: true,
     showSecondaryButton: true,
     showTertiaryButton: true,
   },
 } satisfies Story;
-Default.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton'] } };
+Default.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton', 'sx'] } };

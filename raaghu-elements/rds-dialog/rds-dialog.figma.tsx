@@ -8,10 +8,10 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=533-7957",
   {
     props: {
-      ShowSecondary: figma.boolean("🔶 Show Secondary"),
+      showSecondary: figma.boolean("🔶 Show Secondary"),
       title: figma.string("✏️ Title"),
-      ShowPrimary: figma.boolean("🔷 Show Primary"),
-      ShowDissmiss: figma.boolean("⛔️ Show Dismiss"),
+      showPrimary: figma.boolean("🔷 Show Primary"),
+      showCloseButton: figma.boolean("⛔️ Show Dismiss"),
     },
     example: (props) => <RdsDialog 
     {...props}

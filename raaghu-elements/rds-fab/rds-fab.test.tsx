@@ -2,20 +2,25 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsFab, { RdsFabProps } from './rds-fab';
+import RdsFab, { type RdsFabProps } from './rds-fab';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-fab.scss', () => ({}));
+
+const fabEl = () => document.querySelector('.MuiFab-root') as HTMLElement;
+const pos = () => window.getComputedStyle(fabEl()).position;
+const icon = <span data-testid="icon">★</span>;
 
 describe('RdsFab', () => {
   const defaultProps: RdsFabProps = {
     icon: <span>★</span>,
     'aria-label': 'action button',
   };
+  const setup = (p: RdsFabProps = {}) => render(<RdsFab {...defaultProps} {...p} />);
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsFab {...defaultProps} />);
+      const { container } = setup();
       expect(container).toBeInTheDocument();
     });
 
@@ -24,9 +29,8 @@ describe('RdsFab', () => {
     });
 
     it('should render MUI Fab component', () => {
-      render(<RdsFab {...defaultProps} />);
-      const fab = document.querySelector('.MuiFab-root');
-      expect(fab).toBeInTheDocument();
+      setup();
+      expect(fabEl()).toBeInTheDocument();
     });
 
     it('should render without any props', () => {
@@ -35,38 +39,25 @@ describe('RdsFab', () => {
     });
 
     it('should accept className prop', () => {
-      render(
-        <RdsFab {...defaultProps} className="custom-fab" />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('custom-fab');
+      setup({ className: 'custom-fab' });
+      expect(fabEl()).toHaveClass('custom-fab');
     });
   });
 
   describe('Icon Rendering', () => {
     it('should render icon when provided', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} icon={<span data-testid="test-icon">★</span>} />
-      );
+      setup({ icon: <span data-testid="test-icon">★</span> });
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
     it('should render icon alone when variant is not extended', () => {
-      render(
-        <RdsFab icon={<span data-testid="test-icon">★</span>} />
-      );
+      render(<RdsFab icon={<span data-testid="test-icon">★</span>} />);
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
     it('should not render label without extended variant', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="test-icon">★</span>}
-          label="Action"
-        />
-      );
+      render(<RdsFab icon={<span data-testid="test-icon">★</span>} label="Action" />);
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      // Label should not be visible in regular variant
       expect(screen.queryByText('Action')).not.toBeInTheDocument();
     });
 
@@ -83,32 +74,18 @@ describe('RdsFab', () => {
 
   describe('Label Rendering', () => {
     it('should render label when extended variant with icon and label', () => {
-      render(
-        <RdsFab
-          icon={<span>★</span>}
-          label="Add"
-          variant="extended"
-        />
-      );
+      render(<RdsFab icon={<span>★</span>} label="Add" variant="extended" />);
       expect(screen.getByText('Add')).toBeInTheDocument();
     });
 
     it('should render icon and label together in extended variant', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="icon">★</span>}
-          label="Add Item"
-          variant="extended"
-        />
-      );
+      render(<RdsFab icon={icon} label="Add Item" variant="extended" />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
       expect(screen.getByText('Add Item')).toBeInTheDocument();
     });
 
     it('should render label alone when no icon in extended variant', () => {
-      render(
-        <RdsFab label="Add" variant="extended" />
-      );
+      render(<RdsFab label="Add" variant="extended" />);
       expect(screen.getByText('Add')).toBeInTheDocument();
     });
 
@@ -120,51 +97,17 @@ describe('RdsFab', () => {
 
   describe('Position Styles', () => {
     it('should render without position styles when position not provided', () => {
-      const { container } = render(<RdsFab {...defaultProps} />);
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toBeInTheDocument();
+      setup();
+      expect(fabEl()).toBeInTheDocument();
     });
 
-    it('should apply bottom-right position', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} position="bottom-right" />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
-    });
-
-    it('should apply bottom-left position', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} position="bottom-left" />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
-    });
-
-    it('should apply top-right position', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} position="top-right" />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
-    });
-
-    it('should apply top-left position', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} position="top-left" />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
+    it.each(['bottom-right', 'bottom-left', 'top-right', 'top-left'] as const)('should apply %s position', (position) => {
+      setup({ position });
+      expect(pos()).toBe('fixed');
     });
 
     it('should handle invalid position gracefully', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} position={undefined} />
-      );
+      const { container } = setup({ position: undefined });
       expect(container).toBeInTheDocument();
     });
   });
@@ -177,20 +120,6 @@ describe('RdsFab', () => {
         </RdsFab>
       );
       expect(screen.getByTestId('custom-child')).toBeInTheDocument();
-    });
-
-    it('should prioritize children over icon and label', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="icon">★</span>}
-          label="Label"
-        >
-          <span data-testid="child">Child Content</span>
-        </RdsFab>
-      );
-      expect(screen.getByTestId('child')).toBeInTheDocument();
-      // Icon should not be rendered if children is provided
-      expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
     });
 
     it('should render complex children structure', () => {
@@ -209,262 +138,103 @@ describe('RdsFab', () => {
 
   describe('Variant Props', () => {
     it('should support circular variant (default)', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} variant="circular" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toBeInTheDocument();
+      setup({ variant: 'circular' });
+      expect(fabEl()).toBeInTheDocument();
     });
 
     it('should support extended variant', () => {
-      const { container } = render(
-        <RdsFab
-          icon={<span>★</span>}
-          label="Add"
-          variant="extended"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-extended');
-      expect(fab).toBeInTheDocument();
+      const { container } = render(<RdsFab icon={<span>★</span>} label="Add" variant="extended" />);
+      expect(container.querySelector('.MuiFab-extended')).toBeInTheDocument();
     });
 
     it('should render extended fab with both icon and label', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="icon">★</span>}
-          label="Create"
-          variant="extended"
-        />
-      );
+      render(<RdsFab icon={icon} label="Create" variant="extended" />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
       expect(screen.getByText('Create')).toBeInTheDocument();
     });
   });
 
-  describe('Color Variants', () => {
-    it('should support primary color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="primary" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-primary');
+  describe('Color and Size Variants', () => {
+    it.each([
+      ['primary', 'MuiFab-primary'],
+      ['secondary', 'MuiFab-secondary'],
+      ['error', 'Mui-error'],
+      ['warning', 'MuiFab-warning'],
+      ['info', 'MuiFab-info'],
+      ['success', 'MuiFab-success'],
+      ['inherit', 'MuiFab-colorInherit'],
+    ] as const)('should support %s color', (color, cls) => {
+      setup({ color });
+      expect(fabEl()).toHaveClass(cls);
     });
 
-    it('should support secondary color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="secondary" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-secondary');
-    });
-
-    it('should support error color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="error" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('Mui-error');
-    });
-
-    it('should support warning color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="warning" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-warning');
-    });
-
-    it('should support info color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="info" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-info');
-    });
-
-    it('should support success color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="success" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-success');
-    });
-
-    it('should support inherit color', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} color="inherit" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-colorInherit');
-    });
-  });
-
-  describe('Size Variants', () => {
-    it('should support small size', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} size="small" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-sizeSmall');
-    });
-
-    it('should support medium size (default)', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} size="medium" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-sizeMedium');
-    });
-
-    it('should support large size', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} size="large" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveClass('MuiFab-sizeLarge');
+    it.each([
+      ['small', 'MuiFab-sizeSmall'],
+      ['medium', 'MuiFab-sizeMedium'],
+      ['large', 'MuiFab-sizeLarge'],
+    ] as const)('should support %s size', (size, cls) => {
+      setup({ size });
+      expect(fabEl()).toHaveClass(cls);
     });
   });
 
   describe('SX Prop', () => {
     it('should accept and merge sx prop', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          sx={{ backgroundColor: 'rgb(255, 0, 0)' }}
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toBeInTheDocument();
+      setup({ sx: { backgroundColor: 'rgb(255, 0, 0)' } });
+      expect(fabEl()).toBeInTheDocument();
     });
 
     it('should merge custom sx with default sx', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          position="bottom-right"
-          sx={{ zIndex: 'var(--rds-z-index-dropdown)' }}
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toBeInTheDocument();
+      setup({ position: 'bottom-right', sx: { zIndex: 'var(--rds-z-index-dropdown)' } });
+      expect(fabEl()).toBeInTheDocument();
     });
 
     it('should allow sx to override position styles', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          position="bottom-right"
-          sx={{ position: 'absolute' }}
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('absolute');
+      setup({ position: 'bottom-right', sx: { position: 'absolute' } });
+      expect(pos()).toBe('absolute');
     });
   });
 
   describe('MUI Props Forwarding', () => {
     it('should forward onClick handler', () => {
       const handleClick = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onClick={handleClick} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      setup({ onClick: handleClick });
+      fireEvent.click(fabEl());
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
     it('should forward disabled prop', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} disabled={true} />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toHaveAttribute('disabled');
+      setup({ disabled: true });
+      expect(fabEl()).toHaveAttribute('disabled');
     });
 
-    it('should forward aria-label prop', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} aria-label="Floating action button" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('aria-label', 'Floating action button');
+    it.each([
+      ['aria-label', 'Floating action button'],
+      ['aria-describedby', 'fab-description'],
+      ['title', 'Action button'],
+      ['type', 'submit'],
+    ])('should forward %s prop', (attr, value) => {
+      setup({ [attr]: value });
+      expect(fabEl()).toHaveAttribute(attr, value);
     });
 
-    it('should forward aria-describedby prop', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          aria-describedby="fab-description"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('aria-describedby', 'fab-description');
-    });
-
-    it('should forward title prop', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} title="Action button" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('title', 'Action button');
-    });
-
-    it('should forward type prop', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} type="submit" />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('type', 'submit');
-    });
-
-    it('should forward onFocus handler', () => {
-      const handleFocus = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onFocus={handleFocus} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.focus(fab as HTMLElement);
-      expect(handleFocus).toHaveBeenCalledTimes(1);
-    });
-
-    it('should forward onBlur handler', () => {
-      const handleBlur = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onBlur={handleBlur} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.blur(fab as HTMLElement);
-      expect(handleBlur).toHaveBeenCalledTimes(1);
-    });
-
-    it('should forward onMouseEnter handler', () => {
-      const handleMouseEnter = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onMouseEnter={handleMouseEnter} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.mouseEnter(fab as HTMLElement);
-      expect(handleMouseEnter).toHaveBeenCalledTimes(1);
-    });
-
-    it('should forward onMouseLeave handler', () => {
-      const handleMouseLeave = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onMouseLeave={handleMouseLeave} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.mouseLeave(fab as HTMLElement);
-      expect(handleMouseLeave).toHaveBeenCalledTimes(1);
+    it.each([
+      ['onFocus', fireEvent.focus],
+      ['onBlur', fireEvent.blur],
+      ['onMouseEnter', fireEvent.mouseEnter],
+      ['onMouseLeave', fireEvent.mouseLeave],
+    ] as const)('should forward %s handler', (prop, fire) => {
+      const handler = jest.fn();
+      setup({ [prop]: handler });
+      fire(fabEl());
+      expect(handler).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Content Priority', () => {
     it('should prioritize children over icon and label', () => {
       render(
-        <RdsFab
-          icon={<span data-testid="icon">Icon</span>}
-          label="Label"
-        >
+        <RdsFab icon={icon} label="Label">
           <span data-testid="child">Child</span>
         </RdsFab>
       );
@@ -473,256 +243,279 @@ describe('RdsFab', () => {
     });
 
     it('should prioritize icon over label in non-extended variant', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="icon">Icon</span>}
-          label="Label"
-        />
-      );
+      render(<RdsFab icon={icon} label="Label" />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
       expect(screen.queryByText('Label')).not.toBeInTheDocument();
     });
 
     it('should show both icon and label in extended variant', () => {
-      render(
-        <RdsFab
-          icon={<span data-testid="icon">Icon</span>}
-          label="Extended Label"
-          variant="extended"
-        />
-      );
+      render(<RdsFab icon={icon} label="Extended Label" variant="extended" />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
       expect(screen.getByText('Extended Label')).toBeInTheDocument();
     });
 
     it('should render icon when only icon is provided', () => {
-      render(
-        <RdsFab icon={<span data-testid="icon">Icon</span>} />
-      );
+      render(<RdsFab icon={icon} />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
 
     it('should render label when only label is provided', () => {
-      render(
-        <RdsFab label="Label Only" />
-      );
+      render(<RdsFab label="Label Only" />);
       expect(screen.getByText('Label Only')).toBeInTheDocument();
     });
 
     it('should render nothing when no content provided', () => {
-      const { container } = render(<RdsFab />);
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab?.textContent).toBe('');
+      render(<RdsFab />);
+      expect(fabEl()?.textContent).toBe('');
     });
   });
 
   describe('Position with Content', () => {
     it('should apply position styles with icon', () => {
-      const { container } = render(
-        <RdsFab
-          icon={<span>★</span>}
-          position="bottom-right"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
+      render(<RdsFab icon={<span>★</span>} position="bottom-right" />);
+      expect(pos()).toBe('fixed');
     });
 
     it('should apply position styles with extended variant', () => {
-      const { container } = render(
-        <RdsFab
-          icon={<span>★</span>}
-          label="Add"
-          position="top-right"
-          variant="extended"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
+      render(<RdsFab icon={<span>★</span>} label="Add" position="top-right" variant="extended" />);
+      expect(pos()).toBe('fixed');
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle rapid clicks', () => {
       const handleClick = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onClick={handleClick} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
+      setup({ onClick: handleClick });
       for (let i = 0; i < 10; i++) {
-        fireEvent.click(fab as HTMLElement);
+        fireEvent.click(fabEl());
       }
       expect(handleClick).toHaveBeenCalledTimes(10);
     });
 
     it('should handle empty string label', () => {
-      const { container } = render(
-        <RdsFab label="" icon={<span>Icon</span>} />
-      );
+      const { container } = render(<RdsFab label="" icon={<span>Icon</span>} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should handle empty icon element', () => {
-      const { container } = render(
-        <RdsFab icon={<span />} label="Label" variant="extended" />
-      );
+      const { container } = render(<RdsFab icon={<span />} label="Label" variant="extended" />);
       expect(container).toBeInTheDocument();
     });
 
     it('should handle null children', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} >{null}</RdsFab>
-      );
+      const { container } = setup({ children: null });
       expect(container).toBeInTheDocument();
     });
 
     it('should handle undefined children', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} >{undefined}</RdsFab>
-      );
+      const { container } = setup({ children: undefined });
       expect(container).toBeInTheDocument();
     });
 
     it('should handle changing position prop', () => {
-      const { rerender, container } = render(
-        <RdsFab {...defaultProps} position="bottom-right" />
-      );
-      let fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toBeInTheDocument();
-
-      rerender(
-        <RdsFab {...defaultProps} position="top-left" />
-      );
-      fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toBeInTheDocument();
+      const { rerender } = setup({ position: 'bottom-right' });
+      expect(fabEl()).toBeInTheDocument();
+      rerender(<RdsFab {...defaultProps} position="top-left" />);
+      expect(fabEl()).toBeInTheDocument();
     });
 
     it('should handle toggling disabled state', () => {
-      const { rerender, container } = render(
-        <RdsFab {...defaultProps} disabled={false} />
-      );
-      let fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).not.toHaveAttribute('disabled');
-
-      rerender(
-        <RdsFab {...defaultProps} disabled={true} />
-      );
-      fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      expect(fab).toHaveAttribute('disabled');
+      const { rerender } = setup({ disabled: false });
+      expect(fabEl()).not.toHaveAttribute('disabled');
+      rerender(<RdsFab {...defaultProps} disabled={true} />);
+      expect(fabEl()).toHaveAttribute('disabled');
     });
   });
 
   describe('Accessibility', () => {
     it('should render with aria-label', () => {
-      const { container } = render(
-        <RdsFab
-          icon={<span>★</span>}
-          aria-label="Add new item"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('aria-label', 'Add new item');
-  
+      render(<RdsFab icon={<span>★</span>} aria-label="Add new item" />);
+      expect(fabEl()).toHaveAttribute('aria-label', 'Add new item');
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsFab {...defaultProps} />);
+      const { container } = setup();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
     it('should be keyboard accessible with Tab key', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      fab.focus();
-      expect(document.activeElement).toBe(fab);
+      setup();
+      fabEl().focus();
+      expect(document.activeElement).toBe(fabEl());
     });
 
-    it('should support Enter key press', () => {
+    it('should support Enter/Space key press', () => {
       const handleClick = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onClick={handleClick} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
-      expect(handleClick).toHaveBeenCalled();
-    });
-
-    it('should support Space key press', () => {
-      const handleClick = jest.fn();
-      render(
-        <RdsFab {...defaultProps} onClick={handleClick} />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      setup({ onClick: handleClick });
+      fireEvent.click(fabEl());
       expect(handleClick).toHaveBeenCalled();
     });
 
     it('should have proper role attribute', () => {
-      const { container } = render(
-        <RdsFab {...defaultProps} />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('type', 'button');
+      setup();
+      expect(fabEl()).toHaveAttribute('type', 'button');
     });
 
     it('should be disabled when disabled prop is true', () => {
-      const handleClick = jest.fn();
-      render(
-        <RdsFab
-          {...defaultProps}
-          disabled={true}
-          onClick={handleClick}
-        />
-      );
-      const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
-      // Click on disabled button may or may not trigger depending on implementation
-      expect(fab).toHaveAttribute('disabled');
+      setup({ disabled: true, onClick: jest.fn() });
+      fireEvent.click(fabEl());
+      expect(fabEl()).toHaveAttribute('disabled');
     });
 
     it('should support aria-pressed for toggle behavior', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          aria-pressed={false}
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root');
-      expect(fab).toHaveAttribute('aria-pressed', 'false');
+      setup({ 'aria-pressed': false });
+      expect(fabEl()).toHaveAttribute('aria-pressed', 'false');
     });
   });
 
   describe('Responsive Behavior', () => {
     it('should render correctly with position prop on different screen sizes', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          position="bottom-right"
-        />
-      );
-      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
-      const styles = window.getComputedStyle(fab);
-      expect(styles.position).toBe('fixed');
+      setup({ position: 'bottom-right' });
+      expect(pos()).toBe('fixed');
     });
 
     it('should render with custom sx for responsive behavior', () => {
-      const { container } = render(
-        <RdsFab
-          {...defaultProps}
-          sx={{
-            '@media (max-width: 600px)': {
-              bottom: 10,
-              right: 10,
-            },
-          }}
-        />
-      );
+      const { container } = setup({ sx: { '@media (max-width: 600px)': { bottom: 10, right: 10 } } });
       expect(container).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  describe('G1-264: array / mixed children', () => {
+    it('renders mixed icon + text children', () => {
+      render(
+        <RdsFab variant="extended">
+          <span data-testid="mixed-icon">+</span> Add
+        </RdsFab>
+      );
+      expect(screen.getByTestId('mixed-icon')).toBeInTheDocument();
+      expect(fabEl()).toHaveTextContent('+ Add');
+    });
+
+    it('renders an array of element children', () => {
+      render(
+        <RdsFab>
+          {[<span key="a" data-testid="a">A</span>, <span key="b" data-testid="b">B</span>]}
+        </RdsFab>
+      );
+      expect(screen.getByTestId('a')).toBeInTheDocument();
+      expect(screen.getByTestId('b')).toBeInTheDocument();
+    });
+
+    it('renders fragment children', () => {
+      render(
+        <RdsFab>
+          <>
+            <span data-testid="frag-icon">+</span>
+            Text
+          </>
+        </RdsFab>
+      );
+      expect(screen.getByTestId('frag-icon')).toBeInTheDocument();
+      expect(screen.getByText('Text')).toBeInTheDocument();
+    });
+
+    it('keeps icon precedence over array children (unchanged behaviour)', () => {
+      render(
+        <RdsFab icon={<span data-testid="icon">I</span>}>
+          <span data-testid="c1">1</span>
+          <span data-testid="c2">2</span>
+        </RdsFab>
+      );
+      expect(screen.getByTestId('icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('c1')).not.toBeInTheDocument();
+    });
+
+    it('renders nothing for an array of empty children', () => {
+      render(<RdsFab>{[null, false]}</RdsFab>);
+      expect(fabEl()?.textContent).toBe('');
+    });
+  });
+
+  describe('G1-265: label as accessible name for icon-only FAB', () => {
+    it('uses label as aria-label when only the icon is shown', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add item" />);
+      expect(screen.getByRole('button', { name: 'Add item' })).toBeInTheDocument();
+      expect(screen.queryByText('Add item')).not.toBeInTheDocument();
+    });
+
+    it('consumer aria-label wins over label', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add item" aria-label="Create" />);
+      expect(fabEl()).toHaveAttribute('aria-label', 'Create');
+    });
+
+    it('does not set aria-label when the label is visible (extended)', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add" variant="extended" />);
+      expect(fabEl()).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label when only the label is shown', () => {
+      render(<RdsFab label="Only label" />);
+      expect(fabEl()).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label for an empty label', () => {
+      render(<RdsFab icon={<span>★</span>} label="" />);
+      expect(fabEl()).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label when children are rendered', () => {
+      render(
+        <RdsFab label="Label">
+          <span>Child</span>
+        </RdsFab>
+      );
+      expect(fabEl()).not.toHaveAttribute('aria-label');
+    });
+
+    it('has no axe violations for icon + label without aria-label', async () => {
+      const { container } = render(<RdsFab icon={<span>★</span>} label="Add item" />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('G1-266: sx merge', () => {
+    it.each([
+      ['array sx overriding position styles', 'bottom-right', [{ position: 'absolute' }], 'absolute'],
+      ['function sx', 'top-left', () => ({ position: 'relative' }), 'relative'],
+      ['array sx without position keeping position styles', 'top-left', [{ zIndex: 5 }], 'fixed'],
+    ] as const)('supports %s', (_n, position, sx, expected) => {
+      render(<RdsFab aria-label="x" icon={<span>★</span>} position={position} sx={sx as any} />);
+      expect(pos()).toBe(expected);
+    });
+  });
+});
+
+describe('RdsFab additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('pins the button with placement, and position still works with a warning', () => {
+    const { unmount } = render(<RdsFab aria-label='Add' placement='bottom-left' />);
+    expect(pos()).toBe('fixed');
+    expect(warn).not.toHaveBeenCalled();
+    unmount();
+    render(<RdsFab aria-label='Add' position='top-right' />);
+    expect(pos()).toBe('fixed');
+    expect(warn).toHaveBeenCalledWith('RdsFab', 'position', '`placement`');
+  });
+
+  it('renders startIcon and names the icon-only button by label', () => {
+    render(<RdsFab startIcon={<span data-testid="start-icon" />} label="Add" />);
+    expect(screen.getByTestId('start-icon')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns for icon', () => {
+    render(<RdsFab icon={<span />} />);
+    expect(warn).toHaveBeenCalledWith('RdsFab', 'icon', '`startIcon`');
+  });
+
+  it('forwards data-testid to the root button', () => {
+    render(<RdsFab data-testid="add-fab" aria-label="Add" startIcon={<span>★</span>} />);
+    expect(screen.getByTestId('add-fab')).toBe(screen.getByRole('button', { name: 'Add' }));
   });
 });

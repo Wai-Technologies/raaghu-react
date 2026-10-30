@@ -7,14 +7,12 @@ import RdsCompVideoPlayer, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-video-player.scss', () => ({}));
 
-// Mock ReactPlayer
 jest.mock('react-player', () => ({
   __esModule: true,
   default: function MockReactPlayer({
-    url,
+    src,
     playing,
     loop,
     muted,
@@ -25,20 +23,24 @@ jest.mock('react-player', () => ({
     height,
     style,
     className,
+    preload,
+    title,
   }: any) {
     return (
       <div
         data-testid="react-player"
-        data-url={url}
+        data-src={src}
         data-playing={playing}
         data-loop={loop}
         data-muted={muted}
         data-controls={controls}
         data-volume={volume}
-        data-config={JSON.stringify(config)}
+        data-config={JSON.stringify(config ?? {})}
         data-width={width}
         data-height={height}
         data-style={JSON.stringify(style || { width, height })}
+        data-preload={preload}
+        data-title={title}
         className={className}
       >
         Video Player
@@ -99,7 +101,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should handle Vimeo type', () => {
@@ -111,7 +113,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://vimeo.com/123456789');
+      expect(player).toHaveAttribute('data-src', 'https://vimeo.com/123456789');
     });
 
     it('should handle Default type', () => {
@@ -123,7 +125,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://example.com/video.mp4');
+      expect(player).toHaveAttribute('data-src', 'https://example.com/video.mp4');
     });
   });
 
@@ -136,7 +138,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should format youtu.be shortened URL', () => {
@@ -147,7 +149,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should format YouTube embed URL', () => {
@@ -158,7 +160,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should handle YouTube URL with query parameters', () => {
@@ -169,7 +171,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should set correct YouTube player config', () => {
@@ -183,8 +185,7 @@ describe('RdsCompVideoPlayer', () => {
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.youtube).toBeDefined();
-      expect(config.youtube.playerVars.modestbranding).toBe(1);
-      expect(config.youtube.playerVars.rel).toBe(0);
+      expect(config.youtube.rel).toBe(0);
     });
   });
 
@@ -197,7 +198,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://vimeo.com/123456789');
+      expect(player).toHaveAttribute('data-src', 'https://vimeo.com/123456789');
     });
 
     it('should set correct Vimeo player config', () => {
@@ -211,9 +212,9 @@ describe('RdsCompVideoPlayer', () => {
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.vimeo).toBeDefined();
-      expect(config.vimeo.playerOptions.title).toBe(false);
-      expect(config.vimeo.playerOptions.byline).toBe(false);
-      expect(config.vimeo.playerOptions.portrait).toBe(false);
+      expect(config.vimeo.title).toBe(false);
+      expect(config.vimeo.byline).toBe(false);
+      expect(config.vimeo.portrait).toBe(false);
     });
 
     it('should handle Vimeo type with Vimeo URL', () => {
@@ -252,8 +253,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.youtube.playerVars.controls).toBe(1);
+      expect(player).toHaveAttribute('data-controls', 'true');
     });
 
     it('should disable YouTube controls when controls is false', () => {
@@ -265,29 +265,28 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.youtube.playerVars.controls).toBe(0);
+      expect(player).toHaveAttribute('data-controls', 'false');
     });
   });
 
   describe('Autoplay Prop', () => {
-    it('should not autoplay by default', () => {
+    it('should not autoPlay by default', () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');
     });
 
-    it('should autoplay when autoplay is true', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+    it('should autoPlay when autoPlay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={true} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'true');
     });
 
-    it('should not autoplay when disabled even if autoplay is true', () => {
+    it('should not autoPlay when disabled even if autoPlay is true', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -295,23 +294,23 @@ describe('RdsCompVideoPlayer', () => {
       expect(player).toHaveAttribute('data-playing', 'false');
     });
 
-    it('should loop when autoplay is true', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+    it('should loop when autoPlay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={true} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-loop', 'true');
     });
 
-    it('should not loop when autoplay is false', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={false} />);
+    it('should not loop when autoPlay is false', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={false} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-loop', 'false');
     });
 
-    it('should not loop when disabled even if autoplay is true', () => {
+    it('should not loop when disabled even if autoPlay is true', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -435,11 +434,11 @@ describe('RdsCompVideoPlayer', () => {
       expect(screen.getByText('Video player is disabled')).toBeInTheDocument();
     });
 
-    it('should not autoplay when disabled', () => {
+    it('should not autoPlay when disabled', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -489,7 +488,7 @@ describe('RdsCompVideoPlayer', () => {
     it('should handle empty videoLink', () => {
       render(<RdsCompVideoPlayer videoLink="" />);
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', '');
+      expect(player).toHaveAttribute('data-src', '');
     });
 
     it('should handle undefined optional props', () => {
@@ -513,7 +512,7 @@ describe('RdsCompVideoPlayer', () => {
           type={VideoPlayerType.YouTube}
           width="1280px"
           height="720px"
-          autoplay={true}
+          autoPlay={true}
           muted={true}
           controls={false}
           volume={0.5}
@@ -533,7 +532,7 @@ describe('RdsCompVideoPlayer', () => {
       render(
         <RdsCompVideoPlayer
           videoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          autoplay={true}
+          autoPlay={true}
           muted={false}
           volume={1}
           disabled={true}
@@ -561,7 +560,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=invalid');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=invalid');
     });
 
     it('should handle video URL with special characters', () => {
@@ -619,7 +618,8 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.file).toBeDefined();
+      expect(config.file ?? config.youtube ?? config.vimeo).toBeUndefined();
+      expect(player).toHaveAttribute('data-preload', 'auto');
     });
 
     it('should use type to determine player config', () => {
@@ -632,7 +632,8 @@ describe('RdsCompVideoPlayer', () => {
 
       let player = screen.getByTestId('react-player');
       let config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.file).toBeDefined();
+      expect(config.file ?? config.youtube ?? config.vimeo).toBeUndefined();
+      expect(player).toHaveAttribute('data-preload', 'auto');
 
       rerender(
         <RdsCompVideoPlayer
@@ -662,7 +663,7 @@ describe('RdsCompVideoPlayer', () => {
       expect(style.height).toBe('auto');
     });
 
-    it('should use default autoplay of false', () => {
+    it('should use default autoPlay of false', () => {
       render(<RdsCompVideoPlayer videoLink="https://example.com/video.mp4" />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');
@@ -719,5 +720,35 @@ describe('RdsCompVideoPlayer', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+describe('audit fixes', () => {
+  const src = 'https://example.com/video.mp4';
+
+  it('supports src and autoPlay, and loop override', async () => {
+    render(<RdsCompVideoPlayer src={src} autoPlay loop={false} />);
+    const player = await screen.findByTestId('react-player');
+    expect(player).toHaveAttribute('data-src', src);
+    expect(player).toHaveAttribute('data-playing', 'true');
+    expect(player).toHaveAttribute('data-loop', 'false');
+  });
+
+  it('makes wrapper inert and shows custom disabled message', () => {
+    const { container } = render(
+      <RdsCompVideoPlayer src={src} disabled disabledMessage="Nope" />
+    );
+    expect(container.querySelector('.rds-comp-video-player__wrapper')).toHaveAttribute('inert');
+    expect(screen.getByText('Nope')).toBeInTheDocument();
+  });
+
+  it('forwards rest/style/ref to root and passes title to the player', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompVideoPlayer src={src} ref={ref} data-testid="root" style={{ margin: 3 }} title="T" />);
+    expect(ref.current).toBe(screen.getByTestId('root'));
+    const player = await screen.findByTestId('react-player');
+    expect(player).toHaveAttribute('data-title', 'T');
   });
 });

@@ -8,24 +8,20 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=219-1317",
   {
     props: {
-      text: figma.string("✏️ Text"),
+      children: figma.string("✏️ Text"),
       showLeftIcon: figma.boolean("Show Left Icon"),
       showRightIcon: figma.boolean("Show Right Icon"),
       shape: figma.enum("💠 Shape", {
         "Rectangle": "rectangle",
         "Pill": "pill",
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Filled": "filled",
         "Outlined": "outlined",
         "Transparent": "transparent",
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled",
-      }),
+      selected: figma.boolean("Selected"),
+      disabled: figma.boolean("Disabled"),
       layout: figma.enum("📱 Layout", {
         "Icon+Text": "icon+text",
         "Icon Only": "icon-only",

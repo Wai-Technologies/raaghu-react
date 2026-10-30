@@ -4,12 +4,12 @@
   display: flex;
   position: relative;
   --rds-toggle-focus-ring-width: 2px;
-  --rds-toggle-group-border-light: var(--rds-border-light, rgba(0, 0, 0, 0.23));
-  --rds-toggle-group-border-dark: var(--rds-border-dark, rgba(255, 255, 255, 0.23));
-  --rds-toggle-group-border-disabled-light: var(--rds-border-light, rgba(100, 100, 100, 0.3));
-  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, rgba(100, 100, 100, 0.5));
+  --rds-toggle-group-border-light: var(--rds-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+  --rds-toggle-group-border-dark: var(--rds-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+  --rds-toggle-group-border-disabled-light: var(--rds-border-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
   --rds-toggle-button-selected-shadow: inset 0 0 0 1px currentColor;
-  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, rgba(0, 0, 0, 0.12));
+  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, color-mix(in srgb, var(--rds-color-black) 12%, transparent));
   
   &--horizontal {
     flex-direction: row;
@@ -24,70 +24,21 @@
   }
 
   &--spaced {
-    .rds-toggle-button__custom-group {
+    .rds-toggle-button__group--spaced {
       display: flex;
       flex-direction: inherit;
       width: 100%;
-      border: none;
-      margin: 0;
-      padding: 0;
-      min-inline-size: 0;
-    }
-  
-    .rds-toggle-button__button-wrapper {
-      display: inline-flex;
-      width: 100%;
-      
-      &--first .rds-toggle-button__button {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-      
-      &--last .rds-toggle-button__button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      
-      &--middle .rds-toggle-button__button {
-        border-radius: 0;
-      }
-      
-      &--single .rds-toggle-button__button {
-        border-radius: var(--rds-border-radius-sm);
-      }
+      gap: var(--rds-toggle-button-spacing);
+      background-color: transparent;
 
-      .rds-toggle-button__button {
+      .MuiToggleButtonGroup-grouped {
         flex: 1;
       }
     }
 
-    &.rds-toggle-button--vertical {
-      .rds-toggle-button__custom-group {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .rds-toggle-button__button-wrapper {
-        width: 100%;
-        
-        &--first .rds-toggle-button__button {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-          border-top-left-radius: var(--rds-border-radius-sm, 4px);
-          border-top-right-radius: var(--rds-border-radius-sm, 4px);
-        }
-        
-        &--last .rds-toggle-button__button {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
-          border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
-        }
-        
-        &--middle .rds-toggle-button__button {
-          border-radius: 0;
-        }
-      }
+    &.rds-toggle-button--vertical .rds-toggle-button__group--spaced {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
   
@@ -100,13 +51,13 @@
     }
     
     &:focus-visible {
-      outline: var(--rds-toggle-focus-ring-width, 2px) solid var(--rds-focus-color);
-      outline-offset: var(--rds-toggle-focus-ring-width, 2px);
+      outline: var(--rds-toggle-focus-ring-width) solid var(--rds-focus-color);
+      outline-offset: var(--rds-toggle-focus-ring-width);
     }
     
     &.Mui-selected {
       z-index: calc(var(--rds-z-index-base) + 1);
-      box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
+      box-shadow: var(--rds-toggle-button-selected-shadow);
     }
     
     &.Mui-disabled {
@@ -117,10 +68,10 @@
 
     &--spaced {
       width: 100%;
-      box-shadow: var(--rds-toggle-button-spaced-shadow, inset 0 0 0 1px rgba(0, 0, 0, 0.12));
+      box-shadow: var(--rds-toggle-button-spaced-shadow);
       
       &.Mui-selected {
-        box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
+        box-shadow: var(--rds-toggle-button-selected-shadow);
       }
     }
   }
@@ -162,7 +113,7 @@
   }
 }
 
-.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
   display: flex;
   flex-wrap: nowrap;
   max-width: 100%;
@@ -172,9 +123,9 @@
   .rds-toggle-button { width: 100%; max-width:100%; overflow-x:hidden; }
 
   .rds-toggle-button__group,
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group {
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced {
     flex-wrap: nowrap;
-    overflow: hidden; // hide any stray pixel overflow
+    overflow: hidden;
     width: 100%;
     max-width:100%;
   }
@@ -186,43 +137,32 @@
   }
 
   .rds-toggle-button--small .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-xs,0.7rem); 
-    padding: var(--rds-spacing-xs, 4px) calc(1.5 * var(--rds-spacing-xs, 4px)); 
+    font-size: var(--rds-font-size-xs); 
+    padding: var(--rds-spacing-xs) calc(1.5 * var(--rds-spacing-xs)); 
   }
   .rds-toggle-button--medium .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-sm,0.8rem); 
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px); 
+    font-size: var(--rds-font-size-sm); 
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm); 
   }
   .rds-toggle-button--large .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-md,0.9rem); 
-    padding: var(--rds-spacing-sm, 8px) calc(3 * var(--rds-spacing-xs, 4px)); 
+    font-size: var(--rds-font-size-md); 
+    padding: var(--rds-spacing-sm) calc(3 * var(--rds-spacing-xs)); 
   }
 
-  .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs, 4px) !important; }
+  .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs); }
 
-  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { 
-    margin-left: 0 !important; 
-  }
-
-  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper { 
-    width:auto; 
+  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__group--spaced .rds-toggle-button__button { 
     flex:1 1 50%;
     min-width:50%;
     max-width:50%;
-  }
-  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper .rds-toggle-button__button { 
-    flex:1 1 auto; 
-    width:100%;
-    max-width:100%;
-    min-width:0; 
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm);
     box-sizing:border-box;
   }
 
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced { min-width:0; flex-wrap:wrap; }
 
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical):not(.rds-toggle-button--spaced) .rds-toggle-button__group,
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical).rds-toggle-button--spaced .rds-toggle-button__custom-group {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical).rds-toggle-button--spaced .rds-toggle-button__group--spaced {
     flex-wrap: wrap;
   }
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root,
@@ -231,35 +171,46 @@
     max-width:50%;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(1),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
-    border-top-left-radius: var(--rds-border-radius-sm, 4px) !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(1) {
+    border-top-left-radius: var(--rds-border-radius-sm);
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(2),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(2) .rds-toggle-button__button {
-    border-top-right-radius: var(--rds-border-radius-sm, 4px) !important;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(2) {
+    border-top-right-radius: var(--rds-border-radius-sm);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
+  // Full-width wrapped row: restore the left border MUI clears for last/middle buttons.
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3) {
     flex:1 1 100%;
     max-width:100%;
-    border-bottom-left-radius: var(--rds-border-radius-sm, 4px) !important;
-    border-bottom-right-radius: var(--rds-border-radius-sm, 4px) !important;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    margin-left: 0;
+    border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+    border-top: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+    border-bottom-left-radius: var(--rds-border-radius-sm);
+    border-bottom-right-radius: var(--rds-border-radius-sm);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    &.Mui-selected {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
+    }
+
+    &.Mui-disabled {
+      border-left-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+      border-top-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+    }
   }
 
   @supports (flex-wrap: wrap) {
     .rds-toggle-button.is-wrap .rds-toggle-button__group,
-    .rds-toggle-button.is-wrap.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    .rds-toggle-button.is-wrap.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
       flex-wrap: wrap;
     }
   }
@@ -267,7 +218,7 @@
 
 @include bp.down(600) {
     .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
-    .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
       flex-wrap: wrap;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
@@ -275,30 +226,34 @@
       flex: 1 1 50%;
     }
     
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
-      border-top-left-radius: var(--rds-border-radius-sm, 4px);
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1) {
+      border-top-left-radius: var(--rds-border-radius-sm);
       border-bottom-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(2) .rds-toggle-button__button {
-      border-top-right-radius: var(--rds-border-radius-sm, 4px);
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2) {
+      border-top-right-radius: var(--rds-border-radius-sm);
       border-bottom-right-radius: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
-      border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+      margin-left: 0;
+      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+      border-top: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+      border-bottom-left-radius: var(--rds-border-radius-sm);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+
+      &.Mui-selected {
+        border-left-color: currentColor;
+        border-top-color: currentColor;
+      }
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(4) .rds-toggle-button__button {
-      border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4) {
+      border-bottom-right-radius: var(--rds-border-radius-sm);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-left-radius: 0;
@@ -309,7 +264,7 @@
   .rds-toggle-button { width:100%; max-width:100%; }
 
   .rds-toggle-button__group,
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group { 
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced { 
     flex-wrap: nowrap; 
     width:100%;
     max-width:100%;
@@ -319,62 +274,90 @@
   .rds-toggle-button__button { 
     flex:1 1 1; 
     min-width:0; 
-    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px); 
-    font-size: var(--rds-font-size-sm, 0.8rem); 
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm); 
+    font-size: var(--rds-font-size-sm); 
     box-sizing:border-box; 
   }
-
-  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left:0 !important; }
 }
 
 .rds-toggle-button__group {
   .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
-    margin-left: 0 !important;
-    border-left-width: 1px !important;
-    
-    &.Mui-disabled {
-      border: 1px solid var(--rds-toggle-group-border-disabled-light, rgba(100, 100, 100, 0.3)) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+
+    // Overlap adjacent edges so the shared border stays 1px (MUI's default join).
+    &:not(:first-of-type) {
+      margin-left: calc(-1 * var(--rds-border-width-thin));
+      border-left-color: transparent;
     }
-    
+
+    &.Mui-disabled {
+      border-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+
+      &:not(:first-of-type) {
+        border-left-color: transparent;
+      }
+    }
+
     &.Mui-selected {
-      border-color: currentColor !important;
+      border-color: currentColor;
       z-index: calc(var(--rds-z-index-base) + 1);
+
+      &:not(:first-of-type) {
+        border-left-color: currentColor;
+      }
+    }
+
+    &.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected {
+      border-left-color: currentColor;
+    }
+  }
+
+  &.MuiToggleButtonGroup-vertical .MuiToggleButtonGroup-grouped {
+    &:not(:first-of-type) {
+      margin-left: 0;
+      margin-top: calc(-1 * var(--rds-border-width-thin));
+      border-left-color: var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
+      border-top-color: transparent;
+    }
+
+    &.Mui-disabled:not(:first-of-type) {
+      border-left-color: var(--rds-toggle-group-border-disabled-light, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 30%, transparent));
+      border-top-color: transparent;
+    }
+
+    &.Mui-selected:not(:first-of-type) {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
+    }
+
+    &.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected {
+      border-top-color: currentColor;
     }
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
-    border-left-width: 1px !important;
-    
-    &.Mui-disabled {
-      border: 1px solid var(--rds-toggle-group-border-disabled-dark, rgba(100, 100, 100, 0.5)) !important;
-    }
-    
-    &.Mui-selected {
-      border-color: currentColor !important;
-    }
-  }
-}
+    border-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
 
-@include bp.down(400) {
-  .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
-    
-    &:not(:first-of-type) {
-      border-left: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
+    &.Mui-disabled {
+      border-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
     }
   }
-  
-  @media (prefers-color-scheme: dark) {
-    .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-      border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
-      
-      &:not(:first-of-type) {
-        border-left: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
-      }
+
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
+  .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+    border-left-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+    border-top-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
+
+    &.Mui-selected {
+      border-left-color: currentColor;
+      border-top-color: currentColor;
+    }
+
+    &.Mui-disabled {
+      border-left-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
+      border-top-color: var(--rds-toggle-group-border-disabled-dark, color-mix(in srgb, var(--rds-toggle-button-border-disabled-base) 50%, transparent));
     }
   }
 }

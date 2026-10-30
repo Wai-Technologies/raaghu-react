@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, type ReactNode } from "react";
 import clsx from 'clsx';
 import { 
   History, 
@@ -48,8 +48,8 @@ export interface SelectionContentProps {
 
 export interface ToolbarContentProps {
   initialTab?: string;
-  figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
 }
 
 const TOOLBAR_TABS = [
@@ -68,8 +68,8 @@ export interface FigmaUIKitButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
-  storybookIconSrc?: string;
-  figmaIconSrc?: string;
+  storybookIconSrc?: string | ReactNode;
+  figmaIconSrc?: string | ReactNode;
   iconAlt?: string;
 }
 
@@ -77,8 +77,8 @@ export interface StorybookButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
-  figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
   iconAlt?: string;
 }
 
@@ -92,7 +92,7 @@ export const FigmaUIKitButton = ({
   storybookIconSrc,
   iconAlt = "Figma",
   className = ""
-}) => {
+}: FigmaUIKitButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__figma-ui-kit-button ${className}`}
@@ -101,11 +101,13 @@ export const FigmaUIKitButton = ({
     >
        {figmaIconSrc && (
         <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
-          <img 
-            src={figmaIconSrc} 
-            alt={iconAlt} 
-            className="rds-comp-details-pane__figma-icon"
-          />
+          {typeof figmaIconSrc === 'string' ? (
+            <img
+              src={figmaIconSrc}
+              alt={iconAlt}
+              className="rds-comp-details-pane__figma-icon"
+            />
+          ) : figmaIconSrc}
         </span>
       )}
       <span className="rds-comp-details-pane__figma-button-text">{text}</span>
@@ -120,7 +122,7 @@ export const StorybookButton = ({
   figmaIconSrc,
   storybookIconSrc,
   iconAlt = "Storybook"
-}) => {
+}: StorybookButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__storybook-ui-kit-button ${className}`}
@@ -129,11 +131,13 @@ export const StorybookButton = ({
     >
       {storybookIconSrc && (
         <span className="rds-comp-details-pane__storybook-icon-wrapper" aria-hidden>
-          <img 
-            src={storybookIconSrc} 
-            alt={iconAlt} 
-            className="rds-comp-details-pane__storybook-icon"
-          />
+          {typeof storybookIconSrc === 'string' ? (
+            <img
+              src={storybookIconSrc}
+              alt={iconAlt}
+              className="rds-comp-details-pane__storybook-icon"
+            />
+          ) : storybookIconSrc}
         </span>
       )}
     
@@ -156,7 +160,7 @@ export const HistoryFavoritesTabs = ({
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
   favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
-}) => {
+}: HistoryFavoriteTabsProps) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
   const resolvedHistoryItems = historyItems ?? EMPTY_HISTORY_ITEMS;
   const resolvedOlderHistoryItems = olderHistoryItems ?? EMPTY_HISTORY_ITEMS;
@@ -328,16 +332,16 @@ export const HistoryFavoritesTabs = ({
 };
 
 const REAL_ESTATE_BADGES: { content: string; color: "primary" | "secondary" | "success" | "default" | "error" | "info" | "warning"; size: "small" | "medium" | "large"; shape?: "rectangle" | "pill" }[] = [
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" }
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" },
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" },
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" }
 ];
 
 export const RealEstateContent = ({
   estateTitle,
   estateDescription,
   carouselImages
-}) => {
+}: RealEstateContentProps) => {
   const resolvedCarouselImages = carouselImages ?? EMPTY_CAROUSEL_IMAGES;
   const badges = REAL_ESTATE_BADGES;
 
@@ -347,10 +351,10 @@ export const RealEstateContent = ({
         <div className="rds-comp-details-pane__real-estate-carousel" id="carousel-indicator">
           <RdsCarousel
             autoPlay={false}
-            height="200px"
+            height="var(--rds-spacing-200)"
             showArrows={false}
-            showDots={true}
-            style="default"
+            showIndicators={true}
+            variant="default"
             type="circle"
           >
             {resolvedCarouselImages.map((image, index) => (
@@ -380,8 +384,7 @@ export const RealEstateContent = ({
               >
                 <RdsBadge 
                   badgeContent={badge.content} 
-                  color={badge.color} 
-                  colorVariant="secondary"
+                  color={badge.color}
                   size={badge.size}
                   shape={badge.shape}
                 />
@@ -425,8 +428,7 @@ export const RealEstateContent = ({
   showLeftIcon
   showRightIcon
   size="medium"
-  state="default"
-  style="filled"
+  variant="filled"
   text=" Add Guests"
   textCase="uppercase"
 />
@@ -446,14 +448,14 @@ const SELECTION_AGENTS = [
 
 export const SelectionContent = ({
   headerSubText = "Agent Information"
-}) => {
+}: SelectionContentProps) => {
   const agents = SELECTION_AGENTS;
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
-  const handleAgentCardKeyDown = useCallback((e: KeyboardEvent, agentId: string) => {
+  const handleAgentCardKeyDown = useCallback((e: React.KeyboardEvent<HTMLButtonElement>, agentId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setSelectedAgent(agentId);
@@ -474,7 +476,7 @@ export const SelectionContent = ({
           <RdsSearch
             value={searchValue}
             onChange={handleSearchChange}
-            iconPosition="right"
+            iconPosition="end"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
             size="small"
@@ -501,8 +503,8 @@ export const SelectionContent = ({
                     showDesignation
                     showName
                     src={agent.avatar}
-                    subText={agent.designation}
-                    title={agent.name}
+                    description={agent.designation}
+                    name={agent.name}
                   />
                 </div>
               </div>
@@ -524,7 +526,6 @@ export const SelectionContent = ({
                       },
                     ]}
                     radioProps={{ name: 'agent-selection' }}
-                    state="default"
                     value={selectedAgent}
                   />
                 </div>
@@ -541,7 +542,7 @@ export const ToolbarContent = ({
   initialTab = 'icon_font',
   figmaIconSrc,
   storybookIconSrc
-}) => {
+}: ToolbarContentProps) => {
   const [toolbarState, setToolbarState] = useState({
     activeToolbarTab: initialTab,
     selectedFontSize: 16,
@@ -667,7 +668,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -675,7 +676,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -683,7 +684,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -691,7 +692,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -784,7 +785,7 @@ export const ToolbarContent = ({
                   </RdsTypography>
                   <div>
                     <RdsCompTreeStructure
-                      Language="TypeScript"
+                      language="TypeScript"
                       level={TreeLevel.Level3}
                       showActions
                       showChewron
@@ -899,7 +900,7 @@ export const ToolbarContent = ({
   type={IconType.Folder}
 />
 <RdsCompTreeStructure
-  Language="TypeScript"
+  language="TypeScript"
   level={TreeLevel.Level2}
   showActions
   showChewron
@@ -993,7 +994,7 @@ const THUMBNAIL_ACCORDION_ITEMS = [
 
 export const ThumbnailViewContent = ({
   thumbnailButtonName
-}) => {
+}: ThumbnailViewContentProps) => {
   const accordionItems = THUMBNAIL_ACCORDION_ITEMS;
 
   return (
@@ -1014,11 +1015,10 @@ export const ThumbnailViewContent = ({
           {accordionItems.map((item) => (
             <RdsAccordion
               key={item.id}
-              accordionStyle="borderhide"
+              variant="plain"
               size="medium"
-              state="default"
               title={item.title}
-              ShowLeftIcon={false}
+              startIcon={null}
             >
               <div className="rds-comp-details-pane__thumbnail-image-wrap">
                 <img 

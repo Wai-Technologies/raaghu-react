@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
@@ -34,7 +33,7 @@ export const Default: Story = {
     args: {
         type: 'Audio Player',
         showSettings: true,
-        showTranscript: true,
+        showVolume: true,
         showExport: true,
         showMoreOptions: true,
     }

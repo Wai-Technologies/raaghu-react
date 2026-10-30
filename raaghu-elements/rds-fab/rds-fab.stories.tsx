@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
-import { Add, Edit, Favorite } from '@mui/icons-material';
+import Add from '@mui/icons-material/Add';
+import Edit from '@mui/icons-material/Edit';
+import Favorite from '@mui/icons-material/Favorite';
 import RdsFab from './rds-fab';
 
 const meta: Meta<typeof RdsFab> = {
@@ -30,7 +31,7 @@ const meta: Meta<typeof RdsFab> = {
     disabled: {
       control: { type: 'boolean' },
     },
-    icon: { control: { disable: true }, table: { disable: true } },
+    startIcon: { control: { disable: true }, table: { disable: true } },
     label: { control: { disable: true }, table: { disable: true } },
     children: { control: { disable: true }, table: { disable: true } },
     ref: { control: { disable: true }, table: { disable: true } },
@@ -88,12 +89,12 @@ export const Extended: Story = {
         return (
           <RdsFab
             {...args}
-            icon={<div style={{ marginTop: '5px', }}><Edit /></div>}
+            startIcon={<div style={{ marginTop: '5px', }}><Edit /></div>}
             label="Edit"
           />
         );
       }
-      return <RdsFab {...args} icon={<Edit />} />;
+      return <RdsFab {...args} startIcon={<Edit />} />;
   },
 };
 

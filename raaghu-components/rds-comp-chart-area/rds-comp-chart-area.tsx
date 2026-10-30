@@ -1,75 +1,86 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-area.scss";
 
-export interface lineprops {
-  labels: string[];
-  options: ChartOptions<"line">;
-  dataSets: ChartDataset<"line">[];
-  id: string;
-  isGradient: boolean;
+/** Props for {@link RdsCompAreaChart}. */
+export interface RdsCompAreaChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"line">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
+  /** Chart.js options (never mutated). Defaults to `{}`. */
+  options?: ChartOptions<"line">;
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"line">[];
+  /** Id of the canvas element. */
+  id?: string;
+  /** Canvas height (number = px). Defaults to `76vh`. */
+  height?: string | number;
+  /** Canvas width (number = px). Defaults to `100vh`. */
+  width?: string | number;
+  /** @deprecated Has no effect. Use a scriptable `backgroundColor` on the dataset instead. */
+  isGradient?: boolean;
+  /** Accessible label of the chart. Defaults to "Area chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** System styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
+/** @deprecated Use RdsCompAreaChartProps. */
+export type lineprops = RdsCompAreaChartProps;
+
 const RdsCompAreaChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  height,
+  width,
   isGradient,
+  ariaLabel,
   chartLabel,
-}: lineprops) => {
-  const chartRef = useRef<Chart | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
+  className,
+  ref,
+  sx,
+  ...rest
+}: RdsCompAreaChartProps) => {
+  if (isGradient !== undefined) {
+    warnDeprecatedProp("RdsCompAreaChart", "isGradient", "a scriptable `backgroundColor`");
+  }
+  const resolved = resolveChartData("RdsCompAreaChart", data, labels, dataSets);
 
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    chartRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = {
-      labels,
-      datasets: dataSets.map((dataset) =>
-        isGradient ? { ...dataset, backgroundColor: dataset.backgroundColor } : dataset
-      ),
-    };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    const areaCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "line",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    chartRef.current = areaCanvas;
-    areaCanvas.canvas.style.height = "76vh";
-    areaCanvas.canvas.style.width = "100vh";
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, dataSets, options, isGradient, themeMode]);
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height ?? "76vh", width ?? "100vh"),
+    },
+    [resolved.labels, resolved.datasets, options, height, width]
+  );
 
   return (
-    <div className="rds-comp-chart-area">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-area", className)} sx={sx}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Area chart"}
+        aria-label={resolveChartLabel("RdsCompAreaChart", ariaLabel, chartLabel, "Area chart")}
       />
-    </div>
+    </Box>
   );
 };
 

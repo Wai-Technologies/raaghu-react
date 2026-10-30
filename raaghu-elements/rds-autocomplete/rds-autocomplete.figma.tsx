@@ -9,15 +9,14 @@ figma.connect(
   {
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      required: figma.boolean("❗ Is Mandatory"),
       showHintText: figma.boolean("🔤 Show Hint Text"),
-      state: figma.enum("💡 State",{
-        Default: "default",
-        Expanded: "expanded",
-        Selected: "selected",
-        Disabled: "disabled"
-      }),
-      selectSize: figma.enum("📏 Size",  {
+      open: figma.boolean("💡 Open"),
+      selected: figma.boolean("✅ Selected"),
+      disabled: figma.boolean("🚫 Disabled"),
+      error: figma.boolean("⚠️ Error"),
+      readOnly: figma.boolean("🔒 Read Only"),
+      size: figma.enum("📏 Size",  {
         "Small": "small",
         "Medium": "medium",
         "Large": "large"
@@ -31,9 +30,9 @@ figma.connect(
         placeholder="Search here..."
         label="Label"
         helperText="Select one of the available options"
-        isShowRadio
-        isShowUser
-        isShowCheckbox
+        showRadio
+        showUser
+        showCheckbox
         userIcon={<PersonIcon />}
         options={[
         {

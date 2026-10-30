@@ -4,10 +4,69 @@ import RdsButton from '../rds-button/rds-button';
 import RdsBadge from '../rds-badge/rds-badge';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsInput from '../rds-input/rds-input';
-import { Typography, CardContent, CardActions } from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { CardContent, CardActions } from '@mui/material';
+import Person from '@mui/icons-material/Person';
+import Home from '@mui/icons-material/Home';
+import Settings from '@mui/icons-material/Settings';
+import Favorite from '@mui/icons-material/Favorite';
+import Star from '@mui/icons-material/Star';
+import Email from '@mui/icons-material/Email';
+import Phone from '@mui/icons-material/Phone';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Camera from '@mui/icons-material/Camera';
+import Image from '@mui/icons-material/Image';
+import MusicNote from '@mui/icons-material/MusicNote';
+import VideoLibrary from '@mui/icons-material/VideoLibrary';
+import Description from '@mui/icons-material/Description';
+import Folder from '@mui/icons-material/Folder';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import Check from '@mui/icons-material/Check';
+import Close from '@mui/icons-material/Close';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Download from '@mui/icons-material/Download';
+import Upload from '@mui/icons-material/Upload';
+import Share from '@mui/icons-material/Share';
+import Notifications from '@mui/icons-material/Notifications';
 import { useState } from 'react';
 import { expect } from 'storybook/test';
+
+/** Icon choices for the `icon` control. */
+const ICONS = {
+  person: <Person />,
+  home: <Home />,
+  settings: <Settings />,
+  favorite: <Favorite />,
+  star: <Star />,
+  email: <Email />,
+  phone: <Phone />,
+  location: <LocationOn />,
+  camera: <Camera />,
+  image: <Image />,
+  music: <MusicNote />,
+  video: <VideoLibrary />,
+  document: <Description />,
+  folder: <Folder />,
+  calendar: <CalendarToday />,
+  clock: <AccessTime />,
+  search: <Search />,
+  add: <Add />,
+  edit: <Edit />,
+  delete: <Delete />,
+  check: <Check />,
+  close: <Close />,
+  arrow_forward: <ArrowForward />,
+  arrow_back: <ArrowBack />,
+  download: <Download />,
+  upload: <Upload />,
+  share: <Share />,
+  notification: <Notifications />,
+};
 
 const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
@@ -19,29 +78,15 @@ const meta: Meta<typeof RdsCard> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    padding: {
-      control: 'text',
-      description: 'Padding for the card content',
-    },
     elevation: {
       control: 'number',
       description: 'Elevation (shadow) of the card',
-    },
-    variant: {
-      control: 'select',
-      options: ['elevation', 'outlined'],
-      description: 'Variant of the card',
-    },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected', 'disabled'],
-      description: 'Choose between four states Default, Hover, Disabled, and Selected to visually indicate the card\'s interaction status.',
     },
     showIndicator: {
       control: 'boolean',
       description: 'Toggle this switch to show or hide the card\'s indicator, depending on the design needs.',
     },
-    style: {
+    variant: {
       control: 'select',
       options: ['default', 'outlined', 'filled'],
       description: 'Pick from three styles: Default for a clean look, Filled for a solid background, and Outlined for a bordered appearance.',
@@ -67,21 +112,25 @@ const meta: Meta<typeof RdsCard> = {
       control: 'boolean',
       description: 'Toggle this switch to show or hide the card\'s icon.',
     },
-    changeIcon: {
+    icon: {
       control: 'select',
-      options: [
-        'person', 'home', 'settings', 'favorite', 'star', 'email', 'phone', 'location', 
-        'camera', 'image', 'music', 'video', 'document', 'folder', 'calendar', 'clock', 
-        'search', 'add', 'edit', 'delete', 'check', 'close', 'arrow_forward', 'arrow_back', 
-        'download', 'upload', 'share', 'notification'
-      ],
-      description: 'Choose the icon to display.',
+      options: Object.keys(ICONS),
+      mapping: ICONS,
+      description: 'Choose the icon to display. Any React node can be passed; `null` or `false` hides it.',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Shows the card as selected and sets `aria-current` (or `aria-selected` for roles that support it).',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Shows the card as disabled and sets `aria-disabled`.',
     },
     title: {
       control: 'text',
       description: 'Set the main title text for the card. This will be displayed as the primary heading.',
     },
-    cardSubtext: {
+    subtitle: {
       control: 'text',
       description: 'Set the subtitle text for the card. This will be displayed below the title.',
     },
@@ -97,22 +146,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
         text="Link Button >"
-        style="transparent"
+        variant="transparent"
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
       />
@@ -124,7 +172,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
@@ -142,7 +190,7 @@ export const Elevated: Story = {
 };
 Elevated.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
@@ -156,21 +204,20 @@ export const Outlined: Story = {
 };
 Outlined.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithActions: Story = {
   args: {
-    state: 'default',
     title: 'Card with Actions',
     showDescription: true,
     description: 'This card includes action buttons at the bottom.',
     children: (
       <>
         <CardActions style={{ marginLeft: '-12px' }}>
-          <RdsButton text="Learn More" size="small" textCase='capitalize' style="transparent" />
-          <RdsButton text="Share" size="small" textCase='capitalize' style="transparent" />
+          <RdsButton text="Learn More" size="small" textCase='capitalize' variant="transparent" />
+          <RdsButton text="Share" size="small" textCase='capitalize' variant="transparent" />
         </CardActions>
       </>
     ),
@@ -178,26 +225,25 @@ export const WithActions: Story = {
 };
 WithActions.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 export const WithAvatar: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
   } as any,
   parameters: {
     controls: {
-      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'isEditing'],
+      include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'isEditing'],
     },
   },
   argTypes: {
@@ -211,7 +257,7 @@ export const WithAvatar: Story = {
     const [isEditMode, setIsEditMode] = useState(false);
     const [editableData, setEditableData] = useState({
       title: args.title || 'Card Title',
-      cardSubtext: args.cardSubtext || 'Card Subtitle',
+      subtitle: args.subtitle || 'Card Subtitle',
       avatarName: 'Jane Doe',
       avatarDesignation: 'Designation'
     });
@@ -242,7 +288,7 @@ export const WithAvatar: Story = {
       <RdsCard
         {...args}
         title={isEditMode ? undefined : editableData.title}
-        cardSubtext={isEditMode ? undefined : editableData.cardSubtext}
+        subtitle={isEditMode ? undefined : editableData.subtitle}
       >
         {isEditMode && (
           <div className="rds-card__editable-field">
@@ -256,8 +302,8 @@ export const WithAvatar: Story = {
               className="rds-card__input--title"
             />
             <RdsInput
-              value={tempData.cardSubtext}
-              onChange={(e) => handleInputChange('cardSubtext', e.target.value)}
+              value={tempData.subtitle}
+              onChange={(e) => handleInputChange('subtitle', e.target.value)}
               placeholder="Card Subtitle"
               variant="outlined"
               size="small"
@@ -319,7 +365,7 @@ export const WithAvatar: Story = {
                   <div className="rds-card__edit-actions">
                     <RdsButton 
                       text="Save"
-                      style="filled"
+                      variant="filled"
                       textCase='capitalize'
                       color="primary"
                       size="small"
@@ -327,7 +373,7 @@ export const WithAvatar: Story = {
                     />
                     <RdsButton 
                       text="Cancel"
-                      style="outlined"
+                      variant="outlined"
                       textCase='capitalize'
                       color="primary"
                       size="small"
@@ -345,23 +391,22 @@ export const WithAvatar: Story = {
 };
 WithAvatar.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'children', 'variant']
   } 
 };
 
 export const WithBadges: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <div className="rds-card__badges">
         <RdsBadge 
@@ -384,36 +429,35 @@ export const WithBadges: Story = {
 };
 WithBadges.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'children', 'variant']
   } 
 };
 
 export const WithButton: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <div className="rds-card__button-group">
         <RdsButton
           text="Cancel"
-          style="transparent"
+          variant="transparent"
           textCase='capitalize'
           color="primary"
           size="small"
         />
         <RdsButton
           text="Okay"
-          style="filled"
+          variant="filled"
           textCase='capitalize'
           color="primary"
           size="small"
@@ -424,7 +468,7 @@ export const WithButton: Story = {
 };
 WithButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']   }
 };
 
 export const WithCustomPadding: Story = {
@@ -432,28 +476,27 @@ export const WithCustomPadding: Story = {
     title: 'Card with Custom Padding',
     showDescription: true,
     description: 'This card has custom padding applied.',
-    padding: '24px',
+    sx: { padding: '24px' },
   },
 };
 WithCustomPadding.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithImage: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <>
         <div className="rds-card__image">
@@ -475,14 +518,14 @@ export const WithImage: Story = {
         <div className="rds-card__button-group">
           <RdsButton
             text="Cancel"
-            style="transparent"
+            variant="transparent"
             textCase='capitalize'
             color="primary"
             size="small"
           />
           <RdsButton
             text="Okay"
-            style="filled"
+            variant="filled"
             textCase='capitalize'
             color="primary"
             size="small"
@@ -494,28 +537,27 @@ export const WithImage: Story = {
 };
 WithImage.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithLinkButton: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
         text="Link Button >"
-        style="transparent"
+        variant="transparent"
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
       />
@@ -524,23 +566,22 @@ export const WithLinkButton: Story = {
 };
 WithLinkButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithTags: Story = {
   args: {
-    state: 'default',
-    style: 'default',
+    variant: 'default',
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <>
         <div className="rds-card__tags">
@@ -564,7 +605,6 @@ export const WithTags: Story = {
 };
 WithTags.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
-

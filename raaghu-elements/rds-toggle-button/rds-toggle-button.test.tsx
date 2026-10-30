@@ -2,12 +2,13 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsToggleButton, { RdsToggleButtonOption } from './rds-toggle-button';
+import RdsToggleButton, { RdsToggleButtonOption, RdsStandaloneToggleButton } from './rds-toggle-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-toggle-button.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -108,11 +109,8 @@ describe('RdsToggleButton', () => {
   describe('Single Select Mode', () => {
     it('should use exclusive mode by default', () => {
       const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
-      // In single mode, verify only one button can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
-      // Verify first button is not selected by default
       expect(buttons[0]).toHaveAttribute('aria-pressed', 'false');
     });
 
@@ -173,11 +171,8 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
-      // In multiple mode, verify multiple buttons can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
-      // Verify buttons have aria-pressed attributes (multiple mode)
       buttons.forEach(button => {
         expect(button).toHaveAttribute('aria-pressed');
       });
@@ -283,7 +278,6 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} orientation="vertical" />
       );
-      // Verify vertical orientation class is applied
       const toggleButton = container.querySelector('.rds-toggle-button');
       expect(toggleButton).toHaveClass('rds-toggle-button--vertical');
     });
@@ -361,8 +355,6 @@ describe('RdsToggleButton', () => {
       const disabledButton = screen.getByText('Option 1').closest('button');
       fireEvent.click(disabledButton!);
       
-      // onChange may or may not be called, depending on MUI behavior
-      // The button should remain unselected
       await waitFor(() => {
         expect(disabledButton).toHaveAttribute('aria-pressed', 'false');
       });
@@ -474,7 +466,7 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} spacing={0} />
       );
-      const group = container.querySelector('.rds-toggle-button__custom-group');
+      const group = container.querySelector('.rds-toggle-button__group--spaced');
       expect(group).not.toBeInTheDocument();
     });
 
@@ -482,8 +474,11 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} spacing={16} />
       );
-      const group = container.querySelector('.rds-toggle-button__custom-group');
+      const group = container.querySelector('.rds-toggle-button__group--spaced');
       expect(group).toBeInTheDocument();
+      expect(container.querySelector('.rds-toggle-button')).toHaveStyle({
+        '--rds-toggle-button-spacing': '16px',
+      });
     });
 
     it('should apply spacing class to toggle button', () => {
@@ -500,10 +495,8 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} color="primary" />
       );
-      // Verify that buttons are rendered (color is passed through to MUI)
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBeGreaterThan(0);
-      // MUI applies color-specific classes when buttons are selected
       const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       expect(toggleGroup).toBeInTheDocument();
     });
@@ -512,7 +505,6 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} color="secondary" />
       );
-      // Verify that buttons are rendered with secondary color (color is passed through to MUI)
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBeGreaterThan(0);
       const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
@@ -718,7 +710,6 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      // In single mode, verify button selection
       const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
@@ -732,7 +723,7 @@ describe('RdsToggleButton', () => {
         </ThemeProvider>
       );
       
-      const updatedContainer = rerender(
+      rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsToggleButton 
             options={mockOptions}
@@ -886,4 +877,55 @@ describe('RdsToggleButton', () => {
       });
     });
   });
+});
+describe('audit fixes', () => {
+  it('uses consumer iconTextSpacing and spacing directly, keeps token default otherwise', () => {
+    const opts = [{ value: 'a', label: 'A', icon: <i>x</i> }, { value: 'b', label: 'B', icon: <i>y</i> }];
+    const { container, rerender } = render(<RdsToggleButton options={opts} />);
+    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: 'var(--rds-spacing-xs)' });
+    rerender(<RdsToggleButton options={opts} iconTextSpacing={3} spacing={5} />);
+    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: '3px' });
+    expect(container.querySelector('.rds-toggle-button')).toHaveStyle({ '--rds-toggle-button-spacing': '5px' });
+    expect(container.querySelector('.rds-toggle-button__group--spaced')).toBeInTheDocument();
+  });
+
+  it('merges consumer className on the root and standalone button', () => {
+    const { container } = render(<RdsToggleButton options={mockOptions} className="custom" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button', 'custom');
+    render(<RdsStandaloneToggleButton className="mine">x</RdsStandaloneToggleButton>);
+    expect(screen.getByRole('button', { name: 'x' })).toHaveClass('rds-toggle-button__button', 'mine');
+  });
+
+  it('supports size and warns on deprecated inputSize', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { container, rerender } = render(<RdsToggleButton options={mockOptions} size="large" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button--large');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    rerender(<RdsToggleButton options={mockOptions} inputSize="medium" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button--medium');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsToggleButton', 'inputSize', '`size`');
+  });
+
+  it('keeps aria-label only on the group, and aria-pressed still rendered', () => {
+    const { container } = render(<RdsToggleButton options={mockOptions} aria-label="Pick" value="option1" />);
+    expect(container.firstElementChild).not.toHaveAttribute('aria-label');
+    expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'Pick');
+    expect(screen.getByRole('button', { name: 'Option 1' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('required keeps one option selected; enforceSelected and iconTextSpacing warn', async () => {
+    const options = [{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }];
+    renderWithTheme(<RdsToggleButton options={options} required defaultValue="a" />);
+    await userEvent.click(screen.getByRole('button', { name: 'A' }));
+    expect(screen.getByRole('button', { name: 'A' })).toHaveAttribute('aria-pressed', 'true');
+    renderWithTheme(<RdsToggleButton options={options} enforceSelected iconTextSpacing={4} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsToggleButton', 'enforceSelected', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsToggleButton', 'iconTextSpacing', expect.any(String));
+  });
+
+  it('forwards data-testid to the root .rds-toggle-button', () => {
+    render(<RdsToggleButton options={mockOptions} data-testid="view-toggle" />);
+    expect(screen.getByTestId('view-toggle')).toHaveClass('rds-toggle-button');
+  });
+
 });

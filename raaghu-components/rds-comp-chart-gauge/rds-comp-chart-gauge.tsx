@@ -1,82 +1,112 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  chartFont,
-  chartMutedColor,
-  chartTextColor,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-gauge.scss";
 
-export interface RdsCompGaugeProps {
-  labels: string[];
+/** Props for {@link RdsCompGaugeChart}. */
+export interface RdsCompGaugeProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"doughnut">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
+  /** Chart.js options (never mutated). The gauge always uses `rotation: -90` and `circumference: 180`. */
   options: ChartOptions<"doughnut">;
-  dataSets: ChartDataset<"doughnut">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"doughnut">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** Large text drawn in the gauge. */
   titleText?: string;
+  /** Smaller text drawn under the title. */
+  subtitle?: string;
+  /** @deprecated Use `subtitle` instead. */
   subTitleText?: string;
+  /**
+   * @deprecated Prefer `data.datasets` / `dataSets`. When those are omitted, builds
+   * `[value, maxValue - value]` (G3-040).
+   */
   value?: number;
+  /**
+   * @deprecated Prefer `data.datasets` / `dataSets`. Used with `value` when datasets are omitted.
+   */
   maxValue?: number;
+  /** Accessible label of the chart. Default "Gauge chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
+  sx?: SxProps<Theme>;
 }
 
-const createGaugeTextPlugin = (title: string, subTitle: string) => ({
-  id: "gaugeText",
-  beforeDraw(chart: Chart) {
-    const {
-      ctx: canvasCtx,
-      chartArea: { top, width, height },
-    } = chart;
-    const primaryColor = chartTextColor();
-    const mutedColor = chartMutedColor();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("bold", "xl");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = primaryColor;
-    canvasCtx.fillText(title, width / 2, top + height / 1.5);
-    canvasCtx.restore();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("medium", "md");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = mutedColor;
-    canvasCtx.fillText(subTitle, width / 2, top + height / 1.2);
-    canvasCtx.restore();
-  },
-});
-
 const RdsCompGaugeChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  height,
+  width,
   titleText = "",
-  subTitleText = "",
+  subtitle,
+  subTitleText,
+  value,
+  maxValue,
+  ariaLabel,
   chartLabel,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompGaugeProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
+  if (value !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "value", "`dataSets`");
+  if (maxValue !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "maxValue", "`dataSets`");
+  if (subTitleText !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "subTitleText", "`subtitle`");
+  const subTitle = subtitle ?? subTitleText ?? "";
+  const resolved = resolveChartData("RdsCompGaugeChart", data, labels, dataSets);
+  const hasExplicitDatasets = (data?.datasets?.length ?? 0) > 0 || (dataSets?.length ?? 0) > 0;
+  const gaugeFromValue =
+    !hasExplicitDatasets && value !== undefined && maxValue !== undefined && maxValue > 0
+      ? ([
+          {
+            data: [value, Math.max(0, maxValue - value)],
+            backgroundColor: ["var(--rds-success-main)", "var(--rds-neutral-200)"],
+            borderWidth: 0,
+          },
+        ] as ChartDataset<"doughnut">[])
+      : undefined;
+  const chartLabels = resolved.labels ?? (gaugeFromValue ? (["Value", "Remainder"] as string[]) : undefined);
+  const chartDatasets = gaugeFromValue ?? resolved.datasets;
 
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const gaugeCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart<"doughnut">(
+    {
       type: "doughnut",
-      plugins: [createGaugeTextPlugin(titleText, subTitleText)],
-      data: chartData,
-      options: {
-        ...chartOptions,
+      labels: chartLabels,
+      datasets: chartDatasets,
+      options,
+      themeAxes: [],
+      plugins: [
+        createCenterTextPlugin({
+          id: "gaugeText",
+          title: titleText,
+          subTitle,
+          titleY: ({ top, height }) => top + height / 1.5,
+          subTitleY: ({ top, height }) => top + height / 1.2,
+          subTitleSize: "md",
+        }),
+      ],
+      overrides: (chartOptions) => ({
         rotation: -90,
         circumference: 180,
         maintainAspectRatio: false,
@@ -86,35 +116,32 @@ const RdsCompGaugeChart = ({
           legend: {
             display: chartOptions?.plugins?.legend?.display !== false,
             position: "top",
+            ...chartOptions?.plugins?.legend,
             labels: {
               usePointStyle: true,
               pointStyle: "circle",
               ...chartOptions?.plugins?.legend?.labels,
             },
-            ...options?.plugins?.legend,
           },
         },
+      }),
+      onCreate: (chart) => {
+        applyCanvasSize(chart.canvas, height, width);
       },
-    });
-
-    gaugeCanvas.canvas.style.width = "45vh";
-    gaugeCanvas.canvas.style.height = "45vh";
-
-    return () => {
-      gaugeCanvas.destroy();
-    };
-  }, [labels, options, dataSets, titleText, subTitleText, themeMode]);
+    },
+    [chartLabels, options, chartDatasets, titleText, subTitle, height, width]
+  );
 
   return (
-    <div className="rds-comp-chart-gauge">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-gauge", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Gauge chart"}
+        aria-label={resolveChartLabel("RdsCompGaugeChart", ariaLabel, chartLabel, "Gauge chart")}
       />
-    </div>
+    </Box>
   );
 };
 

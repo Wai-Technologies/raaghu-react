@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback, useMemo, type ChangeEvent } from 'react';
+import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, type SxProps, type Theme } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 export interface PredefinedSignatureItem {
@@ -12,22 +12,37 @@ export interface PredefinedSignatureItem {
 }
 
 export interface RdsESignatureUploadProps {
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   type: 'fullname' | 'initials';
   disabled: boolean;
-  disabledFooterMessage?: string;
+  disabledFooterMessage?: ReactNode;
   width?: number;
+  /** Heading above the upload panel. Defaults by `type`. */
+  title?: string;
+  /** Shows the required asterisks. Defaults to `true`. */
+  required?: boolean;
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
-const MAX_FILE_BYTES = 5 * 1024 * 1024; 
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+const MAX_FILE_MB = MAX_FILE_BYTES / (1024 * 1024);
 
 export const RdsESignatureUpload = ({
   type,
   disabled,
   disabledFooterMessage,
   width,
+  title,
+  required = true,
   onSignatureChange,
-}) => {
+  className,
+  sx,
+  ref,
+  ...rest
+}: RdsESignatureUploadProps) => {
+  const resolvedTitle = title ?? (type === 'initials' ? 'Upload Initial' : 'Upload Signature');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -37,7 +52,7 @@ export const RdsESignatureUpload = ({
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_BYTES) {
-        setUploadError('File too large. Max size is 2MB'); 
+        setUploadError(`File too large. Max size is ${MAX_FILE_MB}MB`);
         setSelectedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
         onSignatureChange?.(null);
@@ -73,10 +88,17 @@ export const RdsESignatureUpload = ({
   }, [disabled]);
 
   return (
-    <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
-      <Typography variant="h6" className="rds-e-signature__title">
-        {type === 'initials' ? 'Upload Initial' : 'Upload Signature'}
-        <span className="rds-e-signature__required">*</span>
+<Box
+  {...rest}
+  ref={ref}
+  className={clsx("rds-e-signature__upload-container", className)}
+  sx={[
+    { maxWidth: width ? `${width}px` : '100%' },
+    ...(sx ? (Array.isArray(sx) ? sx : [sx]) : []),
+  ]}
+>      <Typography variant="h6" className="rds-e-signature__title">
+        {resolvedTitle}
+        {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
       <Box
         className={clsx("rds-e-signature__upload-panel", !disabled && isUploadHovered && "rds-e-signature__upload-panel--hover", uploadError && "rds-e-signature__upload-panel--error")}
@@ -85,7 +107,7 @@ export const RdsESignatureUpload = ({
       >
         <Box className="rds-e-signature__upload-standard">
           <Typography className="rds-e-signature__upload-label">
-            Title <span className="rds-e-signature__required">*</span>
+            Title {required && <span className="rds-e-signature__required">*</span>}
           </Typography>
           <Box className={clsx("rds-e-signature__file-row", selectedFile && "rds-e-signature__file-row--has-file")}>
             <input
@@ -106,7 +128,7 @@ export const RdsESignatureUpload = ({
               Choose File
             </button>
             <span className={clsx("rds-e-signature__file-text", !selectedFile && "rds-e-signature__file-text--placeholder")}>
-              {selectedFile ? selectedFile.name : 'No File Choosen'}
+              {selectedFile ? selectedFile.name : 'No File Chosen'}
             </span>
             {selectedFile && (
               <button
@@ -121,7 +143,7 @@ export const RdsESignatureUpload = ({
             )}
           </Box>
           <Box className="rds-e-signature__file-hint-row">
-            <Typography className="rds-e-signature__file-limit">Maximum 5MB</Typography>
+            <Typography className="rds-e-signature__file-limit">Maximum {MAX_FILE_MB}MB</Typography>
           </Box>
         </Box>
       </Box>
@@ -139,49 +161,64 @@ export const RdsESignatureUpload = ({
 };
 
 export interface RdsESignatureChooseProps {
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   type: 'fullname' | 'initials';
   disabled: boolean;
   predefinedSignatures: PredefinedSignatureItem[];
+  /** Heading above the choose panel. Defaults to "Choose Signature". */
+  title?: string;
+  /** Shows the required asterisk. Defaults to `true`. */
+  required?: boolean;
   onSignatureChange?: (signature: string | File | null) => void;
+  /** Called when "Create your own signature" is activated. Without it the text is not interactive. */
+  onCreateCustom?: () => void;
 }
 
 export const RdsESignatureChoose = ({
   type,
   disabled,
   predefinedSignatures,
+  title = 'Choose Signature',
+  required = true,
   onSignatureChange,
-}) => {
+  onCreateCustom,
+  className,
+  sx,
+  ref,
+  ...rest
+}: RdsESignatureChooseProps) => {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const multipleChooseError = selectedStyles.length > 1;
 
   const handleStyleSelect = useCallback((styleId: string) => {
-    setSelectedStyles(prev => {
-      let next: string[];
-      if (prev.includes(styleId)) {
-        next = prev.filter(id => id !== styleId);
-      } else {
-        next = [...prev, styleId];
+    const next = selectedStyles.includes(styleId)
+      ? selectedStyles.filter(id => id !== styleId)
+      : [...selectedStyles, styleId];
+    setSelectedStyles(next);
+    if (next.length === 1) {
+      const signature = predefinedSignatures.find(sig => sig.id === next[0]);
+      if (signature) {
+        onSignatureChange?.(type === 'fullname' ? signature.fullName : signature.initials);
       }
-      if (next.length === 1) {
-        const onlyId = next[0];
-        const signature = predefinedSignatures.find(sig => sig.id === onlyId);
-        if (signature) {
-          onSignatureChange?.(type === 'fullname' ? signature.fullName : signature.initials);
-        }
-      } else if (next.length === 0) {
-        onSignatureChange?.(null);
-      } else {
-        onSignatureChange?.(null);
-      }
-      return next;
-    });
-  }, [onSignatureChange, predefinedSignatures, type]);
+    } else {
+      onSignatureChange?.(null);
+    }
+  }, [onSignatureChange, predefinedSignatures, selectedStyles, type]);
+
+  const handleCreateCustomKeyDown = (e: ReactKeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onCreateCustom?.();
+    }
+  };
 
   return (
-    <Box className="rds-e-signature__choose-container">
+    <Box {...rest} ref={ref} className={clsx("rds-e-signature__choose-container", className)} sx={sx}>
       <Typography variant="h6" className="rds-e-signature__title">
-        Choose Signature
-        <span className="rds-e-signature__required">*</span>
+        {title}
+        {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
       <Box className={clsx("rds-e-signature__choose-panel", multipleChooseError && "rds-e-signature__choose-panel--error")}>
         <Box className="rds-e-signature__mini-grid">
@@ -214,7 +251,15 @@ export const RdsESignatureChoose = ({
       )}
       {!multipleChooseError && (
         <Box className="rds-e-signature__create-custom rds-e-signature__create-custom--outside">
-          <Typography className="rds-e-signature__create-link">
+          <Typography
+            className="rds-e-signature__create-link"
+            {...(onCreateCustom && {
+              onClick: onCreateCustom,
+              onKeyDown: handleCreateCustomKeyDown,
+              role: 'button',
+              tabIndex: 0,
+            })}
+          >
             ⊕ Create your own signature
           </Typography>
         </Box>

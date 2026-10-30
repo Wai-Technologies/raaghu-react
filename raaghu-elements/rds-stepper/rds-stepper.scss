@@ -1,8 +1,8 @@
 $rds-stepper-breakpoint-sm: 420px;
 
 .rds-stepper {
-  --rds-stepper-mobile-offset-left: calc(-1 * var(--rds-spacing-sm, 10px));
-  --rds-stepper-mobile-step-padding-right: var(--rds-spacing-xs, 0px);
+  --rds-stepper-mobile-offset-left: calc(-1 * var(--rds-spacing-sm));
+  --rds-stepper-mobile-step-padding-right: var(--rds-spacing-xs);
   position: relative;
 }
 
@@ -15,22 +15,23 @@ $rds-stepper-breakpoint-sm: 420px;
 @media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
     margin-left: var(--rds-stepper-mobile-offset-left);
-  }
-  .MuiStep-root {
-    padding-right: var(--rds-stepper-mobile-step-padding-right) !important;
+
+    .MuiStep-root {
+      padding-right: var(--rds-stepper-mobile-step-padding-right);
+    }
   }
 }
 
 [data-theme="dark"] {
   .rds-stepper {
     .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
-      color: var(--rds-neutral-0) !important;
-      fill: var(--rds-neutral-0) !important;
+      color: var(--rds-neutral-0);
+      fill: var(--rds-neutral-0);
     }
     
     .MuiStepLabel-iconContainer .MuiStepIcon-root svg path {
-      fill: var(--rds-neutral-0) !important;
-      stroke: var(--rds-neutral-0) !important;
+      fill: var(--rds-neutral-0);
+      stroke: var(--rds-neutral-0);
     }
   }
 }

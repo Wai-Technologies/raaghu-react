@@ -1,16 +1,15 @@
 .rds-radio {
   display: block;
   position: relative;
-  /* use centralized tokens */
 
   &__group {
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
     display: flex;
   }
 
   &__label {
     font-weight: var(--rds-font-weight-medium, 500);
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    margin-bottom: var(--rds-spacing-sm);
     display: block;
   }
 
@@ -20,9 +19,9 @@
     align-items: center;
     
     .MuiFormControlLabel-label {
-      font-size: var(--rds-font-size-body, 1rem);
+      font-size: var(--rds-font-size-body);
       line-height: var(--rds-line-height-body, 1.5);
-      color: var(--rds-text-secondary) !important;
+      color: var(--rds-text-secondary);
     }
 
     &--icon {
@@ -52,16 +51,16 @@
   }
 
   &__bottom-label {
-    margin-top: var(--rds-spacing-xs, 4px);
+    margin-top: var(--rds-spacing-xs);
     text-align: center;
-    font-size: var(--rds-font-size-body, 1rem);
+    font-size: var(--rds-font-size-body);
     line-height: var(--rds-line-height-body, 1.5);
     color: var(--rds-text-primary, var(--rds-color-text-primary));
     user-select: none;
     cursor: pointer;
     
     &--disabled {
-      color: var(--rds-text-disabled, var(--rds-color-text-disabled)) !important;
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       cursor: not-allowed;
     }
   }
@@ -75,8 +74,8 @@
     min-height: auto;
 
     .MuiRadio-root {
-      margin: 0 !important;
-      padding: var(--rds-spacing-xs, 4px) !important;
+      margin: 0;
+      padding: var(--rds-spacing-xs);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -109,20 +108,20 @@
     .rds-radio__group {
       display: flex;
       flex-direction: row;
-      gap: var(--rds-spacing-md, 16px);
+      gap: var(--rds-spacing-md);
       align-items: flex-start;
     }
 
     .rds-radio__bottom-label {
-      margin-top: var(--rds-spacing-xs, 4px);
+      margin-top: var(--rds-spacing-xs);
       text-align: center;
-      font-size: var(--rds-font-size-sm, 0.875rem);
+      font-size: var(--rds-font-size-sm);
       color: var(--rds-text-primary, var(--rds-color-text-primary));
       user-select: none;
       cursor: pointer;
       display: block;
       width: 100%;
-      line-height: 1.2;
+      line-height: var(--rds-line-height-compact);
     }
   }
 
@@ -139,15 +138,9 @@
     }
   }
 
-  &--hover {
-    .MuiRadio-root:hover {
-      background-color: transparent;
-    }
-  }
-
   &:focus-visible {
-    outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
@@ -157,12 +150,12 @@
   }
 
   .MuiFormLabel-root {
-    color: var(--rds-text-secondary) !important;
+    color: var(--rds-text-secondary);
   }
 
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
   }
 
   .MuiRadio-root:hover {
@@ -179,28 +172,28 @@
   }
 
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-    color: var(--rds-text-disabled) !important;
+    color: var(--rds-text-disabled);
   }
 
 }
 
 [data-theme="dark"] .rds-radio {
   .MuiFormControlLabel-label {
-    font-size: var(--rds-font-size-body, 1rem);
+    font-size: var(--rds-font-size-body);
     line-height: var(--rds-line-height-body, 1.5);
-    color: var(--rds-color-light) !important;
+    color: var(--rds-color-light);
   }
    .MuiFormLabel-root {
-    color: var(--rds-color-light) !important;
+    color: var(--rds-color-light);
   }
   
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
     
     svg {
-      color: var(--rds-primary-main) !important;
-      fill: var(--rds-primary-main) !important;
+      color: var(--rds-primary-main);
+      fill: var(--rds-primary-main);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type MouseEventHandler, type ReactNode } from 'react';
 import {
   Dialog as MuiDialog,
   DialogTitle,
@@ -10,41 +10,75 @@ import {
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-modal.scss';
  
-export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component'> {
+/** Props for {@link RdsModal}. Remaining props are forwarded to MUI `Dialog`. */
+export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component' | 'onClose'> {
+  /** Heading text shown in the dialog title. */
   title?: string;
+  /** @deprecated Use `open` instead. Takes precedence over `isOpen`. When nothing is set the modal is closed. */
   visibility?: 'open' | 'closed';
-  onClose: () => void;
+  /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. Defaults to closed. */
+  open?: boolean;
+  /** @deprecated Use `open` instead. */
+  isOpen?: boolean;
+  /** Called with MUI's `(event, reason)` on backdrop/escape close; the close button passes the click event. */
+  onClose: DialogProps['onClose'];
+  /** Footer content (e.g. buttons). */
   actions?: ReactNode;
+  /** Hides the close button; takes precedence over `headerChrome` and `showCloseButton`. */
+  hideCloseButton?: boolean;
+  /** @deprecated Use `hideCloseButton` instead. */
   headerChrome?: 'closeable' | 'plain';
+  /** @deprecated Use `hideCloseButton` instead. @default true */
+  showCloseButton?: boolean;
+  /** Icon shown in the header. */
   icon?: ReactNode;
+  /** Legacy flag to show `icon`. @default true */
+  showIcon?: boolean;
+  /** @deprecated Control icon/image with `icon`, `showIcon` and `imageSrc` instead. */
   media?: 'none' | 'icon' | 'image' | 'both';
+  /** Header image URL. */
   imageSrc?: string;
+  /** Alt text for `imageSrc` (an empty string marks it decorative). @default 'Modal' */
+  imageAlt?: string;
+  /** @deprecated Use `showDescription` instead. */
   body?: 'visible' | 'hidden';
-  [key: string]: unknown;
+  /** Legacy flag to show `children`. @default true */
+  showDescription?: boolean;
 }
  
+/** Dialog with optional icon/image header, close button and actions, built on MUI `Dialog`. */
 const RdsModal= ({
   title,
   visibility,
   onClose,
   actions,
+  hideCloseButton,
   headerChrome,
   icon,
   media,
   body,
   imageSrc,
+  imageAlt,
+  open,
+  isOpen: legacyIsOpen,
+  showCloseButton: legacyShowCloseButton,
+  showIcon: legacyShowIcon,
+  showDescription: legacyShowDescription,
   children,
   ...props
 }: RdsModalProps) => {
-  const legacyIsOpen = typeof props['isOpen'] === 'boolean' ? (props['isOpen'] as boolean) : undefined;
-  const legacyShowCloseButton = typeof props['showCloseButton'] === 'boolean' ? (props['showCloseButton'] as boolean) : undefined;
-  const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
-  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
 
-  const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? true);
-  const resolvedShowCloseButton = headerChrome === 'closeable' ? true : headerChrome === 'plain' ? false : (legacyShowCloseButton ?? true);
+  if (visibility !== undefined) warnDeprecatedProp('RdsModal', 'visibility', '`open`');
+  if (headerChrome !== undefined) warnDeprecatedProp('RdsModal', 'headerChrome', '`hideCloseButton`');
+  if (media !== undefined) warnDeprecatedProp('RdsModal', 'media', '`icon`, `showIcon` and `imageSrc`');
+  if (body !== undefined) warnDeprecatedProp('RdsModal', 'body', '`showDescription`');
+  if (legacyIsOpen !== undefined) warnDeprecatedProp('RdsModal', 'isOpen', '`open`');
+  if (legacyShowCloseButton !== undefined) warnDeprecatedProp('RdsModal', 'showCloseButton', '`hideCloseButton`');
+  const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? false);
+  const resolvedShowCloseButton = hideCloseButton !== undefined ? !hideCloseButton : headerChrome ? headerChrome === 'closeable' : (legacyShowCloseButton ?? true);
   const resolvedShowDescription = body === 'visible' ? true : body === 'hidden' ? false : (legacyShowDescription ?? true);
   const resolvedShowIcon = media === 'none'
     ? false
@@ -62,7 +96,7 @@ const RdsModal= ({
   const closeButton = resolvedShowCloseButton ? (
     <IconButton
       aria-label="close"
-      onClick={onClose}
+      onClick={onClose as unknown as MouseEventHandler<HTMLButtonElement> | undefined}
       className="rds-modal__close-button"
     >
       <CloseIcon />
@@ -71,7 +105,7 @@ const RdsModal= ({
 
   return (
     <MuiDialog
-      open={resolvedIsOpen}
+      open={open !== undefined ? open : resolvedIsOpen}
       onClose={onClose}
       {...props}
     >
@@ -93,7 +127,7 @@ const RdsModal= ({
                   <span className="rds-modal__icon">{icon}</span>
                 )}
                 {resolvedImageSrc && showImage && (
-                  <img src={resolvedImageSrc} alt="Modal" className="rds-modal__image" />
+                  <img src={resolvedImageSrc} alt={imageAlt ?? 'Modal'} className="rds-modal__image" />
                 )}
               </div>
             ) : null}

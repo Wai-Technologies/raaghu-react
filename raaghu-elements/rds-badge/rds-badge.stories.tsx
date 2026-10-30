@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsBadge> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
+      exclude: ['component', 'slots', 'slotProps', 'colorVariant', 'styleType', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -34,25 +34,23 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge layout',
       defaultValue: 'text',
     },
-    styleType: {
+    variant: {
       control: { type: 'select' },
-      options: ['primary', 'outline', 'transparent'],
-      description: 'Badge style',
+      options: ['standard', 'dot', 'primary', 'outline', 'transparent'],
+      description: 'MUI variant (standard, dot) or visual style (primary, outline, transparent)',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables the badge',
+      defaultValue: false,
+    },
+    color: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'tertiary', 'error', 'warning', 'light', 'success'],
+      description: 'Badge palette color (`danger` maps to `error`)',
       defaultValue: 'primary',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'disabled'],
-      description: 'Badge state',
-      defaultValue: 'default',
-    },
-    colorVariant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'light', 'success'],
-      description: 'Badge color variant',
-      defaultValue: 'primary',
-    },
-  component: { control: { disable: true }, table: { disable: true } },
+  ['component' as string]: { control: { disable: true }, table: { disable: true } },
   slots: { control: { disable: true }, table: { disable: true } },
   slotProps: { control: { disable: true }, table: { disable: true } },
   },

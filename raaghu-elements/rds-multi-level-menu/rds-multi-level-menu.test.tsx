@@ -4,10 +4,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import { RdsMultiLevelMenu, MenuOption } from './rds-multi-level-menu';
 import '@testing-library/jest-dom';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-multi-level-menu.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('../rds-button/rds-button', () => {
   return function DummyRdsButton({ onClick, children, style, ...props }: any) {
     return (
@@ -109,7 +110,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Menu items should appear
       expect(screen.getByText('File')).toBeInTheDocument();
       expect(screen.getByText('Edit')).toBeInTheDocument();
       expect(screen.getByText('View')).toBeInTheDocument();
@@ -139,7 +139,6 @@ describe('RdsMultiLevelMenu', () => {
       await userEvent.click(button);
       
       expect(screen.getByText('File')).toBeInTheDocument();
-      // Menu behavior varies - just verify it renders initially
     });
   });
 
@@ -239,7 +238,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Open Edit menu
       const editItem = screen.getByText('Edit');
       await userEvent.click(editItem);
       
@@ -247,7 +245,6 @@ describe('RdsMultiLevelMenu', () => {
         expect(screen.getByText('Undo')).toBeInTheDocument();
       });
       
-      // Open More Options submenu
       const moreOptions = screen.getByText('More Options');
       await userEvent.click(moreOptions);
       
@@ -301,7 +298,6 @@ describe('RdsMultiLevelMenu', () => {
       await userEvent.click(newItem);
       
       await waitFor(() => {
-        // Verify the onSelect callback was called with the selected submenu item
         expect(onSelect).toHaveBeenCalledWith(
           expect.objectContaining({ label: 'New' })
         );
@@ -310,6 +306,14 @@ describe('RdsMultiLevelMenu', () => {
   });
 
   describe('Selectable Menu Type', () => {
+    it('marks the first menu item selected when selected is true', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} type="selectable" selected />
+      );
+      await userEvent.click(screen.getByTestId('rds-button'));
+      expect(screen.getByText('File').closest('.MuiMenuItem-root')).toHaveClass('Mui-selected');
+    });
+
     it('should render selectable menu items', async () => {
       renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} type="selectable" />
@@ -332,7 +336,6 @@ describe('RdsMultiLevelMenu', () => {
       
       await userEvent.click(button);
       await waitFor(() => {
-        // Item should be selected (behavior indicated by selection)
         expect(screen.getByText('File')).toBeInTheDocument();
       });
     });
@@ -344,14 +347,12 @@ describe('RdsMultiLevelMenu', () => {
       );
       const button = screen.getByTestId('rds-button');
       
-      // Select File
       await userEvent.click(button);
       const fileItem = screen.getByText('File');
       await userEvent.click(fileItem);
       
       await waitFor(() => expect(onSelect).toHaveBeenCalledWith({ label: 'File' }));
       
-      // Open menu again and select Edit
       await userEvent.click(button);
       const editItem = screen.getByText('Edit');
       await userEvent.click(editItem);
@@ -369,58 +370,72 @@ describe('RdsMultiLevelMenu', () => {
       const fileItem = screen.getByText('File');
       await userEvent.click(fileItem);
       
-      // If item has children but type is selectable, children should not appear as submenu
-      // or item should be treated as single-level
       expect(screen.queryByText('New')).not.toBeInTheDocument();
     });
   });
 
   describe('Menu Size', () => {
-    it('should apply default size', async () => {
-      const { container } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} size="default" />
+    it('should apply medium size', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} size="medium" />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
-      
+
       const menuItem = screen.getByText('File').closest('[role="menuitem"]');
       expect(menuItem).toBeInTheDocument();
+      expect(menuItem).not.toHaveClass('small');
+      expect(menuItem).not.toHaveClass('large');
+    });
+
+    it('should apply small size', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} size="small" />
+      );
+      const button = screen.getByTestId('rds-button');
+      await userEvent.click(button);
+
+      const menuItem = screen.getByText('File').closest('[role="menuitem"]');
+      expect(menuItem).toHaveClass('small');
+      expect(document.querySelector('.rds-mlm-paper')).toHaveClass('size-small');
     });
 
     it('should apply large size', async () => {
       renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} size="large" />
       );
-      // Button should render with large size
-      expect(screen.getByTestId('rds-button')).toBeInTheDocument();
+      const button = screen.getByTestId('rds-button');
+      await userEvent.click(button);
+
+      const menuItem = screen.getByText('File').closest('[role="menuitem"]');
+      expect(menuItem).toHaveClass('large');
+      expect(document.querySelector('.rds-mlm-paper')).toHaveClass('size-large');
     });
 
     it('should reset menu state when size changes', async () => {
       const { rerender } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} size="default" />
+        <RdsMultiLevelMenu options={defaultOptions} size="medium" />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
       expect(screen.getByText('File')).toBeInTheDocument();
       
-      // Change size
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsMultiLevelMenu options={defaultOptions} size="large" />
         </ThemeProvider>
       );
       
-      // Component state should reset internal tracking
       const newButton = screen.getByTestId('rds-button');
       expect(newButton).toBeInTheDocument();
     });
   });
 
   describe('Menu State Props', () => {
-    it('should apply hover state force class', async () => {
+    it('uses native hover styling without a forced hover state', async () => {
       renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="hover" />
+        <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
@@ -428,14 +443,19 @@ describe('RdsMultiLevelMenu', () => {
       expect(screen.getByText('File')).toBeInTheDocument();
     });
 
-    it('should apply selected state force class', async () => {
+    it('should apply selected styling to the selected menu item', async () => {
       renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="selected" type="expandable" />
+        <RdsMultiLevelMenu
+          options={defaultOptions}
+          variant="selectable"
+        />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
-      
-      expect(screen.getByText('File')).toBeInTheDocument();
+      await userEvent.click(screen.getByText('File'));
+      await userEvent.click(button);
+
+      expect(screen.getByText('File').closest('.MuiMenuItem-root')).toHaveClass('Mui-selected');
     });
 
     it('should use default state when not specified', async () => {
@@ -457,7 +477,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Expandable items should be clickable and open submenus
       const fileItem = screen.getByText('File');
       expect(fileItem).toBeInTheDocument();
       await userEvent.click(fileItem);
@@ -474,7 +493,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Arrow containers may be in the portal, just verify expandable items render
       expect(screen.getByText('File')).toBeInTheDocument();
       expect(screen.getByText('Edit')).toBeInTheDocument();
     });
@@ -504,10 +522,8 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Edit item is expandable and should be rendered
       const editItem = screen.getByText('Edit');
       expect(editItem).toBeInTheDocument();
-      // Shortcuts are only shown for leaf items
     });
   });
 
@@ -580,7 +596,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Open Level 1
       const level1 = screen.getByText('Level 1');
       await userEvent.click(level1);
       
@@ -588,7 +603,6 @@ describe('RdsMultiLevelMenu', () => {
         expect(screen.getByText('Level 2')).toBeInTheDocument();
       });
       
-      // Open Level 2
       const level2 = screen.getByText('Level 2');
       await userEvent.click(level2);
       
@@ -669,7 +683,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Expand File
       const fileItem = screen.getByText('File');
       await userEvent.click(fileItem);
       
@@ -677,10 +690,8 @@ describe('RdsMultiLevelMenu', () => {
         expect(screen.getByText('New')).toBeInTheDocument();
       });
       
-      // Collapse by clicking outside
       fireEvent.keyDown(document, { key: 'Escape' });
       
-      // Reopen menu and expand again
       await userEvent.click(button);
       const fileItem2 = screen.getByText('File');
       await userEvent.click(fileItem2);
@@ -719,7 +730,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Menu items should be rendered
       expect(screen.getByText('File')).toBeInTheDocument();
   
     });
@@ -749,7 +759,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Verify menu items are accessible
       expect(screen.getByText('File')).toBeInTheDocument();
     });
 
@@ -801,9 +810,9 @@ describe('RdsMultiLevelMenu', () => {
       expect(onSelect).toHaveBeenCalled();
     });
 
-    it('should accept state prop', () => {
+    it('should render without a forced hover state', () => {
       const { container } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="hover" />
+        <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');
       fireEvent.click(button);
@@ -828,7 +837,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Verify menu items render (which confirms the menu is open)
       expect(screen.getByText('File')).toBeInTheDocument();
     });
 
@@ -839,7 +847,6 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Verify menu items render in selectable type
       expect(screen.getByText('File')).toBeInTheDocument();
     });
 
@@ -850,8 +857,52 @@ describe('RdsMultiLevelMenu', () => {
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
       
-      // Verify menu items render with large size
       expect(screen.getByText('File')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const opts: MenuOption[] = [{ label: 'File', children: [{ label: 'New' }] }, { label: 'Edit' }];
+
+  it('uses children as trigger label and forwards className/rest/ref', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsMultiLevelMenu options={opts} className="x" data-testid="root" ref={ref}>Open me</RdsMultiLevelMenu>
+    );
+    expect(screen.getByText('Open me')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('rds-multi-level-menu', 'x');
+    expect(ref.current).toBe(container.firstChild);
+    expect(screen.getByTestId('root')).toBeInTheDocument();
+  });
+
+  it('ArrowRight opens submenu and ArrowLeft closes it', async () => {
+    render(<RdsMultiLevelMenu options={opts} />);
+    fireEvent.click(screen.getByText('Multi Level Menu'));
+    const item = screen.getByText('File').closest('li') as HTMLElement;
+    fireEvent.keyDown(item, { key: 'ArrowRight' });
+    const sub = await screen.findByText('New');
+    fireEvent.keyDown(sub.closest('li') as HTMLElement, { key: 'ArrowLeft' });
+    await waitFor(() => expect(screen.queryByText('New')).not.toBeInTheDocument());
+  });
+});
+
+describe('audit fixes (renames)', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  const opts: MenuOption[] = [{ label: 'File' }, { label: 'Edit' }];
+
+  it('items, variant and size medium work without warnings', () => {
+    const { container } = render(<RdsMultiLevelMenu items={opts} variant="selectable" size="medium" />);
+    expect(container.firstChild).toHaveClass('type-selectable');
+    fireEvent.click(screen.getByText('Multi Level Menu'));
+    expect(screen.getByText('File')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('options warn; type stays silent', () => {
+    const { container } = render(<RdsMultiLevelMenu options={opts} type="selectable" size="medium" />);
+    expect(container.firstChild).toHaveClass('type-selectable');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsMultiLevelMenu', 'options', '`items`');
+    expect(warnDeprecatedProp).toHaveBeenCalledTimes(1);
   });
 });

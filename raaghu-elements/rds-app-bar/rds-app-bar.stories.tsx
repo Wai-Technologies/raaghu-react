@@ -2,14 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
-import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import { Dehaze as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
+import { Button, IconButton, Avatar, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
+import { Dehaze as MenuIcon, Home, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
-import { TextField } from '@mui/material';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 
 const HomeIcon = () => (
@@ -82,46 +81,6 @@ const LogoSearchTabsLeftActions = () => (
     <BellIcon />
   </div>
 );
-
-const DashboardMenu = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      <div style={{ fontWeight: 500 }}>Dashboard</div>
-      <IconButton size="small" color="inherit" onClick={handleOpen} aria-label="theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.2"/>
-          <path d="M12 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M12 21v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M4.2 4.2l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M18.4 18.4l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M1 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M21 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M4.2 19.8l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          <path d="M18.4 5.6l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        </svg>
-      </IconButton>
-
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-        <MenuItem>
-          <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
-          Light
-        </MenuItem>
-        <MenuItem>
-          <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
-          Dark
-        </MenuItem>
-        <MenuItem>
-          <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
-          Semi Dark
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-};
 
 const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>) => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -201,7 +160,6 @@ const LanguageMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selected, setSelected] = React.useState('English (UK)');
   const open = Boolean(anchorEl);
-  const menuHeightCss = 'calc(100vh - 120px)';
   const shortCode = React.useMemo(() => {
     if (!selected) return 'EN';
     if (selected.includes('English')) return 'EN';
@@ -351,7 +309,7 @@ const meta: Meta<typeof RdsAppBar> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
+    exclude: ['component', 'onMenuClick', 'actions', 'endSlot', 'centerSlot', 'tabsProps', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
   tags: ['autodocs', 'stable'],
@@ -510,7 +468,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         title: 'App Title',
   
-        rightActions: <Button color="inherit">Login</Button>,
+        endSlot: <Button color="inherit">Login</Button>,
       };
       break;
     case 'withsearch':
@@ -524,7 +482,7 @@ const DynamicTemplate = (args: any) => {
         ),
         searchValue,
         searchPlaceholder: args.searchPlaceholder || 'Search…',
-        rightActions: undefined,
+        endSlot: undefined,
       };
       break;
     case 'logosearchactions':
@@ -549,7 +507,7 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
-        rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
+        endSlot: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -695,7 +653,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         showLogo: config.showLogo,
         logo: logoImg,
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-tabs-container">
             <div className="rds-appbar-separator" />
             <div className="rds-appbar-tabs">
@@ -745,7 +703,7 @@ const DynamicTemplate = (args: any) => {
         ),
         showLogo: config.showLogo,
         
-        rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
+        endSlot: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -763,13 +721,13 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        centerContent: (
+        centerSlot: (
           <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Find Jobs" textCase="uppercase" />
             </span>
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Login" textCase="uppercase" />
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Login" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Employers" textCase="uppercase" />
           </div>
         ),
         
@@ -779,7 +737,7 @@ const DynamicTemplate = (args: any) => {
         overflowContent: (
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <span className="rds-withactions-findjobs-mobile">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" variant="filled" text="Find Jobs" textCase="uppercase" />
             </span>
             <Button variant="text" size="small">Community</Button>
             <Button variant="text" size="small">Jobs</Button>
@@ -824,10 +782,10 @@ const DynamicTemplate = (args: any) => {
         ),
         showLogo: config.showLogo,
         tabs: ['Home', 'Agreement'],
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
-            <RdsButton style='filled' color="primary" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none', textTransform: 'none' }}>
+            <RdsButton style='filled' color="primary" textCase="unset" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none' }}>
               View Plans
             </RdsButton>
             <IconButton color="default" sx={{ ml: 1 }} className="rds-withmenubutton-settings">
@@ -836,28 +794,19 @@ const DynamicTemplate = (args: any) => {
                 <path d="M7.45 13.01C7.45 14.1 7.78 15.18 8.39 16.09C9 17 9.86 17.71 10.88 18.13C11.89 18.55 13.01 18.66 14.08 18.45C15.16 18.24 16.15 17.71 16.92 16.93C17.7 16.15 18.23 15.17 18.44 14.09C18.66 13.01 18.55 11.9 18.13 10.88C17.71 9.87 17 9 16.08 8.39C15.17 7.78 14.1 7.46 13 7.46C11.53 7.46 10.12 8.04 9.08 9.08C8.04 10.12 7.45 11.54 7.45 13.01Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </IconButton>
-            <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} />
+            <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} designation="Developer" />
           </div>
         ),
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
-        overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, padding: 12, width: '100%', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-              <Button variant="text" size="small">HOME</Button>
-              <Button variant="text" size="small">AGREEMENT</Button>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span className="rds-appbar-badge">28 Days Left</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Button variant="contained" color="primary" sx={{ minWidth: 90, fontWeight: 500, fontSize: 13, boxShadow: 'none', textTransform: 'none' }}>
-                View Plans
-              </Button>
-            </div>
-          </div>
+        bottomActions: (
+          <>
+            <span className="rds-appbar-badge">28 Days Left</span>
+            <Button variant="contained" color="primary" sx={{ minWidth: 'auto', fontWeight: 500, boxShadow: 'none', textTransform: 'none' }}>
+              View Plans
+            </Button>
+          </>
         ),
       };
       break;
@@ -867,7 +816,7 @@ const DynamicTemplate = (args: any) => {
     logo: logoImg,
     showLogo: config.showLogo,
   title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div className="rds-dashboard-top-icons" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -909,7 +858,7 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        rightActions: <Button color="inherit">Login</Button>,
+        endSlot: <Button color="inherit">Login</Button>,
       };
   }
 
@@ -1033,5 +982,4 @@ WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size',
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
 DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
-
 

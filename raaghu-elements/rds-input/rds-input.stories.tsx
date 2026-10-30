@@ -1,10 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import HomeIcon from '@mui/icons-material/Home';
+
+const iconMapping = {
+  none: undefined,
+  search: <SearchIcon />,
+  person: <PersonIcon />,
+  email: <EmailIcon />,
+  home: <HomeIcon />,
+};
 
 const meta: Meta<typeof RdsInput> = {
   title: 'Elements/Input',
@@ -23,38 +30,26 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    style: {
+    shape: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
     },
-    state: {
-      control: "select",
-      options: ['default', 'active', 'selected', 'error', 'disabled'],
-    },
-    showIcon: {
-      control: 'boolean',
-      description: 'Show icon in the input field',
-    },
-    iconPosition: {
+    startIcon: {
       control: 'select',
-      options: ['start', 'end'],
-      description: 'Position of the icon',
+      options: ['none', 'search', 'person', 'email', 'home'],
+      mapping: iconMapping,
+      description: 'Icon at the start of the field',
     },
-    icon: {
+    endIcon: {
       control: 'select',
-      options: ['search', 'person', 'email', 'home'],
-      mapping: {
-        search: <SearchIcon />,
-        person: <PersonIcon />,
-        email: <EmailIcon />,
-        home: <HomeIcon />,
-      },
-      description: 'Custom icon to display',
+      options: ['none', 'search', 'person', 'email', 'home'],
+      mapping: iconMapping,
+      description: 'Icon at the end of the field',
     },
-    titlePosition: {
+    labelPlacement: {
       control: 'select',
-      options: ['inline-title', 'title-above'],
-      description: 'Position of the title',
+      options: ['inline', 'top'],
+      description: 'Placement of the label',
     },
   },
 };
@@ -66,40 +61,40 @@ export const Default: Story = {
   args: {
     size: 'small',
     layout: 'text',
-    style: 'default',
-    state: 'default',
+    shape: 'default',
     label: 'Input Label',
-    hintText: 'This is a hint text',
-    isMandatory: false,
-    titlePosition: 'inline-title',
+    helperText: 'This is a hint text',
+    required: false,
+    labelPlacement: 'inline',
     error: false,
     disabled: false,
+    selected: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'shape', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'selected','startIcon', 'endIcon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     value: 'Cannot edit this',
     size: 'small',
-    titlePosition: 'inline-title',
+    labelPlacement: 'inline',
     layout: 'text',
-    state: 'disabled',
+    disabled: true,
   },
 };
-Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'titlePosition', 'layout', 'state'] } };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'labelPlacement', 'layout', 'disabled'] } };
 
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isMandatory: true,
+    required: true,
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
-    titlePosition: 'inline-title',
+    labelPlacement: 'inline',
   },
 };
-Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+Required.parameters = { controls: { include: ['label', 'required', 'placeholder', 'size', 'layout', 'labelPlacement'] } };
 
 export const WithLabel: Story = {
   args: {
@@ -107,20 +102,20 @@ export const WithLabel: Story = {
     placeholder: 'Enter value',
     size: 'small',
     layout: 'text',
-    titlePosition: 'inline-title'
+    labelPlacement: 'inline'
   },
 };
-WithLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+WithLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'labelPlacement'] } };
 
 export const WithError: Story = {
   args: {
     label: 'Input with Error',
-    hintText: 'This field has an error',
+    helperText: 'This field has an error',
     placeholder: 'Invalid value',
     size: 'small',
     layout: 'text',
-    titlePosition: 'inline-title',
-    state: 'error',
+    labelPlacement: 'inline',
+    error: true,
   },
 };
-WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'helperText', 'placeholder', 'size', 'layout', 'labelPlacement', 'error'] } };

@@ -1,4 +1,4 @@
-import { Fragment, useState, type ReactNode } from 'react';
+import { Fragment, isValidElement, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
   List,
@@ -9,6 +9,7 @@ import {
   Collapse,
   type DrawerProps,
   type SxProps,
+  type Theme,
 } from '@mui/material';
 import { 
   ExpandLess, 
@@ -28,7 +29,26 @@ import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-sidebar.scss';
+
+/** Use only values that React can render as children (guards Storybook `{}` controls). */
+const asReactNode = (value: ReactNode): ReactNode => {
+  if (value == null || typeof value === 'boolean') return undefined;
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'bigint') {
+    return value;
+  }
+  if (isValidElement(value)) return value;
+  if (Array.isArray(value)) {
+    const safe = value
+      .map((item) => asReactNode(item as ReactNode))
+      .filter((item) => item !== undefined);
+    return safe.length > 0 ? safe : undefined;
+  }
+  return undefined;
+};
+
+
 
 const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
   { label: 'Dashboard', icon: <DashboardOutlined /> },
@@ -47,10 +67,14 @@ const ABP_MENU_ITEMS: RdsSidebarItem[] = [
   { label: 'Requests', icon: <RequestQuoteOutlined /> },
 ];
 
+/** A single navigation entry in {@link RdsSidebar}. */
 export interface RdsSidebarItem {
   label: string;
   icon?: ReactNode;
   onClick?: () => void;
+  /** Marks the item as the current one. */
+  selected?: boolean;
+  /** @deprecated Use `selected` instead. */
   active?: boolean;
   disabled?: boolean;
   typeOf?: 'collapse' | 'expanded' | 'fixed';
@@ -62,45 +86,130 @@ export interface RdsSidebarItem {
   href?: string;
 }
 
+/** Props for {@link RdsSidebar}. */
 export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {
+  /** Navigation items. Ignored when `platform` selects a built-in menu. */
   items: RdsSidebarItem[];
-  isOpen: boolean;
+  /** @deprecated Use `open`. */
+  isOpen?: boolean;
+  /** Whether the sidebar is open (MUI Drawer prop). Takes precedence over `isOpen`. */
+  open?: boolean;
+  /** Called when the drawer requests to close. */
   onClose?: () => void;
+  /** Expanded width in px. Widths below 200 render icon-only. */
   width?: number;
+  /** Shows the search box. */
   showSearch?: boolean;
+  /** Controlled search text. */
+  searchValue?: string;
+  /** Initial search text when uncontrolled. */
+  defaultSearchValue?: string;
+  /** Called when the search text changes. The sidebar also filters items by label. */
+  onSearchChange?: (value: string) => void;
+  /** User shown in the avatar area. Defaults to "Jane Doe" / "Designation". String values are expected by RdsAvatar. */
+  user?: { name?: string; subtitle?: string; avatarSrc?: string };
+  /** Custom logo node; replaces the default logo image when `showLogo` is on. */
+  logo?: ReactNode;
+  /** Replaces the default header content (logo or toolbar avatar); shown even when `showLogo` is off. */
+  header?: ReactNode;
+  /** Replaces the default footer content (user avatar). */
+  footer?: ReactNode;
+  /** Layout of the sidebar: 'raaghu', 'list' or 'toolbar'; affects avatar and search visibility. */
   layout?: 'raaghu' | 'list' | 'toolbar';
+  /** Collapses the sidebar to icons only. Takes precedence over `typeOf`. */
+  collapsed?: boolean;
+  /** Sidebar state: 'collapse' and 'fixed' render icons only, 'expanded' shows labels; `collapsed` takes precedence. @default 'expanded' */
   typeOf?: 'collapse' | 'expanded' | 'fixed';
+  /** @deprecated Pass `items` instead. */
   platform?: 'abp-list' | 'anz-list';
+  /** @deprecated Use `user.avatarSrc` instead. */
   avatarSrc?: string;
+  /** Source of the default logo image shown in the header when the sidebar is expanded. */
   avatarCollapsedSrc?: string;
+  /** Shows the header with the logo (or custom `logo`). */
   showLogo?: boolean;
   container?: Element | (() => Element | null) | null;
+  /**
+   * Embeds the drawer in document flow (relative paper, full height) for flex layouts
+   * such as app-shell demos — avoids fighting MUI fixed drawer positioning with SCSS `!important`.
+   */
+  embedded?: boolean;
 }
 
 const RdsSidebar = ({
   items,
   isOpen,
+  open,
   onClose,
   width = 240,
   variant = 'temporary',
   showSearch = true,
-  typeOf = 'expanded',
+  searchValue,
+  defaultSearchValue,
+  onSearchChange,
+  user,
+  logo,
+  header,
+  footer,
+  className,
+  collapsed,
+  typeOf: typeOfProp = 'expanded',
   platform,
   avatarSrc,
   avatarCollapsedSrc,
   showLogo,
   container,
   layout,
+  embedded = false,
   ModalProps: modalPropsFromProps,
   sx: propsSx,
   ...props
 }:RdsSidebarProps) => {
-  const [searchValue, setSearchValue] = useState("");
+  if (isOpen !== undefined) warnDeprecatedProp('RdsSidebar', 'isOpen', '`open`');
+  if (platform !== undefined) warnDeprecatedProp('RdsSidebar', 'platform', '`items`');
+  if (avatarSrc !== undefined) warnDeprecatedProp('RdsSidebar', 'avatarSrc', '`user.avatarSrc`');
+  const resolvedOpen = open ?? isOpen ?? false;
+  const typeOf = collapsed === undefined ? typeOfProp : collapsed ? 'collapse' : 'expanded';
+  const resolvedAvatarSrc = user?.avatarSrc ?? avatarSrc;
+  const isSearchControlled = searchValue !== undefined;
+  const [innerSearch, setInnerSearch] = useState(defaultSearchValue ?? '');
+  const currentSearch = isSearchControlled ? searchValue : innerSearch;
+  const handleSearchChange = (value: string) => {
+    if (!isSearchControlled) setInnerSearch(value);
+    onSearchChange?.(value);
+  };
+  const userName = user?.name ?? 'Jane Doe';
+  const userSubtitle = user?.subtitle ?? 'Designation';
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
+  const resolvedLogo = asReactNode(logo);
+  const resolvedHeader = asReactNode(header);
+  const resolvedFooter = asReactNode(footer);
 
-  const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
-                   platform === 'anz-list' ? ANZ_MENU_ITEMS : 
+  const baseMenuItems = platform === 'abp-list' ? ABP_MENU_ITEMS :
+                   platform === 'anz-list' ? ANZ_MENU_ITEMS :
                    items;
+
+  const searchQuery = currentSearch.trim().toLowerCase();
+  const menuItems = !searchQuery
+    ? baseMenuItems
+    : baseMenuItems
+        .map((item) => {
+          const labelMatch = item.label.toLowerCase().includes(searchQuery);
+          const matchedChildren = item.children?.filter((child) =>
+            child.label.toLowerCase().includes(searchQuery)
+          );
+          if (labelMatch) return item;
+          if (matchedChildren && matchedChildren.length > 0) {
+            return { ...item, children: matchedChildren };
+          }
+          return null;
+        })
+        .filter((item): item is RdsSidebarItem => item !== null);
+
+  const isItemSelected = (item: RdsSidebarItem) => {
+    if (item.active !== undefined) warnDeprecatedProp('RdsSidebar', 'items[].active', '`items[].selected`');
+    return item.selected ?? item.active;
+  };
 
   const toggleOpen = (idx: number) => {
     setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -119,11 +228,16 @@ const RdsSidebar = ({
   }
   if (layout === 'raaghu' || layout === 'toolbar') {
     showAvatar = false;
-    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true
     showSearchBox = showSearch;
   }
 
-  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed');
+  const sidebarClasses = clsx(
+    'rds-sidebar',
+    `rds-sidebar--${typeOf}`,
+    isNarrowCollapsed && 'rds-sidebar--narrow-collapsed',
+    embedded && 'rds-sidebar--embedded',
+    className,
+  );
   const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
   const contentClasses = 'rds-sidebar__content';
   const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
@@ -131,19 +245,33 @@ const RdsSidebar = ({
   const avatarContainerClasses = clsx('rds-sidebar__avatar-container', `rds-sidebar__avatar-container--${typeOf}`);
   const getLogoClass = () => clsx('rds-sidebar__logo', shouldShowIconsOnly ? 'rds-sidebar__logo--collapse' : 'rds-sidebar__logo--expanded');
 
-  const drawerSx: Record<string, unknown> = {
+  const drawerSx: SxProps<Theme> = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
+    ...(embedded && {
+      position: 'relative',
+      height: '100%',
+    }),
     ['& .MuiDrawer-paper']: {
       width: shouldShowIconsOnly ? 64 : width,
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
       height: shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
+      ...(embedded && {
+        position: 'relative',
+        top: 'auto',
+        left: 'auto',
+        height: '100%',
+        marginTop: 0,
+        marginLeft: 0,
+        boxShadow: 'none',
+        borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
+      }),
       ...(shouldShowIconsOnly && {
         alignItems: 'center',
         overflow: 'hidden',
-        ...(typeOf === 'fixed' && {
+        ...(typeOf === 'fixed' && !embedded && {
           position: 'fixed',
           top: 0,
           left: 0,
@@ -153,8 +281,8 @@ const RdsSidebar = ({
     }
   };
 
-  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
-  const searchSx = shouldShowIconsOnly
+  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height))';
+  const searchSx: SxProps<Theme> = shouldShowIconsOnly
     ? {
         width: searchIconOnlySize,
         maxWidth: searchIconOnlySize,
@@ -175,8 +303,8 @@ const RdsSidebar = ({
         },
         '& .MuiOutlinedInput-notchedOutline': {
           borderColor: 'var(--rds-sidebar-search-icon-border-color, var(--rds-border-default))',
-          borderWidth: 'var(--rds-border-width-thin, 1px)',
-          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm, 4px))',
+          borderWidth: 'var(--rds-border-width-thin)',
+          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm))',
         },
         '& .MuiInputBase-input': {
           display: 'none',
@@ -211,43 +339,43 @@ const RdsSidebar = ({
 
   return (
     <MuiDrawer
-      open={isOpen}
+      open={resolvedOpen}
       onClose={onClose}
       variant={variant}
-      className={sidebarClasses}
       container={container}
       ModalProps={modalProps}
       {...props}
-      sx={[drawerSx, propsSx] as SxProps}
+      className={sidebarClasses}
+      sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
       <div className={contentClasses}>
-        {showLogo && (
+        {(resolvedHeader != null || showLogo) && (
           <div className={headerClasses}>
-            {layout === 'toolbar' ? (
+            {resolvedHeader ?? (layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
-                  activeDotBottom
-                  src={avatarSrc}
+                  status="online"
+                  src={resolvedAvatarSrc}
                 />
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  subText="Designation"
+                  description={userSubtitle}
                   displayStyle="with-name"
-                  title="Jane Doe"
+                  name={userName}
                   showDesignation
                   showName
-                  activeDotBottom
-                  src={avatarSrc}
+                  status="online"
+                  src={resolvedAvatarSrc}
                 />
               )
-            ) : (
+            ) : resolvedLogo ?? (
               <img
                 src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
                 alt="Raaghu Design System Logo"
                 className={getLogoClass()}
               />
-            )}
+            ))}
           </div>
         )}
         {showSearchBox && (
@@ -265,13 +393,13 @@ const RdsSidebar = ({
                 iconPosition={shouldShowIconsOnly ? 'left' : 'right'}
                 label=""
                 labelPosition="top"
-                onChange={value => setSearchValue(value)}
+                onChange={handleSearchChange}
                 onSearch={() => {}}
                 placeholder={shouldShowIconsOnly ? '' : 'Search...'}
                 showClearButton={!shouldShowIconsOnly}
                 size="small"
                 variant="outlined"
-                value={searchValue}
+                value={currentSearch}
                 sx={searchSx}
               />
             </div>
@@ -279,32 +407,36 @@ const RdsSidebar = ({
         )}
         <List className="rds-sidebar__nav-list">
           {menuItems.map((item, index) => {
+            const itemIcon = asReactNode(item.icon);
+            const hasChildren = !!(item.children && item.children.length);
+            const itemHref = !hasChildren ? (item.href || item.path) : undefined;
             const listItemButton = (
               <ListItemButton
+                {...(itemHref ? { component: 'a' as const, href: itemHref } : {})}
                 onClick={() => {
-                  if (item.children && item.children.length) {
+                  if (hasChildren) {
                     toggleOpen(index);
                   } else {
                     item.onClick && item.onClick();
                   }
                 }}
                 disabled={item.disabled}
-                selected={item.active}
+                selected={isItemSelected(item)}
                 className={navButtonClasses}
-                aria-expanded={!!openMap[index]}
+                aria-expanded={hasChildren ? !!openMap[index] : undefined}
                 sx={{
-                  minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
+                  minHeight: 'var(--rds-sidebar-nav-min-height)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
               >
-                {item.icon && (
+                {itemIcon && (
                   <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                    {item.icon}
+                    {itemIcon}
                   </ListItemIcon>
                 )}
                 {showLabels && <ListItemText primary={item.label} />}
-                {item.children && item.children.length > 0 && !shouldShowIconsOnly && (
+                {hasChildren && !shouldShowIconsOnly && (
                   (openMap[index]) ? <ExpandLess /> : <ExpandMore />
                 )}
               </ListItemButton>
@@ -313,10 +445,10 @@ const RdsSidebar = ({
             return (
               <Fragment key={`${item.label}-${item.path || item.href || 'nav-item'}`}>
                 <ListItem disablePadding className={navItemClasses}>
-                  {shouldShowIconsOnly && item.icon ? (
+                  {shouldShowIconsOnly && itemIcon ? (
                     <RdsTooltip 
                       title={item.label} 
-                      style="right"
+                      placement="right"
                       arrow
                     >
                       {listItemButton}
@@ -325,25 +457,28 @@ const RdsSidebar = ({
                     listItemButton
                   )}
                 </ListItem>
-                {item.children && item.children.length > 0 && (
+                {hasChildren && (
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {item.children.map((child, cIdx) => {
+                      {item.children!.map((child, cIdx) => {
+                        const childIcon = asReactNode(child.icon);
+                        const childHref = child.href || child.path;
                         const childListItemButton = (
                           <ListItemButton
+                            {...(childHref ? { component: 'a' as const, href: childHref } : {})}
                             onClick={child.onClick}
                             disabled={child.disabled}
-                            selected={child.active}
+                            selected={isItemSelected(child)}
                             className={navButtonClasses}
                             sx={{
-                                minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
+                                minHeight: 'var(--rds-sidebar-child-nav-min-height)',
                               justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}
                           >
-                            {child.icon && (
+                            {childIcon && (
                               <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                                {child.icon}
+                                {childIcon}
                               </ListItemIcon>
                             )}
                             {showLabels && <ListItemText primary={child.label} />}
@@ -352,10 +487,10 @@ const RdsSidebar = ({
 
                         return (
                           <ListItem key={`${child.label}-${child.path || child.href || 'child-item'}`} disablePadding className={navItemClasses}>
-                            {shouldShowIconsOnly && child.icon ? (
+                            {shouldShowIconsOnly && childIcon ? (
                               <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
-                                style="right"
+                                placement="right"
                                 arrow
                               >
                                 {childListItemButton}
@@ -376,25 +511,26 @@ const RdsSidebar = ({
         <div className="rds-sidebar__footer">
           <hr className="rds-sidebar__footer-divider" />
         </div>
-        {showAvatar && (
+        {(resolvedFooter != null || showAvatar) && (
           <div className={avatarContainerClasses}>
-            {!shouldShowIconsOnly ? (
+            {resolvedFooter ?? (!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
-                subText="Designation"
+                description={userSubtitle}
                 displayStyle="with-name"
-                title="Jane Doe"
+                name={userName}
                 showDesignation
                 showName
-                activeDotBottom
-                src={avatarSrc}
+                status="online"
+                src={resolvedAvatarSrc}
               />
             ) : (
               <RdsAvatar
-                activeDotBottom
-                src={avatarSrc}
+                status="online"
+                src={resolvedAvatarSrc}
               />
-            )}
+            ))}
+
           </div>
         )}
       </div>

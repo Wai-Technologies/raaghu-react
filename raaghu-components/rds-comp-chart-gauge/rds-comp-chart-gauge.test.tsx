@@ -1,13 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompGaugeChart from './rds-comp-chart-gauge';
+import RdsCompGaugeChart, { type RdsCompGaugeProps } from './rds-comp-chart-gauge';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-gauge.scss', () => ({}));
 
-// Mock Chart.js
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -124,7 +123,7 @@ describe('RdsCompGaugeChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={customOptions} />
+        <RdsCompGaugeChart {...defaultProps} options={customOptions as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -585,7 +584,7 @@ describe('RdsCompGaugeChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={null} />
+        <RdsCompGaugeChart {...defaultProps} options={null as unknown as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -653,7 +652,6 @@ describe('RdsCompGaugeChart', () => {
       const { rerender, container } = render(
         <RdsCompGaugeChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompGaugeChart
@@ -765,7 +763,7 @@ describe('RdsCompGaugeChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompGaugeChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompGaugeChart {...defaultProps} options={optionsWithPlugins as RdsCompGaugeProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -783,7 +781,6 @@ describe('RdsCompGaugeChart', () => {
         <RdsCompGaugeChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated
       expect((options.plugins.legend as any).labels).toBeUndefined();
     });
   });
@@ -862,5 +859,72 @@ describe('RdsCompGaugeChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  beforeEach(() => {
+    ChartMock.mockClear();
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+  });
+  afterEach(() => jest.restoreAllMocks());
+
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompGaugeChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-gauge', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('warns that value and maxValue are deprecated in favour of dataSets', () => {
+    render(<RdsCompGaugeChart {...defaultProps} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompGaugeChart', 'value', '`dataSets`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompGaugeChart', 'maxValue', '`dataSets`');
+  });
+
+  it('builds doughnut data from value/maxValue when datasets are omitted (G3-040)', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(
+      <RdsCompGaugeChart
+        id="gauge-from-value"
+        options={defaultProps.options}
+        value={40}
+        maxValue={100}
+      />
+    );
+    const datasets = ChartMock.mock.calls[0][1].data.datasets;
+    expect(datasets[0].data).toEqual([40, 60]);
+    spy.mockRestore();
+  });
+
+  it('keeps the theme colour and point style when consumer legend labels are passed', () => {
+    render(
+      <RdsCompGaugeChart
+        {...defaultProps}
+        options={{ plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } } }}
+      />
+    );
+    const legend = ChartMock.mock.calls[0][1].options.plugins.legend;
+    expect(legend.position).toBe('bottom');
+    expect(legend.labels).toMatchObject({ boxWidth: 10, usePointStyle: true, pointStyle: 'circle' });
+    expect(typeof legend.labels.color).toBe('string');
+  });
+
+  it('draws the title and subtitle with the shared centre-text plugin', () => {
+    render(<RdsCompGaugeChart {...defaultProps} />);
+    const plugin = ChartMock.mock.calls[0][1].plugins[0];
+    const ctx = { save: jest.fn(), restore: jest.fn(), fillText: jest.fn() };
+    plugin.beforeDraw({ ctx, chartArea: { left: 40, top: 10, width: 280, height: 300 } });
+    expect(plugin.id).toBe('gaugeText');
+    expect(ctx.fillText).toHaveBeenNthCalledWith(1, 'Completion', 180, 210);
+    expect(ctx.fillText).toHaveBeenNthCalledWith(2, '75%', 180, 260);
   });
 });

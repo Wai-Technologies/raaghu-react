@@ -1,5 +1,5 @@
 import RdsCompColorPicker from "./rds-comp-color-picker";
-import { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker.types";
+import { ColorPickerType } from "./rds-comp-color-picker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -15,11 +15,14 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the color picker root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the color picker root.' },
+        ref: { control: false, description: 'React ref to the color picker root; assign it in code.' },
         type: {
             control: 'select',
             options: ['Default', 'Button', 'Button-Expanded'],
         },
-        isDisabled: {
+        disabled: {
             control: 'boolean',
         },
         showSwatches: {
@@ -27,9 +30,9 @@ const meta: Meta = {
                 type: 'boolean',
             },
         },
-        pickerType: {
+        view: {
             control:'select',
-            options: ['Grid', 'Spectrum'],
+            options: ['grid', 'spectrum'],
             
         },
         showTabs: {
@@ -37,13 +40,13 @@ const meta: Meta = {
                 type: 'boolean',
             },
         },
-        colorMode: {
+        format: {
             control: 'select',
-            options: ['HEX', 'RGB', 'HSB', 'HSL'],
+            options: ['hex', 'rgb', 'hsb', 'hsl'],
         },
-        style: {
+        swatchesVariant: {
             control: 'select',
-            options: ['Type 1', 'Type 2'],
+            options: ['list', 'grid'],
         },
         onChange: { action: 'changed' },
     },
@@ -58,15 +61,14 @@ export const Default: Story = {
         label: "Color-Picker",
         type: ColorPickerType.Default,
         showSwatches: true,
-        pickerType: PickerType.Spectrum,
+        view: 'spectrum',
         showTabs: true,
-        colorMode: ColorMode.HEX,
-        style: StyleType.Type1,
-        isDisabled: false,
+        format: 'hex',
+        swatchesVariant: 'list',
+        disabled: false,
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
-
+Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'swatchesVariant', 'disabled', 'className', 'sx', 'ref'] } };

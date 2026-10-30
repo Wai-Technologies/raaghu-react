@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompDoughnutChart from './rds-comp-chart-doughnut';
+import RdsCompDoughnutChart, { type RdsCompDoughnutProps } from './rds-comp-chart-doughnut';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-doughnut.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -126,7 +124,7 @@ describe('RdsCompDoughnutChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={customOptions} />
+        <RdsCompDoughnutChart {...defaultProps} options={customOptions as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -581,7 +579,7 @@ describe('RdsCompDoughnutChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={null} />
+        <RdsCompDoughnutChart {...defaultProps} options={null as unknown as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -649,7 +647,6 @@ describe('RdsCompDoughnutChart', () => {
       const { rerender, container } = render(
         <RdsCompDoughnutChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompDoughnutChart
@@ -750,7 +747,7 @@ describe('RdsCompDoughnutChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompDoughnutChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompDoughnutChart {...defaultProps} options={optionsWithPlugins as RdsCompDoughnutProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -763,7 +760,6 @@ describe('RdsCompDoughnutChart', () => {
         <RdsCompDoughnutChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated with plugins
       expect((options as any).plugins).toBeUndefined();
     });
   });
@@ -797,5 +793,31 @@ describe('RdsCompDoughnutChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompDoughnutChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-doughnut');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('appends title and subtitle to the default aria-label', () => {
+    const { container, rerender } = render(
+      <RdsCompDoughnutChart {...defaultProps} titleText="75%" subTitleText="Completed" />
+    );
+    const canvas = container.querySelector('canvas');
+    expect(canvas).toHaveAttribute('aria-label', 'Doughnut chart: 75% Completed');
+    rerender(<RdsCompDoughnutChart {...defaultProps} titleText="" subTitleText="" />);
+    expect(canvas).toHaveAttribute('aria-label', 'Doughnut chart');
+    rerender(<RdsCompDoughnutChart {...defaultProps} titleText="75%" chartLabel="Custom" />);
+    expect(canvas).toHaveAttribute('aria-label', 'Custom');
   });
 });

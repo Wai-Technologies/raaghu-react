@@ -1,15 +1,25 @@
-import { useState, useRef, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent, type CSSProperties } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-switch.scss';
 
+type SwitchVariant = 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
+
+/** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `style`/`component`). */
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
+  /** Label text shown next to the switch. */
   label?: string;
+  /** Position of the label relative to the switch. @default 'end' */
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
+  /** @deprecated Use `labelPlacement` (`end` | `start` | `top` | `bottom`). */
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
-  state?: 'off' | 'on' | 'disabled on' | 'disabled off';
+  /** @deprecated Omit `label` instead. */
   showLabel?: boolean;
-  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
+  /** Visual variant. */
+  variant?: SwitchVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: SwitchVariant | CSSProperties;
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -21,66 +31,42 @@ const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitch
 
 const normalizeLayout = (layout?: string): RdsSwitchProps['layout'] | undefined => {
   if (!layout) return undefined;
-  return layout.trim().toLowerCase().replace(/ +/g, '').replace('toplabel', 'toplabel').replace('bottomlabel', 'bottomlabel') as RdsSwitchProps['layout'];
+  return layout.trim().toLowerCase().replace(/ +/g, '') as RdsSwitchProps['layout'];
 };
 
-const normalizeState = (state?: string): RdsSwitchProps['state'] | undefined => {
-  if (!state) return undefined;
-  return state.trim().toLowerCase().replace(/ +/g, ' ') as RdsSwitchProps['state'];
-};
-
+/**
+ * Switch toggle with optional label, built on MUI `Switch`.
+ * Supports controlled (`checked`) and uncontrolled (`defaultChecked`) usage.
+ */
 const RdsSwitch = ({
   label,
   labelPlacement,
   layout,
-  state,
-  style: styleProp = 'style1',
+  style,
+  variant,
   showLabel,
+  className,
+  'data-testid': dataTestId,
   ...props
-}:RdsSwitchProps) => {
+}: RdsSwitchProps & { 'data-testid'?: string }) => {
+  if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
+  if (layout !== undefined) warnDeprecatedProp('RdsSwitch', 'layout', '`labelPlacement`');
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsSwitch', 'style', '`variant`');
+  const styleProp = variant ?? legacyVariant ?? 'style1';
+  const rowStyle = typeof style === 'object' ? style : undefined;
   const normalizedLayout = normalizeLayout(layout);
-  const normalizedState = normalizeState(state);
 
-  // labelPlacement takes priority over layout when explicitly provided;
-  // fall back to layout mapping, then default to 'end'
   const effectivePlacement: RdsSwitchProps['labelPlacement'] =
     labelPlacement
-      ? labelPlacement
-      : normalizedLayout
-        ? layoutToPlacement[normalizedLayout]
-        : 'end';
+      ?? (normalizedLayout ? layoutToPlacement[normalizedLayout] : undefined)
+      ?? 'end';
 
-  const disabled = normalizedState === 'disabled on' || normalizedState === 'disabled off' || props.disabled;
+  const disabled = props.disabled ?? false;
 
   const isControlled = typeof props.checked === 'boolean';
 
-  const derivedStateChecked = !isControlled && normalizedState
-    ? (normalizedState === 'on' || normalizedState === 'disabled on'
-        ? true
-        : normalizedState === 'off' || normalizedState === 'disabled off'
-          ? false
-          : undefined)
-    : undefined;
-
-  const [internalChecked, setInternalChecked] = useState(() => {
-    if (isControlled) return props.checked as boolean;
-    if (normalizedState === 'on' || normalizedState === 'disabled on') return true;
-    if (normalizedState === 'off' || normalizedState === 'disabled off') return false;
-    return Boolean(props.defaultChecked);
-  });
-
-  const prevNormalizedStateRef = useRef(normalizedState);
-  const prevDefaultCheckedRef = useRef(props.defaultChecked);
-
-  if (!isControlled && (normalizedState !== prevNormalizedStateRef.current || props.defaultChecked !== prevDefaultCheckedRef.current)) {
-    prevNormalizedStateRef.current = normalizedState;
-    prevDefaultCheckedRef.current = props.defaultChecked;
-    if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
-    else if (normalizedState === 'off' || normalizedState === 'disabled off') setInternalChecked(false);
-    else setInternalChecked(Boolean(props.defaultChecked));
-  }
-
-  void derivedStateChecked;
+  const [internalChecked, setInternalChecked] = useState(Boolean(props.defaultChecked));
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     if (!isControlled && !disabled) {
@@ -92,40 +78,44 @@ const RdsSwitch = ({
   };
 
   const normalizedStyleRaw = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
-  // style6 was removed when consolidating duplicate styles; map legacy value to style5.
   const normalizedStyleType = normalizedStyleRaw === 'style6' ? 'style5' : normalizedStyleRaw;
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
   const styleClass = clsx('rds-switch', `rds-switch--${normalizedStyleType}`, `rds-switch--color-${normalizedColor}`);
 
-  const { defaultChecked: _, ...restProps } = props;
+  const { defaultChecked: _, inputProps, ...restProps } = props;
+  const slotInput = restProps.slotProps?.input;
 
-  const computedAriaLabel: string =
+  const computedAriaLabel: string | undefined =
     (typeof props['aria-label'] === 'string' ? props['aria-label'] : undefined) ||
-    (typeof label === 'string' ? label : undefined) ||
-    'Switch';
+    (typeof label === 'string' && label ? label : undefined);
+
+  const mergeInput = (consumerInput: object | undefined) => ({
+    ...consumerInput,
+    ...(inputProps ?? {}),
+    ...(computedAriaLabel !== undefined && { 'aria-label': computedAriaLabel }),
+  });
+  const mergedInput =
+    typeof slotInput === 'function'
+      ? (ownerState: Parameters<typeof slotInput>[0]) => mergeInput(slotInput(ownerState))
+      : mergeInput(slotInput);
 
   const switchProps = {
     ...restProps,
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
-    className: clsx(styleClass, props.className),
-    inputProps: {
-      ...(restProps.inputProps ?? {}),
-      'aria-label': computedAriaLabel,
+    className: styleClass,
+    slotProps: {
+      ...restProps.slotProps,
+      input: mergedInput,
     },
   };
 
-  if (showLabel === false) {
+  const rootClassName = clsx('rds-switch--row', className);
+
+  if (label && showLabel !== false) {
     return (
-      <div className="rds-switch--row">
-        <MuiSwitch {...switchProps} />
-      </div>
-    );
-  }
-  if (label) {
-    return (
-      <div className="rds-switch--row">
+      <div className={rootClassName} style={rowStyle} data-testid={dataTestId}>
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -136,7 +126,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row">
+    <div className={rootClassName} style={rowStyle} data-testid={dataTestId}>
       <MuiSwitch {...switchProps} />
     </div>
   );

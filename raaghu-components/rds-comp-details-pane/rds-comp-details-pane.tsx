@@ -1,12 +1,16 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, type ReactNode } from "react";
+import type { CSSProperties, Ref } from "react";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
+import clsx from "clsx";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent,
-  FigmaUIKitButton
+  ThumbnailViewContent
 } from "./details-pane-components";
 
 
@@ -16,7 +20,9 @@ export interface RdsCompDetailsPaneProps {
   favouritesTabLabel?: string;
   addtoscreen?: string;
   addtofolder?: string;
-  style?: string;
+  variant?: string;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: string | CSSProperties;
   headerSubText?: string;
   estateTitle?: string;
   estateDescription?: string;
@@ -24,8 +30,11 @@ export interface RdsCompDetailsPaneProps {
   historyItems?: { id: number; name: string }[];
   olderHistoryItems?: { id: number; name: string }[];
   carouselImages?: { src: string; alt: string }[];
-   figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }
 
 const DEFAULT_HISTORY_ITEMS = [
@@ -44,27 +53,34 @@ const DEFAULT_OLDER_HISTORY_ITEMS = [
 
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   const {
+    variant: variantProp,
     style,
     historyItems: providedHistoryItems,
     olderHistoryItems: providedOlderHistoryItems,
+    className,
+    sx,
+    ref,
   } = props;
+  const legacyVariant = typeof style === "string" ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompDetailsPane", "style", "`variant`");
+  const variant = variantProp ?? legacyVariant;
 
   const getInitialTab = useCallback(() => {
-    if (style === "Favourites" || style === "Favourites - New Folder") {
+    if (variant === "Favourites" || variant === "Favourites - New Folder") {
       return "favourites";
     }
-    if (style === "Prompt History") {
+    if (variant === "Prompt History") {
       return "history";
     }
     return "history";
-  }, [style]);
+  }, [variant]);
   const [activeTab, setActiveTab] = useState(() => getInitialTab());
-  const prevStyleRef = useRef(style);
-  if (style !== prevStyleRef.current) {
-    prevStyleRef.current = style;
-    if (style === "Favourites" || style === "Favourites - New Folder") {
+  const [prevVariant, setPrevVariant] = useState(variant);
+  if (variant !== prevVariant) {
+    setPrevVariant(variant);
+    if (variant === "Favourites" || variant === "Favourites - New Folder") {
       setActiveTab("favourites");
-    } else if (style === "Prompt History") {
+    } else if (variant === "Prompt History") {
       setActiveTab("history");
     }
   }
@@ -82,8 +98,8 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   
   return (
     <>
-      <div className="rds-comp-details-pane" style={{ position: 'relative' }}>
-        {(props.style === "Favourites" || props.style === "Favourites - New Folder" || props.style === "Prompt History") ? (
+      <Box ref={ref} className={clsx("rds-comp-details-pane", className)} sx={[{ position: 'relative' }, ...(Array.isArray(sx) ? sx : [sx])]} style={typeof style === 'object' ? style : undefined}>
+        {(variant === "Favourites" || variant === "Favourites - New Folder" || variant === "Prompt History") ? (
           <div>
             <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
             <HistoryFavoritesTabs 
@@ -93,36 +109,36 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
               favouritesTabLabel={props.favouritesTabLabel}
               addtoscreen={props.addtoscreen || "Add to Screen"}
               addtofolder={props.addtofolder}
-              style={props.style}
+              style={variant}
               historyItems={historyItems}
               olderHistoryItems={olderHistoryItems}
               handleDeleteHistoryItem={handleDeleteHistoryItem}
               handleDeleteOlderHistoryItem={handleDeleteOlderHistoryItem}
             />
           </div>
-        ) : props.style === "Real Estate" ? (
+        ) : variant === "Real Estate" ? (
           <RealEstateContent 
             estateTitle={props.estateTitle}
             estateDescription={props.estateDescription}
             carouselImages={props.carouselImages}
           />
-        ) : props.style === "Selection" ? (
+        ) : variant === "Selection" ? (
           <SelectionContent 
             headerText={props.headerText}
             headerSubText={props.headerSubText}
           />
-        ) : props.style === "Toolbar" ? (
+        ) : variant === "Toolbar" ? (
           <ToolbarContent 
           figmaIconSrc={props.figmaIconSrc}
             storybookIconSrc={props.storybookIconSrc}
           />
-        ) : props.style === "Thumbnail View" ? (
+        ) : variant === "Thumbnail View" ? (
           <ThumbnailViewContent 
             thumbnailButtonName={props.thumbnailButtonName}
           />
         ) : null        
         }
-      </div>
+      </Box>
     </>
   );
 };

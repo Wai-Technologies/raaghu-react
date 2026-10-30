@@ -1,53 +1,156 @@
 import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useState, useRef, useEffect, useMemo, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+  type SyntheticEvent,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+  type Ref,
+} from 'react';
 import clsx from 'clsx';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
+import type { BoxProps } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
-import { RdsESignatureUpload, RdsESignatureChoose } from './rds-comp-e-signature-modes';
+import { RdsESignatureUpload, RdsESignatureChoose, type PredefinedSignatureItem } from './rds-comp-e-signature-modes';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-e-signature.scss';
 
-export interface RdsCompESignatureProps {
+export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width' | 'height' | 'ref' | 'children'> {
+  /** Signature method shown: draw on a canvas, upload an image, or choose a predefined style. */
   mode?: 'draw' | 'upload' | 'choose';
+  /** Alias of `mode`; wins when defined. */
+  variant?: 'draw' | 'upload' | 'choose';
+  /** Whether the signature is a full name or initials. */
   type?: 'fullname' | 'initials';
+  /** Alias of `type`; wins when defined. */
+  signatureType?: 'fullName' | 'initials';
+  /** Shows the pen colour picker in draw mode. Defaults to `true`. */
+  showColorPicker?: boolean;
+  /** @deprecated Use `showColorPicker` instead. */
   colourSwatch?: boolean;
+  /** Disables all interaction. */
   disabled?: boolean;
+  /** Slot overrides: `disabledMessage` (canvas message) and `helperText` (footer message) when disabled. */
+  slotProps?: {
+    disabledMessage?: { children?: ReactNode };
+    helperText?: { children?: ReactNode };
+  };
+  /** @deprecated Use `slotProps.disabledMessage` instead. */
   disabledMessage?: string;
+  /** @deprecated Use `slotProps.helperText` instead. */
   disabledFooterMessage?: string;
+  /** Called with the canvas data URL, uploaded file, chosen text, or `null` when cleared. */
   onSignatureChange?: (signature: string | File | null) => void;
+  /** Called with the canvas data URL when the Save button is pressed (draw mode). */
+  onSave?: (dataUrl: string) => void;
+  /** Called when "Create your own signature" is activated (choose mode). Without it the text is not interactive. */
+  onCreateCustom?: () => void;
+  /** @deprecated Has no effect; it will be removed in the next major version. */
   signatureData?: string | File | null;
-  predefinedSignatures?: Array<{ id: string; name: string; style: string; fullName: string; initials: string; }>;
+  /** Signature styles offered in choose mode. */
+  options?: PredefinedSignatureItem[];
+  /** @deprecated Use `options` instead. */
+  predefinedSignatures?: PredefinedSignatureItem[];
+  /** Maximum width (px) of the upload panel. */
   width?: number;
+  /** @deprecated Has no effect; it will be removed in the next major version. */
   height?: number;
+  /** Pen colour in draw mode; selects the colour whenever it changes. */
   penColor?: string;
+  /** Initial pen colour when `penColor` is not given. */
+  defaultPenColor?: string;
+  /** Called with the event and colour when a pen colour is picked. */
+  onPenColorChange?: (event: SyntheticEvent, color: string) => void;
+  /** Heading shown in draw mode. */
   title?: string;
+  /** Shows the required asterisk next to the headings. Defaults to `true`. */
+  required?: boolean;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
-const PEN_COLORS = [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red];
+const PEN_COLOR_OPTIONS = [
+  { name: 'Black', value: eSignaturePenColors.black },
+  { name: 'Blue', value: eSignaturePenColors.blue },
+  { name: 'Red', value: eSignaturePenColors.red },
+];
+
+const DEFAULT_PREDEFINED_SIGNATURES: PredefinedSignatureItem[] = [
+  { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
+  { id: '2', name: 'Style 2', style: 'print', fullName: 'John Doe', initials: 'J.D' },
+  { id: '3', name: 'Style 3', style: 'script', fullName: 'John Doe', initials: 'J.D' },
+  { id: '4', name: 'Style 4', style: 'bold', fullName: 'John Doe', initials: 'J.D' },
+  { id: '5', name: 'Style 5', style: 'elegant', fullName: 'John Doe', initials: 'J.D' },
+  { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
+];
+
+type Point = { x: number; y: number };
+type Stroke = { color: string; points: Point[] };
+type ClientPoint = { clientX: number; clientY: number };
+
+const isTouchPointer = (e: ReactPointerEvent<HTMLCanvasElement>) =>
+  e.pointerType === 'touch' || e.pointerType === 'pen';
 
 const RdsCompESignature = ({
-  mode = 'draw',
-  type = 'fullname',
-  colourSwatch = true,
+  mode: modeProp = 'draw',
+  variant,
+  type: typeProp = 'fullname',
+  signatureType,
+  showColorPicker,
+  colourSwatch,
   disabled = false,
-  disabledMessage = 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.',
-  disabledFooterMessage = 'Another method already selected',
+  slotProps,
+  disabledMessage,
+  disabledFooterMessage,
   onSignatureChange,
-  predefinedSignatures = [
-    { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
-    { id: '2', name: 'Style 2', style: 'print', fullName: 'John Doe', initials: 'J.D' },
-    { id: '3', name: 'Style 3', style: 'script', fullName: 'John Doe', initials: 'J.D' },
-    { id: '4', name: 'Style 4', style: 'bold', fullName: 'John Doe', initials: 'J.D' },
-    { id: '5', name: 'Style 5', style: 'elegant', fullName: 'John Doe', initials: 'J.D' },
-    { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
-  ],
+  onSave,
+  onCreateCustom,
+  signatureData,
+  options,
+  predefinedSignatures,
   width = 695,
+  height,
   penColor = eSignaturePenColors.black,
-  title = 'Draw Signature',
-}) => {
+  defaultPenColor,
+  onPenColorChange,
+  title,
+  required = true,
+  className,
+  sx,
+  ref,
+  onMouseEnter,
+  onMouseLeave,
+  ...rest
+}: RdsCompESignatureProps) => {
+  if (signatureData !== undefined) warnDeprecatedProp('RdsCompESignature', 'signatureData', 'nothing (it has no effect)');
+  if (height !== undefined) warnDeprecatedProp('RdsCompESignature', 'height', 'nothing (it has no effect)');
+  if (colourSwatch !== undefined) warnDeprecatedProp('RdsCompESignature', 'colourSwatch', '`showColorPicker`');
+  if (disabledMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledMessage', '`slotProps.disabledMessage`');
+  if (disabledFooterMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledFooterMessage', '`slotProps.helperText`');
+  if (predefinedSignatures !== undefined) warnDeprecatedProp('RdsCompESignature', 'predefinedSignatures', '`options`');
+
+  const mode = variant ?? modeProp;
+  const type = signatureType ? (signatureType === 'initials' ? 'initials' : 'fullname') : typeProp;
+  const resolvedTitle = title ?? (
+    mode === 'upload'
+      ? (type === 'initials' ? 'Upload Initial' : 'Upload Signature')
+      : mode === 'choose'
+        ? 'Choose Signature'
+        : 'Draw Signature'
+  );
+  const colorPickerShown = showColorPicker ?? colourSwatch ?? true;
+  const disabledText = slotProps?.disabledMessage?.children ?? disabledMessage ?? 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.';
+  const footerText = slotProps?.helperText?.children ?? disabledFooterMessage ?? 'Another method already selected';
+  const signatureOptions = options ?? predefinedSignatures ?? DEFAULT_PREDEFINED_SIGNATURES;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [uiState, setUiState] = useState({
     isDrawing: false,
-    selectedColor: eSignaturePenColors.black,
+    selectedColor: defaultPenColor ?? eSignaturePenColors.black,
     isHovered: false,
     showLengthError: false,
     hasDrawn: false,
@@ -56,14 +159,27 @@ const RdsCompESignature = ({
   const updateUiState = (updates: Partial<typeof uiState>) => {
     setUiState((prev) => ({ ...prev, ...updates }));
   };
-  const prevPenColorRef = useRef(penColor);
-  if (penColor !== prevPenColorRef.current) {
-    prevPenColorRef.current = penColor;
+  const [prevPenColor, setPrevPenColor] = useState(penColor);
+  if (penColor !== prevPenColor) {
+    setPrevPenColor(penColor);
     updateUiState({ selectedColor: penColor });
   }
-  const strokesRef = useRef<{ x: number; y: number; }[][]>([]);
+  const strokesRef = useRef<Stroke[]>([]);
 
-  const colors = PEN_COLORS;
+  const redraw = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokesRef.current.forEach(({ color, points }) => {
+      if (points.length === 0) return;
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      points.slice(1).forEach((p) => ctx.lineTo(p.x, p.y));
+      ctx.stroke();
+    });
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
@@ -76,75 +192,72 @@ const RdsCompESignature = ({
       const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.scale(dpr, dpr);
-        ctx.strokeStyle = selectedColor;
-        ctx.lineWidth = 2; 
+        ctx.lineWidth = 2;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
       }
+      redraw();
     };
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, [mode, selectedColor, type]);
+  }, [mode, redraw]);
 
-  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: ReactMouseEvent<HTMLCanvasElement>) => {
+  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: ClientPoint): Point => {
     const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
-    return { x, y, scaleX, scaleY };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }, []);
 
-  const startDrawing = useCallback((e: ReactMouseEvent<HTMLCanvasElement>) => {
+  const startDrawing = useCallback((e: ClientPoint) => {
     if (disabled) return;
     updateUiState({ isDrawing: true, hasDrawn: true });
     const canvas = canvasRef.current;
     if (canvas) {
-      const { x, y, scaleX, scaleY } = getCanvasPoint(canvas, e);
+      const point = getCanvasPoint(canvas, e);
       const ctx = canvas.getContext('2d');
       if (ctx) {
+        ctx.strokeStyle = selectedColor;
         ctx.beginPath();
-        ctx.moveTo(x / scaleX, y / scaleY);
+        ctx.moveTo(point.x, point.y);
       }
-      strokesRef.current.push([{ x: x / scaleX, y: y / scaleY }]);
+      strokesRef.current.push({ color: selectedColor, points: [point] });
     }
-  }, [disabled, getCanvasPoint]);
+  }, [disabled, getCanvasPoint, selectedColor]);
 
-  const draw = useCallback((e: ReactMouseEvent<HTMLCanvasElement>) => {
+  const draw = useCallback((e: ClientPoint) => {
     if (!isDrawing || disabled) return;
     const canvas = canvasRef.current;
     if (canvas) {
-      const { x, y, scaleX, scaleY } = getCanvasPoint(canvas, e);
+      const point = getCanvasPoint(canvas, e);
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.lineTo(x / scaleX, y / scaleY);
+        ctx.lineTo(point.x, point.y);
         ctx.stroke();
       }
       const currentStroke = strokesRef.current[strokesRef.current.length - 1];
-      if (currentStroke) currentStroke.push({ x: x / scaleX, y: y / scaleY });
+      if (currentStroke) currentStroke.points.push(point);
     }
   }, [disabled, getCanvasPoint, isDrawing]);
 
-
   const evaluateSignatureLength = useCallback(() => {
     const strokes = strokesRef.current;
-    const totalPoints = strokes.reduce((a, s) => a + s.length, 0);
+    const totalPoints = strokes.reduce((a, s) => a + s.points.length, 0);
     if (totalPoints === 0) { updateUiState({ showLengthError: false }); return; }
-    let minX = Infinity, maxX = -Infinity; strokes.forEach(s => s.forEach(p => { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; }));
+    let minX = Infinity, maxX = -Infinity; strokes.forEach(s => s.points.forEach(p => { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; }));
     const boxW = maxX - minX;
     const hasFourLetters = boxW >= 160 && totalPoints >= 40;
     updateUiState({ showLengthError: !hasFourLetters });
   }, []);
 
   const stopDrawing = useCallback(() => {
+    if (!isDrawing) return;
     updateUiState({ isDrawing: false });
     if (canvasRef.current && onSignatureChange) {
       const dataURL = canvasRef.current.toDataURL();
       onSignatureChange(dataURL);
     }
     evaluateSignatureLength();
-  }, [evaluateSignatureLength, onSignatureChange]);
+  }, [evaluateSignatureLength, isDrawing, onSignatureChange]);
 
   const clearCanvas = useCallback(() => {
     if (canvasRef.current) {
@@ -158,12 +271,33 @@ const RdsCompESignature = ({
     updateUiState({ hasDrawn: false, showLengthError: false });
   }, [onSignatureChange]);
 
+  const handleUndo = useCallback(() => {
+    strokesRef.current.pop();
+    redraw();
+    if (strokesRef.current.length === 0) {
+      onSignatureChange?.(null);
+      updateUiState({ hasDrawn: false, showLengthError: false });
+      return;
+    }
+    if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
+    evaluateSignatureLength();
+  }, [evaluateSignatureLength, onSignatureChange, redraw]);
 
   const handleSave = useCallback(() => {
-    
-    clearCanvas();
-    updateUiState({ showLengthError: false });
-  }, [clearCanvas]);
+    if (canvasRef.current) onSave?.(canvasRef.current.toDataURL());
+  }, [onSave]);
+
+  const selectColor = (e: SyntheticEvent, color: string) => {
+    updateUiState({ selectedColor: color });
+    onPenColorChange?.(e, color);
+  };
+
+  const handleSwatchKeyDown = (e: ReactKeyboardEvent<HTMLElement>, color: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      selectColor(e, color);
+    }
+  };
 
   const getStateClassName = useCallback(() => clsx(
     `rds-e-signature--${mode}`,
@@ -177,8 +311,8 @@ const RdsCompESignature = ({
   const renderDrawMode = () => (
     <Box className="rds-e-signature__draw-container">
       <Typography variant="h6" className="rds-e-signature__title">
-        {title}
-        <span className="rds-e-signature__required">*</span>
+        {resolvedTitle}
+        {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
 
       <Paper className="rds-e-signature__canvas-container" elevation={0}>
@@ -186,7 +320,7 @@ const RdsCompESignature = ({
           <Box className="rds-e-signature__canvas-header" aria-hidden={hasDrawn && !disabled}>
             {disabled ? (
               <Typography className="rds-e-signature__disabled-text">
-                {disabledMessage}
+                {disabledText}
               </Typography>
             ) : (
               <Typography className="rds-e-signature__canvas-title">
@@ -199,33 +333,45 @@ const RdsCompESignature = ({
         <canvas
           ref={canvasRef}
           className="rds-e-signature__canvas"
+          role="img"
+          aria-label={type === 'initials' ? 'Initials drawing area' : 'Signature drawing area'}
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
           onMouseLeave={stopDrawing}
-          style={{ width: '100%', height: '100%' }}
+          onPointerDown={(e) => { if (!isTouchPointer(e)) return; e.preventDefault(); startDrawing(e); }}
+          onPointerMove={(e) => { if (isTouchPointer(e)) draw(e); }}
+          onPointerUp={(e) => { if (isTouchPointer(e)) stopDrawing(); }}
+          onPointerCancel={(e) => { if (isTouchPointer(e)) stopDrawing(); }}
+          onPointerLeave={(e) => { if (isTouchPointer(e)) stopDrawing(); }}
+          style={{ width: '100%', height: '100%', touchAction: 'none' }}
         />
 
         <Box className="rds-e-signature__controls">
-          {colourSwatch && (
-            <Box className="rds-e-signature__color-palette">
-                  {colors.map((color, index) => (
-                  <Box
-                    key={color}
-                    className={clsx(
-                      "rds-e-signature__color-button",
-                      selectedColor === color && "rds-e-signature__color-button--selected"
-                    )}
-                    onClick={() => updateUiState({ selectedColor: color })}
-                    data-color={color}
-                  >
+          {colorPickerShown && (
+            <Box className="rds-e-signature__color-palette" role="radiogroup" aria-label="Pen colour">
+              {PEN_COLOR_OPTIONS.map(({ name, value: color }) => (
+                <Box
+                  key={color}
+                  className={clsx(
+                    "rds-e-signature__color-button",
+                    selectedColor === color && "rds-e-signature__color-button--selected"
+                  )}
+                  role="radio"
+                  aria-checked={selectedColor === color}
+                  aria-label={name}
+                  tabIndex={0}
+                  onClick={(e) => selectColor(e, color)}
+                  onKeyDown={(e: ReactKeyboardEvent<HTMLElement>) => handleSwatchKeyDown(e, color)}
+                  data-color={color}
+                >
                   {selectedColor === color && <span className="rds-e-signature__checkmark">✓</span>}
                 </Box>
               ))}
             </Box>
           )}
           <Box className="rds-e-signature__actions">
-            <IconButton className="rds-e-signature__action-button" onClick={clearCanvas} disabled={disabled} aria-label="undo">
+            <IconButton className="rds-e-signature__action-button" onClick={handleUndo} disabled={disabled} aria-label="undo">
               <Undo fontSize="small" />
             </IconButton>
             <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label="save" onClick={handleSave}>
@@ -249,25 +395,30 @@ const RdsCompESignature = ({
           Signature not clear. Please draw again.
         </Typography>
       )}
-      {disabled && disabledFooterMessage && (
-        <Typography className="rds-e-signature__disabled-footer">{disabledFooterMessage}</Typography>
+      {disabled && footerText && (
+        <Typography className="rds-e-signature__disabled-footer">{footerText}</Typography>
       )}
     </Box>
   );
-  
+
   return (
     <Box
-      className={getStateClassName()}
-      onMouseEnter={() => updateUiState({ isHovered: true })}
-      onMouseLeave={() => updateUiState({ isHovered: false })}
+      {...rest}
+      ref={ref}
+      className={clsx(getStateClassName(), className)}
+      sx={sx}
+      onMouseEnter={(e: ReactMouseEvent<HTMLDivElement>) => { updateUiState({ isHovered: true }); onMouseEnter?.(e); }}
+      onMouseLeave={(e: ReactMouseEvent<HTMLDivElement>) => { updateUiState({ isHovered: false }); onMouseLeave?.(e); }}
     >
       {mode === 'draw' && renderDrawMode()}
       {mode === 'upload' && (
         <RdsESignatureUpload
           type={type}
           disabled={disabled}
-          disabledFooterMessage={disabledFooterMessage}
+          disabledFooterMessage={footerText}
           width={width}
+          title={resolvedTitle}
+          required={required}
           onSignatureChange={onSignatureChange}
         />
       )}
@@ -275,8 +426,11 @@ const RdsCompESignature = ({
         <RdsESignatureChoose
           type={type}
           disabled={disabled}
-          predefinedSignatures={predefinedSignatures}
+          predefinedSignatures={signatureOptions}
+          title={resolvedTitle}
+          required={required}
           onSignatureChange={onSignatureChange}
+          onCreateCustom={onCreateCustom}
         />
       )}
 

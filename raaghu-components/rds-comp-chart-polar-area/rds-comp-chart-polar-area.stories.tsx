@@ -17,7 +17,40 @@ const meta: Meta = {
         
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
+      argTypes: {
+        data: {
+            description: "Chart.js data containing labels and datasets.",
+            control: "object",
+        },
+        options: {
+            description: "Chart.js configuration options.",
+            control: "object",
+        },
+        height: {
+            control: "number",
+            description: "Height of the chart.",
+        },
+        width: {
+            control: "text",
+            description: "Width of the chart.",
+        },
+        className: {
+            control: "text",
+            description: "CSS class applied to the chart container.",
+        },
+        sx: {
+            control: "object",
+            description: "MUI system styles applied to the chart container.",
+        },
+        ref: {
+            control: false,
+            description: "React ref to the chart container; assign it in code.",
+        },
+
+        labels: { control: false, table: { disable: true } },
+        dataSets: { control: false, table: { disable: true } },
+        chartLabel: { control: false, table: { disable: true } },
+       
     },
 } satisfies Meta<typeof RdsCompPolarAreaChart>;
 
@@ -27,31 +60,33 @@ type Story = StoryObj<typeof RdsCompPolarAreaChart>;
 export const Default: Story = {
     args: {
         id: "Polar_Area_chart",
-        radius: 300,
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [100, 70, 80, 96, 87, 77],
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.5)",
-                    "rgba(54, 162, 235, 0.5)",
-                    "rgba(255, 206, 86, 0.5)",
-                    "rgba(75, 192, 192, 0.5)",
-                    "rgba(153, 102, 255, 0.5)",
-                    "rgba(167, 145, 78, 0.5)"
-                ],
-                    borderColor: [
-                        "#f8bbd0", 
-                        "#90caf9", 
-                        "#fff9c4", 
-                        "#b2ebf2", 
-                        "#ce93d8", 
-                        "#ffe0b2"  
+        height: 300,
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [100, 70, 80, 96, 87, 77],
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.5)",
+                        "rgba(54, 162, 235, 0.5)",
+                        "rgba(255, 206, 86, 0.5)",
+                        "rgba(75, 192, 192, 0.5)",
+                        "rgba(153, 102, 255, 0.5)",
+                        "rgba(167, 145, 78, 0.5)"
                     ],
-                   borderWidth: 3,
-            }
-        ],
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        borderColor: [
+                            "#f8bbd0", 
+                            "#90caf9", 
+                            "#fff9c4", 
+                            "#b2ebf2", 
+                            "#ce93d8", 
+                            "#ffe0b2"  
+                        ],
+                       borderWidth: 3,
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             animation: {
@@ -62,8 +97,6 @@ export const Default: Story = {
             plugins: {
                 legend: {
                     position: "top",
-                    pointStyle: "line",
-
                     labels: {
 
                         usePointStyle: true
@@ -81,7 +114,6 @@ export const Default: Story = {
     },
     parameters: {
         controls: {
-            exclude: ['chartStyle'],
         },
     },
     play: async ({ canvas }) => {

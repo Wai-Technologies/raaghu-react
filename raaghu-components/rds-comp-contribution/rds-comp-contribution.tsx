@@ -1,60 +1,128 @@
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from 'react';
-import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
+import { useCallback, useEffect, useMemo, useRef, useState, type HTMLAttributes, type Ref, type SVGProps, type ReactElement } from 'react';
+import { Box } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
-import SvgIcon from '@mui/material/SvgIcon';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 dayjs.extend(customParseFormat);
 
 const COLUMNS = 53;
 
-export interface RdsCompContributionProps {  
+type DataAttributes = { [key: `data-${string}`]: string | number | undefined };
+
+export interface RdsCompContributionProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** Shows month labels above the panels. @default true */
   showMonthLabels?: boolean;
+  /** Shows weekday labels beside the panels. @default false */
   showWeekLabels?: boolean;
+  /** Short names for Sunday..Saturday. */
+  weekdayLabels?: string[];
+  /** Names for January..December. */
+  monthLabels?: string[];
+  /** @deprecated Use `weekdayLabels` instead. */
   weekNames?: string[];
+  /** @deprecated Use `monthLabels` instead. */
   monthNames?: string[];
+  /** Colours by contribution count; the last colour is used for higher counts. */
+  colors?: string[];
+  /** @deprecated Use `colors` instead. */
   panelColors?: string[];
-  values: { [date: string]: number };
-  until: string;
+  /** Contribution counts keyed by date, formatted with `dateFormat`. */
+  data?: { [date: string]: number };
+  /** @deprecated Use `data` instead. */
+  values?: { [date: string]: number };
+  /** Last day shown. Strings are parsed with `dateFormat`. */
+  endDate?: Dayjs | Date | string;
+  /** @deprecated Use `endDate` instead. */
+  until?: string;
+  /** Format of the `data` keys and of string dates. */
   dateFormat?: string;
-  weekLabelAttributes?: React.SVGProps<SVGTextElement>;
-  monthLabelAttributes?: React.SVGProps<SVGTextElement>;
-  panelAttributes?: React.SVGProps<SVGRectElement>;
+  /** Props merged onto the week labels, month labels and panels. */
+  slotProps?: {
+    weekLabel?: SVGProps<SVGTextElement> & DataAttributes;
+    monthLabel?: SVGProps<SVGTextElement> & DataAttributes;
+    panel?: SVGProps<SVGRectElement> & DataAttributes;
+  };
+  /** @deprecated Use `slotProps.weekLabel` instead. */
+  weekLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  /** @deprecated Use `slotProps.monthLabel` instead. */
+  monthLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  /** @deprecated Use `slotProps.panel` instead. */
+  panelAttributes?: SVGProps<SVGRectElement> & DataAttributes;
+  /** Height reserved for the month labels, in pixels. @default 28 */
   monthLabelHeight?: number;
+  /** Width reserved for the weekday labels, in pixels. @default 24 */
   weekLabelWidth?: number;
+  /** Size of each panel, in pixels. @default 11 */
   panelSize?: number;
+  /** Gap between panels, in pixels. @default 2 */
   panelMargin?: number;
+  /** Extra class name(s) merged onto the root element. */
+  className?: string;
+  /** Ref forwarded to the root element. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompContribution = ({
   showMonthLabels = true,
   showWeekLabels = false,
-  weekNames,
-  monthNames,
-  panelColors,
-  values,
-  until,
+  weekdayLabels,
+  monthLabels: monthLabelsProp,
+  weekNames: weekNamesProp,
+  monthNames: monthNamesProp,
+  colors,
+  panelColors: panelColorsProp,
+  data,
+  values: valuesProp,
+  endDate,
+  until: untilProp,
   dateFormat = 'YYYY-MM-DD',
-  weekLabelAttributes,
-  monthLabelAttributes,
-  panelAttributes,
+  slotProps,
+  weekLabelAttributes: weekLabelAttributesProp,
+  monthLabelAttributes: monthLabelAttributesProp,
+  panelAttributes: panelAttributesProp,
   monthLabelHeight = 28,
   weekLabelWidth = 24,
   panelSize = 11,
   panelMargin = 2,
-}) => {
+  className,
+  sx,
+  ref,
+  ...rest
+}: RdsCompContributionProps) => {
+  const deprecated: [string, unknown, string][] = [
+    ['weekNames', weekNamesProp, 'weekdayLabels'],
+    ['monthNames', monthNamesProp, 'monthLabels'],
+    ['panelColors', panelColorsProp, 'colors'],
+    ['values', valuesProp, 'data'],
+    ['until', untilProp, 'endDate'],
+    ['weekLabelAttributes', weekLabelAttributesProp, 'slotProps.weekLabel'],
+    ['monthLabelAttributes', monthLabelAttributesProp, 'slotProps.monthLabel'],
+    ['panelAttributes', panelAttributesProp, 'slotProps.panel'],
+  ];
+  deprecated.forEach(([name, value, replacement]) => {
+    if (value !== undefined) warnDeprecatedProp('RdsCompContribution', name, "`" + replacement + "`");
+  });
+  const weekNames = weekdayLabels ?? weekNamesProp;
+  const monthNames = monthLabelsProp ?? monthNamesProp;
+  const panelColors = colors ?? panelColorsProp;
+  const values = data ?? valuesProp;
+  const until = endDate ?? untilProp;
+  const weekLabelAttributes = slotProps?.weekLabel ?? weekLabelAttributesProp;
+  const monthLabelAttributes = slotProps?.monthLabel ?? monthLabelAttributesProp;
+  const panelAttributes = slotProps?.panel ?? panelAttributesProp;
   const columns = COLUMNS;
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
-  const handleResizeRef = useRef<() => void>(null!);
-  handleResizeRef.current = () => {
-    setViewportWidth(window.innerWidth);
-  };
-
   useEffect(() => {
-    const handler = () => handleResizeRef.current();
+    const handler = () => setViewportWidth(window.innerWidth);
     handler();
     window.addEventListener('resize', handler);
     return () => {
@@ -62,16 +130,42 @@ const RdsCompContribution = ({
     };
   }, []);
 
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect?.width;
+      if (typeof width === 'number' && width > 0) {
+        setViewportWidth(width);
+      }
+    });
+    ro.observe(el);
+    const initial = el.getBoundingClientRect().width;
+    if (initial > 0) setViewportWidth(initial);
+    return () => ro.disconnect();
+  }, []);
+
+  const setRootRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    },
+    [ref],
+  );
+
   const isMobile = viewportWidth <= 414;
   const { dynamicPanelSize, dynamicPanelMargin } = useMemo(() => {
+    const sizeAt = (ratio: number) => Math.max(1, Math.round(panelSize * ratio));
+    const marginAt = (ratio: number) => Math.max(0.5, Math.round(panelMargin * ratio * 10) / 10);
     if (viewportWidth <= 320) {
-      return { dynamicPanelSize: 8, dynamicPanelMargin: 1.2 };
+      return { dynamicPanelSize: sizeAt(8 / 11), dynamicPanelMargin: marginAt(1.2 / 2) };
     }
     if (viewportWidth <= 414) {
-      return { dynamicPanelSize: 9, dynamicPanelMargin: 1.2 };
+      return { dynamicPanelSize: sizeAt(9 / 11), dynamicPanelMargin: marginAt(1.2 / 2) };
     }
     if (viewportWidth <= 834) {
-      return { dynamicPanelSize: 8, dynamicPanelMargin: 2 };
+      return { dynamicPanelSize: sizeAt(8 / 11), dynamicPanelMargin: marginAt(1) };
     }
     return { dynamicPanelSize: panelSize, dynamicPanelMargin: panelMargin };
   }, [panelMargin, panelSize, viewportWidth]);
@@ -84,8 +178,8 @@ const RdsCompContribution = ({
     };
   }, [dynamicPanelMargin, dynamicPanelSize, monthLabelHeight, weekLabelWidth]);
 
-  const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: string, columnCount: number) => {
-    const d = dayjs(lastDay, dateFormat);
+  const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: Dayjs | Date | string, columnCount: number) => {
+    const d = typeof lastDay === 'string' ? dayjs(lastDay, dateFormat) : dayjs(lastDay);
     const lastWeekend = d.endOf('week');
     const endDate = d.endOf('day');
   
@@ -107,12 +201,6 @@ const RdsCompContribution = ({
     }
     return result;
   }, [dateFormat]);
-  
-  const updateSize = useCallback((size?: BoundingRect) => {
-    if (!size) return;
-
-    setViewportWidth(size.width);
-  }, []);
 
   const contributions = useMemo(() => {
     if (!values || !until || !panelColors) return null;
@@ -173,7 +261,9 @@ const RdsCompContribution = ({
             data-value={contribution.value}
             {...panelAttributes}
             key={`panel_${i}_${j}`}
-          />
+          >
+            <title>{`${contribution.date}: ${contribution.value}`}</title>
+          </rect>
         );
       }
     }
@@ -278,33 +368,29 @@ const RdsCompContribution = ({
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
-    <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: MeasuredComponentProps) => (
-        <div
-          ref={measureRef}
-          className="rds-comp-contribution"
-        >
-          <div className="rds-comp-contribution__container">
-            <div className="rds-comp-contribution__wrapper">
-                      <SvgIcon
-                className="rds-comp-contribution__svg"
-                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                sx={{ 
-                  width: '100%', 
-                  height: 'auto', 
-                  maxWidth: '100%',
-                  minWidth: 'unset'
-                }}
-              >
-                        {weekLabels}
-                        {contributionPanels}
-                        {monthLabels}
-              </SvgIcon>
-            </div>
-          </div>
+    <Box
+      {...rest}
+      ref={setRootRef}
+      className={clsx('rds-comp-contribution', className)}
+      sx={sx}
+    >
+      <div className="rds-comp-contribution__container">
+        <div className="rds-comp-contribution__wrapper">
+          <svg
+            className="rds-comp-contribution__svg"
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            role="img"
+            aria-label="Contribution graph"
+            data-testid="svg-icon"
+          >
+            <title>Contribution graph</title>
+            {weekLabels}
+            {contributionPanels}
+            {monthLabels}
+          </svg>
         </div>
-      )}
-    </Measure>
+      </div>
+    </Box>
   );
 };
 RdsCompContribution.displayName = "RdsCompContribution";

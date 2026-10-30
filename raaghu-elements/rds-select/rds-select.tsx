@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-select.scss';
 
 export interface RdsSelectOption {
@@ -18,16 +19,26 @@ export interface RdsSelectOption {
 }
 
 export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
+  /** Visible label text. */
   label?: string;
+  /** Placeholder shown when nothing is selected. */
   placeholder?: string;
+  /** Options rendered as menu items. */
   options: RdsSelectOption[];
+  /** Helper text shown below the select. */
   helperText?: string;
+  /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
+  /** @deprecated Use `required` instead. */
   isRequired?: boolean;
+  /** @deprecated Use `placeholder` instead. */
   inputPlaceholder?: string;
-  labelposition?: boolean;
+  /** `floating` (default) renders a floating label; `top` renders the label above the field. */
+  labelPlacement?: 'floating' | 'top';
+  /** `true` renders a floating label; `false` renders the label above the field. */
+  labelPosition?: boolean;
+  /** Size of the select. @default 'small' */
   size?: 'small' | 'medium';
-  className?: string;
 }
 
 const RdsSelect = ({
@@ -36,54 +47,81 @@ const RdsSelect = ({
   options,
   helperText,
   errorMessage,
-  isRequired = false,
+  isRequired,
+  required,
   error,
   inputPlaceholder,
-  labelposition = true,
+  labelPlacement,
+  labelPosition,
   size = 'small',
   className,
+  sx,
+  'data-testid': dataTestId,
   ...props
-}: RdsSelectProps) => {
+}: RdsSelectProps & { 'data-testid'?: string }) => {
+  if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
+  if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');
+  const floatingLabel = labelPlacement
+    ? labelPlacement === 'floating'
+    : (labelPosition ?? true);
   const labelId = useId();
+  const helperTextId = useId();
+  const isFieldRequired = required ?? isRequired ?? false;
+  const resolvedPlaceholder = inputPlaceholder || placeholder;
+  const resolvedHelperText = errorMessage || helperText;
   const hasError = !!errorMessage || error;
+  // Keep floating label shrunk whenever a placeholder is shown so the two don't overlap.
+  const shrinkFloatingLabel = floatingLabel && !!resolvedPlaceholder;
   
   return (
-    <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
+    <div
+      data-testid={dataTestId}
+      className={clsx('rds-select', hasError && 'rds-select--error', className)}
+    >
       <FormControl 
         fullWidth 
         error={hasError} 
         size={size}
         className="rds-select__form-control"
       >
-        {!labelposition && label && (
-          <label className="rds-select__label">
+        {!floatingLabel && label && (
+          <label id={labelId} className="rds-select__label">
             {label}
-            {isRequired && <span className="rds-select__asterisk">*</span>}
+            {isFieldRequired && <span className="rds-select__asterisk">*</span>}
           </label>
         )}
-        {labelposition && label && (
+        {floatingLabel && label && (
           <InputLabel 
             id={labelId} 
-            required={isRequired}
+            required={isFieldRequired}
             className="rds-select__input-label"
+            shrink={shrinkFloatingLabel ? true : undefined}
           >
             {label}
           </InputLabel>
         )}
         <MuiSelect
-          labelId={labelposition && label ? labelId : undefined}
-          label={labelposition ? label : undefined}
+          labelId={label ? labelId : undefined}
+          label={floatingLabel ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && { displayEmpty: !!placeholder || !!inputPlaceholder })}
+          {...(!!resolvedPlaceholder && { displayEmpty: true })}
           renderValue={
-            !labelposition
+            resolvedPlaceholder || !floatingLabel
               ? (selected) => {
+                  const labelFor = (v: unknown) => {
+                    const opt = options.find(o => String(o.value) === String(v));
+                    return opt ? opt.label : String(v);
+                  };
+                  if (Array.isArray(selected) && selected.length > 1) {
+                    return selected.map(labelFor).join(', ');
+                  }
                   const value = Array.isArray(selected) ? selected[0] : selected;
                   if (value === undefined || value === null || value === "") {
                     return (
                       <span className="rds-select__placeholder">
-                        {inputPlaceholder || placeholder || ''}
+                        {resolvedPlaceholder || ''}
                       </span>
                     );
                   }
@@ -92,7 +130,22 @@ const RdsSelect = ({
                 }
               : undefined
           }
+          {...(required !== undefined && { required })}
           {...props}
+          {...(shrinkFloatingLabel && label ? { notched: true as const } : {})}
+          sx={[
+            {
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                boxShadow: 'none',
+              },
+            },
+            ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+          ]}
+          SelectDisplayProps={{
+            ...props.SelectDisplayProps,
+            ...(isFieldRequired ? { 'aria-required': true as const } : {}),
+            ...(resolvedHelperText ? { 'aria-describedby': helperTextId } : {}),
+          }}
         >
           {options.map((option) => (
             <MenuItem 
@@ -105,12 +158,16 @@ const RdsSelect = ({
             </MenuItem>
           ))}
         </MuiSelect>
-        {(helperText || errorMessage) && (
-          <FormHelperText className="rds-select__helper-text">
-            {errorMessage || helperText}
-          </FormHelperText>
-        )}
       </FormControl>
+      {resolvedHelperText && (
+        <FormHelperText
+          id={helperTextId}
+          error={hasError}
+          className="rds-select__helper-text"
+        >
+          {resolvedHelperText}
+        </FormHelperText>
+      )}
     </div>
   );
 };

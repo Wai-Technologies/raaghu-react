@@ -16,6 +16,9 @@ const meta: Meta<typeof RdsCompContribution> = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the contribution chart root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the contribution chart root.' },
+    ref: { control: false, description: 'React ref to the contribution chart root; assign it in code.' },
     showMonthLabels: {
       description: 'Whether to show month labels at the top of the contribution graph',
       control: { type: "boolean" },
@@ -64,15 +67,15 @@ const generateValues = () => {
 
 export const Default: Story = {
   args: {
-    weekNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    monthNames: [
+    weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    monthLabels: [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ],
-    panelColors: ["#F0F6FF", "#D9E8FF", "#A3C8FF", "#6FA7FF", "#4589FF"],
+    colors: ["#F0F6FF", "#D9E8FF", "#A3C8FF", "#6FA7FF", "#4589FF"],
     dateFormat: "YYYY-MM-DD",
-    values: generateValues(),
-    until: "2023-12-31",
+    data: generateValues(),
+    endDate: "2023-12-31",
     monthLabelHeight: 28,
     weekLabelWidth: 24,
     panelSize: 12,
@@ -81,7 +84,7 @@ export const Default: Story = {
   },
   parameters: {
     controls: {
-      include: ["showMonthLabels"]
+      include: ["showMonthLabels", "className", "sx", "ref"]
     },
     docs: {
       description: {
@@ -93,5 +96,4 @@ export const Default: Story = {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
-
 

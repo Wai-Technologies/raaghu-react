@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsIconButton, { RdsIconButtonProps } from './rds-icon-button';
+import RdsIconButton from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-icon-button.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -513,5 +513,31 @@ describe('RdsIconButton', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('keeps rds-icon-button classes when className is passed', () => {
+    render(<RdsIconButton className="mine" variant="outlined" icon={<span>i</span>} />);
+    const btn = screen.getByRole('button');
+    expect(btn).toHaveClass('rds-icon-button', 'rds-icon-button--outlined', 'mine');
+  });
+  it('uses string tooltip as aria-label, consumer wins', () => {
+    const { rerender } = render(<RdsIconButton tooltip="Save" icon={<span>i</span>} />);
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    rerender(<RdsIconButton tooltip="Save" aria-label="Other" icon={<span>i</span>} />);
+    expect(screen.getByRole('button', { name: 'Other' })).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('standard variant renders like filled with iconFilled', () => {
+    render(<RdsIconButton variant="standard" iconFilled={<span data-testid="f" />} iconOutlined={<span data-testid="o" />} aria-label="x" />);
+    expect(screen.getByTestId('f')).toBeInTheDocument();
+    expect(screen.queryByTestId('o')).not.toBeInTheDocument();
+  });
+  it('filled variant still renders iconFilled', () => {
+    render(<RdsIconButton variant="filled" iconFilled={<span data-testid="f" />} aria-label="x" />);
+    expect(screen.getByTestId('f')).toBeInTheDocument();
   });
 });

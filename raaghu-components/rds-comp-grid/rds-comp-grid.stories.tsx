@@ -1,29 +1,26 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import React, { useRef, useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Button, Box, Stack, Typography, Divider } from '@mui/material';
-import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
+import RdsCompGrid, { ActionPosition, ActionColumnStyle } from './rds-comp-grid';
 
 const meta: Meta<typeof RdsCompGrid> = {
   title: 'Internal/Grid',
   component: RdsCompGrid,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
   },
   argTypes: {
-    isSort: {
+    sortable: {
       control: 'boolean',
       description: 'Enable sorting functionality for columns',
       defaultValue: true,
     },
-    isFilter: {
+    filterable: {
       control: 'boolean',
       description: 'Enable filtering functionality for columns',
       defaultValue: true,
     },
-    isResizable: {
+    resizable: {
       control: 'boolean',
       description: 'Enable column resizing functionality',
       defaultValue: true,
@@ -77,11 +74,9 @@ const meta: Meta<typeof RdsCompGrid> = {
       description: 'Enable pagination',
       defaultValue: false,
     },
-    state: {
-      control: 'select',
-      options: [State.Default, State.Collapsed],
-      description: 'Initial state of the grid',
-      defaultValue: State.Default,
+    collapsed: {
+      control: 'boolean',
+      description: 'Whether the grid starts collapsed',
     },
     actionPosition: {
       control: 'select',
@@ -95,6 +90,9 @@ const meta: Meta<typeof RdsCompGrid> = {
       description: 'Style of action column',
       defaultValue: ActionColumnStyle.ShowDots,
     },
+    className: { control: 'text', description: 'CSS class applied to the grid root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the grid root.' },
+    ref: { control: false, description: 'React ref to the grid imperative API; assign it in code.' },
   },
   tags: ['autodocs', 'stable'],
 };
@@ -105,8 +103,8 @@ type Story = StoryObj<typeof RdsCompGrid>;
 export const Default: Story = {
   args: {
     tableHeaders: [
-      { key: 'id', name: 'ID', dataType: 'number' as const, isSort: true, isFilter: true, isResizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
-      { key: 'name', name: 'Name', dataType: 'string' as const, isSort: true, isFilter: true, isResizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
+      { key: 'id', name: 'ID', dataType: 'number' as const, sortable: true, filterable: true, resizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
+      { key: 'name', name: 'Name', dataType: 'string' as const, sortable: true, filterable: true, resizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
     ],
     tableData: [],
   },
@@ -123,9 +121,9 @@ export const Default: Story = {
 //     key: 'id',
 //     name: 'ID',
 //     dataType: 'number',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: false,
 //     minWidth: 80,
 //     maxWidth: 120,
@@ -135,9 +133,9 @@ export const Default: Story = {
 //     key: 'name',
 //     name: 'Name',
 //     dataType: 'string',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: true,
 //     required: true,
 //     minWidth: 150,
@@ -149,9 +147,9 @@ export const Default: Story = {
 //     key: 'email',
 //     name: 'Email',
 //     dataType: 'email',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: true,
 //     required: true,
 //     minWidth: 80, // Very small minWidth to allow significant reduction
@@ -162,9 +160,9 @@ export const Default: Story = {
 //     key: 'role',
 //     name: 'Role',
 //     dataType: 'string',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: true,
 //     minWidth: 120,
 //     maxWidth: 200,
@@ -174,9 +172,9 @@ export const Default: Story = {
 //     key: 'status',
 //     name: 'Status',
 //     dataType: 'string',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: false, // Status is typically not editable
 //     minWidth: 100,
 //     maxWidth: 150,
@@ -186,9 +184,9 @@ export const Default: Story = {
 //     key: 'lastLogin',
 //     name: 'Last Login',
 //     dataType: 'date',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     isEditable: true,
 //     minWidth: 150,
 //     maxWidth: 200,
@@ -376,9 +374,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
 //     enableRowSwapping: false,
@@ -386,10 +384,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated:', { rowId, columnKey, newValue, oldValue });
+   
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed:', { rowId, columnKey, newValue, isValid });
+  
 //     },
 //   },
 //   parameters: {
@@ -406,9 +404,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableCheckboxSelection: true,
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
@@ -417,10 +415,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with selection:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with selection:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -437,9 +435,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     actions: sampleActions,
 //     actionPosition: ActionPosition.Right,
 //     actionColumnStyle: ActionColumnStyle.ShowDots,
@@ -450,10 +448,9 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with actions:', { rowId, columnKey, newValue, oldValue });
-//     },
+    
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with actions:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -470,9 +467,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     actions: sampleActions,
 //     actionPosition: ActionPosition.Right,
 //     actionColumnStyle: ActionColumnStyle.ShowButtonsDirectly,
@@ -483,10 +480,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Button actions - Cell edited:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Button actions - Edit completed:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -503,9 +500,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData.slice(0, 5), // Show only first 5 rows for better visibility
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     actions: [
 //       {
 //         id: 'edit',
@@ -553,10 +550,10 @@ export const Default: Story = {
 //     enableColumnSwapping: false,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Custom buttons - Cell edited:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Custom buttons - Edit completed:', { rowId, columnKey, newValue, isValid });
+      
 //     },
 //   },
 //   parameters: {
@@ -573,9 +570,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     pagination: true,
 //     recordsPerPage: 5,
 //     enableInlineEdit: true,
@@ -585,10 +582,8 @@ export const Default: Story = {
 //     enableColumnSwapping: false,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with pagination:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with pagination:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -605,9 +600,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
 //     showHeader: false,
@@ -620,9 +615,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: false,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: false,
+//     Filter: true,
+//     Resizable: true,
 //     showHeader: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
@@ -635,9 +630,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: sampleData,
-//     isSort: true,
-//     isFilter: false,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: false,
+//     Resizable: true,
 //     showHeader: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
@@ -650,9 +645,9 @@ export const Default: Story = {
 //   args: {
 //     tableHeaders: sampleColumns,
 //     tableData: [],
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     showHeader: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
@@ -674,9 +669,9 @@ export const Default: Story = {
 //       status: ['Active', 'Inactive', 'Pending'][i % 3],
 //       lastLogin: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
 //     })),
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     pagination: true,
 //     recordsPerPage: 10,
 //     enableInlineEdit: true,
@@ -686,10 +681,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Large dataset - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Large dataset - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -709,9 +702,9 @@ export const Default: Story = {
 //         key: 'id',
 //         name: 'ID',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false,
 //         minWidth: 60,
 //         maxWidth: 100,
@@ -721,9 +714,9 @@ export const Default: Story = {
 //         key: 'name',
 //         name: 'Name',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 100,
@@ -735,9 +728,9 @@ export const Default: Story = {
 //         key: 'email',
 //         name: 'Email',
 //         dataType: 'email',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 80,
@@ -748,9 +741,9 @@ export const Default: Story = {
 //         key: 'role',
 //         name: 'Role',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 80,
 //         maxWidth: 300,
@@ -760,9 +753,9 @@ export const Default: Story = {
 //         key: 'status',
 //         name: 'Status',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false,
 //         minWidth: 80,
 //         maxWidth: 200,
@@ -772,9 +765,9 @@ export const Default: Story = {
 //         key: 'lastLogin',
 //         name: 'Last Login',
 //         dataType: 'date',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         maxWidth: 250,
@@ -782,9 +775,9 @@ export const Default: Story = {
 //       },
 //     ],
 //     tableData: longTextData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
 //     enableRowSwapping: false,
@@ -792,10 +785,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Column resizing - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Column resizing - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -815,9 +806,9 @@ export const Default: Story = {
 //         key: 'id',
 //         name: 'ID',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false,
 //         minWidth: 60,
 //         maxWidth: 100,
@@ -827,9 +818,9 @@ export const Default: Story = {
 //         key: 'name',
 //         name: 'Full Name',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 100,
@@ -841,9 +832,9 @@ export const Default: Story = {
 //         key: 'email',
 //         name: 'Email Address',
 //         dataType: 'email',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 120,
@@ -854,9 +845,9 @@ export const Default: Story = {
 //         key: 'role',
 //         name: 'Job Title',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 100,
 //         maxWidth: 250,
@@ -866,9 +857,9 @@ export const Default: Story = {
 //         key: 'status',
 //         name: 'Status',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 80,
 //         maxWidth: 150,
@@ -876,9 +867,9 @@ export const Default: Story = {
 //       },
 //     ],
 //     tableData: longTextData,
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
 //     enableRowSwapping: false,
@@ -886,10 +877,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Inline edit with truncation - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Inline edit with truncation - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -909,9 +898,9 @@ export const Default: Story = {
 //         key: 'employee',
 //         name: 'Employee Profile',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 250,
 //         colWidth: '300px',
@@ -920,9 +909,9 @@ export const Default: Story = {
 //         key: 'status',
 //         name: 'Work Status',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 300,
 //         colWidth: '350px',
@@ -931,9 +920,9 @@ export const Default: Story = {
 //         key: 'performance',
 //         name: 'Performance Metrics',
 //         dataType: 'string',
-//         isSort: false,
-//         isFilter: false,
-//         isResizable: true,
+//         Sort: false,
+//         Filter: false,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 200,
 //         colWidth: '250px',
@@ -1063,9 +1052,9 @@ export const Default: Story = {
 //         `,
 //       },
 //     ],
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
 //     showHeader: true,
@@ -1088,9 +1077,9 @@ export const Default: Story = {
 //         key: 'name',
 //         name: 'Name',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 120,
 //         colWidth: '150px',
@@ -1099,9 +1088,9 @@ export const Default: Story = {
 //         key: 'country',
 //         name: 'Country',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         minWidth: 100,
 //         colWidth: '120px',
 //       },
@@ -1109,9 +1098,9 @@ export const Default: Story = {
 //         key: 'agent',
 //         name: 'Agent',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 150,
 //         colWidth: '180px',
@@ -1120,9 +1109,9 @@ export const Default: Story = {
 //         key: 'date',
 //         name: 'Date',
 //         dataType: 'date',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         minWidth: 100,
 //         colWidth: '120px',
 //       },
@@ -1130,9 +1119,9 @@ export const Default: Story = {
 //         key: 'balance',
 //         name: 'Balance',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         minWidth: 100,
 //         colWidth: '120px',
 //       },
@@ -1140,9 +1129,9 @@ export const Default: Story = {
 //         key: 'status',
 //         name: 'Status',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 100,
 //         colWidth: '120px',
@@ -1151,9 +1140,9 @@ export const Default: Story = {
 //         key: 'activity',
 //         name: 'Activity',
 //         dataType: 'string',
-//         isSort: false,
-//         isFilter: false,
-//         isResizable: true,
+//         Sort: false,
+//         Filter: false,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 120,
 //         colWidth: '150px',
@@ -1162,9 +1151,9 @@ export const Default: Story = {
 //         key: 'verified',
 //         name: 'Verified',
 //         dataType: 'string',
-//         isSort: false,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: false,
+//         Filter: true,
+//         Resizable: true,
 //         allowHtml: true,
 //         minWidth: 80,
 //         colWidth: '100px',
@@ -1271,9 +1260,9 @@ export const Default: Story = {
 //         verified: '<div class="verification-icon verified">✓</div>',
 //       },
 //     ],
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     showHeader: false,
 //     showSubHeader: false,
 //   },
@@ -1294,9 +1283,9 @@ export const Default: Story = {
 //         key: 'id',
 //         name: 'ID',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false,
 //         minWidth: 80,
 //         maxWidth: 120,
@@ -1306,9 +1295,9 @@ export const Default: Story = {
 //         key: 'name',
 //         name: 'Name',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 150,
@@ -1320,9 +1309,9 @@ export const Default: Story = {
 //         key: 'email',
 //         name: 'Email',
 //         dataType: 'email',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 200,
@@ -1333,9 +1322,9 @@ export const Default: Story = {
 //         key: 'age',
 //         name: 'Age',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 80,
 //         maxWidth: 120,
@@ -1351,9 +1340,9 @@ export const Default: Story = {
 //         key: 'salary',
 //         name: 'Salary',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         maxWidth: 200,
@@ -1363,9 +1352,9 @@ export const Default: Story = {
 //         key: 'department',
 //         name: 'Department',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         maxWidth: 200,
@@ -1375,9 +1364,9 @@ export const Default: Story = {
 //         key: 'status',
 //         name: 'Status',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false, // This column is not editable
 //         minWidth: 100,
 //         maxWidth: 150,
@@ -1433,18 +1422,16 @@ export const Default: Story = {
 //     ],
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Cell edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1464,9 +1451,9 @@ export const Default: Story = {
 //         key: 'text',
 //         name: 'Text Field',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 150,
 //         colWidth: '200px',
@@ -1475,9 +1462,9 @@ export const Default: Story = {
 //         key: 'number',
 //         name: 'Number Field',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         colWidth: '150px',
@@ -1486,9 +1473,9 @@ export const Default: Story = {
 //         key: 'email',
 //         name: 'Email Field',
 //         dataType: 'email',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 200,
 //         colWidth: '250px',
@@ -1497,9 +1484,9 @@ export const Default: Story = {
 //         key: 'url',
 //         name: 'URL Field',
 //         dataType: 'url',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 200,
 //         colWidth: '250px',
@@ -1508,9 +1495,9 @@ export const Default: Story = {
 //         key: 'date',
 //         name: 'Date Field',
 //         dataType: 'date',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         colWidth: '150px',
@@ -1519,9 +1506,9 @@ export const Default: Story = {
 //         key: 'datetime',
 //         name: 'DateTime Field',
 //         dataType: 'datetime',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 180,
 //         colWidth: '200px',
@@ -1558,18 +1545,16 @@ export const Default: Story = {
 //     ],
 //     enableInlineEdit: true,
 //     inlineEditMode: 'cell',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data type edit:', { rowId, columnKey, newValue, oldValue });
-//     },
+//     }
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Data type edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1589,9 +1574,9 @@ export const Default: Story = {
 //         key: 'id',
 //         name: 'ID',
 //         dataType: 'number',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: false,
 //         minWidth: 80,
 //         maxWidth: 120,
@@ -1601,9 +1586,9 @@ export const Default: Story = {
 //         key: 'name',
 //         name: 'Name',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 150,
@@ -1615,9 +1600,9 @@ export const Default: Story = {
 //         key: 'email',
 //         name: 'Email',
 //         dataType: 'email',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         required: true,
 //         minWidth: 200,
@@ -1628,9 +1613,9 @@ export const Default: Story = {
 //         key: 'department',
 //         name: 'Department',
 //         dataType: 'string',
-//         isSort: true,
-//         isFilter: true,
-//         isResizable: true,
+//         Sort: true,
+//         Filter: true,
+//         Resizable: true,
 //         isEditable: true,
 //         minWidth: 120,
 //         maxWidth: 200,
@@ -1659,18 +1644,16 @@ export const Default: Story = {
 //     ],
 //     enableInlineEdit: true,
 //     inlineEditMode: 'row',
-//     isSort: true,
-//     isFilter: true,
-//     isResizable: true,
+//     Sort: true,
+//     Filter: true,
+//     Resizable: true,
 //     enableRowSwapping: false,
 //     enableColumnSwapping: false,
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Row edit - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Row edit - Cell edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1698,13 +1681,13 @@ export const Default: Story = {
 //     ];
 
 //     const sampleHeaders: RdsCompGridColumn[] = [
-//       { key: 'id', name: 'ID', dataType: 'number', isSort: true, isFilter: true, isEditable: false },
-//       { key: 'name', name: 'Name', dataType: 'string', isSort: true, isFilter: true, isEditable: true, required: true },
-//       { key: 'email', name: 'Email', dataType: 'email', isSort: true, isFilter: true, isEditable: true, required: true },
-//       { key: 'age', name: 'Age', dataType: 'number', isSort: true, isFilter: true, isEditable: true },
-//       { key: 'department', name: 'Department', dataType: 'string', isSort: true, isFilter: true, isEditable: true },
-//       { key: 'salary', name: 'Salary', dataType: 'number', isSort: true, isFilter: true, isEditable: true },
-//       { key: 'status', name: 'Status', dataType: 'string', isSort: true, isFilter: true, isEditable: true },
+//       { key: 'id', name: 'ID', dataType: 'number', Sort: true, Filter: true, isEditable: false },
+//       { key: 'name', name: 'Name', dataType: 'string', Sort: true, Filter: true, isEditable: true, required: true },
+//       { key: 'email', name: 'Email', dataType: 'email', Sort: true, Filter: true, isEditable: true, required: true },
+//       { key: 'age', name: 'Age', dataType: 'number', Sort: true, Filter: true, isEditable: true },
+//       { key: 'department', name: 'Department', dataType: 'string', Sort: true, Filter: true, isEditable: true },
+//       { key: 'salary', name: 'Salary', dataType: 'number', Sort: true, Filter: true, isEditable: true },
+//       { key: 'status', name: 'Status', dataType: 'string', Sort: true, Filter: true, isEditable: true },
 //     ];
 
 //     const updateGridInfo = () => {
@@ -1777,7 +1760,7 @@ export const Default: Story = {
 //     const handleExportData = () => {
 //       if (gridRef.current) {
 //         const csvData = gridRef.current.exportData('csv');
-//         console.log('CSV Export:', csvData);
+      
 //         alert('CSV data exported to console!');
 //       }
 //     };
@@ -1870,19 +1853,19 @@ export const Default: Story = {
 //           enableCheckboxSelection={true}
 //           enableInlineEdit={true}
 //           inlineEditMode="cell"
-//           isSort={true}
-//           isFilter={true}
-//           isResizable={true}
+//           Sort={true}
+//           Filter={true}
+//           Resizable={true}
 //           showHeader={true}
 //           showSubHeader={true}
 //           pagination={true}
 //           recordsPerPage={10}
 //           onRowSelect={(data) => {
-//             console.log('Row selected:', data);
+            
 //             updateGridInfo();
 //           }}
 //           onDataChange={(newData) => {
-//             console.log('Data changed:', newData);
+      
 //             updateGridInfo();
 //           }}
 //         />

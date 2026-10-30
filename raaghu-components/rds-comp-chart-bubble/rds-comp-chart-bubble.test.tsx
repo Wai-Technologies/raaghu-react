@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompBubbleChart from './rds-comp-chart-bubble';
+import RdsCompBubbleChart, { type RdsCompBubbleChartProps } from './rds-comp-chart-bubble';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-bubble.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -620,7 +618,7 @@ describe('RdsCompBubbleChart', () => {
 
     it('handles null options gracefully', () => {
       const { container } = render(
-        <RdsCompBubbleChart {...defaultProps} options={null} />
+        <RdsCompBubbleChart {...defaultProps} options={null as unknown as RdsCompBubbleChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -694,7 +692,6 @@ describe('RdsCompBubbleChart', () => {
       const { rerender, container } = render(
         <RdsCompBubbleChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompBubbleChart
@@ -800,7 +797,7 @@ describe('RdsCompBubbleChart', () => {
         },
       };
       const { container } = render(
-        <RdsCompBubbleChart {...defaultProps} options={optionsWithPlugins} />
+        <RdsCompBubbleChart {...defaultProps} options={optionsWithPlugins as RdsCompBubbleChartProps['options']} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -817,7 +814,6 @@ describe('RdsCompBubbleChart', () => {
         <RdsCompBubbleChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated - grid property should not be added
       expect((options.scales.x as any).grid).toBeUndefined();
     });
   });
@@ -827,5 +823,23 @@ describe('RdsCompBubbleChart', () => {
       const { container } = render(<RdsCompBubbleChart {...defaultProps} />);
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBubbleChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('renders without labels', () => {
+    const { container } = render(<RdsCompBubbleChart {...defaultProps} labels={undefined} />);
+    expect(container.querySelector('canvas')).toBeInTheDocument();
   });
 });

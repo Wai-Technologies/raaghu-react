@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { List, ListItem, ListItemText } from '@mui/material';
 import RdsDrawer from './rds-drawer';
 import RdsTypography from '../rds-typography/rds-typography';

@@ -2,12 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsChip, { RdsChipProps } from './rds-chip';
+import { Chip as MuiChip } from '@mui/material';
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
 jest.mock('./rds-chip.scss', () => ({}));
 
-// Mock MUI icons
 jest.mock('@mui/icons-material/Close', () => {
   return function MockCloseIcon() {
     return <span data-testid="CloseIcon">CloseIcon</span>;
@@ -229,8 +228,6 @@ describe('RdsChip', () => {
       
       if (deleteButton) {
         fireEvent.click(deleteButton);
-        // onDelete may be called or may not depending on MUI implementation
-        // We just verify the button exists and is clickable
         expect(deleteButton).toBeInTheDocument();
       }
     });
@@ -238,7 +235,6 @@ describe('RdsChip', () => {
     it('should not render delete button when onDelete is not provided', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
       const chip = container.querySelector('.MuiChip-root');
-      const deleteIcons = container.querySelectorAll('[data-testid*="Icon"]');
       expect(chip).toBeInTheDocument();
     });
 
@@ -247,7 +243,6 @@ describe('RdsChip', () => {
       const { container } = renderWithTheme(
         <RdsChip {...defaultProps} onDelete={onDelete} />
       );
-      // Verify delete functionality is available
       const chip = container.querySelector('.MuiChip-root');
       expect(chip).toBeInTheDocument();
     });
@@ -281,8 +276,6 @@ describe('RdsChip', () => {
     });
 
     it('should not render both avatar and icon together', () => {
-      // MUI Chip does not allow both avatar and icon at the same time
-      // This test verifies the component can be created with either one
       const { container: container1 } = renderWithTheme(
         <RdsChip 
           {...defaultProps} 
@@ -324,7 +317,6 @@ describe('RdsChip', () => {
       );
       const chip = screen.getByRole('button');
       fireEvent.click(chip);
-      // Disabled chips may or may not call onClick depending on MUI version
       expect(chip).toBeInTheDocument();
     });
   });
@@ -359,7 +351,6 @@ describe('RdsChip', () => {
     it('should not call onClick when no callback provided', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
       const chip = container.querySelector('.MuiChip-root');
-      // Should not throw error
       if (chip) {
         fireEvent.click(chip);
       }
@@ -622,7 +613,6 @@ describe('RdsChip', () => {
         <RdsChip {...defaultProps} disabled={true} onClick={onClick} />
       );
       const chip = screen.getByRole('button') as HTMLElement;
-      // Disabled clickable chips still have button role
       expect(chip).toBeInTheDocument();
     });
 
@@ -769,8 +759,6 @@ describe('RdsChip', () => {
 
     it('should not have delete icon by default', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
-      const deleteIcon = container.querySelector('[role="button"]:last-child');
-      // May or may not have delete icon depending on onDelete prop
       expect(container.querySelector('.MuiChip-root')).toBeInTheDocument();
     });
 
@@ -785,5 +773,49 @@ describe('RdsChip', () => {
       const chip = container.querySelector('.MuiChip-root');
       expect(chip).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('renders an anchor with href when component="a"', () => {
+    renderWithTheme(<RdsChip label="Docs" component="a" href="/docs" clickable />);
+    const link = screen.getByRole('link', { name: 'Docs' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '/docs');
+    expect(link).toHaveClass('MuiChip-root', 'MuiChip-clickable');
+  });
+
+  it('accepts a custom component', () => {
+    const Custom = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>((p, ref) => (
+      <span ref={ref} data-testid="custom-root" {...p} />
+    ));
+    Custom.displayName = 'Custom';
+    renderWithTheme(<RdsChip label="Custom" component={Custom} />);
+    expect(screen.getByTestId('custom-root')).toHaveClass('MuiChip-root');
+  });
+
+  it('renders the same default markup as MUI Chip', () => {
+    const { container: rds } = renderWithTheme(<RdsChip label="Same" />);
+    const { container: mui } = renderWithTheme(<MuiChip label="Same" />);
+    expect(rds.innerHTML).toBe(mui.innerHTML);
+    expect(rds.firstElementChild?.tagName).toBe('DIV');
+  });
+
+  it('renders the same markup as MUI Chip with common props', () => {
+    const onDelete = jest.fn();
+    const props = { label: 'Tag', color: 'primary', variant: 'outlined', size: 'small', className: 'x' } as const;
+    const { container: rds } = renderWithTheme(<RdsChip {...props} onDelete={onDelete} />);
+    const { container: mui } = renderWithTheme(<MuiChip {...props} onDelete={onDelete} />);
+    expect(rds.innerHTML).toBe(mui.innerHTML);
+  });
+
+  it('does not apply the unused rds-chip class', () => {
+    const { container } = renderWithTheme(<RdsChip label="Plain" />);
+    expect(container.querySelector('.rds-chip')).toBeNull();
+  });
+
+  it('forwards data-testid to the root chip', () => {
+    renderWithTheme(<RdsChip label="Tag" data-testid="status-chip" />);
+    expect(screen.getByTestId('status-chip')).toHaveClass('MuiChip-root');
   });
 });

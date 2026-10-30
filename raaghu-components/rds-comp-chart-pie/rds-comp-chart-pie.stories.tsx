@@ -16,9 +16,41 @@ const meta: Meta = {
         }
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
-        radius: { control: 'number' }, 
+   argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
     },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompPieChart>;
 
 export default meta;
@@ -26,11 +58,28 @@ type Story = StoryObj<typeof RdsCompPieChart>;
 
 export const Default: Story = {
     args: {
-        id: "chart pie",
-        radius: 100,
-        labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+       id: "chart-pie",
+        data: {
+            labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+            datasets: [
+                {
+                    label: "Dataset1",
+                    data: [20, 10, 20, 40, 10],
+                    backgroundColor: [
+                        "#ff6384",
+                        "#ff9f40",
+                        "#ffcd56",
+                        "#4bc0c0",
+                        "#059bff",
+                    ],
+                    borderColor: ["#fff"],
+                    borderWidth: 1,
+                },
+            ],
+        },
         options: {
             circumference: 360,
+            radius: 100,
             maintainAspectRatio: false,
             animation: {
                 animateRotate: false,
@@ -40,14 +89,12 @@ export const Default: Story = {
             plugins: {
                 legend: {
                     position: "top",
-                    pointStyle: "line",
                     labels: {
                         pointStyleWidth: 13,
                         usePointStyle: true,
                         boxWidth: 10,
                         boxHeight: 10,
                         padding: 30,
-                        height: 5,
                     },
                 },
                 title: {
@@ -56,26 +103,9 @@ export const Default: Story = {
                 },
             },
         },
-        dataSets: [
-            {
-                label: "Dataset1",
-                data: [20, 10, 20, 40, 10],
-                backgroundColor: [
-                    "#ff6384",
-                    "#ff9f40",
-                    "#ffcd56",
-                    "#4bc0c0",
-                    "#059bff",
-                ],
-                borderColor: ["#fff"],
-                borderWidth: 1,
-            },
-        ],
     },
     play: async ({ canvas }) => {
         const chart = await canvas.findByRole('img');
         await expect(chart).toBeInTheDocument();
     },
 };
-
-

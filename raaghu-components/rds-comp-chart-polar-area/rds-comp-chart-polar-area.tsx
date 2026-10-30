@@ -1,71 +1,88 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-polar-area.scss";
 
-export interface RdsCompPolarAreaChartProps {
-  labels: string[];
+/** Props for {@link RdsCompPolarAreaChart}. */
+export interface RdsCompPolarAreaChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"polarArea">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"polarArea">;
-  dataSets: ChartDataset<"polarArea">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"polarArea">[];
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** @deprecated Use `height` instead (this is the canvas height in px). */
   radius?: number;
+  /** Id of the canvas element. */
   id: string;
+  /** Accessible label of the chart. Default "Polar area chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompPolarAreaChart = ({
+  data,
   labels,
   options,
   dataSets,
+  height,
+  width,
   radius,
   id,
+  ariaLabel,
   chartLabel,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompPolarAreaChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
-  const themeMode = useChartThemeMode();
+  if (radius !== undefined) warnDeprecatedProp("RdsCompPolarAreaChart", "radius", "`height`");
+  const canvasHeight = height ?? radius;
+  const resolved = resolveChartData("RdsCompPolarAreaChart", data, labels, dataSets, false);
 
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    if (!canvasElm) return;
-
-    const ctx = canvasElm.getContext("2d");
-    if (!ctx) return;
-    chartInstanceRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const polarCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "polarArea",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    polarCanvas.canvas.style.height = `${radius}px`;
-    chartInstanceRef.current = polarCanvas;
-
-    return () => {
-      chartInstanceRef.current?.destroy();
-    };
-  }, [labels, options, dataSets, radius, id, themeMode]);
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      themeAxes: [],
+      onCreate: (chart) => applyCanvasSize(chart.canvas, canvasHeight, width),
+    },
+    [resolved.labels, options, resolved.datasets, canvasHeight, width, id]
+  );
 
   return (
-    <div className="rds-comp-chart-polar-area-container">
+    <Box
+      {...rest}
+      ref={ref}
+      className={clsx("rds-comp-chart-polar-area-container", className)}
+      sx={sx}
+    >
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Polar area chart"}
+        aria-label={resolveChartLabel("RdsCompPolarAreaChart", ariaLabel, chartLabel, "Polar area chart")}
       />
-    </div>
+    </Box>
   );
 };
 

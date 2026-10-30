@@ -1,11 +1,13 @@
-import { type ReactNode, type CSSProperties } from 'react';
+import type { ReactNode } from 'react';
 import {
   Container as MuiContainer,
   type ContainerProps
 } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsContainerProps extends Omit<ContainerProps, 'component'> {
   children: ReactNode;
+  /** @deprecated Use `sx` instead. Padding on all sides (theme spacing for numbers, any CSS length for strings). `0` removes the padding. */
   padding?: number | string;
 }
 
@@ -15,19 +17,19 @@ const RdsContainer = ({
   sx,
   ...props
 }: RdsContainerProps) => {
+  if (padding !== undefined) warnDeprecatedProp('RdsContainer', 'padding', '`sx`');
+  const applyDefaultPadding =
+    padding === undefined &&
+    !(sx && typeof sx === 'object' && ('padding' in sx || 'p' in sx || 'px' in sx || 'py' in sx));
+
   return (
     <MuiContainer
-      data-rds-container-padding={padding === undefined && !(sx && typeof sx === 'object' && ('padding' in sx || 'p' in sx || 'px' in sx || 'py' in sx)) ? 'applied' : undefined}
-      style={{
-        ...(props.style as CSSProperties),
-        ...(padding === undefined && !(sx && typeof sx === 'object' && ('padding' in sx || 'p' in sx || 'px' in sx || 'py' in sx))
-          ? { padding: 'var(--rds-container-padding)' }
-          : {}),
-      }}
-      sx={{
-        ...(padding !== undefined ? (padding ? { padding } : {}) : {}),
-        ...sx,
-      }}
+      data-rds-container-padding={applyDefaultPadding ? 'applied' : undefined}
+      style={applyDefaultPadding ? { padding: 'var(--rds-container-padding)' } : undefined}
+      sx={[
+        padding !== undefined && { padding },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...props}
     >
       {children}

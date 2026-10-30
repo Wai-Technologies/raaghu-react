@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastSeverity, type ToastAnchorOrigin } from "./rds-comp-toast.types";
 
-export const getStateClass = (state: ToastState): string => {
-    const stateClass: Record<ToastState, string> = {
-        [ToastState.Info]: "info",
-        [ToastState.Success]: "success",
-        [ToastState.Error]: "error",
-        [ToastState.Basic]: "basic",
+export const getStateClass = (severity?: ToastSeverity | `${ToastSeverity}`): string => {
+    const stateClass: Record<string, string> = {
+        [ToastSeverity.Info]: "info",
+        [ToastSeverity.Success]: "success",
+        [ToastSeverity.Warning]: "warning",
+        [ToastSeverity.Error]: "error",
+        [ToastSeverity.Basic]: "basic",
     };
-    return stateClass[state] ?? stateClass[ToastState.Basic];
+    return stateClass[severity ?? ToastSeverity.Basic] ?? stateClass[ToastSeverity.Basic];
 };
 
-export const getLayoutClass = (layout: ToastLayout): string => {
-    const layoutClass: Record<ToastLayout, string> = {
+export const getLayoutClass = (layout: ToastLayout | `${ToastLayout}`): string => {
+    const layoutClass: Record<string, string> = {
         [ToastLayout.Download]: "download",
         [ToastLayout.Chat]: "chat",
         [ToastLayout.Request]: "request",
@@ -21,16 +22,16 @@ export const getLayoutClass = (layout: ToastLayout): string => {
     return layoutClass[layout] ?? layoutClass[ToastLayout.Text];
 };
 
-export const getLeadingIconClass = (leadingIcon: ToastLeadingIcon): string => {
-    const iconClass: Record<ToastLeadingIcon, string> = {
+export const getLeadingIconClass = (leadingIcon?: ToastLeadingIcon | `${ToastLeadingIcon}`): string => {
+    const iconClass: Record<string, string> = {
         [ToastLeadingIcon.Plus]: "plus",
         [ToastLeadingIcon.Circle]: "circle",
     };
-    return iconClass[leadingIcon] ?? iconClass[ToastLeadingIcon.Circle];
+    return iconClass[leadingIcon ?? ToastLeadingIcon.Circle] ?? iconClass[ToastLeadingIcon.Circle];
 };
 
-export const getPositionClasses = (position?: ToastPosition) => {
-    const positionClass: Record<ToastPosition, string> = {
+export const getPositionClasses = (position?: ToastPosition | `${ToastPosition}`) => {
+    const positionClass: Record<string, string> = {
         [ToastPosition.TopLeft]: "rds-comp-toast__container--top-left",
         [ToastPosition.TopCenter]: "rds-comp-toast__container--top-center",
         [ToastPosition.TopRight]: "rds-comp-toast__container--top-right",
@@ -44,7 +45,25 @@ export const getPositionClasses = (position?: ToastPosition) => {
     return position ? positionClass[position] : positionClass[ToastPosition.TopLeft];
 };
 
-export const useToastTimer = (autohide?: boolean, delay?: number) => {
+export const anchorToPosition = ({ vertical, horizontal }: ToastAnchorOrigin) =>
+    `${vertical}${horizontal.charAt(0).toUpperCase()}${horizontal.slice(1)}` as `${ToastPosition}`;
+
+export const resolveToastPosition = (
+    anchorOrigin?: ToastAnchorOrigin,
+    position?: ToastPosition | `${ToastPosition}`,
+) => {
+    const { vertical, horizontal } = anchorOrigin ?? {};
+    if (vertical && horizontal) {
+        return anchorToPosition({ vertical, horizontal });
+    }
+    return position;
+};
+
+export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
+    const onTimeoutRef = useRef(onTimeout);
+    useEffect(() => {
+        onTimeoutRef.current = onTimeout;
+    }, [onTimeout]);
     const [showState, setShowState] = useState("show");
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const remainingRef = useRef<number>(delay ?? 3000);
@@ -52,7 +71,10 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
 
     const startTimer = useCallback((duration: number) => {
         startTimeRef.current = Date.now();
-        timerRef.current = setTimeout(() => setShowState("hide"), duration);
+        timerRef.current = setTimeout(() => {
+            setShowState("hide");
+            onTimeoutRef.current?.();
+        }, duration);
     }, []);
 
     const pauseTimer = useCallback(() => {
@@ -73,9 +95,8 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
             remainingRef.current = delay ?? 3000;
             startTimer(remainingRef.current);
         }
-        const timer = timerRef.current;
         return () => {
-            if (timer) clearTimeout(timer);
+            if (timerRef.current) clearTimeout(timerRef.current);
         };
     }, [autohide, delay, startTimer]);
 

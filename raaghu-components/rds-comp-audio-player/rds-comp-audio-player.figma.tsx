@@ -8,7 +8,7 @@ figma.connect(
   {
     props: {
       showSettings: figma.boolean("Show Settings"),
-      showTranscript: figma.boolean("Show Transcript"),
+      showVolume: figma.boolean("Show Transcript"),
       showExport: figma.boolean("Show Export"),
       showMoreOptions: figma.boolean("Show More Options"),
       type:figma.enum("Type",{

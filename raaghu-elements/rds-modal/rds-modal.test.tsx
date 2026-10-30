@@ -9,8 +9,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-modal.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -55,7 +55,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} />
       );
-      // Verify dialog content is rendered
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
@@ -63,7 +62,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} />
       );
-      // Verify modal title is rendered
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
@@ -81,7 +79,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} isOpen={false} />
       );
-      // When closed without keepMounted, dialog should not be in document
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
@@ -89,18 +86,15 @@ describe('RdsModal', () => {
       const { rerender } = renderWithTheme(
         <RdsModal {...defaultProps} isOpen={true} />
       );
-      // When open, dialog should be visible
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
       let dialog = screen.getByRole('dialog');
       expect(dialog).toBeInTheDocument();
 
-      // Rerender with closed state
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsModal {...defaultProps} isOpen={false} />
         </ThemeProvider>
       );
-      // MUI keeps hidden dialogs in DOM, verify modal still renders on reopening
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsModal {...defaultProps} isOpen={true} />
@@ -143,7 +137,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} showCloseButton={true} />
       );
-      // When close button is shown, verify it renders
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
   });
@@ -201,7 +194,6 @@ describe('RdsModal', () => {
           showIcon={true} 
         />
       );
-      // When icon is shown, verify it renders
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
   });
@@ -252,7 +244,6 @@ describe('RdsModal', () => {
           imageSrc="https://example.com/image.jpg" 
         />
       );
-      // When image is provided, verify it renders with correct src
       const image = screen.getByAltText('Modal') as HTMLImageElement;
       expect(image).toBeInTheDocument();
       expect(image.src).toContain('image.jpg');
@@ -310,7 +301,6 @@ describe('RdsModal', () => {
           <p>Modal content</p>
         </RdsModal>
       );
-      // Verify modal content renders
       expect(screen.getByText('Modal content')).toBeInTheDocument();
     });
   });
@@ -388,7 +378,6 @@ describe('RdsModal', () => {
           fullWidth={true}
         />
       );
-      // Verify modal renders with passed props
       expect(screen.getByRole('dialog')).toBeInTheDocument();
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
@@ -484,7 +473,6 @@ describe('RdsModal', () => {
         <RdsModal {...defaultProps} />,
         false
       );
-      // Verify light theme modal renders
       expect(screen.getByRole('dialog')).toBeInTheDocument();
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
@@ -531,7 +519,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} isOpen={false} />
       );
-      // When closed, the modal text should not be queryable in normal DOM
       expect(screen.queryByText('Test Modal')).not.toBeInTheDocument();
     });
   });
@@ -576,7 +563,6 @@ describe('RdsModal', () => {
           <RdsModal {...defaultProps} onClose={onClose} isOpen={false} />
         </ThemeProvider>
       );
-      // Close handler should work
       expect(onClose).not.toHaveBeenCalled();
 
       rerender(
@@ -700,5 +686,39 @@ describe('RdsModal — keyboard navigation', () => {
   it('does not show close button when closed', () => {
     renderWithTheme(<RdsModal title="Closed" isOpen={false} onClose={onClose} />);
     expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
+  });
+});
+describe('audit fixes', () => {
+  it('does not leak legacy props to the DOM and honours consumer open', () => {
+    render(<RdsModal onClose={jest.fn()} isOpen={false} open showCloseButton={false} title="T">body</RdsModal>);
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('isopen');
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('showclosebutton');
+  });
+  it('uses imageAlt, defaulting to Modal', () => {
+    const { rerender } = render(<RdsModal onClose={jest.fn()} open imageSrc="a.png">b</RdsModal>);
+    expect(screen.getByAltText('Modal')).toBeInTheDocument();
+    rerender(<RdsModal onClose={jest.fn()} open imageSrc="a.png" imageAlt="">b</RdsModal>);
+    expect(document.querySelector('img')).toHaveAttribute('alt', '');
+  });
+
+  it('stays closed when open is not set (G2-092)', () => {
+    render(<RdsModal onClose={jest.fn()} title="T">body</RdsModal>);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('hideCloseButton hides the close button and wins over headerChrome', () => {
+    render(<RdsModal onClose={jest.fn()} open title="T" hideCloseButton headerChrome="closeable">b</RdsModal>);
+    expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
+  });
+  it('hideCloseButton false keeps the close button', () => {
+    render(<RdsModal onClose={jest.fn()} open title="T" hideCloseButton={false} headerChrome="plain">b</RdsModal>);
+    expect(screen.getByLabelText('close')).toBeInTheDocument();
+  });
+  it('legacy visibility, media and body still work', () => {
+    render(<RdsModal onClose={jest.fn()} title="T" visibility="open" body="hidden">hidden body</RdsModal>);
+    expect(screen.queryByText('hidden body')).not.toBeInTheDocument();
+    expect(screen.getByText('T')).toBeInTheDocument();
   });
 });

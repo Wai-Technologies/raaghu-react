@@ -1,23 +1,24 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsTooltip from './rds-tooltip';
-import { Delete } from '@mui/icons-material';
+import Delete from '@mui/icons-material/Delete';
 import RdsButton from '../rds-button/rds-button';
 import HelpIcon from '@mui/icons-material/Help';
+import type { ReactNode } from 'react';
 
 const meta: Meta<typeof RdsTooltip> = {
   title: 'Elements/Tooltip',
   component: RdsTooltip,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['ref', 'slots', 'slotProps'],
+      exclude: ['ref', 'slots', 'slotProps', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    label: {
+    title: {
       control: 'text',
       description: 'Tooltip text content',
     },
@@ -25,146 +26,120 @@ const meta: Meta<typeof RdsTooltip> = {
       control: 'boolean',
       description: 'Whether to show arrow',
     },
-    style: {
+    placement: {
       control: 'select',
       options: [
-        'top', 'bottom', 'left', 'right',
-        'top-start', 'top-end',
-        'bottom-start', 'bottom-end',
-        'left-start', 'left-end',
-        'right-start', 'right-end',
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'top-start',
+        'top-end',
+        'bottom-start',
+        'bottom-end',
+        'left-start',
+        'left-end',
+        'right-start',
+        'right-end',
       ],
-      description: 'Placement of the tooltip',
+      description: 'Tooltip placement',
     },
-
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    label: 'This is a tooltip',
-    children:<RdsButton
+const controls = {
+  controls: {
+    include: ['title', 'placement', 'arrow'],
+  },
+};
+
+const textButton = (
+  label: string,
+  variant: 'filled' | 'outlined' | 'transparent'
+) => (
+  <RdsButton
     color="primary"
     layout="text-only"
     shape="rectangle"
+    size="medium"
+    variant={variant}
+    textCase="unset"
+  >
+    {label}
+  </RdsButton>
+);
+
+const iconButton = (icon: ReactNode, label: string) => (
+  <RdsButton
+    changeLeftIcon={icon}
+    color="primary"
+    layout="icon-only"
+    shape="rectangle"
     showLeftIcon
     size="medium"
-    state="default"
-    style="filled"
-    text="Hover me"
-    textCase="unset"
-    />,
-    style: 'top',
-    arrow : false,
-    wrapper: true,
+    variant="transparent"
+    aria-label={label}
+  />
+);
+
+export const Default: Story = {
+  args: {
+    title: 'This is a tooltip',
+    placement: 'top',
+    arrow: false,
   },
-};
-Default.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+  parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Hover me', 'filled')}</RdsTooltip>
+  ),
 };
 
 export const OnIconButton: Story = {
   args: {
-    label: 'Delete item',
-    children:<RdsButton
-      changeLeftIcon={<Delete />}
-      changeRightIcon="save"
-      color="primary"
-      layout="icon-only"
-      shape="rectangle"
-      showLeftIcon
-      size="medium"
-      state="default"
-      style="transparent"
-      text="Top"
-      textCase="uppercase"
-    />,
-    style: 'top',
-    wrapper: true,
+    title: 'Delete item',
+    placement: 'top',
   },
-};
-OnIconButton.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+  parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{iconButton(<Delete />, 'Delete item')}</RdsTooltip>
+  ),
 };
 
 export const WithArrow: Story = {
   args: {
-    label: 'Tooltip with arrow',
+    title: 'Tooltip with arrow',
     arrow: true,
-    children:<RdsButton
-      color="primary"
-      layout="text-only"
-      shape="rectangle"
-      showLeftIcon
-      size="medium"
-      state="default"
-      style="outlined"
-      text="Arrow tooltip"
-      textCase="unset"
-    />,
-    style: 'top',
-    wrapper: true,
+    placement: 'top',
   },
-};
-WithArrow.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+  parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Arrow tooltip', 'outlined')}</RdsTooltip>
+  ),
 };
 
 export const Different_Placements: Story = {
   args: {
-    label: 'Top placement',
-    style: 'top',
-    children:<RdsButton
-      color="primary"
-      layout="text-only"
-      shape="rectangle"
-      showLeftIcon
-      size="medium"
-      state="default"
-      style="transparent"
-      text="Top"
-      textCase="unset"
-    />,
-    wrapper: true
+    title: 'Top placement',
+    placement: 'top',
   },
-};
-Different_Placements.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+  parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{textButton('Top', 'transparent')}</RdsTooltip>
+  ),
 };
 
 export const LongText: Story = {
   args: {
-    label: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
-    children:<RdsButton
-      changeLeftIcon={<HelpIcon />}
-      changeRightIcon="save"
-      color="primary"
-      layout="icon-only"
-      shape="rectangle"
-      showLeftIcon
-      size="medium"
-      state="default"
-      style="transparent"
-      text="Top"
-      textCase="uppercase"
-    />,
-    style: 'top',
-    wrapper: true
+    title:
+      'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
+    placement: 'top',
+    arrow: false,
   },
-};
-LongText.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+  parameters: controls,
+  render: (args) => (
+    <RdsTooltip {...args}>{iconButton(<HelpIcon />, 'Help')}</RdsTooltip>
+  ),
 };

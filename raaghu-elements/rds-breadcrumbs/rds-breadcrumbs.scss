@@ -2,11 +2,10 @@
   display: flex;
   align-items: center;
   position: relative;
-  // breadcrumbs sizing and focus tokens provided by centralized --rds-* vars
 
   .MuiSvgIcon-root {
-    color: inherit !important;
-    fill: currentColor !important;
+    color: inherit;
+    fill: currentColor;
   }
 
   &__item {
@@ -20,7 +19,8 @@
       font-weight: var(--rds-font-weight-regular, 400);
     }
 
-    &__enable-hover:hover {
+    &:hover,
+    &:focus-visible {
       background-color: var(--rds-color-primary-light);
       color: var(--rds-color-primary);
     }
@@ -29,17 +29,18 @@
   &__separator {
     display: flex;
     align-items: center;
-    font-size: var(--rds-font-size-sm, 16px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-text-secondary);
     user-select: none;
   }
 
   &__pill {
     .rds-breadcrumbs__item {
-      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
-      border-radius: var(--rds-border-radius-pill, 20px);
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm));
+      border-radius: var(--rds-border-radius-pill);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         background-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary);
       }
@@ -56,10 +57,11 @@
 
   &__square {
     .rds-breadcrumbs__item {
-      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
-      border-radius: var(--rds-border-radius, 4px);
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm));
+      border-radius: var(--rds-border-radius);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         background-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary);
       }
@@ -76,10 +78,11 @@
 
   &__plain {
     .rds-breadcrumbs__item {
-      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm));
       color: var(--rds-color-text-primary);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         color: var(--rds-color-primary-dark);
         text-decoration: underline;
       }
@@ -87,14 +90,14 @@
       &__selected {
         background-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary);
-        border-radius: var(--rds-border-radius, 4px);
+        border-radius: var(--rds-border-radius);
       }
     }
   }
 
   &:focus-visible {
-    outline: var(--rds-breadcrumbs-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-breadcrumbs-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
@@ -104,6 +107,6 @@
   }
 
   .MuiBreadcrumbs-separator {
-    margin: 0 var(--rds-breadcrumbs-separator-gap, var(--rds-spacing-sm, 8px));
+    margin: 0 var(--rds-breadcrumbs-separator-gap, var(--rds-spacing-sm));
   }
 }

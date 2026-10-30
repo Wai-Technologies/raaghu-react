@@ -7,14 +7,14 @@
     &.nav-tabs {
       .nav-link {
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all var(--rds-motion-duration-quick) ease;
         
         &:hover {
-          background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-color-surface-hover, color-mix(in srgb, var(--rds-color-black) 4%, transparent));
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary);
+          outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -98,7 +98,7 @@
   }
   
   &__nav-link {
-    transition: all 0.2s ease;
+    transition: all var(--rds-motion-duration-quick) ease;
     
     &--active {
       background-color: var(--rds-color-primary);
@@ -117,12 +117,12 @@
   }
 
   &__label {
-    font-weight: 500;
-    padding: 0 var(--rds-spacing-sm, 0.75rem);
+    font-weight: var(--rds-font-weight-medium);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
-    margin-left: var(--rds-spacing-xs, 0.25rem);
+    margin-left: var(--rds-spacing-xs);
   }
   
   &[id="features"] {
@@ -194,7 +194,7 @@
 
 @include bp.down(1023) {
   .bs-md-0 {
-    border-left: 0px solid transparent;
+    border-left: var(--rds-border-width-none) solid transparent;
   }
   
   .rds-comp-navtabs {

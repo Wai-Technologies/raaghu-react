@@ -1,20 +1,28 @@
-import { type ReactNode, type CSSProperties } from 'react';
-import { Box, Container, type ContainerProps } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Box, Container, type ContainerProps, type SxProps, type Theme } from '@mui/material';
+import clsx from 'clsx';
 import RdsHeader from '../rds-header/rds-header';
 
+/** Props for {@link RdsLayout}. Extra props (except `className`) are forwarded to the inner MUI `Container`. */
 export interface RdsLayoutProps extends Omit<ContainerProps, 'children' | 'component'> {
+  /** Page content, rendered inside the inner `Container`. */
   children: ReactNode;
+  /** Config for the optional top `RdsHeader`. */
   header?: {
     title?: string;
     showMenuButton?: boolean;
     onMenuClick?: () => void;
     actions?: ReactNode;
   };
+  /** Render the header (requires `header`). Also offsets the content by `headerHeight`. @default true */
   showHeader?: boolean;
+  /** Header height in px, exposed as `--rds-header-height` and used as the content top margin. @default 64 */
   headerHeight?: number;
+  /** Content padding in theme spacing units. @default 3 */
   padding?: number;
 }
 
+/** Page layout shell: optional header above a padded, max-width content area. */
 const RdsLayout= ({
   children,
   header,
@@ -22,10 +30,13 @@ const RdsLayout= ({
   headerHeight = 64,
   padding = 3,
   maxWidth = 'lg',
+  className,
+  'data-testid': dataTestId,
   ...props
-}:RdsLayoutProps) => {
+}: RdsLayoutProps & { 'data-testid'?: string }) => {
+  const rootSx: SxProps<Theme> = { display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` };
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as CSSProperties}>
+    <Box className={clsx('rds-layout', className)} sx={rootSx} data-testid={dataTestId}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}
@@ -37,14 +48,10 @@ const RdsLayout= ({
       <Box
         component="main"
         sx={{
-          // Keep the CSS var for runtime theming, but set an explicit px
-          // value here so tests and inline-style consumers receive a
-          // concrete `margin-top` value.
           marginTop: showHeader ? `${headerHeight}px` : 0,
           flexGrow: 1,
           padding: padding,
         }}
-        style={showHeader ? { marginTop: `${headerHeight}px` } : undefined}
       >
         <Container maxWidth={maxWidth} {...props}>
           {children}

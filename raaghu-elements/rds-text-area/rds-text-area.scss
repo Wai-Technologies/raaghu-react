@@ -1,152 +1,166 @@
 .rds-textarea-container {
+  --rds-textarea-stack-gap: 3px;
+  --rds-textarea-min-height: 120px;
+  --rds-textarea-bottom-border-width-active: 3px;
+  --rds-textarea-bottom-border-width: 2px;
+
   display: flex;
   flex-direction: column;
-  gap: var(--rds-textarea-stack-gap, 3px);
-  margin-bottom: var(--rds-spacing-md, 16px);
+  gap: var(--rds-textarea-stack-gap);
+  margin-bottom: var(--rds-spacing-md);
 
-  .textarea-label {
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md, 14px);
+  .rds-textarea__label {
+    font-family: var(--rds-font-family-base);
+    font-size: var(--rds-font-size-md);
 
-    .required-asterisk {
+    &--disabled {
+      color: var(--rds-text-disabled);
+    }
+
+    .rds-textarea__required {
       color: var(--rds-error-main);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
     }
   }
 
-  .textarea-wrapper {
+  .rds-textarea__wrapper {
     position: relative;
 
-    &.textarea-pill-wrapper {
-      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
-      border: 1px solid var(--rds-border-default);
+    &.rds-textarea__pill-wrapper {
+      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full));
+      border: var(--rds-border-width-thin) solid var(--rds-border-default);
       overflow: hidden;
       background-color: var(--rds-background-paper);
       transition: border-color var(--rds-transition-base, 0.2s) ease-in-out;
 
-      &.textarea-active {
-        border-color: var(--rds-primary-main);
-      }
-
-      &.textarea-selected {
-        border-color: var(--rds-border-selected);
-      }
-
-      &.textarea-disabled {
+      &.rds-textarea__disabled {
         background-color: var(--rds-background-disabled);
         border-color: var(--rds-border-disabled);
       }
 
-      &.textarea-error {
+      &.rds-textarea__error {
         border-color: var(--rds-error-main);
       }
 
-      .rds-textarea.textarea-pill {
+      .rds-textarea.rds-textarea__pill {
         border: none;
         border-radius: 0;
         background-color: transparent;
         resize: none;
 
-        &.textarea-disabled {
+        &.rds-textarea__disabled {
           background-color: transparent;
         }
       }
     }
   }
 
- .rds-textarea {
-  width: 100%;
-  min-height: var(--rds-textarea-min-height, 120px);
-  padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
-  font-size: var(--rds-font-size-md, 14px);
-  font-family: var(--rds-font-family-base);
-  line-height: 1.5;
-  border: 1px solid var(--rds-border-default);
-  outline: none;
-  resize: vertical;
-  transition: all var(--rds-transition-base, 0.2s) ease-in-out;
-  background-color: var(--rds-background-paper);
+  .rds-textarea {
+    width: 100%;
+    min-height: var(--rds-textarea-min-height);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    font-size: var(--rds-font-size-md);
+    font-family: var(--rds-font-family-base);
+    line-height: var(--rds-line-height-normal);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default);
+    outline: none;
+    resize: vertical;
+    transition: border-color var(--rds-transition-base, 0.2s) ease-in-out, background-color var(--rds-transition-base, 0.2s) ease-in-out, color var(--rds-transition-base, 0.2s) ease-in-out;
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
 
     &::placeholder {
       color: var(--rds-text-secondary);
-      font-weight: 400;
+      font-weight: var(--rds-font-weight-regular);
     }
 
     &:focus {
       outline: none;
     }
 
-    &.textarea-style-default {
-      border-radius: var(--rds-border-radius-md, 4px);
+    &:focus:not(.rds-textarea__disabled):not(.rds-textarea__error) {
+      border-color: var(--rds-primary-main);
+
+      &.rds-textarea__bottom-outline {
+        border-bottom-color: var(--rds-primary-main);
+        border-bottom-width: var(--rds-textarea-bottom-border-width-active);
+      }
     }
 
-    &.textarea-pill {
-      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
-      padding: var(--rds-spacing-lg, 24px);
+    &:not(:placeholder-shown):not(:focus):not(.rds-textarea__disabled):not(.rds-textarea__error) {
+      border-color: var(--rds-border-selected);
+
+      &.rds-textarea__bottom-outline {
+        border-bottom-color: var(--rds-border-selected);
+        border-bottom-width: var(--rds-textarea-bottom-border-width-active);
+      }
+    }
+
+    &.rds-textarea__selected:not(.rds-textarea__disabled):not(.rds-textarea__error) {
+      border-color: var(--rds-border-selected);
+    }
+
+    &.rds-textarea__default {
+      border-radius: var(--rds-border-radius-md);
+    }
+
+    &.rds-textarea__pill {
+      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full));
+      padding: var(--rds-spacing-lg);
       box-sizing: border-box;
     }
 
-    &.textarea-bottom-outline {
-      border-radius: var(--rds-border-radius-md, 4px);
-      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default) !important;
-      padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
+    &.rds-textarea__bottom-outline {
+      border-radius: var(--rds-border-radius-md);
+      border-width: 0 0 var(--rds-textarea-bottom-border-width) 0;
+      border-style: solid;
+      border-color: transparent transparent var(--rds-border-default) transparent;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       background-color: var(--rds-background-paper);
     }
 
-    &.textarea-default {
-      border-color: var(--rds-border-default);
-    }
-
-    &.textarea-active {
-      border-color: var(--rds-primary-main);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
-      }
-    }
-
-    &.textarea-selected {
-      border-color: var(--rds-border-selected);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
-      }
-    }
-
-    &.textarea-disabled {
+    &.rds-textarea__disabled {
       background-color: var(--rds-background-disabled);
       border-color: var(--rds-border-disabled);
       color: var(--rds-text-disabled);
       cursor: not-allowed;
-      
+
       &::placeholder {
         color: var(--rds-text-disabled);
       }
 
-      &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
+      &.rds-textarea__bottom-outline {
+        background-color: var(--rds-background-disabled);
+        border-bottom-color: var(--rds-border-disabled);
+        border-bottom-width: var(--rds-textarea-bottom-border-width-active);
       }
     }
 
-    &.textarea-error {
+    &.rds-textarea__error {
       border-color: var(--rds-error-main);
 
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
+      &.rds-textarea__bottom-outline {
+        border-bottom-color: var(--rds-error-main);
+        border-bottom-width: var(--rds-textarea-bottom-border-width-active);
       }
     }
   }
 
-  .error-message {
-    font-size: var(--rds-font-size-sm, 13px);
+  .rds-textarea__error-message,
+  .rds-textarea__helper-text {
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-error-main);
     font-family: var(--rds-font-family-base);
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
+  }
+
+  .rds-textarea__helper-text {
+    color: var(--rds-text-secondary);
   }
 }
-[data-theme="dark"] {
-  .rds-textarea {
+
+:is([data-theme="dark"], body.dark, .theme-dark) {
+  .rds-textarea-container .rds-textarea {
     background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
 
@@ -154,29 +168,14 @@
       color: var(--rds-text-secondary);
     }
 
-    &.textarea-bottom-outline {
-      background-color: var(--rds-background-paper) !important;
-      color: var(--rds-text-primary) !important;
-      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
+    &.rds-textarea__bottom-outline {
+      background-color: var(--rds-background-paper);
+      color: var(--rds-text-primary);
+      border-bottom-color: var(--rds-primary-main);
+      border-bottom-width: var(--rds-textarea-bottom-border-width-active);
     }
 
-    &.textarea-active {
-      border-color: var(--rds-primary-main);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
-      }
-    }
-
-    &.textarea-selected {
-      border-color: var(--rds-border-selected);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
-      }
-    }
-
-    &.textarea-disabled {
+    &.rds-textarea__disabled {
       background-color: var(--rds-background-disabled);
       border-color: var(--rds-border-disabled);
       color: var(--rds-text-disabled);
@@ -185,17 +184,17 @@
         color: var(--rds-text-disabled);
       }
 
-      &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
+      &.rds-textarea__bottom-outline {
+        background-color: var(--rds-background-disabled);
+        border-bottom-color: var(--rds-border-disabled);
       }
     }
 
-    &.textarea-error {
+    &.rds-textarea__error {
       border-color: var(--rds-error-main);
 
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
+      &.rds-textarea__bottom-outline {
+        border-bottom-color: var(--rds-error-main);
       }
     }
   }

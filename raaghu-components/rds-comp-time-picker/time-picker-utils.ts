@@ -1,13 +1,5 @@
-import { RdsTimePickerProps } from './time-picker-types';
-
 export const getButtonClasses = (colorVariant?: string) => {
   const variant = colorVariant || 'primary';
-  if (variant === 'light') {
-    return {
-      setTime: 'set-time set-time--light',
-      cancel: 'cancel border-none text-dark',
-    };
-  }
   return {
     setTime: 'set-time',
     cancel: `cancel border-none text-${variant}`,
@@ -16,35 +8,7 @@ export const getButtonClasses = (colorVariant?: string) => {
 
 export const getInputBorderClass = (colorVariant?: string) => {
   const variant = colorVariant || 'primary';
-  return variant === 'light' ? 'border-dark' : `border-${variant}`;
-};
-
-export const getIconColor = (colorVariant?: string): "primary" | "default" | "inherit" | "secondary" | "error" | "info" | "success" | "warning" => {
-  const allowedColors = [
-    "primary",
-    "secondary",
-    "error",
-    "info",
-    "success",
-    "warning"
-  ] as const;
-  
-  const variant = colorVariant || 'primary';
-  
-  if (variant === 'light' || variant === 'dark') {
-    return 'default';
-  }
-  
-  if ((allowedColors as readonly string[]).includes(variant)) {
-    return variant as typeof allowedColors[number];
-  }
-  
-  return "primary";
-};
-
-export const getTextColor = (colorVariant?: string) => {
-  const variant = colorVariant || 'primary';
-  return variant === 'light' ? 'dark' : variant;
+  return `border-${variant}`;
 };
 
 export const parseTimeFromValue = (timeValue: string) => {

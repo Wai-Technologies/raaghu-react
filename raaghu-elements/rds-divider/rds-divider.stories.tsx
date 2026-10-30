@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
+import { Box, Typography } from '@mui/material';
 import RdsDivider from './rds-divider';
 
 const meta: Meta<typeof RdsDivider> = {
@@ -9,18 +10,25 @@ const meta: Meta<typeof RdsDivider> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['component','flexItem'],
+      exclude: ['component', 'flexItem', 'orientation'],
     },
   },
   tags: ['autodocs', 'stable'],
 
   argTypes: {
     layout: {
+      name: 'layout',
       control: 'select',
       options: ['horizontal', 'vertical'],
+      description: 'Horizontal or vertical divider line.',
     },
-    dividerMessage: {
+    orientation: {
+      table: { disable: true },
+      control: false,
+    },
+    children: {
       control: 'text',
+      description: 'Text shown next to the line',
     },
     textAlign: {
       control: 'select',
@@ -30,13 +38,16 @@ const meta: Meta<typeof RdsDivider> = {
       control: 'boolean',
     },
     iconShow: {
+      name: 'show icon',
       control: 'boolean',
-      defaultValue: true,
+      description: 'Show the icon next to the divider text. Set false (or icon={null}) to hide.',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
     },
-    iconName: {
-      control: 'text',
-      description: 'Enter the icon name to display (e.g., InfoOutlined, Add)',
-      defaultValue: 'InfoOutlined',
+    icon: {
+      control: false,
+      description: 'Icon shown next to the text (ReactNode). Defaults to an InfoOutlined icon',
     },
     size: {
       control: 'select',
@@ -44,11 +55,11 @@ const meta: Meta<typeof RdsDivider> = {
       description: 'Size of the divider',
       defaultValue: 'medium',
     },
-    styleVariant: {
-      name: 'Layout',
+    color: {
+      name: 'color',
       control: 'select',
       options: ['subtle', 'strong', 'primary'],
-      description: 'Style appearance of the divider (displayed as Layout in controls)',
+      description: 'Style appearance of the divider',
       defaultValue: 'subtle',
     },
   },
@@ -59,12 +70,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    dividerMessage: 'Default Divider',
+    children: 'Default Divider',
     textAlign: 'center',
-    iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
+    iconShow: true,
   },
   play: async ({ canvasElement }) => {
     const hr = canvasElement.querySelector('hr, [role="separator"]');
@@ -75,32 +85,35 @@ export const Vertical: Story = {
   args: {
     flexItem: true,
     layout: "vertical",
-    iconName: 'InfoOutlined',
+    iconShow: false
   },
   parameters: {
-    controls: { exclude: ['layout', 'component', 'iconName', 'iconShow','dividerMessage', 'textAlign'] },
+    controls: { exclude: ['layout', 'component', 'icon', 'children', 'textAlign', 'iconShow'] },
   },
+  render: (args) => (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant="body2">Left</Typography>
+      <RdsDivider {...args} />
+      <Typography variant="body2">Right</Typography>
+    </Box>
+  ),
 };
 
 
 export const WithText: Story = {
   args: {
-    dividerMessage: 'OR',
+    children: 'OR',
     textAlign: 'center',
-    iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
   },
 };
 
 export const Flexed: Story = {
   args: {
-    dividerMessage: 'Flexed',
+    children: 'Flexed',
     flexItem: true,
-    iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
   },
 };

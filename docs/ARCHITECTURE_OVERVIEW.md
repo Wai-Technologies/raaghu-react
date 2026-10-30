@@ -10,9 +10,10 @@
 ├── raaghu-react-themes/              ← token source of truth + MUI themes + provider
 │   ├── tokens/
 │   │   ├── design-tokens.ts          ← human-edited token definitions
+│   │   ├── semantic-palette.ts       ← semantic roles shared by CSS + MUI
 │   │   └── build-rds-css-vars.ts     ← converts tokens → CSS custom properties
 │   └── src/
-│       ├── mui/                      ← MUI light/dark themes (palette mirrors tokens)
+│       ├── mui/                      ← MUI light/dark themes (derives semantic-palette)
 │       ├── provider/
 │       │   ├── RaaghuThemeProvider.tsx
 │       │   └── theme-utils.ts        ← applyRaaghuTheme / initializeRaaghuTheme
@@ -34,29 +35,30 @@ resolves all deps from root `node_modules` — no duplicate React.
 ## Theme Pipeline (how tokens become styles)
 
 ```
-design-tokens.ts          ← single source of truth for all values
+design-tokens.ts          ← raw scales / spacing / typography values
        │
        ▼
-build-rds-css-vars.ts
-  injectTokens(mode)       ← called by RaaghuThemeProvider on every mode change
+semantic-palette.ts       ← semantic slot → scale-step map (shared)
        │
-       ▼
-document.documentElement   ← --rds-* CSS custom properties written to <html>
-       │
-       ├── Component SCSS  ← var(--rds-primary-main), var(--rds-text-secondary) …
-       └── MUI ThemeProvider ← palette.ts manually mirrors the same token values
+       ├── build-rds-css-vars.ts → injectTokens(mode) → --rds-* on <html>
+       │                              └── Component SCSS: var(--rds-*)
+       └── src/mui/palette.ts → MUI ThemeProvider (theme.palette)
 ```
+
+Parity between MUI channels and `--rds-*` is guarded by
+`src/mui/semantic-palette.parity.test.ts`.
 
 **Key files:**
 
 | File | Role |
 |---|---|
 | `tokens/design-tokens.ts` | The only place humans edit color/spacing/typography values |
+| `tokens/semantic-palette.ts` | Shared semantic roles (`primary.main`, `text.secondary`, …) for CSS + MUI |
 | `tokens/build-rds-css-vars.ts` | `injectTokens(mode, overrides?)` — writes `--rds-*` vars to `<html>` |
 | `src/provider/RaaghuThemeProvider.tsx` | React context; wraps MUI `ThemeProvider` + calls `injectTokens` |
 | `src/provider/theme-utils.ts` | `applyRaaghuTheme`, `initializeRaaghuTheme`, `getRaaghuThemeMode` |
 | `src/styles/index.scss` | Global resets referencing `var(--rds-*)` — import once at app root |
-| `src/mui/palette.ts` | MUI palette — must stay in sync with `design-tokens.ts` by hand |
+| `src/mui/palette.ts` | MUI palette — thin adapter over `resolveSemanticPalette()` |
 
 Supported modes: `'light'` | `'dark'`.
 (`'semi-dark'` appears in older docs but is **not implemented**.)
@@ -175,23 +177,30 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 
 ## Token Adoption Status
 
-Component SCSS token adoption is **partial**:
+Hex in component SCSS is **solved** (`lint:hex` allows none; map SVG selectors
+allowlisted). Remaining gated debt (Phase A — see
+`docs/THEME_INTEGRATION_COMPLETE.md`):
 
-- **109 SCSS files** use `var(--rds-*)` tokens correctly
-- **60 SCSS files** still contain hardcoded hex values (~1,510 occurrences)
+- **`rgb()`/`rgba()` literals** — baseline **11** (`lint:rgba`)
+- **Bare `px`/`rem` in local `--rds-*` definitions** — baseline **564**
+  (`lint:local-dim-px`)
+- **Literal font-size / font-weight / line-height / letter-spacing / durations** —
+  baseline **95** (`lint:typography-motion`); scale tokens are listed in `docs/TOKENS.md`
 
-Top files to migrate: `rds-comp-date-and-time-picker.scss` (104 hex),
-`rds-comp-details-pane.scss` (102), `rds-comp-e-signature.scss` (90).
+**Phase B (cascade):** `!important` gated by `important-baseline.txt` = **0**
+(`lint:important`). Prefer theme `styleOverrides` / `sx` / scoped BEM —
+see override hierarchy in `docs/CSS_ARCHITECTURE.md`.
 
-New components and page files must use only `var(--rds-*)` — never hardcode hex.
+New components must use `var(--rds-*)` — no hex, no raw `rgb()`/`rgba()`, and
+no new numbered `--rds-*-dim-N` locals with bare lengths. No new `!important`.
 
 ---
 
 ## Development Workflow
 
-1. Edit tokens in `tokens/design-tokens.ts`
-2. No build step — `injectTokens()` applies changes at runtime via `RaaghuThemeProvider`
-3. If MUI-themed values changed, mirror them manually in `src/mui/palette.ts`
+1. Edit raw values in `tokens/design-tokens.ts`
+2. If semantic roles change (which step is `primary.main`, etc.), edit `tokens/semantic-palette.ts` — CSS injection and MUI both derive from it
+3. No build step — `injectTokens()` applies changes at runtime via `RaaghuThemeProvider`
 4. Export new components from the relevant `index.ts` barrel
 5. Write a Storybook story; verify light/dark with the toolbar toggle
 6. For raaghu-pages: `npm run pages:dev` from repo root

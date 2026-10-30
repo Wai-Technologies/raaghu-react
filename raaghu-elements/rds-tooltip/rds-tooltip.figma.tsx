@@ -8,7 +8,7 @@ figma.connect(
   {
     props: {
       title: figma.string("✏️ Label"),
-      style: figma.enum("✨ Style", {
+      placement: figma.enum("✨ Style", {
         "Middle Bottom Arrow":"top",
         "Middle Top Arrow":"bottom",
         "Right Arrow":"left",

@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsFormControl> = {
         'required',
         'disabled',
         'fullWidth',
-        'isGroup',
+        'group',
       ],
     },
   },
@@ -31,7 +31,7 @@ const meta: Meta<typeof RdsFormControl> = {
     required: false,
     disabled: false,
     fullWidth: false,
-    isGroup: false,
+    group: false,
     variant: 'outlined',
     size: 'medium',
   },
@@ -64,13 +64,9 @@ const meta: Meta<typeof RdsFormControl> = {
     fullWidth: {
       control: { type: 'boolean' },
     },
-    isGroup: {
+    group: {
       control: { type: 'boolean' },
       description: 'Wrap children in a FormGroup (e.g. checkbox/radio groups)',
-    },
-    isRequired: {
-      control: { type: 'boolean' },
-      table: { disable: true },
     },
     children: {
       control: { disable: true },
@@ -96,23 +92,17 @@ const meta: Meta<typeof RdsFormControl> = {
       control: { disable: true },
       table: { disable: true },
     },
-    slotProps: {
-      control: { disable: true },
-      table: { disable: true },
-    },
-    slots: {
-      control: { disable: true },
-      table: { disable: true },
-    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const WithTextField: Story = {
+export const Default: Story = {
   play: async ({ canvasElement }) => {
-    const el = canvasElement.querySelector('input, select, textarea') || canvasElement.firstElementChild;
+    const el =
+      canvasElement.querySelector('input, select, textarea') ||
+      canvasElement.firstElementChild;
     expect(el).toBeTruthy();
   },
   render: (args) => (
@@ -128,6 +118,8 @@ export const WithTextField: Story = {
     </RdsFormControl>
   ),
 };
+
+export const WithTextField: Story = { ...Default };
 
 export const WithSelect: Story = {
   args: {
@@ -147,7 +139,9 @@ export const WithSelect: Story = {
         <MenuItem value="ca">Canada</MenuItem>
         <MenuItem value="uk">United Kingdom</MenuItem>
         <MenuItem value="de">Germany</MenuItem>
-        <MenuItem value="gb">United Kingdom of Great Britain and Northern Ireland</MenuItem>
+        <MenuItem value="gb">
+          United Kingdom of Great Britain and Northern Ireland
+        </MenuItem>
       </Select>
     </RdsFormControl>
   ),
@@ -239,7 +233,7 @@ export const FullWidth: Story = {
 export const Small: Story = {
   args: {
     label: 'Small Size',
-    helperText: 'This is a small sized form control.',
+    helperText: 'This is a small sized field.',
     size: 'small',
     error: false,
   },
@@ -257,4 +251,3 @@ export const Small: Story = {
   ),
 };
 
-export const Default: Story = { ...WithTextField };

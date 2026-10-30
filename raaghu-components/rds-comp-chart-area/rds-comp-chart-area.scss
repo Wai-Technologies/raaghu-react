@@ -4,12 +4,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    // Tablet view - full screen
-    @include bp.between(md, lg) {
-       
-        canvas {
-            height: 76vh !important;
-        }
-    }
 }

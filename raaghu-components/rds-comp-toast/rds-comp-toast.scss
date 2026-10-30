@@ -1,294 +1,323 @@
+
 .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-text-primary, var(--rds-color-on-surface));
-  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
+  --rds-toast-dim-1: 2px;
+  --rds-toast-dim-2: 22px;
+  --rds-toast-dim-3: 100px;
+  --rds-toast-dim-4: 120px;
+  --rds-toast-dim-5: 150px;
+  --rds-toast-dim-6: 260px;
+  --rds-toast-dim-7: 420px;
+
+  --rds-toast-accent-info: var(--rds-toast-accent-info-color);
+  --rds-toast-accent-success: var(--rds-toast-accent-success-color);
+  --rds-toast-accent-warning: var(--rds-color-warning, var(--rds-warning-main));
   --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+  --rds-toast-accent-basic: var(--rds-color-outline-variant, var(--rds-color-border));
 
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-  border-radius: var(--rds-border-radius, 8px);
-  box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
-  min-width: min(420px, 95vw);
-  max-width: min(420px, 95vw);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+  border-radius: var(--rds-border-radius);
+  box-shadow: var(--rds-elevation-2);
+  min-width: min(var(--rds-toast-dim-7), 95vw);
+  max-width: min(var(--rds-toast-dim-7), 95vw);
   overflow: hidden;
-  
+
   &--visible {
     display: block;
     opacity: 1;
     transform: translateY(0);
     transition: all var(--rds-transition-slow);
   }
-  
+
   &--hidden {
     display: none;
     opacity: 0;
-    transform: translateY(-20px);
-  }
-  
-  &--info {
-    border-left: 4px solid var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
-  }
-  
-  &--success {
-    border-left: 4px solid var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
-  }
-  
-  &--error {
-    border-left: 4px solid var(--rds-toast-accent-error, var(--rds-color-error));
+    transform: translateY(calc(-1 * var(--rds-spacing-lg, 24px)));
   }
 
-  &--border-light,
-  &--border-dark,
-  &--border-primary,
-  &--border-danger {
+  &--basic {
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-basic);
+  }
+
+  &--info {
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-info);
+  }
+
+  &--success {
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-success);
+  }
+
+  &--warning {
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-warning);
+  }
+
+  &--error {
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-error);
+  }
+
+  &--border-basic,
+  &--border-info,
+  &--border-success,
+  &--border-warning,
+  &--border-error {
     border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
     border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
     border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border));
   }
-  
+
   &--text {
     position: relative;
   }
-  
+
   &--download {
-    min-height: 120px;
+    min-height: var(--rds-toast-dim-4);
   }
-  
+
   &--chat {
-    min-height: 150px;
+    min-height: var(--rds-toast-dim-5);
   }
-  
+
   &--request {
-    min-height: 100px;
+    min-height: var(--rds-toast-dim-3);
   }
-  
+
   &__container {
     position: fixed;
     z-index: var(--rds-z-index-toast);
     pointer-events: none;
-    
+
     &--top-left {
       top: var(--rds-spacing-md);
       left: var(--rds-spacing-md);
     }
-    
+
     &--top-center {
       top: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
-    
+
     &--top-right {
       top: var(--rds-spacing-md);
       right: var(--rds-spacing-md);
     }
-    
+
     &--middle-left {
       top: 50%;
       left: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
-    
+
     &--middle-center {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
-    
+
     &--middle-right {
       top: 50%;
       right: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
-    
+
     &--bottom-left {
       bottom: var(--rds-spacing-md);
       left: var(--rds-spacing-md);
     }
-    
+
     &--bottom-center {
       bottom: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
-    
+
     &--bottom-right {
       bottom: var(--rds-spacing-md);
       right: var(--rds-spacing-md);
     }
   }
-  
+
   &__header {
     pointer-events: all;
   }
-  
+
   &__header-content {
     display: flex;
     align-items: flex-start;
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-xs, 0.3rem);
-    gap: var(--rds-spacing-md, 0.4rem);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-xs);
+    gap: var(--rds-spacing-md);
   }
 
   &--chat &__header-content {
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
-    gap: 0 !important;
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-lg);
+    gap: 0;
   }
-  
+
   &__leading-icon {
     flex-shrink: 0;
     display: flex;
     align-items: center;
     height: 100%;
-    margin-top: var(--rds-spacing-xxs, 2px);
+    margin-top: var(--rds-spacing-xxs);
     width: var(--rds-size-lg);
     min-width: var(--rds-size-lg);
     max-width: var(--rds-size-lg);
     justify-content: center;
   }
-  
+
   &__icon {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: var(--rds-size-20);
+    height: var(--rds-size-20);
     border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
-    
+
     &--circle {
-      border: 2px solid var(--rds-toast-circle-color);
+      border: var(--rds-border-width-medium) solid var(--rds-toast-circle-color);
       box-sizing: border-box;
     }
 
     .rds-comp-toast--basic & {
       --rds-toast-circle-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
+
     .rds-comp-toast--info & {
       --rds-toast-circle-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
+
     .rds-comp-toast--success & {
       --rds-toast-circle-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
+
     .rds-comp-toast--error & {
       --rds-toast-circle-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
-    
+
     &--plus {
       background: transparent;
       position: relative;
+
       &::before,
       &::after {
         content: '';
         position: absolute;
         background: var(--rds-toast-plus-color);
-        border-radius: 1px;
+        border-radius: var(--rds-border-radius-xs);
       }
+
       &::before {
-        width: 2px;
-        height: 12px;
-        top: 4px;
-        left: 9px;
+        width: var(--rds-toast-dim-1);
+        height: var(--rds-size-12);
+        top: var(--rds-spacing-xs);
+        left: var(--rds-spacing-9-px);
       }
+
       &::after {
-        width: 12px;
-        height: 2px;
-        top: 9px;
-        left: 4px;
+        width: var(--rds-size-12);
+        height: var(--rds-toast-dim-1);
+        top: var(--rds-spacing-9-px);
+        left: var(--rds-spacing-xs);
       }
     }
 
     .rds-comp-toast--basic & {
       --rds-toast-plus-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
+
     .rds-comp-toast--info & {
       --rds-toast-plus-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
+
     .rds-comp-toast--success & {
       --rds-toast-plus-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
+
     .rds-comp-toast--error & {
       --rds-toast-plus-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
   }
-  
+
   &__title {
     flex: 1;
-    font-size: var(--rds-font-size-base, 1rem);
+    font-size: var(--rds-font-size-base);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-on-surface);
     margin: 0;
     display: flex;
     align-items: center;
-    min-height: 22px;
+    min-height: var(--rds-toast-dim-2);
   }
 
   &--chat &__title {
     color: var(--rds-color-on-surface-dark);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
   }
-  
+
   &__header-actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 0.5rem);
-    height: 22px;
+    gap: var(--rds-spacing-md);
+    height: var(--rds-toast-dim-2);
   }
-  
+
   &__chat-time {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
-  
+
   &__close-btn {
     background: none;
     border: none;
-    font-size: var(--rds-font-size-lg, 1.5rem);
+    font-size: var(--rds-font-size-lg);
     color: var(--rds-color-on-surface-variant);
     cursor: pointer;
-    padding: var(--rds-spacing-xs, 0.25rem);
-    line-height: 1;
+    padding: var(--rds-spacing-xs);
+    line-height: var(--rds-line-height-none);
     display: flex;
     align-items: center;
-    height: 22px;
+    height: var(--rds-toast-dim-2);
     box-shadow: none;
     outline: none;
-    
+
     &:hover {
       color: var(--rds-color-on-surface);
     }
-    
+
     &:focus-visible {
-      outline: 2px solid var(--rds-primary-main);
+      outline: var(--rds-border-width-medium) solid var(--rds-primary-main);
       outline-offset: 2px;
     }
   }
-  
+
   &__body {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-md) 2.2rem;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
-    line-height: 1.5;
+    font-size: var(--rds-font-size-sm);
+    line-height: var(--rds-line-height-normal);
   }
-  
+
   &__content {
     pointer-events: all;
   }
-  
+
   &__body-simple {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-lg, 1rem);
-    gap: var(--rds-spacing-md, 0.75rem);
+    padding: var(--rds-spacing-lg);
+    gap: var(--rds-spacing-md);
   }
-  
+
   &__text {
     flex: 1;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
   }
-  
+
   &__footer {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem);
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-lg);
     
     &--request {
-      padding-top: var(--rds-spacing-md, 0.75rem);
+      padding-top: var(--rds-spacing-md);
     }
   }
 
@@ -296,58 +325,58 @@
     display: flex;
     align-items: center;
     padding: 0 0 0 1.3rem;
-    gap: var(--rds-spacing-md, 0.75rem);
-    margin-bottom: var(--rds-spacing-xs, 0.2rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    height: 12px;
+    gap: var(--rds-spacing-md);
+    margin-bottom: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
+    height: var(--rds-size-12);
     position: relative;
     overflow: visible;
-    min-width: 260px;
+    min-width: var(--rds-toast-dim-6);
     width: 100%;
   }
-  
+
   &__progress-bar {
     background: var(--rds-color-primary);
     height: 100%;
     border-radius: inherit;
     transition: width var(--rds-transition-duration-standard, 0.3s) ease;
   }
-  
+
   &__progress-label {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
-    min-width: 2.5rem;
+    min-width: var(--rds-size-lg, 24px);
     text-align: right;
   }
-  
+
   &__filename {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-md);
     padding: 0 0 0 1.3rem;
   }
-  
+
   &__input-group {
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-md);
   }
-  
+
   &__input {
     width: 100%;
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
-    border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-base, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
+    border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-base);
     color: var(--rds-color-on-surface);
     background: var(--rds-color-surface-container, var(--rds-color-surface));
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
-                box-shadow var(--rds-transition-duration-short, 0.2s) ease;
-    
+      box-shadow var(--rds-transition-duration-short, 0.2s) ease;
+
     &:focus {
       outline: none;
       border-color: var(--rds-color-primary);
-      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+      box-shadow: 0 0 0 var(--rds-spacing-xxs, 2px) var(--rds-color-primary);
     }
-    
+
     &::placeholder {
       color: var(--rds-color-on-surface-variant);
     }
@@ -355,104 +384,95 @@
 
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-xs, 8px);
+    gap: var(--rds-spacing-xs);
     justify-content: flex-end;
 
     .rds-comp-toast__action-btn {
-      font-size: var(--rds-font-size-xs, 0.8125rem);
-      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-sm, 10px);
+      font-size: var(--rds-font-size-xs);
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
       min-width: 0;
-      height: 1.875rem;
-      line-height: 1.2;
+      height: var(--rds-size-lg, 24px);
+      line-height: var(--rds-line-height-compact);
     }
   }
 
   &--chat &__actions {
     justify-content: flex-start;
-    margin-top: var(--rds-spacing-md, 0.5rem);
+    margin-top: var(--rds-spacing-md);
   }
 
-  &--chat {
-    & .rds-comp-toast__leading-icon {
-      display: none !important;
-      width: 0 !important;
-      min-width: 0 !important;
-      max-width: 0 !important;
-    }
-
-    & .rds-comp-toast__header-content {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
-      gap: 0 !important;
-    }
-
-    & .rds-comp-toast__body {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
-    }
-
-    & .rds-comp-toast__title {
-      margin-left: 0 !important;
-      padding-left: 0 !important;
-    }
+  &--chat &__leading-icon {
+    display: none;
+    width: 0;
+    min-width: 0;
+    max-width: 0;
   }
-  
+
+  &--chat &__header-content {
+    padding-left: var(--rds-spacing-lg);
+    gap: 0;
+  }
+
+  &--chat &__body {
+    padding-left: var(--rds-spacing-lg);
+  }
+
+  &--chat &__title {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
   &__btn {
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     cursor: pointer;
-    border: 1px solid transparent;
+    border: var(--rds-border-width-thin) solid transparent;
     transition: all var(--rds-transition-duration-short, 0.2s) ease;
-    
+
     &--primary {
       background: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
-      
+
       &:hover {
         background: var(--rds-color-primary-hover);
       }
-      
+
       &:active {
         background: var(--rds-color-primary-pressed);
       }
     }
-    
+
     &--secondary {
       background: transparent;
       color: var(--rds-color-primary);
       border-color: transparent;
-      
+
       &:hover {
-        background: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
+        background: var(--rds-color-primary-hover-light, var(--rds-color-surface-container));
       }
-      
+
       &:active {
-        background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
+        background: var(--rds-color-primary-pressed-light, var(--rds-color-outline-variant));
       }
     }
   }
 }
 
-html[data-theme='dark'] .rds-comp-toast,
-body[data-theme='dark'] .rds-comp-toast,
-[data-theme='dark'] .rds-comp-toast,
-body.theme-dark .rds-comp-toast,
-body.dark-theme .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
-  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
-  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+:is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .rds-comp-toast {
+  border-top-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
+  border-right-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
+  border-bottom-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
 
-  border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-  border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-  border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-
-  &.rds-comp-toast--border-light,
-  &.rds-comp-toast--border-dark,
-  &.rds-comp-toast--border-primary,
-  &.rds-comp-toast--border-danger {
-    border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-    border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-    border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  &.rds-comp-toast--border-basic,
+  &.rds-comp-toast--border-info,
+  &.rds-comp-toast--border-success,
+  &.rds-comp-toast--border-warning,
+  &.rds-comp-toast--border-error {
+    border-top-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
+    border-right-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
+    border-bottom-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
   }
 
   &.rds-comp-toast--info {
@@ -484,11 +504,10 @@ body.dark-theme .rds-comp-toast {
 
   .rds-comp-toast__input {
     background: var(--rds-color-surface-dark, var(--rds-color-surface));
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.24));
+    border-color: var(--rds-color-border-overlay, var(--rds-color-outline-variant));
     color: var(--rds-color-on-surface-dark, var(--rds-color-on-surface));
   }
 }
-
 
 @media (max-width: 600px) {
   .rds-comp-toast {
@@ -513,14 +532,13 @@ body.dark-theme .rds-comp-toast {
       transform: translateX(-50%);
       width: 95vw;
       max-width: 95vw;
-      max-width: 95vw;
       box-sizing: border-box;
     }
 
     &__container--top-left,
     &__container--middle-left,
     &__container--bottom-left {
-      left: 1rem;
+      left: var(--rds-spacing-lg, 24px);
       right: auto;
       transform: none;
     }
@@ -528,7 +546,7 @@ body.dark-theme .rds-comp-toast {
     &__container--top-right,
     &__container--middle-right,
     &__container--bottom-right {
-      right: 1rem;
+      right: var(--rds-spacing-lg, 24px);
       left: auto;
       transform: none;
     }
@@ -539,7 +557,7 @@ body.dark-theme .rds-comp-toast {
     &__container--top-right .rds-comp-toast,
     &__container--middle-right .rds-comp-toast,
     &__container--bottom-right .rds-comp-toast {
-      max-width: calc(100vw - 2rem); 
+      max-width: calc(100vw - 2 * var(--rds-spacing-lg, 24px));
       width: auto;
       box-sizing: border-box;
     }
@@ -547,14 +565,14 @@ body.dark-theme .rds-comp-toast {
     &__container--top-left,
     &__container--top-center,
     &__container--top-right {
-      top: 1rem;
+      top: var(--rds-spacing-lg, 24px);
       bottom: auto;
     }
 
     &__container--bottom-left,
     &__container--bottom-center,
     &__container--bottom-right {
-      bottom: 1rem;
+      bottom: var(--rds-spacing-lg, 24px);
       top: auto;
     }
   }

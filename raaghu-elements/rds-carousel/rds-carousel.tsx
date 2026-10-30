@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
+import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import './rds-carousel.scss';
@@ -8,20 +10,53 @@ import './rds-carousel.scss';
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
 
-export interface RdsCarouselProps {
-  children: ReactNode[];
+type CarouselVariant = 'default' | 'with title' | 'full width image';
+
+/**
+ * Root props are forwarded to the outer `Box` (`sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
+ * `style`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
+ */
+export interface RdsCarouselProps
+  extends Omit<BoxProps, 'children' | 'component' | 'style' | 'type' | 'title' | 'height'> {
+  /** The slides. A single child, an array or a fragment are all accepted. */
+  children?: ReactNode;
+  /** Advances slides automatically. @default false */
   autoPlay?: boolean;
+  /** Extra CSS class applied to the root element. */
   className?: string;
+  /** Delay between automatic slides, in ms. @default 3000 */
   autoPlayInterval?: number;
+  /** Shows the previous and next arrows. @default true */
   showArrows?: boolean;
+  /** Shows the slide indicators. Defaults to `true`. */
+  showIndicators?: boolean;
+  /** @deprecated Use `showIndicators` instead. */
   showDots?: boolean;
+  /** Height of the carousel. @default '400px' */
   height?: string | number;
+  /** Indicator shape (Figma "Type"). */
   type?: 'circle' | 'line';
-  state?: '1' | '2' | '3' | '4';
-  style?: 'default' | 'with title' | 'full width image';
+  /** Indicator shape. Takes precedence over `type`. */
+  indicatorVariant?: 'circle' | 'line';
+  /** Slide shown first (0-based). Read on mount only. */
+  defaultIndex?: number;
+  /** Active slide index (0-based). When set, changing it moves the carousel to that slide. */
+  activeIndex?: number;
+  /** Called when the user requests a different slide while `activeIndex` is controlled. */
+  onActiveIndexChange?: (index: number) => void;
+  /** Visual variant (Figma "Style"). */
+  variant?: CarouselVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: CarouselVariant | CSSProperties;
+  /** Per-slide title and subtitle; they win over `titles`/`subtitles`. */
+  items?: { title?: ReactNode; subtitle?: ReactNode }[];
+  /** @deprecated Use `items` instead. */
   titles?: string[];
+  /** @deprecated Use `items` instead. */
   subtitles?: string[];
+  /** Title shown on the slides. */
   title?: string;
+  /** Subtitle shown on the slides. */
   subtitle?: string;
 }
 
@@ -31,51 +66,81 @@ const RdsCarousel = ({
   autoPlay = false,
   autoPlayInterval = 3000,
   showArrows = true,
-  showDots = true,
+  showIndicators,
+  showDots,
   height = '400px',
-  type = 'circle',
-  state,
-  style = 'default',
+  type,
+  indicatorVariant,
+  defaultIndex,
+  activeIndex,
+  onActiveIndexChange,
+  style: styleProp,
+  variant,
+  items,
   titles,
   subtitles,
   title,
   subtitle,
-}:RdsCarouselProps) => {
+  sx,
+  ref,
+  ...rest
+}: RdsCarouselProps) => {
+  if (showDots !== undefined) warnDeprecatedProp('RdsCarousel', 'showDots', '`showIndicators`');
+  if (titles !== undefined) warnDeprecatedProp('RdsCarousel', 'titles', '`items`');
+  if (subtitles !== undefined) warnDeprecatedProp('RdsCarousel', 'subtitles', '`items`');
+  const legacyVariant = typeof styleProp === 'string' ? styleProp : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsCarousel', 'style', '`variant`');
+  const style = variant ?? legacyVariant ?? 'default';
+  const indicatorType = indicatorVariant ?? type ?? 'circle';
+  const indicatorsVisible = showIndicators ?? showDots ?? true;
+  const slides: ReactNode[] = Array.isArray(children) ? children : children == null ? [] : [children];
+  const slideCount = slides.length;
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const prevStateRef = useRef(state);
-  if (state !== prevStateRef.current) {
-    prevStateRef.current = state;
-    if (state && !isNaN(parseInt(state))) {
-      const newStateIndex = parseInt(state) - 1;
-      if (newStateIndex >= 0 && newStateIndex < children.length) {
-        setCurrentIndex(newStateIndex);
-      }
+  const initialIndex = defaultIndex ?? 0;
+  const [uncontrolledIndex, setUncontrolledIndex] = useState(
+    Number.isInteger(initialIndex) && initialIndex >= 0 && initialIndex < slideCount ? initialIndex : 0
+  );
+  const currentIndex =
+    activeIndex !== undefined && Number.isInteger(activeIndex) && activeIndex >= 0 && activeIndex < slideCount
+      ? activeIndex
+      : uncontrolledIndex;
+  const changeIndex = (index: number) => {
+    if (activeIndex !== undefined) {
+      onActiveIndexChange?.(index);
+    } else {
+      setUncontrolledIndex(index);
     }
-  }
+  };
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   useEffect(() => {
-    if (autoPlay && children.length > 1) {
+    if (autoPlay && slideCount > 1) {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % children.length);
+        changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, children.length]);
+  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, slideCount]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % children.length);
+    changeIndex((currentIndex + 1) % slideCount);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + children.length) % children.length);
+    changeIndex((currentIndex - 1 + slideCount) % slideCount);
   };
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index);
+    changeIndex(index);
+  };
+
+  const handleIndicatorKeyDown = (event: KeyboardEvent<HTMLDivElement>, index: number) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      goToSlide(index);
+    }
   };
 
   const carouselClassName = clsx(
@@ -85,39 +150,54 @@ const RdsCarousel = ({
   );
 
   return (
-    <Box 
+    <Box
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Carousel"
+      {...rest}
+      ref={ref}
+      style={typeof styleProp === 'object' ? styleProp : undefined}
       className={carouselClassName}
-      sx={{ 
-        position: 'relative', 
-        height: height, 
-        overflow: 'hidden',
-        width: 'min(100%, 100vw)',
-        maxWidth: '100vw',
-        minWidth: 0,
-        boxSizing: 'border-box',
-        borderRadius: tokens.radius.md,
-        backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
-      }}
+      sx={[
+        {
+          position: 'relative',
+          height: height,
+          overflow: 'hidden',
+          width: 'min(100%, 100vw)',
+          maxWidth: '100vw',
+          minWidth: 0,
+          boxSizing: 'border-box',
+          borderRadius: tokens.radius.md,
+          backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       <Box
         className="rds-carousel__track"
         sx={{
           display: 'flex',
           transform: `translateX(-${currentIndex * 100}%)`,
-          transition: 'transform 0.3s ease-in-out',
+          transition: 'transform var(--rds-motion-duration-moderate) ease-in-out',
           height: '100%',
           width: '100%',
           maxWidth: '100%',
           minWidth: 0,
         }}
       >
-        {children.map((child, index) => {
-          const displayTitle = resolvedTitles[index] ?? title ?? `Card Title`;
-          const displaySubtitle = resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+        {slides.map((child, index) => {
+          const displayTitle = items?.[index]?.title ?? resolvedTitles[index] ?? title ?? `Card Title`;
+          const displaySubtitle = items?.[index]?.subtitle ?? resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+          const slideKey = isValidElement(child) && child.key != null ? child.key : `rds-carousel-slide-${index}`;
+          const isActive = index === currentIndex;
 
           return (
             <Box
-              key={`${displayTitle}-${displaySubtitle}`}
+              key={slideKey}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${slideCount}`}
+              inert={!isActive}
               className="rds-carousel__slide"
               sx={{
                 flex: '0 0 100%',
@@ -147,7 +227,7 @@ const RdsCarousel = ({
                 </Box>
               )}
 
-              <Box 
+              <Box
                 className="rds-carousel__slide-content"
                 sx={{
                   height: hasTitleLayout ? 'auto' : '100%',
@@ -183,7 +263,7 @@ const RdsCarousel = ({
         })}
       </Box>
 
-      {showArrows && children.length > 1 && (
+      {showArrows && slideCount > 1 && (
         <>
           <IconButton
             aria-label="Previous slide"
@@ -194,9 +274,9 @@ const RdsCarousel = ({
               left: tokens.space(1),
               top:
                 style === 'with title'
-                  ? 'calc(50% + 50px)'
+                  ? 'calc(50% + var(--rds-spacing-50))'
                   : style === 'full width image'
-                    ? 'calc(50% - 50px)'
+                    ? 'calc(50% - var(--rds-spacing-50))'
                     : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
@@ -218,9 +298,9 @@ const RdsCarousel = ({
               right: tokens.space(1),
               top:
                 style === 'with title'
-                  ? 'calc(50% + 50px)'
+                  ? 'calc(50% + var(--rds-spacing-50))'
                   : style === 'full width image'
-                    ? 'calc(50% - 50px)'
+                    ? 'calc(50% - var(--rds-spacing-50))'
                     : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
@@ -236,7 +316,7 @@ const RdsCarousel = ({
         </>
       )}
 
-      {showDots && children.length > 1 && (
+      {indicatorsVisible && slideCount > 1 && (
         <Box
           className="rds-carousel__indicators"
           sx={{
@@ -249,21 +329,24 @@ const RdsCarousel = ({
             zIndex: tokens.zIndex.layer2,
           }}
         >
-          {children.map((_, index) => (
+          {slides.map((_, index) => (
             <Box
               key={`rds-carousel-indicator-${index}`}
+              role="button"
+              tabIndex={0}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-current={currentIndex === index ? 'true' : undefined}
               onClick={() => goToSlide(index)}
+              onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => handleIndicatorKeyDown(event, index)}
               className={clsx(
                 'rds-carousel__indicator',
-                `rds-carousel__indicator--${type}`,
+                `rds-carousel__indicator--${indicatorType}`,
                 currentIndex === index && 'rds-carousel__indicator__active',
               )}
               sx={{
-                width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
-                height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
-                borderRadius: type === 'circle' ? tokens.radius.full : tokens.radius.sm,
-                // Use carousel-indicator tokens (present in both themes). Avoid
-                // --rds-neutral-* here — those light-theme-only vars are removed in dark mode.
+                width: indicatorType === 'circle' ? tokens.space(1.5) : tokens.space(3),
+                height: indicatorType === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
+                borderRadius: indicatorType === 'circle' ? tokens.radius.full : tokens.radius.sm,
                 backgroundColor:
                   currentIndex === index
                     ? tokens.color.primary
@@ -271,10 +354,10 @@ const RdsCarousel = ({
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
-                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
+                    ? `var(--rds-border-width-thin) solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',
-                transition: 'background-color 0.2s, opacity 0.2s',
+                transition: 'background-color var(--rds-motion-duration-quick), opacity var(--rds-motion-duration-quick)',
                 '&:hover': {
                   backgroundColor:
                     currentIndex === index

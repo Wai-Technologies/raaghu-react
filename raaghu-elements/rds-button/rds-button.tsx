@@ -1,9 +1,21 @@
 import { type ReactNode, type CSSProperties } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
-import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
-import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
+import Add from '@mui/icons-material/Add';
+import Delete from '@mui/icons-material/Delete';
+import Save from '@mui/icons-material/Save';
+import Edit from '@mui/icons-material/Edit';
+import Close from '@mui/icons-material/Close';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-button.scss';
 
 function getIconComponent(iconType?: string): ReactNode {
@@ -31,193 +43,154 @@ const resolveIcon = (icon?: ReactNode | string): ReactNode => {
   return icon;
 };
 
-export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
-  text?: string;
-  isLoading?: boolean;
+const LAYOUT_ALIASES: Record<string, RdsButtonProps['layout']> = {
+  'icon + text': 'icon+text',
+  'icon only': 'icon-only',
+  'text only': 'text-only',
+};
+
+const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : sx ? [sx] : []);
+
+type ButtonVariant = 'filled' | 'outlined' | 'transparent';
+
+export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
+  /** Corner shape of the button. @default 'rectangle' */
   shape?: 'pill' | 'rectangle';
-  state?: 'default' | 'hover' | 'disabled' | 'selected';
+  /** Applies the selected visual treatment, for toggle-style buttons. */
+  selected?: boolean;
+  /** Content layout: icon and text, icon only, or text only. @default 'icon+text' */
   layout?: 'icon+text' | 'icon-only' | 'text-only';
-  style?: 'filled' | 'outlined' | 'transparent';
+  /** Visual style of the button: filled, outlined or transparent. */
+  variant?: ButtonVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: ButtonVariant | CSSProperties;
   color?: ButtonProps['color'];
-  showLeftIcon?: boolean;
-  showRightIcon?: boolean;
-  changeLeftIcon?: ReactNode;
-  changeRightIcon?: ReactNode;
+  /** Text transform applied to the label. @default 'uppercase' */
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
+  /**
+   * Shows the MUI loading indicator and disables the button.
+   * When omitted, submit buttons also follow React DOM `useFormStatus().pending`.
+   */
+  loading?: boolean;
+  /** Shows `changeLeftIcon` (adds the Raaghu icon padding; MUI `startIcon` does not). */
+  showLeftIcon?: boolean;
+  /** Shows `changeRightIcon` (adds the Raaghu icon padding; MUI `endIcon` does not). */
+  showRightIcon?: boolean;
+  /** Left icon: an element or a name (`add`, `delete`, `save`, `edit`, `close`, `arrow-forward`, `arrow-back`, `circle`, `chevron`…). Defaults to `add`. */
+  changeLeftIcon?: ReactNode;
+  /** Right icon: an element or an icon name. Defaults to `save`. */
+  changeRightIcon?: ReactNode;
+  /** @deprecated Use `children`. */
+  text?: string;
+  /** @deprecated Use `loading`. */
+  isLoading?: boolean;
 }
 
 const RdsButton = ({
   text,
   children,
-  isLoading = false,
+  loading,
+  isLoading,
   disabled,
   shape = 'rectangle',
   sx,
   style,
+  variant,
   color = 'primary',
   layout = 'icon+text',
-  showLeftIcon = false,
-  showRightIcon = false,
-  changeLeftIcon = 'add',
-  changeRightIcon = 'save',
-  state = 'default',
+  showLeftIcon,
+  showRightIcon,
+  changeLeftIcon,
+  changeRightIcon,
+  selected,
   textCase = 'uppercase',
+  className,
+  startIcon,
+  endIcon,
+  type,
   ...props
-}:RdsButtonProps) => {
-  const theme = useTheme();
-  let normalizedLayout = layout;
-  if (typeof layout === 'string') {
-    switch (layout.trim().toLowerCase()) {
-      case 'icon + text':
-        normalizedLayout = 'icon+text';
-        break;
-      case 'icon only':
-        normalizedLayout = 'icon-only';
-        break;
-      case 'text only':
-        normalizedLayout = 'text-only';
-        break;
-      default:
-        normalizedLayout = layout;
-    }
-  }
-  const getShapeStyles = () => {
-    if (shape === 'pill') {
-      return {
-        borderRadius: 'var(--rds-border-radius-pill)',
-      };
-    }
-    return {
-      borderRadius: 'var(--rds-border-radius-sm)',
-    };
-  };
+}: RdsButtonProps) => {
+  if (text !== undefined) warnDeprecatedProp('RdsButton', 'text', '`children`');
+  if (isLoading !== undefined) warnDeprecatedProp('RdsButton', 'isLoading', '`loading`');
 
-  const getTextCaseStyles = () => ({
-    textTransform: (textCase === 'unset' ? 'none' : textCase) as CSSProperties['textTransform'],
-  });
+  const { pending } = useFormStatus();
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsButton', 'style', '`variant`');
+  const buttonVariant = variant ?? legacyVariant;
+  const isBusy = loading ?? isLoading ?? (type === 'submit' && pending);
+  const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
+  const isIconOnly = normalizedLayout === 'icon-only';
+  const legacyStartIcon = showLeftIcon ? resolveIcon(changeLeftIcon ?? 'add') : undefined;
+  const legacyEndIcon = showRightIcon ? resolveIcon(changeRightIcon ?? 'save') : undefined;
 
   const usesTokenColorStyling = !color || color === 'primary';
 
   const styleVariantClass =
-    style === 'filled' ? 'rds-button__primary'
-    : style === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
-    : style === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
+    buttonVariant === 'filled' ? 'rds-button__primary'
+    : buttonVariant === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
+    : buttonVariant === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
     : '';
-
-  const stateClass =
-    state === 'hover' ? 'rds-button__state-hover'
-    : state === 'selected' ? 'rds-button__state-selected'
-    : state === 'disabled' ? 'rds-button__state-disabled'
-    : 'rds-button__state-default';
-
-  const shapeClass = shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
 
   const layoutClass =
     normalizedLayout === 'icon+text' ? 'rds-button--layout-icon-text'
-    : normalizedLayout === 'icon-only' ? 'rds-button--layout-icon-only'
+    : isIconOnly ? 'rds-button--layout-icon-only'
     : 'rds-button--layout-text-only';
 
-  const hasIconClass = (normalizedLayout === 'icon+text' && (showLeftIcon || showRightIcon)) ? 'rds-button--has-icon' : '';
-
-  const getStartIcon = () => {
-    if (normalizedLayout === 'icon-only') {
-      return undefined;
-    }
-    if (normalizedLayout === 'icon+text' && showLeftIcon) {
-      return resolveIcon(changeLeftIcon);
-    }
-    return undefined;
-  };
-
-  const getEndIcon = () => {
-    if (normalizedLayout === 'icon-only') {
-      return undefined;
-    }
-    if (normalizedLayout === 'icon+text' && showRightIcon) {
-      return resolveIcon(changeRightIcon);
-    }
-    return undefined;
-  };
+  const hasIcons = normalizedLayout === 'icon+text' && Boolean(showLeftIcon || showRightIcon);
+  const resolvedStartIcon = startIcon !== undefined ? startIcon : hasIcons ? legacyStartIcon : undefined;
+  const resolvedEndIcon = endIcon !== undefined ? endIcon : hasIcons ? legacyEndIcon : undefined;
 
   const renderContent = () => {
-    if (isLoading) {
-      return <RdsCompSpinner
-        colorVariant="light"
-        labelText={text || "Loading"}
-        layout={SpinnerLayout.SpinnerAndLabel}
-        showLabel
-        size={SpinnerSize.Small}
-      />;
-    }
-    if (normalizedLayout === 'icon-only') {
-      if (showLeftIcon) {
-        return resolveIcon(changeLeftIcon);
-      }
-      if (showRightIcon) {
-        return resolveIcon(changeRightIcon);
-      }
-      return null;
-    }
-    if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
-      return text || children;
-    }
-    return null;
+    if (isIconOnly) return legacyStartIcon ?? legacyEndIcon ?? null;
+    return text || children;
   };
 
-  const getFilledTextColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'contrastText' in paletteColor) {
-      return (paletteColor as { contrastText: string }).contrastText;
-    }
-    return undefined;
+  const shapeStyles: CSSProperties = {
+    borderRadius: shape === 'pill' ? 'var(--rds-border-radius-pill)' : 'var(--rds-border-radius-sm)',
   };
-
-  const getFilledBackgroundColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'main' in paletteColor) {
-      return (paletteColor as { main: string }).main;
-    }
-    return undefined;
+  const textCaseStyles: CSSProperties = {
+    textTransform: textCase === 'unset' ? 'none' : textCase,
   };
-
-  const isButtonDisabled = disabled || state === 'disabled' || isLoading;
-  const shapeStyles = getShapeStyles();
-  const textCaseStyles = getTextCaseStyles();
-  const filledBackgroundColor = getFilledBackgroundColor();
-  const filledTextColor = getFilledTextColor();
-  const contentElement = renderContent();
-
-  const hasIcons = normalizedLayout === 'icon+text' && (showLeftIcon || showRightIcon);
 
   return (
     <MuiButton
-      disabled={isButtonDisabled}
-      variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
+      disabled={disabled || isBusy}
+      loading={isBusy}
+      loadingPosition="start"
+      type={type}
+      variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}
-      className={clsx('rds-button', layoutClass, hasIconClass, styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading')}
-      sx={{
+      className={clsx(
+        'rds-button',
+        layoutClass,
+        hasIcons && 'rds-button--has-icon',
+        styleVariantClass,
+        selected && 'rds-button--selected',
+        shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle',
+        isBusy && 'rds-button__loading',
+        className,
+      )}
+      sx={[
+        {
+          '& .MuiButton-startIcon': { margin: 0 },
+          '& .MuiButton-endIcon': { margin: 0 },
+          ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
+        },
+        ...toSxArray(sx),
+      ]}
+      style={{
         ...shapeStyles,
         ...textCaseStyles,
-        '& .MuiButton-startIcon': { margin: 0 },
-        '& .MuiButton-endIcon': { margin: 0 },
-        ...(hasIcons ? { padding: '6px' } : {}),
-        ...sx,
+        ...(isBusy ? { opacity: 1 } : {}),
+        ...(typeof style === 'object' ? style : undefined),
       }}
-      style={{
-        ...shapeStyles as CSSProperties,
-        ...textCaseStyles as CSSProperties,
-        ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
-        ...(isLoading ? { opacity: 1 } : {}),
-        ...(sx as any),
-      }}
-      startIcon={getStartIcon()}
-      endIcon={getEndIcon()}
+      startIcon={resolvedStartIcon}
+      endIcon={resolvedEndIcon}
+      aria-label={props['aria-label'] ?? (isIconOnly ? text : undefined)}
+      aria-pressed={selected}
       {...props}
     >
-      {contentElement}
+      {renderContent()}
     </MuiButton>
   );
 };

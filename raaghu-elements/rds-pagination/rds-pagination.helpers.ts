@@ -192,51 +192,54 @@ export const getStyleConfig = (style: string): StyleConfig => {
   }
 };
 
+/**
+ * Sibling/boundary counts for `MuiPagination`. Style 2/7 are fixed at 0/1; other styles use
+ * their config (default 0/1). On small screens (`isSmallScreen`, â‰¤ 480px) it is always 0/1.
+ */
 export const calculatePaginationConfig = (
   paginationStyle: string,
-  styleConfig: StyleConfig
+  styleConfig: StyleConfig,
+  isSmallScreen = false
 ) => {
-  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth <= 360;
-  const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 480;
-  const paginationSiblingCount = typeof styleConfig.siblingCount === 'number'
-    ? styleConfig.siblingCount
-    : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 0 : undefined);
-  const paginationBoundaryCount = typeof styleConfig.boundaryCount === 'number'
-    ? styleConfig.boundaryCount
-    : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 2 : undefined);
-
-  let finalSiblingCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 0 : (typeof paginationSiblingCount === 'number' ? paginationSiblingCount : 0);
-  let finalBoundaryCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 1 : (typeof paginationBoundaryCount === 'number' ? paginationBoundaryCount : 1);
-
-  if (isVerySmallScreen) {
-    finalSiblingCount = 0;
-    finalBoundaryCount = 1;
+  if (isSmallScreen) {
+    return { finalSiblingCount: 0, finalBoundaryCount: 1 };
   }
-  
-  else if (isSmallScreen) {
-    finalSiblingCount = 0;
-    finalBoundaryCount = 1;
-  }
+  const isFixedStyle = paginationStyle === 'Style 2' || paginationStyle === 'Style 7';
+  const finalSiblingCount = isFixedStyle ? 0 : (styleConfig.siblingCount ?? 0);
+  const finalBoundaryCount = isFixedStyle ? 1 : (styleConfig.boundaryCount ?? 1);
 
   return { finalSiblingCount, finalBoundaryCount };
 };
 
+/**
+ * G2-117: `count` is always total records; optional `pageCount` is explicit pages.
+ * Legacy `totalPages` is treated as total records when `count` is omitted.
+ */
 export const calculateTotalPages = (
   count: number | undefined,
   totalPages: number | undefined,
-  pageSize: number
+  pageSize: number,
+  pageCount?: number
 ) => {
- 
-  let totalPagesCalc = 1;
-  let totalRecords = 0;
-  if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
-    totalPagesCalc = count;
-    totalRecords = count * pageSize;
-  } else {
-    
-    totalRecords = count || totalPages || 1;
-    totalPagesCalc = Math.ceil(totalRecords / pageSize);
+  const size = pageSize > 0 ? pageSize : 1;
+
+  if (typeof pageCount === 'number' && pageCount > 0) {
+    const totalRecords =
+      typeof count === 'number' && count >= 0
+        ? count
+        : typeof totalPages === 'number' && totalPages >= 0
+          ? totalPages
+          : pageCount * size;
+    return { totalPagesCalc: pageCount, totalRecords };
   }
+
+  const totalRecords =
+    typeof count === 'number' && count >= 0
+      ? count
+      : typeof totalPages === 'number' && totalPages >= 0
+        ? totalPages
+        : 1;
+  const totalPagesCalc = Math.max(1, Math.ceil(totalRecords / size));
 
   return { totalPagesCalc, totalRecords };
 };

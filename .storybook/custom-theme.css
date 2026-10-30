@@ -7,11 +7,11 @@
 
 /* Base Storybook elements */
 #storybook-explorer-tree {
-  font-family: "Poppins", sans-serif !important;
+  font-family: var(--rds-font-family-base, "Poppins", sans-serif) !important;
 }
 
 body {
-  font-family: "Poppins", sans-serif !important;
+  font-family: var(--rds-font-family-base, "Poppins", sans-serif) !important;
 }
 
 /* Docs theme styles */
@@ -341,5 +341,5 @@ body.theme-dark .docs-story {
 .MuiDialogContentText-root,
 .MuiDialogActions-root,
 .MuiTableCell-root {
-  font-family: "Poppins", sans-serif !important;
+  font-family: var(--rds-font-family-base, "Poppins", sans-serif) !important;
 }

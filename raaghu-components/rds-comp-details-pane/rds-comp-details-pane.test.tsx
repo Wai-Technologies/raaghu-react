@@ -2,12 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompDetailsPane, { RdsCompDetailsPaneProps } from './rds-comp-details-pane';
+import RdsCompDetailsPane from './rds-comp-details-pane';
 
-// Mock SCSS
 jest.mock('./rds-comp-details-pane.scss', () => ({}));
 
-// Mock sub-components
 jest.mock('./details-pane-components', () => ({
   HistoryFavoritesTabs: ({ activeTab, setActiveTab, historyTabLabel, favouritesTabLabel }: any) => (
     <div data-testid="history-favorites-tabs">
@@ -59,14 +57,14 @@ describe('RdsCompDetailsPane', () => {
     });
 
     it('should render with required headerText prop', () => {
-      render(<RdsCompDetailsPane headerText="Details Panel" style="Prompt History" />);
+      render(<RdsCompDetailsPane headerText="Details Panel" variant="Prompt History" />);
       expect(screen.getByRole('heading', { name: 'Details Panel' })).toBeInTheDocument();
     });
   });
 
   describe('Style Variants', () => {
     it('should render HistoryFavoritesTabs for Prompt History style', () => {
-      render(<RdsCompDetailsPane headerText="History" style="Prompt History" />);
+      render(<RdsCompDetailsPane headerText="History" variant="Prompt History" />);
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
     });
 
@@ -74,7 +72,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Favourites"
-          style="Favourites"
+          variant="Favourites"
           historyTabLabel="Recent"
           favouritesTabLabel="Saved"
         />
@@ -88,7 +86,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="New Folder"
-          style="Favourites - New Folder"
+          variant="Favourites - New Folder"
         />
       );
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
@@ -98,7 +96,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Modern Villa"
           estateDescription="Beautiful 5-bedroom villa"
           carouselImages={[{ src: 'img1.jpg', alt: 'Image 1' }]}
@@ -114,7 +112,7 @@ describe('RdsCompDetailsPane', () => {
         <RdsCompDetailsPane
           headerText="Select Items"
           headerSubText="Choose an item to view details"
-          style="Selection"
+          variant="Selection"
         />
       );
       expect(screen.getByTestId('selection-content')).toBeInTheDocument();
@@ -126,7 +124,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Toolbar"
-          style="Toolbar"
+          variant="Toolbar"
           figmaIconSrc="/figma.png"
           storybookIconSrc="/storybook.png"
         />
@@ -140,7 +138,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Thumbnails"
-          style="Thumbnail View"
+          variant="Thumbnail View"
           thumbnailButtonName="View Gallery"
         />
       );
@@ -152,27 +150,44 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="Unknown"
-          style="Unknown Style"
+          variant="Unknown Style"
         />
       );
       const detailsPane = container.querySelector('.rds-comp-details-pane');
       expect(detailsPane).toBeInTheDocument();
     });
+
+    it('applies CSS style to the root while using variant for appearance', () => {
+      const { container } = render(
+        <RdsCompDetailsPane
+          headerText="Styled Selection"
+          variant="Selection"
+          style={{ marginTop: 8 }}
+        />
+      );
+      expect(container.querySelector('.rds-comp-details-pane')).toHaveStyle({ marginTop: '8px' });
+      expect(screen.getByTestId('selection-content')).toBeInTheDocument();
+    });
+  });
+
+  it('still accepts a deprecated style string as the variant', () => {
+    render(<RdsCompDetailsPane headerText="Legacy" variant="Selection" />);
+    expect(screen.getByTestId('selection-content')).toBeInTheDocument();
   });
 
   describe('Tab Management', () => {
     it('should initialize with history tab for Prompt History style', () => {
-      render(<RdsCompDetailsPane headerText="History" style="Prompt History" />);
+      render(<RdsCompDetailsPane headerText="History" variant="Prompt History" />);
       expect(screen.getByTestId('active-tab')).toHaveTextContent('history');
     });
 
     it('should initialize with favourites tab for Favourites style', () => {
-      render(<RdsCompDetailsPane headerText="Favourites" style="Favourites" />);
+      render(<RdsCompDetailsPane headerText="Favourites" variant="Favourites" />);
       expect(screen.getByTestId('active-tab')).toHaveTextContent('favourites');
     });
 
     it('should initialize with history tab by default', () => {
-      render(<RdsCompDetailsPane headerText="Default" style="Prompt History" />);
+      render(<RdsCompDetailsPane headerText="Default" variant="Prompt History" />);
       expect(screen.getByTestId('active-tab')).toHaveTextContent('history');
     });
 
@@ -180,7 +195,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       fireEvent.click(screen.getByTestId('favourites-tab'));
@@ -191,7 +206,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       fireEvent.click(screen.getByTestId('favourites-tab'));
@@ -202,7 +217,7 @@ describe('RdsCompDetailsPane', () => {
 
   describe('Tab Labels', () => {
     it('should use default history tab label', () => {
-      render(<RdsCompDetailsPane headerText="History Panel" style="Prompt History" />);
+      render(<RdsCompDetailsPane headerText="History Panel" variant="Prompt History" />);
       expect(screen.getByTestId('history-tab')).toHaveTextContent('History');
     });
 
@@ -210,7 +225,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           historyTabLabel="Recent Items"
         />
       );
@@ -218,7 +233,7 @@ describe('RdsCompDetailsPane', () => {
     });
 
     it('should use default favourites tab label', () => {
-      render(<RdsCompDetailsPane headerText="Favourites Panel" style="Favourites" />);
+      render(<RdsCompDetailsPane headerText="Favourites Panel" variant="Favourites" />);
       expect(screen.getByTestId('favourites-tab')).toHaveTextContent('Favourites');
     });
 
@@ -226,7 +241,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Favourites"
-          style="Favourites"
+          variant="Favourites"
           favouritesTabLabel="Saved Items"
         />
       );
@@ -239,7 +254,7 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       expect(container).toBeInTheDocument();
@@ -253,7 +268,7 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           historyItems={customItems}
         />
       );
@@ -268,7 +283,7 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           olderHistoryItems={customOlderItems}
         />
       );
@@ -281,7 +296,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Luxury Penthouse"
           estateDescription="300 sqm penthouse with city views"
         />
@@ -299,7 +314,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Estate"
           carouselImages={images}
         />
@@ -312,7 +327,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Estate"
         />
       );
@@ -327,7 +342,7 @@ describe('RdsCompDetailsPane', () => {
         <RdsCompDetailsPane
           headerText="Selection Options"
           headerSubText="Select from available options"
-          style="Selection"
+          variant="Selection"
         />
       );
       expect(screen.getByText('Selection Options')).toBeInTheDocument();
@@ -338,7 +353,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Selection"
-          style="Selection"
+          variant="Selection"
         />
       );
       expect(screen.getByTestId('selection-content')).toBeInTheDocument();
@@ -350,7 +365,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Tools"
-          style="Toolbar"
+          variant="Toolbar"
           figmaIconSrc="/figma.svg"
           storybookIconSrc="/storybook.svg"
         />
@@ -363,7 +378,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Tools"
-          style="Toolbar"
+          variant="Toolbar"
         />
       );
       expect(screen.getByTestId('toolbar-content')).toBeInTheDocument();
@@ -375,7 +390,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Gallery"
-          style="Thumbnail View"
+          variant="Thumbnail View"
           thumbnailButtonName="Open Gallery"
         />
       );
@@ -386,7 +401,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Gallery"
-          style="Thumbnail View"
+          variant="Thumbnail View"
         />
       );
       expect(screen.getByTestId('thumbnail-view-content')).toBeInTheDocument();
@@ -398,7 +413,7 @@ describe('RdsCompDetailsPane', () => {
       const { rerender } = render(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       expect(screen.getByTestId('active-tab')).toHaveTextContent('history');
@@ -406,7 +421,7 @@ describe('RdsCompDetailsPane', () => {
       rerender(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Favourites"
+          variant="Favourites"
         />
       );
       expect(screen.getByTestId('active-tab')).toHaveTextContent('favourites');
@@ -416,7 +431,7 @@ describe('RdsCompDetailsPane', () => {
       const { rerender } = render(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Favourites"
+          variant="Favourites"
         />
       );
       expect(screen.getByTestId('active-tab')).toHaveTextContent('favourites');
@@ -424,7 +439,7 @@ describe('RdsCompDetailsPane', () => {
       rerender(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       expect(screen.getByTestId('active-tab')).toHaveTextContent('history');
@@ -434,7 +449,7 @@ describe('RdsCompDetailsPane', () => {
       const { rerender } = render(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
@@ -442,7 +457,7 @@ describe('RdsCompDetailsPane', () => {
       rerender(
         <RdsCompDetailsPane
           headerText="Switcher"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Property"
         />
       );
@@ -453,7 +468,7 @@ describe('RdsCompDetailsPane', () => {
       const { rerender } = render(
         <RdsCompDetailsPane
           headerText="Multi"
-          style="Selection"
+          variant="Selection"
           headerSubText="Sub"
         />
       );
@@ -462,7 +477,7 @@ describe('RdsCompDetailsPane', () => {
       rerender(
         <RdsCompDetailsPane
           headerText="Multi"
-          style="Toolbar"
+          variant="Toolbar"
           figmaIconSrc="/fig.png"
         />
       );
@@ -471,7 +486,7 @@ describe('RdsCompDetailsPane', () => {
       rerender(
         <RdsCompDetailsPane
           headerText="Multi"
-          style="Thumbnail View"
+          variant="Thumbnail View"
           thumbnailButtonName="View"
         />
       );
@@ -484,7 +499,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           historyTabLabel="Custom History"
           favouritesTabLabel="Custom Favourites"
           addtoscreen="Add to Screen"
@@ -499,7 +514,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
@@ -509,7 +524,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           addtoscreen="Place on Screen"
         />
       );
@@ -520,7 +535,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="History"
-          style="Prompt History"
+          variant="Prompt History"
           addtofolder="Save to Folder"
         />
       );
@@ -542,7 +557,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Bold Header"
-          style="Prompt History"
+          variant="Prompt History"
         />
       );
       const header = screen.getByText('Bold Header');
@@ -563,7 +578,7 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="Test"
-          style={undefined}
+          variant={undefined}
         />
       );
       expect(container.querySelector('.rds-comp-details-pane')).toBeInTheDocument();
@@ -573,7 +588,7 @@ describe('RdsCompDetailsPane', () => {
       const { container } = render(
         <RdsCompDetailsPane
           headerText="Test"
-          style="Prompt History"
+          variant="Prompt History"
           historyItems={[]}
         />
       );
@@ -584,7 +599,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate"
-          style="Real Estate"
+          variant="Real Estate"
           carouselImages={undefined}
         />
       );
@@ -598,7 +613,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Full History"
-          style="Prompt History"
+          variant="Prompt History"
           historyTabLabel="Recent"
           favouritesTabLabel="Saved"
           addtoscreen="Add"
@@ -624,7 +639,7 @@ describe('RdsCompDetailsPane', () => {
       render(
         <RdsCompDetailsPane
           headerText="Estate Details"
-          style="Real Estate"
+          variant="Real Estate"
           estateTitle="Luxury Home"
           estateDescription="Beautiful property"
           carouselImages={images}
@@ -637,17 +652,17 @@ describe('RdsCompDetailsPane', () => {
 
     it('should handle rapid style changes', () => {
       const { rerender } = render(
-        <RdsCompDetailsPane headerText="Test" style="Prompt History" />
+        <RdsCompDetailsPane headerText="Test" variant="Prompt History" />
       );
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
 
-      rerender(<RdsCompDetailsPane headerText="Test" style="Selection" headerSubText="Sub" />);
+      rerender(<RdsCompDetailsPane headerText="Test" variant="Selection" headerSubText="Sub" />);
       expect(screen.getByTestId('selection-content')).toBeInTheDocument();
 
-      rerender(<RdsCompDetailsPane headerText="Test" style="Toolbar" figmaIconSrc="/f.png" />);
+      rerender(<RdsCompDetailsPane headerText="Test" variant="Toolbar" figmaIconSrc="/f.png" />);
       expect(screen.getByTestId('toolbar-content')).toBeInTheDocument();
 
-      rerender(<RdsCompDetailsPane headerText="Test" style="Prompt History" />);
+      rerender(<RdsCompDetailsPane headerText="Test" variant="Prompt History" />);
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
     });
   });

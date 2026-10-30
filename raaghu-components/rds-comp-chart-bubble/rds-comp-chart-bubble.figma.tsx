@@ -23,22 +23,40 @@ figma.connect(
     example: (props) => (
       <RdsCompBubbleChart
         {...props}
-        dataSets={[
+        data={{ labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], datasets: [
           {
             backgroundColor: ["rgba(255, 99, 132)"],
             borderColor: ["red"],
-            data: [90, 97, 20, 30, 40, 50, 60, 70],
+            data: [
+              { x: 10, y: 90, r: 10 },
+              { x: 20, y: 97, r: 12 },
+              { x: 30, y: 20, r: 8 },
+              { x: 40, y: 30, r: 10 },
+              { x: 50, y: 40, r: 12 },
+              { x: 60, y: 50, r: 10 },
+              { x: 70, y: 60, r: 8 },
+              { x: 80, y: 70, r: 10 },
+            ],
             label: "Dataset 1",
           },
           {
             backgroundColor: ["rgba(255, 206, 86)"],
             borderColor: ["orange"],
-            data: [90, 80, 70, 60, 50, 40, 30, 90, 98],
+            data: [
+              { x: 10, y: 90, r: 8 },
+              { x: 20, y: 80, r: 10 },
+              { x: 30, y: 70, r: 12 },
+              { x: 40, y: 60, r: 10 },
+              { x: 50, y: 50, r: 8 },
+              { x: 60, y: 40, r: 10 },
+              { x: 70, y: 30, r: 12 },
+              { x: 80, y: 90, r: 10 },
+              { x: 90, y: 98, r: 8 },
+            ],
             label: "Dataset 2",
           },
-        ]}
+        ] }}
         id="bubblecha"
-        labels={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
         options={{
           maintainAspectRatio: false,
           plugins: {
@@ -46,7 +64,6 @@ figma.connect(
               labels: {
                 usePointStyle: true,
               },
-              pointStyle: "line",
               position: "top",
             },
             title: {
@@ -57,8 +74,6 @@ figma.connect(
               usePointStyle: true,
             },
           },
-          pointStyle: "triangle",
-          radius: 10,
           responsive: true,
           scales: {
             x: {
@@ -82,11 +97,10 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: () => {},
+                tickColor: "var(--rds-chart-axis)",
                 tickLength: 8,
-                tickWidth: () => {},
+                tickWidth: 1,
               },
-              id: "x",
               offset: false,
               position: "bottom",
               reverse: false,
@@ -96,15 +110,13 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                callback: () => {},
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 crossAlign: "near",
                 display: true,
                 labelOffset: 0,
                 major: {},
                 maxRotation: 50,
                 minRotation: 0,
-                minor: {},
                 mirror: false,
                 padding: 3,
                 showLabelBackdrop: false,
@@ -112,7 +124,7 @@ figma.connect(
                 textStrokeWidth: 0,
               },
               title: {
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 padding: {
                   bottom: 4,
@@ -143,11 +155,10 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: () => {},
+                tickColor: "var(--rds-chart-axis)",
                 tickLength: 8,
-                tickWidth: () => {},
+                tickWidth: 1,
               },
-              id: "y",
               offset: false,
               position: "left",
               reverse: false,
@@ -157,15 +168,13 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                callback: () => {},
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 crossAlign: "near",
                 display: true,
                 labelOffset: 0,
                 major: {},
                 maxRotation: 50,
                 minRotation: 0,
-                minor: {},
                 mirror: false,
                 padding: 3,
                 showLabelBackdrop: false,
@@ -173,7 +182,7 @@ figma.connect(
                 textStrokeWidth: 0,
               },
               title: {
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 padding: {
                   bottom: 4,

@@ -4,7 +4,9 @@ import RdsAvatar, { RdsAvatarProps } from './rds-avatar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
 jest.mock('./rds-avatar.scss', () => ({}));
 
 describe('RdsAvatar', () => {
@@ -169,11 +171,13 @@ describe('RdsAvatar', () => {
       expect(container.querySelector('.rds-avatar--success')).toBeInTheDocument();
     });
 
-    it('should apply danger color variant', () => {
+    it('should apply danger color variant as error and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = render(
         <RdsAvatar {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-avatar--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--error')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'color="danger"', '`color: "error"`');
     });
 
     it('should apply warning color variant', () => {
@@ -183,11 +187,14 @@ describe('RdsAvatar', () => {
       expect(container.querySelector('.rds-avatar--warning')).toBeInTheDocument();
     });
 
-    it('should apply info color variant', () => {
+    it('should apply info color variant as primary and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = render(
         <RdsAvatar {...defaultProps} colorVariant="info" />
       );
-      expect(container.querySelector('.rds-avatar--info')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--info')).not.toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'color="info"', '`color: "primary"`');
     });
 
     it('should apply light color variant', () => {
@@ -609,7 +616,6 @@ describe('RdsAvatar', () => {
       const { container } = render(
         <RdsAvatar displayStyle="stacking" avatars={[]} />
       );
-      // When avatars array is empty, component may not render the stacking container
       expect(container.querySelector('.MuiAvatar-root')).toBeInTheDocument();
     });
 
@@ -661,9 +667,10 @@ describe('RdsAvatar', () => {
     });
 
     it('should accept valid colorVariant prop values', () => {
-      const colors: Array<'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
+      const colors: Array<'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
         'primary',
         'success',
+        'error',
         'danger',
         'warning',
         'light',
@@ -675,7 +682,8 @@ describe('RdsAvatar', () => {
         const { container } = render(
           <RdsAvatar title="Test" colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-avatar--${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color === 'info' ? 'primary' : color;
+        expect(container.querySelector(`.rds-avatar--${expected}`)).toBeInTheDocument();
       });
     });
 
@@ -714,5 +722,111 @@ describe('RdsAvatar', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsAvatar audit fixes', () => {
+  const avatars = [
+    { title: 'Ann Lee', src: 'a.png', alt: 'Ann' },
+    { title: 'Bob Ray', src: 'b.png' },
+  ];
+
+  it('forwards className to the root in stacking mode (G1-064)', () => {
+    const { container } = render(<RdsAvatar displayStyle="stacking" avatars={avatars} className="my-stack" />);
+    expect(container.querySelector('.rds-avatar__stacking')).toHaveClass('my-stack');
+  });
+
+  it('gives stacked avatars alt text, falling back to the title (G1-066)', () => {
+    const { container } = render(<RdsAvatar displayStyle="stacking" avatars={avatars} />);
+    const images = container.querySelectorAll('img');
+    expect(images[0]).toHaveAttribute('alt', 'Ann');
+    expect(images[1]).toHaveAttribute('alt', 'Bob Ray');
+  });
+
+  it('accepts an array sx without crashing', () => {
+    render(<RdsAvatar title="Ann Lee" sx={[{ m: 1 }, { p: 0 }]} />);
+    expect(screen.getByText('AL')).toBeInTheDocument();
+  });
+
+  it('exposes the status dots to assistive technology (G1-075)', () => {
+    const { container } = render(<RdsAvatar title="Ann Lee" activeDotTop />);
+    expect(container.querySelector('.rds-avatar__dot--top')).toHaveAttribute('role', 'img');
+  });
+
+  it('keeps the ring inside the avatar wrap for with-name and outside for name-bottom', () => {
+    const { container, rerender } = render(<RdsAvatar title="Ann Lee" activityRing displayStyle="with-name" />);
+    expect(container.querySelector('.rds-avatar__avatar-wrap > .rds-avatar__ring')).toBeInTheDocument();
+    rerender(<RdsAvatar title="Ann Lee" activityRing displayStyle="name-bottom" />);
+    expect(container.querySelector('.rds-avatar__avatar-outer > .rds-avatar__ring')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__avatar-wrap > .rds-avatar__ring')).not.toBeInTheDocument();
+  });
+
+  it('forwards slotProps to wrap/info/designation (G3-137)', () => {
+    const { container } = render(
+      <RdsAvatar
+        name="Ann Lee"
+        description="Engineer"
+        displayStyle="with-name"
+        slotProps={{
+          wrap: { className: 'slot-wrap', 'data-testid': 'avatar-wrap' } as React.HTMLAttributes<HTMLSpanElement>,
+          info: { className: 'slot-info' },
+          designation: { className: 'slot-designation' },
+        }}
+      />
+    );
+    expect(container.querySelector('.rds-avatar__avatar-wrap')).toHaveClass('slot-wrap');
+    expect(container.querySelector('[data-testid="avatar-wrap"]')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__info')).toHaveClass('slot-info');
+    expect(container.querySelector('.rds-avatar__designation')).toHaveClass('slot-designation');
+  });
+});
+
+describe('RdsAvatar additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('status + statusPosition render the dot; new props win over activeDot*', () => {
+    const { container } = render(<RdsAvatar name="Ann Lee" status="online" statusPosition="top" activeDotBottom />);
+    expect(container.querySelector('.rds-avatar__dot--top')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__dot--bottom')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'activeDotBottom', expect.any(String));
+  });
+
+  it('statusPosition="both" shows top and bottom dots', () => {
+    const { container } = render(<RdsAvatar name="Ann Lee" status="online" statusPosition="both" />);
+    expect(container.querySelector('.rds-avatar__dot--top')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__dot--bottom')).toBeInTheDocument();
+  });
+
+  it('color wins over colorVariant, which warns', () => {
+    const { container } = render(<RdsAvatar name="Ann" color="danger" colorVariant="info" />);
+    expect(container.querySelector('.rds-avatar--error')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'colorVariant', '`color`');
+  });
+
+  it('max wins over maxVisibleAvatars, which warns', () => {
+    const { container } = render(
+      <RdsAvatar displayStyle="stacking" avatars={[{ title: 'A' }, { title: 'B' }, { title: 'C' }]} max={1} maxVisibleAvatars={3} />
+    );
+    expect(container.querySelectorAll('.rds-avatar__stacking-avatar')).toHaveLength(1);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'maxVisibleAvatars', '`max`');
+  });
+
+  it('description wins over subText, which warns', () => {
+    render(<RdsAvatar name="Ann" description="Lead" subText="Old" />);
+    expect(screen.getByText('Lead')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'subText', '`description`');
+  });
+
+  it('name wins over title, which warns', () => {
+    render(<RdsAvatar name="Ann Lee" title="Old Title" />);
+    expect(screen.getByText('Ann Lee')).toBeInTheDocument();
+    expect(screen.queryByText('Old Title')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'title', '`name`');
+  });
+
+  it('forwards data-testid to the root .rds-avatar', () => {
+    render(<RdsAvatar name="Ann" data-testid="user-avatar" />);
+    expect(screen.getByTestId('user-avatar')).toHaveClass('rds-avatar');
   });
 });

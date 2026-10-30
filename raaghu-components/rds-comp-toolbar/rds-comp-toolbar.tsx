@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "react";
-export { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
-import { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+import { useState, useEffect, useRef, Fragment } from "react";
+import Box from "@mui/material/Box";
+import { useForkRef } from "@mui/material/utils";
+export { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+import { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import clsx from 'clsx';
 import { ToolbarButton } from "./rds-comp-toolbar-config";
 import { type ToolbarButtonConfig } from "./rds-comp-toolbar-config-types";
+export type { ToolbarButtonConfig, ToolbarConfig, ToolbarOption } from "./rds-comp-toolbar-config-types";
 import { getToolbarConfig } from "./rds-comp-toolbar-config-data";
+import { buttonHasDropdown, isEmojiAction } from "./rds-comp-toolbar-dropdown-options";
+import { resolveDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toolbar.scss";
 
 
@@ -12,175 +17,180 @@ function ToolbarSectionButtons({
   section,
   sectionIndex,
   isActive,
-  isDisabled,
+  disabled,
   openDropdown,
   handleFormatClick,
   handleDropdownSelect,
+  closeDropdown,
 }: {
   section: ToolbarButtonConfig[];
   sectionIndex: number;
   isActive: (format: string) => boolean;
-  isDisabled: boolean;
+  disabled: boolean;
   openDropdown: string | null;
   handleFormatClick: (format: string, hasDropdown?: boolean) => void;
   handleDropdownSelect: (parentAction: string, option: string) => void;
+  closeDropdown: () => void;
 }) {
   return (
     <Fragment>
       {sectionIndex > 0 && <div className="rds-comp-toolbar__divider" />}
       <div className="rds-comp-toolbar__section">
-        {section.map((button, buttonIndex) => (
-          <ToolbarButton
-            key={buttonIndex}
-            icon={button.icon}
-            action={button.action}
-            hasDropdown={button.hasDropdown}
-            ariaLabel={button.ariaLabel}
-            isActive={isActive(button.action)}
-            isDisabled={isDisabled}
-            dropdownAction={openDropdown}
-            onClick={() => handleFormatClick(button.action, button.hasDropdown)}
-            onDropdownSelect={handleDropdownSelect}
-          />
-        ))}
+        {section.map((button) => {
+          const hasDropdown = buttonHasDropdown(button);
+          return (
+            <ToolbarButton
+              key={button.action}
+              icon={button.icon}
+              action={button.action}
+              hasDropdown={hasDropdown}
+              options={button.options}
+              ariaLabel={button.ariaLabel}
+              className={button.className}
+              isActive={isActive(button.action)}
+              disabled={disabled}
+              dropdownAction={openDropdown}
+              onClick={() => handleFormatClick(button.action, hasDropdown)}
+              onDropdownSelect={handleDropdownSelect}
+              onDropdownClose={closeDropdown}
+            />
+          );
+        })}
       </div>
     </Fragment>
   );
 }
 
+/**
+ * Formatting toolbar with preset button sets (`type`) or custom `items`.
+ * Active formats can be controlled with `value`/`onChange`.
+ */
 const RdsCompToolbar = ({
-  layout = ToolbarLayout.Primary,
-  type = ToolbarType.FullFeatured,
-  state = ToolbarState.On,
+  layout: layoutProp = ToolbarLayout.Primary,
+  variant,
+  type: typeProp = ToolbarType.FullFeatured,
+  preset,
+  disabled: disabledProp,
+  isDisabled: isDisabledProp,
+  items,
+  value,
+  defaultValue,
+  onChange,
   onAction,
+  onOptionSelect,
   className = '',
+  sx,
   'data-testid': testId,
+  ref,
   ...props
-}) => {
-  const [activeFormats, setActiveFormats] = useState<string[]>([]);
+}: RdsCompToolbarProps) => {
+  const layout = variant ?? layoutProp;
+  const type = preset ?? typeProp;
+  const [internalFormats, setInternalFormats] = useState<string[]>(defaultValue ?? []);
+  const activeFormats = value ?? internalFormats;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const isDisabled = state === ToolbarState.DisabledOn;
-  const toolbarConfig = useMemo(() => getToolbarConfig(type), [type]);
+  const isToolbarDisabled = Boolean(
+    resolveDeprecatedProp(disabledProp, isDisabledProp, 'RdsCompToolbar', 'isDisabled', '`disabled`'),
+  );
+  const sections = items ?? getToolbarConfig(type).sections;
+
+  const handleRef = useForkRef(toolbarRef, ref);
 
   useEffect(() => {
+    if (!openDropdown) return;
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-
-      try {
-        const el = event.target as Element | null;
-        if (el && typeof el.closest === 'function') {
-          const closestDropdown = el.closest('.rds-comp-toolbar__dropdown');
-          if (closestDropdown) return;
-        }
-      } catch (e) {
-        // handled
-      }
-
+      const target = event.target as Element | null;
+      if (target?.closest?.('.rds-comp-toolbar__dropdown')) return;
       if (toolbarRef.current && !toolbarRef.current.contains(target)) {
         setOpenDropdown(null);
       }
     };
-
-    if (openDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [openDropdown]);
 
-  const handleFormatClick = useCallback((format: string, hasDropdown?: boolean) => {
-    if (isDisabled) return;
-    
+  const updateFormats = (next: string[]) => {
+    if (value === undefined) setInternalFormats(next);
+    onChange?.(next);
+  };
+
+  const handleFormatClick = (format: string, hasDropdown?: boolean) => {
+    if (isToolbarDisabled) return;
+
     if (hasDropdown) {
       setOpenDropdown(openDropdown === format ? null : format);
     } else {
       setOpenDropdown(null);
-      setActiveFormats(prev =>
-        prev.includes(format)
-          ? prev.filter(f => f !== format)
-          : [...prev, format]
+      updateFormats(
+        activeFormats.includes(format)
+          ? activeFormats.filter(f => f !== format)
+          : [...activeFormats, format]
       );
     }
     onAction?.(format);
-  }, [isDisabled, openDropdown, onAction]);
+  };
 
-  const handleDropdownSelect = useCallback((parentAction: string, option: string) => {
-    const isEmojiAction = parentAction === 'emoji' || parentAction === 'insertEmoji';
-
-    if (!isEmojiAction) {
+  const handleDropdownSelect = (parentAction: string, option: string) => {
+    if (!isEmojiAction(parentAction)) {
       setOpenDropdown(null);
-    }
-
-    if (!isEmojiAction) {
-      setActiveFormats(prev => [...prev.filter(f => f !== parentAction), option]);
+      updateFormats([...activeFormats.filter(f => f !== parentAction), option]);
     }
 
     onAction?.(option);
-  }, [onAction]);
+    onOptionSelect?.(parentAction, option);
+  };
 
-  const isActive = useCallback((format: string) => activeFormats.includes(format), [activeFormats]);
+  const closeDropdown = () => setOpenDropdown(null);
+  const isActive = (format: string) => activeFormats.includes(format);
 
-  const primarySectionsContent = useMemo(
-    () => toolbarConfig.sections.map((section, sectionIndex) => (
-      <ToolbarSectionButtons
-        key={sectionIndex}
-        section={section}
-        sectionIndex={sectionIndex}
-        isActive={isActive}
-        isDisabled={isDisabled}
-        openDropdown={openDropdown}
-        handleFormatClick={handleFormatClick}
-        handleDropdownSelect={handleDropdownSelect}
-      />
-    )),
-    [toolbarConfig.sections, isActive, isDisabled, openDropdown, handleFormatClick, handleDropdownSelect]
-  );
-
-  const secondarySectionsContent = useMemo(
-    () => toolbarConfig.sections.map((section, sectionIndex) => (
-      <div
-        key={sectionIndex}
-        className={clsx("rds-comp-toolbar__row", sectionIndex === 1 && "rds-comp-toolbar__row--secondary")}
-      >
-        <ToolbarSectionButtons
-          section={section}
-          sectionIndex={sectionIndex}
-          isActive={isActive}
-          isDisabled={isDisabled}
-          openDropdown={openDropdown}
-          handleFormatClick={handleFormatClick}
-          handleDropdownSelect={handleDropdownSelect}
-        />
-      </div>
-    )),
-    [toolbarConfig.sections, isActive, isDisabled, openDropdown, handleFormatClick, handleDropdownSelect]
+  const renderSection = (section: ToolbarButtonConfig[], sectionIndex: number) => (
+    <ToolbarSectionButtons
+      section={section}
+      sectionIndex={sectionIndex}
+      isActive={isActive}
+      disabled={isToolbarDisabled}
+      openDropdown={openDropdown}
+      handleFormatClick={handleFormatClick}
+      handleDropdownSelect={handleDropdownSelect}
+      closeDropdown={closeDropdown}
+    />
   );
 
   return (
-    <div
-      ref={toolbarRef}
+    <Box
+      ref={handleRef}
       className={clsx(
         "rds-comp-toolbar",
         layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary",
         `rds-comp-toolbar--${type}`,
-        `rds-comp-toolbar--${state}`,
+        isToolbarDisabled && "rds-comp-toolbar--disabled",
         className
       )}
       data-testid={testId}
+      sx={sx}
       role="toolbar"
       aria-label={`${type} toolbar`}
+      aria-disabled={isToolbarDisabled || undefined}
       {...props}
     >
       {layout === ToolbarLayout.Primary ? (
         <div className="rds-comp-toolbar__row">
-          {primarySectionsContent}
+          {sections.map((section, sectionIndex) => (
+            <Fragment key={sectionIndex}>{renderSection(section, sectionIndex)}</Fragment>
+          ))}
         </div>
       ) : (
-        <>
-          {secondarySectionsContent}
-        </>
+        sections.map((section, sectionIndex) => (
+          <div
+            key={sectionIndex}
+            className={clsx("rds-comp-toolbar__row", sectionIndex === 1 && "rds-comp-toolbar__row--secondary")}
+          >
+            {renderSection(section, sectionIndex)}
+          </div>
+        ))
       )}
-    </div>
+    </Box>
   );
 };
 RdsCompToolbar.displayName = "RdsCompToolbar";

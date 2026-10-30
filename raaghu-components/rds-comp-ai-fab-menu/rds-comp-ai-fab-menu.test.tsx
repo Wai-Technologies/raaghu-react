@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
 jest.mock('./rds-comp-ai-fab-menu.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/List', () => {
   return function MockListIcon() {
     return <span data-testid="list-icon">List</span>;
@@ -39,7 +39,6 @@ jest.mock('@mui/icons-material/Download', () => {
   };
 });
 
-// Mock RdsCompAiIcon
 jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
@@ -54,7 +53,6 @@ jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Default props for testing
 const defaultListItems = [
   { key: 'item1', value: 'Item 1', icon: 'list', onClick: jest.fn() },
   { key: 'item2', value: 'Item 2', icon: 'refresh', onClick: jest.fn() },
@@ -243,7 +241,6 @@ describe('RdsCompAiFabMenu', () => {
       const { container } = render(<RdsCompAiFabMenu listItems={itemsWithDimensions} />);
       const icons = container.querySelectorAll('[data-testid="icon-list"]');
       expect(icons.length).toBeGreaterThan(0);
-      // Target the item icon, not the button icon
       const itemIcon = Array.from(icons).find((icon) => icon.getAttribute('data-height') === '20px');
       expect(itemIcon).toHaveAttribute('data-height', '20px');
       expect(itemIcon).toHaveAttribute('data-width', '20px');
@@ -285,6 +282,14 @@ describe('RdsCompAiFabMenu', () => {
       );
       const button = container.querySelector('.custom-class');
       expect(button).toBeInTheDocument();
+    });
+
+    it('applies sx styles to the menu root', () => {
+      const { container } = render(
+        <RdsCompAiFabMenu {...defaultProps} sx={{ marginTop: '17px' }} />
+      );
+      const root = container.querySelector('.rds-fab-menu');
+      expect(root).toHaveStyle({ marginTop: '17px' });
     });
 
     it('renders with left alignment by default', () => {
@@ -365,6 +370,85 @@ describe('RdsCompAiFabMenu', () => {
       );
       expect(container.querySelector('.rds-fab-menu__button--circular')).toBeInTheDocument();
       expect(container.querySelector('.rds-fab-menu__button--rectangular')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('dense prop controls compact style, falling back to id', () => {
+      const { container } = render(<RdsCompAiFabMenu {...defaultProps} dense />);
+      expect(container.querySelector('.rds-fab-menu__item--compact')).toBeInTheDocument();
+      const r2 = render(<RdsCompAiFabMenu {...defaultProps} id="attachment-text" dense={false} />);
+      expect(r2.container.querySelector('.rds-fab-menu__item--compact')).not.toBeInTheDocument();
+    });
+
+    it('trigger exposes aria-haspopup, aria-controls and aria-label', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} aria-label="Actions" />);
+      const button = screen.getByTestId('fab-menu-btn');
+      expect(button).toHaveAttribute('aria-haspopup', 'menu');
+      expect(button).toHaveAttribute('aria-label', 'Actions');
+      expect(button).not.toHaveAttribute('aria-controls');
+      fireEvent.click(button);
+      expect(screen.getByRole('menu', { hidden: true })).toHaveAttribute('id', button.getAttribute('aria-controls'));
+    });
+
+    it('Escape closes the menu and focuses the trigger', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const button = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(button);
+      fireEvent.keyDown(screen.getByText('Item 1'), { key: 'Escape' });
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+      expect(button).toHaveFocus();
+    });
+
+    it('arrow keys move focus between items with wrap', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const button = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(button);
+      const items = screen.getAllByRole('menuitem', { hidden: true });
+      fireEvent.keyDown(button, { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+      fireEvent.keyDown(items[0], { key: 'ArrowUp' });
+      expect(items[2]).toHaveFocus();
+      fireEvent.keyDown(items[2], { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+    });
+
+    it('warns for deprecated props', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} menuiconWidth="1px" menuiconHeight="1px" onClick={() => {}} />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'menuiconWidth', expect.any(String));
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'onClick', expect.any(String));
+    });
+
+    it('does not listen to mousedown while closed', () => {
+      const spy = jest.spyOn(document, 'addEventListener');
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      expect(spy.mock.calls.some(([type]) => type === 'mousedown')).toBe(false);
+      fireEvent.click(screen.getByTestId('fab-menu-btn'));
+      expect(spy.mock.calls.some(([type]) => type === 'mousedown')).toBe(true);
+      spy.mockRestore();
+    });
+
+    it('new names: items/label, placement, variant, color, bordered, icon', () => {
+      const { container } = render(
+        <RdsCompAiFabMenu items={[{ key: 'a', label: 'Alpha' }]} placement="right" variant="rounded" color="danger" bordered icon="list" />
+      );
+      expect(screen.getByText('Alpha')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu--right')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--rectangular')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__dropdown--bordered')).toBeInTheDocument();
+    });
+
+    it('maps variant text to no background and warns for old props', () => {
+      const { container } = render(<RdsCompAiFabMenu listItems={[{ key: 'a', value: 'A' }]} variant="text" backgroundType="circular" alignment="right" colorVariant="info" isShowBorder />);
+      expect(container.querySelector('.rds-fab-menu__button--none')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'listItems', '`items`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'alignment', '`placement`');
+    });
+
+    it('renders a node icon as-is', () => {
+      render(<RdsCompAiFabMenu listItems={[{ key: 'a', value: 'A', icon: <b data-testid="custom-icon" /> }]} />);
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
   });
 
@@ -548,10 +632,8 @@ describe('RdsCompAiFabMenu', () => {
       const button = container.querySelector('button');
       const dropdownContainer = container.querySelector('.rds-fab-menu__dropdown-container');
       if (button && dropdownContainer) {
-        // Check if button is in the DOM and appears before dropdown
         expect(button).toBeInTheDocument();
         expect(dropdownContainer).toBeInTheDocument();
-        // Both elements should exist in the same container
         const fabMenu = container.querySelector('.rds-fab-menu');
         expect(fabMenu?.contains(button)).toBe(true);
         expect(fabMenu?.contains(dropdownContainer)).toBe(true);
@@ -629,7 +711,7 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('renders variation of menu icons', () => {
-      const icons = ['list', 'refresh', 'download', 'delete'];
+      const icons = ['list', 'refresh', 'download', 'delete'] as const;
       icons.forEach((icon) => {
         const { container, unmount } = render(
           <RdsCompAiFabMenu listItems={[]} menuIcon={icon} />
@@ -640,5 +722,18 @@ describe('RdsCompAiFabMenu', () => {
         unmount();
       });
     });
+  });
+});
+
+describe('RdsCompAiFabMenu root forwarding', () => {
+  it('forwards ref and extra attributes to the root, and calls a consumer onKeyDown', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const onKeyDown = jest.fn();
+    render(<RdsCompAiFabMenu ref={ref} data-testid='fab-root' onKeyDown={onKeyDown} items={[{ key: 'a', label: 'A' }]} />);
+    const root = screen.getByTestId('fab-root');
+    expect(ref.current).toBe(root);
+    expect(root).toHaveClass('rds-fab-menu');
+    fireEvent.keyDown(root, { key: 'ArrowDown' });
+    expect(onKeyDown).toHaveBeenCalled();
   });
 });

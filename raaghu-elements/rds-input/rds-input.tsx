@@ -1,7 +1,8 @@
-import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useId, useState, type CSSProperties, type InputHTMLAttributes,type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-input.scss';
 
 function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
@@ -15,64 +16,119 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
   }
 }
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component' | 'focused'> {
+  /**
+   * Field label. Shown above the field with `titlePosition="title-above"`; otherwise it is shown
+   * inside the field (floating label).
+   */
   label?: string;
   placeholder?: string;
-  hintText?: string;
+  /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
-  isMandatory?: boolean;
+  /** MUI text field variant. @default 'outlined' */
   variant?: 'outlined' | 'filled' | 'standard';
+  /** Size of the input. @default 'small' */
   size?: 'small' | 'medium' | 'large';
+  /** Input type: text, password, phone number, number or card number. @default 'text' */
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
-  titlePosition?: string;
-  style?: 'default' | 'pill' | 'bottom outline';
-  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
+  /** @deprecated Use `labelPlacement` instead. */
+  titlePosition?: 'title-above' | 'inline-title' | (string & {});
+  /** Label placement: `top` shows it above the field, `inline` inside it. */
+  labelPlacement?: 'top' | 'inline';
+  /** @deprecated Passing a variant string is deprecated; use `shape`. Pass CSSProperties for inline styles. */
+  style?: 'default' | 'pill' | 'bottom outline' | CSSProperties;
+  /** Field shape. */
+  shape?: 'default' | 'pill' | 'bottom outline';
+  /** Applies the selected appearance to the input. @default false */
+  selected?: boolean;
+  /** Icon shown at the start of the field. */
+  startIcon?: ReactNode;
+  /** Icon shown at the end of the field. */
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
   showIcon?: boolean;
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
   iconPosition?: 'start' | 'end';
-  icon?: ReactNode; // Custom icon component provided by the user
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
+  icon?: ReactNode;
+  /** @deprecated Use `helperText`. */
+  hintText?: string;
+  /** @deprecated Use `required`. */
+  isMandatory?: boolean;
 }
+
+const labelPlacementMap = { top: 'title-above', inline: 'inline-title' } as const;
+
+const renderAdornment = (node: ReactNode, position: 'start' | 'end') => (
+  <InputAdornment position={position} className={`rds-input__icon rds-input__icon--${position}`}>
+    {node}
+  </InputAdornment>
+);
 
 const RdsInput = ({
   label,
   placeholder,
   hintText,
+  helperText,
   errorMessage,
-  isMandatory = false,
+  isMandatory,
+  required,
   variant = 'outlined',
   size = 'small',
   layout = 'text',
-  titlePosition,
-  style = 'default',
-  state = 'default',
+  titlePosition: legacyTitlePosition,
+  labelPlacement,
+  style,
+  shape,
+  selected = false,
+  startIcon,
+  endIcon,
   showIcon = false,
-  iconPosition = 'end',
+  iconPosition,
   icon,
   error,
   disabled,
   value,
+  defaultValue,
   onChange,
   onFocus,
   onBlur,
+  id,
   InputProps: legacyInputProps,
   slotProps: consumerSlotProps,
+  'data-testid': dataTestId,
   ...props
-}: RdsInputProps) => {
+}: RdsInputProps & { 'data-testid'?: string }) => {
+  if (hintText !== undefined) warnDeprecatedProp('RdsInput', 'hintText', '`helperText`');
+  if (isMandatory !== undefined) warnDeprecatedProp('RdsInput', 'isMandatory', '`required`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsInput', 'errorMessage', '`error` with `helperText`');
+  if (legacyTitlePosition !== undefined) warnDeprecatedProp('RdsInput', 'titlePosition', '`labelPlacement`');
+  if (showIcon) warnDeprecatedProp('RdsInput', 'showIcon', '`startIcon` / `endIcon`');
+  if (icon !== undefined) warnDeprecatedProp('RdsInput', 'icon', '`startIcon` / `endIcon`');
+  if (iconPosition !== undefined) warnDeprecatedProp('RdsInput', 'iconPosition', '`startIcon` / `endIcon`');
+
+  const titlePosition = labelPlacement ? labelPlacementMap[labelPlacement] : legacyTitlePosition;
+  const legacyShape = typeof style === 'string' ? style : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsInput', 'style', '`shape`');
+  const resolvedStyle = shape ?? legacyShape ?? 'default';
+  const legacyIconPosition = showIcon ? iconPosition ?? 'end' : undefined;
+  const adornment = (position: 'start' | 'end', node: ReactNode) =>
+    node != null ? renderAdornment(node, position) : legacyIconPosition === position ? renderAdornment(icon, position) : undefined;
+
+  const isRequired = required ?? isMandatory ?? false;
+  const generatedId = useId();
+  const inputId = id ?? `rds-input-${generatedId}`;
   const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [internalValue, setInternalValue] = useState('');
-  const prevLayoutRef = useRef(layout);
+  const [internalValue, setInternalValue] = useState(defaultValue == null ? '' : String(defaultValue));
+  const [prevLayout, setPrevLayout] = useState(layout);
   const isControlled = value !== undefined;
 
-  if (layout !== prevLayoutRef.current) {
-    prevLayoutRef.current = layout;
+  if (layout !== prevLayout) {
+    setPrevLayout(layout);
     if (!isControlled) {
       setInternalValue('');
     }
   }
-  
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
@@ -86,21 +142,9 @@ const RdsInput = ({
                      size === 'medium' ? 'rds-input--medium' : 
                      'rds-input--large';
 
-  const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
+  const pillClass = resolvedStyle === 'pill' ? 'rds-input--pill' : resolvedStyle === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
-  const isFocusedDefault = state === 'default' && isFocused;
-  const active = state === 'active' || isFocusedDefault;
-
-  let stateClass = '';
-  if (state === 'error' || error) {
-    stateClass = 'rds-input--error';
-  } else if (state === 'disabled' || disabled) {
-    stateClass = 'rds-input--disabled';
-  } else if (state === 'selected' || isFocusedDefault) {
-    stateClass = 'rds-input--selected';
-  } else if (state === 'active') {
-    stateClass = 'rds-input--active';
-  }
+  const resolvedError = !!errorMessage || !!error;
 
   let inputType: string = 'text';
   switch (layout) {
@@ -118,24 +162,6 @@ const RdsInput = ({
       inputType = 'text';
   }
   
-  const renderIcon = () => {
-    if (!showIcon) return null;
-    
-    if (icon) {
-      return (
-        <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-          {icon}
-        </InputAdornment>
-      );
-    }
-    
-    return (
-      <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-        {icon}
-      </InputAdornment>
-    );
-  };
-
   const handleNumericKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const allowedKeys = [
       'Backspace',
@@ -199,17 +225,12 @@ const RdsInput = ({
       if (!isControlled) {
         setInternalValue(next);
       }
-      if (onChange) {
-        const event = {
-          ...e,
-          target: { ...target, value: next }
-        } as ChangeEvent<HTMLInputElement>;
-        onChange(event);
-      }
+      onChange?.(e as ChangeEvent<HTMLInputElement>);
     }
   };
   const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
-  const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
+  const isInlineLabel = titlePosition !== 'title-above';
+  const inlineTitleClass = titlePosition === 'inline-title' || (isInlineLabel && label) ? 'rds-input--inline-title' : '';
   const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
     layout === 'phone number' || layout === 'number' || layout === 'card number'
       ? {
@@ -234,45 +255,48 @@ const RdsInput = ({
       consumerInputProps?.className,
     ),
     classes: {
-      root: active ? 'Mui-focused' : '',
-      focused: active ? 'Mui-focused' : '',
       ...legacyInputProps?.classes,
       ...consumerInputProps?.classes,
     },
-    startAdornment:
-      iconPosition === 'start' && showIcon
-        ? renderIcon()
-        : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
-    endAdornment:
-      iconPosition === 'end' && showIcon
-        ? renderIcon()
-        : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+    startAdornment: adornment('start', startIcon) ?? consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
+    endAdornment: adornment('end', endIcon) ?? consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
   };
 
   return (
-    <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
+    <div
+      data-testid={dataTestId}
+      style={typeof style === 'object' ? style : undefined}
+      className={clsx(
+      'rds-input',
+      sizeClass,
+      pillClass,
+      inlineTitleClass,
+      resolvedError && 'rds-input--error',
+      disabled && 'rds-input--disabled',
+      selected && 'rds-input--selected',
+    )}>
       {titlePosition === 'title-above' && label && (
-        <label className="rds-input__label">
+        <label className="rds-input__label" htmlFor={inputId}>
           {label}
-          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
+          {isRequired && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
-        label={titlePosition === 'inline-title' ? label : ''}
+        id={inputId}
+        label={isInlineLabel ? label : ''}
         placeholder={computedPlaceholder}
-        helperText={errorMessage || hintText}
-        error={!!errorMessage || error || state === 'error'}
-        disabled={disabled || state === 'disabled'}
-        required={isMandatory}
+        helperText={helperText ?? (errorMessage || hintText)}
+        error={resolvedError}
+        disabled={disabled}
+        required={isRequired}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
         fullWidth
-        focused={active}
         value={currentValue}
         onChange={handleInternalChange}
-        onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
-        onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
+        onFocus={onFocus}
+        onBlur={onBlur}
         slotProps={{
           ...consumerSlotProps,
           input: inputSlotProps,

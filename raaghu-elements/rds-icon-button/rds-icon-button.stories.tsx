@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsIconButton from './rds-icon-button';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -35,7 +34,7 @@ const meta: Meta<typeof RdsIconButton> = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outlined'],
+      options: ['standard', 'outlined'],
       description: 'Visual variant for icon button',
     },
     tooltip: {
@@ -58,7 +57,7 @@ const meta: Meta<typeof RdsIconButton> = {
       control: { disable: true },
       table: { disable: true },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -95,7 +94,7 @@ export const Delete_Button: Story = {
 };
 export const FilledVariant: Story = {
   args: {
-    variant: 'filled',
+    variant: 'standard',
     iconOutlined: <FavoriteBorderIcon />,
     iconFilled: <FavoriteIcon />,
     tooltip: 'Filled Icon',

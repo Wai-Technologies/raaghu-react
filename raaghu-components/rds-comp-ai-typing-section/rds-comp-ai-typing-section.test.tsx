@@ -5,17 +5,15 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiTypingSection, { RdsCompAiTypingSectionProps } from './rds-comp-ai-typing-section';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-typing-section.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock Material UI Icon
 jest.mock('@mui/icons-material/AutoAwesomeOutlined', () => {
   return React.forwardRef((props: any, ref: any) => (
     <svg ref={ref} data-icon-name="auto-awesome" {...props} />
   ));
 });
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -23,7 +21,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
         data-testid={`btn-${props.text || 'icon-only'}`}
         onClick={props.onClick}
         data-color={props.color}
-        data-style={props.style}
+        data-style={props.variant ?? props.placement ?? props.style}
         data-layout={props.layout}
         data-size={props.size}
       >
@@ -33,7 +31,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 
-// Mock RdsAutocomplete component
 jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
   return function MockRdsAutocomplete(props: any) {
     return (
@@ -42,6 +39,7 @@ jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
         data-placeholder={props.placeholder}
         data-label={props.label}
         data-helper-text={props.helperText}
+        data-sx={JSON.stringify(props.sx)}
       >
         Autocomplete
       </div>
@@ -49,13 +47,11 @@ jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
   };
 });
 
-// Mock RdsCompAiIcon component
 jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
     default: function MockRdsCompAiIcon(props: any) {
       const { colorVariant, isCursorPointer, name, ...svgProps } = props;
-      // Filter out non-standard SVG attributes
       Object.keys(svgProps).forEach(key => {
         if (key.startsWith('is') || key.startsWith('show') || key.startsWith('backgroundType') || key.startsWith('styleType')) {
           delete svgProps[key];
@@ -73,14 +69,13 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Mock RdsCompAiAttachment component
 jest.mock('../rds-comp-ai-attachment/rds-comp-ai-attachment', () => {
   return function MockRdsCompAiAttachment(props: any) {
     return (
       <div
         data-testid="rds-attachment"
-        data-menu-icon={props.menuIcon}
-        data-badge-label={props.badgeLabel}
+        data-menu-icon={props.icon ?? props.menuIcon}
+        data-badge-label={props.badge ?? props.badgeLabel}
         onClick={() => props.onFileSelect?.(new File([''], 'test.txt'))}
       >
         Attachment
@@ -89,7 +84,8 @@ jest.mock('../rds-comp-ai-attachment/rds-comp-ai-attachment', () => {
   };
 });
 
-// Default props for testing
+const frontendOptions = [{ label: 'Raaghu', value: 1 }];
+
 const defaultProps: RdsCompAiTypingSectionProps = {
   iconName: 'enhance',
   placeholderText: 'Type your message...',
@@ -130,10 +126,10 @@ describe('RdsCompAiTypingSection', () => {
       expect(textarea.placeholder).toBe(placeholder);
     });
 
-    it('renders default placeholder when not provided', () => {
+    it('renders empty placeholder when not provided', () => {
       const { container } = render(<RdsCompAiTypingSection iconName="test" />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
-      expect(textarea.placeholder).toBe('Placeholder Text');
+      expect(textarea.placeholder).toBe('');
     });
 
     it('hides placeholder when enhanced image is present', () => {
@@ -143,7 +139,6 @@ describe('RdsCompAiTypingSection', () => {
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Type your message...');
 
-      // Simulate file upload by rendering with mock state
       rerender(<RdsCompAiTypingSection {...defaultProps} previewImage="https://example.com/image.jpg" />);
     });
   });
@@ -194,7 +189,6 @@ describe('RdsCompAiTypingSection', () => {
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const longText = 'a'.repeat(1000);
       
-      // Use fireEvent to set value directly to avoid userEvent timeout
       fireEvent.change(textarea, { target: { value: longText } });
       expect(textarea.value).toBe(longText);
     }, 10000);
@@ -222,7 +216,6 @@ it('hides enhance icon when input has text', () => {
 
       fireEvent.change(textarea, { target: { value: 'Some text' } });
       const iconSpan = container.querySelector('.rds-comp-ai-typing-section__input-icon');
-      // Icon should have no visible content when input has text
       expect(!iconSpan?.textContent || iconSpan?.textContent === '').toBe(true);
     });
 
@@ -284,10 +277,15 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('passes required props to attachment', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} attachmentBadge="Premium" />);
       const attachment = screen.getByTestId('rds-attachment');
       expect(attachment).toHaveAttribute('data-badge-label', 'Premium');
       expect(attachment).toHaveAttribute('data-menu-icon', 'attachment_icon');
+    });
+
+    it('renders no attachment badge by default', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.getByTestId('rds-attachment')).not.toHaveAttribute('data-badge-label');
     });
 
     it('handles file selection from attachment', async () => {
@@ -296,7 +294,6 @@ it('hides enhance icon when input has text', () => {
       
       fireEvent.click(attachment);
       
-      // Since we're mocking file selection, verify the component handles it
       expect(attachment).toBeInTheDocument();
     });
 
@@ -316,20 +313,28 @@ it('hides enhance icon when input has text', () => {
       expect(sendButton).toBeInTheDocument();
     });
 
-    it('renders New Project button', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+    it('renders New Project button when onNewProjectClick is provided', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const newProjectBtn = screen.getByTestId('btn-New Project');
       expect(newProjectBtn).toBeInTheDocument();
     });
 
-    it('renders Import From Figma button', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+    it('renders Import From Figma button when onImportFromFigmaClick is provided', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} onImportFromFigmaClick={jest.fn()} />);
       const importBtn = screen.getByTestId('btn-Import From Figma');
       expect(importBtn).toBeInTheDocument();
     });
 
+    it('hides project actions and autocomplete by default', () => {
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.queryByTestId('btn-New Project')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('btn-Import From Figma')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-autocomplete')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__button-sections')).not.toBeInTheDocument();
+    });
+
     it('buttons have correct styling props', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const newProjectBtn = screen.getByTestId('btn-New Project');
       expect(newProjectBtn).toHaveAttribute('data-color', 'primary');
       expect(newProjectBtn).toHaveAttribute('data-style', 'filled');
@@ -338,13 +343,13 @@ it('hides enhance icon when input has text', () => {
 
   describe('Autocomplete Component', () => {
     it('renders autocomplete component', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} autocompleteOptions={frontendOptions} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toBeInTheDocument();
     });
 
     it('renders autocomplete with correct props', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} autocompleteOptions={frontendOptions} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toHaveAttribute('data-placeholder', 'Select Frontend');
       expect(autocomplete).not.toHaveAttribute('data-helper-text', 'Select one of the available options');
@@ -354,7 +359,8 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection 
           {...defaultProps} 
-          autoCompleteMaxWidth="500px"
+          autocompleteOptions={frontendOptions}
+            autoCompleteMaxWidth="500px"
         />
       );
       const autocompleteDiv = container.querySelector('.rds-comp-ai-typing-section__autocomplete');
@@ -364,7 +370,6 @@ it('hides enhance icon when input has text', () => {
 
   describe('Mobile Responsiveness', () => {
     it('applies mobile class on mobile viewport', () => {
-      // Mock window.innerWidth for mobile
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
@@ -378,7 +383,6 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('does not apply mobile class on desktop viewport', () => {
-      // Mock window.innerWidth for desktop
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
@@ -400,7 +404,6 @@ it('hides enhance icon when input has text', () => {
 
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       
-      // Trigger resize event
       Object.defineProperty(window, 'innerWidth', { value: 375 });
       fireEvent.resize(window);
 
@@ -465,13 +468,13 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('renders button sections container', () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const buttonSections = container.querySelector('.rds-comp-ai-typing-section__button-sections');
       expect(buttonSections).toBeInTheDocument();
     });
 
     it('renders project actions container', () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const projectActions = container.querySelector('.rds-comp-ai-typing-section__project-actions');
       expect(projectActions).toBeInTheDocument();
     });
@@ -508,7 +511,7 @@ it('hides enhance icon when input has text', () => {
         <RdsCompAiTypingSection iconName="test" />
       );
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
-      expect(textarea.placeholder).toBe('Placeholder Text');
+      expect(textarea.placeholder).toBe('');
     });
 
     it('handles empty previewImage prop', () => {
@@ -522,7 +525,6 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const sendButton = screen.getByTestId('btn-icon-only');
       
-      // Should not throw even without callbacks
       expect(() => fireEvent.click(sendButton)).not.toThrow();
     });
 
@@ -616,6 +618,37 @@ it('handles emoji input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toHaveClass('rds-comp-ai-typing-section__input-box--muted-placeholder');
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('uses the placeholder prop over the deprecated placeholderText (G3-148)', () => {
+      const { container } = render(<RdsCompAiTypingSection placeholder="New" placeholderText="Old" />);
+      expect(container.querySelector('textarea')).toHaveAttribute('placeholder', 'New');
+    });
+
+    it('calls the project action callbacks (G3-139)', () => {
+      const onNewProjectClick = jest.fn();
+      const onImportFromFigmaClick = jest.fn();
+      render(
+        <RdsCompAiTypingSection onNewProjectClick={onNewProjectClick} onImportFromFigmaClick={onImportFromFigmaClick} />
+      );
+      fireEvent.click(screen.getByTestId('btn-New Project'));
+      fireEvent.click(screen.getByTestId('btn-Import From Figma'));
+      expect(onNewProjectClick).toHaveBeenCalled();
+      expect(onImportFromFigmaClick).toHaveBeenCalled();
+    });
+
+    it("merges slotProps.autocomplete.sx into the frontend selector", () => {
+      render(<RdsCompAiTypingSection autocompleteOptions={frontendOptions} slotProps={{ autocomplete: { sx: { maxWidth: "400px" } } }} />);
+      expect(screen.getByTestId("rds-autocomplete")).toHaveAttribute("data-sx", JSON.stringify({ maxWidth: "400px" }));
+    });
+
+    it("sends imageSrc over the deprecated previewImage", () => {
+      const onSend = jest.fn();
+      render(<RdsCompAiTypingSection onSend={onSend} imageSrc="new.png" previewImage="old.png" />);
+      fireEvent.click(screen.getByTestId("btn-icon-only"));
+      expect(onSend).toHaveBeenCalledWith("", "new.png");
     });
   });
 });

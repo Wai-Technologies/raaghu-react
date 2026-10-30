@@ -10,12 +10,12 @@ const meta: Meta<typeof RdsSkeleton> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],
+      include: ['variant', 'frames', 'animation', 'width', 'height'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    shape: {
+    variant: {
       control: 'select',
       options: ['text', 'rectangular', 'rounded', 'circular'],
       description: 'Shape of the skeleton block',
@@ -23,10 +23,6 @@ const meta: Meta<typeof RdsSkeleton> = {
     frames: {
       control: { type: 'number', min: 1, max: 10 },
       description: 'Number of skeleton frames to render',
-    },
-    animated: {
-      control: 'boolean',
-      description: 'Show Animated: Yes/No. Enable this option to add animation to the skeleton, providing a more dynamic loading effect, or turn it off for a static placeholder.',
     },
     animation: {
       control: 'select',
@@ -49,10 +45,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Text: Story = {
   args: {
-    shape: 'text',
+    variant: 'text',
     frames: 3,
     width: '100%',
-    animated: true,
   },
   play: async ({ canvasElement }) => {
     const skeleton = canvasElement.querySelector('.MuiSkeleton-root');
@@ -62,48 +57,44 @@ export const Text: Story = {
 
 export const Rectangular: Story = {
   args: {
-    shape: 'rectangular',
+    variant: 'rectangular',
     frames: 3,
     width: "210px",
     height: "118px",
-    animated: true,
   },
 };
 
 export const Circular: Story = {
   args: {
-    shape: 'circular',
+    variant: 'circular',
     frames: 3,
     width: "40px",
     height: "40px",
-    animated: true,
   },
 };
 
 export const Rounded: Story = {
   args: {
-    shape: 'rounded',
+    variant: 'rounded',
     frames: 3,
     width: "210px",
     height: "60px",
-    animated: true,
   },
 };
 
 export const WaveAnimation: Story = {
   args: {
-    shape: 'rectangular',
+    variant: 'rectangular',
     frames: 3,
     width: "210px",
     height: "118px",
     animation: 'wave',
-    animated: true,
   },
 };
 
 export const NoAnimation: Story = {
   args: {
-    shape: 'rectangular',
+    variant: 'rectangular',
     frames: 3,
     width: "210px",
     height: "118px",
@@ -111,33 +102,30 @@ export const NoAnimation: Story = {
   },
   parameters: {
     controls: {
-      exclude: ['animated'],
     },
   },
 };
 
 export const CardSkeleton: Story = {
   parameters: {
-    controls: { exclude: ['shape', 'frames', 'component', 'lines'] },
+    controls: { exclude: ['variant', 'frames', 'component', 'lines'] },
   },
   argTypes: {
-    shape: { table: { disable: true }, control: false },
+    variant: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    // lines: { table: { disable: true }, control: false }, // removed: not in RdsSkeletonProps
-    component: { table: { disable: true }, control: false },
+    ['component' as string]: { table: { disable: true }, control: false },
   },
   args: {
     width: "100%",
     height: "140px",
-    animated: true,
   },
   render: (args) => (
     <Card sx={{ maxWidth: 345 }}>
-      <RdsSkeleton shape="rectangular" width={args.width} height={args.height} frames={1} animated={args.animated} animation={args.animation} />
+      <RdsSkeleton variant="rectangular" width={args.width} height={args.height} frames={1} animation={args.animation} />
       <CardContent>
-        <RdsSkeleton shape="text" sx={{ fontSize: '1.2rem' }} frames={1} animated={args.animated} animation={args.animation} />
-        <RdsSkeleton shape="text" frames={1} animated={args.animated} animation={args.animation} />
-        <RdsSkeleton shape="text" width="60%" frames={1} animated={args.animated} animation={args.animation} />
+        <RdsSkeleton variant="text" sx={{ fontSize: '1.2rem' }} frames={1} animation={args.animation} />
+        <RdsSkeleton variant="text" frames={1} animation={args.animation} />
+        <RdsSkeleton variant="text" width="60%" frames={1} animation={args.animation} />
       </CardContent>
     </Card>
   ),

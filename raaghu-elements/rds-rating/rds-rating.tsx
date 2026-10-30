@@ -1,22 +1,40 @@
-import { useMemo, useState, type SyntheticEvent } from 'react';
-import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
+import clsx from 'clsx';
+import { Rating as MuiRating, type RatingProps, Slider } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
+type RatingStyle = 'default' | 'filled' | 'outlined';
+type RatingColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+
+export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'> {
+  /** Text label rendered before the rating. */
   label?: string;
+  /** Show the numeric value next to the rating. */
   showValue?: boolean;
+  /** @deprecated Use `max` instead. */
   maxStars?: number;
+  /** Labels under the slider track (start, middle, end). Defaults to `['No', 'Maybe', 'Yes']`. */
+  sliderLabels?: [ReactNode, ReactNode, ReactNode];
+  /** Rating display: stars or a three-point slider. */
   type?: 'star' | 'slider';
+  /** Preset rating value, or Left/Mid/Right for the slider type. */
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
-  styles?: 'default' | 'filled' | 'outlined';
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  /** Visual style of the stars; `variant` takes precedence. */
+  styles?: RatingStyle;
+  /** Visual style of the stars. */
+  variant?: RatingStyle;
+  /** Color of the rating. `'danger'` is deprecated; use `'error'`. */
+  color?: RatingColor;
+  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: RatingColor;
 }
 
-const allowedSliderValues = [0, 2.5, 5];
-
-const snapToAllowed = (val: number | null | undefined): number => {
+const snapToAllowed = (val: number | null | undefined, maxValue = 5): number => {
   if (val === null || val === undefined) return 0;
+  const allowedSliderValues = [0, maxValue / 2, maxValue];
   return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
 };
 
@@ -39,61 +57,76 @@ const getLevelValue = (lvl: RdsRatingProps['level']): number | undefined => {
   return lvl;
 };
 
+/** Star or three-point slider rating built on MUI Rating / Slider. */
 const RdsRating = ({
   label,
   showValue = false,
-  maxStars = 5,
+  maxStars,
+  sliderLabels = ['No', 'Maybe', 'Yes'],
+  className,
   max,
   value,
   type = 'star',
-  styles = 'default',
+  styles,
+  variant,
   level,
+  color,
   colorVariant,
+  defaultValue,
   onChange,
   precision: precisionProp,
+  'data-testid': dataTestId,
   ...props
-}: RdsRatingProps) => {
-  const maxRating = max || maxStars;
-  
+}: RdsRatingProps & { 'data-testid'?: string }) => {
+  if (maxStars !== undefined) warnDeprecatedProp('RdsRating', 'maxStars', '`max`');
+  if (colorVariant !== undefined) warnDeprecatedProp('RdsRating', 'colorVariant', '`color`');
+  if (color === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsRating', 'color="danger"', '`color: "error"`');
+  }
+  const maxRating = max || maxStars || 5;
+  const resolvedStyle = variant ?? styles ?? 'default';
+  const resolvedColor = normalizePaletteColor(color ?? colorVariant);
+
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {
       if (level !== undefined) {
         const levelVal = getLevelValue(level);
-        return snapToAllowed(levelVal);
+        return snapToAllowed(levelVal, maxRating);
       }
-      if (value !== undefined) return snapToAllowed(value);
-      return 0;
+      if (value !== undefined) return snapToAllowed(value, maxRating);
+      return defaultValue === undefined ? 0 : snapToAllowed(defaultValue, maxRating);
     } else {
       if (level !== undefined) {
         const levelVal = getLevelValue(level);
         return levelVal !== undefined ? levelVal : null;
       }
       if (value !== undefined) return value;
-      return null;
+      return defaultValue ?? null;
     }
   });
   
   
-  const currentValue = useMemo(() => {
+  const computeCurrentValue = (): number | null => {
     if (type === 'slider') {
-      if (value !== undefined) {
-        return snapToAllowed(value);
-      }
       if (level !== undefined) {
-        return snapToAllowed(getLevelValue(level));
+        return snapToAllowed(getLevelValue(level), maxRating);
       }
-      return snapToAllowed(internalValue);
+      if (value !== undefined) {
+        return snapToAllowed(value, maxRating);
+      }
+      return snapToAllowed(internalValue, maxRating);
     }
 
-    if (value !== undefined) {
-      return value;
-    }
     if (level !== undefined) {
       const levelValue = getLevelValue(level);
       return levelValue !== undefined ? levelValue : null;
     }
+    if (value !== undefined) {
+      return value;
+    }
     return internalValue;
-  }, [internalValue, level, type, value]);
+  };
+  const currentValue = computeCurrentValue();
 
   const precision =
     type === 'slider'
@@ -101,22 +134,16 @@ const RdsRating = ({
       : sanitizePrecision(precisionProp !== undefined ? precisionProp : 0.5);
 
   const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
-    let finalValue: number | null = newValue;
-    
-    if (newValue === currentValue && newValue !== 0) {
-      finalValue = 0;
-    }
-    
-    setInternalValue(finalValue);
-    
+    setInternalValue(newValue);
     if (onChange) {
-      onChange(event, finalValue);
+      onChange(event, newValue);
     }
   };
 
   const handleSliderChange = (event: Event | SyntheticEvent, newValue: number | number[]) => {
     let value = Array.isArray(newValue) ? newValue[0] : newValue;
-    value = snapToAllowed(value);
+    if (props.readOnly) return;
+    value = snapToAllowed(value, maxRating);
     setInternalValue(value);
     
     if (onChange) {
@@ -140,8 +167,8 @@ const RdsRating = ({
       value={currentValue}
       precision={precision === undefined ? undefined : precision}
       onChange={handleStarChange}
-      className={`rds-rating__stars rds-rating__stars--${styles} ${colorVariant ? `rds-rating__stars--color-${colorVariant}` : ''}`}
-      emptyIcon={styles === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
+      className={clsx(`rds-rating__stars rds-rating__stars--${resolvedStyle} ${resolvedColor ? `rds-rating__stars--color-${resolvedColor}` : ''}`, className)}
+      emptyIcon={resolvedStyle === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
       {...props}
     />
   );
@@ -156,7 +183,11 @@ const RdsRating = ({
           step={precision}
           valueLabelDisplay="off"
           onChange={handleSliderChange}
-          className={`rds-rating__slider ${colorVariant ? `rds-rating__slider--color-${colorVariant}` : ''}`}
+          disabled={props.disabled}
+          name={props.name}
+          aria-label={props['aria-label'] ?? label ?? 'Rating'}
+          aria-labelledby={props['aria-labelledby']}
+          className={`rds-rating__slider ${resolvedColor ? `rds-rating__slider--color-${resolvedColor}` : ''}`}
         />
         {showValue && currentValue !== undefined && currentValue !== null && (
           <span className="rds-rating__value">
@@ -165,20 +196,23 @@ const RdsRating = ({
         )}
       </div>
       <div className="rds-rating__slider-labels">
-        <span className="rds-rating__slider-label rds-rating__slider-label--start">No</span>
-        <span className="rds-rating__slider-label rds-rating__slider-label--middle">Maybe</span>
-        <span className="rds-rating__slider-label rds-rating__slider-label--end">Yes</span>
+        <span className="rds-rating__slider-label rds-rating__slider-label--start">{sliderLabels[0]}</span>
+        <span className="rds-rating__slider-label rds-rating__slider-label--middle">{sliderLabels[1]}</span>
+        <span className="rds-rating__slider-label rds-rating__slider-label--end">{sliderLabels[2]}</span>
       </div>
     </div>
   );
 
   return (
-  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}>
+  <div
+    className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} rds-rating--${resolvedStyle} ${getPositionClass()} ${resolvedColor ? `rds-rating--color-${resolvedColor}` : ''}`}
+    data-testid={dataTestId}
+  >
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
-      {showValue && currentValue !== undefined && (
+      {showValue && type !== 'slider' && currentValue !== undefined && (
         <span className="rds-rating__display-value">
-          {type === 'slider' ? `${Number(currentValue).toFixed(1)}` : `(${currentValue}/${maxRating})`}
+          {`(${currentValue}/${maxRating})`}
         </span>
       )}
     </div>

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsPagination from './rds-pagination';
 import React, { useState } from 'react';
 
@@ -16,7 +15,6 @@ const meta: Meta<typeof RdsPagination> = {
         'pageSize',
         'onPageSizeChange',
         'onChange',
-        'onPageChange',
         'pageSizeOptions',
         'controls',
         'totalPages',
@@ -31,16 +29,15 @@ const meta: Meta<typeof RdsPagination> = {
     pageSize: { control: false },
     onPageSizeChange: { control: false },
     onChange: { control: false },
-    onPageChange: { control: false },
     pageSizeOptions: { control: false },
     ref: { control: false },
-    count: {
+    pageCount: {
       control: 'number',
       description: 'Total number of pages',
     },
     page: {
-      control: 'number',
-      description: 'Current page number',
+      control: false,
+      table: { disable: true },
     },
     size: {
       control: 'select',
@@ -69,7 +66,7 @@ const meta: Meta<typeof RdsPagination> = {
       control: 'boolean',
       description: 'Show last page button',
     },
-    showDropdown: {
+    showPageSize: {
       control: 'boolean',
       description: 'Show records per page dropdown',
     },
@@ -89,7 +86,7 @@ const meta: Meta<typeof RdsPagination> = {
       control: 'boolean',
       description: 'Show last page button (independent control)',
     },
-    showManualInput: {
+    showPageInput: {
       control: 'boolean',
       description: 'Show manual page input (Go to [input] Page)',
     },
@@ -115,15 +112,14 @@ export const Default: Story = {
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
-        onPageChange={setPage}
         onPageSizeChange={setPageSize}
         pageSizeOptions={[10, 25, 50]}
-        showDropdown={args.showDropdown}
+        showPageSize={args.showPageSize}
         showLegend={args.showLegend}
         legendText={args.legendText}
         showFirst={args.showFirst}
         showLast={args.showLast}
-        showManualInput={args.showManualInput}
+        showPageInput={args.showPageInput}
         paginationStyle={args.paginationStyle}
       />
     );
@@ -131,10 +127,9 @@ export const Default: Story = {
   args: {
     count: 50,
     page: 1,
-    showDropdown: false,
+    showPageSize: false,
     showLegend: false,
-    legendText: "{current} of {total} items",
-    showManualInput: true,
+    showPageInput: true,
     paginationStyle: 'Style 1',
   },
   parameters: {
@@ -143,12 +138,10 @@ export const Default: Story = {
         'count',
         'page',
         'paginationStyle',
-        'showDropdown',
+        'showPageSize',
         'showLegend',
         'legendText',
-        'showFirst',
-        'showLast',
-        'showManualInput',
+        'showPageInput',
         'size',
         'variant',
         'shape',
@@ -176,37 +169,35 @@ export const Advanced: Story = {
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
-        onPageChange={setPage}
         onPageSizeChange={setPageSize}
         pageSizeOptions={[10, 25, 50, 100]}
         showFirstLast={false}
-        showDropdown={args.showDropdown}
+        showPageSize={args.showPageSize}
         showLegend={args.showLegend}
         legendText={args.legendText}
         showFirst={args.showFirst}
         showLast={args.showLast}
-        showManualInput={args.showManualInput}
+        showPageInput={args.showPageInput}
         paginationStyle={args.paginationStyle}
       />
     );
   },
   args: {
-    showDropdown: false,
+    showPageSize: false,
     showLegend: false,
-    legendText: "{current} of {total} items",
-    showManualInput: true,
+    showPageInput: true,
     paginationStyle: 'Style 1',
   },
   parameters: {
     controls: {
       include: [
         'paginationStyle',
-        'showDropdown',
+        'showPageSize',
         'showLegend',
         'legendText',
         'showFirst',
         'showLast',
-        'showManualInput',
+        'showPageInput',
         'size',
         'variant',
         'shape',
@@ -224,7 +215,7 @@ export const Advanced: Story = {
 };
 
 const basicPaginationControls = [
-  'count',
+  'pageCount',
   'page',
   'size',
   'variant',
@@ -246,7 +237,7 @@ export const Disabled: Story = {
     );
   },
   args: {
-    count: 10,
+    pageCount: 10,
     page: 5,
     disabled: true,
   },
@@ -264,7 +255,7 @@ export const Large: Story = {
     );
   },
   args: {
-    count: 12,
+    pageCount: 12,
     page: 6,
     size: 'large',
   },
@@ -283,7 +274,7 @@ export const Outlined: Story = {
     );
   },
   args: {
-    count: 10,
+    pageCount: 10,
     page: 3,
     variant: 'outlined',
   },
@@ -302,7 +293,7 @@ export const Rounded: Story = {
     );
   },
   args: {
-    count: 15,
+    pageCount: 15,
     page: 7,
     shape: 'rounded',
   },
@@ -320,7 +311,7 @@ export const Small: Story = {
     );
   },
   args: {
-    count: 8,
+    pageCount: 8,
     page: 4,
     size: 'small',
   },
@@ -339,7 +330,7 @@ export const WithFirstLast: Story = {
     );
   },
   args: {
-    count: 20,
+    pageCount: 20,
     page: 10,
   },
   parameters: { controls: { include: [...basicPaginationControls] } },

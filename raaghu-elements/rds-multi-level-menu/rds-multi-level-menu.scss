@@ -1,16 +1,19 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-mlm-paper {
-  /* use centralized design tokens where available */
+  --rds-multi-level-menu-dim-1: 520px;
+
   --rds-mlm-min-width: 220px;
   --rds-mlm-item-padding-y: 8px;
   --rds-mlm-item-padding-x: 16px;
   --rds-mlm-item-transition: var(--rds-transition-fast, 0.15s ease-in-out);
+  --rds-mlm-shortcut-min-width: 72px;
+
   box-shadow: var(--rds-elevation-3);
-  border-radius: var(--rds-border-radius-md, 12px);
-  border: 1px solid var(--rds-border-default);
+  border-radius: var(--rds-border-radius-md);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   padding: 0;
-  min-width: var(--rds-mlm-min-width, 220px);
+  min-width: var(--rds-mlm-min-width);
   background: var(--rds-background-paper);
   .MuiList-root { transition: max-height var(--rds-transition-base, 0.16s ease-in-out); }
 }
@@ -24,9 +27,9 @@
 .rds-mlm-paper .MuiMenuItem-root {
   font-family: inherit;
   font-size: var(--rds-font-size-md);
-  line-height: 1.25;
-  min-width: var(--rds-mlm-min-width, 220px);
-  padding: var(--rds-mlm-item-padding-y, 8px) var(--rds-mlm-item-padding-x, 16px);
+  line-height: var(--rds-line-height-tight);
+  min-width: var(--rds-mlm-min-width);
+  padding: var(--rds-mlm-item-padding-y) var(--rds-mlm-item-padding-x);
   margin: 0;
   transition: background-color var(--rds-mlm-item-transition, 0.15s ease-in-out), color var(--rds-mlm-item-transition, 0.15s ease-in-out);
   color: var(--rds-text-primary);
@@ -35,7 +38,7 @@
 
 
 .rds-mlm-paper .MuiMenuItem-root:hover,
-.rds-mlm-paper .MuiMenuItem-root.force-hover,
+.rds-mlm-paper .MuiMenuItem-root:focus-visible,
 .rds-mlm-paper .MuiMenuItem-root:active,
 .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
   background-color: var(--rds-background-surface-hover);
@@ -43,34 +46,39 @@
 
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
-.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
-.rds-mlm-paper .MuiMenuItem-root.force-selected {
-  background-color: var(--rds-primary-light) !important;
-  color: var(--rds-primary-main) !important;
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover {
+  background-color: var(--rds-primary-light);
+  color: var(--rds-primary-main);
 }
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
-.rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
-  color: var(--rds-primary-main) !important;
+  color: var(--rds-primary-main);
 }
 
 .rds-mlm-paper .MuiMenuItem-root.expanded-open,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
-  background-color: var(--rds-primary-light) !important;
-  color: var(--rds-primary-main) !important;
+  background-color: var(--rds-primary-light);
+  color: var(--rds-primary-main);
 }
 
 
+.rds-mlm-paper .MuiMenuItem-root.small {
+  font-size: var(--rds-font-size-sm);
+  line-height: var(--rds-line-height-tight);
+  min-height: var(--rds-size-lg);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+}
+
 .rds-mlm-paper .MuiMenuItem-root.large {
   font-size: var(--rds-font-size-lg);
-  line-height: 24px;
-  min-height: 48px;
-  padding: var(--rds-spacing-md, 12px) calc(var(--rds-spacing-lg, 16px) + var(--rds-spacing-xxs, 2px));
+  line-height: var(--rds-multi-level-menu-item-line-height-lg);
+  min-height: var(--rds-size-2xl);
+  padding: var(--rds-spacing-md) calc(var(--rds-spacing-lg) + var(--rds-spacing-xxs));
 }
 
 .rds-mlm-paper .rds-mlm-arrow {
@@ -78,20 +86,24 @@
 }
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
-  color: var(--rds-primary-main) !important;
+  color: var(--rds-primary-main);
+}
+
+.rds-mlm-paper.size-small {
+  --rds-mlm-min-width: 180px;
 }
 
 .rds-mlm-paper.size-large {
-  max-height: 520px;
+  max-height: var(--rds-multi-level-menu-dim-1);
   overflow: auto;
 }
 
 
 .rds-mlm-paper .rds-mlm-shortcut {
   color: var(--rds-text-secondary);
-  font-size: var(--rds-font-size-lg) !important;
-  margin-left: var(--rds-spacing-sm, 8px);
-  min-width: var(--rds-mlm-shortcut-min-width, 72px);
+  font-size: var(--rds-font-size-lg);
+  margin-left: var(--rds-spacing-sm);
+  min-width: var(--rds-mlm-shortcut-min-width);
   text-align: right;
 }
 
@@ -101,9 +113,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: var(--rds-spacing-sm, 8px);
+  margin-right: var(--rds-spacing-sm);
 }
-
 
 
 

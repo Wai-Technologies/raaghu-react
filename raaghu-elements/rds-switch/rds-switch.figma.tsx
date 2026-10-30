@@ -9,19 +9,25 @@ figma.connect(
     props: {
       showLabel: figma.boolean("📝 - Label Text"),
       label: figma.string("✏️ Text / Title"),
-      state: figma.enum("💡 State", {
-        "On": "on",
-        "Off": "off",
-        "Disabled On": "disabled on",
-        "Disabled Off": "disabled off",
+      checked: figma.enum("💡 State", {
+        "On": true,
+        "Off": false,
+        "Disabled On": true,
+        "Disabled Off": false,
       }),
-      layout:figma.enum("📱 Layout", {
-        "Switch + Label": "switch+label",
-        "Label + Switch": "label+switch",
-        "Top Label + Switch": "toplabel+switch",
-        "Bottom Label + Switch": "bottomlabel+switch",
+      disabled: figma.enum("💡 State", {
+        "On": false,
+        "Off": false,
+        "Disabled On": true,
+        "Disabled Off": true,
       }),
-      style: figma.enum("✨ Style", {
+      labelPlacement: figma.enum("📱 Layout", {
+        "Switch + Label": "end",
+        "Label + Switch": "start",
+        "Top Label + Switch": "top",
+        "Bottom Label + Switch": "bottom",
+      }),
+      variant: figma.enum("✨ Style", {
         "Style 1": "style1",
         "Style 2": "style2",
         "Style 3": "style3",

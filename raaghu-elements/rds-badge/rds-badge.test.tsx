@@ -4,7 +4,6 @@ import RdsBadge, { RdsBadgeProps } from './rds-badge';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-badge.scss', () => ({}));
 
 describe('RdsBadge', () => {
@@ -165,11 +164,21 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--tertiary')).toBeInTheDocument();
     });
 
-    it('should apply danger color', () => {
+    it('should apply danger color as error and warn', () => {
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
       const { container } = render(
-        <RdsBadge {...defaultProps} colorVariant="danger" />
+        <RdsBadge {...defaultProps} color="danger" />
       );
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('color="danger"'));
+      warnSpy.mockRestore();
+    });
+
+    it('should apply error color', () => {
+      const { container } = render(
+        <RdsBadge {...defaultProps} color="error" />
+      );
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
     });
 
     it('should apply warning color', () => {
@@ -200,16 +209,16 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
 
-    it('should apply disabled class when state is disabled', () => {
+    it('should apply disabled class when disabled is true', () => {
       const { container } = render(
-        <RdsBadge {...defaultProps} state="disabled" />
+        <RdsBadge {...defaultProps} disabled />
       );
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
     });
 
-    it('should not show disabled when state is default', () => {
+    it('should not show disabled when disabled is false', () => {
       const { container } = render(
-        <RdsBadge {...defaultProps} state="default" />
+        <RdsBadge {...defaultProps} disabled={false} />
       );
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
@@ -327,7 +336,7 @@ describe('RdsBadge', () => {
           layout="icon-text"
           styleType="outline"
           colorVariant="danger"
-          state="default"
+          disabled={false}
         >
           <span>Content</span>
         </RdsBadge>
@@ -335,7 +344,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--large')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--rectangle')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--outline')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
     });
 
     it('should handle size, shape, and color variations', () => {
@@ -357,7 +366,7 @@ describe('RdsBadge', () => {
         <RdsBadge
           badgeContent={3}
           colorVariant="warning"
-          state="disabled"
+          disabled
         />
       );
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
@@ -410,7 +419,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--primary')).toBeInTheDocument();
     });
 
-    it('should use default state as default', () => {
+    it('should be enabled by default', () => {
       const { container } = render(<RdsBadge badgeContent={5} />);
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
@@ -483,16 +492,16 @@ describe('RdsBadge', () => {
       expect(screen.getByText('Second')).toBeInTheDocument();
     });
 
-    it('should handle rapid state changes', () => {
+    it('should handle rapid disabled prop changes', () => {
       const { rerender, container } = render(
-        <RdsBadge badgeContent={5} state="default" />
+        <RdsBadge badgeContent={5} disabled={false} />
       );
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
 
-      rerender(<RdsBadge badgeContent={5} state="disabled" />);
+      rerender(<RdsBadge badgeContent={5} disabled />);
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
 
-      rerender(<RdsBadge badgeContent={5} state="default" />);
+      rerender(<RdsBadge badgeContent={5} disabled={false} />);
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
   });
@@ -547,20 +556,6 @@ describe('RdsBadge', () => {
       });
     });
 
-    it('should accept valid state prop values', () => {
-      const states: Array<'default' | 'disabled'> = ['default', 'disabled'];
-      states.forEach(state => {
-        const { container } = render(
-          <RdsBadge badgeContent={5} state={state} />
-        );
-        if (state === 'disabled') {
-          expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
-        } else {
-          expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
-        }
-      });
-    });
-
     it('should accept valid colorVariant prop values', () => {
       const colors: Array<'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success'> = [
         'primary',
@@ -575,7 +570,8 @@ describe('RdsBadge', () => {
         const { container } = render(
           <RdsBadge badgeContent={5} colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-badge--${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color;
+        expect(container.querySelector(`.rds-badge--${expected}`)).toBeInTheDocument();
       });
     });
   });
@@ -646,5 +642,81 @@ describe('RdsBadge', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsBadge audit fixes', () => {
+  it('keeps its own classes when a consumer passes className (G1-086)', () => {
+    const { container } = render(<RdsBadge badgeContent={4} className="my-badge"><span>Inbox</span></RdsBadge>);
+    const root = container.querySelector('.MuiBadge-root');
+    expect(root).toHaveClass('rds-badge');
+    expect(root).toHaveClass('my-badge');
+  });
+
+  it('forwards className on the standalone badge (G1-087)', () => {
+    const { container } = render(<RdsBadge badgeContent={4} className="my-badge" />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('my-badge');
+  });
+
+  it('caps standalone numeric content at max (G1-087)', () => {
+    const { rerender } = render(<RdsBadge badgeContent={150} />);
+    expect(screen.getByText('99+')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={99} />);
+    expect(screen.getByText('99')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={150} max={200} />);
+    expect(screen.getByText('150')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={15} max={9} />);
+    expect(screen.getByText('9+')).toBeInTheDocument();
+  });
+
+  it('forwards sx, ref and rest props on the standalone badge (G1-087)', () => {
+    const ref = React.createRef<HTMLElement>();
+    const { container } = render(
+      <RdsBadge badgeContent={4} ref={ref} sx={{ opacity: 0.5 }} data-testid="standalone" id="b1" />,
+    );
+    const root = container.querySelector('.rds-badge') as HTMLElement;
+    expect(ref.current).toBe(root);
+    expect(root).toHaveStyle({ opacity: '0.5' });
+    expect(root).toHaveAttribute('data-testid', 'standalone');
+    expect(root).toHaveAttribute('id', 'b1');
+  });
+
+  it('lets consumers replace the layout icon (G1-088)', () => {
+    render(<RdsBadge badgeContent={4} layout="icon-text" icon={<span data-testid="custom-badge-icon" />} />);
+    expect(screen.getByTestId('custom-badge-icon')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+  });
+});
+
+describe('RdsBadge audit fixes', () => {
+  it('startIcon/endIcon override layout-derived icons; null hides', () => {
+    const { container, rerender } = render(
+      <RdsBadge badgeContent={4} layout="icon-text" startIcon={<span data-testid="s" />} endIcon={<span data-testid="e" />} />
+    );
+    expect(screen.getByTestId('s')).toBeInTheDocument();
+    expect(screen.getByTestId('e')).toBeInTheDocument();
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={4} layout="icon-text" startIcon={null} />);
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+  });
+
+  it('disabled prop maps to the disabled class', () => {
+    const { container, rerender } = render(<RdsBadge badgeContent={4} disabled />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--disabled');
+    rerender(<RdsBadge badgeContent={4} disabled={false} />);
+    expect(container.querySelector('.rds-badge')).not.toHaveClass('rds-badge--disabled');
+  });
+
+  it('variant selects the style class; dot still reaches MUI', () => {
+    const { container, rerender } = render(<RdsBadge badgeContent={4} variant="outline" />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--outline');
+    rerender(<RdsBadge variant="dot"><span>x</span></RdsBadge>);
+    expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the root .rds-badge', () => {
+    render(<RdsBadge badgeContent={3} data-testid="notif-badge"><span>bell</span></RdsBadge>);
+    expect(screen.getByTestId('notif-badge')).toHaveClass('rds-badge');
   });
 });

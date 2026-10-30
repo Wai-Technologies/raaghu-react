@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import RdsCompNavtabs from "./rds-comp-navtabs";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
@@ -19,6 +18,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the navigation tabs root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the navigation tabs root.' },
+        ref: { control: false, description: 'React ref to the navigation tabs root; assign it in code.' },
         layout: {
             options: [
                 "Horizontal",
@@ -26,7 +28,7 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        style: {
+        variant: {
             options: [
                 "Bottom Select",
                 "Top Select",
@@ -62,7 +64,7 @@ export const Default: Story = {
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        style: "Bottom Select",
+        variant: "Bottom Select",
         justified: false,
         layout: "Horizontal"
     },
@@ -71,6 +73,5 @@ export const Default: Story = {
         await expect(tab).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
-
+Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'variant', 'className', 'sx', 'ref'] } };
 

@@ -1,43 +1,97 @@
-import { useState, type ReactNode } from 'react';
-import { Alert as MuiAlert, type AlertProps, type AlertColor, IconButton } from '@mui/material';
+import { useState, type ReactNode, type MouseEvent } from 'react';
+import { Alert as MuiAlert, IconButton, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Close } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-banner.scss';
 
-export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose' | 'component' | 'content'> {
+type Visibility = 'visible' | 'hidden';
+type Toggle = 'on' | 'off';
+
+export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component' | 'content'> {
+  /** Message text. */
   description?: string;
-  type?: AlertColor;
+  /** Heading shown before the message when the title is visible. */
   title?: string;
+  /** Visibility of icon, title, description and multiline layout; wins over the boolean flags. */
   content?: {
-    icon?: 'visible' | 'hidden';
-    title?: 'visible' | 'hidden';
-    description?: 'visible' | 'hidden';
-    multiline?: 'on' | 'off';
+    icon?: Visibility;
+    title?: Visibility;
+    description?: Visibility;
+    multiline?: Toggle;
   };
+  /** Size of the banner. @default 'medium' */
   size?: 'small' | 'medium' | 'large';
+  /** Visual style of the banner. @default 'style1' */
   variantStyle?: 'style1' | 'style2' | 'style3';
+  /** Per-action visibility ('visible' | 'hidden') for link, secondary, primary and close; wins over the boolean flags. */
   actionsConfig?: {
-    link?: 'visible' | 'hidden';
-    secondary?: 'visible' | 'hidden';
-    primary?: 'visible' | 'hidden';
-    close?: 'visible' | 'hidden';
+    link?: Visibility;
+    secondary?: Visibility;
+    primary?: Visibility;
+    close?: Visibility;
   };
+  /** Persistent, width ('full' | 'auto') and outline toggles; wins over the boolean flags. */
   layout?: {
-    persistent?: 'on' | 'off';
+    persistent?: Toggle;
     width?: 'full' | 'auto';
-    outline?: 'on' | 'off';
+    outline?: Toggle;
   };
+  /** Called when the close button is clicked. When set, the banner does not hide itself. */
   onClose?: () => void;
+  /** Label of the link button. Defaults to `'Link'`. */
+  linkText?: string;
+  /** Label of the secondary button. Defaults to `'Cancel'`. */
+  secondaryText?: string;
+  /** Label of the primary button. Defaults to `'Okay'`. */
+  primaryText?: string;
+  /** Called when the link button is clicked. */
+  onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the secondary button is clicked. */
+  onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** Called when the primary button is clicked. */
+  onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** @deprecated Use `severity`. */
+  type?: AlertColor;
+  /** Extra content rendered next to the close button. MUI `action` replaces the whole action area instead. */
   actions?: ReactNode;
-  [key: string]: unknown;
+  /** Shows the icon. Defaults to `true`. Overridden by `content.icon`. */
+  Icon?: boolean;
+  /** Shows the title. Defaults to `false`. Overridden by `content.title`. */
+  showTitle?: boolean;
+  /** Shows the description. Defaults to `true`. Overridden by `content.description`. */
+  showDescription?: boolean;
+  /** Puts the title and description on separate lines. Defaults to `false`. Overridden by `content.multiline`. */
+  multiline?: boolean;
+  /** Shows the link button. Defaults to `false`. Overridden by `actionsConfig.link`. */
+  showLink?: boolean;
+  /** Shows the secondary button. Defaults to `false`. Overridden by `actionsConfig.secondary`. */
+  showSecondary?: boolean;
+  /** Shows the primary button. Defaults to `false`. Overridden by `actionsConfig.primary`. */
+  showPrimary?: boolean;
+  /** Shows the close button. Defaults to `true`. Overridden by `actionsConfig.close`. */
+  closable?: boolean;
+  /** Keeps the banner rendered after it is closed. Defaults to `false`. Overridden by `layout.persistent`. */
+  persistent?: boolean;
+  /** Stretches the banner to full width. Defaults to `true`. Overridden by `layout.width`. */
+  fullWidth?: boolean;
+  /** Adds the outline style. Defaults to `false`. Overridden by `layout.outline`. */
+  showOutline?: boolean;
 }
+
+/** The `content`/`actionsConfig`/`layout` objects take precedence over the legacy boolean flags. */
+const pick = (value: string | undefined, on: string, fallback: boolean) =>
+  value ? value === on : fallback;
 
 const RdsBanner = ({
   description,
   children,
-  type = 'info',
+  severity,
+  icon,
+  action,
+  variant,
   title = 'Heading Title.',
   content,
   size = 'medium',
@@ -45,59 +99,41 @@ const RdsBanner = ({
   actionsConfig,
   layout,
   onClose,
+  linkText = 'Link',
+  secondaryText = 'Cancel',
+  primaryText = 'Okay',
+  onLinkClick,
+  onSecondaryClick,
+  onPrimaryClick,
+  type,
   actions,
+  Icon: IconProp,
+  showTitle: showTitleProp,
+  showDescription: showDescriptionProp,
+  multiline: multilineProp,
+  showLink: showLinkProp,
+  showSecondary: showSecondaryProp,
+  showPrimary: showPrimaryProp,
+  closable: closableProp,
+  persistent: persistentProp,
+  fullWidth: fullWidthProp,
+  showOutline: showOutlineProp,
+  className,
   ...props
 }: RdsBannerProps) => {
-  const legacyIcon = typeof props['Icon'] === 'boolean' ? (props['Icon'] as boolean) : undefined;
-  const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
-  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
-  const legacyMultiline = typeof props['multiline'] === 'boolean' ? (props['multiline'] as boolean) : undefined;
-  const legacyShowLink = typeof props['showLink'] === 'boolean' ? (props['showLink'] as boolean) : undefined;
-  const legacyShowSecondary = typeof props['showSecondary'] === 'boolean' ? (props['showSecondary'] as boolean) : undefined;
-  const legacyShowPrimary = typeof props['showPrimary'] === 'boolean' ? (props['showPrimary'] as boolean) : undefined;
-  const legacyClosable = typeof props['closable'] === 'boolean' ? (props['closable'] as boolean) : undefined;
-  const legacyPersistent = typeof props['persistent'] === 'boolean' ? (props['persistent'] as boolean) : undefined;
-  const legacyFullWidth = typeof props['fullWidth'] === 'boolean' ? (props['fullWidth'] as boolean) : undefined;
-  const legacyShowOutline = typeof props['showOutline'] === 'boolean' ? (props['showOutline'] as boolean) : undefined;
+  if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`severity`');
 
-  const showIcon = content?.icon ? content.icon === 'visible' : (legacyIcon ?? true);
-  const showTitle = content?.title ? content.title === 'visible' : (legacyShowTitle ?? false);
-  const showDescription = content?.description ? content.description === 'visible' : (legacyShowDescription ?? true);
-  const multiline = content?.multiline ? content.multiline === 'on' : (legacyMultiline ?? false);
-  const showLink = actionsConfig?.link ? actionsConfig.link === 'visible' : (legacyShowLink ?? true);
-  const showSecondary = actionsConfig?.secondary ? actionsConfig.secondary === 'visible' : (legacyShowSecondary ?? true);
-  const showPrimary = actionsConfig?.primary ? actionsConfig.primary === 'visible' : (legacyShowPrimary ?? true);
-  const closable = actionsConfig?.close ? actionsConfig.close === 'visible' : (legacyClosable ?? true);
-  const persistent = layout?.persistent ? layout.persistent === 'on' : (legacyPersistent ?? false);
-  const fullWidth = layout?.width ? layout.width === 'full' : (legacyFullWidth ?? true);
-  const showOutline = layout?.outline ? layout.outline === 'on' : (legacyShowOutline ?? false);
-
-  const {
-    Icon: _legacyIcon,
-    showTitle: _legacyShowTitle,
-    showDescription: _legacyShowDescription,
-    multiline: _legacyMultiline,
-    showLink: _legacyShowLink,
-    showSecondary: _legacyShowSecondary,
-    showPrimary: _legacyShowPrimary,
-    closable: _legacyClosable,
-    persistent: _legacyPersistent,
-    fullWidth: _legacyFullWidth,
-    showOutline: _legacyShowOutline,
-    ...muiAlertProps
-  } = props as typeof props & {
-    Icon?: boolean;
-    showTitle?: boolean;
-    showDescription?: boolean;
-    multiline?: boolean;
-    showLink?: boolean;
-    showSecondary?: boolean;
-    showPrimary?: boolean;
-    closable?: boolean;
-    persistent?: boolean;
-    fullWidth?: boolean;
-    showOutline?: boolean;
-  };
+  const showIcon = pick(content?.icon, 'visible', IconProp ?? true);
+  const showTitle = pick(content?.title, 'visible', showTitleProp ?? false);
+  const showDescription = pick(content?.description, 'visible', showDescriptionProp ?? true);
+  const multiline = pick(content?.multiline, 'on', multilineProp ?? false);
+  const showLink = pick(actionsConfig?.link, 'visible', showLinkProp ?? false);
+  const showSecondary = pick(actionsConfig?.secondary, 'visible', showSecondaryProp ?? false);
+  const showPrimary = pick(actionsConfig?.primary, 'visible', showPrimaryProp ?? false);
+  const closable = pick(actionsConfig?.close, 'visible', closableProp ?? true);
+  const persistent = pick(layout?.persistent, 'on', persistentProp ?? false);
+  const fullWidth = pick(layout?.width, 'full', fullWidthProp ?? true);
+  const showOutline = pick(layout?.outline, 'on', showOutlineProp ?? false);
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -112,37 +148,27 @@ const RdsBanner = ({
   if (!isVisible && !persistent) {
     return null;
   }
-  const mainText = description;
-  const outlineClass = showOutline
-    ? (variantStyle === 'style1' ? 'rds-banner--style1-outline'
-      : variantStyle === 'style2' ? 'rds-banner--style2-outline'
-      : '')
-    : '';
 
-  let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
-  if (!muiAlertProps.variant) {
-  if (variantStyle === 'style2') {
-    muiVariant = 'outlined';
-  } else if (variantStyle === 'style3') {
-    muiVariant = 'standard';
-  }
-  }
+  const resolvedSeverity: AlertColor = severity ?? type ?? 'info';
+  const muiVariant = variant ?? (variantStyle === 'style2' ? 'outlined' : 'standard');
+  const iconNode: ReactNode = icon !== undefined ? icon : showIcon ? <InfoOutlinedIcon /> : false;
 
   return (
     <MuiAlert
-      severity={type}
+      {...props}
+      severity={resolvedSeverity}
       variant={muiVariant}
-      icon={showIcon ? <InfoOutlinedIcon /> : false}
+      icon={iconNode}
       className={clsx(
         'rds-banner',
         `rds-banner--${size}`,
         `rds-banner--${variantStyle}`,
-        `rds-banner--${type}`,
+        `rds-banner--${resolvedSeverity}`,
         fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width',
-        outlineClass,
-        muiAlertProps.className,
+        showOutline && variantStyle !== 'style3' && `rds-banner--${variantStyle}-outline`,
+        className,
       )}
-      action={
+      action={action !== undefined ? action : (
         <div className="rds-banner__action-container">
           {actions}
           {closable && (
@@ -153,12 +179,11 @@ const RdsBanner = ({
               onClick={handleClose}
               className="rds-banner__close-button"
             >
-              <Close fontSize="inherit" />
+              <CloseIcon fontSize="inherit" />
             </IconButton>
           )}
         </div>
-      }
-      {...muiAlertProps}
+      )}
     >
       <div className="rds-banner__content-wrapper">
         <div className="rds-banner__text-content">
@@ -168,7 +193,7 @@ const RdsBanner = ({
                 <strong className="rds-banner__heading rds-banner__heading--multiline">{title}</strong>
               )}
               {showDescription && (
-                <div className="rds-banner__description">{mainText}</div>
+                <div className="rds-banner__description">{description}</div>
               )}
             </div>
           ) : (
@@ -176,7 +201,7 @@ const RdsBanner = ({
               {showTitle && (
                 <strong className="rds-banner__heading">{title}</strong>
               )}
-              {showDescription && mainText}
+              {showDescription && description}
             </span>
           )}
           {children}
@@ -184,13 +209,19 @@ const RdsBanner = ({
         {(showLink || showSecondary || showPrimary) && (
           <div className="rds-banner__actions">
             {showLink && (
-              <RdsButton size="small" className="rds-banner__link-button" text="Link" />
+              <RdsButton size="small" className="rds-banner__link-button" onClick={onLinkClick}>
+                {linkText}
+              </RdsButton>
             )}
             {showSecondary && (
-              <RdsButton size="small" className="rds-banner__secondary-button" text="Cancel" />
+              <RdsButton size="small" className="rds-banner__secondary-button" onClick={onSecondaryClick}>
+                {secondaryText}
+              </RdsButton>
             )}
             {showPrimary && (
-              <RdsButton style='filled' size="small" className="rds-banner__primary-button" text="Okay" />
+              <RdsButton variant="filled" size="small" className="rds-banner__primary-button" onClick={onPrimaryClick}>
+                {primaryText}
+              </RdsButton>
             )}
           </div>
         )}

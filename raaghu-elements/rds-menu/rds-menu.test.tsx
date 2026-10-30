@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import userEvent from '@testing-library/user-event';
 import RdsMenu from './rds-menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
 import '@testing-library/jest-dom';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-menu.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -48,7 +48,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Verify menu items are rendered
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
 
@@ -56,7 +55,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Verify menu items are rendered
       expect(screen.getByText('Profile')).toBeInTheDocument();
       expect(screen.getByText('Settings')).toBeInTheDocument();
     });
@@ -88,7 +86,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={[]} open={true} anchorEl={document.body} />
       );
-      // Empty menu should render without errors
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
     });
 
@@ -119,7 +116,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
-      // Just verify the item renders
       expect(screen.getByText('Item without icon')).toBeInTheDocument();
     });
 
@@ -209,7 +205,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
-      // Divider renders in the menu
       expect(screen.getByRole('menu')).toBeInTheDocument();
     });
   });
@@ -449,7 +444,6 @@ describe('RdsMenu', () => {
           {customChild}
         </RdsMenu>
       );
-      // Items should not be rendered when children are provided
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
       expect(screen.getByText('Custom')).toBeInTheDocument();
     });
@@ -556,17 +550,14 @@ describe('RdsMenu', () => {
         <RdsMenu items={defaultItems} open={false} anchorEl={document.body} />
       );
 
-      // When closed, items should not be visible
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
 
-      // Rerender with open={true}
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
         </ThemeProvider>
       );
 
-      // When open, items should be visible
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
 
@@ -612,9 +603,7 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Menu items should render with proper structure
       expect(screen.getByText('Profile')).toBeInTheDocument();
-      // Verify at least one menu item exists
       const menuItems = screen.getAllByRole('menuitem');
       expect(menuItems.length).toBeGreaterThan(0);
   
@@ -644,5 +633,44 @@ describe('RdsMenu', () => {
       expect(menuItem).toBeInTheDocument();
       expect(menuItem.closest('[role="menuitem"]')).toHaveAttribute('aria-disabled', 'true');
     });
+  });
+});
+describe('audit fixes', () => {
+  it('merges consumer list className and keeps menu role', () => {
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A' }]} slotProps={{ list: { className: 'mine' } }} />);
+    const list = screen.getByRole('menu');
+    expect(list).toHaveClass('rds-menu__list');
+    expect(list).toHaveClass('mine');
+  });
+  it('passes the click event to item onClick and renders without items', () => {
+    const onClick = jest.fn();
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A', onClick }]} />);
+    fireEvent.click(screen.getByText('A'));
+    expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+    render(<RdsMenu open anchorEl={document.body}><li>Custom</li></RdsMenu>);
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes (renames)', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it('error colour renders like danger without warning', () => {
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'Delete', color: 'error' }]} />);
+    const item = screen.getByText('Delete').closest('li') as HTMLElement;
+    expect(item).toHaveClass('rds-menu__item--danger');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('danger colour warns', () => {
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'Delete', color: 'danger' }]} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsMenu', 'items[].color="danger"', '`color: "error"`');
+  });
+
+  it('forwards data-testid to the root .rds-menu', () => {
+    render(
+      <RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A' }]} data-testid="actions-menu" />,
+    );
+    expect(screen.getByTestId('actions-menu')).toHaveClass('rds-menu');
   });
 });

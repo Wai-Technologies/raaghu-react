@@ -3,81 +3,94 @@
 // Uses design tokens for consistency across themes
 
 .rds-date-picker {
+  --rds-date-and-time-picker-dim-1: var(--rds-spacing-hairline);
+  --rds-date-and-time-picker-dim-2: var(--rds-spacing-tight);
+  --rds-date-and-time-picker-dim-3: var(--rds-spacing-30);
+  --rds-date-and-time-picker-dim-4: var(--rds-spacing-60);
+  --rds-date-and-time-picker-dim-5: 100px;
+  --rds-date-and-time-picker-dim-6: 200px;
+  --rds-date-and-time-picker-dim-7: 250px;
+  --rds-date-and-time-picker-dim-8: 280px;
+  --rds-date-and-time-picker-dim-9: 300px;
+  --rds-date-and-time-picker-dim-10: 350px;
+  --rds-date-and-time-picker-dim-11: 400px;
+  --rds-date-and-time-picker-dim-12: 460px;
+  --rds-date-and-time-picker-dim-13: 500px;
+  --rds-date-and-time-picker-dim-14: 600px;
+
   width: auto;
-  min-width: 200px; // Base minimum width
-  max-width: 600px; // Allow for wider range pickers
-  // Global input styles for all variants
+  min-width: var(--rds-date-and-time-picker-dim-6);
+  max-width: var(--rds-date-and-time-picker-dim-14);
+
   .MuiInputBase-input {
     font-family: inherit;
-    font-weight: 400;
-    font-size: 1rem;
+    font-weight: var(--rds-font-weight-regular);
+    font-size: var(--rds-font-size-md);
   }
 
-  // Specific width adjustments based on content and variant
   &--datetimerange {
-    min-width: 400px;
-    max-width: 500px;
-    
+    min-width: var(--rds-date-and-time-picker-dim-11);
+    max-width: var(--rds-date-and-time-picker-dim-13);
+
     .MuiFormControl-root {
-      min-width: 400px;
-      max-width: 500px;
+      min-width: var(--rds-date-and-time-picker-dim-11);
+      max-width: var(--rds-date-and-time-picker-dim-13);
     }
-    
+
     .MuiInputBase-root {
-      min-width: 400px;
-      
+      min-width: var(--rds-date-and-time-picker-dim-11);
+
       .MuiInputBase-input {
-        min-width: 350px; // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-dim-10);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
-  
+
   &--timerange {
-    min-width: 460px;
-    max-width: 460px;
-    
+    min-width: var(--rds-date-and-time-picker-dim-12);
+    max-width: var(--rds-date-and-time-picker-dim-12);
+
     .MuiFormControl-root {
-      min-width: 460px;
-      max-width: 460px;
+      min-width: var(--rds-date-and-time-picker-dim-12);
+      max-width: var(--rds-date-and-time-picker-dim-12);
     }
-    
+
     .MuiInputBase-root {
-      min-width: 460px;
-      
+      min-width: var(--rds-date-and-time-picker-dim-12);
+
       .MuiInputBase-input {
-        min-width: 460px; // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-dim-12);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
-  
+
   &--daterange,
   &--multi-month {
-    min-width: 300px;
-    max-width: 300px;
-    
+    min-width: var(--rds-date-and-time-picker-dim-9);
+    max-width: var(--rds-date-and-time-picker-dim-9);
+
     .MuiFormControl-root {
-      min-width: 300px;
-      max-width: 300px;
+      min-width: var(--rds-date-and-time-picker-dim-9);
+      max-width: var(--rds-date-and-time-picker-dim-9);
     }
-    
+
     .MuiInputBase-root {
-      min-width: 300px;
-      
+      min-width: var(--rds-date-and-time-picker-dim-9);
+
       .MuiInputBase-input {
-        min-width: 250px; // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-dim-7);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
 
-  // For daterange variant, show the calendar icon on the left side of the input
   &--daterange {
     .MuiOutlinedInput-root {
       .MuiInputAdornment-positionEnd {
         position: absolute;
-        right: 8px; /* distance from input left edge */
+        right: var(--rds-spacing-sm);
         top: 50%;
         transform: translateY(-50%);
       }
@@ -88,34 +101,33 @@
   &--small {
     .MuiInputBase-root,
     .MuiTextField-root .MuiInputBase-root {
-      min-height: 40px;
-      
+      min-height: var(--rds-size-40);
+
       .MuiInputBase-input {
-        padding: var(--rds-spacing-sm, 8.5px) var(--rds-spacing-sm, 14px);
-        font-size: var(--rds-font-size-body2, 0.875rem);
+        padding: var(--rds-spacing-sm) var(--rds-spacing-sm);
+        font-size: var(--rds-font-size-body2);
       }
     }
 
-    // Specific adjustments for TextField component used in daterange variant
     .MuiTextField-root {
       .MuiInputBase-root {
-        min-height: 40px;
+        min-height: var(--rds-size-40);
       }
-      
+
       .MuiInputLabel-root {
-        font-size: var(--rds-font-size-body2, 0.875rem);
-        
+        font-size: var(--rds-font-size-body2);
+
         &.MuiInputLabel-shrink {
-          font-size: var(--rds-font-size-caption, 0.75rem);
+          font-size: var(--rds-font-size-caption);
         }
       }
-      
+
       .MuiInputAdornment-root {
         .MuiIconButton-root {
-          padding: var(--rds-spacing-xs, 6px);
-          
+          padding: var(--rds-spacing-xs);
+
           .MuiSvgIcon-root {
-            font-size: 1.25rem;
+            font-size: var(--rds-font-size-xl);
           }
         }
       }
@@ -125,11 +137,11 @@
   &--medium {
     .MuiInputBase-root,
     .MuiTextField-root .MuiInputBase-root {
-      min-height: 56px;
-      
+      min-height: var(--rds-size-56);
+
       .MuiInputBase-input {
-        padding: var(--rds-spacing-md, 16.5px) var(--rds-spacing-sm, 14px);
-        font-size: var(--rds-font-size-body1, 1rem);
+        padding: var(--rds-spacing-md) var(--rds-spacing-sm);
+        font-size: var(--rds-font-size-body1);
       }
     }
   }
@@ -139,56 +151,56 @@
     .MuiOutlinedInput-root {
       .MuiOutlinedInput-notchedOutline {
         border-color: var(--rds-color-error);
-        border-width: 2px;
+        border-width: var(--rds-border-width-medium);
       }
     }
   }
-  
-  // Global override for all picker day elements to use square backgrounds
+
+  // Shared picker day styles
   .MuiPickersDay-root,
   .MuiDateRangePickerDay-root,
   .MuiPickersYear-root,
   .MuiPickersMonth-root {
-    border-radius: var(--rds-border-radius, 4px) !important;
-    
+    border-radius: var(--rds-border-radius);
+
     &:hover {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary-hover) !important;
-      color: var(--rds-color-primary) !important;
+      border-radius: var(--rds-border-radius);
+      background-color: var(--rds-color-primary-hover);
+      color: var(--rds-color-primary);
     }
-    
+
     &.Mui-selected {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary) !important;
-      color: var(--rds-color-on-primary, white) !important;
-      
+      border-radius: var(--rds-border-radius);
+      background-color: var(--rds-color-primary);
+      color: var(--rds-color-on-primary);
+
       &:hover {
-        border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark) !important;
+        border-radius: var(--rds-border-radius);
+        background-color: var(--rds-color-primary-dark);
       }
     }
-    
+
     &.MuiPickersDay-today {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      border: 2px solid var(--rds-color-primary) !important;
-      color: var(--rds-color-primary) !important;
+      border-radius: var(--rds-border-radius);
+      border: var(--rds-border-width-medium) solid var(--rds-color-primary);
+      color: var(--rds-color-primary);
     }
   }
-  
-  // Custom Date Range Picker with Presets
+
+  // Custom date range picker with presets
   &__custom-layout {
     display: flex;
-    min-height: 400px;
-    min-width: 600px;
+    min-height: var(--rds-date-and-time-picker-dim-11);
+    min-width: var(--rds-date-and-time-picker-dim-14);
     border-radius: var(--rds-border-radius-lg);
     overflow: hidden;
     background-color: var(--rds-color-surface);
-    box-shadow: var(--rds-elevation-3, 0 4px 6px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--rds-elevation-3);
   }
 
   &__preset-panel {
-    width: 200px;
-    border-right: 1px solid var(--rds-color-border);
+    width: var(--rds-date-and-time-picker-dim-6);
+    border-right: var(--rds-border-width-thin) solid var(--rds-color-border);
     background-color: var(--rds-color-surface-variant);
     display: flex;
     flex-direction: column;
@@ -196,12 +208,12 @@
 
   &__preset-list {
     list-style: none;
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     margin: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__preset-item {
@@ -210,16 +222,16 @@
 
   &__preset-button {
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     border: none;
-    border-radius: var(--rds-border-radius, 4px);
+    border-radius: var(--rds-border-radius);
     background-color: transparent;
     color: var(--rds-color-on-surface);
-    font-size: var(--rds-font-size-body2, 0.875rem);
-    font-weight: 400;
+    font-size: var(--rds-font-size-body2);
+    font-weight: var(--rds-font-weight-regular);
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--rds-motion-duration-quick) ease;
 
     &:hover {
       background-color: var(--rds-color-primary-hover);
@@ -229,7 +241,7 @@
     &--selected {
       background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
 
       &:hover {
         background-color: var(--rds-color-primary-dark);
@@ -242,15 +254,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-color-surface, #ffffff);
+    padding: var(--rds-spacing-md);
+    background-color: var(--rds-color-surface);
   }
 
   &__range-input-container {
     display: inline-block;
 
-    // Show beginning of text with ellipsis — prevents Chrome scrolling
-    // to cursor-end in controlled readonly inputs
     .MuiInputBase-input {
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -258,12 +268,12 @@
     }
   }
 
-  // Open state for range/multi-month input (popover is open)
+  // Open state for range/multi-month input
   &__input--open {
     .MuiOutlinedInput-root {
       .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, #2196F3) !important;
-        border-width: 2px !important;
+        border-color: var(--rds-color-primary);
+        border-width: var(--rds-border-width-medium);
       }
     }
   }
@@ -271,35 +281,33 @@
   // Input element styling
   &__input {
     cursor: pointer;
-    
+
     &--disabled {
-      cursor: not-allowed !important;
+      cursor: not-allowed;
     }
-    
+
     &--readonly {
-      cursor: default !important;
+      cursor: default;
     }
 
     &--required {
       .MuiInputLabel-root {
-        // Hide Material-UI's default required asterisk since we're using custom one
         &::after {
-          content: none !important;
-          display: none !important;
+          content: none;
+          display: none;
         }
-        
+
         &.MuiInputLabel-asterisk {
           &::after {
-            content: none !important;
-            display: none !important;
+            content: none;
+            display: none;
           }
         }
       }
-      
-      // Hide any MUI required indicator elements
+
       .MuiInputLabel-asterisk,
       .MuiFormLabel-asterisk {
-        display: none !important;
+        display: none;
       }
     }
   }
@@ -308,17 +316,15 @@
   &__label {
     display: inline-flex;
     align-items: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__required-indicator {
     color: var(--rds-color-error);
-    font-size: var(--rds-font-size-body1, 1rem);
+    font-size: var(--rds-font-size-body1);
     font-weight: var(--rds-font-weight-bold, 700);
-    line-height: 1;
-    margin-left: var(--rds-spacing-xs, 2px);
-    
-    // Ensure the asterisk is properly positioned
+    line-height: var(--rds-line-height-none);
+    margin-left: var(--rds-spacing-xs);
     display: inline-block;
     vertical-align: top;
   }
@@ -326,9 +332,20 @@
   // Required state styling
   &--required {
     .MuiInputLabel-root {
-      // Add visual indication that field is required
       &.Mui-focused {
         color: var(--rds-color-primary);
+      }
+
+      &::after {
+        content: "";
+        display: none;
+      }
+
+      &.MuiInputLabel-asterisk {
+        &::after {
+          content: "";
+          display: none;
+        }
       }
     }
 
@@ -337,54 +354,37 @@
         border-color: var(--rds-color-primary);
       }
     }
-    
-    // Hide ALL Material-UI required indicators since we use custom ones
-    .MuiInputLabel-root {
-      &::after {
-        content: "" !important;
-        display: none !important;
-      }
-      
-      &.MuiInputLabel-asterisk {
-        &::after {
-          content: "" !important;
-          display: none !important;
-        }
-      }
-    }
-    
+
     .MuiInputLabel-asterisk,
     .MuiFormLabel-asterisk {
-      display: none !important;
-      
-      &::after, &::before {
-        content: "" !important;
-        display: none !important;
+      display: none;
+
+      &::after,
+      &::before {
+        content: "";
+        display: none;
       }
     }
-    
-    // Target any span that might contain just an asterisk
+
     .MuiFormLabel-root span {
       &[aria-hidden="true"] {
-        display: none !important;
+        display: none;
       }
     }
-    
-    // Hide MUI's built-in required asterisk
+
     .MuiFormLabel-root .MuiFormLabel-asterisk {
-      display: none !important;
+      display: none;
     }
   }
 
-  // Day element styling
   &__day {
-    border-radius: var(--rds-border-radius, 4px) !important;
+    border-radius: var(--rds-border-radius);
   }
 
   // Demo component styling
   &__demo-title {
-    margin: 0 0 var(--rds-spacing-md, 16px) 0;
-    font-size: var(--rds-font-size-h6, 1.25rem);
+    margin: 0 0 var(--rds-spacing-md) 0;
+    font-size: var(--rds-font-size-h6);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-text-primary);
   }
@@ -398,74 +398,71 @@
     margin-top: var(--rds-spacing-compact);
     padding-left: var(--rds-spacing-14);
     padding-right: var(--rds-spacing-14);
-    font-size: var(--rds-font-size-caption, 0.75rem);
-    line-height: 1.25;
-    color: var(--rds-color-text-secondary, rgba(0,0,0,0.6));
+    font-size: var(--rds-font-size-caption);
+    line-height: var(--rds-line-height-tight);
+    color: var(--rds-color-text-secondary);
     white-space: normal;
     word-break: break-word;
   }
-  
-  // Custom styling for Material-UI date picker components
+
+  // Material UI input styles
   .MuiInputBase-root {
-    border-radius: var(--rds-border-radius-lg, 8px);
-    transition: all 0.3s ease;
+    border-radius: var(--rds-border-radius-lg);
+    transition: all var(--rds-motion-duration-moderate) ease;
     cursor: pointer;
-    min-height: 56px; // Ensure consistent height
+    min-height: var(--rds-size-56);
     display: flex;
     align-items: center;
-    width: 100%; // Take full width of container
-    
+    width: 100%;
+
     &:hover {
-      box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0, 0, 0, 0.1));
+      box-shadow: var(--rds-elevation-1);
     }
-    
+
     .MuiInputBase-input {
       cursor: pointer;
-      padding: var(--rds-spacing-md, 16.5px) var(--rds-spacing-sm, 14px);
-      line-height: 1.4375em; // Material-UI default line height
-      font-size: var(--rds-font-size-body1, 1rem);
-      flex: 1; // Take available space
-      min-width: 0; // Allow shrinking
-      
+      padding: var(--rds-spacing-md) var(--rds-spacing-sm);
+      line-height: 1.4375em;
+      font-size: var(--rds-font-size-body1);
+      flex: 1;
+      min-width: 0;
+
       &::placeholder {
-        color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
+        color: var(--rds-color-text-secondary);
         opacity: 1;
         font-style: normal;
-        transition: opacity 0.2s ease;
-        white-space: nowrap; // Prevent wrapping
-        overflow: visible; // Show full placeholder
-        text-overflow: clip; // Don't truncate placeholder
+        transition: opacity var(--rds-motion-duration-quick) ease;
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
       }
-      
+
       &:placeholder-shown {
-        color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
+        color: var(--rds-color-text-secondary);
       }
-      
-      // When label is present and field is empty, hide placeholder
+
       &:placeholder-shown + .MuiInputLabel-root:not(.MuiInputLabel-shrink) + .MuiInputBase-input {
         &::placeholder {
           opacity: 0;
         }
       }
     }
-    
-    // Ensure adequate space for end adornment (calendar icon)
+
     .MuiInputAdornment-positionEnd {
-      margin-left: var(--rds-spacing-xs, 8px); // Space between text and icon
-      
+      margin-left: var(--rds-spacing-xs);
+
       .MuiSvgIcon-root {
-        font-size: 1.50rem;
+        font-size: var(--rds-font-size-2xl);
       }
     }
-    
+
     &:not(.Mui-focused) {
       .MuiInputBase-input:placeholder-shown {
-        color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
+        color: var(--rds-color-text-secondary);
         opacity: 1;
       }
     }
-    
-    // When focused or has value, ensure label shrinks
+
     &.Mui-focused,
     &:has(.MuiInputBase-input:not([value=""])) {
       .MuiInputLabel-root {
@@ -473,73 +470,64 @@
       }
     }
   }
-  
+
   .MuiOutlinedInput-root {
     cursor: pointer;
-    
+
     &:hover .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
+      border-width: var(--rds-border-width-medium);
       border-color: var(--rds-color-primary);
-      border-width: 2px !important;
-      border-color: var(--rds-color-primary, #2196F3) !important;
     }
-    
+
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
+      border-width: var(--rds-border-width-medium);
       border-color: var(--rds-color-primary);
-      border-width: 2px !important;
-      border-color: var(--rds-color-primary, #2196F3) !important;
     }
-    
+
     &.Mui-error .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-color-error);
     }
-    
+
     .MuiInputAdornment-root {
       cursor: pointer;
-      margin-left: var(--rds-spacing-xs, 8px); // Ensure space between text and icon
-      
+      margin-left: var(--rds-spacing-xs);
+
       &.MuiInputAdornment-positionEnd {
-        margin-left: var(--rds-spacing-xs, 8px);
-        margin-right: var(--rds-spacing-xs, 8px);
+        margin-left: var(--rds-spacing-xs);
+        margin-right: var(--rds-spacing-xs);
       }
-      
+
       .MuiIconButton-root {
-        padding: var(--rds-spacing-xs, 8px);
-        margin-right: var(--rds-spacing-neg-8); // Adjust for proper alignment
+        padding: var(--rds-spacing-xs);
+        margin-right: var(--rds-spacing-neg-8);
       }
     }
-    
+
     &.MuiInputBase-adornedEnd {
       .MuiInputBase-input {
-        padding-right: var(--rds-spacing-xs, 8px);
+        padding-right: var(--rds-spacing-xs);
       }
     }
   }
-  
+
   .MuiFormControl-root {
     width: fit-content;
-    min-width: 200px; // Base minimum width for usability
-    max-width: 300px; // Increased to accommodate range pickers
-    
-    // Ensure proper label positioning relative to the input
+    min-width: var(--rds-date-and-time-picker-dim-6);
+    max-width: var(--rds-date-and-time-picker-dim-9);
+
     .MuiInputLabel-root {
-      // Calculate vertical center based on input height
-      // Default input height is 56px (16.5px top + 1.4375em line-height + 16.5px bottom)
-      // Center the label within this space
       &:not(.MuiInputLabel-shrink) {
         top: 50%;
         transform: translate(14px, -50%) scale(1);
-        line-height: 1;
+        line-height: var(--rds-line-height-none);
       }
-      
+
       &.MuiInputLabel-shrink {
         top: 0;
         transform: translate(14px, -9px) scale(0.75);
       }
     }
-    
-    // For different input sizes
+
     &.MuiFormControl-fullWidth {
       .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
         transform: translate(14px, -50%) scale(1);
@@ -550,73 +538,69 @@
   .MuiInputLabel-root {
     font-weight: var(--rds-font-weight-medium, 500);
     transform-origin: top left;
-    transition: all 0.2s ease-in-out;
-    pointer-events: none; // Prevent label from blocking clicks
+    transition: all var(--rds-motion-duration-quick) ease-in-out;
+    pointer-events: none;
     position: absolute;
     z-index: var(--rds-z-index-layer-1);
-    
+
     &.Mui-focused {
       font-weight: var(--rds-font-weight-semibold, 600);
       color: var(--rds-color-primary);
     }
-    
+
     &.Mui-error {
       color: var(--rds-color-error);
     }
-    
-    // Ensure label moves to top when input has value or is focused
+
     &.MuiInputLabel-shrink {
       top: 0;
       transform: translate(14px, -9px) scale(0.75);
     }
-    
-    // Position label correctly when not shrunk - center it vertically within the input
+
     &:not(.MuiInputLabel-shrink) {
       top: 50%;
       transform: translate(14px, -50%) scale(1);
-      line-height: 1;
+      line-height: var(--rds-line-height-none);
     }
   }
-  
+
   .MuiFormHelperText-root {
-    margin-top: var(--rds-spacing-xs, 6px);
-    font-size: var(--rds-font-size-caption, 0.75rem);
-    
+    margin-top: var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-caption);
+
     &.Mui-error {
       color: var(--rds-color-error);
     }
   }
-  
+
   // Date picker popup/popper styles
   .MuiPickersPopper-root {
     z-index: var(--rds-z-index-modal, 1400);
-    
+
     .MuiPaper-root {
-      box-shadow: none !important;
-      border: 1.5px solid var(--rds-color-border-light) !important;
-      border-radius: var(--rds-border-radius-lg, 12px) !important;
+      box-shadow: none;
+      border: var(--rds-border-width-emphasis) solid var(--rds-color-border-light);
+      border-radius: var(--rds-border-radius-lg);
     }
   }
-  
+
   .MuiDateCalendar-root {
-    background: var(--rds-color-surface, white);
-    border-radius: var(--rds-border-radius-lg, 12px);
-    box-shadow: none !important;
-    border: 1.5px solid var(--rds-color-border-light) !important;
+    background: var(--rds-date-and-time-picker-muidatecalendar-root-background);
+    border-radius: var(--rds-border-radius-lg);
+    box-shadow: none;
+    border: var(--rds-border-width-emphasis) solid var(--rds-color-border-light);
   }
-  
+
   .MuiPickersCalendarHeader-root {
-    padding: var(--rds-spacing-md, 16px);
-    border-bottom: 1px solid var(--rds-color-border);
+    padding: var(--rds-spacing-md);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
-  
+
   .MuiDayCalendar-weekDayLabel {
-    font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-color-text-secondary);
-    font-weight: 400;
-    color: var(--rds-color-text-secondary, #666);
+    font-weight: var(--rds-font-weight-regular, 400);
+    color: var(--rds-date-and-time-picker-muidaycalendar-weekdaylabel-color);
   }
-  
+
   .MuiPickersDay-root {
     border-radius: var(--rds-border-radius-sm);
     font-weight: var(--rds-font-weight-medium, 500);
@@ -634,10 +618,7 @@
       font-weight: var(--rds-font-weight-semibold, 600);
       border-radius: var(--rds-border-radius-sm);
       color: var(--rds-color-on-primary);
-      background-color: #2196F3;
-      font-weight: 400;
-      border-radius: 4px;
-      color: #fff;
+
       &:hover {
         background-color: var(--rds-color-primary-dark);
         border-radius: var(--rds-border-radius-sm);
@@ -645,22 +626,16 @@
     }
 
     &.MuiPickersDay-today {
-      border: 2px solid var(--rds-color-primary);
+      border: var(--rds-border-width-medium) solid var(--rds-color-primary);
       border-radius: var(--rds-border-radius-sm);
       background-color: var(--rds-color-surface);
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-semibold, 600);
-      border: 2px solid #2196F3;
-      border-radius: 4px;
-      background-color: #fff;
-      color: #2196F3;
-      font-weight: 400;
-      
+
       &:not(.Mui-selected) {
         background-color: var(--rds-color-surface);
         color: var(--rds-color-primary);
         border-radius: var(--rds-border-radius-sm);
-        color: var(--rds-color-primary, #2196F3) !important;
       }
     }
   }
@@ -668,32 +643,26 @@
   // Disabled state
   &--disabled {
     .MuiInputBase-root {
-      background-color: var(--rds-color-surface-disabled, #f5f5f5);
-      color: var(--rds-color-text-disabled, rgba(0, 0, 0, 0.38));
-      cursor: not-allowed !important;
-      
-      .MuiInputBase-input {
-        cursor: not-allowed !important;
-      }
-      
+      background-color: var(--rds-color-surface-disabled);
+      color: var(--rds-color-text-disabled);
+      cursor: not-allowed;
+
+      .MuiInputBase-input,
       .MuiInputAdornment-root {
-        cursor: not-allowed !important;
+        cursor: not-allowed;
       }
     }
   }
-  
+
   // Read-only state
   &--readonly {
     .MuiInputBase-root {
-      background-color: var(--rds-color-surface-readonly, #fafafa);
-      cursor: not-allowed !important;
-      
-      .MuiInputBase-input {
-        cursor: not-allowed !important;
-      }
-      
+      background-color: var(--rds-color-surface-readonly);
+      cursor: not-allowed;
+
+      .MuiInputBase-input,
       .MuiInputAdornment-root {
-        cursor: not-allowed !important;
+        cursor: not-allowed;
       }
     }
   }
@@ -703,26 +672,20 @@
 @media (prefers-color-scheme: dark) {
   .rds-date-picker {
     .MuiDateCalendar-root {
-      background: var(--rds-color-surface-dark, #1e1e1e);
-      color: var(--rds-color-on-surface-dark, white);
+      color: var(--rds-color-on-surface-dark);
     }
-    
+
     .MuiPickersCalendarHeader-root {
-      border-bottom-color: var(--rds-color-border-dark, #333);
-    }
-    
-    .MuiDayCalendar-weekDayLabel {
-      color: var(--rds-color-text-secondary-dark, #ccc);
+      border-bottom-color: var(--rds-color-border-dark);
     }
   }
 }
 
 // Utility layout classes
-
 .rds-date-picker__range-calendar-row {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   flex-wrap: wrap;
   width: 100%;
   box-sizing: border-box;
@@ -736,7 +699,7 @@
 .rds-date-picker__time-range-stack {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   width: 100%;
 }
 
@@ -745,9 +708,9 @@
   min-width: 0;
 
   .MuiFormControl-root {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .MuiInputBase-root {
@@ -759,14 +722,12 @@
 .rds-date-picker__range-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--rds-spacing-sm);
+  margin-top: var(--rds-spacing-md);
   width: 100%;
 }
 
 // Responsive design
-
-// Large mobile (up to 767px)
 @media (max-width: 767px) {
   .rds-date-picker {
     width: 100%;
@@ -803,20 +764,19 @@
     }
 
     .MuiDateCalendar-root {
-      border-radius: 8px;
+      border-radius: var(--rds-border-radius-lg);
     }
 
     .MuiPickersDay-root {
-      font-size: 0.875rem;
+      font-size: var(--rds-font-size-sm);
     }
 
-    // Ensure input font size remains consistent on mobile
     .MuiInputBase-root {
       .MuiInputBase-input {
-        font-size: var(--rds-font-size-body1, 1rem) !important;
+        font-size: var(--rds-font-size-body1);
 
         &::placeholder {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1);
         }
       }
     }
@@ -827,81 +787,75 @@
 
       .MuiTextField-root,
       .MuiFormControl-root {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
       }
 
       .MuiInputBase-root {
-        width: 100% !important;
-        min-width: 0 !important;
+        width: 100%;
+        min-width: 0;
 
         .MuiInputBase-input {
-          min-width: 0 !important;
+          min-width: 0;
           width: 100%;
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1);
 
           &::placeholder {
-            font-size: var(--rds-font-size-body1, 1rem) !important;
+            font-size: var(--rds-font-size-body1);
           }
         }
       }
     }
   }
 
-  // Outer Popover paper — constrain to viewport width on mobile
   .rds-date-picker__popover-paper-gap {
-    max-width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - var(--rds-size-md));
     overflow: hidden;
   }
 
-  // Popover paper adapts to viewport
   .rds-date-picker__range-paper {
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 12px;
-    max-height: calc(100dvh - 80px);
+    padding: var(--rds-spacing-3);
+    max-height: calc(100dvh - var(--rds-size-4xl));
     box-sizing: border-box;
     align-items: stretch;
 
-    // Force DateCalendar to fit the available width inside the paper
     .MuiDateCalendar-root {
-      width: 100% !important;
-      max-width: 100% !important;
+      width: 100%;
+      max-width: 100%;
     }
   }
 
-  // Range datetime stacks vertically on mobile
   .rds-date-picker__range-datetime {
     flex-direction: column;
     width: 100%;
 
     .rds-date-picker__range-datetime-divider {
       width: auto;
-      height: 1px;
-      margin: 8px 0;
+      height: var(--rds-date-and-time-picker-dim-1);
+      margin: var(--rds-spacing-sm) 0;
     }
 
     .rds-date-picker__range-datetime-spacer {
       width: auto;
       height: 0;
-      margin: 4px 0;
+      margin: var(--rds-spacing-xs) 0;
     }
   }
 
-  // Calendar row stacks vertically on mobile
   .rds-date-picker__range-calendar-row {
     flex-direction: column;
     width: 100%;
 
     .MuiDateCalendar-root {
-      width: 100% !important;
-      max-width: 100% !important;
+      width: 100%;
+      max-width: 100%;
     }
   }
 
-  // Time range stacks vertically on mobile
   .rds-date-picker__time-range-stack {
     flex-direction: column;
     width: 100%;
@@ -912,42 +866,39 @@
     width: 100%;
   }
 
-  // Custom date range layout becomes vertical on mobile
   .rds-date-picker__custom-layout {
     flex-direction: column;
     min-width: 0;
-    width: calc(100vw - 32px);
+    width: calc(100vw - var(--rds-size-xl));
     min-height: auto;
 
     .rds-date-picker__preset-panel {
       width: 100%;
       border-right: none;
-      border-bottom: 1px solid var(--rds-color-border, #e0e0e0);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
     }
 
     .rds-date-picker__preset-list {
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 12px;
+      gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-3);
     }
   }
 }
 
-// Small mobile (up to 480px)
 @media (max-width: 480px) {
   .rds-date-picker {
     &__custom-layout {
-      width: calc(100vw - 16px);
+      width: calc(100vw - var(--rds-size-md));
     }
 
-    // Ensure input font size remains consistent on small mobile
     .MuiInputBase-root {
       .MuiInputBase-input {
-        font-size: var(--rds-font-size-body1, 1rem) !important;
+        font-size: var(--rds-font-size-body1);
 
         &::placeholder {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1);
         }
       }
     }
@@ -955,10 +906,10 @@
     &__range-input-container {
       .MuiInputBase-root {
         .MuiInputBase-input {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1);
 
           &::placeholder {
-            font-size: var(--rds-font-size-body1, 1rem) !important;
+            font-size: var(--rds-font-size-body1);
           }
         }
       }
@@ -966,57 +917,53 @@
   }
 
   .rds-date-picker__popover-paper-gap {
-    max-width: calc(100vw - 8px) !important;
+    max-width: calc(100vw - var(--rds-size-sm));
   }
 
   .rds-date-picker__range-paper {
     max-width: 100%;
-    padding: 8px;
-    max-height: calc(100dvh - 64px);
+    padding: var(--rds-spacing-sm);
+    max-height: calc(100dvh - var(--rds-size-3xl));
     align-items: stretch;
 
-    // Force calendar to use full available width
     .MuiDateCalendar-root {
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
 
-    // Hide week-number column to recover horizontal space on tiny screens
     .MuiDayCalendar-weekNumberLabel,
     .MuiDayCalendar-weekNumber {
-      display: none !important;
+      display: none;
     }
 
-    // Tighten day cells so 7 columns fit within ~280px content area
     .MuiDayCalendar-header,
     .MuiDayCalendar-weekContainer {
       justify-content: space-between;
     }
 
     .MuiPickersDay-root {
-      width: 32px !important;
-      height: 32px !important;
-      font-size: 0.8rem !important;
-      margin: 1px !important;
+      width: var(--rds-size-xl);
+      height: var(--rds-size-xl);
+      font-size: var(--rds-date-and-time-picker-font-size-sm);
+      margin: var(--rds-spacing-hairline);
     }
 
     .MuiDayCalendar-weekDayLabel {
-      width: 32px !important;
-      font-size: 0.75rem !important;
+      width: var(--rds-size-xl);
+      font-size: var(--rds-font-size-xs);
     }
 
-    // Scale calendar header navigation
     .MuiPickersCalendarHeader-root {
-      padding-left: 8px;
-      padding-right: 4px;
+      padding-left: var(--rds-spacing-sm);
+      padding-right: var(--rds-spacing-xs);
     }
   }
 
   .rds-date-picker__range-calendar-row {
     .MuiDateCalendar-root {
-      width: 100% !important;
-      max-width: 100% !important;
+      width: 100%;
+      max-width: 100%;
     }
   }
 }
@@ -1027,6 +974,7 @@
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1034,83 +982,70 @@
 }
 
 .MuiPickersPopper-root {
-  animation: rds-date-picker-fade-in 0.2s ease-out;
+  animation: rds-date-picker-fade-in var(--rds-motion-duration-quick) ease-out;
 }
 
-
-// Base picker paper (DatePicker, TimePicker, DateTimePicker dropdowns)
+// Base picker paper
 .rds-date-picker__picker-paper {
-  box-shadow: none !important;
-  border: 2px solid #2196F3 !important;
-  border-radius: 4px !important;
+  box-shadow: none;
+  border: var(--rds-border-width-medium) solid var(--rds-color-primary);
+  border-radius: var(--rds-border-radius);
 }
 
-// Year picker paper - adjusts internal calendar heights
+// Year picker paper
 .rds-date-picker__year-picker-paper {
-  .MuiDateCalendar-root {
-    height: auto;
-  }
-
+  .MuiDateCalendar-root,
   .MuiPickersLayout-contentWrapper {
     height: auto;
   }
 
   .MuiYearCalendar-root {
     height: auto;
-    max-height: 280px;
+    max-height: var(--rds-date-and-time-picker-dim-8);
     overflow-y: auto;
   }
 }
 
-// Month picker paper - adjusts internal calendar heights
+// Month picker paper
 .rds-date-picker__month-picker-paper {
-  .MuiDateCalendar-root {
-    height: auto;
-  }
-
-  .MuiPickersLayout-contentWrapper {
-    height: auto;
-  }
-
+  .MuiDateCalendar-root,
+  .MuiPickersLayout-contentWrapper,
   .MuiMonthCalendar-root {
     height: auto;
   }
 }
 
-// Range picker Popover paper
+// Range picker popover paper
 .rds-date-picker__range-paper {
-  padding: 16px;
+  padding: var(--rds-spacing-md);
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  border: 2px solid #2196F3 !important;
-  border-radius: 4px !important;
-  box-shadow: none !important;
-  // Allow scrolling when content exceeds viewport height (datetime range on small screens)
-  max-height: calc(100dvh - 100px);
+  border: var(--rds-border-width-medium) solid var(--rds-color-primary);
+  border-radius: var(--rds-border-radius);
+  box-shadow: none;
+  max-height: calc(100dvh - var(--rds-date-and-time-picker-dim-5));
   overflow-y: auto;
   overflow-x: hidden;
-  // Take full width of parent popover paper to match input width
   width: 100%;
   box-sizing: border-box;
 }
 
 // Top margin gap between input and popover
 .rds-date-picker__popover-paper-gap {
-  margin-top: 4px;
-  // Ensures popover respects inline width style set by component
+  margin-top: var(--rds-spacing-xs);
   box-sizing: border-box;
 }
 
-// Custom range day state classes (applied via className in renderDaySlot)
+// Custom range day states
 .rds-date-picker__day--in-range {
-  background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-  color: var(--rds-color-primary, #1976d2) !important;
+  background-color: var(--rds-color-primary-hover);
+  color: var(--rds-color-primary);
 }
 
 .rds-date-picker__day--range-end-point {
-  background-color: var(--rds-color-primary, #2196F3) !important;
-  color: var(--rds-color-on-primary, #fff) !important;
+  background-color: var(--rds-color-primary);
+  color: var(--rds-color-on-primary);
 }
 
 // RangeDateTime layout classes
@@ -1122,26 +1057,26 @@
 }
 
 .rds-date-picker__range-datetime-divider {
-  width: 1px;
-  background-color: #2196F3;
+  width: var(--rds-date-and-time-picker-dim-1);
+  background-color: var(--rds-color-primary);
   align-self: stretch;
-  margin: 8px;
+  margin: var(--rds-spacing-sm);
 }
 
 .rds-date-picker__range-datetime-spacer {
-  width: 0.5px;
+  width: var(--rds-border-width-hairline);
   align-self: stretch;
-  margin: 8px;
+  margin: var(--rds-spacing-sm);
 }
 
 .rds-date-picker__range-datetime-time-label {
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 4px;
+  font-size: var(--rds-font-size-body2);
+  color: var(--rds-color-text-secondary);
+  margin-bottom: var(--rds-spacing-xs);
   text-align: center;
 }
 
-// Global override to ensure all date picker elements use square borders
+// Global override for square picker borders
 .MuiPickersPopper-root,
 .MuiPickersLayout-root,
 .MuiDateCalendar-root,
@@ -1150,96 +1085,94 @@
   .MuiPickersDay-root,
   .MuiPickersYear-root,
   .MuiPickersMonth-root {
-    border-radius: var(--rds-border-radius, 4px) !important;
-    
+    border-radius: var(--rds-border-radius);
+
     &:hover {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary-hover) !important;
-      color: var(--rds-color-primary) !important;
+      border-radius: var(--rds-border-radius);
+      background-color: var(--rds-color-primary-hover);
+      color: var(--rds-color-primary);
     }
-    
+
     &.Mui-selected {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary) !important;
-      color: var(--rds-color-on-primary, white) !important;
-      
+      border-radius: var(--rds-border-radius);
+      background-color: var(--rds-color-primary);
+      color: var(--rds-color-on-primary);
+
       &:hover {
-        border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark) !important;
+        border-radius: var(--rds-border-radius);
+        background-color: var(--rds-color-primary-dark);
       }
     }
-    
+
     &.MuiPickersDay-today {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      border: 2px solid var(--rds-color-primary) !important;
-      color: var(--rds-color-primary) !important;
-      
+      border-radius: var(--rds-border-radius);
+      border: var(--rds-border-width-medium) solid var(--rds-color-primary);
+      color: var(--rds-color-primary);
+
       &:not(.Mui-selected) {
-        color: var(--rds-color-primary, #2196F3) !important;
+        color: var(--rds-color-primary);
       }
-      
+
       &.Mui-selected {
-        background-color: var(--rds-color-primary, #2196F3) !important;
-        color: var(--rds-color-on-primary, #fff) !important;
-        border: 2px solid var(--rds-color-primary, #2196F3) !important;
-        font-weight: 400 !important;
-        
+        background-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
+        border: var(--rds-border-width-medium) solid var(--rds-color-primary);
+        font-weight: var(--rds-font-weight-regular);
+
         &:hover {
-          background-color: var(--rds-color-primary-dark) !important;
-          color: var(--rds-color-on-primary) !important;
-          border: 2px solid var(--rds-color-primary-dark) !important;
+          background-color: var(--rds-color-primary-dark);
+          color: var(--rds-color-on-primary);
+          border-color: var(--rds-color-primary-dark);
         }
       }
     }
   }
 }
 
-// Time picker dropdown font size reduction
+// Time picker dropdown font size
 .MuiMultiSectionDigitalClock-root {
   .MuiMultiSectionDigitalClockSection-root {
     .MuiMenuItem-root {
-      font-size: 0.8rem !important; // Reduced font size
-      min-height: var(--rds-size-xl) !important; // Reduced height
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important; // Reduced padding
+      font-size: var(--rds-date-and-time-picker-font-size-sm);
+      min-height: var(--rds-size-xl);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     }
   }
 }
 
-// Specific styles for time range picker component
+// Specific styles for time range picker
 .rds-date-picker--timerange {
-  // Layout for the two side-by-side time inputs
   .rds-date-picker__time-range-stack {
     width: 100%;
   }
 
   .rds-date-picker__time-range-item {
     .MuiFormControl-root {
-      width: 100% !important;
-      min-width: 0 !important;
-      max-width: none !important;
-      margin-left: 0 !important;
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      margin-left: 0;
     }
   }
 
-  // Ensure proper spacing and layout for time range inputs
   .MuiFormControl-root {
     margin-bottom: 0;
   }
-  
-  // Reduce font size in digital clock dropdowns
+
   .MuiPickersPopper-root {
     .MuiMultiSectionDigitalClock-root {
       .MuiMultiSectionDigitalClockSection-root {
         width: auto;
-        min-width: 60px;
-        
+        min-width: var(--rds-date-and-time-picker-dim-4);
+
         .MuiMenuItem-root {
-          font-size: 0.75rem !important;
-          min-height: 28px !important;
-          padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
-          line-height: 1.2;
+          font-size: var(--rds-font-size-xs);
+          min-height: var(--rds-size-28);
+          padding: calc(var(--rds-spacing-xs) / 2)
+            calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+          line-height: var(--rds-line-height-compact);
         }
-        
+
         .MuiList-root {
           padding: var(--rds-spacing-xs) 0;
         }
@@ -1248,27 +1181,28 @@
   }
 }
 
-// Global styles for all time pickers
+// Global styles for time pickers
 .MuiPickersPopper-root {
   .MuiMultiSectionDigitalClock-root {
     .MuiMultiSectionDigitalClockSection-root {
       .MuiMenuItem-root {
-        font-size: 0.8rem !important;
-        min-height: 30px !important;
-        padding: calc(var(--rds-spacing-xs) * 0.75) calc(var(--rds-spacing-sm) - 1px) !important;
-        
+        font-size: var(--rds-date-and-time-picker-font-size-sm);
+        min-height: var(--rds-date-and-time-picker-dim-3);
+        padding: calc(var(--rds-spacing-xs) * 0.75)
+          calc(var(--rds-spacing-sm) - 1px);
+
         &:hover {
           background-color: var(--rds-color-primary-hover);
           color: var(--rds-color-primary);
         }
-        
+
         &.Mui-selected {
           background-color: var(--rds-color-primary);
-          color: var(--rds-color-on-primary, white);
-          font-weight: 400;
+          color: var(--rds-color-on-primary);
+          font-weight: var(--rds-font-weight-regular);
         }
       }
-      
+
       .MuiList-root {
         padding: calc(var(--rds-spacing-xs) / 2) 0;
       }
@@ -1276,33 +1210,33 @@
   }
 }
 
-// Action bar button styling for all pickers
+// Action bar button styling
 .MuiPickersLayout-actionBar {
-  padding: 8px 16px !important;
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
 
   .MuiButton-root {
-    text-transform: none !important;
-    font-weight: 500 !important;
-    border-radius: 6px !important;
+    text-transform: none;
+    font-weight: var(--rds-font-weight-medium, 500);
+    border-radius: var(--rds-border-radius-md);
   }
 
-  // Cancel button — plain text
+  // Cancel button
   .MuiButton-root:first-of-type {
-    color: rgba(0, 0, 0, 0.6) !important;
-    background: transparent !important;
-    box-shadow: none !important;
+    color: var(--rds-color-text-secondary);
+    background: transparent;
+    box-shadow: none;
   }
 
-  // OK button — filled blue
+  // Confirm button
   .MuiButton-root:last-of-type {
-    background-color: #2196F3 !important;
-    color: #fff !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    box-shadow: none !important;
+    background-color: var(--rds-color-primary);
+    color: var(--rds-color-on-primary);
+    padding-left: var(--rds-spacing-lg);
+    padding-right: var(--rds-spacing-lg);
+    box-shadow: none;
 
     &:hover {
-      background-color: #1976d2 !important;
+      background-color: var(--rds-color-primary-dark);
     }
   }
 }

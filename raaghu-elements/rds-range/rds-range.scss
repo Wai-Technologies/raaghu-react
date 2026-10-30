@@ -1,7 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-/* use centralized breakpoint tokens where possible */
-
 .rds-range {
   --rds-range-max-width-sm: 370px;
   --rds-range-max-width-xs: 275px;
@@ -13,10 +11,10 @@
   width: 100%;
 
   @include bp.down(sm) {
-    max-width: var(--rds-range-max-width-sm, 370px);
+    max-width: var(--rds-range-max-width-sm);
   }
   @include bp.down(400) {
-    max-width: var(--rds-range-max-width-xs, 275px);
+    max-width: var(--rds-range-max-width-xs);
   }
 
   &__header {
@@ -38,12 +36,12 @@
 }
 
 @include bp.between(mobile-sm, 568) {
-  .css-3k03ww, .css-1fm6jzk {
-    width: var(--rds-range-slider-width-mobile, 288px) !important;
+  .rds-range .MuiSlider-root {
+    width: var(--rds-range-slider-width-mobile);
   }
 }
 @include bp.between(mobile-lg, 896) {
-  .css-3k03ww, .css-1fm6jzk {
-    width: var(--rds-range-slider-width-tablet, 382px) !important;
+  .rds-range .MuiSlider-root {
+    width: var(--rds-range-slider-width-tablet);
   }
 }

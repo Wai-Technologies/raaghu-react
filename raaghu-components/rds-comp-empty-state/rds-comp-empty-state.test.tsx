@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
 import { axe } from 'jest-axe';
 
-// Mock Lottie
 jest.mock('lottie-react', () => {
   return (props: any) => {
     return (
@@ -17,10 +16,10 @@ jest.mock('lottie-react', () => {
   };
 });
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-empty-state.scss', () => ({}));
 
-// Mock images
 jest.mock('./empty-state.png', () => 'empty-state.png');
 jest.mock('./empty-state-dark.png', () => 'empty-state-dark.png');
 jest.mock('./illustration-light.json', () => ({ default: {} }));
@@ -38,7 +37,6 @@ jest.mock('@mui/icons-material/SearchOffOutlined', () => {
   );
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -136,6 +134,14 @@ describe('RdsCompEmptyState', () => {
       const image = screen.getByTestId('emptyStateImage') as HTMLImageElement;
       expect(image.src).toContain('/custom/minimal.svg');
       expect(screen.queryByTestId('emptyStateMinimalIcon')).not.toBeInTheDocument();
+    });
+
+    it('should render a custom icon node from iconPath', () => {
+      renderComponent({
+        iconPath: <span data-testid="custom-icon">Custom icon</span>,
+        isContinueAnimate: false,
+      });
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
 
     it('should default to illustration variant', () => {
@@ -263,14 +269,12 @@ describe('RdsCompEmptyState', () => {
       renderComponent({ label: 'No Data', mode: 'Dark NRA' });
       const label = screen.getByTestId('labelElement');
       expect(label).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
 
     it('should have correct styling for subLabel in Dark NRA mode', () => {
       renderComponent({ subLabel: 'Add data', mode: 'Dark NRA' });
       const subLabel = screen.getByTestId('sublabelElement');
       expect(subLabel).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
   });
 
@@ -612,5 +616,98 @@ describe('RdsCompEmptyState', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsCompEmptyState audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  it('G5-053: animated renders Lottie; isContinueAnimate still works and warns', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { unmount } = render(<RdsCompEmptyState animated />);
+    expect(screen.getByTestId('emptyStateLottie')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    unmount();
+    render(<RdsCompEmptyState isContinueAnimate />);
+    expect(screen.getByTestId('emptyStateLottie')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompEmptyState', 'isContinueAnimate', '`animated`');
+  });
+
+  it('G5-045: action replaces the default button, null removes it', () => {
+    const { rerender } = render(<RdsCompEmptyState action={<a href="/new">Create</a>} />);
+    expect(screen.getByText('Create')).toBeInTheDocument();
+    expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
+    rerender(<RdsCompEmptyState action={null} />);
+    expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
+  });
+
+  it('G5-052: forwards className, ref and rest props to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompEmptyState ref={ref} className="extra" data-testid="es-root" aria-label="Nothing here" />);
+    const root = screen.getByTestId('es-root');
+    expect(root).toHaveClass('rds-comp-empty-state', 'extra');
+    expect(root).toHaveAttribute('aria-label', 'Nothing here');
+    expect(ref.current).toBe(root);
+  });
+
+  it('G5-043/049: artwork is hidden from assistive tech and follows theme toggles', async () => {
+    render(<RdsCompEmptyState label="No data" />);
+    expect(screen.getByTestId('icon')).toHaveAttribute('aria-hidden', 'true');
+    expect((screen.getByTestId('emptyStateImage') as HTMLImageElement).src).toContain('empty-state.png');
+    document.documentElement.setAttribute('data-theme', 'dark');
+    expect(await screen.findByTestId('emptyStateImage')).toHaveAttribute('src', expect.stringContaining('empty-state-dark.png'));
+    document.documentElement.removeAttribute('data-theme');
+  });
+});
+
+describe('RdsCompEmptyState audit fixes', () => {
+  it('titles use theme tokens without inline hex colours (G5-044)', () => {
+    render(<RdsCompEmptyState label="Empty" description="Nothing here" />);
+    const title = screen.getByTestId('labelElement');
+    const subtitle = screen.getByTestId('sublabelElement');
+    expect(title).not.toHaveStyle({ color: '#000000' });
+    expect(title).not.toHaveStyle({ color: '#ffffff' });
+    expect(subtitle).not.toHaveStyle({ color: '#000000' });
+    expect(subtitle).not.toHaveStyle({ color: '#ffffff' });
+    expect(title).toHaveClass('rds-comp-empty-state__title');
+    expect(subtitle).toHaveClass('rds-comp-empty-state__subtitle');
+  });
+
+  it('default action button keeps the filled class without grey override hooks (G5-046)', () => {
+    const { container } = render(<RdsCompEmptyState label="Empty" />);
+    const button = container.querySelector('.rds-comp-empty-state__button');
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('rds-button');
+  });
+});
+
+describe('RdsCompEmptyState doc-09 renames', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  it('description replaces subLabel', () => {
+    render(<RdsCompEmptyState label="Nothing" description="Add some" />);
+    expect(screen.getByTestId('sublabelElement')).toHaveTextContent('Add some');
+  });
+
+  it('legacy subLabel still renders and warns', () => {
+    render(<RdsCompEmptyState subLabel="Older" />);
+    expect(screen.getByTestId('sublabelElement')).toHaveTextContent('Older');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompEmptyState', 'subLabel', '`description`');
+  });
+
+  it('image accepts a url or a node', () => {
+    const { unmount } = render(<RdsCompEmptyState image="/custom.png" />);
+    expect(screen.getByTestId('emptyStateImage')).toHaveAttribute('src', '/custom.png');
+    unmount();
+    render(<RdsCompEmptyState image={<span data-testid="custom-art" />} />);
+    expect(screen.getByTestId('custom-art')).toBeInTheDocument();
+  });
+
+  it('imageSize sets both sides or each side', () => {
+    const { unmount } = render(<RdsCompEmptyState imageSize={80} />);
+    expect(screen.getByTestId('icon')).toHaveStyle({ width: '80px', height: '80px' });
+    unmount();
+    render(<RdsCompEmptyState imageSize={{ width: 60, height: 40 }} />);
+    expect(screen.getByTestId('icon')).toHaveStyle({ width: '60px', height: '40px' });
   });
 });

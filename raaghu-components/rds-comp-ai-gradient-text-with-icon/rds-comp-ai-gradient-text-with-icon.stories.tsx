@@ -7,6 +7,11 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 const meta: Meta = {
     title: "Components/AI ChatBox/Gradient Text With Icon",
     component: RdsCompAiGradientTextWithIcon,
+    argTypes: {
+        className: { control: "text", description: "CSS class applied to the component container." },
+        sx: { control: "object", description: "MUI system styles applied to the component container." },
+        ref: { control: false, description: "React ref to the component container; assign it in code." },
+    },
     parameters: {
             status: { type: 'stable' },
         layout: 'padded',
@@ -20,11 +25,13 @@ type Story = StoryObj<typeof RdsCompAiGradientTextWithIcon>;
 
 export const Default: Story = {
     args: {
-        logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
-        logo: <AutoAwesomeIcon className="pundit-icon" />,
+        icon: (
+            <>
+                <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png" className="rds-gradient-text-with-icon__logo" alt="" />
+                <AutoAwesomeIcon className="pundit-icon" />
+            </>
+        ),
         title: "AI Pundit is creating some magic for you",
-        showImage: true,
-        showIcon: true,
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();

@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -9,6 +9,8 @@ import {
     Typography,
     Popover,
     IconButton,
+    type SxProps,
+    type Theme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,8 +24,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlagIcon from "@mui/icons-material/Flag";
 
 import "./rds-comp-emoji-generator.scss";
-import { getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
-import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+import { ensureEmojiData, getEmojiLabel, getEmojisByCategory, isEmojiDataReady, searchEmojis } from './rds-comp-emoji-data';
+import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const SKIN_TONE_OPTIONS = [
     { value: 0, color: emojiSkinToneColors.default, label: "Default" },
@@ -47,10 +50,22 @@ const CATEGORY_TABS = [
 
 const QUICK_EMOJIS = ["👍", "😊", "😞", "💯", "😎"];
 
+/** Default CDN folder (pinned) used to load flag images. */
+const DEFAULT_FLAG_BASE_URL = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/';
+
+const handleActivationKey = (e: KeyboardEvent<HTMLElement>, activate: () => void) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate();
+    }
+};
+
 interface SkinTonePickerProps {
     skinToneOptions: typeof SKIN_TONE_OPTIONS;
     selectedSkinTone: number;
     onSelect: (tone: number) => void;
+    size?: "small" | "medium";
+    /** @deprecated Use `size`. */
     buttonSize?: "small" | "medium";
 }
 
@@ -58,59 +73,121 @@ const SkinTonePicker = ({
     skinToneOptions,
     selectedSkinTone,
     onSelect,
+    size,
     buttonSize,
 }: SkinTonePickerProps) => (
     <>
-        {skinToneOptions.map((o) => (
+        {skinToneOptions.map((o) => {
+            const selected = selectedSkinTone === o.value;
+            return (
             <IconButton
-                aria-label="Select emoji"
+                aria-label={`Skin tone: ${o.label}`}
+                aria-pressed={selected}
                 key={o.value}
                 onClick={() => onSelect(o.value)}
-                className="rds-emoji-generator__skin-tone-option"
-                style={{
-                    backgroundColor: o.color,
-                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
-                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
-                }}
+                className={clsx(
+                    'rds-emoji-generator__skin-tone-option',
+                    selected && 'rds-emoji-generator__skin-tone-option--selected'
+                )}
+                style={{ backgroundColor: o.color }}
                 title={o.label}
-                size={buttonSize}
+                size={size ?? buttonSize}
             />
-        ))}
+            );
+        })}
     </>
 );
 
 SkinTonePicker.displayName = 'SkinTonePicker';
 
-export interface RdsEmojiGeneratorProps {
-    Type?: EmojiGeneratorType;
-    "Show Skin Tone"?: boolean;
-    "Show Footer"?: boolean;
-    State?: SkinToneState;
-    Category?: EmojiCategory;
+export interface RdsCompEmojiGeneratorProps {
+    /** Type of emoji generator. Defaults to `EmojiGeneratorType.Default`. */
+    type?: EmojiGeneratorType;
+    /** Shows the skin tone picker. @default true */
+    showSkinTone?: boolean;
+    /** Shows the footer (default type only). @default true */
+    showFooter?: boolean;
+    /** Keeps the skin tone picker open inline. */
+    skinTonePickerOpen?: boolean;
+    /** Alias of `type`; `type` wins when both are passed. */
+    variant?: EmojiGeneratorType;
+    /** Category of emojis to display. */
+    category?: EmojiCategory;
+    /** Called with the event and the emoji when one is picked. */
+    onChange?: (event: SyntheticEvent, emoji: string) => void;
+    /** @deprecated Use `onChange` instead. */
     onEmojiSelect?: (emoji: string) => void;
+    /** Maximum number of emojis rendered in the grid. @default 80 */
     maxEmojis?: number;
-    sx?: Record<string, unknown>;
+    /** Called when the user picks a category tab. */
+    onCategoryChange?: (category: EmojiCategory) => void;
+    /** Quick reactions mode: called when the "+" button is clicked. When omitted, `onEmojiSelect('+')` is called. */
+    onMoreClick?: () => void;
+    /** Emojis shown in quick reactions mode. Defaults to the built-in set. */
+    quickReactions?: string[];
+    /** Base URL (folder, with 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL. */
+    flagBaseUrl?: string;
+    /** Overridable UI strings. */
+    localeText?: {
+        searchPlaceholder?: string;
+        moodPrompt?: string;
+    };
+    /** MUI system styles for the root element. */
+    sx?: SxProps<Theme>;
+    /** Extra class name(s) merged onto the root element. */
+    className?: string;
+    /** Ref forwarded to the root element. */
+    ref?: Ref<HTMLDivElement>;
+    /** Id of the root element. */
+    id?: string;
+    /** Accessible label of the root element. */
+    'aria-label'?: string;
+    /** Inline styles applied to the root element. */
+    style?: CSSProperties;
 }
+
+/** @deprecated Use `RdsCompEmojiGeneratorProps` instead. */
+export type RdsEmojiGeneratorProps = RdsCompEmojiGeneratorProps;
 
 
 const RdsCompEmojiGenerator = ({
-    Type = EmojiGeneratorType.Default,
-    "Show Skin Tone": showSkinTone = true,
-    "Show Footer": showFooter = true,
-    State = SkinToneState.Default,
-    Category: categoryProp,
+    type: typeProp,
+    skinTonePickerOpen,
+    variant,
+    category,
+    showSkinTone = true,
+    showFooter = true,
+    onChange,
     onEmojiSelect,
     maxEmojis = 80,
-
+    onCategoryChange,
+    onMoreClick,
+    quickReactions = QUICK_EMOJIS,
+    flagBaseUrl = DEFAULT_FLAG_BASE_URL,
+    localeText,
+    sx,
+    className,
+    ref,
     ...props
-}: RdsEmojiGeneratorProps) => {
+}: RdsCompEmojiGeneratorProps) => {
+    if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
+    const searchPlaceholder = localeText?.searchPlaceholder ?? 'Search';
+    const moodPrompt = localeText?.moodPrompt ?? "What's your mood?";
+    const resolvedType = typeProp ?? variant ?? EmojiGeneratorType.Default;
+    const skinToneExpanded = skinTonePickerOpen ?? false;
+    const categoryProp = category;
     const rootRef = useRef<HTMLDivElement | null>(null);
+    const setRootRef = (node: HTMLDivElement | null) => {
+        rootRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+    };
     const initialCategory = categoryProp ?? EmojiCategory.SmileysAndPeople;
     const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-    const prevCategoryPropRef = useRef(categoryProp);
+    const [prevCategoryProp, setPrevCategoryProp] = useState(categoryProp);
 
-    if (categoryProp !== prevCategoryPropRef.current) {
-        prevCategoryPropRef.current = categoryProp;
+    if (categoryProp !== prevCategoryProp) {
+        setPrevCategoryProp(categoryProp);
         setSelectedCategory(categoryProp ?? EmojiCategory.SmileysAndPeople);
     }
 
@@ -119,11 +196,26 @@ const RdsCompEmojiGenerator = ({
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
+    const [emojiDataReady, setEmojiDataReady] = useState(() => isEmojiDataReady());
 
-    const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
+    useEffect(() => {
+        let cancelled = false;
+        void ensureEmojiData().then(() => {
+            if (!cancelled) setEmojiDataReady(true);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const handleEmojiClick = (e: string, event: SyntheticEvent) => {
+        onEmojiSelect?.(e);
+        onChange?.(event, e);
+    };
 
     const handleCategoryChange = (c: EmojiCategory) => {
         setSelectedCategory(c);
+        onCategoryChange?.(c);
     };
     const handleSkinToneClick = (e: MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
     const handleSkinToneClose = () => setSkinToneAnchorEl(null);
@@ -132,33 +224,39 @@ const RdsCompEmojiGenerator = ({
 
     const filteredEmojis = useMemo(
         () => (
-            searchTerm
-                ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
-                : getEmojisByCategory(currentCategory, selectedSkinTone)
+            !emojiDataReady
+                ? []
+                : searchTerm
+                    ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
+                    : getEmojisByCategory(currentCategory, selectedSkinTone)
         ),
-        [searchTerm, currentCategory, selectedSkinTone]
+        [emojiDataReady, searchTerm, currentCategory, selectedSkinTone]
     );
     const displayEmojis = useMemo(
         () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
         [filteredEmojis, maxEmojis]
     );
 
-    if (Type === EmojiGeneratorType.QuickReactions) {
+    if (resolvedType === EmojiGeneratorType.QuickReactions) {
         return (
-            <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
-                {QUICK_EMOJIS.map((e) => (
+            <Box ref={setRootRef} className={clsx("rds-emoji-generator rds-emoji-generator--quick", className)} sx={sx} {...props}>
+                {(Array.isArray(quickReactions) ? quickReactions : QUICK_EMOJIS).map((e) => (
                     <Box
                         key={e}
                         className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
-                        onClick={() => handleEmojiClick(e)}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={getEmojiLabel(e) ?? e}
+                        onClick={(ev) => handleEmojiClick(e, ev)}
+                        onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e, ev))}
                     >
                         {e}
                     </Box>
                 ))}
                 <IconButton
-                  aria-label="Filter"
+                  aria-label="More emojis"
                     className="rds-emoji-generator__plus"
-                    onClick={() => onEmojiSelect?.('+')}
+                    onClick={(ev) => (onMoreClick ? onMoreClick() : handleEmojiClick('+', ev))}
                     size="small"
                 >
                     <AddIcon />
@@ -168,14 +266,14 @@ const RdsCompEmojiGenerator = ({
     }
 
     return (
-    <Box ref={rootRef} className="rds-emoji-generator" {...props}>
-            {Type === EmojiGeneratorType.Default && (
+    <Box ref={setRootRef} className={clsx("rds-emoji-generator", className)} sx={sx} {...props}>
+            {resolvedType === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__search">
                     <Box className="rds-emoji-generator__search-container">
                         <TextField
                             fullWidth
                             size="small"
-                            placeholder="Search"
+                            placeholder={searchPlaceholder}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             slotProps={{
@@ -191,36 +289,34 @@ const RdsCompEmojiGenerator = ({
                         {showSkinTone && (
                             <Box sx={{ position: 'relative' }}>
                                 <IconButton
-                                  aria-label="Select emoji"
+                                  aria-label={`Skin tone: ${SKIN_TONE_OPTIONS[selectedSkinTone].label}`}
                                     className="rds-emoji-generator__skin-tone-button"
                                     onClick={handleSkinToneClick}
                                     style={{ backgroundColor: SKIN_TONE_OPTIONS[selectedSkinTone].color }}
                                 />
 
-                                {State === SkinToneState.Expanded && (
+                                {skinToneExpanded && (
                                     <Box className="rds-emoji-generator__skin-tone-inline">
                                         <SkinTonePicker
                                             skinToneOptions={SKIN_TONE_OPTIONS}
                                             selectedSkinTone={selectedSkinTone}
                                             onSelect={handleSkinToneSelect}
-                                            buttonSize="small"
+                                            size="small"
                                         />
                                     </Box>
                                 )}
                             </Box>
                         )}
                     </Box>
-                    {State !== SkinToneState.Expanded && (
+                    {!skinToneExpanded && (
                         <Popover
                             open={skinTonePopoverOpen}
                             anchorEl={skinToneAnchorEl}
                             onClose={handleSkinToneClose}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            container={() => rootRef.current || document.body}
                             slotProps={{ paper: { className: 'rds-emoji-generator__skin-tone-popover' } }}
-                            disableAutoFocus
-                            disableEnforceFocus
-                            container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}
                         >
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
                                 <SkinTonePicker
@@ -268,11 +364,15 @@ const RdsCompEmojiGenerator = ({
                         <Box
                             key={`${e}-${currentCategory}`}
                             className="rds-emoji-generator__emoji"
-                            onClick={() => handleEmojiClick(e)}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={getEmojiLabel(e) ?? e}
+                            onClick={(ev) => handleEmojiClick(e, ev)}
+                            onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e, ev))}
                         >
                             {isFlagEmoji(e) ? (
                                 <img
-                                    src={twemojiUrl(e)}
+                                    src={twemojiUrl(e, flagBaseUrl || DEFAULT_FLAG_BASE_URL)}
                                     alt={e}
                                     className="rds-emoji-generator__emoji-image"
                                     draggable={false}
@@ -285,11 +385,11 @@ const RdsCompEmojiGenerator = ({
                 </Box>
             </Box>
 
-            {showFooter && Type === EmojiGeneratorType.Default && (
+            {showFooter && resolvedType === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__footer">
                     <Typography className="rds-emoji-generator__footer-emoji">🙂</Typography>
                     <Typography className="rds-emoji-generator__footer-text" variant="body2">
-                        What's your mood?
+                        {moodPrompt}
                     </Typography>
                 </Box>
             )}
@@ -298,11 +398,10 @@ const RdsCompEmojiGenerator = ({
 };
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
-export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+export const RdsCompEmojiPicker = RdsCompEmojiGenerator;
+export { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 
 function normalizeEmojiForTwemoji(emoji: string): string {
-    // Remove common variation selectors which Twemoji filenames don't include (U+FE0F, U+FE0E)
-    // Keep tag sequences and other codepoints Twemoji expects.
     return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
 }
 
@@ -311,8 +410,8 @@ function isFlagEmoji(emoji: string): boolean {
     return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(normalized) || /\u{1F3F4}/u.test(normalized) || /\uE006/u.test(normalized);
 }
 
-function twemojiUrl(emoji: string): string {
+function twemojiUrl(emoji: string, baseUrl: string): string {
     const normalized = normalizeEmojiForTwemoji(emoji);
     const codepoints = Array.from(normalized).map(c => c.codePointAt(0)!.toString(16)).join('-');
-    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/${codepoints}.png`;
+    return `${baseUrl.replace(/\/?$/, '/')}${codepoints}.png`;
 }

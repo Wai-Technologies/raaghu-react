@@ -59,7 +59,7 @@ rds-{name}/
 ├── rds-{name}.scss           # BEM styles using var(--rds-*) CSS variables
 ├── rds-{name}.test.tsx       # Jest unit tests
 ├── rds-{name}.stories.tsx    # Storybook stories with play() tests
-└── rds-{name}.figma.tsx      # Figma Code Connect metadata
+└── rds-{name}.figma.tsx      # Figma Code Connect metadata (optional; not every component has one yet)
 ```
 
 ## BEM Naming Convention
@@ -74,7 +74,7 @@ rds-{name}/
 All color and spacing values come from CSS custom properties injected by `raaghu-react-themes`:
 
 ```scss
-color: var(--rds-primary-700);
+color: var(--rds-color-primary-700);
 background: var(--rds-neutral-50);
 ```
 

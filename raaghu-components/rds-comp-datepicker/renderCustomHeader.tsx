@@ -7,11 +7,19 @@ interface CustomHeaderProps {
   increaseMonth?: () => void;
   prevMonthButtonDisabled?: boolean;
   nextMonthButtonDisabled?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
+  locale?: string;
 }
 
-const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** Locale-aware short month labels (G4-102). */
+function getShortMonths(locale?: string): string[] {
+  return Array.from({ length: 12 }, (_, month) =>
+    new Date(2000, month, 1).toLocaleString(locale, { month: "short" })
+  );
+}
 
-export const createRenderCustomHeader = (showNavigation: boolean) => {
+const createRenderCustomHeader = (showNavigation: boolean) => {
   const RenderCustomHeader = ({
     date,
     monthDate,
@@ -21,12 +29,15 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
     increaseMonth,
     prevMonthButtonDisabled,
     nextMonthButtonDisabled,
+    minDate,
+    maxDate,
+    locale,
   }: CustomHeaderProps) => {
-    const months = SHORT_MONTHS;
+    const months = getShortMonths(locale);
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 6;
-    const endYear = currentYear + 6;
-    const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+    const startYear = minDate ? minDate.getFullYear() : currentYear - 100;
+    const endYear = maxDate ? maxDate.getFullYear() : currentYear + 100;
+    const years = Array.from({ length: Math.max(0, endYear - startYear) + 1 }, (_, i) => startYear + i);
 
     const displayDate = monthDate || date;
 
@@ -51,6 +62,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
+              aria-label="Month"
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -62,6 +74,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
+              aria-label="Year"
             >
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -85,6 +98,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
+              aria-label="Month"
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -96,6 +110,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
+              aria-label="Year"
             >
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -115,3 +130,9 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
 
   return RenderCustomHeader;
 };
+
+/** Header for the default layout with the Dropdown style (month/year selects plus prev/next buttons). Created once. */
+export const RenderDefaultDropdownHeader = createRenderCustomHeader(true);
+
+/** Header for the Multi Month layout (month/year selects only). Created once. */
+export const RenderMultiMonthHeader = createRenderCustomHeader(false);

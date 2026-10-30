@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent, type HTMLAttributes, type Ref } from "react";
 import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
@@ -7,6 +7,8 @@ import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
+import type { SxProps, Theme } from "@mui/material/styles";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface Comment {
   firstName: string;
@@ -22,24 +24,36 @@ export interface UserData {
   activeDotButton: boolean;
   status: string;
   size: string;
-  colorVariant: string;
+  /** User accent color. Preferred over `colorVariant`. */
+  color?: string;
+  /** @deprecated Use `color`. */
+  colorVariant?: string;
   time: string;
   profilePic: string;
   messageStatus: string;
   comments: Comment[];
   profileType?: string;
+  /** Shows the profile picture. Preferred over `withProfilePic`. */
+  showProfilePic?: boolean;
+  /** @deprecated Use `showProfilePic`. */
   withProfilePic?: boolean;
   style?: string;
 }
 
-export interface RdsCompChatProps {
-  isChatScreenEnabled: boolean;
+export interface RdsCompChatProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  chatScreenEnabled?: boolean;
+  /** @deprecated Use `chatScreenEnabled` instead. */
+  isChatScreenEnabled?: boolean;
   userData: UserData[];
-  handleAddComment: (comment: Comment) => void;
+  onAddComment?: (comment: Comment) => void;
+  /** @deprecated Use `onAddComment` instead. */
+  handleAddComment?: (comment: Comment) => void;
   currentUserCommentBgColor?: string;
   currentUserCommentTextColor?: string;
   otherUserCommentBgColor?: string;
-  OtherUserCommentTextColor?: string;
+  otherUserCommentTextColor?: string;
+  ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 interface ChatMessageProps {
@@ -84,14 +98,25 @@ ChatMessage.displayName = "ChatMessage";
 const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
 
 const RdsCompChat = ({
+  chatScreenEnabled: chatScreenEnabledProp,
   isChatScreenEnabled,
   userData,
-  handleAddComment: onAddComment,
+  onAddComment: onAddCommentProp,
+  handleAddComment: handleAddCommentProp,
   currentUserCommentBgColor = "var(--rds-primary-main)",
   currentUserCommentTextColor = "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
   otherUserCommentBgColor = "var(--rds-neutral-300)",
-  OtherUserCommentTextColor = "var(--rds-text-primary)"
+  otherUserCommentTextColor,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompChatProps) => {
+  const resolvedOtherUserCommentTextColor = otherUserCommentTextColor ?? "var(--rds-text-primary)";
+  if (isChatScreenEnabled !== undefined) warnDeprecatedProp('RdsCompChat', 'isChatScreenEnabled', '`chatScreenEnabled`');
+  if (handleAddCommentProp !== undefined) warnDeprecatedProp('RdsCompChat', 'handleAddComment', '`onAddComment`');
+  const chatScreenEnabled = chatScreenEnabledProp ?? isChatScreenEnabled;
+  const onAddComment = onAddCommentProp ?? handleAddCommentProp;
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -217,12 +242,12 @@ const RdsCompChat = ({
     return items;
   }, [userData]);
 
-  const showUserList = isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
-  const showChat = !isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
+  const showUserList = chatScreenEnabled && (!state.isMobile || !state.showChatWindow);
+  const showChat = !chatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
   const hasCommentText = state.commentText.trim().length > 0;
 
   return (
-    <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile", className)} sx={sx}>
       {showUserList && (
         <div className="rds-comp-chat__screen">
           <div className="rds-comp-chat__screen-header">
@@ -244,9 +269,9 @@ const RdsCompChat = ({
       )}
 
       {showChat && (
-        <div className={clsx("rds-comp-chat__window", !isChatScreenEnabled && "rds-comp-chat__window--full-width")}>
+        <div className={clsx("rds-comp-chat__window", !chatScreenEnabled && "rds-comp-chat__window--full-width")}>
           <div className="rds-comp-chat__window-header">
-            {state.isMobile && isChatScreenEnabled && (
+            {state.isMobile && chatScreenEnabled && (
               <button type="button" className="rds-comp-chat__back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
                 <ArrowBackIcon fontSize="small" />
               </button>
@@ -258,18 +283,21 @@ const RdsCompChat = ({
               />
             </div>
             <div className="rds-comp-chat__window-header-options">
-              <div
-                className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`}
-                role="tablist"
-                aria-label="Chat sections"
-              >
-                {["chat", "media"].map(tab => (
-                  <button key={tab} type="button" role="tab" aria-selected={state.activeTab === tab} className={`nav-link ${state.activeTab === tab ? "active" : ""}${state.isMobile ? " nav-link--mobile" : ""}`} onClick={() => updateState({ activeTab: tab as "chat" | "media" })}>
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                  </button>
-                ))}
-              </div>
               <span className="rds-comp-chat__window-header-more"><MoreIcon /></span>
+            </div>
+          </div>
+
+          <div className="rds-comp-chat__window-tabs">
+            <div
+              className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`}
+              role="tablist"
+              aria-label="Chat sections"
+            >
+              {["chat", "media"].map(tab => (
+                <button key={tab} type="button" role="tab" aria-selected={state.activeTab === tab} className={`nav-link ${state.activeTab === tab ? "active" : ""}${state.isMobile ? " nav-link--mobile" : ""}`} onClick={() => updateState({ activeTab: tab as "chat" | "media" })}>
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -286,7 +314,7 @@ const RdsCompChat = ({
                       currentUserCommentBgColor={currentUserCommentBgColor}
                       otherUserCommentBgColor={otherUserCommentBgColor}
                       currentUserCommentTextColor={currentUserCommentTextColor}
-                      otherUserCommentTextColor={OtherUserCommentTextColor}
+                      otherUserCommentTextColor={resolvedOtherUserCommentTextColor}
                     />
                   );
                 })}
@@ -317,14 +345,14 @@ const RdsCompChat = ({
               </div>
             )}
             <div className="rds-comp-chat__footer-left">
-              <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" style="filled" aria-label="Attach file" onClick={() => document.getElementById("fileUpload")?.click()} />
+              <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" variant="filled" aria-label="Attach file" onClick={() => document.getElementById("fileUpload")?.click()} />
               <input id="fileUpload" className="rds-comp-chat__file-input" type="file" accept="image/*,video/*" aria-label="Upload file" onChange={handleImageUpload} />
               <button type="button" className="rds-comp-chat__emoji-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showEmojiPicker: !state.showEmojiPicker })} aria-label="Open emoji picker"><EmojiIcon /></button>
             </div>
             <div className="rds-comp-chat__footer-center">
               <div className="rds-comp-chat__input-send">
                 <div className="rds-comp-chat__input-wrapper">
-                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" aria-label="Type comment" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
+                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" aria-label="Type comment" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
                   <button
                     type="button"
                     className={clsx("rds-comp-chat__send-icon", hasCommentText && "rds-comp-chat__send-icon--active")}
@@ -350,7 +378,7 @@ const RdsCompChat = ({
           <canvas ref={canvasRef} className="rds-comp-chat__canvas-hidden" />
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 

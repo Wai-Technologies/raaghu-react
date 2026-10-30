@@ -1,6 +1,7 @@
 import React from "react"
 import RdsCard from "./rds-card"
 import RdsButton from "../rds-button/rds-button"
+import Person from "@mui/icons-material/Person"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -10,22 +11,18 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showIndicator: figma.boolean("👀 Show Indicator"),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Default": "default",
         "Outlined": "outlined",
         "Filled": "filled"
       }),
-      state: figma.enum("💡 State",  {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled"
-      }),
+      selected: figma.boolean("Selected"),
+      disabled: figma.boolean("Disabled"),
     },
     example: (props) => (
       <RdsCard {...props}
             cardSubtext="Card Subtitle"
-            changeIcon="person"
+            icon={<Person />}
             description="In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo"
             layout="vertical"
             showDescription
@@ -35,7 +32,7 @@ figma.connect(
           >
         <RdsButton
           size="small"
-          style="transparent"
+          variant="transparent"
           sx={{
             mt: 1,
             p: 0,

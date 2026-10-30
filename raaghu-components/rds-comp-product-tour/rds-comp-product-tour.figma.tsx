@@ -20,14 +20,14 @@ figma.connect(
       topRight: figma.boolean("Top Right Dot"),
       topLeft: figma.boolean("Top Left Dot"),
       description: figma.string("✍ Description"),
-      header: figma.string("Header"),
+      title: figma.string("Header"),
       showPrimaryButton: figma.boolean("🔷 Primary Button"),
       showSecondaryButton: figma.boolean("🔶 Secondary Button"),
       showTertiaryButton: figma.boolean("⏺ Tertiary Button"),
       stepsIndicator: figma.string("Steps Indicator"),
       showVisualPlaceholder: figma.boolean("Show Visual Placeholder"),
       showDismiss: figma.boolean("Show Dismiss"),
-      state: figma.enum("💡 State", {
+      variant: figma.enum("💡 State", {
       "With Image": "Image",
       "With Carousal": "Carousel",
       "With GIF": "GIF",

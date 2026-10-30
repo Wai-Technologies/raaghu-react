@@ -4,7 +4,6 @@ import RdsCompMap, { RdsCompMapProps } from './rds-comp-map';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock react-svg-worldmap
 jest.mock('react-svg-worldmap', () => ({
   WorldMap: ({ data, styleFunction, color, title, size }: any) => (
     <div
@@ -27,7 +26,8 @@ jest.mock('react-svg-worldmap', () => ({
   ),
 }));
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-map.scss', () => ({}));
 
 describe('RdsCompMap', () => {
@@ -46,7 +46,6 @@ describe('RdsCompMap', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // Mock window.innerWidth
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
@@ -67,6 +66,13 @@ describe('RdsCompMap', () => {
     it('should render title when provided', () => {
       render(<RdsCompMap {...defaultProps} title="Test Title" />);
       expect(screen.getByText('Test Title')).toBeInTheDocument();
+    });
+
+    it('should render header and still render a ReactNode title', () => {
+      const { rerender } = render(<RdsCompMap {...defaultProps} header={<b>Rich</b>} />);
+      expect(screen.getByText('Rich')).toBeInTheDocument();
+      rerender(<RdsCompMap {...defaultProps} title={<i>Legacy</i> as unknown as string} />);
+      expect(screen.getByText('Legacy')).toBeInTheDocument();
     });
 
     it('should not render title when not provided', () => {
@@ -177,7 +183,6 @@ describe('RdsCompMap', () => {
 
     it('should handle empty string title', () => {
       const { container } = render(<RdsCompMap {...defaultProps} title="" />);
-      // Empty string is falsy in JavaScript, so the label won't render
       expect(container.querySelector('.rds-comp-map__label')).not.toBeInTheDocument();
     });
 
@@ -197,7 +202,6 @@ describe('RdsCompMap', () => {
         value: 1024,
       });
       render(<RdsCompMap {...defaultProps} />);
-      // Wait for component to set size
       waitFor(() => {
         const worldMap = screen.getByTestId('world-map');
         expect(worldMap).toHaveAttribute('data-map-size', 'lg');
@@ -253,14 +257,12 @@ describe('RdsCompMap', () => {
       });
       render(<RdsCompMap {...defaultProps} />);
 
-      // Change window width
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
         value: 400,
       });
 
-      // Trigger resize event
       fireEvent(window, new Event('resize'));
 
       waitFor(() => {
@@ -298,7 +300,6 @@ describe('RdsCompMap', () => {
       });
       render(<RdsCompMap {...defaultProps} />);
 
-      // Simulate rapid resize events
       for (let i = 0; i < 5; i++) {
         Object.defineProperty(window, 'innerWidth', {
           writable: true,
@@ -453,7 +454,6 @@ describe('RdsCompMap', () => {
       const { container } = render(
         <RdsCompMap {...defaultProps} title="" />
       );
-      // Empty string is falsy in JavaScript, so the label won't render
       expect(container.querySelector('.rds-comp-map__label')).not.toBeInTheDocument();
     });
 
@@ -622,5 +622,40 @@ describe('RdsCompMap', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsCompMap audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const data = [{ country: 'US', value: 100 }, { country: 'IN', value: 50 }];
+
+  it('G6-008/009: renders from data + variant without deprecation warnings', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { container } = render(<RdsCompMap data={data} color="#FF0000" variant="heatmap" />);
+    expect(screen.getByText('IN: 50')).toBeInTheDocument();
+    expect(container.querySelector('.rds-comp-map--heatmap')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('G6-008/009: mapList and mapType still work and warn', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsCompMap mapList={data} color="#FF0000" mapType="default" />);
+    expect(screen.getByText('US: 100')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompMap', 'mapList', '`data`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompMap', 'mapType', '`variant`');
+  });
+
+  it('G6-010: forwards className, ref and rest props to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompMap ref={ref} data={data} color="primary" className="extra" data-testid="map-root" aria-label="Sales map" />);
+    const root = screen.getByTestId('map-root');
+    expect(root).toHaveClass('rds-comp-map', 'extra');
+    expect(root).toHaveAttribute('aria-label', 'Sales map');
+    expect(ref.current).toBe(root);
+  });
+
+  it('G6-007: resolves a palette key to the theme colour', () => {
+    render(<RdsCompMap data={data} color="primary" />);
+    expect(screen.getByTestId('world-map').getAttribute('data-color')).toMatch(/^#/);
   });
 });

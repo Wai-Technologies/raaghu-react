@@ -1,40 +1,31 @@
 import { useState, type SyntheticEvent, type MouseEventHandler } from "react";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import RdsRating from "../../raaghu-elements/rds-rating/rds-rating";
-import { Item, RevieweStyle } from "./rds-comp-reviews-types";
+import { Item, ReviewStyle } from "./rds-comp-reviews-types";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
-
-/**
- * Helper function to format dates in a standard way
- * @param date Optional date to format
- * @returns Formatted date string
- */
-const formatDate = (date?: Date) => {
-  if (!date) return "Date not available";
-  return date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-};
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 interface FeedbackActionsProps {
   likes: number;
   dislikes: number;
   iconSize: "small" | "medium";
+  liked: boolean;
+  disliked: boolean;
   onLike: MouseEventHandler<HTMLButtonElement>;
   onDislike: MouseEventHandler<HTMLButtonElement>;
 }
 
-const FeedbackActions = ({ likes, dislikes, iconSize, onLike, onDislike }: FeedbackActionsProps) => (
+const FeedbackActions = ({ likes, dislikes, iconSize, liked, disliked, onLike, onDislike }: FeedbackActionsProps) => (
   <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", my: 3 }}>
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ display: "flex", alignItems: "center", mr: 3 }}>
         <Box
           component="button"
           onClick={onLike}
+          aria-label="Like"
+          aria-pressed={liked}
           sx={{ p: 0, color: "primary.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
         >
           <ThumbUpAltIcon color="primary" fontSize={iconSize} />
@@ -45,6 +36,8 @@ const FeedbackActions = ({ likes, dislikes, iconSize, onLike, onDislike }: Feedb
         <Box
           component="button"
           onClick={onDislike}
+          aria-label="Dislike"
+          aria-pressed={disliked}
           sx={{ p: 0, color: "error.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
         >
           <ThumbDownAltIcon color="error" fontSize={iconSize} />
@@ -57,33 +50,97 @@ const FeedbackActions = ({ likes, dislikes, iconSize, onLike, onDislike }: Feedb
 
 FeedbackActions.displayName = "FeedbackActions";
 
-export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweStyle }) => {
-  const initialRating =
-    style === RevieweStyle.Style11 || style === RevieweStyle.Style12
-      ? 1
-      : item.rating || 4.5;
+export interface ReviewStyleCardProps {
+  item: Item;
+  variant?: ReviewStyle;
+  locale?: string;
+  formatDate?: (date: Date) => string;
+  onRatingChange?: (item: Item, value: number) => void;
+  onLike?: (item: Item) => void;
+  onDislike?: (item: Item) => void;
+}
 
-  const [rating, setRating] = useState(initialRating);
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const isXs = useMediaQuery("(max-width: 600px)");
+export const ReviewStyleCard = ({
+  item,
+  variant,
+  locale = "en-GB",
+  formatDate: customFormatDate,
+  onRatingChange,
+  onLike,
+  onDislike,
+}: ReviewStyleCardProps) => {
+  const getInitialRating = () =>
+    variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
+      ? 1
+      : item.rating ?? 0;
+
+  const formatDate = (date?: Date) => {
+    if (!date) return "Date not available";
+    if (customFormatDate) return customFormatDate(date);
+    return date.toLocaleDateString(locale, {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
+  const [rating, setRating] = useState(getInitialRating);
+  const [likes, setLikes] = useState(item.likes ?? 0);
+  const [dislikes, setDislikes] = useState(item.dislikes ?? 0);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [prevRating, setPrevRating] = useState(item.rating);
+  const [prevLikes, setPrevLikes] = useState(item.likes);
+  const [prevDislikes, setPrevDislikes] = useState(item.dislikes);
+  if (item.rating !== prevRating) {
+    setPrevRating(item.rating);
+    setRating(getInitialRating());
+  }
+  if (item.likes !== prevLikes) {
+    setPrevLikes(item.likes);
+    setLikes(item.likes ?? 0);
+  }
+  if (item.dislikes !== prevDislikes) {
+    setPrevDislikes(item.dislikes);
+    setDislikes(item.dislikes ?? 0);
+  }
+  const isXs = useMediaQuery(`(max-width: ${extendedBreakpointTokens.sm})`);
 
   const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
+      onRatingChange?.(item, newValue);
     }
   };
 
   const handleLike = () => {
     setLikes((prev) => prev + 1);
+    setLiked(true);
+    onLike?.(item);
   };
 
   const handleDislike = () => {
     setDislikes((prev) => prev + 1);
+    setDisliked(true);
+    onDislike?.(item);
   };
 
-  switch (style) {
-    case RevieweStyle.Style1:
+  const starRating = (
+    size: "small" | "medium" = "medium",
+    max?: number,
+  ) => (
+    <RdsRating
+      value={rating}
+      max={max}
+      precision={0.5}
+      size={size}
+      onChange={handleRatingChange}
+      readOnly={false}
+    />
+  );
+
+  switch (variant) {
+    case ReviewStyle.Style1:
       return (
         <Card sx={{ height: "100%" }}>
           <CardContent sx={{ textAlign: "center" }}>
@@ -98,8 +155,8 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
               }}
             >
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                src={item.imageUrl}
+                name={item.name}
                 size="medium"
                 displayStyle="name-bottom"
               />
@@ -125,7 +182,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         </Card>
       );
 
-    case RevieweStyle.Style2:
+    case ReviewStyle.Style2:
       return (
         <Card sx={{ height: "100%" }}>
           <CardContent sx={{ textAlign: "center", display: "flex", flexDirection: "column" }}>
@@ -136,20 +193,14 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
               {item.username}
             </Typography>
             <Box sx={{ my: 3, display: "flex", justifyContent: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
             <Typography variant="body1">{item.description}</Typography>
           </CardContent>
         </Card>
       );
 
-    case RevieweStyle.Style3:
+    case ReviewStyle.Style3:
       return (
         <Card
           sx={{
@@ -163,9 +214,9 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
-              subText={formatDate(item.date)}
+              src={item.imageUrl}
+              name={item.name}
+              description={formatDate(item.date)}
               size="medium"
               displayStyle="with-name"
             />
@@ -174,18 +225,12 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
           <Typography variant="body1">{item.description}</Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
         </Card>
       );
 
-    case RevieweStyle.Style4:
+    case ReviewStyle.Style4:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -204,24 +249,18 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
         </Card>
       );
 
-    case RevieweStyle.Style5:
+    case ReviewStyle.Style5:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
+              src={item.imageUrl}
+              name={item.name}
               size="medium"
               showDesignation={false}
               showName={false}
@@ -237,13 +276,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
 
           <Typography variant="body1" sx={{ mt: 3 }}>
@@ -252,7 +285,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         </Card>
       );
 
-    case RevieweStyle.Style6:
+    case ReviewStyle.Style6:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -267,13 +300,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
 
           <Typography variant="body1" sx={{ mt: 3 }}>
@@ -282,7 +309,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         </Card>
       );
 
-    case RevieweStyle.Style7:
+    case ReviewStyle.Style7:
       return (
         <Card sx={{ p: 3, height: "100%" }} className="rating-text">
           <Box
@@ -304,8 +331,8 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
               }}
             >
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                src={item.imageUrl}
+                name={item.name}
                 size={isXs ? "small" : "medium"}
                 showDesignation={false}
                 showName={false}
@@ -333,13 +360,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
                 justifyContent: { xs: "flex-start", sm: "flex-end" },
               }}
             >
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size={isXs ? "small" : "medium"}
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating(isXs ? "small" : "medium")}
             </Box>
           </Box>
 
@@ -347,22 +368,16 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="small" onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="small" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
         </Card>
       );
 
-    case RevieweStyle.Style8:
+    case ReviewStyle.Style8:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2, mt: 2 }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
             <Typography variant="caption" color="text.secondary">
               {formatDate(item.date)}
@@ -381,13 +396,13 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         </Card>
       );
 
-    case RevieweStyle.Style9:
+    case ReviewStyle.Style9:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
+              src={item.imageUrl}
+              name={item.name}
               size="medium"
               showDesignation={false}
               showName={false}
@@ -404,13 +419,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
 
             <Typography variant="caption" color="text.secondary">
@@ -422,11 +431,11 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
         </Card>
       );
 
-    case RevieweStyle.Style10:
+    case ReviewStyle.Style10:
       return (
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -442,13 +451,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
 
             <Typography variant="caption" color="text.secondary">
@@ -460,18 +463,18 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
         </Card>
       );
 
-    case RevieweStyle.Style11:
+    case ReviewStyle.Style11:
       return (
         <Card sx={{ height: "100%" }}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                src={item.imageUrl}
+                name={item.name}
                 alt={item.name}
                 showName={false}
                 size="medium"
@@ -492,15 +495,8 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
                 my: 3,
               }}
             >
-              <RdsRating
-                value={rating}
-                max={1}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-                precision={0.5}
-              />
-              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+              {starRating("medium", 1)}
+              <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>
               {item.description}
@@ -509,7 +505,7 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
         </Card>
       );
 
-    case RevieweStyle.Style12:
+    case ReviewStyle.Style12:
       return (
         <Card sx={{ height: "100%" }}>
           <CardContent>
@@ -528,15 +524,8 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
                 my: 3,
               }}
             >
-              <RdsRating
-                value={rating}
-                max={1}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-                precision={0.5}
-              />
-              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+              {starRating("medium", 1)}
+              <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>
               {item.description}

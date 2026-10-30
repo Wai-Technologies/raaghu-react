@@ -1,3 +1,18 @@
+:root {
+  --rds-time-picker-dim-1: var(--rds-spacing-hairline);
+  --rds-time-picker-dim-2: var(--rds-spacing-34);
+  --rds-time-picker-dim-3: var(--rds-spacing-35);
+  --rds-time-picker-dim-4: 38px;
+  --rds-time-picker-dim-5: var(--rds-spacing-45);
+  --rds-time-picker-dim-6: var(--rds-spacing-50);
+  --rds-time-picker-dim-7: var(--rds-spacing-60);
+  --rds-time-picker-dim-8: var(--rds-spacing-70);
+  --rds-time-picker-dim-9: 72px;
+  --rds-time-picker-dim-10: 200px;
+  --rds-time-picker-dim-11: 280px;
+  --rds-time-picker-dim-12: 350px;
+}
+
 .time-picker-container {
   position: relative;
   width: 100%;
@@ -35,7 +50,7 @@
     --rds-time-picker-accent-rgb: var(--rds-info-rgb, 13, 202, 240);
     --rds-time-picker-on-accent: var(--rds-info-contrast-text, var(--rds-neutral-0));
   }
-  
+
   .time-input-container {
     position: relative;
     display: inline-flex;
@@ -43,45 +58,49 @@
     cursor: pointer;
     width: fit-content;
     max-width: 100%;
-    
+
     &.disabled {
       cursor: not-allowed;
       opacity: 0.7;
     }
-    
+
     .time-input {
-  height: 34px;
+  height: var(--rds-time-picker-dim-2);
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   padding-right: var(--rds-spacing-34);
-      border: 1px solid var(--rds-border-subtle);
+      border: var(--rds-border-width-thin) solid var(--rds-border-subtle);
       border-radius: var(--rds-border-radius-sm);
       text-align: left;
-      font-size: var(--rds-font-size-md);
+      font-size: var(--rds-font-size-body2);
       color: var(--rds-text-primary);
       cursor: pointer;
       outline: none;
       background-color: var(--rds-background-paper);
-      transition: border-color 0.2s;
-      
+      transition: border-color var(--rds-motion-duration-quick);
+
       &:hover:not(:disabled) {
         border-color: var(--rds-border-hover);
       }
-      
+
       &:focus {
         border-color: var(--rds-time-picker-accent);
         box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
       }
-      
+
+      &.selected:not(:disabled) {
+        border-color: var(--rds-primary-main);
+      }
+
       &:disabled {
         background-color: var(--rds-background-disabled);
         cursor: not-allowed;
       }
-      
+
       &::placeholder {
-        font-size: var(--rds-font-size-xs, 13px);
+        font-size: var(--rds-font-size-xs);
       }
     }
-    
+
     .border-primary { border-color: var(--rds-primary-main); }
     .border-secondary { border-color: var(--rds-border-default); }
     .border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
@@ -90,16 +109,16 @@
     .border-info { border-color: var(--rds-info-dark); }
     .border-light { border-color: var(--rds-border-light); }
     .border-dark { border-color: var(--rds-text-primary); }
-    
+
     .time-icon {
       position: absolute;
-      right: 12px;
+      right: var(--rds-spacing-3);
       top: 50%;
       transform: translateY(-50%);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 34px;
+      height: var(--rds-time-picker-dim-2);
       padding: 0;
       border: none;
       background: transparent;
@@ -116,69 +135,42 @@
     }
   }
 
-  .time-picker, .time-picker-compact {
+  .time-picker,
+  .time-picker-compact {
     position: absolute;
     top: 100%;
     left: 0;
     right: auto;
-    width: max(100%, 280px);
+    width: max(100%, var(--rds-time-picker-dim-11));
     min-width: 0;
-    max-width: min(350px, calc(100vw - 16px));
+    max-width: min(var(--rds-time-picker-dim-12), calc(100vw - var(--rds-size-md)));
     margin-top: var(--rds-spacing-sm);
     background-color: var(--rds-color-surface, var(--rds-background-paper));
-    border: 1px solid var(--rds-border-default);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm);
     padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     z-index: var(--rds-z-index-modal, 1400);
     box-sizing: border-box;
-    
+
     &.time-picker-compact {
       padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
-      border: 1px solid var(--rds-border-default, var(--rds-color-outline));
+      border: var(--rds-border-width-thin) solid var(--rds-border-default, var(--rds-color-outline));
 
-      &.border-primary {
-        border-color: var(--rds-primary-main);
-      }
-
-      &.border-secondary {
-        border-color: var(--rds-border-default);
-      }
-
-      &.border-success {
-        border-color: var(--rds-semantic-success-main, var(--rds-success-main));
-      }
-
+      &.border-primary { border-color: var(--rds-primary-main); }
+      &.border-secondary { border-color: var(--rds-border-default); }
+      &.border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
       &.border-error,
-      &.border-danger {
-        border-color: var(--rds-semantic-error-main, var(--rds-error-main));
-      }
-
-      &.border-warning {
-        border-color: var(--rds-semantic-warning-main, var(--rds-warning-main));
-      }
-
-      &.border-info {
-        border-color: var(--rds-info-dark);
-      }
-    }
-    
-    &.border-primary { 
-      border-color: var(--rds-primary-main);
+      &.border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
+      &.border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
+      &.border-info { border-color: var(--rds-info-dark); }
     }
 
-    &.border-success {
-      border-color: var(--rds-semantic-success-main, var(--rds-success-main));
-    }
-
+    &.border-primary { border-color: var(--rds-primary-main); }
+    &.border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
     &.border-error,
-    &.border-danger {
-      border-color: var(--rds-semantic-error-main, var(--rds-error-main));
-    }
+    &.border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
+    &.border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
 
-    &.border-warning {
-      border-color: var(--rds-semantic-warning-main, var(--rds-warning-main));
-    }
-    
     .row {
       margin: 0;
       display: flex;
@@ -187,66 +179,68 @@
       margin-bottom: var(--rds-spacing-sm);
       width: 100%;
     }
+
     .time-divider {
       width: 100%;
-      height: 1px;
+      height: var(--rds-time-picker-dim-1);
       background-color: var(--rds-border-subtle);
       margin: var(--rds-spacing-sm) 0 calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     }
-    
+
     .time-display {
       width: auto;
-      font-weight: 500;
-      font-size: var(--rds-font-size-md);
+      font-weight: var(--rds-font-weight-medium);
+      font-size: var(--rds-font-size-body2);
       color: var(--rds-color-on-surface, var(--rds-text-primary));
-      
+
       &.time-display-compact {
-        font-size: var(--rds-font-size-xs, 13px);
+        font-size: var(--rds-font-size-xs);
       }
     }
-    
+
     .time-values-row {
       .time-value {
         cursor: pointer;
-        
+
         &:hover {
           background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
         }
       }
     }
-    
+
     .now-button {
       color: var(--rds-time-picker-accent);
-      font-size: var(--rds-font-size-xs);
+      font-size: var(--rds-font-size-small);
       font-family: inherit;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: var(--rds-font-weight-semibold);
       display: inline-block;
       text-align: right;
       text-transform: uppercase;
       width: auto;
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-      letter-spacing: 0.5px;
+      letter-spacing: var(--rds-letter-spacing-caps);
       border: none;
       background: transparent;
       appearance: none;
-      
+
       &:hover {
         color: var(--rds-time-picker-accent);
         background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
         text-decoration: underline;
       }
     }
-    
+
     .time-values-container {
-      margin: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) 0 calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      margin: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) 0
+        calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 100%;
       padding: 0 var(--rds-spacing-xxs);
     }
-    
+
     .time-controls-row {
       display: flex;
       align-items: center;
@@ -254,61 +248,61 @@
       gap: var(--rds-spacing-sm);
       width: 100%;
       margin-bottom: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
-      
+
       .time-select-dropdown {
         flex: 1;
         min-width: 0;
         
         &:nth-child(1), &:nth-child(2) {
-          flex-basis: 60px;
-          max-width: 80px;
+          flex-basis: var(--rds-time-picker-dim-7);
+          max-width: var(--rds-size-4xl);
         }
-        
+
         &:nth-child(3) {
-          flex-basis: 70px;
-          max-width: 70px;
+          flex-basis: var(--rds-time-picker-dim-8);
+          max-width: var(--rds-time-picker-dim-8);
         }
-        
+
         .MuiAutocomplete-popper {
           z-index: var(--rds-z-index-tooltip, 1800);
         }
       }
-      
+
       .time-select-container {
         flex: 1 1 0;
         min-width: 0;
         margin: 0;
         display: flex;
         align-items: center;
-        
+
         &:nth-child(1),
         &:nth-child(2) {
-          max-width: 80px;
+          max-width: var(--rds-size-4xl);
         }
-        
+
         &:nth-child(3) {
-          max-width: 72px;
+          max-width: var(--rds-time-picker-dim-9);
         }
-        
+
         .time-select {
           width: 100%;
-          height: 38px;
+          height: var(--rds-time-picker-dim-4);
           padding: var(--rds-spacing-sm);
           border-radius: var(--rds-border-radius-sm);
-          border: 1px solid var(--rds-border-default, var(--rds-color-outline));
+          border: var(--rds-border-width-thin) solid var(--rds-border-default, var(--rds-color-outline));
           background-color: var(--rds-color-surface, var(--rds-background-paper));
-          font-size: var(--rds-font-size-md);
+          font-size: var(--rds-font-size-body2);
           appearance: auto;
           color: var(--rds-time-picker-accent);
           color-scheme: light dark;
           box-sizing: border-box;
-          
-              &:focus {
-                outline: none;
-                border-color: var(--rds-time-picker-accent);
-                box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
-              }
-          
+
+          &:focus {
+            outline: none;
+            border-color: var(--rds-time-picker-accent);
+            box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
+          }
+
           option {
             padding: var(--rds-spacing-xs);
             background-color: var(--rds-color-surface, var(--rds-background-paper));
@@ -317,96 +311,99 @@
         }
       }
     }
-    
+
     .time-values-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--rds-spacing-3xl);
-      
+      gap: var(--rds-spacing-3xl, var(--rds-spacing-xxl));
+
       .time-value {
         font-size: var(--rds-font-size-xl);
-        font-weight: 600;
-        color: var(--rds-primary-main);
+        font-weight: var(--rds-font-weight-semibold);
         color: var(--rds-time-picker-accent);
-        width: 36px;
-        height: 36px;
+        width: var(--rds-size-36);
+        height: var(--rds-size-36);
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         border-radius: var(--rds-border-radius-sm);
-        transition: background-color 0.2s;
+        transition: background-color var(--rds-motion-duration-quick);
       }
     }
-    
+
     .time-values-display-row {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: var(--rds-spacing-sm);
       margin: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) 0;
-      
+
       .time-value-display {
         font-size: var(--rds-font-size-lg);
-        font-weight: 600;
-        color: var(--rds-primary-main);
+        font-weight: var(--rds-font-weight-semibold);
         color: var(--rds-time-picker-accent);
-        min-width: 45px;
-        height: 45px;
+        min-width: var(--rds-time-picker-dim-5);
+        height: var(--rds-time-picker-dim-5);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         background-color: transparent;
         position: relative;
-        
+
         .time-control {
           position: absolute;
-          font-size: var(--rds-font-size-sm);
-          color: var(--rds-primary-main);
+          font-size: var(--rds-font-size-small);
           color: var(--rds-time-picker-accent);
+          background: none;
+          border: none;
+          padding: 0;
           cursor: pointer;
           opacity: 0.7;
-          
+
           &:hover {
             opacity: 1;
           }
           
           &.up {
-            top: -12px;
+            top: calc(-1 * var(--rds-spacing-3));
           }
           
           &.down {
-            bottom: -12px;
+            bottom: calc(-1 * var(--rds-spacing-3));
           }
         }
       }
-      
+
       .time-value-colon {
-          font-size: var(--rds-font-size-lg);
-        font-weight: 600;
+        font-size: var(--rds-font-size-lg);
+        font-weight: var(--rds-font-weight-semibold);
         color: var(--rds-time-picker-accent);
         margin: 0 var(--rds-spacing-xs);
       }
-      
+
       .time-value-period {
-        font-size: var(--rds-font-size-lg, 17px);
-        font-weight: 600;
+        font-size: var(--rds-font-size-lg);
+        font-weight: var(--rds-font-weight-semibold);
         color: var(--rds-time-picker-accent);
-        min-width: 45px;
+        min-width: var(--rds-time-picker-dim-5);
         margin-left: var(--rds-spacing-tight);
         display: flex;
         align-items: center;
         justify-content: center;
+        background: none;
+        border: none;
+        padding: 0;
         cursor: pointer;
-        
+
         &:hover {
           opacity: 0.8;
         }
       }
     }
-    
+
     .buttons {
       display: flex;
       justify-content: flex-end;
@@ -414,47 +411,49 @@
       gap: var(--rds-spacing-sm);
       position: relative;
       z-index: var(--rds-z-index-layer-2);
-      
+
       &.buttons-compact {
         margin-top: var(--rds-spacing-sm);
         position: relative;
         z-index: var(--rds-z-index-portal);
       }
-      
+
       button {
         border: none;
-        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs))
+          calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
         border-radius: var(--rds-border-radius-sm);
         cursor: pointer;
-        font-weight: 500;
+        font-weight: var(--rds-font-weight-medium);
         font-size: var(--rds-font-size-md);
-        min-width: 50px;
-        transition: background-color 0.2s;
+        min-width: var(--rds-time-picker-dim-6);
+        transition: background-color var(--rds-motion-duration-quick);
         text-transform: none;
         letter-spacing: normal;
-        line-height: 1.5;
-        
+        line-height: var(--rds-line-height-normal);
+
         &.cancel {
           background: transparent;
           color: var(--rds-time-picker-accent);
           border: none;
-          padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
+          padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs))
+            calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
           min-width: auto;
-          
+
           &:hover {
             background-color: rgba(var(--rds-primary-rgb), 0.08);
             text-decoration: none;
           }
         }
-        
+
         &.set-time {
           background-color: var(--rds-time-picker-accent);
           color: var(--rds-time-picker-on-accent, var(--rds-neutral-0));
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-          min-width: 70px;
+          min-width: var(--rds-time-picker-dim-8);
           cursor: pointer;
           pointer-events: auto;
-          
+
           &:hover {
             opacity: 0.9;
           }
@@ -464,7 +463,7 @@
             color: var(--rds-text-primary);
           }
         }
-        
+
         &.bg-primary { background-color: var(--rds-primary-main); }
         &.bg-secondary { background-color: var(--rds-secondary-main, var(--rds-text-secondary)); }
         &.bg-success { background-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
@@ -473,7 +472,7 @@
         &.bg-info { background-color: var(--rds-info-dark); }
         &.bg-light { background-color: var(--rds-surface-subtle); }
         &.bg-dark { background-color: var(--rds-text-primary); }
-        
+
         &.text-primary { color: var(--rds-primary-main); }
         &.text-secondary { color: var(--rds-text-secondary); }
         &.text-success { color: var(--rds-semantic-success-main, var(--rds-success-main)); }
@@ -488,108 +487,7 @@
   }
 }
 
-.MuiAutocomplete-root {
-  &.time-select-dropdown {
-    width: 100%;
-    max-width: 100%;
-    
-    .MuiOutlinedInput-root {
-    background-color: var(--rds-background-paper);
-      color: var(--rds-time-picker-accent);
-      padding: 0;
-      font-size: var(--rds-font-size-md);
-      height: 34px;
-      min-height: 34px;
-      border-radius: var(--rds-border-radius-sm);
-      border: 1px solid var(--rds-border-default);
-      
-      .MuiOutlinedInput-notchedOutline {
-        border: none;
-      }
-      
-      .MuiInputBase-input {
-        color: var(--rds-time-picker-accent);
-        padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-        text-align: center;
-        font-weight: 500;
-        min-width: 35px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        
-        &::placeholder {
-          color: var(--rds-time-picker-accent);
-          opacity: 1;
-          font-weight: 500;
-        }
-      }
-      
-      .MuiAutocomplete-endAdornment {
-        right: 2px;
-        
-        .MuiSvgIcon-root {
-          color: var(--rds-time-picker-accent);
-          font-size: var(--rds-font-size-xl);
-        }
-      }
-      
-      .MuiAutocomplete-popupIndicator {
-        color: var(--rds-time-picker-accent);
-      }
-    }
-  }
-}
-
-.MuiButtonBase-root.MuiIconButton-root {
-  &.time-control-button {
-    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-    
-    &:hover {
-      background-color: rgba(var(--rds-primary-rgb), 0.08);
-    }
-    
-    &.Mui-disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.MuiAutocomplete-popper {
-  z-index: var(--rds-z-index-tooltip, 1800);
-  .MuiPaper-root {
-    margin-top: var(--rds-spacing-xs);
-    border-radius: var(--rds-border-radius-sm);
-    max-height: 200px;
-    background-color: var(--rds-color-surface, var(--rds-background-paper));
-    color: var(--rds-color-on-surface, var(--rds-text-primary));
-    
-    .MuiAutocomplete-listbox {
-      padding: var(--rds-spacing-xs) 0;
-      max-height: 200px;
-      
-      .MuiAutocomplete-option {
-        min-height: 36px;
-        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-        color: var(--rds-color-on-surface, var(--rds-text-primary));
-        
-        &[aria-selected="true"] {
-          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
-        }
-        
-        &.Mui-focused {
-          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.12);
-        }
-      }
-    }
-  }
-}
-
-html[data-theme='dark'] .time-picker-container,
-body[data-theme='dark'] .time-picker-container,
-body.theme-dark .time-picker-container,
-body.dark-theme .time-picker-container,
-[data-theme='dark'] .time-picker-container {
+:is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .time-picker-container {
   .time-input {
     background-color: var(--rds-color-surface, var(--rds-background-paper));
     color: var(--rds-color-on-surface, var(--rds-text-primary));
@@ -597,7 +495,6 @@ body.dark-theme .time-picker-container,
 
   .time-picker,
   .time-picker-compact {
-    background-color: var(--rds-color-surface, var(--rds-background-paper));
     border-color: var(--rds-border-default, var(--rds-color-outline));
   }
 

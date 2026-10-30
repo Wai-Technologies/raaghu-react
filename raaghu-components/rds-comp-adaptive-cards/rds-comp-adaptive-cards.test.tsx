@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -9,7 +9,6 @@ import { AdaptiveCardProps } from './rds-comp-adaptive-cards-helpers';
 
 jest.mock('./rds-comp-adaptive-cards.scss', () => ({}));
 
-// Mock child components with proper implementations 
 jest.mock('../../raaghu-elements', () => ({
   RdsBox: ({ children, className, ...props }: any) => (
     <div className={className} data-testid="rds-box" {...props}>{children}</div>
@@ -24,8 +23,8 @@ jest.mock('../../raaghu-elements', () => ({
   RdsButton: ({ text, onClick, className, style, disabled, fullWidth, ...props }: any) => (
     <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button" {...props}>{text}</button>
   ),
-  RdsButtonDropdown: ({ buttonText, onClick, options, ...props }: any) => (
-    <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{buttonText}</button>
+  RdsButtonDropdown: ({ buttonText, children, onClick, options, ...props }: any) => (
+    <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{children ?? buttonText}</button>
   ),
   RdsAvatar: ({ src, className, ...props }: any) => (
     <img src={src} className={className} alt="avatar" data-testid="rds-avatar" {...props} />
@@ -1026,7 +1025,6 @@ describe('RdsCompAdaptiveCards', () => {
           showHeader={true}
         />
       );
-      // Special characters should be rendered in the heading
       expect(screen.getByRole('heading')).toBeInTheDocument();
     });
 

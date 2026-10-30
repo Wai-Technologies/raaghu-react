@@ -4,10 +4,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSkeleton from './rds-skeleton';
 import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-skeleton.scss');
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -235,7 +233,7 @@ describe('RdsSkeleton', () => {
       );
       const boxContainer = container.querySelector('.rds-skeleton') as HTMLElement;
       const styleAttr = boxContainer?.getAttribute('style') ?? '';
-      expect(styleAttr).toMatch(/12px/);
+      expect(styleAttr).toContain('gap: var(--rds-spacing-md)');
     });
 
     it('should set flex-start alignment for text frames', () => {
@@ -259,7 +257,6 @@ describe('RdsSkeleton', () => {
         <RdsSkeleton frames={2} shape="circular" />
       );
       const skeletons = container.querySelectorAll('.rds-skeleton--circular');
-      // Count only the MuiSkeleton-root elements, not the parent
       const muiSkeletons = Array.from(skeletons).filter(el => el.classList.contains('MuiSkeleton-root'));
       expect(muiSkeletons.length).toBe(2);
     });
@@ -270,7 +267,6 @@ describe('RdsSkeleton', () => {
       );
       const skeletons = container.querySelectorAll('.MuiSkeleton-root');
       expect(skeletons.length).toBe(3);
-      // Verify each skeleton is a separate element
       skeletons.forEach(skeleton => {
         expect(skeleton).toBeInTheDocument();
       });
@@ -323,8 +319,6 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={3} height={60} />
       );
-      const skeletons = container.querySelectorAll('.rds-skeleton:not(.rds-skeleton)');
-      // The parent has the class, individual skeletons should have the height
       const individualSkeletons = Array.from(container.querySelectorAll('.MuiSkeleton-root'));
       individualSkeletons.forEach(skeleton => {
         expect(skeleton).toHaveStyle('height: 60px');
@@ -417,8 +411,8 @@ describe('RdsSkeleton', () => {
       renderWithTheme(
         <RdsSkeleton frames={2} data-testid="frame-skeleton" />
       );
-      const skeletons = screen.getAllByTestId('frame-skeleton');
-      expect(skeletons.length).toBe(2);
+      expect(screen.getByTestId('frame-skeleton')).toHaveClass('rds-skeleton');
+      expect(screen.getAllByTestId('frame-skeleton')).toHaveLength(1);
     });
   });
 
@@ -460,7 +454,6 @@ describe('RdsSkeleton', () => {
         </div>
       );
       const allSkeletons = container.querySelectorAll('.rds-skeleton');
-      // 3 parents + 6 individual skeletons = 9 total
       expect(allSkeletons.length).toBe(9);
     });
 
@@ -473,7 +466,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should render with all props at once', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton
           frames={2}
           shape="rectangular"
@@ -485,11 +478,10 @@ describe('RdsSkeleton', () => {
           data-testid="full-skeleton"
         />
       );
-      const skeletons = screen.getAllByTestId('full-skeleton');
-      expect(skeletons.length).toBe(2);
-      expect(skeletons[0]).toHaveClass('rds-skeleton--rectangular');
-      expect(skeletons[0]).toHaveClass('custom-loader');
-      expect(skeletons[0]).toHaveStyle('background-color: rgb(240, 240, 240)');
+      const root = screen.getByTestId('full-skeleton');
+      expect(root).toHaveClass('rds-skeleton--rectangular', 'custom-loader');
+      expect(root.querySelectorAll('.MuiSkeleton-root')).toHaveLength(2);
+      expect(root.querySelector('.MuiSkeleton-root')).toHaveStyle('background-color: rgb(240, 240, 240)');
     });
   });
 
@@ -504,7 +496,6 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={0} />
       );
-      // When frames is 0, should still render something singular
       const skeletons = container.querySelectorAll('.rds-skeleton');
       expect(skeletons.length).toBeGreaterThan(0);
     });
@@ -556,5 +547,31 @@ describe('RdsSkeleton', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('variant takes precedence over shape and drives the class', () => {
+    const { container } = render(<RdsSkeleton variant="circular" shape="rounded" />);
+    expect(container.querySelector('.rds-skeleton--circular')).toBeInTheDocument();
+  });
+  it('merges consumer sx and only sets height/width when defined', () => {
+    const { container } = render(<RdsSkeleton sx={{ height: 33 }} />);
+    expect(container.querySelector('.rds-skeleton')).toHaveStyle({ height: '33px' });
+  });
+});
+describe('audit fixes 518', () => {
+  it('animation={false} disables animation', () => {
+    const { container } = render(<RdsSkeleton animation={false} />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
+  });
+  it('legacy animated={false} still disables animation', () => {
+    const { container } = render(<RdsSkeleton animated={false} />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
+  });
+
+  it('forwards data-testid to the root .rds-skeleton', () => {
+    render(<RdsSkeleton data-testid="card-skeleton" frames={3} />);
+    expect(screen.getByTestId('card-skeleton')).toHaveClass('rds-skeleton');
   });
 });

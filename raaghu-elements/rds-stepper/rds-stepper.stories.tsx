@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsStepper from './rds-stepper';
 
 const meta: Meta<typeof RdsStepper> = {
@@ -14,14 +13,14 @@ const meta: Meta<typeof RdsStepper> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    currentStep: {
+    activeStep: {
       control: { type: 'number' },
     },
     showContent: {
       control: { type: 'boolean' },
       description: 'Show or hide step label text',
     },
-    direction: {
+    orientation: {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
     },
@@ -31,7 +30,7 @@ const meta: Meta<typeof RdsStepper> = {
     nonLinear: {
       control: { type: 'boolean' },
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -39,7 +38,7 @@ const meta: Meta<typeof RdsStepper> = {
       control: { disable: true },
       table: { disable: true },
     },
-    children: {
+    ['children' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -57,7 +56,7 @@ const steps = [
 
 export const Default: Story = {
   args: {
-    currentStep: 1,
+    activeStep: 1,
     steps: steps,
     showContent: true,
   },
@@ -65,36 +64,36 @@ export const Default: Story = {
 
 export const FirstStep: Story = {
   args: {
-  currentStep: 0,
+  activeStep: 0,
     steps: steps,
   },
 };
 
 export const LastStep: Story = {
   args: {
-  currentStep: 2,
+  activeStep: 2,
     steps: steps,
   },
 };
 
 export const Completed: Story = {
   args: {
-  currentStep: 3,
+  activeStep: 3,
     steps: steps,
   },
 };
 
 export const Vertical: Story = {
   args: {
-  currentStep: 1,
-  direction: 'vertical',
+  activeStep: 1,
+  orientation: 'vertical',
     steps: steps,
   },
 };
 
 export const AlternativeLabel: Story = {
   args: {
-  currentStep: 1,
+  activeStep: 1,
     alternativeLabel: true,
     steps: steps,
   },
@@ -102,7 +101,7 @@ export const AlternativeLabel: Story = {
 
 export const NonLinear: Story = {
   args: {
-  currentStep: 1,
+  activeStep: 1,
     nonLinear: true,
     steps: steps,
   },
@@ -110,7 +109,7 @@ export const NonLinear: Story = {
 
 export const WithOptionalSteps: Story = {
   args: {
-    currentStep: 1,
+    activeStep: 1,
     steps: [
       { label: 'Select campaign settings' },
       { label: 'Create an ad group', optional: true },
@@ -121,7 +120,7 @@ export const WithOptionalSteps: Story = {
 
 export const WithErrors: Story = {
   args: {
-    currentStep: 1,
+    activeStep: 1,
     steps: [
       { label: 'Select campaign settings' },
       { label: 'Create an ad group', error: true },

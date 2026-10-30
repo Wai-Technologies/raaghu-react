@@ -14,7 +14,12 @@ const meta: Meta = {
     }
 }
     },
-    tags: ["autodocs", 'stable']
+    tags: ["autodocs", 'stable'],
+    argTypes: {
+        className: { control: "text", description: "CSS class applied to the chat container." },
+        sx: { control: "object", description: "MUI system styles applied to the chat container." },
+        ref: { control: false, description: "React ref to the chat container; assign it in code." },
+    },
 } satisfies Meta<typeof RdsCompChat>;
 
 export default meta;
@@ -22,7 +27,7 @@ type Story = StoryObj<typeof RdsCompChat>;
 
 export const Default: Story = {
     args: {
-        isChatScreenEnabled: true,
+        chatScreenEnabled: true,
         userData: [
             {
                 firstName: "Wai",
@@ -30,11 +35,11 @@ export const Default: Story = {
                 activeDotButton: true,
                 status: "Typing....",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 messageStatus: "",
                 comments: [
                     {
@@ -55,12 +60,12 @@ export const Default: Story = {
                 activeDotButton: false,
                 status: "Developer",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
                 messageStatus: "",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 comments: []
             },
             {
@@ -69,25 +74,25 @@ export const Default: Story = {
                 activeDotButton: false,
                 status: "Company Owner",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
                 messageStatus: "",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 comments: []
             }
         ],
         currentUserCommentBgColor: "var(--rds-primary-main)",
         currentUserCommentTextColor: "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
         otherUserCommentBgColor: "var(--rds-neutral-300)",
-        OtherUserCommentTextColor: "var(--rds-text-primary)",
-        handleAddComment: (comment) => {},
+        otherUserCommentTextColor: "var(--rds-text-primary)",
+        onAddComment: (comment) => {},
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+Default.parameters = { controls: { include: ["chatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "otherUserCommentTextColor", "className", "sx", "ref"] } };
 

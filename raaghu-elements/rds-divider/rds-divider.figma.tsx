@@ -1,7 +1,6 @@
 import React from "react"
 import  RdsDivider  from "./rds-divider"
 import figma from "@figma/code-connect"
-import { text } from "stream/consumers"
 
 figma.connect(
   RdsDivider,
@@ -15,8 +14,7 @@ figma.connect(
     },
     example: (props) => <RdsDivider
     textAlign="center"
-    dividerMessage="Default Divider"
     iconShow
-    {...props} />,
+    {...props}>Default Divider</RdsDivider>,
   },
 )

@@ -89,7 +89,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     cardText,
     closeIcon,
     label,
-    block,
     images,
     leagueName,
     leagueAvatar,
@@ -379,7 +378,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
                   <RdsButton
-                    style="filled"
+                    textCase="unset"
+                    variant="filled"
                     className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
                     fullWidth
                     text={btn1Label}
@@ -391,7 +391,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   {showBtn1 &&
                     (type === "InputForm" ? (
                       <RdsButton
-                        style="filled"
+                        textCase="unset"
+                        variant="filled"
                         className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
                         fullWidth
                         text={btn1Label}
@@ -399,19 +400,20 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       />
                     ) : type === "ActivityUpdateCard" ? (
                       <RdsButtonDropdown
-                        buttonText={btn1Label}
                         styleType="outline"
                         options={activityDropdownOptions}
                         onChange={() => {}}
-                        state="default"
                         showRadio={true}
                         showUserAvatar={true}
-                        multiSelect={false}
+                        multiple={false}
                         isShowLeftIcon={false}
-                        rightIcon={<ExpandMoreIcon />}
-                      />
+                        endIcon={<ExpandMoreIcon />}
+                      >
+                        {btn1Label}
+                      </RdsButtonDropdown>
                     ) : (
                       <RdsButton
+                        textCase="unset"
                         style={resolvedBtn1Style}
                         className={clsx(
                           "rds-adaptive-cards__action-btn",
@@ -426,6 +428,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   {showBtn2 &&
                     type !== "InputForm" && (
                       <RdsButton
+                        textCase="unset"
                         style={resolvedBtn2Style}
                         className={clsx(
                           "rds-adaptive-cards__action-btn",

@@ -1,44 +1,29 @@
-import { useRef, useState, type ChangeEvent, type DragEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type SyntheticEvent, type Dispatch, type DragEvent, type SetStateAction } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
-import { CloudUpload, Close } from '@mui/icons-material';
-import { type FileWithProgress } from './rds-file-uploader-types';
+import CloudUpload from '@mui/icons-material/CloudUpload';
+import Close from '@mui/icons-material/Close';
+import type { FileWithProgress, RdsFileUploaderProps } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import { formatAcceptLabel, formatFileSize } from './rds-file-uploader-utils';
 
-interface RdsDropZoneSideIconProps {
-  mode: string;
+/** Props shared by the three drop-zone layouts. */
+interface RdsDropZoneProps {
+  mode: NonNullable<RdsFileUploaderProps['mode']>;
   isDragOver: boolean;
   disabled: boolean;
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: (e: DragEvent<HTMLDivElement>) => void;
   openFileDialog: () => void;
-}
-
-interface RdsDropZoneWithButtonProps {
-  mode: string;
-  isDragOver: boolean;
-  disabled: boolean;
-  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: DragEvent<HTMLDivElement>) => void;
-  openFileDialog: () => void;
-}
-
-interface RdsDropZoneDefaultProps {
-  mode: string;
-  isDragOver: boolean;
-  disabled: boolean;
-  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: DragEvent<HTMLDivElement>) => void;
-  openFileDialog: () => void;
+  /** The file input `accept` value; shown to the user as the list of allowed file types. */
+  accept?: string;
 }
 
 interface RdsFileListProps {
   files: FileWithProgress[];
   isUploading: boolean;
-  removeFile: (index: number) => void;
+  removeFile: (index: number, event?: SyntheticEvent) => void;
   formatFileSize: (bytes: number) => string;
 }
 
@@ -46,16 +31,10 @@ interface UseFileUploaderProps {
   maxSize: number;
   maxFiles: number;
   isMandatory: boolean;
-  onFilesChange?: (files: FileWithProgress[]) => void;
+  /** When `false`, a new selection or drop replaces the current file instead of appending. Defaults to `true`. */
+  multiple?: boolean;
+  onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   onUpload?: (files: File[]) => Promise<void>;
-}
-
-function formatFileSize(bytes: number): string {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
 function validateFile(file: File, maxSize: number): string | null {
@@ -69,28 +48,37 @@ export const useFileUploader = ({
   maxSize,
   maxFiles,
   isMandatory,
+  multiple = true,
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
-  const [files, setFiles] = useState<FileWithProgress[]>([]);
+  const [files, setFilesState] = useState<FileWithProgress[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [mandatoryError, setMandatoryError] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const latestFilesRef = useRef<FileWithProgress[]>([]);
 
+  const setFiles: Dispatch<SetStateAction<FileWithProgress[]>> = (action) => {
+    const next = typeof action === 'function' ? action(latestFilesRef.current) : action;
+    latestFilesRef.current = next;
+    setFilesState(next);
+  };
 
-
-  const addFiles = (newFiles: File[]) => {
+  const addFiles = (newFiles: File[], event?: SyntheticEvent) => {
+    const current = latestFilesRef.current;
+    const base = multiple || newFiles.length === 0 ? current : [];
+    const limit = multiple ? maxFiles : Math.min(maxFiles, 1);
     const validFiles: FileWithProgress[] = [];
     for (const file of newFiles) {
-      if (files.length + validFiles.length >= maxFiles) break;
+      if (base.length + validFiles.length >= limit) break;
       const error = validateFile(file, maxSize);
       validFiles.push({ file, progress: 0, error: error || undefined });
     }
-    const updatedFiles = [...files, ...validFiles];
+    const updatedFiles = [...base, ...validFiles];
     setFiles(updatedFiles);
-    onFilesChange?.(updatedFiles);
+    onFilesChange?.(updatedFiles, event);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length > 0) {
@@ -101,10 +89,10 @@ export const useFileUploader = ({
     }
   };
 
-  const removeFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
+  const removeFile = (index: number, event?: SyntheticEvent) => {
+    const updatedFiles = latestFilesRef.current.filter((_, i) => i !== index);
     setFiles(updatedFiles);
-    onFilesChange?.(updatedFiles);
+    onFilesChange?.(updatedFiles, event);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length === 0) {
@@ -119,11 +107,8 @@ export const useFileUploader = ({
     const selectedFiles = Array.from(event.target.files ?? []);
     if (selectedFiles.length === 0) return;
 
-    const fileNames = selectedFiles.map(file => file.name).join(', ');
-    setSelectedFileName(fileNames);
-
-    addFiles(selectedFiles);
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    addFiles(selectedFiles, event);
+    event.target.value = '';
   };
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -140,7 +125,7 @@ export const useFileUploader = ({
     event.preventDefault();
     setIsDragOver(false);
     const droppedFiles = Array.from(event.dataTransfer?.files ?? []);
-    addFiles(droppedFiles);
+    addFiles(droppedFiles, event);
   };
 
   const openFileDialog = () => fileInputRef.current?.click();
@@ -152,7 +137,6 @@ export const useFileUploader = ({
     mandatoryError,
     selectedFileName,
     fileInputRef,
-    formatFileSize,
     removeFile,
     handleFileSelect,
     handleDragOver,
@@ -173,7 +157,8 @@ export const RdsDropZoneSideIcon = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneSideIconProps) => {
+  accept,
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -195,7 +180,7 @@ export const RdsDropZoneSideIcon = ({
           Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
-          (PNG, JPG, DOC, PDF, PPT)
+          ({formatAcceptLabel(accept)})
         </Typography>
       </Box>
       <Box sx={{ ml: tokens.space(2), display: 'flex', alignItems: 'center' }}>
@@ -213,7 +198,7 @@ export const RdsDropZoneWithButton = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneWithButtonProps) => {
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -235,10 +220,10 @@ export const RdsDropZoneWithButton = ({
         width: '100%',
         maxWidth: '100%',
         boxSizing: 'border-box',
-        minHeight: 'var(--rds-file-uploader-dropzone-min-height, 60px)',
-        px: 'var(--rds-file-uploader-dropzone-padding-x, 24px)',
-        py: 'var(--rds-file-uploader-dropzone-padding-y, 32px)',
-        border: 'var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary)',
+        minHeight: 'var(--rds-file-uploader-dropzone-min-height)',
+        px: 'var(--rds-file-uploader-dropzone-padding-x)',
+        py: 'var(--rds-file-uploader-dropzone-padding-y)',
+        border: 'var(--rds-file-uploader-dropzone-border-width) dashed var(--rds-color-primary)',
         background: tokens.color.surface,
         cursor: disabled ? 'not-allowed' : 'pointer'
       }}
@@ -252,13 +237,14 @@ export const RdsDropZoneWithButton = ({
         </Typography>
       </Box>
       <RdsButton
-        style="filled"
-        text="Upload Files"
+        variant="filled"
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
-      />
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl)', fontWeight: 'var(--rds-font-weight-semibold)', fontSize: 'var(--rds-font-size-md)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
+      >
+        Upload Files
+      </RdsButton>
     </Paper>
   );
 };
@@ -271,7 +257,8 @@ export const RdsDropZoneDefault = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneDefaultProps) => {
+  accept,
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -298,7 +285,7 @@ export const RdsDropZoneDefault = ({
         Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
-        (PNG, JPG, DOC, PDF, PPT)
+        ({formatAcceptLabel(accept)})
       </Typography>
     </Paper>
   );
@@ -331,6 +318,11 @@ export const RdsFileList = ({
             >
               {fileWithProgress.file.name}
             </Typography>
+            {fileWithProgress.error && (
+              <Typography component="span" variant="caption" color="error" role="alert" sx={{ display: 'block' }}>
+                {fileWithProgress.error}
+              </Typography>
+            )}
           </Box>
           <Typography component="span" className="rds-file-uploader__file-item-size">
             {formatFileSize(fileWithProgress.file.size)}
@@ -339,7 +331,7 @@ export const RdsFileList = ({
             aria-label="Remove file"
             className="rds-file-uploader__file-remove"
             size="small"
-            onClick={() => removeFile(index)}
+            onClick={(event) => removeFile(index, event)}
             disabled={isUploading}
             sx={{
               flexShrink: 0,

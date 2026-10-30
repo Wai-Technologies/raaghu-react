@@ -15,20 +15,17 @@ figma.connect(
         "Icon only": "icon",
         "Left Icon+Text": "icon-text", 
         "Right Icon+Text": "text-icon" }),
-      state:figma.enum("💡 State", {
-          Default: "default",
-          Disabled: "disabled",
-        }),
-      colorVariant: figma.enum("⚠️ Type", {
+      disabled: figma.boolean("🚫 Disabled"),
+      color: figma.enum("⚠️ Type", {
         "Primary": "primary",
         "Secondary": "secondary",
         "Tertiary": "tertiary",
-        "Danger": "danger",
+        "Danger": "error",
         "Warning": "warning",
         "Light": "light",
         "Success": "success",
       }),
-      styleType: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Primary": "primary",
         "Outline": "outline",
         "Transparent": "transparent",

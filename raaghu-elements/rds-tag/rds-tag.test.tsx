@@ -5,8 +5,8 @@ import RdsTag from './rds-tag';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tag.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -334,7 +334,6 @@ describe('RdsTag', () => {
       );
       const chip = container.querySelector('.MuiChip-root');
       fireEvent.click(chip!);
-      // Disabled chips may or may not trigger click
     });
   });
 
@@ -433,7 +432,6 @@ describe('RdsTag', () => {
         <RdsTag label="Test Tag" onDelete={onDelete} />
       );
       const deleteButton = container.querySelector('.MuiChip-deleteIcon');
-      // When removable is false, onDelete should not be passed to MuiChip
       expect(deleteButton).not.toBeInTheDocument();
     });
 
@@ -567,5 +565,20 @@ describe('RdsTag', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-337: removable with onDelete shows the icon and passes the event', () => {
+    const onDelete = jest.fn();
+    renderWithTheme(<RdsTag label="Tag" removable onDelete={onDelete} />);
+    const icon = document.querySelector('.MuiChip-deleteIcon');
+    fireEvent.click(icon as Element);
+    expect(onDelete).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+  });
+
+  it('G2-338: accepts a ReactNode label', () => {
+    renderWithTheme(<RdsTag label={<strong>Bold tag</strong>} />);
+    expect(screen.getByText('Bold tag').tagName).toBe('STRONG');
   });
 });

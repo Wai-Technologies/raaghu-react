@@ -3,6 +3,7 @@ import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-tabs.scss';
 
 function capitalizeFirstLetter(text: string): string {
@@ -13,11 +14,14 @@ function capitalizeFirstLetter(text: string): string {
 export interface RdsTabItem {
   id: string | number;
   label: string;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
   disabled?: boolean;
   title?: string; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
   level?: number;
 }
 
@@ -34,35 +38,68 @@ export type RdsTabsLayout =
   | 'line-top-solid'
   | 'pill';
 
-export interface RdsTabsProps extends Omit<TabsProps, 'orientation' | 'component'> {
-  tabs: RdsTabItem[];
+/**
+ * Tab strip built on MUI `Tabs`. Pass `items` as data; select with `value` / `onChange`.
+ * Presentation uses `layout`; selection and unavailable tabs use `value` and item-level `disabled`.
+ */
+export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
+  /** Tabs to render (id, label, icons, disabled state). */
+  items?: RdsTabItem[];
+  /** @deprecated Use `items` instead. */
+  tabs?: RdsTabItem[];
+  /** @deprecated Use `value` instead. */
   activeTab?: string | number;
+  /** @deprecated Use `onChange(event, value)` instead. */
   onTabChange?: (tabId: string | number) => void;
+  /** Visual layout of the tab strip. @default 'filled' */
   layout?: RdsTabsLayout;
+  /** @deprecated Use `orientation` instead. */
   type?: 'horizontal' | 'vertical';
+  /** Default start icon for tabs that do not define their own. */
+  startIcon?: ReactNode;
+  /** Default end icon for tabs that do not define their own. */
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
+  /** Shows a start icon on every tab, using a default person icon when none is set. @default false */
   showLeftIcon?: boolean; 
+  /** Shows an end icon on every tab, using a default add icon when none is set. @default false */
   showRightIcon?: boolean; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
-  level?: number; 
+  /** Accepted but not used by the component. */
+  level?: number;
 }
 
 const RdsTabs = ({
+  items,
   tabs,
   activeTab,
   onTabChange,
   value,
   onChange,
   layout = 'filled',
-  type = 'horizontal',
+  orientation,
+  type,
+  startIcon,
+  endIcon,
   leftIcon,
   rightIcon,
-  showLeftIcon = true,
-  showRightIcon = true,
+  showLeftIcon = false,
+  showRightIcon = false,
+  level: _level,
+  className,
   ...props
 }:RdsTabsProps) => {
-
+  if (activeTab !== undefined) warnDeprecatedProp('RdsTabs', 'activeTab', '`value`');
+  if (onTabChange !== undefined) warnDeprecatedProp('RdsTabs', 'onTabChange', '`onChange`');
+  if (type !== undefined) warnDeprecatedProp('RdsTabs', 'type', '`orientation`');
+  if (tabs !== undefined) warnDeprecatedProp('RdsTabs', 'tabs', '`items`');
+  if (leftIcon !== undefined) warnDeprecatedProp('RdsTabs', 'leftIcon', '`startIcon`');
+  if (rightIcon !== undefined) warnDeprecatedProp('RdsTabs', 'rightIcon', '`endIcon`');
+  const tabItems = items ?? tabs ?? [];
+  if (tabItems.some((tab) => tab.leftIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].leftIcon', '`items[].startIcon`');
+  if (tabItems.some((tab) => tab.rightIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].rightIcon', '`items[].endIcon`');
 
   const handleChange = (event: SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
@@ -73,24 +110,26 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${props.state || 'default'}`);
 
-  const tabsWithIcons = tabs.map((tab) => ({
-    ...tab,
-    leftIcon: showLeftIcon ? (tab.leftIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,
-    rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
-  }));
+  const tabsWithIcons = tabItems.map((tab) => {
+    const resolvedStart = tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon;
+    const resolvedEnd = tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon;
+    return {
+      ...tab,
+      leftIcon: showLeftIcon ? (resolvedStart ?? <PersonIcon fontSize="small" />) : resolvedStart,
+      rightIcon: showRightIcon ? (resolvedEnd ?? <AddIcon fontSize="small" />) : resolvedEnd,
+    };
+  });
 
-  // Keep Tabs uncontrolled unless a controlled value is explicitly provided.
   const providedValue = value ?? activeTab;
 
   return (
     <MuiTabs
       {...(providedValue !== undefined ? { value: providedValue } : {})}
       onChange={handleChange}
-      orientation={type}
-      className={clsx('rds-tabs', layoutClass)}
+      orientation={orientation ?? type ?? 'horizontal'}
       {...props}
+      className={clsx('rds-tabs', `rds-tabs--${layout}`, className)}
     >
       {tabsWithIcons.map((tab) => {
         const labelContent = (

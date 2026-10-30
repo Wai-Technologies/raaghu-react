@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from "path";
+import pkg from './package.json';
 
-// https://vite.dev/config/
+const bundledDependencies = ['react-player'];
+const externalPackages = [
+  ...Object.keys(pkg.dependencies ?? {}),
+  ...Object.keys(pkg.peerDependencies ?? {}),
+].filter((name) => !bundledDependencies.includes(name));
+const isExternal = (id: string) =>
+  !/\.(css|scss|json)$/.test(id) &&
+  externalPackages.some((name) => id === name || id.startsWith(`${name}/`));
+
 export default defineConfig(() => {
   return {
     plugins: [
@@ -18,19 +27,11 @@ export default defineConfig(() => {
       lib: {
         entry: path.resolve(__dirname, 'index.ts'),
         name: 'RaaghuReact',
-        fileName: (format) => `raaghu-react.${format}.js`
+        formats: ['es', 'cjs'],
+        fileName: (format) => (format === 'es' ? 'raaghu-react.es.mjs' : 'raaghu-react.cjs')
       },
       rollupOptions: {
-        external: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
-        output: {
-          globals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-            '@mui/material': 'MuiMaterial',
-            '@emotion/react': 'EmotionReact',
-            '@emotion/styled': 'EmotionStyled'
-          }
-        }
+        external: isExternal,
       },
       sourcemap: true,
       emptyOutDir: true,

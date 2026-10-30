@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsSlider from './rds-slider';
 import { Box } from '@mui/material';
 
@@ -18,12 +17,12 @@ const meta: Meta<typeof RdsSlider> = {
       description: 'Slider control type - one way for single value, two way for range',
       defaultValue: 'one way',
     },
-    leftLabel: {
+    startLabel: {
       control: 'text',
       description: 'Label to display on the left side of the slider',
       defaultValue: '0',
     },
-    rightLabel: {
+    endLabel: {
       control: 'text',
       description: 'Label to display on the right side of the slider',
       defaultValue: '100',
@@ -56,18 +55,18 @@ const meta: Meta<typeof RdsSlider> = {
       control: 'boolean',
       description: 'Whether to show the label above the slider',
     },
-    showTooltip: {
+    valueLabelDisplay: {
       control: { type: 'select' },
-      options: ['default', 'tooltip'],
-      description: 'Show value tooltip on thumb hover',
-      defaultValue: 'default',
+      options: ['off', 'auto', 'on'],
+      description: 'Show value tooltip on thumb',
+      defaultValue: 'off',
     },
     level: {
       control: { type: 'select' },
       options: [1, 2, 3, 4, 5],
       description: 'Slider level (1-5)',
     },
-    component: {
+    ['component' as string]: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -110,8 +109,8 @@ export const Default: Story = {
     showLabel: true,
     label: 'Slider',
     controlType: 'one way',
-    leftLabel: '0',
-    rightLabel: '100',
+    startLabel: '0',
+    endLabel: '100',
   },
   argTypes: {
     value: { table: { disable: true } },
@@ -134,8 +133,8 @@ export const WithMarks: Story = {
     showLabel: true,
     label: 'Slider',
     controlType: 'one way',
-    leftLabel: 'Min',
-    rightLabel: 'Max',
+    startLabel: 'Min',
+    endLabel: 'Max',
   },
   argTypes: {
     value: { table: { disable: true } },
@@ -157,8 +156,8 @@ export const Range: Story = {
     showLabel: true,
     label: 'Slider',
     controlType: 'two way',
-    leftLabel: 'Low',
-    rightLabel: 'High',
+    startLabel: 'Low',
+    endLabel: 'High',
   },
   decorators: [
     (Story) => (
@@ -177,8 +176,8 @@ export const Disabled: Story = {
     controlType: 'one way',
     min: 0,
     max: 100,
-    leftLabel: 'Start',
-    rightLabel: 'End',
+    startLabel: 'Start',
+    endLabel: 'End',
   },
   argTypes: {
     value: { table: { disable: true } },

@@ -1,41 +1,37 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-.rds-comp-chart-radar {
-	&-container {
-		width: 90%;
-		max-width: 680px;
-		height: 520px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+.rds-comp-chart-radar-container {
+  --rds-comp-chart-radar-max-width: 680px;
+  --rds-comp-chart-radar-height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: var(--rds-comp-chart-radar-max-width);
+    height: var(--rds-comp-chart-radar-height);
 
-		@include bp.up(lg) {
-			max-width: 580px;
-			height: 520px;
-		}
+    @include bp.up(lg) {
+        --rds-comp-chart-radar-max-width: 580px;
+    }
 
-		@include bp.between(sm, lg) {
-			max-width: 420px;
-			height: 280px;
-		}
+    @include bp.between(sm, lg) {
+        --rds-comp-chart-radar-max-width: 420px;
+        --rds-comp-chart-radar-height: 280px;
+    }
 
-		@include bp.down(600) {
-			height: 430px !important;
-            width: 100% !important;
-			max-width: 100%;
-		}
+    @include bp.down(600) {
+        --rds-comp-chart-radar-max-width: 100%;
+        --rds-comp-chart-radar-height: 430px;
+    }
 
-		@include bp.down(400) {
-			height: 335px !important;
-            width: 100% !important;
-			max-width: 100%;
-		}
-	}
+    @include bp.down(400) {
+        --rds-comp-chart-radar-height: 335px;
+    }
 
-	&-container canvas {
-		display: block;
-		width: 100%;
-		height: 100%;
-		max-width: 100%;
-	}
+    canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+    }
 }

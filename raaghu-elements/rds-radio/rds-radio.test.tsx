@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRadio, { RdsRadioOption } from './rds-radio';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { axe } from 'jest-axe';
 
-// Mock SCSS import
 jest.mock('./rds-radio.scss', () => ({}));
 
 const defaultOptions: RdsRadioOption[] = [
@@ -195,11 +197,10 @@ describe('RdsRadio', () => {
   });
 
   describe('State Variations', () => {
-    it('should render in default state', () => {
+    it('should render with semantic props omitted by default', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="default"
           name="test-radio"
         />
       );
@@ -209,24 +210,11 @@ describe('RdsRadio', () => {
       expect(radio).not.toHaveClass('rds-radio--hover');
     });
 
-    it('should render in hover state', () => {
+    it('should render in disabled state from the disabled prop', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="hover"
-          name="test-radio"
-        />
-      );
-      
-      const radio = container.querySelector('.rds-radio--hover');
-      expect(radio).toBeInTheDocument();
-    });
-
-    it('should render in disabled state', () => {
-      const { container } = renderWithTheme(
-        <RdsRadio 
-          options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -235,11 +223,11 @@ describe('RdsRadio', () => {
       expect(radio).toBeInTheDocument();
     });
 
-    it('should disable all radios in disabled state', () => {
+    it('should disable all radios when disabled is true', () => {
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -284,11 +272,11 @@ describe('RdsRadio', () => {
       expect(radio3).not.toHaveAttribute('disabled');
     });
 
-    it('should disable options in disabled state even if not marked disabled', () => {
+    it('should disable all options even if none are individually marked disabled', () => {
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -414,17 +402,15 @@ describe('RdsRadio', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
           onChange={handleChange}
         />
       );
       
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
-      // Disabled inputs don't call onChange on click
       fireEvent.click(radio2);
       
-      // Verify radio is disabled
       expect(radio2).toHaveAttribute('disabled');
     });
 
@@ -446,7 +432,6 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       fireEvent.click(radio2);
       
-      // Verify the radio is disabled
       expect(radio2).toHaveAttribute('disabled');
     });
 
@@ -469,7 +454,6 @@ describe('RdsRadio', () => {
     });
 
     it('should handle keyboard selection with space key', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -481,12 +465,10 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       radio2.focus();
       
-      // Space should select the focused radio
       expect(radio2.checked).toBe(true);
     });
 
     it('should handle keyboard selection with Enter key', async () => {
-      const user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -498,7 +480,6 @@ describe('RdsRadio', () => {
       const radio3 = container.querySelector('input[type="radio"][value="option3"]') as HTMLInputElement;
       radio3.focus();
       
-      // Enter should keep the radio selected
       expect(radio3.checked).toBe(true);
     });
   });
@@ -560,7 +541,6 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       fireEvent.click(radio2);
       
-      // Verify radio is clickable and can be checked
       expect(radio2).toBeInTheDocument();
     });
 
@@ -726,7 +706,6 @@ describe('RdsRadio', () => {
     });
 
     it('should be keyboard navigable', async () => {
-      const user = userEvent.setup();
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -921,7 +900,6 @@ describe('RdsRadio', () => {
       
       const allRadios = container.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
       const anyChecked = Array.from(allRadios).some(radio => radio.checked);
-      // No radio should be checked if value doesn't match
       expect(anyChecked).toBe(false);
     });
 
@@ -1004,5 +982,60 @@ describe('RdsRadio', () => {
     it('should have correct displayName', () => {
       expect(RdsRadio.displayName).toBe('RdsRadio');
     });
+  });
+});
+describe('RdsRadio audit fixes', () => {
+  const options = [
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+  ];
+
+  it('renders option labels from the label field (G2-172)', () => {
+    renderWithTheme(<RdsRadio options={options} />);
+    expect(screen.getByLabelText('One')).toBeInTheDocument();
+  });
+
+  it('lays options out in a row with the MUI row prop (G2-173)', () => {
+    const { container } = renderWithTheme(<RdsRadio options={options} row />);
+    expect(container.querySelector('.MuiRadioGroup-row')).toBeInTheDocument();
+  });
+
+  it('groups bottom-label radios for assistive technology and arrow keys (G2-168)', () => {
+    const { container } = renderWithTheme(<RdsRadio options={options} layout="icon with bottom label" label="Pick one" />);
+    const group = screen.getByRole('radiogroup', { name: 'Pick one' });
+    expect(group).toBeInTheDocument();
+    const names = Array.from(container.querySelectorAll('input[type="radio"]')).map(input => input.getAttribute('name'));
+    expect(names[0]).toBeTruthy();
+    expect(new Set(names).size).toBe(1);
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    renderWithTheme(<RdsRadio options={[{ text: 'Old', value: 'old' }]} direction="row" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRadio', 'direction', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRadio', 'options[].text', expect.any(String));
+  });
+});
+
+describe('doc-09 renames', () => {
+  it('labelPlacement and slotProps.radio work; radioProps warns', () => {
+    const { container } = renderWithTheme(
+      <RdsRadio options={defaultOptions} labelPlacement="bottom" slotProps={{ radio: { color: 'secondary' } }} />
+    );
+    expect(container.querySelector('.rds-radio--icon-with-bottom-label')).toBeInTheDocument();
+    expect(container.querySelector('.MuiRadio-colorSecondary')).toBeInTheDocument();
+    renderWithTheme(<RdsRadio options={defaultOptions} radioProps={{ size: 'small' }} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRadio', 'radioProps', '`slotProps.radio`');
+  });
+
+  it('defaultValue preselects in both layouts', () => {
+    const { container } = renderWithTheme(<RdsRadio options={defaultOptions} defaultValue={defaultOptions[1].value} />);
+    expect(container.querySelectorAll('input:checked')).toHaveLength(1);
+    const bottom = renderWithTheme(<RdsRadio options={defaultOptions} labelPlacement="bottom" defaultValue={defaultOptions[1].value} />);
+    expect((bottom.container.querySelectorAll('input')[1] as HTMLInputElement).checked).toBe(true);
+  });
+
+  it('forwards data-testid to the root .rds-radio', () => {
+    renderWithTheme(<RdsRadio options={defaultOptions} data-testid="plan-radio" />);
+    expect(screen.getByTestId('plan-radio')).toHaveClass('rds-radio');
   });
 });

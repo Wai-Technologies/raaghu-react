@@ -2,7 +2,7 @@ import { AppShellDisplayType } from "./shell-types";
 
 const DefaultCss = `Default`;
 
-export const GetShellLayoutCss = (displayType: AppShellDisplayType) => {
+export const GetShellLayoutCss = (displayType?: AppShellDisplayType) => {
     switch (displayType) {
         case AppShellDisplayType.Default:
             return DefaultCss;

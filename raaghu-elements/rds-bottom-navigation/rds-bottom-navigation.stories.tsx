@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
-import { Home, Favorite, LocationOn, Folder } from '@mui/icons-material';
+import Home from '@mui/icons-material/Home';
+import Favorite from '@mui/icons-material/Favorite';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Folder from '@mui/icons-material/Folder';
 import { useState } from 'react';
 import RdsBottomNavigation from './rds-bottom-navigation';
 
@@ -13,7 +15,7 @@ const meta: Meta<typeof RdsBottomNavigation> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    activeValue: {
+    value: {
       control: { type: 'text' },
     },
     showLabels: {
@@ -35,7 +37,7 @@ const navigationItems = [
 export const Default: Story = {
   args: {
     items: navigationItems,
-    activeValue: 'home',
+    value: 'home',
     showLabels: false, 
   },
 };
@@ -43,7 +45,7 @@ export const Default: Story = {
 export const WithLabels: Story = {
   args: {
     items: navigationItems,
-    activeValue: 'home',
+    value: 'home',
     showLabels: true,
   },
 };
@@ -51,17 +53,17 @@ export const WithLabels: Story = {
 export const Interactive: Story = {
   args: {
     items: navigationItems,
-    activeValue: 'home',
+    value: 'home',
     showLabels: false,
   },
   render: (args) => {
-    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
-    
+    const [value, setValue] = useState<string>(args.value ?? 'home');
+
     return (
       <RdsBottomNavigation
         {...args}
-        activeValue={args.activeValue}
-        onItemChange={(value) => setActiveValue(value)}
+        value={value}
+        onChange={(_event, newValue: string) => setValue(newValue)}
       />
     );
   },
@@ -74,7 +76,7 @@ export const ThreeItems: Story = {
       { label: 'Favorites', value: 'favorites', icon: <Favorite /> },
       { label: 'Nearby', value: 'nearby', icon: <LocationOn /> },
     ],
-    activeValue: 'home',
+    value: 'home',
     showLabels: true,
   },
 };
@@ -87,7 +89,7 @@ export const WithDisabledItem: Story = {
       { label: 'Nearby', value: 'nearby', icon: <LocationOn /> },
       { label: 'Folder', value: 'folder', icon: <Folder /> },
     ],
-    activeValue: 'home',
+    value: 'home',
     showLabels: true,
   },
 };

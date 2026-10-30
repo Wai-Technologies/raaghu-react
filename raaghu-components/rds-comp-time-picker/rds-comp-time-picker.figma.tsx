@@ -15,16 +15,21 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=858-4103",
   {
     props: {
-      style:figma.enum("✨ Style",{
+      variant:figma.enum("✨ Style",{
         "Default": "default",
         "Compact": "compact",
       }),
-      state:figma.enum("💡 State",{
-        "Default": "default",
-        "Expanded": "expanded",
-        "Selected": "selected",
+      defaultOpen:figma.enum("💡 State",{
+        "Default": false,
+        "Expanded": true,
+        "Selected": false,
+      }),
+      selected: figma.enum("💡 State", {
+        "Default": false,
+        "Expanded": false,
+        "Selected": true,
       }),
     },
-    example: (props) => <RdsCompTimePicker {...props} colorVariant="primary" disabled={false} />,
+    example: (props) => <RdsCompTimePicker {...props} color="primary" disabled={false} />,
   },
 )

@@ -1,71 +1,88 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-pie.scss";
 
-export interface RdsCompPieProps {
-  labels: string[];
+/** Props for {@link RdsCompPieChart}. */
+export interface RdsCompPieProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"pie">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"pie">;
-  dataSets: ChartDataset<"pie">[];
-  radius: number;
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"pie">[];
+  /**
+   * Chart.js pie radius. When set, it overrides `options.radius`.
+   * @deprecated Use `options.radius` instead.
+   */
+  radius?: number;
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
+  /** Accessible label of the chart. Default "Pie chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the chart root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompPieChart = ({
+  data,
   labels,
   options,
   dataSets,
   radius,
   id,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompPieProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
-  const themeMode = useChartThemeMode();
+  if (radius !== undefined) warnDeprecatedProp("RdsCompPieChart", "radius", "`options.radius`");
+  const resolved = resolveChartData("RdsCompPieChart", data, labels, dataSets);
 
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    if (!canvasElm) return;
-
-    const ctx = canvasElm.getContext("2d");
-    if (!ctx) return;
-    chartRef.current?.destroy();
-    Chart.getChart(canvasElm)?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    chartRef.current = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "pie",
-      data: chartData,
-      options: { ...chartOptions, radius },
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, options, dataSets, radius, id, themeMode]);
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      themeAxes: [],
+      overrides: radius !== undefined ? { radius } : undefined,
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
+    },
+    [resolved.labels, options, resolved.datasets, radius, id, height, width]
+  );
 
   return (
-    <div className="rds-comp-chart-pie">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-pie", className)} sx={sx}>
       <div className="chart-container">
         <canvas
           id={id}
           ref={canvasRef}
           role="img"
-          aria-label={chartLabel ?? "Pie chart"}
+          aria-label={resolveChartLabel("RdsCompPieChart", ariaLabel, chartLabel, "Pie chart")}
         />
       </div>
-    </div>
+    </Box>
   );
 };
 

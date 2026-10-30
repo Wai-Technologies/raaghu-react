@@ -1,5 +1,5 @@
 import RdsCompToast from "./rds-comp-toast";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastSeverity } from "./rds-comp-toast.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsCompToast> = {
             status: { type: 'stable' },
         layout: "padded",
         controls: {
-        exclude: ['delay', 'autohide', 'borderColor'],
+        exclude: ['delay', 'autohide', 'borderColor', 'anchorOrigin', 'action', 'onClose'],
         },
         docs: {
             story: {
@@ -18,12 +18,12 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             source: {
                 transform: (code: string) => {
-                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);;
-                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: ToastState.${p1.replace(/\s+/g, "")}`);
+                    code = code.replace(/severity="([^"]+)"/g, (match, p1) => `severity={ToastSeverity.${p1.replace(/\s+/g, "")}}`);;
+                    code = code.replace(/severity:\s*"([^"]+)"/g, (match, p1) => `severity: ToastSeverity.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: ToastLayout.${p1.replace(/\s+/g, "")}`);
-                    code = code.replace(/leadingIcon="([^"]+)"/g, (match, p1) => `leadingIcon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
-                    code = code.replace(/leadingIcon:\s*"([^"]+)"/g, (match, p1) => `leadingIcon: ToastLeadingIcon.${p1.replace(/\s+/g, "")}`);
+                    code = code.replace(/icon="([^"]+)"/g, (match, p1) => `icon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
+                    code = code.replace(/icon:\s*"([^"]+)"/g, (match, p1) => `icon: ToastLeadingIcon.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ToastPosition.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: ToastPosition.${p1.replace(/\s+/g, "")}`);
                     return code;
@@ -31,25 +31,38 @@ const meta: Meta<typeof RdsCompToast> = {
             }
         }
     },
-    
+
     tags: ["autodocs", 'stable'],
     argTypes: {
-        state: {
-            options: Object.values(ToastState), 
-            control: { 
+        className: { control: 'text', description: 'CSS class applied to the toast root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the toast root.' },
+        ref: { control: false, description: 'React ref to the toast root; assign it in code.' },
+        action: {
+            control: false,
+            description: 'Action buttons (React node). Set in code for download, chat, or request layouts.',
+        },
+        anchorOrigin: {
+            control: false,
+            description: 'Screen anchor (`vertical` + `horizontal`). Wins over `position` when both are set.',
+        },
+        onClose: { control: false, description: 'Called when the toast closes (timeout or dismiss).' },
+        severity: {
+            options: Object.values(ToastSeverity),
+            control: {
                 type: "select",
                 labels: {
-                    [ToastState.Basic]: 'Basic',
-                    [ToastState.Info]: 'Info',
-                    [ToastState.Success]: 'Success',
-                    [ToastState.Error]: 'Error'
+                    [ToastSeverity.Basic]: 'Basic',
+                    [ToastSeverity.Info]: 'Info',
+                    [ToastSeverity.Success]: 'Success',
+                    [ToastSeverity.Warning]: 'Warning',
+                    [ToastSeverity.Error]: 'Error'
                 }
             },
-            description: "State variant of the toast notification"
+            description: "Severity of the toast notification"
         },
         layout: {
-            options: Object.values(ToastLayout), 
-            control: { 
+            options: Object.values(ToastLayout),
+            control: {
                 type: "select",
                 labels: {
                     [ToastLayout.Text]: 'Text',
@@ -60,9 +73,9 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             description: "Layout type of the toast"
         },
-        leadingIcon: {
-            options: Object.values(ToastLeadingIcon), 
-            control: { 
+        icon: {
+            options: Object.values(ToastLeadingIcon),
+            control: {
                 type: "select",
                 labels: {
                     [ToastLeadingIcon.Circle]: 'Circle',
@@ -73,11 +86,11 @@ const meta: Meta<typeof RdsCompToast> = {
         },
         position: {
             options: Object.values(ToastPosition),
-            control: { 
+            control: {
                 type: "select",
                 labels: {
                     [ToastPosition.TopLeft]: 'Top Left',
-                    [ToastPosition.TopCenter]: 'Top Center', 
+                    [ToastPosition.TopCenter]: 'Top Center',
                     [ToastPosition.TopRight]: 'Top Right',
                     [ToastPosition.MiddleLeft]: 'Middle Left',
                     [ToastPosition.MiddleCenter]: 'Middle Center',
@@ -89,12 +102,12 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             description: "Position of the toast on screen"
         },
-        headerText: {
+        title: {
             control: "text",
             description: "Header text of the toast"
         },
-        subText: {
-            control: "text", 
+        message: {
+            control: "text",
             description: "Subtitle or body text of the toast"
         },
         showHeader: {
@@ -121,17 +134,17 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        state: ToastState.Basic,
-        headerText: "Toast Headline",
+        severity: ToastSeverity.Basic,
+        title: "Toast Headline",
         showSubText: true,
-        subText: "This is a big sample placeholder text.",
+        message: "This is a big sample placeholder text.",
         showHeader: true,
         showLeading: true,
-        leadingIcon: ToastLeadingIcon.Circle,
+        icon: ToastLeadingIcon.Circle,
         layout: ToastLayout.Text,
         position: ToastPosition.TopLeft,
         showDismiss: true,
-        progressWidth: 40,
+        progress: 40,
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
         chatTime: "12:29 PM"

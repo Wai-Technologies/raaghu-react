@@ -1,3 +1,5 @@
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -6,10 +8,8 @@ import RdsPagination from './rds-pagination';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-pagination.scss', () => ({}));
 
-// Mock helper functions
 jest.mock('./rds-pagination.helpers', () => ({
   getStyleConfig: (style: string) => ({
     styleClass: `style-${style}`,
@@ -74,7 +74,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} />
       );
-      // MUI Pagination creates nav element
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -98,7 +97,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={5} />
       );
-      // Check that the pagination component is rendered with correct page count
       const nav = screen.getByRole('navigation');
       expect(nav).toBeInTheDocument();
     });
@@ -107,7 +105,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} currentPage={1} />
       );
-      // Check that navigation exists with buttons
       const nav = screen.getByRole('navigation');
       const buttons = within(nav).getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
@@ -117,7 +114,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} currentPage={5} />
       );
-      // Check if pagination renders with current page tracking
       expect(screen.getByRole('navigation')).toBeInTheDocument();
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
@@ -244,7 +240,6 @@ describe('RdsPagination', () => {
           legendText="{current} of {total} items"
         />
       );
-      // Legend should contain the current page number
       const legend = screen.getByText(/5 of/);
       expect(legend).toBeInTheDocument();
     });
@@ -337,7 +332,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onPageChange={onPageChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -353,7 +347,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onChange={onChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -375,7 +368,6 @@ describe('RdsPagination', () => {
         />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -392,7 +384,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onChange={onChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -501,8 +492,6 @@ describe('RdsPagination', () => {
       const { container } = renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} />
       );
-      // Prev/Next buttons depend on style configuration
-      // This test verifies the component structure
       expect(container.querySelector('.rds-pagination-wrapper')).toBeInTheDocument();
     });
 
@@ -539,7 +528,6 @@ describe('RdsPagination', () => {
         <RdsPagination totalPages={10} page={5} />
       );
       
-      // Verify pagination renders with the page prop
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -548,7 +536,6 @@ describe('RdsPagination', () => {
         <RdsPagination totalPages={10} page={5} currentPage={2} />
       );
       
-      // Verify pagination renders correctly when both page and currentPage are provided
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -620,7 +607,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} totalPages={10} currentPage={3} />
       );
       
-      // Verify pagination renders with current page tracking
       const nav = screen.getByRole('navigation');
       expect(nav).toBeInTheDocument();
       const buttons = within(nav).getAllByRole('button');
@@ -677,7 +663,6 @@ describe('RdsPagination', () => {
         />
       );
       
-      // Find clickable page buttons
       const buttons = screen.getAllByRole('button');
       const clickableButtons = buttons.filter(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page')).slice(0, 3);
       
@@ -774,5 +759,116 @@ describe('RdsPagination', () => {
       );
       expect(container.querySelector('.rds-pagination-wrapper')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const actualHelpers = jest.requireActual('./rds-pagination.helpers');
+
+  it('G2-118/120: legacy show* props are honoured but not forwarded to the DOM', () => {
+    const { container } = renderWithTheme(
+      <RdsPagination totalPages={10} showLegend showFirstLast={false} showManualInput showRecordsPerPage showDropdown showFirst showLast />
+    );
+    const nav = container.querySelector('nav')!;
+    ['showlegend', 'showfirstlast', 'showmanualinput', 'showrecordsperpage', 'showdropdown', 'showfirst', 'showlast'].forEach(attr =>
+      expect(nav.hasAttribute(attr)).toBe(false)
+    );
+    expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
+  });
+
+  it('G2-121: uncontrolled mode keeps the legend and pagination in sync', async () => {
+    renderWithTheme(<RdsPagination totalPages={10} showLegend legendText="{current} of {total} items" />);
+    expect(screen.getByText('1 of 10 items')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Go to page 2' }));
+    expect(screen.getByText('2 of 10 items')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'page 2' })).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('G2-121: controlled mode does not move without the parent', async () => {
+    renderWithTheme(<RdsPagination totalPages={10} page={3} showLegend legendText="{current} of {total} items" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Go to page 4' }));
+    expect(screen.getByText('3 of 10 items')).toBeInTheDocument();
+  });
+
+  it('G2-122/128: Enter in the page input passes the real keydown event to onChange', () => {
+    const onChange = jest.fn();
+    renderWithTheme(<RdsPagination totalPages={10} showManualInput onChange={onChange} />);
+    const input = screen.getByPlaceholderText('1');
+    fireEvent.change(input, { target: { value: '4' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ type: 'keydown' }), 4);
+  });
+
+  it('G2-123: each instance gets its own page-size label id', () => {
+    renderWithTheme(
+      <>
+        <RdsPagination totalPages={10} showRecordsPerPage />
+        <RdsPagination totalPages={10} showRecordsPerPage />
+      </>
+    );
+    const labels = screen.getAllByText('Records per page', { selector: 'label' });
+    expect(labels[0].id).not.toBe(labels[1].id);
+    expect(screen.getAllByLabelText(/records per page/i)).toHaveLength(2);
+  });
+
+  it('G2-127: a consumer renderItem wins over the internal one', () => {
+    renderWithTheme(
+      <RdsPagination totalPages={3} renderItem={(item) => <span data-testid="custom-item">{item.page}</span>} />
+    );
+    expect(screen.getAllByTestId('custom-item').length).toBeGreaterThan(0);
+  });
+
+  it('G2-132/133: sibling/boundary counts per style and on small screens', () => {
+    const calc = (style: string, small = false) =>
+      actualHelpers.calculatePaginationConfig(style, actualHelpers.getStyleConfig(style), small);
+    expect(calc('Style 2')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+    expect(calc('Style 3')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 2 });
+    expect(calc('Style 9')).toEqual({ finalSiblingCount: 2, finalBoundaryCount: 0 });
+    expect(calc('Style 5')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+    expect(calc('Style 9', true)).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+  });
+});
+
+describe('audit fixes', () => {
+  it('shows the page size dropdown and page input via showPageSize and showPageInput', () => {
+    render(<RdsPagination count={50} paginationStyle="Style 9" showPageSize showPageInput />);
+    expect(screen.getByLabelText('Records per page')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
+  });
+
+  it('renders the legend with labelDisplayedRows', () => {
+    render(<RdsPagination count={50} showLegend labelDisplayedRows={({ from, to, count }) => `${from}-${to} / ${count}`} />);
+    expect(screen.getByText('1-10 / 50')).toBeInTheDocument();
+  });
+
+  it('warns when deprecated currentPage and controls are used', () => {
+    render(<RdsPagination count={5} currentPage={2} controls={{ legend: 'visible' }} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPagination', 'currentPage', '`page`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPagination', 'controls', expect.any(String));
+  });
+
+  it('G2-117: count is always records; pageCount sets pages', () => {
+    const actualHelpers = jest.requireActual('./rds-pagination.helpers') as typeof import('./rds-pagination.helpers');
+    expect(actualHelpers.calculateTotalPages(50, undefined, 10)).toEqual({
+      totalPagesCalc: 5,
+      totalRecords: 50,
+    });
+    expect(actualHelpers.calculateTotalPages(undefined, 100, 10)).toEqual({
+      totalPagesCalc: 10,
+      totalRecords: 100,
+    });
+    expect(actualHelpers.calculateTotalPages(undefined, undefined, 10, 7)).toEqual({
+      totalPagesCalc: 7,
+      totalRecords: 70,
+    });
+    expect(actualHelpers.calculateTotalPages(200, undefined, 25, 4)).toEqual({
+      totalPagesCalc: 4,
+      totalRecords: 200,
+    });
+  });
+
+  it('forwards data-testid to the root .rds-pagination-wrapper', () => {
+    render(<RdsPagination totalPages={3} data-testid="users-pagination" />);
+    expect(screen.getByTestId('users-pagination')).toHaveClass('rds-pagination-wrapper');
   });
 });

@@ -1,17 +1,21 @@
-import { useState, useEffect, type ReactNode, type MouseEvent, type CSSProperties } from 'react';
-import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { useState, type ReactNode, type MouseEvent } from 'react';
+import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem, useMediaQuery } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import PersonIcon from '@mui/icons-material/Person';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import RdsAvatar from '../../rds-avatar/rds-avatar';
+import { warnDeprecatedProp } from '../utils/deprecation';
 import '../styles/rds-profile-menu.scss';
+import { extendedBreakpointTokens } from '../../../raaghu-react-themes/tokens/design-tokens';
 
 export interface ProfileMenuItem {
   label: string;
   onClick?: () => void;
-  sx?: object;
+  sx?: SxProps<Theme>;
   icon?: ReactNode;
 }
 
@@ -25,6 +29,9 @@ export interface ProfileMenuProps {
   /** Initials for compact variant (defaults to first letters of name) */
   shortName?: string;
   designation?: string;
+  /** Menu actions. */
+  items?: ProfileMenuItem[];
+  /** @deprecated Use `items` instead. */
   menuItems?: ProfileMenuItem[];
 }
 
@@ -44,7 +51,7 @@ const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
   {
     label: 'Logout',
     icon: <LogoutIcon fontSize="small" />,
-    sx: { borderRadius: '0 0 var(--rds-border-radius-lg, 8px) var(--rds-border-radius-lg, 8px)' },
+    sx: { borderRadius: '0 0 var(--rds-border-radius-lg) var(--rds-border-radius-lg)' },
   },
 ];
 
@@ -54,27 +61,15 @@ export const ProfileMenu = ({
   variant = 'rich',
   shortName,
   designation = 'Developer',
+  items,
   menuItems,
 }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(() => {
-    if (typeof window === 'undefined') {
-      return false;
-    }
-    return window.innerWidth <= 834;
-  });
+  const isSmallScreen = useMediaQuery(`(max-width:${extendedBreakpointTokens['tablet-md']})`, { noSsr: true });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
-  const items = menuItems && menuItems.length > 0 ? menuItems : DEFAULT_MENU_ITEMS;
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 834);
-    };
-
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  if (menuItems !== undefined) warnDeprecatedProp('ProfileMenu', 'menuItems', '`items`');
+  const resolvedItems = items ?? menuItems ?? DEFAULT_MENU_ITEMS;
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -87,21 +82,18 @@ export const ProfileMenu = ({
   return (
     <>
       <IconButton
-        aria-label="Draw"
+        aria-label={`Account menu for ${name}`}
         color="inherit"
         onClick={handleClick}
         size="small"
         className="rds-profile-menu__button"
         aria-haspopup="true"
         aria-expanded={open}
-        disableRipple
-        disableTouchRipple
-        focusRipple={false}
       >
         {variant === 'rich' ? (
           <>
             <RdsAvatar
-              subText={isSmallScreen ? undefined : designation}
+              description={isSmallScreen ? undefined : designation}
               displayStyle={isSmallScreen ? undefined : 'with-name'}
               title={name}
               showDesignation={!isSmallScreen}
@@ -109,46 +101,14 @@ export const ProfileMenu = ({
               size="small"
             />
             {!isSmallScreen && (
-              <svg
-                className="rds-profile-menu__chevron"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path
-                  d="M6 8L10 12L14 8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ExpandMore className="rds-profile-menu__chevron" fontSize="small" aria-hidden />
             )}
           </>
         ) : (
           <>
             <Avatar className="rds-profile-menu__avatar">{initials}</Avatar>
             <span className="rds-profile-menu__name">{name}</span>
-            <svg
-              className="rds-profile-menu__chevron"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden
-            >
-              <path
-                d="M6 8L10 12L14 8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ExpandMore className="rds-profile-menu__chevron" fontSize="small" aria-hidden />
           </>
         )}
       </IconButton>
@@ -161,22 +121,22 @@ export const ProfileMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box className="rds-profile-menu__header">
+        <Box className="rds-profile-menu__header" role="presentation">
           <Avatar className="rds-profile-menu__avatar-lg">{initials}</Avatar>
           <Box>
             <Box className="rds-profile-menu__name-lg">{name}</Box>
             <Box className="rds-profile-menu__email">{email}</Box>
           </Box>
         </Box>
-        {items.map((item, idx) => (
+        {resolvedItems.map((item, idx) => (
           <MenuItem
             key={item.label}
             onClick={() => {
               handleClose();
               item.onClick?.();
             }}
-            className={`rds-profile-menu__item${idx === items.length - 1 ? ' rds-profile-menu__item--last' : ''}`}
-            style={item.sx as CSSProperties}
+            className={`rds-profile-menu__item${idx === resolvedItems.length - 1 ? ' rds-profile-menu__item--last' : ''}`}
+            sx={item.sx}
           >
             {item.icon && <span className="rds-profile-menu__item-icon">{item.icon}</span>}
             {item.label}

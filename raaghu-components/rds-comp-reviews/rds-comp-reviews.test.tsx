@@ -9,10 +9,8 @@ import RdsCompReviews, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-reviews.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Grid: ({ children, container, spacing, wrap }: any) => (
     <div data-testid="grid" data-spacing={spacing} data-wrap={wrap} data-container={container}>
@@ -41,16 +39,14 @@ jest.mock('@mui/material', () => ({
   }),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   ThumbUpAltIcon: () => <span data-testid="thumb-up-icon">👍</span>,
   ThumbDownAltIcon: () => <span data-testid="thumb-down-icon">👎</span>,
 }));
 
-// Mock RDS elements
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,
-  default: ({ title, src, displayStyle, size, showName, showDesignation, subText, alt }: any) => (
+  default: ({ name, title = name, src, displayStyle, size, showName, showDesignation, description, subText = description, alt }: any) => (
     <div
       data-testid="rds-avatar"
       data-title={title}
@@ -97,9 +93,16 @@ describe('RdsCompReviews', () => {
 
   const defaultProps: RdsCompReviewsProps = {
     itemList: [defaultItem],
-    style: RevieweStyle.Style1,
+    variant: RevieweStyle.Style1,
     variantType: VariantType.Default,
   };
+
+  const setup = (p: any = {}) => render(<RdsCompReviews {...defaultProps} {...p} />);
+  const withItem = (variant: any, over: Partial<Item> = {}) =>
+    setup({ variant, itemList: [{ ...defaultItem, ...over }] });
+  const expectAvatarTitle = (title: string) =>
+    expect(screen.getAllByTestId('rds-avatar').some(a => a.getAttribute('data-title') === title)).toBeTruthy();
+  const S: any = RevieweStyle;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -107,7 +110,7 @@ describe('RdsCompReviews', () => {
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsCompReviews {...defaultProps} />);
+      const { container } = setup();
       expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
     });
 
@@ -116,627 +119,225 @@ describe('RdsCompReviews', () => {
     });
 
     it('should render with Default variant type', () => {
-      const { container } = render(
-        <RdsCompReviews {...defaultProps} variantType={VariantType.Default} />
-      );
+      const { container } = setup({ variantType: VariantType.Default });
       expect(container.querySelector('.MuiGrid-root')).toBeInTheDocument();
     });
 
     it('should render Grid with spacing', () => {
-      const { container } = render(<RdsCompReviews {...defaultProps} />);
-      const grid = container.querySelector('.MuiGrid-container');
-      expect(grid).toBeInTheDocument();
+      const { container } = setup();
+      expect(container.querySelector('.MuiGrid-container')).toBeInTheDocument();
     });
 
-    it('should render single item', () => {
-      render(<RdsCompReviews {...defaultProps} />);
-      const cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(1);
-    });
-
-    it('should render multiple items', () => {
-      const items = [defaultItem, defaultItem, defaultItem];
-      render(<RdsCompReviews {...defaultProps} itemList={items} />);
-      const cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(3);
-    });
-
-    it('should render empty list when no items', () => {
-      render(<RdsCompReviews {...defaultProps} itemList={[]} />);
-      const cards = screen.queryAllByTestId('card');
-      expect(cards).toHaveLength(0);
+    it.each([0, 1, 3, 5, 50])('should render %i items as cards', count => {
+      setup({ itemList: Array(count).fill(defaultItem) });
+      expect(screen.queryAllByTestId('card')).toHaveLength(count);
     });
   });
 
-  describe('Style Variants - Core Styles (1-6)', () => {
-    it('should render Style1 with avatar and rating', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[defaultItem]}
-        />
-      );
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toBeInTheDocument();
-      expect(avatar.getAttribute('data-title')).toBe('John Doe');
-      expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
-    });
+  describe('Style Variants', () => {
+    const checks: Record<string, () => void> = {
+      avatar: () => expect(screen.getByTestId('rds-avatar')).toBeInTheDocument(),
+      title: () => expect(screen.getByTestId('rds-avatar').getAttribute('data-title')).toBe('John Doe'),
+      rating: () => expect(screen.getByTestId('rds-rating')).toBeInTheDocument(),
+      subtext: () => expect(screen.getByTestId('avatar-subtext')).toBeInTheDocument(),
+      name: () => expect(screen.getByText('John Doe')).toBeInTheDocument(),
+      up: () => expect(screen.getByTestId('ThumbUpAltIcon')).toBeInTheDocument(),
+      down: () => expect(screen.getByTestId('ThumbDownAltIcon')).toBeInTheDocument(),
+      summary: () => expect(screen.getByText('4.75')).toBeInTheDocument(),
+    };
 
-    it('should render Style2 with name and rating', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style2}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
-    });
-
-    it('should render Style3 with avatar and date', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style3}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
-      expect(screen.getByTestId('avatar-subtext')).toBeInTheDocument();
-    });
-
-    it('should render Style4 with name and date', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style4}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
-    });
-
-    it('should render Style5 with avatar and name', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style5}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-    });
-
-    it('should render Style6 with name and date', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style6}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
-    });
-  });
-
-  describe('Style Variants - Interaction Styles (7-10)', () => {
-    it('should render Style7 with likes and dislikes', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('ThumbUpAltIcon')).toBeInTheDocument();
-      expect(screen.getByTestId('ThumbDownAltIcon')).toBeInTheDocument();
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-    });
-
-    it('should render Style8 with rating at top', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style8}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-    });
-
-    it('should render Style9 with avatar and interactions', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style9}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
-      expect(screen.getByTestId('ThumbUpAltIcon')).toBeInTheDocument();
-      expect(screen.getByTestId('ThumbDownAltIcon')).toBeInTheDocument();
-    });
-
-    it('should render Style10 with interactions', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style10}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('ThumbUpAltIcon')).toBeInTheDocument();
-      expect(screen.getByTestId('ThumbDownAltIcon')).toBeInTheDocument();
-    });
-  });
-
-  describe('Style Variants - Summary Styles (11-12)', () => {
-    it('should render Style11 with avatar and summary rating', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style11}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.getByText('4.75')).toBeInTheDocument();
-    });
-
-    it('should render Style12 with name and summary rating', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style12}
-          itemList={[defaultItem]}
-        />
-      );
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.getByText('4.75')).toBeInTheDocument();
+    it.each([
+      [1, ['avatar', 'title', 'rating']],
+      [2, ['name', 'rating']],
+      [3, ['avatar', 'subtext']],
+      [4, ['name', 'rating']],
+      [5, ['avatar', 'name']],
+      [6, ['name', 'rating']],
+      [7, ['up', 'down', 'name']],
+      [8, ['rating', 'name']],
+      [9, ['avatar', 'up', 'down']],
+      [10, ['up', 'down']],
+      [11, ['avatar', 'name', 'summary']],
+      [12, ['name', 'summary']],
+    ])('should render Style%i', (n, keys) => {
+      withItem(S[`Style${n}`]);
+      (keys as string[]).forEach(k => checks[k]());
     });
   });
 
   describe('Default Style Behavior', () => {
-    it('should render nothing when style is undefined', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={undefined}
-          itemList={[defaultItem]}
-        />
-      );
-      const cards = screen.queryAllByTestId('card');
-      expect(cards).toHaveLength(0);
-    });
-
-    it('should render nothing for unknown style', () => {
-      render(
-        <RdsCompReviews
-          {...{ ...defaultProps, style: 'unknown' as any }}
-          itemList={[defaultItem]}
-        />
-      );
-      const cards = screen.queryAllByTestId('card');
-      expect(cards).toHaveLength(0);
+    it.each([undefined, 'unknown'])('should render nothing when style is %s', variant => {
+      setup({ variant });
+      expect(screen.queryAllByTestId('card')).toHaveLength(0);
     });
   });
 
   describe('Item Data Display', () => {
     it('should display item name', () => {
-      const item = { ...defaultItem, name: 'Alice Smith' };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Alice Smith')).toBeTruthy();
+      withItem(S.Style1, { name: 'Alice Smith' });
+      expectAvatarTitle('Alice Smith');
     });
 
     it('should display item description', () => {
-      const item = { ...defaultItem, description: 'Excellent quality!' };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
+      setup({ itemList: [{ ...defaultItem, description: 'Excellent quality!' }] });
       expect(screen.getByText('Excellent quality!')).toBeInTheDocument();
     });
 
     it('should display item username', () => {
-      const item = { ...defaultItem, username: 'alicesmith123' };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
+      setup({ itemList: [{ ...defaultItem, username: 'alicesmith123' }] });
       expect(screen.getByText('alicesmith123')).toBeInTheDocument();
     });
 
     it('should handle missing optional fields', () => {
-      const item: Item = { name: 'John' };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'John')).toBeTruthy();
+      setup({ itemList: [{ name: 'John' }] });
+      expectAvatarTitle('John');
     });
 
-    it('should use default image when imageUrl not provided', () => {
-      const item = { ...defaultItem, imageUrl: undefined };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
+    it.each([
+      [undefined, null],
+      ['https://custom.com/image.jpg', 'https://custom.com/image.jpg'],
+    ])('should use imageUrl %s -> %s', (imageUrl, src) => {
+      setup({ itemList: [{ ...defaultItem, imageUrl }] });
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-src', 'https://source.unsplash.com/random/200x200/?portrait');
-    });
-
-    it('should use provided imageUrl', () => {
-      const item = { ...defaultItem, imageUrl: 'https://custom.com/image.jpg' };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-src', 'https://custom.com/image.jpg');
+      if (src === null) expect(avatar).not.toHaveAttribute('data-src');
+      else expect(avatar).toHaveAttribute('data-src', src);
     });
   });
 
   describe('Rating Display', () => {
-    it('should display item rating', () => {
-      const item = { ...defaultItem, rating: 5 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '5');
-    });
-
-    it('should use default rating when not provided', () => {
-      const item: Item = { ...defaultItem, rating: undefined };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '4.5');
+    it.each([
+      [5, '5'],
+      [undefined, '0'],
+      [0.5, '0.5'],
+      [3.7, '3.7'],
+    ])('should show rating %s as %s', (rating, expected) => {
+      withItem(S.Style1, { rating });
+      expect(screen.getByTestId('rds-rating')).toHaveAttribute('data-value', expected);
     });
 
     it('should allow rating changes', async () => {
-      const item = { ...defaultItem, rating: 3 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
+      withItem(S.Style1, { rating: 3 });
       const rating = screen.getByTestId('rds-rating');
       expect(rating).toHaveAttribute('data-value', '3');
       fireEvent.click(rating);
-      // Rating state updates after click
       await waitFor(() => {
-        const updatedRating = screen.getByTestId('rds-rating');
-        expect(updatedRating).toHaveAttribute('data-value');
+        expect(screen.getByTestId('rds-rating')).toHaveAttribute('data-value');
       });
     });
 
     it('should render rating as readonly false', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[defaultItem]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-readonly', 'false');
+      setup();
+      expect(screen.getByTestId('rds-rating')).toHaveAttribute('data-readonly', 'false');
     });
   });
 
   describe('Likes and Dislikes', () => {
-    it('should display likes count', () => {
-      const item = { ...defaultItem, likes: 100 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('100')).toBeInTheDocument();
+    it.each([
+      [{ likes: 100 }, '100'],
+      [{ dislikes: 25 }, '25'],
+      [{ likes: undefined }, '0'],
+      [{ dislikes: undefined }, '0'],
+    ])('should display counts for %j', (over, text) => {
+      withItem(S.Style7, over);
+      expect(screen.getByText(text)).toBeInTheDocument();
     });
 
-    it('should display dislikes count', () => {
-      const item = { ...defaultItem, dislikes: 25 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('25')).toBeInTheDocument();
-    });
-
-    it('should use default likes when not provided', () => {
-      const item: Item = { ...defaultItem, likes: undefined };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('35')).toBeInTheDocument();
-    });
-
-    it('should use default dislikes when not provided', () => {
-      const item: Item = { ...defaultItem, dislikes: undefined };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('10')).toBeInTheDocument();
-    });
-
-    it('should increment likes on thumb up click', async () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[defaultItem]}
-        />
-      );
-      const thumbUpIcons = screen.getAllByTestId('ThumbUpAltIcon');
-      expect(thumbUpIcons.length).toBeGreaterThan(0);
-      const likesCounts = screen.getAllByText('35');
-      expect(likesCounts.length).toBeGreaterThan(0);
-      
-      fireEvent.click(thumbUpIcons[0]);
+    it.each([
+      ['ThumbUpAltIcon', '35', '36'],
+      ['ThumbDownAltIcon', '10', '11'],
+    ])('should increment on %s click', async (icon, before, after) => {
+      withItem(S.Style7);
+      const icons = screen.getAllByTestId(icon);
+      expect(icons.length).toBeGreaterThan(0);
+      expect(screen.getAllByText(before).length).toBeGreaterThan(0);
+      fireEvent.click(icons[0]);
       await waitFor(() => {
-        const updatedCounts = screen.queryAllByText('36');
-        expect(updatedCounts.length).toBeGreaterThan(0);
-      });
-    });
-
-    it('should increment dislikes on thumb down click', async () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[defaultItem]}
-        />
-      );
-      const thumbDownIcons = screen.getAllByTestId('ThumbDownAltIcon');
-      expect(thumbDownIcons.length).toBeGreaterThan(0);
-      const dislikesCounts = screen.getAllByText('10');
-      expect(dislikesCounts.length).toBeGreaterThan(0);
-      
-      fireEvent.click(thumbDownIcons[0]);
-      await waitFor(() => {
-        const updatedCounts = screen.queryAllByText('11');
-        expect(updatedCounts.length).toBeGreaterThan(0);
+        expect(screen.queryAllByText(after).length).toBeGreaterThan(0);
       });
     });
   });
 
   describe('Date Display', () => {
     it('should format and display date', () => {
-      const date = new Date(2024, 0, 15); // January 15, 2024
-      const item = { ...defaultItem, date };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style3}
-          itemList={[item]}
-        />
-      );
+      withItem(S.Style3, { date: new Date(2024, 0, 15) });
       const subtext = screen.getByTestId('avatar-subtext');
       expect(subtext.textContent).toContain('15');
       expect(subtext.textContent).toContain('2024');
     });
 
     it('should handle missing date', () => {
-      const item = { ...defaultItem, date: undefined };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style4}
-          itemList={[item]}
-        />
-      );
-      // Should not crash and still render
+      withItem(S.Style4, { date: undefined });
       expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
   });
 
   describe('Multiple Items', () => {
-    it('should render correct number of items', () => {
-      const items = Array(5).fill(defaultItem);
-      render(<RdsCompReviews {...defaultProps} itemList={items} />);
-      const cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(5);
-    });
-
     it('should render items with different data', () => {
-      const items = [
-        { ...defaultItem, name: 'John' },
-        { ...defaultItem, name: 'Jane' },
-        { ...defaultItem, name: 'Bob' },
-      ];
-      render(<RdsCompReviews {...defaultProps} itemList={items} />);
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'John')).toBeTruthy();
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Jane')).toBeTruthy();
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Bob')).toBeTruthy();
+      setup({ itemList: ['John', 'Jane', 'Bob'].map(name => ({ ...defaultItem, name })) });
+      ['John', 'Jane', 'Bob'].forEach(expectAvatarTitle);
     });
 
     it('should render items with different ratings', () => {
-      const items = [
-        { ...defaultItem, name: 'High', rating: 5 },
-        { ...defaultItem, name: 'Low', rating: 2 },
-      ];
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={items}
-        />
-      );
-      const ratings = screen.getAllByTestId('rds-rating');
-      expect(ratings).toHaveLength(2);
+      setup({
+        itemList: [
+          { ...defaultItem, name: 'High', rating: 5 },
+          { ...defaultItem, name: 'Low', rating: 2 },
+        ],
+      });
+      expect(screen.getAllByTestId('rds-rating')).toHaveLength(2);
     });
 
     it('should render items with different styles independently', () => {
-      const items = [{
-        ...defaultItem,
-        name: 'Test Item 1',
-        username: 'testuser1',
-        rating: 4.5,
-        likes: 50,
-        dislikes: 5,
-      }];
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={items}
-        />
-      );
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Test Item 1')).toBeTruthy();
+      withItem(S.Style7, { name: 'Test Item 1', username: 'testuser1', rating: 4.5, likes: 50, dislikes: 5 });
+      expectAvatarTitle('Test Item 1');
       expect(screen.getAllByText('50').length).toBeGreaterThan(0);
     });
   });
 
   describe('Avatar Display', () => {
-    it('should render avatar with correct props for Style1', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[defaultItem]}
-        />
-      );
+    it.each([
+      [1, { 'data-title': 'John Doe', 'data-size': 'medium', 'data-display-style': 'name-bottom' }],
+      [3, { 'data-display-style': 'with-name' }],
+      [5, { 'data-show-name': 'false', 'data-show-designation': 'false' }],
+    ])('should render avatar with correct props for Style%i', (n, attrs) => {
+      withItem(S[`Style${n}`]);
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-title', 'John Doe');
-      expect(avatar).toHaveAttribute('data-size', 'medium');
-      expect(avatar).toHaveAttribute('data-display-style', 'name-bottom');
-    });
-
-    it('should render avatar with correct props for Style3', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style3}
-          itemList={[defaultItem]}
-        />
-      );
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-display-style', 'with-name');
-    });
-
-    it('should render avatar with correct props for Style5', () => {
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style5}
-          itemList={[defaultItem]}
-        />
-      );
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-show-name', 'false');
-      expect(avatar).toHaveAttribute('data-show-designation', 'false');
+      Object.entries(attrs).forEach(([k, v]) => expect(avatar).toHaveAttribute(k, v));
     });
   });
 
   describe('Reviews Summary Rating', () => {
-    it('should display reviews summary for Style11', () => {
-      const item = { ...defaultItem, reviews: '4.75' };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style11}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('4.75')).toBeInTheDocument();
-    });
-
-    it('should display reviews summary for Style12', () => {
-      const item = { ...defaultItem, reviews: '4.75' };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style12}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('4.75')).toBeInTheDocument();
-    });
-
-    it('should use default reviews value', () => {
-      const item: Item = { ...defaultItem, reviews: undefined };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style11}
-          itemList={[item]}
-        />
-      );
-      expect(screen.getByText('4.75')).toBeInTheDocument();
+    it.each([
+      [11, '4.75', '4.75'],
+      [12, '4.75', '4.75'],
+      [11, undefined, '0'],
+    ])('should display reviews summary for Style%i (reviews: %s)', (n, reviews, expected) => {
+      withItem(S[`Style${n}`], { reviews });
+      expect(screen.getByText(expected)).toBeInTheDocument();
     });
   });
 
   describe('Props Validation', () => {
     it('should render with only required props', () => {
-      const minimalProps: RdsCompReviewsProps = {
-        itemList: [defaultItem],
-        variantType: VariantType.Default,
-      };
-      const { container } = render(<RdsCompReviews {...minimalProps} />);
+      const { container } = render(<RdsCompReviews itemList={[defaultItem]} variantType={VariantType.Default} />);
       expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
     });
 
     it('should accept itemList prop', () => {
-      const items = [defaultItem, defaultItem];
-      const { container } = render(
-        <RdsCompReviews 
-          itemList={items}
-          style={RevieweStyle.Style1}
-          variantType={VariantType.Default} 
-        />
-      );
-      const cards = container.querySelectorAll('[data-testid="card"]');
-      expect(cards.length).toBeGreaterThan(0);
+      const { container } = setup({ itemList: [defaultItem, defaultItem] });
+      expect(container.querySelectorAll('[data-testid="card"]').length).toBeGreaterThan(0);
     });
 
-    it('should accept all style variants', () => {
-      const styles = [
-        RevieweStyle.Style1,
-        RevieweStyle.Style2,
-        RevieweStyle.Style3,
-        RevieweStyle.Style4,
-        RevieweStyle.Style5,
-        RevieweStyle.Style6,
-        RevieweStyle.Style7,
-        RevieweStyle.Style8,
-        RevieweStyle.Style9,
-        RevieweStyle.Style10,
-        RevieweStyle.Style11,
-        RevieweStyle.Style12,
-      ];
+    it.each(Array.from({ length: 12 }, (_, i) => i + 1))('should accept Style%i', n => {
+      const { container } = withItem(S[`Style${n}`]);
+      expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
+    });
 
-      styles.forEach(style => {
-        const { unmount, container } = render(
-          <RdsCompReviews
-            itemList={[defaultItem]}
-            style={style}
-            variantType={VariantType.Default}
-          />
-        );
-        expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
-        unmount();
-      });
+    it('applies CSS style to the root element', () => {
+      const { container } = render(
+        <RdsCompReviews items={[defaultItem]} variant={RevieweStyle.Style1} style={{ marginTop: 8 }} />
+      );
+      expect(container.querySelector('.rds-comp-reviews')).toHaveStyle({ marginTop: '8px' });
     });
   });
 
@@ -755,139 +356,93 @@ describe('RdsCompReviews', () => {
         likes: 150,
         dislikes: 5,
       };
-
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[completeItem]}
-        />
-      );
-
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Complete User')).toBeTruthy();
-      // Style7 shows Complete User, date, rating, description, and interaction counts
-      const allText = screen.getByTestId('card').textContent || '';
-      expect(allText).toContain('Complete User');
+      setup({ variant: S.Style7, itemList: [completeItem] });
+      expectAvatarTitle('Complete User');
+      expect(screen.getByTestId('card').textContent || '').toContain('Complete User');
       expect(screen.getByText('This is a complete review')).toBeInTheDocument();
       expect(screen.getAllByText('150').length).toBeGreaterThan(0);
     });
 
     it('should handle style switching with same data', () => {
-      const { rerender } = render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[defaultItem]}
-        />
-      );
-
-      let avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
-
-      rerender(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style7}
-          itemList={[defaultItem]}
-        />
-      );
-
-      avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.length).toBeGreaterThan(0);
-      const thumbUpIcons = screen.getAllByTestId('ThumbUpAltIcon');
-      expect(thumbUpIcons.length).toBeGreaterThan(0);
+      const { rerender } = setup({ variant: S.Style1 });
+      expect(screen.getAllByTestId('rds-avatar').length).toBeGreaterThan(0);
+      rerender(<RdsCompReviews {...defaultProps} variant={S.Style7} />);
+      expect(screen.getAllByTestId('rds-avatar').length).toBeGreaterThan(0);
+      expect(screen.getAllByTestId('ThumbUpAltIcon').length).toBeGreaterThan(0);
     });
 
     it('should handle updating itemList', () => {
-      const { rerender } = render(
-        <RdsCompReviews {...defaultProps} itemList={[defaultItem]} />
-      );
-
-      let cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(1);
-
-      const newItems = [defaultItem, defaultItem, defaultItem];
-      rerender(
-        <RdsCompReviews {...defaultProps} itemList={newItems} />
-      );
-
-      cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(3);
+      const { rerender } = setup();
+      expect(screen.getAllByTestId('card')).toHaveLength(1);
+      rerender(<RdsCompReviews {...defaultProps} itemList={[defaultItem, defaultItem, defaultItem]} />);
+      expect(screen.getAllByTestId('card')).toHaveLength(3);
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle very long description', () => {
       const longDesc = 'A'.repeat(500);
-      const item = { ...defaultItem, description: longDesc };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
+      withItem(S.Style1, { description: longDesc });
       expect(screen.getByText(longDesc)).toBeInTheDocument();
     });
 
     it('should handle special characters in name', () => {
-      const item = { ...defaultItem, name: "O'Brien & Sons" };
-      render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
-      const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === "O'Brien & Sons")).toBeTruthy();
-    });
-
-    it('should handle zero rating', () => {
-      // Note: rating || 4.5 in component means 0 becomes 4.5
-      const item = { ...defaultItem, rating: 0.5 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '0.5');
-    });
-
-    it('should handle maximum rating', () => {
-      const item = { ...defaultItem, rating: 5 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '5');
-    });
-
-    it('should handle large number of items', () => {
-      const items = Array(50).fill(defaultItem).map((item, index) => ({
-        ...item,
-        name: `User ${index}`,
-      }));
-      render(<RdsCompReviews {...defaultProps} itemList={items} />);
-      const cards = screen.getAllByTestId('card');
-      expect(cards).toHaveLength(50);
-    });
-
-    it('should handle decimal rating values', () => {
-      const item = { ...defaultItem, rating: 3.7 };
-      render(
-        <RdsCompReviews
-          {...defaultProps}
-          style={RevieweStyle.Style1}
-          itemList={[item]}
-        />
-      );
-      const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '3.7');
+      withItem(S.Style1, { name: "O'Brien & Sons" });
+      expectAvatarTitle("O'Brien & Sons");
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompReviews {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
     });
+  });
+});
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { ReviewStyle } from './rds-comp-reviews';
+
+describe('audit fixes', () => {
+  const base: Item = { name: 'A', username: 'a', description: 'd', rating: 4, likes: 5, dislikes: 2 };
+
+  it('accepts items and warns for itemList, variantType', () => {
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} />);
+    expect(screen.getAllByTestId('card')).toHaveLength(1);
+    render(<RdsCompReviews itemList={[base]} variant={ReviewStyle.Style7} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompReviews', 'itemList', expect.any(String));
+  });
+
+  it('re-syncs when item values change', () => {
+    const { rerender } = render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} />);
+    rerender(<RdsCompReviews items={[{ ...base, rating: 2, likes: 9 }]} variant={ReviewStyle.Style7} />);
+    expect(screen.getByText('Rating: 2')).toBeInTheDocument();
+    expect(screen.getByText('9')).toBeInTheDocument();
+  });
+
+  it('calls callbacks and exposes labelled pressed buttons', () => {
+    const onLike = jest.fn(), onDislike = jest.fn(), onRatingChange = jest.fn();
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} onLike={onLike} onDislike={onDislike} onRatingChange={onRatingChange} />);
+    const like = screen.getByLabelText('Like');
+    expect(like).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(like);
+    fireEvent.click(screen.getByLabelText('Dislike'));
+    fireEvent.click(screen.getByTestId('rds-rating'));
+    expect(onLike).toHaveBeenCalledWith(base);
+    expect(onDislike).toHaveBeenCalledWith(base);
+    expect(onRatingChange).toHaveBeenCalledWith(base, 5);
+    expect(screen.getByLabelText('Like')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('supports locale, formatDate and id keys', () => {
+    const item = { ...base, id: 1, date: new Date('2024-01-15') };
+    render(<RdsCompReviews items={[item]} variant={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
+    expect(screen.getByText('custom date')).toBeInTheDocument();
+  });
+
+  it('variant wins over style', () => {
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} style={ReviewStyle.Style4} />);
+    expect(screen.getByLabelText('Like')).toBeInTheDocument();
   });
 });

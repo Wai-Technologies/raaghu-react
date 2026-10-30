@@ -1,7 +1,6 @@
 import React from "react"
 import  RdsAlert  from "./rds-alert"
 import figma from "@figma/code-connect"
-import { style } from "wavesurfer.js/src/util"
 
 figma.connect(
   RdsAlert,
@@ -27,7 +26,7 @@ figma.connect(
         "Style 2": "style2",
         "Style 3": "style3"
       }),
-      type: figma.enum("⚠️ Type", {
+      severity: figma.enum("⚠️ Type", {
         "Info": "info",
         "Success": "success",
         "Warning": "warning",

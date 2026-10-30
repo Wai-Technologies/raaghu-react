@@ -1,6 +1,7 @@
-﻿// App-bar / header context overrides for ProfileMenu (responsive + themed headers)
 
 .rds-profile-menu__button {
+  --rds-profile-menu-app-bar-overrides-dim-1: 30px;
+
   border-radius: var(--rds-border-radius-xl);
   flex-shrink: 0;
   min-width: 0;
@@ -30,20 +31,20 @@
   flex-shrink: 0;
 
   @media (max-width: 834px) {
-    width: 30px !important;
-    height: 30px !important;
+    width: var(--rds-profile-menu-app-bar-overrides-dim-1);
+    height: var(--rds-profile-menu-app-bar-overrides-dim-1);
     font-size: var(--rds-font-size-sm);
   }
 
   @media (max-width: 420px) {
-    width: 28px !important;
-    height: 28px !important;
+    width: var(--rds-size-28);
+    height: var(--rds-size-28);
     font-size: var(--rds-font-size-sm);
   }
 
   @media (max-width: 320px) {
-    width: var(--rds-size-lg) !important;
-    height: var(--rds-size-lg) !important;
+    width: var(--rds-size-lg);
+    height: var(--rds-size-lg);
     font-size: var(--rds-font-size-xs);
   }
 }
@@ -54,11 +55,11 @@
   white-space: nowrap;
 
   @media (max-width: 420px) {
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
   }
 
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-sm, 13px);
+    font-size: var(--rds-font-size-sm);
   }
 }
 
@@ -68,20 +69,20 @@
   white-space: nowrap;
 
   @media (max-width: 420px) {
-    font-size: var(--rds-font-size-xs, 11px);
+    font-size: var(--rds-font-size-xs);
   }
 
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-xs, 10px);
+    font-size: var(--rds-font-size-xs);
   }
 }
 
 .rds-header--primary .rds-profile-menu__email,
 .rds-header--secondary .rds-profile-menu__email {
-  color: inherit !important;
+  color: inherit;
 }
 
 .rds-profile-menu__item {
-  font-size: var(--rds-font-size-md) !important;
+  font-size: var(--rds-font-size-md);
 }
 

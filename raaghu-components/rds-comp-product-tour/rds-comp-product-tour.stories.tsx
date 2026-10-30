@@ -1,6 +1,6 @@
 import RdsCompProductTour from "./rds-comp-product-tour";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: "Components/Product Tour",
@@ -11,25 +11,17 @@ const meta: Meta = {
     },
     tags: ["autodocs", 'stable'],
     argTypes: {
-        state: {
+        className: { control: 'text', description: 'CSS class applied to the product tour root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the product tour root.' },
+        ref: { control: false, description: 'React ref to the product tour root; assign it in code.' },
+        variant: {
             options: ["Image", "Carousel", "Form", "GIF"],
             control: { type: "select" },
         },
-        topLeft: {
-            name: "Top Left Dot",
-            control: { type: "boolean" },
-        },
-        topRight: {
-            name: "Top Right Dot",
-            control: { type: "boolean" },
-        },
-        bottomLeft: {
-            name: "Bottom Left Dot",
-            control: { type: "boolean" },
-        },
-        bottomRight: {
-            name: "Bottom Right Dot",
-            control: { type: "boolean" },
+        anchorCorner: {
+            options: ["top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "all"],
+            control: { type: "select" },
+            description: "Corner dots: one corner, `top` (both top), `bottom` (both bottom), or `all` (four dots).",
         },
         showDismiss: {
             name: "Show Dismiss",
@@ -63,21 +55,19 @@ export const Default: Story = {
         expect(el).toBeTruthy();
     },
     args: {
-        state: "Image",
-        topLeft: true,
-        topRight: false,
-        bottomLeft: false,
-        bottomRight: false,
+        variant: "Image",
+        anchorCorner: "top-left",
         showDismiss: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
         showTertiaryButton: true,
         showVisualPlaceholder: true,
-        formTitle:" Getting Started Tour",
-        header: "Tour Title",
+        subtitle:" Getting Started Tour",
+        title: "Tour Title",
         description: "In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.",
-        stepsIndicator: "1/3",
-        tabTitle: ["Designers", "Developers", "Managers"],
+        steps: 3,
+        activeStep: 1,
+        items: ["Designers", "Developers", "Managers"],
         slides: [
             { id: 1, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"},
             { id: 2, imgUrl: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80"},
