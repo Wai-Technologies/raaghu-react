@@ -54,18 +54,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Interactive: Story = {
+export const Default: Story = {
   args: {
     avatarInitials: 'RD',
     placeholderText: 'Add a comment',
   },
-};
-
-export const Default: Story = {
-  args: { state: 'default', avatarInitials: 'RD' },
-  parameters: { controls: { include: ['avatarInitials'] } },
   play: async ({ canvasElement }) => {
-    await expect(canvasElement.querySelector('.rds-comments-box--default')).toBeTruthy();
+    await expect(canvasElement.querySelector('.rds-comments-box--composer')).toBeTruthy();
   },
 };
 
