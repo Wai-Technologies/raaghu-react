@@ -100,7 +100,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
     theme: {
       control: { type: 'select' },
       options: ['light', 'dark'],
-      description: 'Theme variant',
+      description: 'Theme variant. The selected value always wins over the app/system mode.',
     },
     type: {
       control: { type: 'select' },

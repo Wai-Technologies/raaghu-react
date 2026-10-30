@@ -199,8 +199,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, [isDisabled, updatePickerState]);
 
   const handleTabClick = useCallback((tab: "Grid" | "Spectrum") => {
+    if (isDisabled) return;
     updatePickerState({ internalSelectedTab: tab });
-  }, [updatePickerState]);
+  }, [isDisabled, updatePickerState]);
 
   const handleChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
@@ -251,8 +252,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, [selectedColorMode, selectedColorState]);
 
   const handleSelectColorMode = useCallback((mode: ColorMode) => {
+    if (isDisabled) return;
     updatePickerState({ internalSelectedColorMode: mode });
-  }, [updatePickerState]);
+  }, [isDisabled, updatePickerState]);
 
   const setShowColorModeDropdown = useCallback((next: boolean | ((prev: boolean) => boolean)) => {
     updatePickerState((prev) => ({
@@ -282,12 +284,13 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
         </RdsButton>
       )}
       {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (
-        <div className="rds-comp-color-picker__container">
+        <div className={clsx("rds-comp-color-picker__container", isDisabled && "rds-comp-color-picker__container--disabled")}>
           {showTabs && (
             <div className="rds-comp-color-picker__tabs" role="tablist">
               <button
                 type="button"
                 role="tab"
+                disabled={isDisabled}
                 aria-selected={selectedTab === "Grid"}
                 className={clsx("rds-comp-color-picker__tab", selectedTab === "Grid" && "rds-comp-color-picker__tab--active")}
                 onClick={() => handleTabClick("Grid")}
@@ -297,6 +300,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
               <button
                 type="button"
                 role="tab"
+                disabled={isDisabled}
                 aria-selected={selectedTab === "Spectrum"}
                 className={clsx(
                   "rds-comp-color-picker__tab",
@@ -321,6 +325,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
               setShowColorModeDropdown={setShowColorModeDropdown}
               getColorDisplay={getColorDisplayValue}
               onSelectColorMode={handleSelectColorMode}
+              disabled={isDisabled}
             />
           ) : (
             <ColorPickerSpectrum
@@ -339,6 +344,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
               onSelectColorMode={handleSelectColorMode}
               swatches={swatches}
               onAddSwatch={onAddSwatch}
+              disabled={isDisabled}
             />
           )}
         </div>

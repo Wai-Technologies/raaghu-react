@@ -776,6 +776,22 @@ describe('RdsCompCodeSnippet', () => {
       expect(container.querySelector('.rds-comp-code-snippet--light')).toBeInTheDocument();
     });
 
+    describe('when the app is in dark mode', () => {
+      beforeEach(() => document.documentElement.setAttribute('data-theme', 'dark'));
+      afterEach(() => document.documentElement.removeAttribute('data-theme'));
+
+      it('follows the app mode when theme is omitted', () => {
+        const { container } = render(<RdsCompCodeSnippet code="test" />);
+        expect(container.querySelector('.rds-comp-code-snippet--dark')).toBeInTheDocument();
+      });
+
+      it('keeps an explicit light theme', () => {
+        const { container } = render(<RdsCompCodeSnippet code="test" theme="light" type="singleLine" />);
+        expect(container.querySelector('.rds-comp-code-snippet--light')).toBeInTheDocument();
+        expect(container.querySelector('.rds-comp-code-snippet--dark')).not.toBeInTheDocument();
+      });
+    });
+
     it('uses default type (multiLine) when not specified', () => {
       const { container } = render(<RdsCompCodeSnippet code="test" />);
       expect(container.querySelector('.rds-comp-code-snippet--multiLine')).toBeInTheDocument();
