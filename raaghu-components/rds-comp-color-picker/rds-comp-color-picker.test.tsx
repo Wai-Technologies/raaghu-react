@@ -301,59 +301,6 @@ describe('RdsCompColorPicker', () => {
       const { container } = setup({ disabled: false });
       expect(container.querySelector('.rds-comp-color-picker')).not.toHaveAttribute('aria-disabled');
     });
-
-    it.each([ColorPickerType.Default, ColorPickerType.ButtonExpanded])(
-      'disables the open %s panel: tabs, container and child panel',
-      (type) => {
-        const { container } = setup({ type, disabled: true, showTabs: true });
-        expect(container.querySelector('.rds-comp-color-picker__container--disabled')).toBeInTheDocument();
-        screen.getAllByRole('tab').forEach((tab) => expect(tab).toBeDisabled());
-        const gridMock = jest.requireMock('./color-picker-components').ColorPickerGrid as jest.Mock;
-        expect(gridMock.mock.calls.at(-1)?.[0]).toEqual(expect.objectContaining({ disabled: true }));
-      },
-    );
-
-    it('does not switch tabs when disabled', () => {
-      setup({ disabled: true, showTabs: true });
-      fireEvent.click(screen.getByRole('tab', { name: 'Spectrum' }));
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-    });
-  });
-
-  describe('Disabled panel controls', () => {
-    const actual = jest.requireActual('./color-picker-components');
-    const panelProps = {
-      handleChange: jest.fn(),
-      handleHueChange: jest.fn(),
-      handleAlphaChange: jest.fn(),
-      selectedColorState: { hex: '#FF0000', rgb: { r: 255, g: 0, b: 0, a: 1 } },
-      colorModeDropdownRef: { current: null },
-      selectedColorMode: ColorMode.HEX,
-      showColorModeDropdown: false,
-      setShowColorModeDropdown: jest.fn(),
-      getColorDisplay: () => '#FF0000',
-      disabled: true,
-    };
-
-    it('disables every grid cell, both sliders and the format dropdown', () => {
-      const { container } = render(<actual.ColorPickerGrid {...panelProps} />);
-      const cells = container.querySelectorAll('.rds-comp-color-picker__color-cell');
-      expect(cells.length).toBeGreaterThan(0);
-      cells.forEach((cell) => expect(cell).toBeDisabled());
-      screen.getAllByRole('slider').forEach((slider) => expect(slider).toBeDisabled());
-      expect(screen.getByRole('button', { name: 'Change color mode' })).toBeDisabled();
-    });
-
-    it('disables the spectrum area, sliders, dropdown and swatches', () => {
-      render(
-        <actual.ColorPickerSpectrum {...panelProps} selectedColorHex="#FF0000" showSwatches styleType="Type 2" />,
-      );
-      expect(screen.getByRole('button', { name: 'Pick color from spectrum' })).toBeDisabled();
-      screen.getAllByRole('slider').forEach((slider) => expect(slider).toBeDisabled());
-      expect(screen.getByRole('button', { name: 'Change color mode' })).toBeDisabled();
-      screen.getAllByRole('button', { name: /^Select color/ }).forEach((swatch) => expect(swatch).toBeDisabled());
-      expect(screen.getByRole('button', { name: 'Add swatch' })).toHaveAttribute('aria-disabled', 'true');
-    });
   });
 
   describe('Swatches', () => {

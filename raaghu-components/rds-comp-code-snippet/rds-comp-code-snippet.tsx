@@ -11,7 +11,6 @@ import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlig
 // @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
-import { useRaaghuTheme } from "../../raaghu-react-themes/src/provider/RaaghuThemeProvider";
 type HighlighterStyle = Record<string, Record<string, string> | string>;
 
 const atomOneLightBase = atomOneLight as HighlighterStyle;
@@ -21,8 +20,7 @@ const atomOneLightStyle: HighlighterStyle = {
   ...atomOneLightBase,
   hljs: {
     ...atomOneLightHljs,
-    // The snippet root paints the surface, so the code area follows light/dark in single- and multi-line.
-    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+    background: `var(--rds-comp-code-snippet-highlighter-bg, ${atomOneLightHljs.background})`,
   },
 };
 
@@ -30,7 +28,7 @@ const darkStyle: HighlighterStyle = {
   ...atomOneLightStyle,
   hljs: {
     ...atomOneLightHljs,
-    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+    background: 'var(--rds-code-bg)',
     color: 'var(--rds-code-color)',
   },
 };
@@ -69,10 +67,6 @@ export interface RdsCompCodeSnippetProps {
   code?: string;
   language?: string | boolean;
   codeLines?: boolean;
-  /**
-   * Color scheme of the snippet. An explicit value always wins over the app/system mode;
-   * omit it to follow the app (`RaaghuThemeProvider`, including `system`).
-   */
   theme?: "light" | "dark";
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
@@ -86,15 +80,13 @@ const RdsCompCodeSnippet = ({
   code,
   language = "html",
   codeLines = false,
-  theme: themeProp,
+  theme = "light",
   type = "multiLine",
   maxHeight,
   className = "",
   sx,
   sampleCodeSnippets,
 }: RdsCompCodeSnippetProps) => {
-  const { isDark } = useRaaghuTheme();
-  const theme = themeProp ?? (isDark ? "dark" : "light");
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
     typeof language === 'string' ? language : 'html'

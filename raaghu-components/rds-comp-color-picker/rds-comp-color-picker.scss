@@ -29,19 +29,6 @@
     padding: var(--rds-spacing-sm);
     width: var(--rds-color-picker-width);
     margin-top: var(--rds-spacing-compact);
-
-    &--disabled {
-      opacity: var(--rds-opacity-disabled);
-      cursor: not-allowed;
-
-      button,
-      input,
-      [role='button'],
-      .MuiSlider-root {
-        cursor: not-allowed;
-        pointer-events: none;
-      }
-    }
   }
 
   &__spectrum-type1 {
