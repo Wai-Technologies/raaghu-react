@@ -278,34 +278,42 @@
     box-sizing: border-box;
   }
 
+  // Mode-independent tokens: an explicit `theme="light"` stays light inside a dark app.
   &--light {
-    background-color: var(--rds-color-surface);
-    color: var(--rds-color-on-surface);
+    background-color: var(--rds-color-surface-light);
+    color: var(--rds-grey-900);
+    border-color: var(--rds-grey-300);
 
     .rds-comp-code-snippet__toolbar {
       &::after {
-        background-color: var(--rds-color-border);
+        background-color: var(--rds-grey-300);
       }
     }
 
-    .rds-comp-code-snippet__language-label {
-      color: var(--rds-color-on-surface-variant);
+    .rds-comp-code-snippet__language-label,
+    .rds-comp-code-snippet__expand-icon {
+      color: var(--rds-text-tertiary);
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-surface);
-      color: var(--rds-color-on-surface-variant);
-      border-color: var(--rds-color-border);
+      background-color: var(--rds-color-surface-light);
+      color: var(--rds-grey-900);
+      border-color: var(--rds-grey-300);
 
-      &:hover {
-        background-color: var(--rds-color-surface-hover);
-        color: var(--rds-color-on-surface);
+      &.rds-button,
+      &.MuiButton-outlined {
+        color: var(--rds-grey-900);
+      }
+
+      &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
+        background-color: var(--rds-color-surface-variant-hover);
+        color: var(--rds-grey-900);
       }
     }
 
     .rds-comp-code-snippet__line-numbers {
-      border-right-color: var(--rds-color-border);
-      color: var(--rds-color-on-surface-variant);
+      border-right-color: var(--rds-grey-300);
+      color: var(--rds-text-tertiary);
     }
 
     pre {
@@ -313,37 +321,49 @@
     }
 
     code {
-      color: var(--rds-color-on-surface);
+      color: var(--rds-grey-900);
     }
   }
 
   &--dark {
+    // `*-dark` color tokens exist only when the app runs in dark mode; the fallbacks keep
+    // `theme="dark"` grey when the app is light.
+    --rds-code-snippet-dark-text: var(--rds-color-on-surface-dark, var(--rds-color-white));
+    --rds-code-snippet-dark-text-muted: var(--rds-color-on-surface-variant-dark, var(--rds-grey-300));
+    --rds-code-snippet-dark-border: var(--rds-color-border-dark, var(--rds-border-dark-elevated));
+    --rds-code-snippet-dark-variant: var(--rds-color-surface-variant-dark, var(--rds-surface-dark-deep));
+    --rds-code-snippet-dark-hover: var(--rds-color-surface-container, var(--rds-surface-dark-hover));
+
     background-color: var(--rds-color-surface-dark);
-    color: var(--rds-color-on-surface-dark);
-    border-color: var(--rds-color-border-dark);
+    color: var(--rds-code-snippet-dark-text);
+    border-color: var(--rds-code-snippet-dark-border);
 
     .rds-comp-code-snippet__toolbar {
       &::after {
-        background-color: var(--rds-color-border-dark);
+        background-color: var(--rds-code-snippet-dark-border);
       }
     }
 
     .rds-comp-code-snippet__footer {
-      background-color: var(--rds-color-surface-variant-dark);
+      background-color: var(--rds-code-snippet-dark-variant);
     }
 
     .rds-comp-code-snippet__language-label {
-      color: var(--rds-color-on-surface-variant-dark);
+      color: var(--rds-code-snippet-dark-text-muted);
+    }
+
+    .rds-comp-code-snippet__expand-icon {
+      color: var(--rds-code-snippet-dark-text-muted);
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-white);
-      color: var(--rds-grey-900);
-      border-color: var(--rds-grey-300);
+      background-color: var(--rds-code-snippet-dark-variant);
+      color: var(--rds-code-snippet-dark-text);
+      border-color: var(--rds-code-snippet-dark-border);
 
       &.rds-button,
       &.MuiButton-outlined {
-        color: var(--rds-grey-900);
+        color: var(--rds-code-snippet-dark-text);
       }
 
       .MuiButton-startIcon,
@@ -358,15 +378,15 @@
       }
 
       &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
-        background-color: color-mix(in srgb, var(--rds-color-black) 4%, var(--rds-color-white));
-        color: var(--rds-grey-900);
-        border-color: color-mix(in srgb, var(--rds-color-black) 25%, var(--rds-color-white));
+        background-color: var(--rds-code-snippet-dark-hover);
+        color: var(--rds-code-snippet-dark-text);
+        border-color: var(--rds-code-snippet-dark-border);
       }
     }
 
     .rds-comp-code-snippet__line-numbers {
-      border-right-color: var(--rds-color-border-dark);
-      color: var(--rds-color-on-surface-variant-dark);
+      border-right-color: var(--rds-code-snippet-dark-border);
+      color: var(--rds-code-snippet-dark-text-muted);
     }
 
     pre {
@@ -374,7 +394,7 @@
     }
 
     code {
-      color: var(--rds-color-on-surface-dark);
+      color: var(--rds-code-snippet-dark-text);
     }
   }
 
@@ -480,28 +500,4 @@
       color: var(--rds-syntax-selector-dark);
     }
   }
-}
-[data-theme="dark"] {
-  .rds-comp-code-snippet--light {
-    background-color: var(--rds-color-surface-dark);
-    color: var(--rds-color-on-surface-dark);
-    border-color: var(--rds-color-border-dark);
-}
-.rds-comp-code-snippet--light code {
-    color: var(--rds-color-on-surface-dark);
-}
-.rds-comp-code-snippet--light .rds-comp-code-snippet__copy-button {
-    background-color: var(--rds-color-surface-variant-dark);
-    color: var(--rds-color-on-surface-variant-dark);
-    border-color: var(--rds-color-border-dark);
-}
-.rds-button {
-    color: var(--btn-primary-solid-default);
-}
-.rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
-    background-color: var(--rds-color-border-dark);
-}
-.rds-comp-code-snippet--light pre{
-    --rds-comp-code-snippet-highlighter-bg: transparent;
-}
 }
