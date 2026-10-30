@@ -1,6 +1,6 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-.rds-counter__mandatory {
+:root {
   --rds-counter-dim-1: var(--rds-spacing-30);
   --rds-counter-dim-2: var(--rds-spacing-50);
   --rds-counter-dim-3: var(--rds-spacing-60);
@@ -9,9 +9,13 @@
   --rds-counter-dim-6: 100px;
   --rds-counter-dim-7: 140px;
   --rds-counter-dim-8: 160px;
+}
 
+.rds-counter {
   --rds-label-font-size: var(--rds-font-size-md);
+}
 
+.rds-counter__mandatory {
   display: inline-block;
   width: 1em;
   color: var(--rds-semantic-error-main, var(--rds-color-error));
@@ -245,13 +249,16 @@
   border-radius: var(--rds-border-radius);
 }
 
+.rds-counter .rds-counter__input.MuiInputBase-root {
+  padding: var(--rds-spacing-xs);
+  background: none;
+  border: none;
+}
+
 .rds-counter__input {
   text-align: center;
   font-weight: var(--rds-font-weight-medium, 500);
   font-size: var(--rds-font-size-md);
-  padding: var(--rds-spacing-xs);
-  background: none;
-  border: none;
   color: inherit;
   flex: 1;
   min-width: var(--rds-size-40);

@@ -257,11 +257,11 @@
     }
 
     &:nth-child(2) {
-      background-color: var(--rds-esignature-pen-blue);
+      background-color: var(--rds-color-blue-600);
     }
 
     &:nth-child(3) {
-      background-color: var(--rds-esignature-pen-red);
+      background-color: var(--rds-color-red-600);
     }
 
     &:hover:not(:disabled) {
@@ -805,16 +805,11 @@
 [data-theme="dark"] .rds-e-signature__file-row,
 [data-theme="dark"] .rds-e-signature__mini-card,
 [data-theme="dark"] .rds-e-signature__mini-full-wrapper,
-[data-theme="dark"] .rds-e-signature__mini-initials-wrapper {
+[data-theme="dark"] .rds-e-signature__mini-initials-wrapper,
+[data-theme="dark"] .rds-e-signature__canvas-container {
   background: var(--rds-color-surface-dark);
   border-color: var(--rds-color-border-subtle-dark);
   color: var(--rds-color-neutral-0);
-}
-
-[data-theme="dark"] .rds-e-signature__canvas-container {
-  background: var(--rds-color-neutral-0);
-  border-color: var(--rds-color-border-subtle-dark);
-  color: var(--rds-color-neutral-1000);
 }
 
 [data-theme="dark"] .rds-e-signature__upload-panel--hover {

@@ -332,9 +332,9 @@ export const HistoryFavoritesTabs = ({
 };
 
 const REAL_ESTATE_BADGES: { content: string; color: "primary" | "secondary" | "success" | "default" | "error" | "info" | "warning"; size: "small" | "medium" | "large"; shape?: "rectangle" | "pill" }[] = [
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
-  { content: "O Badge", color: "primary", size: "small", shape: "rectangle" }
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" },
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" },
+  { content: "O Badge", color: "secondary", size: "small", shape: "rectangle" }
 ];
 
 export const RealEstateContent = ({
@@ -384,8 +384,7 @@ export const RealEstateContent = ({
               >
                 <RdsBadge 
                   badgeContent={badge.content} 
-                  color={badge.color} 
-                  colorVariant="secondary"
+                  color={badge.color}
                   size={badge.size}
                   shape={badge.shape}
                 />

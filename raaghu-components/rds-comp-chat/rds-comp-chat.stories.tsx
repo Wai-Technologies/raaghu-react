@@ -1,4 +1,4 @@
-﻿import RdsCompChat from "./rds-comp-chat";
+import RdsCompChat from "./rds-comp-chat";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -10,7 +10,7 @@ const meta: Meta = {
         layout: "padded",
         docs: {
     description: {
-        component: 'The **Chat** element is a customizable chat interface component designed for displaying and managing real-time conversations between multiple users. It supports a user list with profile details, status indicators, avatars, and message history. Each user can have a series of comments, and the chat screen can be enabled or disabled as needed. The component allows for visual customization, including separate background and text colors for current user and other usersâ€™ messages, making it easy to match different design themes. It also provides hooks for handling new comments, enabling interactive and dynamic chat experiences suitable for messaging features in web applications.'
+        component: 'The **Chat** element is a customizable chat interface component designed for displaying and managing real-time conversations between multiple users. It supports a user list with profile details, status indicators, avatars, and message history. Each user can have a series of comments, and the chat screen can be enabled or disabled as needed. The component allows for visual customization, including separate background and text colors for current user and other users’ messages, making it easy to match different design themes. It also provides hooks for handling new comments, enabling interactive and dynamic chat experiences suitable for messaging features in web applications.'
     }
 }
     },

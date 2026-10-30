@@ -91,13 +91,6 @@
     box-shadow: none;
   }
 
-  &--rectangle > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-sm);
-  }
-  &--pill > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-xl);
-  }
-
   $rds-badge-colors: (
     primary: (var(--rds-primary-main) var(--rds-neutral-0)),
     secondary: (var(--rds-primary-800) var(--rds-neutral-0)),
@@ -148,10 +141,10 @@
       box-shadow: none;
     }
   }
-  &--rectangle > .rds-badge__badge {
+  &.rds-badge--rectangle > .rds-badge__badge {
     border-radius: var(--rds-border-radius-sm);
   }
-  &--pill > .rds-badge__badge {
+  &.rds-badge--pill > .rds-badge__badge {
     border-radius: var(--rds-border-radius-xl);
   }
   &--disabled > .rds-badge__badge {

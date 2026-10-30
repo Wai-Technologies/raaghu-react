@@ -1,7 +1,6 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-@include bp.down(tablet-sm) {
-  .rds-comp-chat__window-header-title--mobile {
+:root {
   --rds-chat-dim-1: var(--rds-spacing-cozy);
   --rds-chat-dim-2: 26px;
   --rds-chat-dim-3: var(--rds-spacing-30);
@@ -22,7 +21,10 @@
   --rds-chat-dim-18: 370px;
   --rds-chat-dim-19: 400px;
   --rds-chat-dim-20: 600px;
+}
 
+@include bp.down(tablet-sm) {
+  .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
       .MuiAvatar-root {
         width: var(--rds-avatar-size-medium);

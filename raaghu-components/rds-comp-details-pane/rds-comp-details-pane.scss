@@ -248,7 +248,7 @@
   }
 
   .MuiInputBase-root {
-    height: var(--rds-input-height-sm);
+    height: var(--rds-details-pane-dim-9);
     border-radius: var(--rds-border-radius-sm);
     background-color: var(--rds-color-background-light);
     border: var(--rds-border-width-thin) solid var(--rds-color-border);
@@ -1414,14 +1414,14 @@
       
       &.MuiFormControl-root {
         .MuiInputBase-root {
-          height: var(--rds-input-height-sm);
+          height: var(--rds-size-36);
         }
       }
       
       &--compact {
         &.MuiFormControl-root {
           .MuiInputBase-root {
-            height: var(--rds-input-height-sm);
+            height: var(--rds-size-36);
             
             .MuiInputAdornment-root {
               .MuiIconButton-root {
@@ -1857,7 +1857,7 @@ html.rds-theme--dark .rds-comp-details-pane {
   }
 
   .rds-comp-details-pane__search-field.MuiFormControl-root .MuiInputBase-root,
-  .rds-comp-details-pane .MuiInputBase-root {
+  .rds-comp-details-pane .MuiInputBase-root:where(:not(.rds-counter__input)) {
     background-color: var(--rds-color-surface-dark);
     border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 24%, transparent));
     color: var(--rds-color-on-surface);
@@ -1876,7 +1876,7 @@ html.rds-theme--dark .rds-comp-details-pane {
     }
   }
 
-  .rds-comp-details-pane__toolbar-circle-btn,
+  .rds-comp-details-pane__toolbar-circle-btn:not(.rds-comp-details-pane__toolbar-circle-btn--selected):not([aria-pressed='true']),
   .rds-comp-details-pane__font-size-btn,
   .rds-comp-details-pane__font-weight-btn,
   .rds-comp-details-pane__storybook-ui-kit-button,
