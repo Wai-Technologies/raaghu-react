@@ -283,18 +283,21 @@ const RdsCompChat = ({
               />
             </div>
             <div className="rds-comp-chat__window-header-options">
-              <div
-                className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`}
-                role="tablist"
-                aria-label="Chat sections"
-              >
-                {["chat", "media"].map(tab => (
-                  <button key={tab} type="button" role="tab" aria-selected={state.activeTab === tab} className={`nav-link ${state.activeTab === tab ? "active" : ""}${state.isMobile ? " nav-link--mobile" : ""}`} onClick={() => updateState({ activeTab: tab as "chat" | "media" })}>
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                  </button>
-                ))}
-              </div>
               <span className="rds-comp-chat__window-header-more"><MoreIcon /></span>
+            </div>
+          </div>
+
+          <div className="rds-comp-chat__window-tabs">
+            <div
+              className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`}
+              role="tablist"
+              aria-label="Chat sections"
+            >
+              {["chat", "media"].map(tab => (
+                <button key={tab} type="button" role="tab" aria-selected={state.activeTab === tab} className={`nav-link ${state.activeTab === tab ? "active" : ""}${state.isMobile ? " nav-link--mobile" : ""}`} onClick={() => updateState({ activeTab: tab as "chat" | "media" })}>
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
             </div>
           </div>
 

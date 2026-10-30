@@ -236,8 +236,7 @@
     .rds-avatar__dot { background: var(--rds-color-success); }
     .MuiAvatar-root { background-color: var(--rds-color-success); }
   }
-  &--error,
-  &--danger {
+  &--error {
     .rds-avatar__ring { border-color: var(--rds-color-error); }
     .rds-avatar__dot { background: var(--rds-color-error); }
     .MuiAvatar-root { background-color: var(--rds-color-error); }
@@ -246,11 +245,6 @@
     .rds-avatar__ring { border-color: var(--rds-color-warning); }
     .rds-avatar__dot { background: var(--rds-color-warning); }
     .MuiAvatar-root { background-color: var(--rds-color-warning); }
-  }
-  &--info {
-    .rds-avatar__ring { border-color: var(--rds-color-info); }
-    .rds-avatar__dot { background: var(--rds-color-info); }
-    .MuiAvatar-root { background-color: var(--rds-color-info); }
   }
   &--light {
     .rds-avatar__ring { border-color: var(--rds-color-light); }

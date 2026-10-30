@@ -14,9 +14,10 @@ const meta: Meta<typeof RdsAvatar> = {
   argTypes: {
     color: {
       control: 'select',
-      options: ['primary', 'success', 'error', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
+      options: ['primary', 'success', 'error', 'warning', 'light', 'secondary', 'dark'],
       description: 'Color variant for activity ring and dot',
     },
+    colorVariant: { control: false, table: { disable: true } },
     showName: {
       control: 'boolean',
       description: 'Show title below/next to avatar',

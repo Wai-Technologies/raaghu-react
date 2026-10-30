@@ -10,9 +10,9 @@ const avatarColors: readonly string[] = ['primary', 'success', 'error', 'danger'
 type AvatarSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
 export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color' | 'slotProps'> {
-  /** Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. Other strings pass through. */
+  /** Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`. Other strings pass through. */
   color?: AvatarColor | (string & {});
-  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
+  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`. */
   colorVariant?: AvatarColor;
   /** Name shown beside/below the avatar; its initials fill the avatar. */
   name?: string;
@@ -140,10 +140,14 @@ const RdsAvatar = ({
   if (color === 'danger' || colorVariantProp === 'danger') {
     warnDeprecatedProp('RdsAvatar', 'color="danger"', '`color: "error"`');
   }
+  if (color === 'info' || colorVariantProp === 'info') {
+    warnDeprecatedProp('RdsAvatar', 'color="info"', '`color: "primary"`');
+  }
 
   const isPaletteColor = color !== undefined && avatarColors.includes(color);
   const rawColor = (isPaletteColor ? (color as AvatarColor) : colorVariantProp) ?? 'primary';
-  const colorVariant = normalizePaletteColor(rawColor) as AvatarColor;
+  const normalizedColor = normalizePaletteColor(rawColor);
+  const colorVariant = (normalizedColor === 'info' ? 'primary' : normalizedColor) as AvatarColor;
   const title = name ?? titleProp;
   const subTextResolved = description ?? subText;
   const maxResolved = max ?? maxVisibleAvatars ?? 3;

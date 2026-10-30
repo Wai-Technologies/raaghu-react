@@ -317,10 +317,11 @@ describe('RdsCompSpinner', () => {
       expect(spinner).toHaveClass('text-warning');
     });
 
-    it('should apply info color variant', () => {
+    it('should apply info color variant as primary', () => {
       render(<RdsCompSpinner {...defaultProps} colorVariant="info" />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveClass('text-info');
+      expect(spinner).toHaveClass('text-primary');
+      expect(spinner).not.toHaveClass('text-info');
     });
 
     it('should not apply color class when colorVariant not specified', () => {
@@ -487,7 +488,7 @@ describe('RdsCompSpinner', () => {
             <RdsCompSpinner spinnerType={type} colorVariant={color} />
           );
           const spinner = screen.getByRole('status');
-          expect(spinner).toHaveClass(`text-${color}`);
+          expect(spinner).toHaveClass(`text-${color === 'info' ? 'primary' : color}`);
           unmount();
         });
       });

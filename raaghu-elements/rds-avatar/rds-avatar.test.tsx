@@ -187,11 +187,14 @@ describe('RdsAvatar', () => {
       expect(container.querySelector('.rds-avatar--warning')).toBeInTheDocument();
     });
 
-    it('should apply info color variant', () => {
+    it('should apply info color variant as primary and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = render(
         <RdsAvatar {...defaultProps} colorVariant="info" />
       );
-      expect(container.querySelector('.rds-avatar--info')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--info')).not.toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'color="info"', '`color: "primary"`');
     });
 
     it('should apply light color variant', () => {
@@ -679,7 +682,7 @@ describe('RdsAvatar', () => {
         const { container } = render(
           <RdsAvatar title="Test" colorVariant={color} />
         );
-        const expected = color === 'danger' ? 'error' : color;
+        const expected = color === 'danger' ? 'error' : color === 'info' ? 'primary' : color;
         expect(container.querySelector(`.rds-avatar--${expected}`)).toBeInTheDocument();
       });
     });

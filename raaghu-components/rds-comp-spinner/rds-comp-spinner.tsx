@@ -99,7 +99,9 @@ const RdsCompSpinner = ({
   const level = levelProp as SpinnerLevel | undefined;
   const resolvedVariant = variant ?? spinnerType ?? "border";
   const resolvedLabel = label ?? labelText;
-  const resolvedColor = color ?? colorVariant;
+  const requestedColor = color ?? colorVariant;
+  if (requestedColor === "info") warnDeprecatedProp("RdsCompSpinner", 'color="info"', '`color: "primary"`');
+  const resolvedColor = requestedColor === "info" ? "primary" : requestedColor;
   const spinnerClass = resolvedVariant === "grow" ? "spinner-grow" : "spinner-border";
   const colorClass = resolvedColor ? `text-${resolvedColor}` : "";
   const tokenSize = typeof size === "string" ? size : undefined;
