@@ -43,7 +43,7 @@ const meta: Meta<typeof RdsSkeleton> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Text: Story = {
+export const Default: Story = {
   args: {
     variant: 'text',
     frames: 3,
@@ -54,6 +54,8 @@ export const Text: Story = {
     await expect(skeleton).toBeTruthy();
   },
 };
+
+export const Text: Story = { ...Default };
 
 export const Rectangular: Story = {
   args: {
@@ -130,6 +132,4 @@ export const CardSkeleton: Story = {
     </Card>
   ),
 };
-
-export const Default: Story = { ...Text };
 

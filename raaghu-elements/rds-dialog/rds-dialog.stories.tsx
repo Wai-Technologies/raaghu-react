@@ -66,7 +66,8 @@ const meta: Meta = {
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
     variant: { control: { type: 'select' }, options: ['default', 'confirm'] },
-    showCloseButton: { control: 'boolean' },
+    showCloseButton: { control: 'boolean', description: 'Shows the close button.' },
+    showDissmiss: { control: false, table: { disable: true } },
     actions: { control: false },
     children: { control: false },
     showPrimary: {
