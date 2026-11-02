@@ -211,14 +211,14 @@ const RdsPagination = ({
       )}
       {styleConfig.showPrevNext && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <RdsButton variant="filled" size="small" disabled={currentPageNumber <= 1} onClick={(event) => handleChange(event, currentPageNumber - 1)}>
+          <RdsButton variant="filled" size="small" disabled={currentPageNumber <= 1} onClick={(event) => handleChange(event, currentPageNumber - 1)} aria-label={paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? 'Previous page' : undefined}>
             {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
               <KeyboardArrowLeft />
             ) : (
               'Prev'
             )}
           </RdsButton>
-          <RdsButton variant="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)}>
+          <RdsButton variant="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)} aria-label={paginationStyle === 'Style 10' ? 'Next page' : undefined}>
             {paginationStyle === 'Style 10' ? (
               <KeyboardArrowRight />
             ) : (
@@ -251,7 +251,7 @@ const RdsPagination = ({
           <Typography variant="body2">
             Go to
           </Typography>
-          <TextField  size="small"  value={manualPageInput}  onChange={handleManualPageInput}  onKeyDown={handleManualPageSubmit}  placeholder="1"  slotProps={{ htmlInput: {    min: 1,    max: totalPagesCalc,    type: 'number'
+          <TextField  size="small"  value={manualPageInput}  onChange={handleManualPageInput}  onKeyDown={handleManualPageSubmit}  placeholder="1"  slotProps={{ htmlInput: {    min: 1,    max: totalPagesCalc,    type: 'number',    'aria-label': 'Go to page'
             } }}
           />
           <Typography variant="body2">

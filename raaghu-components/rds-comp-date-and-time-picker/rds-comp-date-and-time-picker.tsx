@@ -7,6 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -378,7 +379,7 @@ export default function RdsCompDatePicker({
     switch (variant) {
       case 'time':
         return (
-          <DatePicker
+          <TimePicker
             {...singlePickerProps}
             format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
             views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}

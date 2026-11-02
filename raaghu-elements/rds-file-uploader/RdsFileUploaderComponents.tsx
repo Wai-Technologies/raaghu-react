@@ -87,6 +87,23 @@ export const useFileUploader = ({
     } else {
       setSelectedFileName(null);
     }
+
+    void uploadFiles(validFiles.filter(fwp => !fwp.error).map(fwp => fwp.file));
+  };
+
+  const uploadFiles = async (toUpload: File[]) => {
+    if (!onUpload || toUpload.length === 0) return;
+    const mark = (patch: Partial<FileWithProgress>) =>
+      setFiles(prev => prev.map(fwp => (toUpload.includes(fwp.file) ? { ...fwp, ...patch } : fwp)));
+    setIsUploading(true);
+    try {
+      await onUpload(toUpload);
+      mark({ progress: 100 });
+    } catch {
+      mark({ error: 'Upload failed' });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const removeFile = (index: number, event?: SyntheticEvent) => {

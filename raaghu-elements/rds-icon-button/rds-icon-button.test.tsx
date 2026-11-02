@@ -5,6 +5,7 @@ import RdsIconButton from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import * as a11yWarnings from '../shared/utils/a11y-warnings';
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('./rds-icon-button.scss', () => ({}));
@@ -539,5 +540,17 @@ describe('audit fixes', () => {
   it('filled variant still renders iconFilled', () => {
     render(<RdsIconButton variant="filled" iconFilled={<span data-testid="f" />} aria-label="x" />);
     expect(screen.getByTestId('f')).toBeInTheDocument();
+  });
+});
+
+describe('RdsIconButton accessible name warning', () => {
+  it('warns only when rendered without any accessible name', () => {
+    const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName');
+    render(<RdsIconButton icon={<Add />} aria-label="Add" />);
+    render(<RdsIconButton icon={<Add />} tooltip="Add" />);
+    expect(warn).not.toHaveBeenCalled();
+    render(<RdsIconButton icon={<Add />} />);
+    expect(warn).toHaveBeenCalledWith('RdsIconButton', expect.any(String));
+    warn.mockRestore();
   });
 });

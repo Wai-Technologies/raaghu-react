@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useId } from 'react';
+import { useState, useMemo, useCallback, useId, useRef, useEffect } from 'react';
 import type { FC } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
@@ -25,6 +25,7 @@ import './rds-comp-product-tour.scss';
 
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
+const FOCUSABLE_SELECTOR = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     variant,
@@ -74,12 +75,20 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const resolvedSubtitle = subtitle ?? formTitle;
     const corners = resolveCornerDots(anchorCorner, { topLeft, topRight, bottomLeft, bottomRight });
     const headerId = useId();
+    const dialogRef = useRef<HTMLDivElement | null>(null);
+    const setDialogRef = useCallback((node: HTMLDivElement | null) => {
+        dialogRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+    }, [ref]);
     const rootProps = {
         ...rest,
         role: 'dialog' as const,
+        'aria-modal': true,
         'aria-labelledby': resolvedHeader ? headerId : undefined,
+        tabIndex: -1,
         sx,
-        ref,
+        ref: setDialogRef,
     };
     const legacyShowDismiss = legacyShowDismissProp;
     const legacyShowPrimaryButton = legacyShowPrimaryButtonProp;
@@ -140,6 +149,45 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
             onClose();
         }
     }, [onClose]);
+    const closeRef = useRef(handleClose);
+    useEffect(() => {
+        closeRef.current = handleClose;
+    }, [handleClose]);
+
+    useEffect(() => {
+        const node = dialogRef.current;
+        if (!isVisible || !node) return;
+        const previouslyFocused = document.activeElement as HTMLElement | null;
+        node.focus({ preventScroll: true });
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                event.stopPropagation();
+                closeRef.current();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+            const focusable = Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+            if (focusable.length === 0) {
+                event.preventDefault();
+                return;
+            }
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            const active = document.activeElement;
+            if (event.shiftKey && (active === first || active === node)) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && active === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        };
+        node.addEventListener('keydown', onKeyDown);
+        return () => {
+            node.removeEventListener('keydown', onKeyDown);
+            previouslyFocused?.focus?.({ preventScroll: true });
+        };
+    }, [isVisible]);
 
     const handleNext = () => {
         goNext();

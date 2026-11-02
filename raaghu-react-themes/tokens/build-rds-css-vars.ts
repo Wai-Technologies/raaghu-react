@@ -988,7 +988,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-success-rgb': '31,118,48',
     '--rds-info-rgb': '33,150,243',
     '--rds-warning-rgb': '194,81,12',
-    '--rds-text-secondary-rgb': '117,117,117',
+    '--rds-text-secondary-rgb': '100,100,100',
     '--rds-semantic-error-rgb': '189,13,29',
     '--rds-semantic-success-rgb': '31,118,48',
     '--rds-semantic-warning-rgb': '194,81,12',

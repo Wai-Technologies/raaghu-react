@@ -168,24 +168,39 @@ export const ColorPickerSpectrum = memo(({
   swatches?: string[];
   onAddSwatch?: () => void;
 }) => {
+  const spectrumHsb = rgbToHsb(selectedColorState.rgb);
+  const spectrumHue = (spectrumHsb.h + 360) % 360;
   return (
-    <div className="rds-comp-color-picker__spectrum-type1">    
+    <div className="rds-comp-color-picker__spectrum-type1">
       <div className="rds-comp-color-picker__color-grid-container rds-comp-color-picker__color-grid-container--spectrum">
-        <button
-          type="button"
+        <div
+          role="slider"
           className="rds-comp-color-picker__spectrum-area"
-          disabled={disabled}
+          tabIndex={disabled ? -1 : 0}
+          aria-disabled={disabled || undefined}
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
-            const hue = selectedColorState.rgb ? (rgbToHsb(selectedColorState.rgb).h + 360) % 360 : 0;
-            const result = handleSpectrumClick(
-              e,
-              hue,
-              selectedColorState.rgb ? selectedColorState.rgb.a : 1
-            );
-            handleChange(result);
+            if (disabled) return;
+            handleChange(handleSpectrumClick(e, spectrumHue, selectedColorState.rgb ? selectedColorState.rgb.a : 1));
           }}
-          aria-label="Pick color from spectrum"
+          onKeyDown={(e) => {
+            const step = e.shiftKey ? 10 : 1;
+            let { s, b } = spectrumHsb;
+            if (e.key === "ArrowRight") s += step;
+            else if (e.key === "ArrowLeft") s -= step;
+            else if (e.key === "ArrowUp") b += step;
+            else if (e.key === "ArrowDown") b -= step;
+            else return;
+            e.preventDefault();
+            if (disabled) return;
+            const rgb = hsvToRgb(spectrumHue / 360, Math.min(100, Math.max(0, s)) / 100, Math.min(100, Math.max(0, b)) / 100);
+            handleChange({ hex: rgbToHex(rgb.r, rgb.g, rgb.b), rgb: { ...rgb, a: selectedColorState.rgb ? selectedColorState.rgb.a : 1 } });
+          }}
+          aria-label="Saturation and brightness"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={spectrumHsb.s}
+          aria-valuetext={`Saturation ${spectrumHsb.s}%, brightness ${spectrumHsb.b}%`}
         />
       </div>
       

@@ -531,6 +531,28 @@ describe('audit fixes', () => {
     });
   });
 
+  describe('onUpload', () => {
+    it('uploads valid new files and marks them complete', async () => {
+      const onUpload = jest.fn().mockResolvedValue(undefined);
+      const { result } = renderHook(() => useActualFileUploader({ maxSize: 1024, maxFiles: 5, isMandatory: false, onUpload }));
+      const ok = makeFile('ok.pdf');
+      await act(async () => result.current.addFiles([ok]));
+      expect(onUpload).toHaveBeenCalledWith([ok]);
+      expect(result.current.files[0].progress).toBe(100);
+      expect(result.current.isUploading).toBe(false);
+    });
+
+    it('skips invalid files and flags a failed upload', async () => {
+      const onUpload = jest.fn().mockRejectedValue(new Error('x'));
+      const { result } = renderHook(() => useActualFileUploader({ maxSize: 1024, maxFiles: 5, isMandatory: false, onUpload }));
+      const big = new File(['x'.repeat(2048)], 'big.pdf');
+      const ok = makeFile('ok.pdf');
+      await act(async () => result.current.addFiles([big, ok]));
+      expect(onUpload).toHaveBeenCalledWith([ok]);
+      expect(result.current.files[1].error).toBe('Upload failed');
+    });
+  });
+
   describe('G1-275 accept label', () => {
     const { RdsDropZoneDefault: ActualDropZone, RdsDropZoneSideIcon: ActualSideIcon } = jest.requireActual('./RdsFileUploaderComponents');
     const dropProps = { mode: 'default', isDragOver: false, disabled: false, onDragOver: jest.fn(), onDragLeave: jest.fn(), onDrop: jest.fn(), openFileDialog: jest.fn() };

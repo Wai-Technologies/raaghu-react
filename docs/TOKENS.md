@@ -626,8 +626,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-text-hint` | `#9e9e9e` | same |
 | `--rds-text-primary` | `#212121` | `#ffffff` |
 | `--rds-text-primary-light` | `#212121` | same |
-| `--rds-text-secondary` | `#757575` | `#bdbdbd` |
-| `--rds-text-secondary-rgb` | `117,117,117` | same |
+| `--rds-text-secondary` | `#646464` | `#bdbdbd` |
+| `--rds-text-secondary-rgb` | `100,100,100` | same |
 | `--rds-text-shadow` | `none` | same |
 | `--rds-text-tertiary` | `#757575` | same |
 

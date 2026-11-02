@@ -254,6 +254,14 @@ describe('RdsTable', () => {
       expect(onRowSelect).toHaveBeenCalledWith(expect.arrayContaining(['1', '2', '3']));
     });
 
+    it('keeps row ids stable across pages when rows have no id', () => {
+      const onRowSelect = jest.fn();
+      const rows = manyRows.map(({ id: _id, ...rest }) => rest);
+      const { container } = setup({ rows, selectable: true, onRowSelect, pagination: true, pageSize: 10, page: 1 });
+      fireEvent.click(container.querySelectorAll('.rds-table__body input[type="checkbox"]')[0]);
+      expect(onRowSelect).toHaveBeenLastCalledWith(['10']);
+    });
+
     it('should deselect all rows when header checkbox is unchecked', () => {
       const onRowSelect = jest.fn();
       const { container } = setup({ selectable: true, selectedRows: ['1', '2', '3'], onRowSelect });

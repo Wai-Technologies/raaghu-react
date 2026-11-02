@@ -49,5 +49,5 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps --ignore-scripts
 
-      - name: Run unit tests
-        run: npm test -- --ci --maxWorkers=2
+      - name: Run unit tests with coverage gate
+        run: npm test -- --ci --maxWorkers=2 --coverage

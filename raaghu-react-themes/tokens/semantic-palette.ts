@@ -97,7 +97,7 @@ function lightSemanticPalette(): SemanticPalette {
     },
     text: {
       primary: n[900],
-      secondary: n[600],
+      secondary: n[700],
       disabled: n[400],
     },
     divider: n[200],

@@ -998,4 +998,37 @@ describe('RdsCompProductTour', () => {
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'topLeft', '`anchorCorner`');
     });
   });
+
+  describe('focus management', () => {
+    it('sets aria-modal and moves focus into the dialog', () => {
+      render(<RdsCompProductTour variant="Image" title="T" />);
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-modal', 'true');
+      expect(dialog).toHaveFocus();
+    });
+
+    it('closes on Escape via onClose and restores focus', async () => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      render(<RdsCompProductTour variant="Image" title="T" onClose={onClose} />);
+      await user.keyboard('{Escape}');
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(opener).toHaveFocus();
+      opener.remove();
+    });
+
+    it('traps Tab within the dialog', async () => {
+      const user = userEvent.setup();
+      render(<RdsCompProductTour variant="Image" title="T" stepsIndicator="1/3" />);
+      const dialog = screen.getByRole('dialog');
+      await user.tab();
+      await user.tab({ shift: true });
+      await user.tab({ shift: true });
+      expect(dialog).toContainElement(document.activeElement as HTMLElement);
+    });
+  });
 });

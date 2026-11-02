@@ -164,6 +164,14 @@ describe('RdsCounter', () => {
       fireEvent.change(textbox(), { target: { value: '42' } });
       expect(handleChange).toHaveBeenCalledWith(42, expect.anything());
     });
+
+    it('calls onChange in uncontrolled mode', () => {
+      const handleChange = jest.fn();
+      render(<RdsCounter defaultValue={3} onChange={handleChange} min={0} max={10} />);
+      fireEvent.click(inc());
+      expect(handleChange).toHaveBeenCalledWith(4, expect.anything());
+      expect(textbox()).toHaveValue('4');
+    });
   });
 
   describe('Mandatory State', () => {

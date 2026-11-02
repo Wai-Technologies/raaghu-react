@@ -21,8 +21,7 @@ const atomOneLightStyle: HighlighterStyle = {
   ...atomOneLightBase,
   hljs: {
     ...atomOneLightHljs,
-    // The snippet root paints the surface, so the code area follows light/dark in single- and multi-line.
-    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+    background: 'transparent',
   },
 };
 
@@ -30,7 +29,7 @@ const darkStyle: HighlighterStyle = {
   ...atomOneLightStyle,
   hljs: {
     ...atomOneLightHljs,
-    background: 'var(--rds-comp-code-snippet-highlighter-bg, transparent)',
+    background: 'transparent',
     color: 'var(--rds-code-color)',
   },
 };

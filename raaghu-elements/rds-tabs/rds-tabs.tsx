@@ -8,7 +8,7 @@ import './rds-tabs.scss';
 
 function capitalizeFirstLetter(text: string): string {
   if (typeof text !== 'string' || text.length === 0) return text;
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 export interface RdsTabItem {

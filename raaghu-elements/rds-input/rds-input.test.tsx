@@ -322,6 +322,15 @@ describe('RdsInput audit fixes', () => {
     expect(event.target.value).toBe('123');
   });
 
+  it('calls onChange once per phone keystroke and caps digits', () => {
+    const onChange = jest.fn();
+    render(<RdsInput layout="phone number" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.input(input, { target: { value: '12345678901234' } });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(input).toHaveValue('1234567890');
+  });
+
   it('links the visible label to the input (G2-039)', () => {
     render(<RdsInput label="Email" titlePosition="title-above" />);
     expect(screen.getByLabelText('Email')).toBe(screen.getByRole('textbox'));

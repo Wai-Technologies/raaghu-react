@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsFab, { type RdsFabProps } from './rds-fab';
 import * as deprecation from '../shared/utils/deprecation';
+import * as a11yWarnings from '../shared/utils/a11y-warnings';
 
 jest.mock('./rds-fab.scss', () => ({}));
 
@@ -517,5 +518,16 @@ describe('RdsFab additive renames', () => {
   it('forwards data-testid to the root button', () => {
     render(<RdsFab data-testid="add-fab" aria-label="Add" startIcon={<span>★</span>} />);
     expect(screen.getByTestId('add-fab')).toBe(screen.getByRole('button', { name: 'Add' }));
+  });
+});
+
+describe('RdsFab accessible name warning', () => {
+  it('warns only when an icon-only fab has no accessible name', () => {
+    const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName');
+    render(<RdsFab startIcon={<span>+</span>} aria-label="Add" />);
+    expect(warn).not.toHaveBeenCalled();
+    render(<RdsFab startIcon={<span>+</span>} />);
+    expect(warn).toHaveBeenCalledWith('RdsFab', expect.any(String));
+    warn.mockRestore();
   });
 });

@@ -118,7 +118,12 @@ describe('RdsTabs', () => {
       renderWithTheme(
         <RdsTabs tabs={mixedCaseTabs} />
       );
-      expect(screen.getByRole('tab', { name: /Abcdef/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: 'ABcDeF' })).toBeInTheDocument();
+    });
+
+    it('keeps acronyms and brand casing after the first letter', () => {
+      renderWithTheme(<RdsTabs tabs={[{ id: 'tab1', label: 'iOS Settings' }]} />);
+      expect(screen.getByRole('tab', { name: 'IOS Settings' })).toBeInTheDocument();
     });
 
     it('should handle empty label', () => {

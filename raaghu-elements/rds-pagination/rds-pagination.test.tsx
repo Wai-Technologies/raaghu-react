@@ -279,6 +279,7 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} showManualInput={true} />
       );
       expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
+      expect(screen.getByRole('spinbutton', { name: 'Go to page' })).toBeInTheDocument();
     });
 
     it('should not render manual input by default', () => {

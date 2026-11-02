@@ -115,14 +115,18 @@ const RdsCarousel = ({
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const paused = hovered || focused;
+
   useEffect(() => {
-    if (autoPlay && slideCount > 1) {
+    if (autoPlay && !paused && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, slideCount]);
+  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, paused, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);
@@ -155,6 +159,13 @@ const RdsCarousel = ({
       aria-roledescription="carousel"
       aria-label="Carousel"
       {...rest}
+      onMouseEnter={(event) => { setHovered(true); rest.onMouseEnter?.(event); }}
+      onMouseLeave={(event) => { setHovered(false); rest.onMouseLeave?.(event); }}
+      onFocus={(event) => { setFocused(true); rest.onFocus?.(event); }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
+        rest.onBlur?.(event);
+      }}
       ref={ref}
       style={typeof styleProp === 'object' ? styleProp : undefined}
       className={carouselClassName}

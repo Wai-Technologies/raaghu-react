@@ -1221,7 +1221,7 @@ export const semanticAliasTokens = {
   /** Primary hover alias (explicit) */
   rdsPrimaryHover: colorTokens.primary[750],
   /** Secondary text color alias */
-  rdsTextSecondary: colorTokens.neutral[600],
+  rdsTextSecondary: colorTokens.neutral[700],
   /** Default border color used across components */
   rdsBorderDefault: colorTokens.neutral[400],
   /** Medium border radius alias */

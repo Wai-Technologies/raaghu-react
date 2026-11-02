@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCarousel, { RdsCarouselProps } from './rds-carousel';
 import '@testing-library/jest-dom';
@@ -165,6 +165,24 @@ describe('RdsCarousel', () => {
       expect(slide(3)).toBeInTheDocument();
       jest.advanceTimersByTime(1000);
       expect(slide(1)).toBeInTheDocument();
+    });
+
+    it('pauses autoplay while hovered or focused (WCAG 2.2.2)', () => {
+      const onMouseEnter = jest.fn();
+      const onActiveIndexChange = jest.fn();
+      setup({ autoPlay: true, autoPlayInterval: 1000, onMouseEnter, activeIndex: 0, onActiveIndexChange });
+      const region = screen.getByRole('region');
+      fireEvent.mouseEnter(region);
+      act(() => { jest.advanceTimersByTime(1500); });
+      expect(onActiveIndexChange).not.toHaveBeenCalled();
+      expect(onMouseEnter).toHaveBeenCalled();
+      fireEvent.mouseLeave(region);
+      fireEvent.focus(region);
+      act(() => { jest.advanceTimersByTime(1500); });
+      expect(onActiveIndexChange).not.toHaveBeenCalled();
+      fireEvent.blur(region);
+      act(() => { jest.advanceTimersByTime(1500); });
+      expect(onActiveIndexChange).toHaveBeenCalledWith(1);
     });
 
     it('should not autoplay with single slide', () => {
