@@ -78,7 +78,7 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   onDismiss?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   /** Called with the click event and the notification when the primary button is clicked. */
   onAccept?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
-  /** Legacy boolean, still supported. */
+  /** Legacy boolean, still supported. `false` hides all action buttons. */
   showButton?: boolean;
   /** Legacy boolean, still supported. */
   showPrimaryButton?: boolean;

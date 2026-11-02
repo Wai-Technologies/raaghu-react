@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -8,6 +8,7 @@ import {
     Chip,
     Typography,
     Popover,
+    InputBase,
     IconButton,
     type SxProps,
     type Theme,
@@ -121,6 +122,8 @@ export interface RdsCompEmojiGeneratorProps {
     maxEmojis?: number;
     /** Called when the user picks a category tab. */
     onCategoryChange?: (category: EmojiCategory) => void;
+    /** Called with the event and the text as the user types in the footer mood input, which filters emojis across all categories. */
+    onMoodChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, mood: string) => void;
     /** Quick reactions mode: called when the "+" button is clicked. When omitted, `onEmojiSelect('+')` is called. */
     onMoreClick?: () => void;
     /** Emojis shown in quick reactions mode. Defaults to the built-in set. */
@@ -161,6 +164,7 @@ const RdsCompEmojiGenerator = ({
     onEmojiSelect,
     maxEmojis = 80,
     onCategoryChange,
+    onMoodChange,
     onMoreClick,
     quickReactions = QUICK_EMOJIS,
     flagBaseUrl = DEFAULT_FLAG_BASE_URL,
@@ -194,6 +198,7 @@ const RdsCompEmojiGenerator = ({
     const currentCategory = selectedCategory;
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [mood, setMood] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
     const [emojiDataReady, setEmojiDataReady] = useState(() => isEmojiDataReady());
@@ -226,11 +231,13 @@ const RdsCompEmojiGenerator = ({
         () => (
             !emojiDataReady
                 ? []
-                : searchTerm
-                    ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
-                    : getEmojisByCategory(currentCategory, selectedSkinTone)
+                : mood.trim()
+                    ? searchEmojis(mood, undefined, selectedSkinTone)
+                    : searchTerm
+                        ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
+                        : getEmojisByCategory(currentCategory, selectedSkinTone)
         ),
-        [emojiDataReady, searchTerm, currentCategory, selectedSkinTone]
+        [emojiDataReady, mood, searchTerm, currentCategory, selectedSkinTone]
     );
     const displayEmojis = useMemo(
         () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
@@ -356,7 +363,7 @@ const RdsCompEmojiGenerator = ({
             <Box className="rds-emoji-generator__grid">
                 <Box className="rds-emoji-generator__category-title">
                     <Typography variant="h6" className="rds-emoji-generator__category-title-text">
-                        {CATEGORY_TABS.find(t => t.id === currentCategory)?.title || "Emojis"}
+                        {mood.trim() ? "Search Results" : CATEGORY_TABS.find(t => t.id === currentCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container" tabIndex={0}>
@@ -388,9 +395,17 @@ const RdsCompEmojiGenerator = ({
             {showFooter && resolvedType === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__footer">
                     <Typography className="rds-emoji-generator__footer-emoji">🙂</Typography>
-                    <Typography className="rds-emoji-generator__footer-text" variant="body2">
-                        {moodPrompt}
-                    </Typography>
+                    <InputBase
+                        className="rds-emoji-generator__footer-input"
+                        placeholder={moodPrompt}
+                        value={mood}
+                        onChange={(e) => {
+                            setMood(e.target.value);
+                            onMoodChange?.(e, e.target.value);
+                        }}
+                        fullWidth
+                        slotProps={{ input: { 'aria-label': moodPrompt } }}
+                    />
                 </Box>
             )}
         </Box>
