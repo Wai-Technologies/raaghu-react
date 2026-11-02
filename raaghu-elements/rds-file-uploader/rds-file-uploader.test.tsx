@@ -573,6 +573,14 @@ describe('audit fixes', () => {
       expect(screen.getByText('(DOCX)')).toBeInTheDocument();
     });
 
+    it.each([
+      ['default', ActualDropZone],
+      ['side-icon', ActualSideIcon],
+    ])('disables the Browse button in the %s drop zone', (_name, DropZone) => {
+      render(<DropZone {...dropProps} disabled />);
+      expect(screen.getByRole('button', { name: 'Browse' })).toBeDisabled();
+    });
+
     it('passes accept to the drop zones', () => {
       render(<RdsFileUploader mode="default" accept=".pdf" />);
       expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-accept', '.pdf');

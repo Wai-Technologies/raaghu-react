@@ -70,25 +70,25 @@ function lightSemanticPalette(): SemanticPalette {
     error: {
       main: e[700],
       light: e[100],
-      dark: e[600],
+      dark: e[750],
       contrastText: white,
     },
     warning: {
       main: w[700],
       light: w[100],
-      dark: w[600],
+      dark: w[750],
       contrastText: white,
     },
     success: {
       main: su[700],
       light: su[100],
-      dark: su[600],
+      dark: su[750],
       contrastText: white,
     },
     info: {
       main: i[400],
       light: i[50],
-      dark: i[600],
+      dark: i[800],
       contrastText: white,
     },
     background: {

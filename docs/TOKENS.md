@@ -320,7 +320,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-error-contrast-text` | `#ffffff` | same |
-| `--rds-error-dark` | `#e53935` | `#ef5350` |
+| `--rds-error-dark` | `#930011` | `#ef5350` |
 | `--rds-error-light` | `#ffcdd2` | same |
 | `--rds-error-main` | `#BD0D1D` | same |
 | `--rds-error-rgb` | `189,13,29` | same |
@@ -396,7 +396,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-info-contrast-text` | `#ffffff` | same |
-| `--rds-info-dark` | `#1976D2` | `#42a5f5` |
+| `--rds-info-dark` | `#0D47A1` | `#42a5f5` |
 | `--rds-info-light` | `#BBDEFB` | `#bbdefb` |
 | `--rds-info-main` | `#2196F3` | `#3C98FF` |
 | `--rds-info-rgb` | `33,150,243` | same |
@@ -613,7 +613,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-success-contrast-text` | `#ffffff` | same |
-| `--rds-success-dark` | `#43a047` | `#66bb6a` |
+| `--rds-success-dark` | `#1D5E2A` | `#66bb6a` |
 | `--rds-success-light` | `#c8e6c8` | same |
 | `--rds-success-main` | `#1F7630` | same |
 | `--rds-success-rgb` | `31,118,48` | same |
@@ -651,7 +651,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-warning-contrast-text` | `#ffffff` | same |
-| `--rds-warning-dark` | `#fdd835` | `#ffee58` |
+| `--rds-warning-dark` | `#9A4012` | `#ffee58` |
 | `--rds-warning-light` | `#fff9c4` | same |
 | `--rds-warning-main` | `#C2510C` | same |
 | `--rds-warning-rgb` | `194,81,12` | same |
@@ -755,7 +755,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-ai-typing-textarea-height` | `100px` | same |
 | `--rds-alert-error-bg` | `#FFDAD6` | `rgba(189, 13, 29, 0.15)` |
 | `--rds-alert-error-border` | `#BD0D1D` | same |
-| `--rds-alert-error-text` | `#e53935` | `#BD0D1D` |
+| `--rds-alert-error-text` | `#930011` | `#BD0D1D` |
 | `--rds-alert-info-bg` | `#ffffff` | `#424242` |
 | `--rds-alert-info-border` | `#646464` | `#bdbdbd` |
 | `--rds-alert-info-text` | `#1976D2` | `#3C98FF` |
@@ -770,7 +770,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-alert-style1-shadow` | `0px 12px 20px -4px rgba(0, 0, 0, 0.15)` | same |
 | `--rds-alert-success-bg` | `#e3f2fd` | `rgba(31, 118, 48, 0.15)` |
 | `--rds-alert-success-border` | `#7825E9` | `#1F7630` |
-| `--rds-alert-success-text` | `#43a047` | `#1F7630` |
+| `--rds-alert-success-text` | `#1D5E2A` | `#1F7630` |
 | `--rds-alert-warning-bg` | `#FED99B` | `rgba(160, 120, 0, 0.15)` |
 | `--rds-alert-warning-border` | `#C2510C` | same |
 | `--rds-alert-warning-text` | `#C2510C` | same |
