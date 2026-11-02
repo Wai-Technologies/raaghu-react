@@ -24,7 +24,7 @@ const RdsCompAppShellItem = ({
 }: RdsCompAppShellItemProps) => {
   return (
     <Box {...rest} className={clsx("rds-comp-app-shell-item", className)}>
-      <Heading className="rds-comp-app-shell-item__header">{title}</Heading>
+      <Heading className={clsx("rds-comp-app-shell-item__header", `rds-comp-app-shell-item__header--${Heading}`)}>{title}</Heading>
       <div className="rds-comp-app-shell-item__content">{children}</div>
     </Box>
   );

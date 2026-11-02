@@ -22,9 +22,9 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   children?: ReactNode;
   /** Action content rendered in the dialog footer. */
   actions?: ReactNode;
-  /** Figma alias of `showCloseButton` (Figma "Show Dismiss"); kept without a warning. Prefer `showCloseButton`. */
+  /** @deprecated Use `showCloseButton`. */
   showDissmiss?: boolean;
-  /** Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`. */
+  /** Shows the close button. @default true */
   showCloseButton?: boolean;
   /**
    * MUI's `onClose(event, reason)`: `reason` is `'backdropClick'` or `'escapeKeyDown'` when MUI closes the dialog.
@@ -104,7 +104,9 @@ const RdsDialog = ({
 }: RdsDialogProps) => {
   if (showTitleProp !== undefined) warnDeprecatedProp('RdsDialog', 'showTitle', '`title={undefined}`');
   if (size !== undefined) warnDeprecatedProp('RdsDialog', 'size', '`maxWidth`');
-  if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');  const showTitle = showTitleProp ?? true;
+  if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');
+  if (showDissmiss !== undefined) warnDeprecatedProp('RdsDialog', 'showDissmiss', '`showCloseButton`');
+  const showTitle = showTitleProp ?? true;
   const showClose = showCloseButtonProp ?? showDissmiss ?? true;
   const resolvedSize = size ?? 'medium';
   const titleId = useId();

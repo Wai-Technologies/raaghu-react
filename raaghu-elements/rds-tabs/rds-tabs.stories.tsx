@@ -103,6 +103,25 @@ const iconMap = {
   Home: <HomeIcon fontSize="small" />,
 };
 
+/** Shared render: `showLeftIcon` / `showRightIcon` decide whether the selected icons are passed. */
+const renderTabs: Story['render'] = (args) => {
+  const { startIcon, endIcon, showLeftIcon, showRightIcon, level, title, ...rest } = args as any;
+  let tabs = (args.items || []).slice(0, level || 1);
+  if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
+    tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
+  }
+  return (
+    <RdsTabs
+      {...rest}
+      items={tabs}
+      showLeftIcon={showLeftIcon}
+      showRightIcon={showRightIcon}
+      startIcon={showLeftIcon ? iconMap[startIcon as keyof typeof iconMap] : undefined}
+      endIcon={showRightIcon ? iconMap[endIcon as keyof typeof iconMap] : undefined}
+    />
+  );
+};
+
 export const Default: Story = {
   args: {
     items: sampleTabs,
@@ -110,25 +129,11 @@ export const Default: Story = {
     layout: 'filled',
     startIcon: 'Person',
     endIcon: 'Add',
+    showLeftIcon: true,
+    showRightIcon: true,
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabs,
 };
 
 export const ManyTabs: Story = {
@@ -138,26 +143,12 @@ export const ManyTabs: Story = {
     layout: "filled",
     startIcon: 'Person',
     endIcon: 'Add',
+    showLeftIcon: true,
+    showRightIcon: true,
     orientation: "horizontal",
     level: 5
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabs,
 };
 
 export const SecondTabActive: Story = {
@@ -167,25 +158,11 @@ export const SecondTabActive: Story = {
     layout: 'filled',
     startIcon: 'Person',
     endIcon: 'Add',
+    showLeftIcon: true,
+    showRightIcon: true,
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabs,
 };
 
 export const SimpleTabs: Story = {
@@ -204,24 +181,10 @@ export const SimpleTabs: Story = {
     layout: 'filled',
     startIcon: 'Person',
     endIcon: 'Add',
+    showLeftIcon: true,
+    showRightIcon: true,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabs,
 };
 
 export const Vertical: Story = {
@@ -232,23 +195,9 @@ export const Vertical: Story = {
     layout: 'filled',
     startIcon: 'Person',
     endIcon: 'Add',
+    showLeftIcon: true,
+    showRightIcon: true,
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabs,
 };

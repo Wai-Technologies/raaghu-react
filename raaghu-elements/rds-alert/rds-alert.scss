@@ -225,16 +225,42 @@
     }
   }
 
-  &--small {
+  // `&.` doubles the class so the size wins over the theme's MuiAlert root padding.
+  &.rds-alert--small {
     padding: var(--rds-alert-padding-sm);
+    gap: var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-xs);
+
+    .rds-alert__icon {
+      font-size: var(--rds-font-size-md);
+    }
+
+    .rds-alert__wrapper {
+      gap: var(--rds-spacing-sm);
+    }
   }
 
-  &--medium {
+  &.rds-alert--medium {
     padding: var(--rds-alert-padding-md);
+    font-size: var(--rds-font-size-sm);
+
+    .rds-alert__icon {
+      font-size: var(--rds-font-size-lg);
+    }
   }
 
-  &--large {
+  &.rds-alert--large {
     padding: var(--rds-alert-padding-lg);
+    gap: var(--rds-spacing-md);
+    font-size: var(--rds-font-size-md);
+
+    .rds-alert__icon {
+      font-size: var(--rds-font-size-2xl);
+    }
+
+    .rds-alert__wrapper {
+      gap: var(--rds-spacing-lg);
+    }
   }
 
   &--style1 {
