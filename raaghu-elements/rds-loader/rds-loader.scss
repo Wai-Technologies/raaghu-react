@@ -520,6 +520,12 @@
   animation: rds-loader-loader var(--rds-loader-duration-1-5s) infinite var(--rds-loader-bounce-easing);
 }
 
+@keyframes rds-loader-loader {
+  33% { inset: -11.2px; transform: rotate(0deg); }
+  66% { inset: -11.2px; transform: rotate(90deg); }
+  100% { inset: 0; transform: rotate(90deg); }
+}
+
 .rds-loader__rotate, .rds-loader__rotate::before, .rds-loader__rotate::after {
   border-width: var(--rds-border-width-medium);
   border-style: solid;
