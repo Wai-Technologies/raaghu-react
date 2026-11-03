@@ -633,7 +633,7 @@ describe('RdsAppBar additive renames', () => {
     expect(screen.getByText('a')).toBeInTheDocument();
     expect(screen.getByText('c')).toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'rightActions', '`endSlot`');
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'actions', '`endSlot`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'actions', '`endSlot` (unlike `actions`, it stays visible next to the profile menu, so omit `userName`/`userEmail` to hide the menu)');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'centerContent', '`centerSlot`');
   });
 

@@ -37,7 +37,7 @@ This folder contains all technical guides for the Raaghu Design System. Start wi
 
 | Guide | What It Covers |
 |-------|---------------|
-| [LOCALIZATION_GUIDE.md](./LOCALIZATION_GUIDE.md) | i18next setup, supported locales, RTL support |
+| [LOCALIZATION_GUIDE.md](./LOCALIZATION_GUIDE.md) | Translating component text, date locales, known gaps |
 
 ---
 

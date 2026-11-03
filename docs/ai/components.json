@@ -1031,7 +1031,7 @@
       "deprecatedProps": [
         {
           "name": "actions",
-          "use": "Use `endSlot` instead."
+          "use": "Use `endSlot`. Unlike `actions`, `endSlot` is not hidden when the profile menu (`userName` + `userEmail`) is shown."
         },
         {
           "name": "centerContent",
