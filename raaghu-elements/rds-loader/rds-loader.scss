@@ -141,8 +141,13 @@
 
 .rds-loader__type-wrap {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-block: var(--rds-spacing-xl);
+
+  > [class^='rds-loader__'] {
+    flex-shrink: 0;
+  }
 }
 
 .rds-loader__label-wrap {
