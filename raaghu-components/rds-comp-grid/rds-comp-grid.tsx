@@ -899,7 +899,7 @@ const RdsCompGrid = ({
     }
 
     return filtered;
-  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData]);
+  }, [searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, enableRowSwapping, localTableData, currentData, tableHeaders]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -1775,48 +1775,7 @@ const RdsCompGrid = ({
     getColumnCount: () => tableHeaders.length,
     getFilteredRowCount: () => processedData.length,
     getSelectedRowCount: () => selectedRows.size,
-  }), [
-    currentData,
-    controlledData,
-    onDataChange,
-    setInternalData,
-    selectedRows,
-    setSelectedRows,
-    processedData,
-    filterState,
-    setFilterState,
-    onFilterChange,
-    searchValue,
-    setSearchValue,
-    sortColumn,
-    sortDirection,
-    setSortColumn,
-    setSortDirection,
-    onSortChange,
-    currentPage,
-    setCurrentPage,
-    recordsPerPage,
-    onPagination,
-    visibleColumns,
-    setVisibleColumns,
-    handleColumnVisibilityChange,
-    tableHeaders,
-    columnWidths,
-    setColumnWidths,
-    isCollapsed,
-    setIsCollapsed,
-    enableInlineEdit,
-    inlineEditMode,
-    editingCell,
-    editingRow,
-    handleRowEditStart,
-    handleCellEditStart,
-    handleCellEditCancel,
-    handleRowEditCancel,
-    getVisibleHeaders,
-    tableRef,
-    getRowById
-  ]);
+  }));
 
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
