@@ -153,7 +153,6 @@
     display: inline-block;
     width: 100%;
     max-width: var(--rds-datepicker-dim-11);
-    margin-top: 0.25rem;
 
     .rds-datepicker__input-container {
       width: 100%;
@@ -350,6 +349,30 @@ font-weight: var(--rds-font-weight-bold);
     }
   }
   
+  // Calendar and clear buttons live in the input's end adornment; they flow inline instead of
+  // being absolutely positioned over the field.
+  &__adornment {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rds-spacing-xs);
+
+    .rds-datepicker__icon-container,
+    .rds-datepicker__clear-button {
+      position: static;
+      transform: none;
+      pointer-events: auto;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    .rds-datepicker__clear-button {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
   &__custom-input {
     display: flex;
     justify-content: space-between;
