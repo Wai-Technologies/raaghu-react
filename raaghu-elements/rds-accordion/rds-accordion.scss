@@ -306,7 +306,7 @@
     }
 
     .rds-accordion__details-panel {
-      background: var(--rds-color-surface);
+      background: var(--rds-color-primary-hover);
     }
 
     .rds-accordion__title {
@@ -339,6 +339,12 @@
 
     &.rds-accordion--selected {
       .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+        background-color: var(--rds-color-primary-hover);
+      }
+
+      // Beat the expanded-state surface rules so the whole expanded body is tinted, not just the header.
+      .rds-accordion__details,
+      .rds-accordion__details-panel {
         background-color: var(--rds-color-primary-hover);
       }
 

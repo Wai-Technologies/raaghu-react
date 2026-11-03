@@ -48,15 +48,11 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color' 
   /** Which corner(s) the status dot is shown on. Use `'both'` for top and bottom dots. */
   statusPosition?: 'top' | 'bottom' | 'both';
   /**
-   * Show the top status dot. Can be combined with `activeDotBottom` to show both.
-   * When `status` is set, prefer `statusPosition` (`'top' | 'bottom' | 'both'`).
+   * Show the top status dot. Ignored when `status` is set.
    * @deprecated Prefer `status="online"` with `statusPosition`.
    */
   activeDotTop?: boolean;
-  /**
-   * Show the bottom status dot. Can be combined with `activeDotTop` to show both.
-   * @deprecated Prefer `status="online"` with `statusPosition`.
-   */
+  /** @deprecated Use `status="online"` with `statusPosition="bottom"` (or `"both"`). */
   activeDotBottom?: boolean;
   /** @deprecated Omit `name` to hide the name. */
   showName?: boolean;
@@ -136,7 +132,7 @@ const RdsAvatar = ({
   if (subText !== undefined) warnDeprecatedProp('RdsAvatar', 'subText', '`description`');
   if (maxVisibleAvatars !== undefined) warnDeprecatedProp('RdsAvatar', 'maxVisibleAvatars', '`max`');
   if (activeDotTopProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotTop', '`status` and `statusPosition`');
-  if (activeDotBottomProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotBottom', '`status` and `statusPosition`');
+  if (activeDotBottomProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotBottom', '`status="online"` with `statusPosition="bottom"`');
   if (color === 'danger' || colorVariantProp === 'danger') {
     warnDeprecatedProp('RdsAvatar', 'color="danger"', '`color: "error"`');
   }
