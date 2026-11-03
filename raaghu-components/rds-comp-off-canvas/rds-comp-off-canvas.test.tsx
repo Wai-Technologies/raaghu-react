@@ -12,6 +12,7 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 jest.mock('@mui/material', () => ({
   Drawer: ({ children, anchor, open, onClose, className, id, slotProps, ...props }: any) => {
     (globalThis as any).__drawerProps = { anchor, open, onClose, slotProps, ...props };
+    const { disableEscapeKeyDown, hideBackdrop, ...domProps } = props;
     return (
     open ? (
       <div
@@ -20,7 +21,7 @@ jest.mock('@mui/material', () => ({
         data-open={open}
         className={className}
         id={id}
-        {...props}
+        {...domProps}
       >
         {children}
       </div>

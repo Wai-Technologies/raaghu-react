@@ -18,7 +18,7 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, style, ...props }: any) {
+  return function MockRdsButton({ children, style, showLeftIcon, showRightIcon, changeLeftIcon, changeRightIcon, textCase, ...props }: any) {
     return <button data-testid="rds-button" {...props}>{children}</button>;
   };
 });

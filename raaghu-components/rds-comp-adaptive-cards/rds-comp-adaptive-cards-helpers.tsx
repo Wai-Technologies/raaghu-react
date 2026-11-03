@@ -228,7 +228,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             }
             items.push(
               <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" style={{ height: undefined }} onClick={() => onImageClick && onImageClick(index)}>
-                <img src={src} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
+                <img src={src || undefined} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
               </ImageListItem>
             );
             return items;
@@ -291,7 +291,7 @@ export function FootballScorecardCard({
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
             {homeTeam?.logo ? (
               <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--home">
-                <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
+                <img src={homeTeam.logo || undefined} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
               </RdsBox>
             ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{homeTeam?.name}</RdsTypography>
@@ -310,7 +310,7 @@ export function FootballScorecardCard({
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
              {awayTeam?.logo ? (
                 <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--away">
-                  <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
+                  <img src={awayTeam.logo || undefined} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
                 </RdsBox>
               ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam?.name}</RdsTypography>

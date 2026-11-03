@@ -148,9 +148,9 @@ const RdsSelect = ({
             ...(resolvedHelperText ? { 'aria-describedby': helperTextId } : {}),
           }}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <MenuItem 
-              key={option.value} 
+              key={`${option.value}-${index}`} 
               value={option.value}
               disabled={option.disabled}
               className="rds-select__option"

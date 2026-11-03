@@ -24,7 +24,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-modal/rds-modal', () => {
-  return function MockRdsModal({ isOpen, open, onClose, title, children, showCloseButton, hideCloseButton, ...props }: any) {
+  return function MockRdsModal({ isOpen, open, onClose, title, children, showCloseButton, hideCloseButton, slotProps, ...props }: any) {
     if (!(open ?? isOpen)) return null;
     return (
       <div data-testid="rds-modal" {...props}>
@@ -49,12 +49,13 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
     value, 
     onChange, 
     placeholder, 
-    hintText, 
+    hintText,
+    helperText,
     ...props 
   }: any) {
     return (
       <div data-testid="rds-input-wrapper">
-        {hintText && <small data-testid="hint-text">{hintText}</small>}
+        {(hintText ?? helperText) && <small data-testid="hint-text">{hintText ?? helperText}</small>}
         <input
           data-testid="rds-input"
           value={value}
@@ -68,7 +69,7 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
 });
 
 jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
-  return function MockRdsCompAiFabMenu({ items, listItems, icon, menuIcon, placement, alignment, variant: _variant, backgroundType: _backgroundType, bordered: _bordered, isShowBorder: _isShowBorder, dense: _dense, ...props }: any) {
+  return function MockRdsCompAiFabMenu({ items, listItems, icon, menuIcon, placement, alignment, variant: _variant, backgroundType: _backgroundType, bordered: _bordered, isShowBorder: _isShowBorder, dense: _dense, slotProps: _slotProps, ...props }: any) {
     return (
       <div data-testid="rds-fab-menu" data-alignment={placement ?? alignment} {...props}>
         <button data-testid="fab-menu-trigger" style={{ cursor: 'pointer' }}>

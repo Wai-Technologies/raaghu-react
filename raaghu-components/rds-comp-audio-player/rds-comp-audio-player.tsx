@@ -499,7 +499,7 @@ const RdsCompAudioPlayer = ({
   });
 
   const audioNode = (
-    <audio ref={setAudioRef} src={src} aria-label="Audio playback">
+    <audio ref={setAudioRef} src={src || undefined} aria-label="Audio playback">
       <track kind="captions" srcLang="en" label="English captions" />
     </audio>
   );

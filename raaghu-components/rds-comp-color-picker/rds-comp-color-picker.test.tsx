@@ -23,7 +23,7 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
+  return function MockRdsButton({ children, onClick, disabled, style, color, showLeftIcon, showRightIcon, changeLeftIcon, changeRightIcon, textCase, ...props }: any) {
     return (
       <button data-testid="rds-button" onClick={onClick} disabled={disabled} {...props}>
         {children}

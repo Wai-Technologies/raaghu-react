@@ -324,11 +324,11 @@ const RdsCompChat = ({
           <div className="rds-comp-chat__window-main">
             {state.activeTab === "chat" ? (
               <>
-                {state.commentList.map((comment) => {
+                {state.commentList.map((comment, commentIndex) => {
                   const isCurrentUser = comment.firstName === state.currentUser?.firstName && comment.lastName === state.currentUser?.lastName;
                   return (
                     <ChatMessage
-                      key={`${comment.firstName}-${comment.lastName}-${comment.comment}`}
+                      key={`${comment.firstName}-${comment.lastName}-${comment.comment}-${commentIndex}`}
                       comment={comment}
                       isCurrentUser={isCurrentUser}
                       currentUserCommentBgColor={currentUserCommentBgColor}

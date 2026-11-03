@@ -27,7 +27,7 @@ jest.mock('../../raaghu-elements', () => ({
     <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{children ?? buttonText}</button>
   ),
   RdsAvatar: ({ src, className, ...props }: any) => (
-    <img src={src} className={className} alt="avatar" data-testid="rds-avatar" {...props} />
+    <img src={src || undefined} className={className} alt="avatar" data-testid="rds-avatar" {...props} />
   ),
   RdsRadio: ({ options, value, onChange, className, ...props }: any) => (
     <div className={className} data-testid="rds-radio" {...props}>
@@ -128,7 +128,7 @@ jest.mock('../../raaghu-elements/rds-typography/rds-typography', () => {
 
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar({ src, name, className, ...props }: any) {
-    return <img src={src} className={className} alt={name || 'avatar'} data-testid="rds-avatar-standalone" {...props} />;
+    return <img src={src || undefined} className={className} alt={name || 'avatar'} data-testid="rds-avatar-standalone" {...props} />;
   };
 });
 

@@ -46,7 +46,7 @@ const GRID_SIZE = {
 } as const;
 
 const getItemKey = (item: Item, index: number): string =>
-  String(item.id ?? item.username ?? item.name ?? `review-${index}`);
+  `${item.id ?? item.username ?? item.name ?? 'review'}-${index}`;
 
 const RdsCompReviews = ({
   items,

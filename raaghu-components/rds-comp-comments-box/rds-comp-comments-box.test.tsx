@@ -8,7 +8,7 @@ import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-com
 jest.mock('./rds-comp-comments-box.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,
-  default: function MockRdsAvatar({ children, className, ...props }: any) {
+  default: function MockRdsAvatar({ children, className, showName, showDesignation, ...props }: any) {
     return <div data-testid="rds-avatar" className={className} {...props}>{children}</div>;
   },
 }));

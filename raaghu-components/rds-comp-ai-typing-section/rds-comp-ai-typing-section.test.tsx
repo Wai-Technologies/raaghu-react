@@ -51,7 +51,7 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
     default: function MockRdsCompAiIcon(props: any) {
-      const { colorVariant, isCursorPointer, name, ...svgProps } = props;
+      const { colorVariant, isCursorPointer, name, stroke, ...svgProps } = props;
       Object.keys(svgProps).forEach(key => {
         if (key.startsWith('is') || key.startsWith('show') || key.startsWith('backgroundType') || key.startsWith('styleType')) {
           delete svgProps[key];

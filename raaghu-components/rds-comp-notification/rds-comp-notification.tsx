@@ -24,8 +24,8 @@ const CustomBellIcon = () => (
 
 const EMPTY_NOTIFICATIONS: NotificationItem[] = [];
 
-const getNotificationKey = (notification: NotificationItem, index: number): string | number =>
-    notification.id ?? notification.userNotificationId ?? `${notification.title}-${index}`;
+const getNotificationKey = (notification: NotificationItem, index: number): string =>
+    `${notification.id ?? notification.userNotificationId ?? notification.title}-${index}`;
 
 const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string } = ({
     items,
@@ -86,7 +86,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
         .map((notification, index) => ({ notification, key: getNotificationKey(notification, index) }))
         .filter(({ key }) => isReset || !dismissedNotificationKeys.includes(key));
 
-    const dismissNotification = (event: MouseEvent<HTMLElement>, notification: NotificationItem, key: string | number) => {
+    const dismissNotification = (event: MouseEvent<HTMLElement>, notification: NotificationItem, key: string) => {
         setDismissedNotificationKeys((prev) => prev.includes(key) ? prev : [...prev, key]);
         onDismiss?.(event, notification);
     };

@@ -52,7 +52,7 @@ const RdsTimeline = ({
         const opposite = item.opposite ?? (showTime ? item.time : undefined);
         return (
           <MuiTimelineItem
-            key={item.id}
+            key={`${item.id}-${index}`}
             sx={
               !opposite && !isAlternate
                 ? {

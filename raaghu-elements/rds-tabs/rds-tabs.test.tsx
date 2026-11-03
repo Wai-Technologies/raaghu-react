@@ -250,7 +250,7 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
       expect(onTabChange).toHaveBeenCalled();
     });
@@ -262,7 +262,7 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
       expect(onTabChange).toHaveBeenCalled();
     });
@@ -272,7 +272,7 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onChange={onChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
       expect(onChange).toHaveBeenCalled();
     });
@@ -283,7 +283,7 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} onChange={onChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
       expect(onTabChange).toHaveBeenCalled();
       expect(onChange).toHaveBeenCalled();
@@ -447,16 +447,16 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={numericTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
-      expect(onTabChange).toHaveBeenCalledWith(1);
+      expect(onTabChange).toHaveBeenCalledWith(2);
     });
   });
 
   describe('Custom Props', () => {
     it('should pass through MuiTabs props', () => {
       const { container } = renderWithTheme(
-        <RdsTabs tabs={mockTabs} centered variant="scrollable" />
+        <RdsTabs tabs={mockTabs} centered variant="fullWidth" />
       );
       const tablist = container.querySelector('[role="tablist"]');
       expect(tablist).toBeInTheDocument();
@@ -527,7 +527,7 @@ describe('RdsTabs', () => {
       fireEvent.click(tabs[1]);
       fireEvent.click(tabs[2]);
       
-      expect(onTabChange).toHaveBeenCalledTimes(3);
+      expect(onTabChange).toHaveBeenCalledTimes(2);
     });
 
     it('should work with different layouts and icons', () => {
@@ -566,7 +566,7 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
       
-      const tab = container.querySelector('[role="tab"]');
+      const tab = container.querySelectorAll('[role="tab"]')[1];
       fireEvent.click(tab!);
       expect(onTabChange).toHaveBeenCalled();
 

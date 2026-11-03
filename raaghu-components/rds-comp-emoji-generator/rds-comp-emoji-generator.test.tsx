@@ -20,7 +20,7 @@ jest.mock('@mui/material', () => ({
       </div>
     )
   )),
-  TextField: ({ value, onChange, placeholder, InputProps, slotProps, ...props }: any) => {
+  TextField: ({ value, onChange, placeholder, InputProps, slotProps, fullWidth, ...props }: any) => {
     const handleChange = (e: any) => {
       if (onChange) {
         onChange(e);
@@ -56,9 +56,9 @@ jest.mock('@mui/material', () => ({
   ),
   Popover: ({ open, children, onClose }: any) => (
     open ? (
-      <button type="button" data-testid="skin-tone-popover" onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
+      <div role="presentation" data-testid="skin-tone-popover" onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
         {children}
-      </button>
+      </div>
     ) : null
   ),
   IconButton: ({ children, onClick, disabled, className, style, title, size, ...props }: any) => (

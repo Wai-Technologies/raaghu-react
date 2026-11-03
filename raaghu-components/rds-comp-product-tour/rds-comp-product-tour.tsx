@@ -217,7 +217,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__image-section">
-                        <img src={effectiveSlides[currentIndex] ? effectiveSlides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
+                        <img src={effectiveSlides[currentIndex]?.imgUrl || undefined} alt="Tour Step" className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
                     <Box className="rds-comp-product-tour__image-section" sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', background: 'transparent' }} />
@@ -241,7 +241,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__carousel-wrapper">
                     <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height)" activeIndex={currentIndex}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
-                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
+                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl || undefined} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
@@ -262,7 +262,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src={imageSrc} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src={imageSrc || undefined} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />

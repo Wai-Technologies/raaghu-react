@@ -1,4 +1,4 @@
-import { type ReactNode, type SyntheticEvent } from 'react';
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -101,7 +101,14 @@ const RdsTabs = ({
   if (tabItems.some((tab) => tab.leftIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].leftIcon', '`items[].startIcon`');
   if (tabItems.some((tab) => tab.rightIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].rightIcon', '`items[].endIcon`');
 
+  const providedValue = value ?? activeTab;
+  const isControlled = providedValue !== undefined;
+  const firstEnabledId = tabItems.find((tab) => !tab.disabled)?.id ?? false;
+  const [internalValue, setInternalValue] = useState<string | number | false>(firstEnabledId);
+  const uncontrolledValue = tabItems.some((tab) => tab.id === internalValue) ? internalValue : firstEnabledId;
+
   const handleChange = (event: SyntheticEvent, newValue: string | number) => {
+    if (!isControlled) setInternalValue(newValue);
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -121,11 +128,9 @@ const RdsTabs = ({
     };
   });
 
-  const providedValue = value ?? activeTab;
-
   return (
     <MuiTabs
-      {...(providedValue !== undefined ? { value: providedValue } : {})}
+      value={isControlled ? providedValue : uncontrolledValue}
       onChange={handleChange}
       orientation={orientation ?? type ?? 'horizontal'}
       {...props}

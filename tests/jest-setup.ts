@@ -35,42 +35,38 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
 } as any;
 
-// Suppress console errors in tests (optional)
-const originalError = console.error;
-beforeAll(() => {
-  console.error = (...args: any[]) => {
-    const errorStr = typeof args[0] === 'string' ? args[0] : (args[0]?.message || String(args[0]));
+// Fail any test that logs an unexpected console.error / console.warn.
+// Tests that expect a warning should spy on it: jest.spyOn(console, 'warn').mockImplementation(() => {}).
+const ALLOWED_CONSOLE_MESSAGES: RegExp[] = [
+  /^\[Rds\w*\] The `.+` prop is deprecated/,
+  /^A component is `contentEditable` and contains `children` managed by React/,
+  /not wrapped in act\(\.\.\.\)/,
+];
 
-    if (errorStr.includes('Warning: ReactDOM.render')) return;
-    if (errorStr.includes('Warning: React does not recognize') ||
-        (errorStr.includes('Received') && errorStr.includes('for a non-boolean attribute'))) return;
-    if (errorStr.includes('HTMLCanvasElement.prototype.getContext')) return;
-    if (errorStr.includes('not wrapped in act')) return;
-    if (errorStr.includes('Function components cannot be given refs') &&
-        errorStr.includes('ForwardRef')) return;
-    if (errorStr.includes('Encountered two children with the same key')) return;
-    if (errorStr.includes('A component is `contentEditable` and contains `children` managed by React')) return;
-    if (errorStr.includes('You have provided an out-of-range value') && errorStr.includes('select component')) return;
-    if (errorStr.includes('value` prop on `input` should not be null')) return;
+HTMLCanvasElement.prototype.getContext = (() => null) as typeof HTMLCanvasElement.prototype.getContext;
 
-    originalError.call(console, ...args);
+const formatConsoleArgs = (args: unknown[]): string => {
+  const [first, ...rest] = args;
+  if (typeof first !== 'string') return first instanceof Error ? first.message : String(first);
+  let index = 0;
+  return first.replace(/%[sdifoOc]/g, () => String(rest[index++]));
+};
+
+let unexpectedConsoleMessages: string[] = [];
+
+(['error', 'warn'] as const).forEach((method) => {
+  const original = console[method];
+  console[method] = (...args: unknown[]) => {
+    const message = formatConsoleArgs(args);
+    if (ALLOWED_CONSOLE_MESSAGES.some((pattern) => pattern.test(message))) return;
+    unexpectedConsoleMessages.push(`console.${method}: ${message}`);
+    original.call(console, ...args);
   };
 });
 
-afterAll(() => {
-  console.error = originalError;
-});
-
-// Suppress console.warn for MUI warnings
-const originalWarn = console.warn;
-beforeAll(() => {
-  console.warn = (...args: any[]) => {
-    const warnStr = typeof args[0] === 'string' ? args[0] : String(args[0]);
-    if (warnStr.includes('You have provided an out-of-range value') && warnStr.includes('select')) return;
-    originalWarn.call(console, ...args);
-  };
-});
-
-afterAll(() => {
-  console.warn = originalWarn;
+afterEach(() => {
+  if (unexpectedConsoleMessages.length === 0) return;
+  const messages = unexpectedConsoleMessages;
+  unexpectedConsoleMessages = [];
+  throw new Error(`Unexpected console output:\n${messages.join('\n')}`);
 });

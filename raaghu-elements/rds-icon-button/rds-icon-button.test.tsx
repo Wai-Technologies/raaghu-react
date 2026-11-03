@@ -27,7 +27,7 @@ describe('RdsIconButton', () => {
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -40,7 +40,7 @@ describe('RdsIconButton', () => {
 
     it('should render MuiIconButton component', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -49,7 +49,7 @@ describe('RdsIconButton', () => {
 
     it('should render button element', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -61,7 +61,7 @@ describe('RdsIconButton', () => {
   describe('Icon Rendering', () => {
     it('should render icon from children', () => {
       renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite data-testid="favorite-icon" />
         </RdsIconButton>
       );
@@ -70,7 +70,7 @@ describe('RdsIconButton', () => {
 
     it('should render iconFilled when variant is filled', () => {
       renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="filled"
           iconFilled={<Favorite data-testid="filled-icon" />}
           iconOutlined={<FavoriteBorder data-testid="outlined-icon" />}
@@ -82,7 +82,7 @@ describe('RdsIconButton', () => {
 
     it('should render iconOutlined when variant is outlined', () => {
       renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="outlined"
           iconFilled={<Favorite data-testid="filled-icon" />}
           iconOutlined={<FavoriteBorder data-testid="outlined-icon" />}
@@ -94,7 +94,7 @@ describe('RdsIconButton', () => {
 
     it('should fallback to icon prop when variant icons are not available', () => {
       renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="filled"
           icon={<Edit data-testid="edit-icon" />}
         />
@@ -104,7 +104,7 @@ describe('RdsIconButton', () => {
 
     it('should prioritize variant-specific icons over generic icon prop', () => {
       renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="filled"
           iconFilled={<Favorite data-testid="filled-icon" />}
           icon={<Edit data-testid="edit-icon" />}
@@ -116,7 +116,7 @@ describe('RdsIconButton', () => {
 
     it('should render children as fallback when no other icons are provided', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Settings />
         </RdsIconButton>
       );
@@ -128,7 +128,7 @@ describe('RdsIconButton', () => {
   describe('Variant Prop', () => {
     it('should apply filled variant class by default', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -138,7 +138,7 @@ describe('RdsIconButton', () => {
 
     it('should apply outlined variant class when variant is outlined', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton variant="outlined">
+        <RdsIconButton aria-label="Favorite" variant="outlined">
           <Favorite />
         </RdsIconButton>
       );
@@ -148,7 +148,7 @@ describe('RdsIconButton', () => {
 
     it('should always have rds-icon-button class', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -160,7 +160,7 @@ describe('RdsIconButton', () => {
   describe('Size Prop', () => {
     it('should handle small size', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton size="small">
+        <RdsIconButton aria-label="Favorite" size="small">
           <Favorite />
         </RdsIconButton>
       );
@@ -170,7 +170,7 @@ describe('RdsIconButton', () => {
 
     it('should handle medium size', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton size="medium">
+        <RdsIconButton aria-label="Favorite" size="medium">
           <Favorite />
         </RdsIconButton>
       );
@@ -180,7 +180,7 @@ describe('RdsIconButton', () => {
 
     it('should handle large size', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton size="large">
+        <RdsIconButton aria-label="Favorite" size="large">
           <Favorite />
         </RdsIconButton>
       );
@@ -192,7 +192,7 @@ describe('RdsIconButton', () => {
   describe('Color Prop', () => {
     it('should handle primary color', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton color="primary">
+        <RdsIconButton aria-label="Favorite" color="primary">
           <Home />
         </RdsIconButton>
       );
@@ -202,7 +202,7 @@ describe('RdsIconButton', () => {
 
     it('should handle secondary color', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton color="secondary">
+        <RdsIconButton aria-label="Favorite" color="secondary">
           <Settings />
         </RdsIconButton>
       );
@@ -212,7 +212,7 @@ describe('RdsIconButton', () => {
 
     it('should handle error color', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton color="error">
+        <RdsIconButton aria-label="Favorite" color="error">
           <Delete />
         </RdsIconButton>
       );
@@ -224,7 +224,7 @@ describe('RdsIconButton', () => {
   describe('Disabled State', () => {
     it('should render enabled button by default', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -234,7 +234,7 @@ describe('RdsIconButton', () => {
 
     it('should disable button when disabled prop is true', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton disabled>
+        <RdsIconButton aria-label="Favorite" disabled>
           <Favorite />
         </RdsIconButton>
       );
@@ -244,7 +244,7 @@ describe('RdsIconButton', () => {
 
     it('should apply disabled class when disabled', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton disabled>
+        <RdsIconButton aria-label="Favorite" disabled>
           <Favorite />
         </RdsIconButton>
       );
@@ -266,7 +266,7 @@ describe('RdsIconButton', () => {
 
     it('should not set title when tooltip is not provided', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>
       );
@@ -279,7 +279,7 @@ describe('RdsIconButton', () => {
     it('should call onClick handler when clicked', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton onClick={handleClick}>
+        <RdsIconButton aria-label="Favorite" onClick={handleClick}>
           <Favorite />
         </RdsIconButton>
       );
@@ -291,7 +291,7 @@ describe('RdsIconButton', () => {
     it('should not call onClick when disabled', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton onClick={handleClick} disabled>
+        <RdsIconButton aria-label="Favorite" onClick={handleClick} disabled>
           <Favorite />
         </RdsIconButton>
       );
@@ -303,7 +303,7 @@ describe('RdsIconButton', () => {
     it('should pass event object to onClick handler', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton onClick={handleClick}>
+        <RdsIconButton aria-label="Favorite" onClick={handleClick}>
           <Favorite />
         </RdsIconButton>
       );
@@ -316,7 +316,7 @@ describe('RdsIconButton', () => {
   describe('Custom ClassName', () => {
     it('should apply custom className', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton className="custom-class">
+        <RdsIconButton aria-label="Favorite" className="custom-class">
           <Favorite />
         </RdsIconButton>
       );
@@ -327,7 +327,7 @@ describe('RdsIconButton', () => {
 
     it('should handle multiple custom classes', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton className="class1 class2">
+        <RdsIconButton aria-label="Favorite" className="class1 class2">
           <Favorite />
         </RdsIconButton>
       );
@@ -341,7 +341,7 @@ describe('RdsIconButton', () => {
   describe('Icon Sizing', () => {
     it('should apply size to MUI icons', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton size="small">
+        <RdsIconButton aria-label="Favorite" size="small">
           <Favorite />
         </RdsIconButton>
       );
@@ -350,13 +350,13 @@ describe('RdsIconButton', () => {
 
     it('should handle different icon sizes', () => {
       const { container: containerSmall } = renderWithTheme(
-        <RdsIconButton size="small">
+        <RdsIconButton aria-label="Favorite" size="small">
           <Favorite />
         </RdsIconButton>
       );
 
       const { container: containerLarge } = renderWithTheme(
-        <RdsIconButton size="large">
+        <RdsIconButton aria-label="Favorite" size="large">
           <Favorite />
         </RdsIconButton>
       );
@@ -369,7 +369,7 @@ describe('RdsIconButton', () => {
   describe('Theme Integration', () => {
     it('should render with light theme', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>,
         false
@@ -379,7 +379,7 @@ describe('RdsIconButton', () => {
 
     it('should render with dark theme', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton>
+        <RdsIconButton aria-label="Favorite">
           <Favorite />
         </RdsIconButton>,
         true
@@ -391,7 +391,7 @@ describe('RdsIconButton', () => {
   describe('Complex Scenarios', () => {
     it('should render toggle button with variant switching', () => {
       const { rerender } = renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="outlined"
           iconFilled={<Favorite data-testid="filled-icon" />}
           iconOutlined={<FavoriteBorder data-testid="outlined-icon" />}
@@ -401,7 +401,7 @@ describe('RdsIconButton', () => {
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsIconButton
+          <RdsIconButton aria-label="Favorite"
             variant="filled"
             iconFilled={<Favorite data-testid="filled-icon" />}
             iconOutlined={<FavoriteBorder data-testid="outlined-icon" />}
@@ -414,7 +414,7 @@ describe('RdsIconButton', () => {
     it('should handle icon button with all common props', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           variant="outlined"
           size="medium"
           color="primary"
@@ -435,7 +435,7 @@ describe('RdsIconButton', () => {
 
     it('should render add button with large size', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton size="large" color="primary">
+        <RdsIconButton aria-label="Favorite" size="large" color="primary">
           <Add />
         </RdsIconButton>
       );
@@ -447,7 +447,7 @@ describe('RdsIconButton', () => {
     it('should render disabled edit button', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           disabled
           tooltip="Cannot edit"
           onClick={handleClick}
@@ -466,14 +466,14 @@ describe('RdsIconButton', () => {
   describe('Edge Cases', () => {
     it('should handle empty button', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton />
+        <RdsIconButton aria-label="Favorite" />
       );
       expect(container.querySelector('.MuiIconButton-root')).toBeInTheDocument();
     });
 
     it('should handle undefined props gracefully', () => {
       const { container } = renderWithTheme(
-        <RdsIconButton
+        <RdsIconButton aria-label="Favorite"
           iconOutlined={undefined}
           iconFilled={undefined}
           tooltip={undefined}
@@ -487,7 +487,7 @@ describe('RdsIconButton', () => {
     it('should handle rapid clicks', () => {
       const handleClick = jest.fn();
       const { container } = renderWithTheme(
-        <RdsIconButton onClick={handleClick}>
+        <RdsIconButton aria-label="Favorite" onClick={handleClick}>
           <Favorite />
         </RdsIconButton>
       );
@@ -500,7 +500,7 @@ describe('RdsIconButton', () => {
 
     it('should handle data attributes', () => {
       renderWithTheme(
-        <RdsIconButton data-testid="custom-button">
+        <RdsIconButton aria-label="Favorite" data-testid="custom-button">
           <Favorite />
         </RdsIconButton>
       );
@@ -519,7 +519,7 @@ describe('RdsIconButton', () => {
 
 describe('audit fixes', () => {
   it('keeps rds-icon-button classes when className is passed', () => {
-    render(<RdsIconButton className="mine" variant="outlined" icon={<span>i</span>} />);
+    render(<RdsIconButton aria-label="Favorite" className="mine" variant="outlined" icon={<span>i</span>} />);
     const btn = screen.getByRole('button');
     expect(btn).toHaveClass('rds-icon-button', 'rds-icon-button--outlined', 'mine');
   });
@@ -545,7 +545,7 @@ describe('audit fixes', () => {
 
 describe('RdsIconButton accessible name warning', () => {
   it('warns only when rendered without any accessible name', () => {
-    const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName');
+    const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName').mockImplementation(() => {});
     render(<RdsIconButton icon={<Add />} aria-label="Add" />);
     render(<RdsIconButton icon={<Add />} tooltip="Add" />);
     expect(warn).not.toHaveBeenCalled();

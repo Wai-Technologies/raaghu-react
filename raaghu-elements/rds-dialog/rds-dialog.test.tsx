@@ -8,7 +8,7 @@ import * as deprecation from '../shared/utils/deprecation';
 jest.mock('./rds-dialog.scss', () => ({}));
 
 jest.mock('../rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, text, style, ...props }: any) {
+  return function MockRdsButton({ children, onClick, text, style, textCase, ...props }: any) {
     return (
       <button onClick={onClick} {...props}>
         {children || text}
@@ -19,7 +19,7 @@ jest.mock('../rds-button/rds-button', () => {
 
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
-  Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
+  Dialog: ({ children, onClose, maxWidth, open, slotProps, ...props }: any) => {
     if (!open) return null;
     return (
       <dialog data-testid="dialog-root" aria-labelledby="mock-dialog-title" open {...props}>
