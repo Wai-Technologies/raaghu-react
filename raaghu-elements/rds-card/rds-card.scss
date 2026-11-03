@@ -108,6 +108,24 @@
       display: none;
     }
   }
+
+  &__icon {
+    &.MuiAvatar-root {
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
+      background-color: var(--rds-color-avatar-bg);
+      color: var(--rds-color-avatar-fg);
+
+      .MuiSvgIcon-root {
+        font-size: var(--rds-size-md);
+      }
+    }
+  }
+
+  &--disabled &__icon.MuiAvatar-root {
+    background-color: var(--rds-color-surface-disabled);
+    color: var(--rds-color-neutral-disabled-icon);
+  }
   
   &--style-outlined {
     background-color: transparent;

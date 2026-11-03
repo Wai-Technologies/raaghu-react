@@ -471,7 +471,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 |---|---|---|
 | `--rds-secondary-alpha-10` | `color-mix(in srgb, var(--rds-secondary-main) 10%, transparent)` | — |
 | `--rds-secondary-contrast-text` | `#ffffff` | `#212121` |
-| `--rds-secondary-dark` | `#d81b60` | `#ec407a` |
+| `--rds-secondary-dark` | `#1827BB` | same |
 | `--rds-secondary-light` | `#f8bbd9` | same |
 | `--rds-secondary-main` | `#2534E9` | same |
 | `--rds-secondary-rgb` | `37,52,233` | same |
@@ -940,18 +940,18 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-button-text-variant-bg` | `rgba(60, 152, 255, 0.04)` | `color-mix(in srgb, var(--rds-primary-main) 4%, transparent)` |
 | `--rds-card-avatar-controls-mobile-offset` | `6.875rem` | same |
 | `--rds-card-bg` | `var(--rds-background-paper)` | same |
-| `--rds-card-bg-hover` | `var(--rds-color-gray-200)` | same |
+| `--rds-card-bg-hover` | `var(--rds-surface-neutral-light)` | `var(--rds-surface-neutral-medium)` |
 | `--rds-card-border` | `var(--rds-border-light)` | same |
 | `--rds-card-content-min-height` | `20px` | same |
 | `--rds-card-content-padding-left` | `14px` | same |
 | `--rds-card-detail-shadow-dark` | `var(--rds-elevation-4)` | same |
 | `--rds-card-detail-shadow-light` | `var(--rds-elevation-1)` | same |
-| `--rds-card-disabled-bg` | `var(--rds-color-gray-300)` | same |
+| `--rds-card-disabled-bg` | `var(--rds-color-gray-300)` | `#4C4C4C` |
 | `--rds-card-hover-offset` | `-2px` | same |
 | `--rds-card-indicator-bg` | `var(--rds-color-gray-700)` | same |
-| `--rds-card-selected-bg` | `var(--rds-color-gray-200)` | same |
+| `--rds-card-selected-bg` | `var(--rds-surface-neutral-light)` | `var(--rds-surface-neutral-medium)` |
 | `--rds-card-shadow-base` | `#102d56` | same |
-| `--rds-card-surface-filled` | `#fafafa` | same |
+| `--rds-card-surface-filled` | `var(--rds-surface-primary-light)` | same |
 | `--rds-card-text-disabled` | `var(--rds-color-disabled-text)` | same |
 | `--rds-card-text-secondary` | `var(--rds-color-text-secondary)` | same |
 | `--rds-carousel-divider` | `var(--rds-border-light)` | same |
