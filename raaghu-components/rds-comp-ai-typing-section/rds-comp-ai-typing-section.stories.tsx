@@ -14,9 +14,6 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 		className: { control: "text", description: "CSS class applied to the typing section container." },
 		sx: { control: "object", description: "MUI system styles applied to the typing section container." },
 		ref: { control: false, description: "React ref to the typing section container; assign it in code." },
-		iconName: {
-			table: { disable: true },
-		},
 	},
 };
 
@@ -29,14 +26,11 @@ export const Default: Story = {
         expect(el).toBeTruthy();
     },
     args: {
-        colorVariant: "#353535",
-        placeholderText: "How can Raaghu help you today?",
-        iconName: "enhancer",
-        type: "default",
+        placeholder: "How can Raaghu help you today?",
         attachmentBadge: "Premium",
         onNewProjectClick: fn(),
         onImportFromFigmaClick: fn(),
         autocompleteOptions: [{ label: "Raaghu", value: 1 }],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['placeholderText', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['placeholder', 'className', 'sx', 'ref'] } };

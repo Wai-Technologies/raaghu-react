@@ -8,8 +8,8 @@ import RdsCompChat, { UserData } from './rds-comp-chat';
 jest.mock('./rds-comp-chat.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar({ children, ...props }: any) {
-    const { title, ...restProps } = props;
-    return <div data-testid="rds-avatar" {...restProps}>{title || children}</div>;
+    const { title, name, src, alt } = props;
+    return <div data-testid="rds-avatar" data-src={src} aria-label={alt}>{name || title || children}</div>;
   };
 });
 jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
@@ -104,6 +104,20 @@ describe('RdsCompChat', () => {
   });
 
   describe('User List Display', () => {
+    it('renders each user from userData instead of placeholder data', () => {
+      const { container } = render(<RdsCompChat {...defaultProps} />);
+      const avatars = container.querySelectorAll('.rds-comp-chat__user-item [data-testid="rds-avatar"]');
+      expect(Array.from(avatars).map((a) => a.textContent)).toEqual(['John Doe', 'Jane Smith']);
+      expect(avatars[0]).toHaveAttribute('data-src', 'https://example.com/john.jpg');
+    });
+
+    it('selects a user with the keyboard', () => {
+      const { container } = render(<RdsCompChat {...defaultProps} />);
+      const items = container.querySelectorAll('.rds-comp-chat__user-item');
+      fireEvent.keyDown(items[1], { key: 'Enter' });
+      expect(items[1]).toHaveAttribute('aria-pressed', 'true');
+    });
+
     it('renders user list when chatScreenEnabled is true', () => {
       const { container } = render(<RdsCompChat {...defaultProps} />);
       expect(container.querySelector('.rds-comp-chat__screen')).toBeInTheDocument();

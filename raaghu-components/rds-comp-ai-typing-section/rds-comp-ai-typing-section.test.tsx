@@ -18,14 +18,14 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
       <button
-        data-testid={`btn-${props.text || 'icon-only'}`}
+        data-testid={`btn-${props.text || props.children || 'icon-only'}`}
         onClick={props.onClick}
         data-color={props.color}
         data-style={props.variant ?? props.placement ?? props.style}
         data-layout={props.layout}
         data-size={props.size}
       >
-        {props.text || 'Button'}
+        {props.text || props.children || 'Button'}
       </button>
     );
   };

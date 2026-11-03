@@ -24,7 +24,7 @@ figma.connect(
       <RdsCarousel
         {...props}
         type="circle"
-        showDots
+        showIndicators
         showArrows
         autoPlay={false}
       >

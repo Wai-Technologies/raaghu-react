@@ -308,7 +308,7 @@ const RdsButtonDropdown = ({
         id={id}
           ref={ref}
           sx={sx}
-          text={typeof label === 'string' ? label : undefined}
+          aria-label={rest['aria-label'] ?? (layout === 'icon-only' && typeof label === 'string' ? label : undefined)}
           onClick={(event) => {
             onClick?.(event);
             handleDropdownButtonClick(event);
@@ -334,7 +334,7 @@ const RdsButtonDropdown = ({
         aria-expanded={isDropdownOpen}
         aria-controls={isDropdownOpen ? menuId : undefined}
       >
-        {typeof label === 'string' ? undefined : label}
+        {label}
       </RdsButton>
       <RdsMenu
         id={menuId}
@@ -365,8 +365,8 @@ const RdsButtonDropdown = ({
                   <RdsCheckbox
                     checked={selected.includes(opt.id)}
                     onChange={(event) => handleOptionChange(opt.id, event)}
-                    isDisabled={opt.disabled}
-                    labelText= {opt.label}
+                    disabled={opt.disabled}
+                    label= {opt.label}
                   />
                 ) : showRadio ? (
                   <RdsRadio

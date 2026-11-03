@@ -47,10 +47,6 @@ const meta: Meta<typeof RdsTag> = {
       control: { disable: true },
       table: { disable: true },
     },
-    onRemove: {
-      control: { disable: true },
-      table: { disable: true },
-    },
   },
 };
 
@@ -90,7 +86,7 @@ export const Removable: Story = {
   args: {
     label: 'Removable Tag',
     removable: true,
-    onRemove: () => {},
+    onDelete: () => {},
   },
 };
 
@@ -122,7 +118,7 @@ export const Multiple: Story = {
       <RdsTag label="React" color="primary" />
       <RdsTag label="TypeScript" color="secondary" />
       <RdsTag label="Material-UI" color="success" />
-      <RdsTag label="Removable Tag"  onRemove={() => {}} removable/>
+      <RdsTag label="Removable Tag"  onDelete={() => {}} removable/>
       <RdsTag label="Vite" color="info" variant="outlined" />
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>

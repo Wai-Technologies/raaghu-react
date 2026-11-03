@@ -91,9 +91,10 @@ export const FlexContainer: Story = {
   shape="rectangle"
   size="medium"
   variant="filled"
-  text="Button 1"
   textCase="capitalize"
-/>,
+  >
+    Button 1
+  </RdsButton>,
  <RdsButton
   key="2"
   color="primary"
@@ -101,9 +102,10 @@ export const FlexContainer: Story = {
   shape="rectangle"
   size="medium"
   variant="outlined"
-  text="Button 2"
   textCase="capitalize"
-/>,
+ >
+   Button 2
+ </RdsButton>,
  <RdsButton
   key="3"
   color="primary"
@@ -111,9 +113,10 @@ export const FlexContainer: Story = {
   shape="rectangle"
   size="medium"
   variant="transparent"
-  text="Button 3"
   textCase="capitalize"
-/>
+ >
+   Button 3
+ </RdsButton>
     ],
   },
     argTypes: {

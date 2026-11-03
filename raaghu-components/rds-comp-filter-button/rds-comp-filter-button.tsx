@@ -220,7 +220,7 @@ const RdsCompFilterButton = ({
         size={'medium'}
         shape={shape}
         layout={'icon+text'}
-        style={'filled'}
+        variant={'filled'}
         disabled={disabled}
         startIcon={showLeftIcon ? (resolvedStartIcon ?? undefined) : undefined}
         endIcon={showRightIcon ? (resolvedEndIcon ?? undefined) : undefined}
@@ -336,7 +336,7 @@ const RdsCompFilterButton = ({
                       <RdsCheckbox
                         key={value}
                         className="rds-filter-button__option"
-                        labelText={value}
+                        label={value}
                         showText
                         color="primary"
                         size="small"

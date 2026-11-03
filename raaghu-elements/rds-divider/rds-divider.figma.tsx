@@ -14,7 +14,7 @@ figma.connect(
     },
     example: (props) => <RdsDivider
     textAlign="center"
-    iconShow
+    icon="InfoOutlined"
     {...props}>Default Divider</RdsDivider>,
   },
 )

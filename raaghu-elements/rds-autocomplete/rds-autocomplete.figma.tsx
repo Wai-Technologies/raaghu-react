@@ -33,7 +33,7 @@ figma.connect(
         showRadio
         showUser
         showCheckbox
-        userIcon={<PersonIcon />}
+        getOptionIcon={() => <PersonIcon />}
         options={[
         {
           label: 'Option 1',

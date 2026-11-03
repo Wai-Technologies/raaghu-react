@@ -57,7 +57,8 @@ figma.connect(
   shape="rectangle"
   showLeftIcon
   showRightIcon
-  text="Filter"
-/>,
+    >
+      Filter
+    </RdsCompFilterButton>,
   },
 )

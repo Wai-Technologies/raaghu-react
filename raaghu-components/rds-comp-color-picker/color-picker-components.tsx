@@ -496,7 +496,6 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   showLeftIcon
   size="small"
   variant="transparent"
-  text="Default Button"
   textCase="capitalize"
   aria-label="Add swatch"
   disabled={disabled}

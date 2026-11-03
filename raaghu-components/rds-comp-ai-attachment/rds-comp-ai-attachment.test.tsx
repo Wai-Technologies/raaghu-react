@@ -24,13 +24,13 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-modal/rds-modal', () => {
-  return function MockRdsModal({ isOpen, onClose, title, children, showCloseButton, ...props }: any) {
-    if (!isOpen) return null;
+  return function MockRdsModal({ isOpen, open, onClose, title, children, showCloseButton, hideCloseButton, ...props }: any) {
+    if (!(open ?? isOpen)) return null;
     return (
       <div data-testid="rds-modal" {...props}>
         <div className="modal-header">
           <h5 data-testid="modal-title">{title}</h5>
-          {showCloseButton && (
+          {(showCloseButton ?? !hideCloseButton) && (
             <button onClick={onClose} data-testid="modal-close-btn">
               Close
             </button>

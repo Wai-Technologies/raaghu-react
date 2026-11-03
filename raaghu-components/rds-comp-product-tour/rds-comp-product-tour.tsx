@@ -288,7 +288,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
                         <Typography variant="inherit" component="h2" id={headerId} className="rds-comp-product-tour__form-title">{resolvedHeader}</Typography>
-                        {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" colorVariant="primary" shape="pill" layout="text" />}
+                        {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" color="primary" shape="pill" layout="text" />}
                     </Box>
                     <Typography variant="inherit" component="p" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">

@@ -173,9 +173,9 @@ const RdsList = ({
         <MuiListItemIcon className="rds-list__icon">
           <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
-            isDisabled={item.disabled}
+            disabled={item.disabled}
             onChange={(event) => handleCheckboxChange(item.id, event)}
-            style="square"
+            variant="square"
           />
         </MuiListItemIcon>
       ) : null;

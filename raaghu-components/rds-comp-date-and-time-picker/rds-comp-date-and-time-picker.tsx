@@ -320,8 +320,8 @@ export default function RdsCompDatePicker({
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
-              <RdsButton variant="transparent" size="small" text="Clear" onClick={handleClearRange} />
-              <RdsButton variant="filled" size="small" text="Apply" onClick={handleClosePopover} />
+              <RdsButton variant="transparent" size="small" onClick={handleClearRange}>Clear</RdsButton>
+              <RdsButton variant="filled" size="small" onClick={handleClosePopover}>Apply</RdsButton>
             </Box>
           </Paper>
         </Popover>

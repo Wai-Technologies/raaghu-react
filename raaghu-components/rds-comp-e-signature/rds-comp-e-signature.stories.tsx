@@ -15,7 +15,6 @@ const meta: Meta<typeof RdsCompESignature> = {
         'defaultPenColor',
         'options',
         'width',
-        'height',
         'penColor',
         'title',
         'slotProps',

@@ -11,7 +11,7 @@ const meta: Meta = {
         layout: 'padded',
         docs:{
             description: {
-  component: `The **Navtabs** component offers a versatile and accessible tab navigation system for your application. The \`navtabsItems\` prop accepts an array of tab objects, each containing properties such as \`label\` (the visible tab text), \`tablink\` (the target anchor link), \`ariacontrols\` (for accessibility support), and \`id\` (a unique identifier). Additional optional properties include \`icon\` (to display an icon alongside the label), \`subText\` (supplementary descriptive text), \`disabled\` (to disable individual tabs), \`count\` (for badges or numeric indicators), and \`colorVariant\` (to customize badge colors). This component supports multiple layouts and styles, allowing you to create horizontal or vertical tab sets with customizable appearance, making it suitable for rich, user-friendly navigation interfaces.`
+  component: `The **Navtabs** component offers a versatile and accessible tab navigation system for your application. The \`items\` prop accepts an array of tab objects, each containing properties such as \`label\` (the visible tab text), \`tablink\` (the target anchor link), \`ariacontrols\` (for accessibility support), and \`id\` (a unique identifier). Additional optional properties include \`icon\` (to display an icon alongside the label), \`subText\` (supplementary descriptive text), \`disabled\` (to disable individual tabs), \`count\` (for badges or numeric indicators), and \`colorVariant\` (to customize badge colors). This component supports multiple layouts and styles, allowing you to create horizontal or vertical tab sets with customizable appearance, making it suitable for rich, user-friendly navigation interfaces.`
 }
 
         }
@@ -58,7 +58,7 @@ type Story = StoryObj<typeof RdsCompNavtabs>;
 
 export const Default: Story = {
     args: {
-        navtabsItems: [
+        items: [
             { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
             { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
@@ -73,5 +73,5 @@ export const Default: Story = {
         await expect(tab).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'variant', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['items', 'justified', 'variant', 'className', 'sx', 'ref'] } };
 

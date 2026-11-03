@@ -148,11 +148,12 @@ const RdsCompCodeSnippet = ({
                 aria-label="Copy code"
                 size="small"
                 variant="outlined"
-                text={copied ? "Copied!" : "Copy Code"}
                 showLeftIcon={true}
                 textCase="unset"
                 changeLeftIcon={copied ? COPIED_ICON : COPY_ICON}
-              />
+              >
+                {copied ? "Copied!" : "Copy Code"}
+              </RdsButton>
               <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
             </div>
           </div>
@@ -182,11 +183,12 @@ const RdsCompCodeSnippet = ({
                   aria-label="Copy code"
                   size="small"
                   variant="outlined"
-                  text={copied ? "Copied!" : "Copy Code"}
                   showLeftIcon={true}
                   textCase="unset"
                   changeLeftIcon={copied ? COPIED_ICON : COPY_ICON}
-                />
+                >
+                  {copied ? "Copied!" : "Copy Code"}
+                </RdsButton>
                 <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
               </div>
               <div 
@@ -207,7 +209,7 @@ const RdsCompCodeSnippet = ({
             </div>
             <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent" text="Show More" />
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent">Show More</RdsButton>
               </div>
             </div>
           </>

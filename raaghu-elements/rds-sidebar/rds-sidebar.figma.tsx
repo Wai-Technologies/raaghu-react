@@ -54,7 +54,7 @@ figma.connect(
         label: 'Help',
         onClick: () => {}
       }
-    ]} showLogo isOpen={true} {...props} 
+    ]} showLogo open={true} {...props} 
     user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
     avatarCollapsedSrc={RAAGHU_LOGO_LIGHT_URL}
     />,

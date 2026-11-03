@@ -390,7 +390,7 @@ const RdsSidebar = ({
               )}
             >
               <RdsSearch
-                iconPosition={shouldShowIconsOnly ? 'left' : 'right'}
+                iconPosition={shouldShowIconsOnly ? 'start' : 'end'}
                 label=""
                 labelPosition="top"
                 onChange={handleSearchChange}
