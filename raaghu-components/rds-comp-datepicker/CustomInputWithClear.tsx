@@ -91,36 +91,40 @@ export const CustomInputWithClear = (
           required={required}
           inputRef={ref}
           slotProps={{ htmlInput: inputProps }}
+          endIcon={
+            // Rendered as the input's end adornment so the buttons always sit inside the field.
+            <span className="rds-datepicker__adornment">
+              {showClearDate && value && (
+                <button
+                  type="button"
+                  className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!isDisabled) {
+                      clearDate?.();
+                    }
+                  }}
+                  title="Clear date"
+                  aria-label="Clear date"
+                >
+                  <CloseIcon className="rds-datepicker__close-icon" />
+                </button>
+              )}
+              <button
+                type="button"
+                className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
+                onClick={handleTriggerClick}
+                title="Open calendar"
+                aria-label="Open calendar"
+                aria-expanded={expanded}
+                aria-controls={expanded !== undefined ? controlsId : undefined}
+                disabled={isDisabled}
+              >
+                {renderPickerIcon(changeIcon, openPickerIcon)}
+              </button>
+            </span>
+          }
         />
-        {showClearDate && value && (
-          <button
-            type="button"
-            className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (!isDisabled) {
-                clearDate?.();
-              }
-            }}
-            title="Clear date"
-            aria-label="Clear date"
-          >
-            <CloseIcon className="rds-datepicker__close-icon" />
-          </button>
-        )}
-        <button
-          type="button"
-          className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
-          onClick={handleTriggerClick}
-          title="Open calendar"
-          aria-label="Open calendar"
-          aria-expanded={expanded}
-          aria-controls={expanded !== undefined ? controlsId : undefined}
-          disabled={isDisabled}
-          style={{ background: "transparent", border: "none" }}
-        >
-          {renderPickerIcon(changeIcon, openPickerIcon)}
-        </button>
       </div>
     );
   };
