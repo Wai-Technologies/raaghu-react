@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsTabs> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['items', 'value', 'orientation', 'layout', 'title', 'startIcon', 'endIcon', 'showLeftIcon', 'showRightIcon', 'level'],
+      include: ['items', 'value', 'orientation', 'layout', 'title', 'startIcon', 'endIcon', 'level'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -54,25 +54,15 @@ const meta: Meta<typeof RdsTabs> = {
     },
     startIcon: {
       control: 'select',
-      options: ['Person', 'Add', 'Home'],
-      description: 'Icon to display on the left side of the tab label',
+      options: ['None', 'Person', 'Add', 'Home'],
+      description: 'Start icon for tabs (None hides the left icon)',
       defaultValue: 'Person',
     },
     endIcon: {
       control: 'select',
-      options: ['Person', 'Add', 'Home'],
-      description: 'Icon to display on the right side of the tab label',
+      options: ['None', 'Person', 'Add', 'Home'],
+      description: 'End icon for tabs (None hides the right icon)',
       defaultValue: 'Add',
-    },
-    showLeftIcon: {
-      control: 'boolean',
-      description: 'Control to show/hide left icon',
-      defaultValue: true,
-    },
-    showRightIcon: {
-      control: 'boolean',
-      description: 'Control to show/hide right icon',
-      defaultValue: true,
     },
     level: {
       control: { type: 'number', min: 1, max: 8 },
@@ -103,6 +93,27 @@ const iconMap = {
   Home: <HomeIcon fontSize="small" />,
 };
 
+function resolveStoryIcon(name: string | undefined) {
+  if (!name || name === 'None') return undefined;
+  return iconMap[name as keyof typeof iconMap];
+}
+
+function renderTabsStory(args: Story['args']) {
+  const { startIcon, endIcon, level, title, ...rest } = args as any;
+  let tabs = (args?.items || []).slice(0, level || 1);
+  if (typeof args?.value === 'number' && title && title.length > 0 && tabs[args.value]) {
+    tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
+  }
+  return (
+    <RdsTabs
+      {...rest}
+      items={tabs}
+      startIcon={resolveStoryIcon(startIcon)}
+      endIcon={resolveStoryIcon(endIcon)}
+    />
+  );
+}
+
 export const Default: Story = {
   args: {
     items: sampleTabs,
@@ -112,23 +123,7 @@ export const Default: Story = {
     endIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabsStory,
 };
 
 export const ManyTabs: Story = {
@@ -141,23 +136,7 @@ export const ManyTabs: Story = {
     orientation: "horizontal",
     level: 5
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabsStory,
 };
 
 export const SecondTabActive: Story = {
@@ -169,23 +148,7 @@ export const SecondTabActive: Story = {
     endIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabsStory,
 };
 
 export const SimpleTabs: Story = {
@@ -205,23 +168,7 @@ export const SimpleTabs: Story = {
     startIcon: 'Person',
     endIcon: 'Add',
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabsStory,
 };
 
 export const Vertical: Story = {
@@ -234,21 +181,5 @@ export const Vertical: Story = {
     endIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { startIcon, endIcon, level, title, ...rest } = args as any;
-    let tabs = (args.items || []).slice(0, level || 1);
-    if (typeof args.value === 'number' && title && title.length > 0 && tabs[args.value]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.value ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          items={tabs}
-          startIcon={iconMap[startIcon as keyof typeof iconMap]}
-          endIcon={iconMap[endIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: renderTabsStory,
 };

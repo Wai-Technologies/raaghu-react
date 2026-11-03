@@ -387,9 +387,29 @@ export const designSystemComponentOverrides: Components<Theme> = {
           color: paletteColor.contrastText ?? pal(theme).common.white,
         };
       },
-      outlined: ({ theme }) => ({
-        borderColor: pal(theme).divider,
-      }),
+      outlined: ({ theme, ownerState }) => {
+        const colorKey = ownerState?.color as string | undefined;
+
+        if (!colorKey || colorKey === 'default') {
+          return {
+            borderColor: pal(theme).divider,
+          };
+        }
+
+        const paletteColor = pal(theme)[colorKey as keyof ReturnType<typeof pal>] as
+          | { main?: string }
+          | undefined;
+
+        if (!paletteColor?.main) {
+          return {
+            borderColor: pal(theme).divider,
+          };
+        }
+
+        return {
+          borderColor: paletteColor.main,
+        };
+      },
       deleteIcon: ({ theme }) => ({
         color: pal(theme).text.secondary,
         '&:hover': {

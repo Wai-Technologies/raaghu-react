@@ -119,8 +119,12 @@ const RdsTabs = ({
 
 
   const tabsWithIcons = tabItems.map((tab) => {
-    const resolvedStart = tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon;
-    const resolvedEnd = tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon;
+    const tabStart = tab.startIcon ?? tab.leftIcon;
+    const tabEnd = tab.endIcon ?? tab.rightIcon;
+    const globalStart = startIcon ?? leftIcon;
+    const globalEnd = endIcon ?? rightIcon;
+    const resolvedStart = tabStart ?? globalStart;
+    const resolvedEnd = tabEnd ?? globalEnd;
     return {
       ...tab,
       leftIcon: showLeftIcon ? (resolvedStart ?? <PersonIcon fontSize="small" />) : resolvedStart,
