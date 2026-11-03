@@ -64,7 +64,8 @@ function lightSemanticPalette(): SemanticPalette {
     secondary: {
       main: s[700],
       light: s[100],
-      dark: s[600],
+      // Dark blue to match the blue `main`; s[600] is a pink step and made hovers turn red.
+      dark: s[750],
       contrastText: white,
     },
     error: {
@@ -128,7 +129,7 @@ function darkSemanticPalette(): SemanticPalette {
     secondary: {
       main: s[200],
       light: s[100],
-      dark: s[400],
+      dark: s[750],
       contrastText: n[900],
     },
     error: {
