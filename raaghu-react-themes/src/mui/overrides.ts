@@ -118,18 +118,34 @@ export const designSystemComponentOverrides: Components<Theme> = {
       standardSuccess: ({ theme }) => ({
         backgroundColor: pal(theme).success.light,
         color: pal(theme).success.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-success-bg)',
+          color: 'var(--rds-alert-success-text)',
+        }),
       }),
       standardError: ({ theme }) => ({
         backgroundColor: pal(theme).error.light,
         color: pal(theme).error.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-error-bg)',
+          color: 'var(--rds-alert-error-text)',
+        }),
       }),
       standardWarning: ({ theme }) => ({
         backgroundColor: pal(theme).warning.light,
         color: pal(theme).warning.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-warning-bg)',
+          color: 'var(--rds-alert-warning-text)',
+        }),
       }),
       standardInfo: ({ theme }) => ({
         backgroundColor: pal(theme).info.light,
         color: pal(theme).info.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-info-bg)',
+          color: 'var(--rds-alert-info-text)',
+        }),
       }),
     },
   },

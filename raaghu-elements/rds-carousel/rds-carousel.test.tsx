@@ -565,6 +565,14 @@ describe('audit fixes', () => {
       expect(getSlides(document.body)[0]).not.toHaveAttribute('inert');
     });
 
+    it('notifies onActiveIndexChange and moves the slide when uncontrolled', () => {
+      const onActiveIndexChange = jest.fn();
+      render(<RdsCarousel onActiveIndexChange={onActiveIndexChange}>{slides}</RdsCarousel>);
+      fireEvent.click(screen.getAllByRole('button')[1]);
+      expect(onActiveIndexChange).toHaveBeenCalledWith(1);
+      expect(getSlides(document.body)[1]).not.toHaveAttribute('inert');
+    });
+
     it('moves to the slide given by a changed activeIndex prop', () => {
       const { container, rerender } = render(<RdsCarousel activeIndex={0}>{slides}</RdsCarousel>);
       rerender(<RdsCarousel activeIndex={2}>{slides}</RdsCarousel>);

@@ -3684,7 +3684,7 @@
           "name": "onActiveIndexChange",
           "type": "((index: number) => void)",
           "required": false,
-          "description": "Called when the user requests a different slide while `activeIndex` is controlled."
+          "description": "Called with the new index whenever the slide changes (navigation or autoplay)."
         },
         {
           "name": "showArrows",

@@ -2339,8 +2339,7 @@
     }
 }
 
-[data-theme="dark"] .rds-comments-box--typing,
-.dark-theme .rds-comments-box--typing {
+[data-theme="dark"] .rds-comments-box--typing {
   .rds-comments-box__typing-box {
     background: var(--rds-background-paper);
     border-color: var(--rds-border-dark, var(--rds-neutral-500));

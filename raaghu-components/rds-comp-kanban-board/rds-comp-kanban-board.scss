@@ -743,8 +743,6 @@ body[data-bs-theme="dark"],
 html[data-bs-theme="dark"],
 body[data-theme="dark"],
 html[data-theme="dark"],
-.theme-dark,
-.dark-theme,
 .rds-theme--dark {
   .kanban-board {
     &__card {
@@ -754,14 +752,14 @@ html[data-theme="dark"],
 
     &__card-header {
       background-color: var(--rds-kanban-header-bg);
-      color: var(--rds-color-on-primary);
+      color: var(--rds-color-white);
       border-bottom: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium);
     }
 
     &__header-button,
     &__title-area,
     &__title-count,.kanban-board__card.MuiPaper-root,.rds-kanban-board__sub-card-card.MuiPaper-root-name {
-      color: var(--rds-color-on-primary);
+      color: var(--rds-color-white);
     }
   }
 
@@ -776,7 +774,7 @@ html[data-theme="dark"],
   .rds-kanban-board__sub-card-footer-left,
   .rds-kanban-board__sub-card-text.f-14.fw-400,
   .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-    color: var(--rds-text-primary);
+    color: var(--rds-grey-900);
   }
 
   .rds-kanban-board__add-button {

@@ -664,6 +664,16 @@ describe('audit fixes (renames)', () => {
     expect(onCheckedChange).toHaveBeenCalledWith(expect.anything(), [1, 2]);
   });
 
+  it('fires onCheckedChange once per checkbox click and once per row click', () => {
+    const onCheckedChange = jest.fn();
+    const { container } = render(<RdsList checkboxSelection onCheckedChange={onCheckedChange} items={items} />);
+    fireEvent.click(container.querySelectorAll('input[type="checkbox"]')[0]);
+    expect(onCheckedChange).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByText('Two'));
+    expect(onCheckedChange).toHaveBeenCalledTimes(2);
+    expect(onCheckedChange).toHaveBeenLastCalledWith(expect.anything(), [1, 2]);
+  });
+
   it('dividers and variant dense match legacy output', () => {
     const { container } = render(<RdsList dividers variant="dense" items={items} />);
     expect(container.querySelectorAll('.rds-list__divider')).toHaveLength(1);

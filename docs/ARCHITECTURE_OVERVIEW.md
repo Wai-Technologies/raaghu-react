@@ -72,7 +72,8 @@ Supported modes: `'light'` | `'dark'`.
 import '@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss';
 
 // 2. Wrap at the app root — this is the only provider needed
-import { RaaghuThemeProvider } from '@waiin/raaghu-react/raaghu-react-themes/src/provider/RaaghuThemeProvider';
+import { RaaghuThemeProvider } from '@waiin/raaghu-react';
+import '@waiin/raaghu-react/styles.css';
 
 <RaaghuThemeProvider defaultMode="light">
   <App />

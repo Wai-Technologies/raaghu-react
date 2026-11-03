@@ -42,7 +42,7 @@ export interface RdsCarouselProps
   defaultIndex?: number;
   /** Active slide index (0-based). When set, changing it moves the carousel to that slide. */
   activeIndex?: number;
-  /** Called when the user requests a different slide while `activeIndex` is controlled. */
+  /** Called with the new index whenever the slide changes (navigation or autoplay). */
   onActiveIndexChange?: (index: number) => void;
   /** Visual variant (Figma "Style"). */
   variant?: CarouselVariant;
@@ -106,11 +106,8 @@ const RdsCarousel = ({
       ? activeIndex
       : uncontrolledIndex;
   const changeIndex = (index: number) => {
-    if (activeIndex !== undefined) {
-      onActiveIndexChange?.(index);
-    } else {
-      setUncontrolledIndex(index);
-    }
+    if (activeIndex === undefined) setUncontrolledIndex(index);
+    onActiveIndexChange?.(index);
   };
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';

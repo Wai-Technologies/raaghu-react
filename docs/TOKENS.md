@@ -755,10 +755,10 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-ai-typing-textarea-height` | `100px` | same |
 | `--rds-alert-error-bg` | `#FFDAD6` | `rgba(189, 13, 29, 0.15)` |
 | `--rds-alert-error-border` | `#BD0D1D` | same |
-| `--rds-alert-error-text` | `#930011` | `#BD0D1D` |
+| `--rds-alert-error-text` | `#930011` | `#FF544F` |
 | `--rds-alert-info-bg` | `#ffffff` | `#424242` |
 | `--rds-alert-info-border` | `#646464` | `#bdbdbd` |
-| `--rds-alert-info-text` | `#1976D2` | `#3C98FF` |
+| `--rds-alert-info-text` | `#1976D2` | `#90CAF9` |
 | `--rds-alert-left-border-width` | `6px` | same |
 | `--rds-alert-link-font-size` | `0.8125rem` | same |
 | `--rds-alert-link-margin-right` | `0.625rem` | same |
@@ -770,10 +770,10 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-alert-style1-shadow` | `0px 12px 20px -4px rgba(0, 0, 0, 0.15)` | same |
 | `--rds-alert-success-bg` | `#e3f2fd` | `rgba(31, 118, 48, 0.15)` |
 | `--rds-alert-success-border` | `#7825E9` | `#1F7630` |
-| `--rds-alert-success-text` | `#1D5E2A` | `#1F7630` |
+| `--rds-alert-success-text` | `#1D5E2A` | `#31B64A` |
 | `--rds-alert-warning-bg` | `#FED99B` | `rgba(160, 120, 0, 0.15)` |
 | `--rds-alert-warning-border` | `#C2510C` | same |
-| `--rds-alert-warning-text` | `#C2510C` | same |
+| `--rds-alert-warning-text` | `#C2510C` | `#F98816` |
 | `--rds-appbar-action-font-size-xs` | `10px` | same |
 | `--rds-appbar-badge-bg` | `#e3f2fd` | `#232e3a` |
 | `--rds-appbar-badge-bg-dark` | — | `#232e3a` |

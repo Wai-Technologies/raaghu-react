@@ -191,7 +191,7 @@ const RdsList = ({
           <MuiListItemButton
             onClick={showCheckboxes
               ? (event: MouseEvent<HTMLElement>) => {
-                  handleCheckboxChange(item.id, event);
+                  if (!(event.target instanceof HTMLInputElement)) handleCheckboxChange(item.id, event);
                   (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
                 }
               : item.onClick}

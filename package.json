@@ -41,6 +41,7 @@
     },
     "./styles.css": "./dist/raaghu-react.css",
     "./raaghu-react.css": "./dist/raaghu-react.css",
+    "./raaghu-react-themes/src/styles/index.scss": "./raaghu-react-themes/src/styles/index.scss",
     "./package.json": "./package.json"
   },
   "sideEffects": [
@@ -53,12 +54,7 @@
   ],
   "files": [
     "dist/",
-    "raaghu-components/",
-    "raaghu-elements/",
-    "raaghu-layouts/",
-    "raaghu-react-themes/",
-    "utils/",
-    "index.ts",
+    "raaghu-react-themes/src/styles/index.scss",
     "README.md",
     "AGENTS.md",
     "llms.txt",
