@@ -371,7 +371,7 @@
       "deprecatedProps": [
         {
           "name": "activeDotBottom",
-          "use": "Prefer `status=\"online\"` with `statusPosition`."
+          "use": "Use `status=\"online\"` with `statusPosition=\"bottom\"` (or `\"both\"`)."
         },
         {
           "name": "activeDotTop",
