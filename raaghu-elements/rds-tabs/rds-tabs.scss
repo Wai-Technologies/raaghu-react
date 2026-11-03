@@ -168,8 +168,50 @@
   z-index: calc(var(--rds-z-index-base) + 1);
 }
 
-.rds-tabs--flap .Mui-selected:hover::after {
-  border-top-color: var(--rds-color-hover-bg);
+// Selected + hover states. The theme's MuiTab overrides paint the selected tab's text primary
+// (invisible on the filled/flap/pill primary background) and make hover transparent; these
+// rules out-rank them so the selected tab looks the same resting and hovered.
+.rds-tabs .MuiTab-root:not(.Mui-selected):not(.Mui-disabled):hover {
+  background-color: var(--rds-color-hover-bg);
+  color: var(--rds-color-on-surface);
+}
+
+.rds-tabs.rds-tabs--filled .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--filled .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--flap .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--flap .MuiTab-root.Mui-selected:not(.Mui-disabled):hover {
+  background: var(--rds-color-accent);
+  color: var(--rds-color-on-accent);
+}
+
+.rds-tabs.rds-tabs--pill .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--pill .MuiTab-root.Mui-selected:not(.Mui-disabled):hover {
+  background: var(--rds-color-primary);
+  color: var(--rds-color-on-primary);
+}
+
+.rds-tabs.rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-left-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-left-solid .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-right-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-right-solid .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-top-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-top-solid .MuiTab-root.Mui-selected:not(.Mui-disabled):hover {
+  background: var(--rds-color-accent-bg);
+  color: var(--rds-color-accent);
+}
+
+.rds-tabs.rds-tabs--line-bottom .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-bottom .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-left .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-left .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-right .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-right .MuiTab-root.Mui-selected:not(.Mui-disabled):hover,
+.rds-tabs.rds-tabs--line-top .MuiTab-root.Mui-selected:not(.Mui-disabled),
+.rds-tabs.rds-tabs--line-top .MuiTab-root.Mui-selected:not(.Mui-disabled):hover {
+  background: transparent;
+  color: var(--rds-color-primary, var(--rds-primary-main));
 }
 
 .rds-tabs .MuiTabs-root {
@@ -208,9 +250,6 @@
   z-index: calc(var(--rds-z-index-base) + 1);
 }
 
-.rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-  border-left-color: var(--rds-color-hover-bg);
-}
 .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected {
   background: var(--rds-color-disabled-bg);
   color: var(--rds-color-disabled-text);
@@ -365,7 +404,11 @@
   .rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
-  .rds-tabs--line-right-solid .MuiTab-root.Mui-selected {
+  .rds-tabs--line-right-solid .MuiTab-root.Mui-selected,
+  .rds-tabs.rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+  .rds-tabs.rds-tabs--line-top-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+  .rds-tabs.rds-tabs--line-left-solid .MuiTab-root.Mui-selected:not(.Mui-disabled),
+  .rds-tabs.rds-tabs--line-right-solid .MuiTab-root.Mui-selected:not(.Mui-disabled) {
     color: var(--rds-color-on-primary, var(--rds-neutral-0));
     background-color: var(--rds-color-primary, var(--rds-primary-main));
   }

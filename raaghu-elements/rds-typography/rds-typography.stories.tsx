@@ -47,7 +47,7 @@ const meta: Meta<typeof RdsTypography> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Heading1: Story = {
+export const Default: Story = {
   args: {
     children: 'Heading 1',
     variant: 'h1',
@@ -56,6 +56,8 @@ export const Heading1: Story = {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
+
+export const Heading1: Story = { ...Default };
 
 export const Heading2: Story = {
   args: {
@@ -151,7 +153,5 @@ export const NoWrap: Story = {
     variant: 'body1',
   },
 };
-
-export const Default: Story = { ...Heading1 };
 
 

@@ -475,14 +475,19 @@ describe('RdsDialog additive renames', () => {
   const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
   beforeEach(() => warn.mockClear());
 
-  it('lets showCloseButton win over showDissmiss', () => {
+  it('lets showCloseButton win over the deprecated showDissmiss, which warns', () => {
     render(<RdsDialog open title="T" onClose={jest.fn()} showDissmiss showCloseButton={false}>c</RdsDialog>);
     expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
-    expect(warn).not.toHaveBeenCalled();
+    expect(warn).toHaveBeenCalledWith('RdsDialog', 'showDissmiss', '`showCloseButton`');
+  });
+
+  it('still honours the deprecated showDissmiss on its own', () => {
+    render(<RdsDialog open title="T" onClose={jest.fn()} showDissmiss={false}>c</RdsDialog>);
+    expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
   });
 
   it('supports lowerCamelCase button props', () => {
-    render(<RdsDialog open variant="confirm" showDissmiss={false} showPrimary showSecondary>c</RdsDialog>);
+    render(<RdsDialog open variant="confirm" showCloseButton={false} showPrimary showSecondary>c</RdsDialog>);
     expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
     expect(screen.getByText('Okay')).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();
