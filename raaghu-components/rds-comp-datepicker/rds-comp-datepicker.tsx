@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery, type Theme } from "@mui/material";
 import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -277,7 +277,7 @@ const RdsDatepicker = ({
         };
     }, [isDropdownOpen, type, updatePickerState]);
 
-    const isCompact = useMediaQuery('(max-width:576px)');
+    const isCompact = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     const sharedProps = useMemo(
         () => ({
