@@ -338,18 +338,20 @@ describe('RdsRating', () => {
       expect(container.querySelector('.rds-rating--color-warning')).toBeInTheDocument();
     });
 
-    it('should apply info color variant to star rating', () => {
+    it('maps deprecated info color to primary on star rating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="info" />
       );
-      expect(container.querySelector('.rds-rating--color-info')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-info')).not.toBeInTheDocument();
     });
 
-    it('should apply info color variant to slider rating', () => {
+    it('maps deprecated info color to primary on slider rating', () => {
       const { container } = renderWithTheme(
-        <RdsRating type="slider" colorVariant="info" />
+        <RdsRating type="slider" color="info" />
       );
-      expect(container.querySelector('.rds-rating--color-info')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating__slider--color-primary')).toBeInTheDocument();
     });
   });
 

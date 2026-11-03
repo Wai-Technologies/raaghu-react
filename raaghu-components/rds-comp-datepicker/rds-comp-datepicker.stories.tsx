@@ -11,6 +11,7 @@ const meta: Meta = {
             status: { type: 'stable' },
         layout: 'padded',
         docs :{
+            story: { inline: true, height: '290px' },
             description: {
         component:
             'The Date Picker component is an interactive UI element for selecting dates in various formats. It supports multiple display styles (Dropdown, Selector), layout options (Default, Month Picker, Year Picker, Multi Month), and semantic disabled and required options.'

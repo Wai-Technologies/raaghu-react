@@ -290,14 +290,6 @@
   }
 }
 
-.rds-rating--color-info {
-  .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-info-main); } }
-  .rds-rating__slider {
-    color: var(--rds-info-main);
-    .MuiSlider-thumb { background-color: var(--rds-info-main); &:hover{ box-shadow: 0 0 0 var(--rds-spacing-sm) color-mix(in srgb, var(--rds-info-main) 16%, transparent); } }
-    .MuiSlider-track { background-color: var(--rds-info-main); }
-  }
-}
 
 .rds-rating--color-secondary {
   .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-secondary-main); } }

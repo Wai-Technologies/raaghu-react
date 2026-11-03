@@ -65,8 +65,8 @@ const meta: Meta<typeof RdsRating> = {
     },
     color: {
       control: { type: 'select' },
-      options: ['primary','success','error','danger','warning','light','info','secondary','dark'],
-      description: 'Rating palette color (`danger` is deprecated; use `error`)',
+      options: ['primary','success','error','warning','light','secondary','dark'],
+      description: 'Rating palette color',
     },
     readOnly: {
       control: { type: 'boolean' },
