@@ -162,7 +162,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should not render if not visible', () => {
-      const { rerender } = render(<RdsCompProductTour {...defaultProps} />);
+      render(<RdsCompProductTour {...defaultProps} />);
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
   });
@@ -355,7 +355,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should render form tabs', () => {
-      const { container } = render(
+      render(
         <RdsCompProductTour
           {...defaultProps}
           variant="Form"
@@ -454,7 +454,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should hide component when dismiss button clicked', () => {
-      const { container } = render(
+      render(
         <RdsCompProductTour {...defaultProps} showDismiss={true} variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();

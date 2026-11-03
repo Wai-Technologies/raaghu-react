@@ -192,7 +192,7 @@ describe('RdsMenu', () => {
       const items = [
         { id: 1, divider: true, label: 'This should not appear' },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
       expect(screen.queryByText('This should not appear')).not.toBeInTheDocument();
@@ -225,7 +225,7 @@ describe('RdsMenu', () => {
       const items = [
         { id: 1, header: 'Header Text', label: 'This should not appear' },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
       expect(screen.getByText('Header Text')).toBeInTheDocument();
@@ -467,7 +467,7 @@ describe('RdsMenu', () => {
 
   describe('Menu Props', () => {
     it('should pass through MenuProps', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMenu 
           items={defaultItems} 
           open={true} 

@@ -89,7 +89,6 @@ export const FigmaUIKitButton = ({
   text = "Download the Figma UI Kit",
   onClick,
   figmaIconSrc,
-  storybookIconSrc,
   iconAlt = "Figma",
   className = ""
 }: FigmaUIKitButtonProps) => {
@@ -119,7 +118,6 @@ export const StorybookButton = ({
   text = "Go to Storybook",
   onClick,
   className = "",
-  figmaIconSrc,
   storybookIconSrc,
   iconAlt = "Storybook"
 }: StorybookButtonProps) => {
@@ -280,7 +278,7 @@ export const HistoryFavoritesTabs = ({
                       className="rds-comp-details-pane__favourite-checkbox"
                       showText={false}
                       status={selectedIndexes.includes(idx) ? 'checked' : 'unchecked'}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => { e.stopPropagation(); toggleSelection(idx); }}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => { e.stopPropagation(); toggleSelection(idx); }}
                     />
                     <span className="rds-comp-details-pane__favourite-title">
                       {favouriteCardTitle}

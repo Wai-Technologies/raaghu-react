@@ -399,7 +399,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should pass data attributes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton data-testid="custom-skeleton" data-custom="value" />
       );
       const skeleton = screen.getByTestId('custom-skeleton');

@@ -376,7 +376,7 @@ describe('RdsCompChat', () => {
           ],
         },
       ];
-      const { container } = render(
+      render(
         <RdsCompChat {...defaultProps} userData={dataWithoutMedia} />
       );
       const mediaTab = screen.getByRole('tab', { name: 'Media' });

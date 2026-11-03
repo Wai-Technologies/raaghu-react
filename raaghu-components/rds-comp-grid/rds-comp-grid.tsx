@@ -271,7 +271,6 @@ export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 const EditableCell = ({ 
   value, 
   column, 
-  row, 
   isEditing, 
   onStartEdit, 
   onSave, 
@@ -299,7 +298,7 @@ const EditableCell = ({
       if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
         try {
           inputRef.current.select();
-        } catch (e) {
+        } catch {
           inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
         }
       }
@@ -551,14 +550,14 @@ const RdsCompGrid = ({
   enableColumnSwapping = false,
   showHeader = true,
   showSubHeader = true,
-  showAddNewColumn = false,
+  showAddNewColumn: _showAddNewColumn,
   collapsed = false,
   actions = [],
-  actionPosition = ActionPosition.Right,
+  actionPosition: _actionPosition,
   actionColumnStyle = ActionColumnStyle.ShowDots,
   pagination = false,
   recordsPerPage = 10,
-  recordsPerPageSelectListOption = false,
+  recordsPerPageSelectListOption: _recordsPerPageSelectListOption,
   totalRecords,
   onActionSelection,
   onRowSelect,
@@ -574,7 +573,7 @@ const RdsCompGrid = ({
   onColumnSwap,
   classes,
   fontWeight,
-  illustration = false,
+  illustration: _illustration,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   loading: loadingProp,
@@ -1756,7 +1755,7 @@ const RdsCompGrid = ({
     refresh: () => {
       setInternalData([...currentData]);
     },
-    scrollToRow: (rowId: string) => {
+    scrollToRow: (_rowId: string) => {
       if (tableRef.current) {
         tableRef.current.scrollIntoView({ behavior: 'smooth' });
       }
@@ -2169,7 +2168,7 @@ const RdsCompGrid = ({
                             handleCustomDragOver(index);
                           }
                         }}
-                        onDragEnd={(e) => {
+                        onDragEnd={() => {
                           if (enableColumnSwapping && customDragState.isDragging) {
                             handleCustomDragEnd(customDragState.currentHoverIndex ?? undefined);
                           }
@@ -2442,7 +2441,7 @@ const RdsCompGrid = ({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)' }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2454,7 +2453,7 @@ const RdsCompGrid = ({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)' }}
                       >
                         <Radio
                           checked={isSelected}

@@ -93,7 +93,7 @@ describe('RdsTimeline', () => {
 
     it('should render single item', () => {
       const singleItem = [mockItems[0]];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTimeline items={singleItem} />
       );
       expect(screen.getByText('Event 1')).toBeInTheDocument();
@@ -505,7 +505,7 @@ describe('RdsTimeline', () => {
           time: '',
         },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTimeline items={emptyItems} showTime={true} />
       );
       expect(screen.getByText('Title')).toBeInTheDocument();

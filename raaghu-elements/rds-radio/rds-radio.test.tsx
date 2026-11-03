@@ -686,7 +686,7 @@ describe('RdsRadio', () => {
     });
 
     it('should have proper label associations in standard layout', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
           layout="icon with label"

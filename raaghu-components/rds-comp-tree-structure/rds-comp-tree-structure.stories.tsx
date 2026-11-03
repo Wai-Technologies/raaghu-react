@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsCompTreeStructure, { IconType, RdsCompTreeStructureProps, TreeLevel } from './rds-comp-tree-structure';
 
 const meta: Meta = {

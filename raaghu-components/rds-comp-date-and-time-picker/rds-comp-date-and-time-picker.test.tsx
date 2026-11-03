@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import RdsCompDatePicker from './rds-comp-date-and-time-picker';
@@ -112,7 +111,7 @@ jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
 
 // Mock MUI DateCalendar
 jest.mock('@mui/x-date-pickers/DateCalendar', () => ({
-  DateCalendar: ({ value, onChange, slots, ...props }: any) => (
+  DateCalendar: ({ value, onChange }: any) => (
     <div data-testid="date-calendar" data-value={value?.format('YYYY-MM-DD')}>
       <button
         data-testid="calendar-day-select"

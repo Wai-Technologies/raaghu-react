@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRating from './rds-rating';
 import { axe } from 'jest-axe';
@@ -530,7 +529,7 @@ describe('RdsRating', () => {
     });
 
     it('should have proper ARIA labels for slider', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsRating type="slider" label="Rate the experience" />
       );
       

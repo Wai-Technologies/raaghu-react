@@ -579,7 +579,7 @@ describe('RdsTypography', () => {
 
     it('should support conditional rendering', () => {
       const showContent = true;
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTypography variant="body1">
           {showContent && 'Visible Content'}
         </RdsTypography>

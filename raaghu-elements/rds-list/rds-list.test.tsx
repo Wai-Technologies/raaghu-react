@@ -117,7 +117,7 @@ describe('RdsList', () => {
       const itemsWithoutSecondary = [
         { id: 1, primary: 'Item 1' },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList items={itemsWithoutSecondary} />
       );
       expect(screen.getByText('Item 1')).toBeInTheDocument();
@@ -546,7 +546,7 @@ describe('RdsList', () => {
         secondary: `Secondary ${i}`,
       }));
 
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList items={largeItems} withDividers={true} />
       );
       
@@ -557,7 +557,7 @@ describe('RdsList', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional MuiList props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList 
           items={defaultItems}
           data-testid="custom-list"

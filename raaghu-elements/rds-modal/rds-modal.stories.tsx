@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
 import { useState } from 'react';

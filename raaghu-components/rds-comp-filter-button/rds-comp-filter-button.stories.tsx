@@ -122,8 +122,8 @@ export const Default: Story = {
     ),
     startIcon: <FilterListIcon sx={{ fontSize: 16 }} />,
     endIcon: <ExpandMoreIcon sx={{ fontSize: 16 }} />,
-    onFiltersChange: (filters: FilterOption[]) => {},
-    onApply: (filters: FilterOption[]) => {},
+    onFiltersChange: () => {},
+    onApply: () => {},
     onClear: () => {},
   },
   play: async ({ canvas }) => {

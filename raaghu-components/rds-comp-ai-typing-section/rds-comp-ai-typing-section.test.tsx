@@ -289,7 +289,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles file selection from attachment', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const attachment = screen.getByTestId('rds-attachment');
       
       fireEvent.click(attachment);
@@ -522,7 +522,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles undefined callbacks gracefully', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const sendButton = screen.getByTestId('btn-icon-only');
       
       expect(() => fireEvent.click(sendButton)).not.toThrow();
@@ -588,7 +588,7 @@ it('handles emoji input', () => {
 
     it('buttons are keyboard accessible', () => {
       const onSend = jest.fn();
-      const { container } = render(
+      render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
       const sendButton = screen.getByTestId('btn-icon-only');

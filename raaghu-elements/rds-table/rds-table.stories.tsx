@@ -3,7 +3,6 @@ import { expect, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RdsProgress from '../rds-progress/rds-progress';
 import RdsAvatar from '../rds-avatar/rds-avatar';
@@ -141,7 +140,7 @@ const defaultColumns = [
     minWidth: 60,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
+    format: () => (
         <RdsBadge 
           badgeContent="Badge" 
           color="secondary" 

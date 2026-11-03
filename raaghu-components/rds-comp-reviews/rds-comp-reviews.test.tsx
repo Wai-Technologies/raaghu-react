@@ -46,7 +46,7 @@ jest.mock('@mui/icons-material', () => ({
 
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,
-  default: ({ name, title = name, src, displayStyle, size, showName, showDesignation, description, subText = description, alt }: any) => (
+  default: ({ name, title = name, src, displayStyle, size, showName, showDesignation, description, subText = description }: any) => (
     <div
       data-testid="rds-avatar"
       data-title={title}

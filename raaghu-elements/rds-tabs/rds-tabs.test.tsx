@@ -638,7 +638,7 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={mockTabs} />
       );
       const tabs = container.querySelectorAll('[role="tab"]');
-      tabs.forEach((tab, index) => {
+      tabs.forEach((tab) => {
         expect(tab).toHaveAttribute('title');
         expect(tab.getAttribute('title')).toBeTruthy();
       });

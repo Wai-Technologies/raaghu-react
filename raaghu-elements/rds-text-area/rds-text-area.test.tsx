@@ -198,7 +198,7 @@ describe('RdsTextArea', () => {
     });
 
     it('should validate mandatory field on blur', async () => {
-      const { container } = render(
+      render(
         <RdsTextArea required label="Required Field" dataTestId="test-textarea" />
       );
       const textarea = screen.getByRole('textbox');
@@ -233,7 +233,7 @@ describe('RdsTextArea', () => {
   describe('Custom Validation Pattern', () => {
     it('should validate against pattern', async () => {
       const urlPattern = /^(https?:\/\/)/;
-      const { rerender } = render(
+      render(
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
@@ -586,7 +586,7 @@ describe('RdsTextArea', () => {
       const onFocus = jest.fn();
       const onBlur = jest.fn();
       
-      const { rerender } = render(
+      render(
         <RdsTextArea 
           label="Email"
           placeholder="Enter email"

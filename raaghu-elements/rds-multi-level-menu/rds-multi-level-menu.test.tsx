@@ -487,7 +487,7 @@ describe('RdsMultiLevelMenu', () => {
     });
 
     it('should have arrow element in expandable items', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMultiLevelMenu options={nestedOptions} type="expandable" />
       );
       const button = screen.getByTestId('rds-button');
@@ -763,7 +763,7 @@ describe('RdsMultiLevelMenu', () => {
     });
 
     it('should handle keyboard navigation', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');

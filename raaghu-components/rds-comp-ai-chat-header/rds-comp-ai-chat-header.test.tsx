@@ -198,7 +198,7 @@ describe('RdsCompAiChatHeader', () => {
     });
 
     it('applies size class to logo', () => {
-      const { container } = render(
+      render(
         <RdsCompAiChatHeader
           {...defaultProps}
           size={ChatHeaderSize.Large}
@@ -209,7 +209,7 @@ describe('RdsCompAiChatHeader', () => {
     });
 
     it('applies size class to text', () => {
-      const { container } = render(
+      render(
         <RdsCompAiChatHeader
           {...defaultProps}
           size={ChatHeaderSize.Large}
@@ -220,7 +220,7 @@ describe('RdsCompAiChatHeader', () => {
     });
 
     it('renders without size defaults to no size class', () => {
-      const { container } = render(
+      render(
         <RdsCompAiChatHeader
           {...defaultProps}
           size={undefined}
@@ -320,7 +320,7 @@ describe('RdsCompAiChatHeader', () => {
     });
 
     it('applies combined classes to logo', () => {
-      const { container } = render(
+      render(
         <RdsCompAiChatHeader
           {...defaultProps}
           size={ChatHeaderSize.Medium}
@@ -332,7 +332,7 @@ describe('RdsCompAiChatHeader', () => {
     });
 
     it('applies combined classes to text', () => {
-      const { container } = render(
+      render(
         <RdsCompAiChatHeader
           {...defaultProps}
           size={ChatHeaderSize.Small}

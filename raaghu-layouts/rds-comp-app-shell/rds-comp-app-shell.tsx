@@ -102,7 +102,6 @@ const RdsCompAppShell = ({
   useEffect(() => {
     const isProduction = typeof process !== 'undefined' && process.env?.NODE_ENV === 'production';
     if (!isProduction && openProp !== undefined && !hasHandler) {
-      // eslint-disable-next-line no-console -- intentional developer-facing warning
       console.warn('RdsCompAppShell: `sidebarOpen` is controlled but `onSidebarOpenChange` is missing, so the sidebar cannot be toggled.');
     }
   }, [openProp, hasHandler]);

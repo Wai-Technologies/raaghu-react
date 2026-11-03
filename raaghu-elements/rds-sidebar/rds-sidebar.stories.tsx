@@ -14,14 +14,6 @@ import {
   Star,
   Send,
   Drafts,
-  Business,
-  AdminPanelSettings,
-  Widgets,
-  Receipt,
-  ConfirmationNumber,
-  Chat,
-  Campaign,
-  Assignment
 } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsSidebar> = {

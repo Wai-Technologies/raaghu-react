@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 jest.mock('react-svg-worldmap', () => ({
-  WorldMap: ({ data, styleFunction, color, title, size }: any) => (
+  WorldMap: ({ data, color, title, size }: any) => (
     <div
       data-testid="world-map"
       data-map-size={size}

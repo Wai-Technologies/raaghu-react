@@ -421,7 +421,7 @@ describe('RdsTooltip', () => {
     });
 
     it('should handle multiple custom classes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTooltip title="Test" className="class1 class2">
           <button>Hover me</button>
         </RdsTooltip>

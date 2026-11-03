@@ -17,7 +17,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-// @ts-ignore Side-effect stylesheet import is resolved by bundler.
 import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {

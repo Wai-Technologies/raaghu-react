@@ -290,7 +290,7 @@ describe('RdsCompAdaptiveCards', () => {
     });
 
     it('applies correct button styles', () => {
-      const { container } = render(
+      render(
         <RdsCompAdaptiveCards
           type="Default"
           showBtn1={true}

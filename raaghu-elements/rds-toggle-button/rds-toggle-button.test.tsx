@@ -124,7 +124,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should select button on click', async () => {
-      const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
+      renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const option1Button = screen.getByText('Option 1').closest('button');
       
       fireEvent.click(option1Button!);
@@ -135,7 +135,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should deselect when clicking selected button without enforceSelected', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} defaultValue="option1" />
       );
       const option1Button = screen.getByText('Option 1').closest('button');
@@ -148,7 +148,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should handle controlled value', () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsToggleButton options={mockOptions} value="option1" onChange={() => {}} />
       );
       
@@ -179,7 +179,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should have defaultValue as array in multiple mode', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true} 
@@ -194,7 +194,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should select multiple buttons', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
       
@@ -211,7 +211,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should deselect when clicking already selected button in multiple mode', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true}
@@ -371,7 +371,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should render icon and label together', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptionsWithIcons} />
       );
       
@@ -397,7 +397,7 @@ describe('RdsToggleButton', () => {
 
   describe('enforceSelected Prop', () => {
     it('should not allow deselecting all buttons when enforceSelected is true', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={true}
@@ -414,7 +414,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should enforce first option selected by default when enforceSelected is true', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={true}
@@ -426,7 +426,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should prevent emptying multiple selection when enforceSelected is true', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true}
@@ -444,7 +444,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should allow deselecting when enforceSelected is false', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={false}
@@ -702,7 +702,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should switch between single and multiple modes', async () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsToggleButton 
           options={mockOptions}
           multiple={false}
@@ -863,7 +863,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should update aria-pressed state on selection', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} />
       );
       

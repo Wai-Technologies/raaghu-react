@@ -121,7 +121,7 @@ describe('RdsCompBarChart', () => {
     it('handles different id values', () => {
       const ids = ['chart1', 'chart2', 'chart3'];
       ids.forEach(id => {
-        const { container, unmount } = render(
+        const { unmount } = render(
           <RdsCompBarChart {...defaultProps} id={id} />
         );
         expect(screen.getByTestId(id)).toHaveAttribute('id', id);

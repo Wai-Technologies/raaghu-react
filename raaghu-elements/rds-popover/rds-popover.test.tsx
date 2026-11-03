@@ -500,7 +500,7 @@ describe('RdsPopover', () => {
     });
 
     it('should apply theme to all elements', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsPopover 
           isOpen={true}
           onClose={jest.fn()}

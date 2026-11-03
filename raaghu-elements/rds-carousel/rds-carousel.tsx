@@ -1,4 +1,4 @@
-import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
+import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
 import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
@@ -105,10 +105,10 @@ const RdsCarousel = ({
     activeIndex !== undefined && Number.isInteger(activeIndex) && activeIndex >= 0 && activeIndex < slideCount
       ? activeIndex
       : uncontrolledIndex;
-  const changeIndex = (index: number) => {
+  const changeIndex = useCallback((index: number) => {
     if (activeIndex === undefined) setUncontrolledIndex(index);
     onActiveIndexChange?.(index);
-  };
+  }, [activeIndex, onActiveIndexChange]);
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
@@ -123,7 +123,7 @@ const RdsCarousel = ({
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, paused, slideCount]);
+  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);

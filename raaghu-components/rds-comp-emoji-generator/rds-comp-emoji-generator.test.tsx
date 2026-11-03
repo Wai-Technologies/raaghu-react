@@ -106,7 +106,7 @@ jest.mock('./rds-comp-emoji-data', () => ({
   },
   ensureEmojiData: () => Promise.resolve(),
   isEmojiDataReady: () => true,
-  getEmojisByCategory: (category: any, skinTone: any) => {
+  getEmojisByCategory: (category: any) => {
     const emojis: any = {
       SmileysAndPeople: ['😊', '😂', '❤️', '😍'],
       AnimalsAndNature: ['🐶', '🐱', '🐭', '🐹'],
@@ -120,7 +120,7 @@ jest.mock('./rds-comp-emoji-data', () => ({
     return emojis[category] || [];
   },
   getEmojiLabel: (emoji: string) => (emoji === '😊' ? 'smiling face' : undefined),
-  searchEmojis: (term: string, category: any, skinTone: any) => {
+  searchEmojis: (term: string) => {
     if (term.toLowerCase().includes('smile')) return ['😊', '😁', '😃'];
     if (term.toLowerCase().includes('dog')) return ['🐶', '🐕'];
     return [];

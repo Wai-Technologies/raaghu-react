@@ -752,7 +752,7 @@ describe('RdsSearch', () => {
     });
 
     it('should handle disabled state toggle', () => {
-      const { container, rerender } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsSearch 
           value="" 
           onChange={() => {}}
