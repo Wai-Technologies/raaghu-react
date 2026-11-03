@@ -26,7 +26,7 @@ figma.connect(
     language="CSS"
     showActions
     showCheckbox
-    showChewron
+    showChevron
     showFile
     showFolder
     selected={false}

@@ -6,7 +6,6 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-speed-dial.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsSpeedDial', () => {

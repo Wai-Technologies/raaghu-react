@@ -7,7 +7,6 @@ import RdsPaper from './rds-paper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-paper.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({

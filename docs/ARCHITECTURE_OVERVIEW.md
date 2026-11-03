@@ -83,7 +83,7 @@ import '@waiin/raaghu-react/styles.css';
 `RaaghuThemeProvider` initialises from `localStorage` on mount (key: `raaghu-theme`),
 falls back to `prefers-color-scheme`, then to `defaultMode`.
 
-Do not introduce a separate Griffel app-root provider. `RaaghuThemeProvider` already covers MUI, CSS vars, and `CssBaseline`. `@griffel/react` remains an optional dependency for atomic CSS-in-JS where needed, but there is no `utils/griffel` package in this repo.
+Do not add another app-root provider. `RaaghuThemeProvider` already covers MUI, CSS vars, and `CssBaseline`.
 
 ---
 
@@ -167,7 +167,6 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 |---|---|
 | Components | React 19, TypeScript 5.8 |
 | Base UI | Material UI 7 |
-| CSS-in-JS (optional) | Griffel (`@griffel/react`) — no dedicated provider folder |
 | Styling | SCSS/Sass (`sass`) |
 | Build | Vite 7 |
 | Docs / Visual tests | Storybook 10, Vitest (story tests) |

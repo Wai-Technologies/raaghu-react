@@ -256,7 +256,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-red-danger-hover` | `#930011` | `#FF544F` |
 | `--rds-color-red-delete` | `#e53935` | `#e57373` |
 | `--rds-color-red-delete-hover` | `#BD0D1D` | same |
-| `--rds-color-scrollbar-thumb` | — | `#555555` |
+| `--rds-color-scrollbar-thumb` | `color-mix(in srgb, var(--rds-color-black) 32%, transparent)` | `#555555` |
 | `--rds-color-scrollbar-thumb-hover` | — | `#6a6a6a` |
 | `--rds-color-scrollbar-track` | — | `#2a2a2a` |
 | `--rds-color-secondary` | `var(--rds-secondary-main)` | same |
@@ -280,7 +280,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-surface-readonly` | `#fafafa` | same |
 | `--rds-color-surface-selected-dark` | — | `#3b3b3b` |
 | `--rds-color-surface-variant` | `var(--rds-background-surface)` | same |
-| `--rds-color-surface-variant-dark` | — | `#303030` |
+| `--rds-color-surface-variant-dark` | `#2a2a2a` | `#303030` |
 | `--rds-color-surface-variant-hover` | `#f5f5f5` | same |
 | `--rds-color-surface-variant-hover-dark` | — | `#b9b7b7` |
 | `--rds-color-switch-label` | `#757575` | same |

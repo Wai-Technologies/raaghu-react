@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSnackbar from './rds-snackbar';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-snackbar.scss', () => ({}));
 
 const theme = createTheme();
 

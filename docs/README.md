@@ -18,7 +18,6 @@ This folder contains all technical guides for the Raaghu Design System. Start wi
 | Guide | What It Covers |
 |-------|---------------|
 | [THEME_INTEGRATION_GUIDE.md](./THEME_INTEGRATION_GUIDE.md) | How to integrate `raaghu-react-themes` into a consuming app |
-| [GRIFFEL_INTEGRATION_GUIDE.md](./GRIFFEL_INTEGRATION_GUIDE.md) | Optional `@griffel/react` notes (superseded; use RaaghuThemeProvider) |
 | [DESIGN_TOKENS_CHANGELOG.md](./DESIGN_TOKENS_CHANGELOG.md) | History of token additions, renames, and removals; guidelines for token authors |
 
 ## Testing

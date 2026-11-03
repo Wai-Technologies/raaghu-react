@@ -788,7 +788,7 @@ export const ToolbarContent = ({
                       language="TypeScript"
                       level={TreeLevel.Level3}
                       showActions
-                      showChewron
+                      showChevron
                       showFolder
                       text="Name"
                       treeData={[
@@ -903,7 +903,7 @@ export const ToolbarContent = ({
   language="TypeScript"
   level={TreeLevel.Level2}
   showActions
-  showChewron
+  showChevron
   showFolder 
   text="App Shell"
   

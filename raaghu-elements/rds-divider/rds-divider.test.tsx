@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-divider.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('@mui/icons-material/InfoOutlined', () => {

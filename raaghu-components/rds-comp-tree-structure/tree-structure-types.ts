@@ -25,6 +25,9 @@ export interface TreeNode {
 
 export interface RdsCompTreeStructureProps {
   level?: TreeLevel;
+  /** Shows the expand/collapse chevron on nodes with children. */
+  showChevron?: boolean;
+  /** @deprecated Use `showChevron`. */
   showChewron?: boolean;
   showCheckbox?: boolean;
   showFolder?: boolean;

@@ -87,7 +87,7 @@ export const TreeNodeRow = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {(node.children && level < maxLevel && props.showChewron) && (
+          {(node.children && level < maxLevel && props.showChevron) && (
             <button
               type="button"
               className={clsx(

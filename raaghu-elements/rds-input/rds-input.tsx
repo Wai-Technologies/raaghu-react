@@ -123,7 +123,6 @@ const RdsInput = ({
   const isRequired = required ?? isMandatory ?? false;
   const generatedId = useId();
   const inputId = id ?? `rds-input-${generatedId}`;
-  const [showPassword, setShowPassword] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue == null ? '' : String(defaultValue));
   const [prevLayout, setPrevLayout] = useState(layout);
   const isControlled = value !== undefined;
@@ -155,7 +154,7 @@ const RdsInput = ({
   let inputType: string = 'text';
   switch (layout) {
     case 'password':
-      inputType = showPassword ? 'text' : 'password';
+      inputType = 'password';
       break;
     case 'number':
     case 'card number':

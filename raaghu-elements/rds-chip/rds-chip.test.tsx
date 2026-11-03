@@ -5,7 +5,6 @@ import RdsChip, { RdsChipProps } from './rds-chip';
 import { Chip as MuiChip } from '@mui/material';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-chip.scss', () => ({}));
 
 jest.mock('@mui/icons-material/Close', () => {
   return function MockCloseIcon() {

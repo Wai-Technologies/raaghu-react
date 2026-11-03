@@ -1199,6 +1199,8 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-surface-dark-hover': surfaceTokens.darkHover,
     '--rds-surface-dark-alt': surfaceTokens.darkAlt,
     '--rds-surface-dark-deep': surfaceTokens.darkDeep,
+    '--rds-color-surface-variant-dark': surfaceTokens.darkDeep,
+    '--rds-color-scrollbar-thumb': 'color-mix(in srgb, var(--rds-color-black) 32%, transparent)',
     '--rds-border-dark-elevated': surfaceTokens.darkElevatedBorder,
     '--rds-error-main': sem.error.main,
     '--rds-error-light': sem.error.light,

@@ -460,7 +460,7 @@ const RdsSidebar = ({
                 {hasChildren && (
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {item.children!.map((child, cIdx) => {
+                      {item.children!.map((child) => {
                         const childIcon = asReactNode(child.icon);
                         const childHref = child.href || child.path;
                         const childListItemButton = (

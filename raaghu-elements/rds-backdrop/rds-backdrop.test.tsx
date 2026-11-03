@@ -7,7 +7,6 @@ import { axe } from 'jest-axe';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-jest.mock('./rds-backdrop.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsBackdrop', () => {
