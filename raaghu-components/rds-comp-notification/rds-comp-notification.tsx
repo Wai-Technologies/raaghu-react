@@ -223,12 +223,16 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         {resolvedShowButton && (
                             <>
                                 {resolvedShowSecondaryButton && (
-                                    <RdsButton text={dismissLabel} size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
-                                    />
+                                    <RdsButton size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
+                                    >
+                                      {dismissLabel}
+                                    </RdsButton>
                                 )}
                                 {resolvedShowPrimaryButton && (
-                                    <RdsButton text={acceptLabel} size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
-                                    />
+                                    <RdsButton size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
+                                    >
+                                      {acceptLabel}
+                                    </RdsButton>
                                 )}
                             </>
                         )}

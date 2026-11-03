@@ -400,12 +400,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={snoozeLabel || btn1Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{snoozeLabel || btn1Label}</RdsButton>
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={lateLabel || btn2Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{lateLabel || btn2Label}</RdsButton>
           </RdsBox>
         )}
       </RdsStack>
@@ -433,7 +433,6 @@ export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions 
         options={radioOptionsMapped}
         value={selectedValue}
         onChange={e => setSelectedValue(e.target.value)}
-        direction="column"
         layout="icon with label"
         className="rds-adaptive-cards__activity-update-radio-group"
       />

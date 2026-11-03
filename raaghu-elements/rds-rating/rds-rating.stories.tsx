@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsRating> = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'ref', 'onChange', 'icon', 'emptyIcon', 'max'],
+      exclude: ['component', 'slots', 'slotProps', 'ref', 'onChange', 'icon', 'emptyIcon'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -30,7 +30,7 @@ const meta: Meta<typeof RdsRating> = {
       control: 'boolean',
       description: 'Whether to display the numeric rating value',
     },
-    maxStars: {
+    max: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
       description: 'Maximum number of stars',
     },
@@ -122,7 +122,7 @@ export const Default: Story = {
     value: { control: false },
     showValue: { control: false },
     label: { control: false },
-    maxStars: { control: false },
+    max: { control: false },
     size: { control: false },
     precision: { control: false },
     readOnly: { control: false },

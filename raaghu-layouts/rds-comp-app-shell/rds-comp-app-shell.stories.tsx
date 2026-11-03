@@ -98,7 +98,6 @@ const AppShellStory = (args: any) => {
           color="default"
           logo={<RaaghuLogoImg alt="Logo" className="rds-story-logo" />}
           onSearchChange={() => {}}
-          onTabChange={handleTabChange}
           searchPlaceholder="Search…"
           searchValue=""
           showLogo
@@ -143,7 +142,7 @@ const AppShellStory = (args: any) => {
               </div>
             </div>
           }
-          tabValue={selectedTab}
+          tabsProps={{ value: selectedTab, onChange: (_, value) => handleTabChange(value) }}
           tabs={['Home', 'News', 'Marketplace', 'Jobs']}
           title=""
         />
@@ -156,11 +155,10 @@ const AppShellStory = (args: any) => {
           color="default"
           position="relative"
           size="medium"
-          onTabChange={handleTabChange}
           showLogo={false}
           showMenuButton={true}
           onMenuClick={handleMobileSidebarToggle}
-          tabValue={selectedTab}
+          tabsProps={{ value: selectedTab, onChange: (_, value) => handleTabChange(value) }}
           tabs={["HOME", "NEWS", "MARKETPLACE", "JOBS"]}
           title=""
         />
@@ -178,14 +176,13 @@ const AppShellStory = (args: any) => {
               src={logoSrc}
             />
           }
-          onTabChange={handleTabChange}
           showLogo={args.displayType !== AppShellDisplayType.Default}
           showMenuButton={true}
           onMenuClick={handleMobileSidebarToggle}
-          tabValue={selectedTab}
+          tabsProps={{ value: selectedTab, onChange: (_, value) => handleTabChange(value) }}
           tabs={["HOME", "NEWS", "MARKETPLACE", "JOBS"]}
           title=""
-          rightActions={
+          endSlot={
             (args.displayType === AppShellDisplayType.TriPane || args.displayType === AppShellDisplayType.DoubleNav) ? (
               <button 
                 className="rds-toolbar-toggle-btn"

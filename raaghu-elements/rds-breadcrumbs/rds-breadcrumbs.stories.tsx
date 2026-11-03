@@ -14,18 +14,10 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'object',
       description: 'Array of breadcrumb items. Each item supports `label`, `href`, `active`, `selected`, `level`, `layout`, `showIcon`, `icon`, and `onClick`. Set `selected: true` on an item to display it as selected.',
     },
-    title: {
-      control: 'text',
-      description: 'Title for the first breadcrumb item',
-    },
     separatorType: {
       control: 'select',
       options: Object.values(BreadcrumbSeparator),
       description: 'Type of separator to use between breadcrumb items',
-    },
-    autoIcons: {
-      control: 'boolean',
-      description: 'Automatically assign different icons based on breadcrumb position and content',
     },
     level: {
       control: {
@@ -70,12 +62,11 @@ export const Default: Story = {
       { label: 'Subcategory', href: '/products/category/subcategory' },
       { label: 'Current Page', active: true },
     ],
-    title: 'Home',
     layout: 'without background',
     showIcon: true,
     level: 'level3',
     separatorType: BreadcrumbSeparator.GreaterThan,
-    autoIcons: false,
+    icon: 'home',
   },
 };
 
@@ -121,7 +112,7 @@ export const WithClickHandlers: Story = {
     layout: 'pill background',
     showIcon: true,
     separatorType: BreadcrumbSeparator.Arrow,
-    autoIcons: false,
+    icon: 'home',
     level: 'level3',
   },
 };

@@ -44,7 +44,7 @@ jest.mock('@mui/icons-material', () => ({
 }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
   __esModule: true,
-  default: ({ text, onClick, className, style, color, size }: any) => (
+  default: ({ text: textProp, children, onClick, className, style, color, size }: any) => { const text = textProp ?? children; return (
     <button
       data-testid={`rds-button-${text?.toLowerCase()}`}
       onClick={onClick}
@@ -55,7 +55,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
     >
       {text}
     </button>
-  ),
+  ); },
 }));
 jest.mock('../../raaghu-elements/rds-icon-button/rds-icon-button', () => ({
   __esModule: true,

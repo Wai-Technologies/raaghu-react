@@ -18,7 +18,7 @@ const meta: Meta = {
       control: { type: 'select' },
       description: 'Shape of the filter button',
     },
-    text: {
+    children: {
       control: 'text',
       description: 'Text label for the button',
     },
@@ -110,7 +110,7 @@ const sampleFilters: FilterOption[] = [
 export const Default: Story = {
   args: {
     shape: 'rectangle',
-    text: 'Filter',
+    children: 'Filter',
     showLeftIcon: true,
     showRightIcon: false,
     disabled: false,
@@ -133,6 +133,6 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled', 'sx'] },
+  controls: { include: ['shape', 'children', 'showLeftIcon', 'showRightIcon', 'disabled', 'sx'] },
 };
 

@@ -57,7 +57,7 @@ export const Default: Story = {
 
     return (
       <>
-        <RdsButton text="User" changeLeftIcon="add"
+        <RdsButton changeLeftIcon="add"
           changeRightIcon="save"
           color="primary"
           layout="text-only"
@@ -65,7 +65,10 @@ export const Default: Story = {
           showLeftIcon
           size="medium"
           variant="outlined"
-          textCase="uppercase" onClick={handleClick} />
+          textCase="uppercase" onClick={handleClick}
+        >
+          User
+        </RdsButton>
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -158,7 +161,7 @@ export const Dense: Story = {
 
     return (
       <>
-        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" variant="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" variant="outlined" textCase="uppercase" onClick={handleClick}>Dense</RdsButton>
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -203,7 +206,7 @@ export const WithCustomColor: Story = {
 
     return (
       <>
-        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick}>Custom Color</RdsButton>
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -240,7 +243,7 @@ export const WithDisabled: Story = {
 
     return (
       <>
-        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="outlined" textCase="uppercase" onClick={handleClick}>With Disabled</RdsButton>
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -294,14 +297,15 @@ export const CustomizedMenu: Story = {
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
           endIcon={<KeyboardArrowDown />}
-          text="Options"
           color="primary"
           layout="text-only"
           shape="rectangle"
           size="medium"
-          style="outlined"
+          variant="outlined"
           textCase="uppercase"
-        />
+        >
+          Options
+        </RdsButton>
         <RdsMenu
           anchorEl={anchorEl}
           open={open}

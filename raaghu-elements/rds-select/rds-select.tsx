@@ -131,6 +131,7 @@ const RdsSelect = ({
               : undefined
           }
           {...(required !== undefined && { required })}
+          {...(props.value === undefined && props.defaultValue === undefined && { defaultValue: props.multiple ? [] : '' })}
           {...props}
           {...(shrinkFloatingLabel && label ? { notched: true as const } : {})}
           sx={[

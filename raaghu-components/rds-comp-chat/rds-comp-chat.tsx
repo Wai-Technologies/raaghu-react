@@ -95,7 +95,19 @@ const ChatMessage = memo(({
 ));
 ChatMessage.displayName = "ChatMessage";
 
-const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
+const avatarPropsFor = (user?: UserData) => {
+  const name = user ? `${user.firstName} ${user.lastName}`.trim() : undefined;
+  const showPic = user?.showProfilePic ?? user?.withProfilePic ?? true;
+  return {
+    name,
+    description: user?.status || undefined,
+    alt: name || "User avatar",
+    src: showPic ? user?.profilePic || undefined : undefined,
+    status: user?.activeDotButton ? "online" as const : "offline" as const,
+    statusPosition: "bottom" as const,
+    displayStyle: "with-name" as const,
+  };
+};
 
 const RdsCompChat = ({
   chatScreenEnabled: chatScreenEnabledProp,
@@ -259,8 +271,8 @@ const RdsCompChat = ({
           </div>
           <div className="rds-comp-chat__screen-main">
             {userData.map((item, index) => (
-              <Box key={`${item.firstName}-${item.lastName}-${item.time}`} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} onClick={() => handleUserSelect(index)}>
-                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...AVATAR_PROPS} /></div>
+              <Box key={`${item.firstName}-${item.lastName}-${item.time}`} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} role="button" tabIndex={0} aria-pressed={state.selectedIndex === index} onClick={() => handleUserSelect(index)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleUserSelect(index); } }}>
+                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...avatarPropsFor(item)} /></div>
                 <div className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute">{item.time}</div>
               </Box>
             ))}
@@ -278,7 +290,7 @@ const RdsCompChat = ({
             )}
             <div className={clsx("rds-comp-chat__window-header-title", state.isMobile && "rds-comp-chat__window-header-title--mobile")}>
               <RdsAvatar
-                {...AVATAR_PROPS}
+                {...avatarPropsFor(state.currentUser)}
                 size={state.isSmallMobile ? "smallest" : state.isMobile ? "small" : "medium"}
               />
             </div>

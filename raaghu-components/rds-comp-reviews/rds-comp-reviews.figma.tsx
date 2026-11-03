@@ -1,5 +1,5 @@
 import React from "react"
-import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews"
+import RdsCompReviews, { RevieweStyle } from "./rds-comp-reviews"
 import figma from "@figma/code-connect"
 
 /**
@@ -33,7 +33,6 @@ figma.connect(
     },
     example: (props) => <RdsCompReviews
     {...props}
-    variantType={VariantType.Default}
     items={[
     {
       date: new Date('2025-08-21T12:20:52.202Z'),

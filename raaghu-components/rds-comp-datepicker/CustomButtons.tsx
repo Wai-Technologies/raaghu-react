@@ -8,8 +8,8 @@ interface CustomButtonsProps {
 
 export const CustomButtons = ({ ref: _ref, value: _value, onClick: _onClick }: CustomButtonsProps & { ref?: Ref<HTMLDivElement> }) => (
     <div className="rds-datepicker__button-wrapper">
-      <RdsButton text="Cancel" size="small" variant="outlined" />
-      <RdsButton text="Apply" size="small" variant="filled" />
+      <RdsButton size="small" variant="outlined">Cancel</RdsButton>
+      <RdsButton size="small" variant="filled">Apply</RdsButton>
     </div>
   );
 

@@ -950,6 +950,13 @@ describe('audit fixes', () => {
     expect(document.querySelector('label.rds-select__label')).not.toBeInTheDocument();
   });
 
+  it('does not warn about an out-of-range value when no value is given', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    wrap(<RdsSelect options={opts} label="No value" />);
+    expect(warn.mock.calls.flat().join(' ')).not.toMatch(/out-of-range value/);
+    warn.mockRestore();
+  });
+
   it('forwards data-testid to the root .rds-select', () => {
     wrap(<RdsSelect options={opts} data-testid="country-select" value="" />);
     expect(screen.getByTestId('country-select')).toHaveClass('rds-select');

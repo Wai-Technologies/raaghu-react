@@ -180,7 +180,7 @@ const RdsCompOffcanvas = ({
       <div className="offcanvas-text">
         {!isControlled && (
           <div className="offcanvas_btn">
-            <RdsButton text="Open Off Canvas" variant="filled" size="medium" onClick={handleOpen}/>
+            <RdsButton variant="filled" size="medium" onClick={handleOpen}>Open Off Canvas</RdsButton>
           </div>
         )}
         <Drawer
@@ -218,17 +218,17 @@ const RdsCompOffcanvas = ({
                     <>
                       <Box className="tertiary-button-container">
                         {showTertiaryButton && (
-                          <RdsButton text="RESTORE TO DEFAULT" variant="transparent" size="medium" className="offcanvas-action-btn" onClick={onRestoreDefault} />
+                          <RdsButton variant="transparent" size="medium" className="offcanvas-action-btn" onClick={onRestoreDefault}>RESTORE TO DEFAULT</RdsButton>
                         )}
                       </Box>
                       <Box className="secondary-button-container">
                         {showSecondaryButton && (
-                          <RdsButton text="CANCEL" variant="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn"/>
+                          <RdsButton variant="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn">CANCEL</RdsButton>
                         )}
                       </Box>
                       <Box className="primary-button-container">
                         {showPrimaryButton && (
-                          <RdsButton text="SAVE" variant="filled" size="medium" onClick={handleSave} className="offcanvas-action-btn" />
+                          <RdsButton variant="filled" size="medium" onClick={handleSave} className="offcanvas-action-btn">SAVE</RdsButton>
                         )}
                       </Box>
                     </>

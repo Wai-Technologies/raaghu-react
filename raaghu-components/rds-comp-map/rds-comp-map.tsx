@@ -144,9 +144,10 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const defaultStylingFunction = (context: CountryContext) => {
         const range = context.maxValue - context.minValue;
+        const countryValue = Number(context.countryValue);
         const normalizedValue =
-            range > 0
-                ? ((context.countryValue as number) - context.minValue) / range
+            range > 0 && Number.isFinite(countryValue)
+                ? (countryValue - context.minValue) / range
                 : 0;
 
         const opacityLevel = Math.min(1, 0.1 + 1.5 * normalizedValue);

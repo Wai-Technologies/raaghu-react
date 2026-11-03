@@ -557,8 +557,8 @@ const RdsCompAudioPlayer = ({
               onChange={handleSeek}
               className="rds-comp-audio-player__slider"
               controlType="one way"
-              leftLabel=""
-              rightLabel=""
+              startLabel=""
+              endLabel=""
               aria-label="Playback progress"
             />
             <span className="rds-comp-audio-player__total-time">

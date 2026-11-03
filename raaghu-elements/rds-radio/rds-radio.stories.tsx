@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsRadio> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['radioProps', 'ref'],
+    exclude: ['slotProps', 'ref'],
     },
   },
   tags: ['autodocs', 'stable'],

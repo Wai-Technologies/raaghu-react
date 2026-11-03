@@ -3,7 +3,7 @@ import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import { Dehaze as MenuIcon, Home, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
+import { Home, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
@@ -70,16 +70,6 @@ const CalendarIcon = () => (
   <svg width="18" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
    <path d="M1.73 3.46C1.41 3.46 1.09 3.59 0.86 3.82C0.63 4.05 0.5 4.37 0.5 4.69V15.77C0.5 16.1 0.63 16.41 0.86 16.64C1.09 16.87 1.41 17 1.73 17H15.27C15.6 17 15.91 16.87 16.14 16.64C16.37 16.41 16.5 16.1 16.5 15.77V4.69C16.5 4.37 16.37 4.05 16.14 3.82C15.91 3.59 15.6 3.46 15.27 3.46H12.81M4.19 1V5.92M12.81 1V5.92M4.19 3.46H10.35M4.81 9.62C4.81 9.96 4.53 10.23 4.19 10.23C3.85 10.23 3.58 9.96 3.58 9.62C3.58 9.28 3.85 9 4.19 9C4.53 9 4.81 9.28 4.81 9.62ZM9.12 9.62C9.12 9.96 8.84 10.23 8.5 10.23C8.16 10.23 7.89 9.96 7.89 9.62C7.89 9.28 8.16 9 8.5 9C8.84 9 9.12 9.28 9.12 9.62ZM13.42 9.62C13.42 9.96 13.15 10.23 12.81 10.23C12.47 10.23 12.19 9.96 12.19 9.62C12.19 9.28 12.47 9 12.81 9C13.15 9 13.42 9.28 13.42 9.62ZM4.81 13.31C4.81 13.65 4.53 13.92 4.19 13.92C3.85 13.92 3.58 13.65 3.58 13.31C3.58 12.97 3.85 12.69 4.19 12.69C4.53 12.69 4.81 12.97 4.81 13.31Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
-);
-
-const LogoSearchTabsLeftActions = () => (
-  <div className="rds-logo-search-tabs__left-actions">
-    <HomeIcon />
-    <CompassIcon />
-    <VideoIcon />
-    <HeartIcon />
-    <BellIcon />
-  </div>
 );
 
 const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>) => void }) => {
@@ -309,7 +299,7 @@ const meta: Meta<typeof RdsAppBar> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['component', 'onMenuClick', 'actions', 'endSlot', 'centerSlot', 'tabsProps', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
+    exclude: ['component', 'onMenuClick', 'actions', 'endSlot', 'centerSlot', 'tabsProps', 'onSearchChange', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
   tags: ['autodocs', 'stable'],
@@ -456,8 +446,7 @@ const DynamicTemplate = (args: any) => {
   let config: any = {
     ...args,
     showLogo: normalizedShowLogo,
-    tabValue,
-    onTabChange: (v: number) => setTabValue(v),
+    tabsProps: { value: tabValue, onChange: (_e: React.SyntheticEvent, v: number) => setTabValue(v) },
     searchValue,
     onSearchChange: (v: string) => setSearchValue(v),
   };
@@ -475,11 +464,6 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         title: 'My App',
-        leftActions: (
-          <IconButton edge="start" color="inherit">
-            <Home />
-          </IconButton>
-        ),
         searchValue,
         searchPlaceholder: args.searchPlaceholder || 'Search…',
         endSlot: undefined,
@@ -506,10 +490,8 @@ const DynamicTemplate = (args: any) => {
         logo: logoImg,
         showLogo: config.showLogo,
         title: ' ',
-        leftActions: <LogoSearchTabsLeftActions />,
         endSlot: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
         userName: undefined,
-        userShortName: undefined,
         userEmail: undefined,
         overflowContent: (
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
@@ -705,7 +687,6 @@ const DynamicTemplate = (args: any) => {
         
         endSlot: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
         userName: undefined,
-        userShortName: undefined,
         userEmail: undefined,
       };
       break;
@@ -716,18 +697,13 @@ const DynamicTemplate = (args: any) => {
        
         tabs: ['Community', 'Jobs', 'Resources'],
         logo: logoImg,
-        leftActions: (
-          <IconButton edge="start" color="inherit">
-            <MenuIcon />
-          </IconButton>
-        ),
         centerSlot: (
           <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="filled" textCase="uppercase">Find Jobs</RdsButton>
             </span>
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Login" textCase="uppercase" />
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Employers" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" textCase="uppercase">Login</RdsButton>
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" textCase="uppercase">Employers</RdsButton>
           </div>
         ),
         
@@ -737,7 +713,7 @@ const DynamicTemplate = (args: any) => {
         overflowContent: (
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <span className="rds-withactions-findjobs-mobile">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" variant="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" variant="filled" textCase="uppercase">Find Jobs</RdsButton>
             </span>
             <Button variant="text" size="small">Community</Button>
             <Button variant="text" size="small">Jobs</Button>
@@ -785,7 +761,7 @@ const DynamicTemplate = (args: any) => {
         endSlot: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
-            <RdsButton style='filled' color="primary" textCase="unset" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none' }}>
+            <RdsButton variant="filled" color="primary" textCase="unset" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none' }}>
               View Plans
             </RdsButton>
             <IconButton color="default" sx={{ ml: 1 }} className="rds-withmenubutton-settings">
@@ -798,7 +774,6 @@ const DynamicTemplate = (args: any) => {
           </div>
         ),
         userName: undefined,
-        userShortName: undefined,
         userEmail: undefined,
         bottomActions: (
           <>
@@ -845,7 +820,6 @@ const DynamicTemplate = (args: any) => {
           </div>
         ),
         userName: undefined,
-        userShortName: undefined,
         userEmail: undefined,
       };
       break;
@@ -853,11 +827,6 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         title: 'App Title',
-        leftActions: (
-          <IconButton edge="start" color="inherit">
-            <MenuIcon />
-          </IconButton>
-        ),
         endSlot: <Button color="inherit">Login</Button>,
       };
   }

@@ -10,7 +10,6 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompKanbanBoard
-        addQuestionData={{}}
         categoryOptions={[
           { label: "Category 1", val: "category1" },
           { label: "Category 2", val: "category2" },
@@ -27,7 +26,6 @@ figma.connect(
           { label: "Tag 5", val: "tag5" },
           { label: "Tag 6", val: "tag6" },
         ]}
-        allowAddingDynamicData
         allowAddColumn
         allowAddCard
         defaultColumns={[
@@ -70,8 +68,6 @@ figma.connect(
             ],
           },
         ]}
-        noDataHeaderTitle="Demo 1"
-        noDataTitle="Demo"
       />
     ),
   }

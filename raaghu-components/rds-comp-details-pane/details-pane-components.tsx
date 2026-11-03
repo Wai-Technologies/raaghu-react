@@ -41,9 +41,18 @@ export interface RealEstateContentProps {
   carouselImages?: { src: string; alt: string }[];
 }
 
+export interface DetailsPaneAgent {
+  id: number | string;
+  name: string;
+  designation?: string;
+  avatar?: string;
+  count?: number;
+}
+
 export interface SelectionContentProps {
   headerText?: string;
   headerSubText?: string;
+  agents?: DetailsPaneAgent[];
 }
 
 export interface ToolbarContentProps {
@@ -438,18 +447,22 @@ export const RealEstateContent = ({
   );
 };
 
-const SELECTION_AGENTS = [
-  { id: 1, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
-  { id: 2, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
-  { id: 3, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 }
+const SELECTION_AGENTS: DetailsPaneAgent[] = [
+  { id: 1, name: "Jane Doe", designation: "Designation", count: 4 },
+  { id: 2, name: "Jane Doe", designation: "Designation", count: 4 },
+  { id: 3, name: "Jane Doe", designation: "Designation", count: 4 }
 ];
 
 export const SelectionContent = ({
-  headerSubText = "Agent Information"
+  headerText = "Bayshore Transportation System",
+  headerSubText = "Agent Information",
+  agents: agentList = SELECTION_AGENTS
 }: SelectionContentProps) => {
-  const agents = SELECTION_AGENTS;
-
   const [searchValue, setSearchValue] = useState<string>("");
+  const query = searchValue.trim().toLowerCase();
+  const agents = query
+    ? agentList.filter((agent) => agent.name.toLowerCase().includes(query) || String(agent.id).toLowerCase().includes(query))
+    : agentList;
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
@@ -464,7 +477,7 @@ export const SelectionContent = ({
     <div className="custom-content-wrapper" id="detail-pane-container-2">
       <div className="detail-pane-container rds-comp-details-pane__selection-container" id="detail-pain-lable">
         <div className="rds-comp-details-pane__header-container">
-          <h3 className="rds-comp-details-pane__title"> Bayshore Transportation System </h3>
+          <h3 className="rds-comp-details-pane__title">{headerText}</h3>
           <p className="rds-comp-details-pane__subtitle">{headerSubText}</p>
         </div>
         
@@ -507,7 +520,7 @@ export const SelectionContent = ({
                 </div>
               </div>
               <div className="rds-comp-details-pane__agent-actions">
-                <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
+                {agent.count !== undefined && <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>}
                 <div className="rds-comp-details-pane__agent-radio">
                   <RdsRadio
                     direction="row"

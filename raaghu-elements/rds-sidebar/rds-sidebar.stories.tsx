@@ -39,7 +39,7 @@ When a platform is specified, the component automatically displays the appropria
     },
     controls: {
       include: [
-        'isOpen',
+        'open',
         'width',
         'variant',
         'anchor',
@@ -53,7 +53,7 @@ When a platform is specified, the component automatically displays the appropria
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    isOpen: {
+    open: {
       control: 'boolean',
       description: 'Whether the sidebar is open. Has no effect when `variant` is `permanent`.',
     },
@@ -95,7 +95,7 @@ When a platform is specified, the component automatically displays the appropria
     },
   },
   args: {
-    isOpen: true,
+    open: true,
     width: 240,
     variant: 'permanent',
     anchor: 'left',
@@ -143,7 +143,7 @@ const mailItems = [
 
 const SidebarTemplate = (args: any) => {
   const logoSrc = useRaaghuLogoSrc();
-  const [open, setOpen] = useState(!!args.isOpen);
+  const [open, setOpen] = useState(!!args.open);
   const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
   const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
   const sidebarWidth = sidebarArgs.width ?? 240;
@@ -152,8 +152,8 @@ const SidebarTemplate = (args: any) => {
   const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
 
   useEffect(() => {
-    setOpen(!!args.isOpen);
-  }, [args.isOpen]);
+    setOpen(!!args.open);
+  }, [args.open]);
 
   return (
     <Box
@@ -182,7 +182,7 @@ const SidebarTemplate = (args: any) => {
         <RdsSidebar
           {...sidebarArgs}
           avatarCollapsedSrc={logoSrc}
-          isOpen={open}
+          open={open}
           onClose={() => setOpen(false)}
           container={drawerContainer}
         />
@@ -234,7 +234,7 @@ export const Default = {
   },
   args: {
     items: basicItems,
-    isOpen: true,
+    open: true,
     variant: 'persistent',
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
@@ -249,7 +249,7 @@ export const MailApp = {
   args: {
     items: mailItems,
     width: 280,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
@@ -264,7 +264,7 @@ export const NarrowSidebar = {
   args: {
     items: basicItems,
     width: 200, 
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
@@ -286,7 +286,7 @@ export const Permanent: Story = {
   },
   args: {
     items: basicItems,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
@@ -330,7 +330,7 @@ export const WithoutIcons: Story = {
       { label: 'Services', onClick: () => {} },
       { label: 'Contact', onClick: () => {} },
     ],
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },

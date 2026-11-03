@@ -38,7 +38,6 @@ figma.connect(
               color="secondary"
               size="small"
               shape="rectangle"
-              colorVariant="secondary"
             />
           </div>
         ),
@@ -78,9 +77,9 @@ figma.connect(
     format: (value: string) => (
             <RdsAvatar
               alt="User Avatar"
-              subText="Developer"
+              description="Developer"
               displayStyle="with-name"
-              title="Wai Technologies"
+              name="Wai Technologies"
               showDesignation
               showName
             />
@@ -135,14 +134,12 @@ figma.connect(
                 color="secondary"
                 size="small"
                 shape="rectangle"
-                colorVariant="secondary"
               />
               <RdsBadge
                 badgeContent="Pending"
                 color="secondary"
                 size="small"
                 shape="rectangle"
-                colorVariant="secondary"
               />
             </div>
           </div>
@@ -169,14 +166,12 @@ figma.connect(
                 color="secondary"
                 size="small"
                 shape="rectangle"
-                colorVariant="secondary"
               />
               <RdsBadge
                 badgeContent="Pending"
                 color="secondary"
                 size="small"
                 shape="rectangle"
-                colorVariant="secondary"
               />
             </div>
             <span>{value}</span>

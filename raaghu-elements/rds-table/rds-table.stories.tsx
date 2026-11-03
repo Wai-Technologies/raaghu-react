@@ -145,8 +145,7 @@ const defaultColumns = [
           badgeContent="Badge" 
           color="secondary" 
           size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
+          shape="rectangle"
         />
     )
   },
@@ -196,9 +195,9 @@ const defaultColumns = [
     format: () => (
       <RdsAvatar
         alt="User Avatar"
-        subText="Developer"
+        description="Developer"
         displayStyle="with-name"
-        title="Wai Technologies"
+        name="Wai Technologies"
         showDesignation
         showName
         size="small"
@@ -257,15 +256,13 @@ const defaultColumns = [
             badgeContent="Active" 
             color="secondary" 
             size="small" 
-            shape="rectangle" 
-            colorVariant="secondary"
+            shape="rectangle"
           />
           <RdsBadge 
             badgeContent="Pending" 
             color="secondary" 
             size="small" 
-            shape="rectangle" 
-            colorVariant="secondary"
+            shape="rectangle"
           />
         </div>
       </div>
@@ -297,15 +294,13 @@ const defaultColumns = [
             badgeContent="Active" 
             color="secondary" 
             size="small" 
-            shape="rectangle" 
-            colorVariant="secondary"
+            shape="rectangle"
           />
           <RdsBadge 
             badgeContent="Pending" 
             color="secondary" 
             size="small" 
-            shape="rectangle" 
-            colorVariant="secondary"
+            shape="rectangle"
           />
         </div>
         <span>{value}</span>

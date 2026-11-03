@@ -39,7 +39,7 @@ figma.connect(
     },
     example: (props) => <RdsCompNotification 
     {...props} 
-    notifications={[
+    items={[
       {
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
         status: 'success',

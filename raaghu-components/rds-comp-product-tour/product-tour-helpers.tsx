@@ -231,7 +231,7 @@ export const renderFormInputs = () => (
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="Create" variant="outlined" size="medium" layout="text-only" />
+                <RdsButton variant="outlined" size="medium" layout="text-only">Create</RdsButton>
             </Box>
         </Box>
         </Box>
@@ -256,10 +256,9 @@ export const renderFormInputs = () => (
                     ]}
                     placeholder="Add Team Members"
                     popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-xl)' }} />}
-                    selectSize="medium"
+                    size="medium"
                     multiple
                     showHintText={false}
-                    userIcon={true}
                     openOnFocus={true}
                     fullWidth
                     slotProps={{
@@ -277,7 +276,7 @@ export const renderFormInputs = () => (
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">
-                    <RdsButton text="Add" variant="outlined" size="medium" layout="text-only" />
+                    <RdsButton variant="outlined" size="medium" layout="text-only">Add</RdsButton>
                 </Box>
             </Box>
         </Box>
@@ -286,7 +285,7 @@ export const renderFormInputs = () => (
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="Add" variant="outlined" size="medium" layout="text-only" />
+                <RdsButton variant="outlined" size="medium" layout="text-only">Add</RdsButton>
             </Box>
         </Box>
     </>

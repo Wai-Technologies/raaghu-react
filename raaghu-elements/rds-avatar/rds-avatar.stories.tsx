@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsAvatar> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'padded',
+    controls: { matchers: { color: /^$/ } },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {

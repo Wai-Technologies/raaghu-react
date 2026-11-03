@@ -78,18 +78,21 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: <FavoriteIcon />,
+    'aria-label': 'Add to favorites',
   },
 };
 export const Disabled: Story = {
   args: {
     disabled: true,
     children: <ShareIcon />,
+    'aria-label': 'Share',
   },
 };
 export const Delete_Button: Story = {
   args: {
     color: 'error',
     children: <DeleteIcon />,
+    'aria-label': 'Delete',
   },
 };
 export const FilledVariant: Story = {
@@ -104,6 +107,7 @@ export const Large: Story = {
   args: {
     size: 'large',
     children: <AddIcon />,
+    'aria-label': 'Add',
   },
 };
 
@@ -120,6 +124,7 @@ export const Primary: Story = {
   args: {
     color: 'primary',
     children: <HomeIcon />,
+    'aria-label': 'Home',
   },
 };
 
@@ -127,6 +132,7 @@ export const Secondary: Story = {
   args: {
     color: 'secondary',
     children: <SettingsIcon />,
+    'aria-label': 'Settings',
   },
 };
 
@@ -134,5 +140,6 @@ export const Small: Story = {
   args: {
     size: 'small',
     children: <EditIcon />,
+    'aria-label': 'Edit',
   },
 };

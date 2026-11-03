@@ -38,7 +38,8 @@ jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
 }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ text, onClick, className, variant, size, ...props }: any) {
+  return function MockRdsButton({ text: textProp, children, onClick, className, variant, size, ...props }: any) {
+    const text = textProp ?? children;
     return (
       <button
         data-testid={`rds-button-${text?.toLowerCase()?.replace(/\s+/g, '-')}`}

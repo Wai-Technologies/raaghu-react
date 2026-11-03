@@ -10,7 +10,8 @@ import {
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent
+  ThumbnailViewContent,
+  type DetailsPaneAgent
 } from "./details-pane-components";
 
 
@@ -30,6 +31,8 @@ export interface RdsCompDetailsPaneProps {
   historyItems?: { id: number; name: string }[];
   olderHistoryItems?: { id: number; name: string }[];
   carouselImages?: { src: string; alt: string }[];
+  /** Agents listed in the `Selection` variant. */
+  agents?: DetailsPaneAgent[];
   figmaIconSrc?: string | ReactNode;
   storybookIconSrc?: string | ReactNode;
   sx?: SxProps<Theme>;
@@ -126,6 +129,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
           <SelectionContent 
             headerText={props.headerText}
             headerSubText={props.headerSubText}
+            agents={props.agents}
           />
         ) : variant === "Toolbar" ? (
           <ToolbarContent 
