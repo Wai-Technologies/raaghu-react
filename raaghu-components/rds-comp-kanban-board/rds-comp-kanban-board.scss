@@ -16,6 +16,7 @@
   --rds-kanban-board-dim-5: 133.6px;
 
   --rds-kanban-dropdown-padding-vertical: 6px;
+  --rds-icon-size-sm: var(--rds-size-md);
 
   display: flex;
   flex-wrap: wrap;
@@ -327,7 +328,7 @@
   }
 }
 
-.rds-kanban-board__input-field {
+.rds-kanban-board-container .rds-kanban-board__input-field {
   margin-bottom: var(--rds-spacing-md);
   
   .MuiOutlinedInput-root {
@@ -426,6 +427,16 @@
   color: var(--rds-primary-main);
   background-color: var(--rds-background-paper);
   text-transform: none;
+}
+
+.rds-kanban-board-container .rds-kanban-board__add-button.Mui-disabled:disabled {
+  background-color: var(--rds-background-paper);
+  border-color: var(--rds-action-disabled);
+  color: var(--rds-text-disabled);
+
+  svg {
+    stroke: var(--rds-text-disabled);
+  }
 }
 
 .rds-kanban-board__close-button {
