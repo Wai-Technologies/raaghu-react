@@ -9,6 +9,39 @@ import {
 import type { DragEndEvent, DragOverEvent, UniqueIdentifier } from '@dnd-kit/core';
 import type { SxProps, Theme } from '@mui/material';
 
+/** Overridable UI strings of `RdsCompKanbanBoard`. */
+export interface RdsCompKanbanBoardLocaleText {
+  moreOptions: string;
+  close: string;
+  boardTitlePlaceholder: string;
+  addBoard: string;
+  addItem: string;
+  category: string;
+  title: string;
+  titlePlaceholder: string;
+  description: string;
+  descriptionPlaceholder: string;
+  tags: string;
+  selectTags: string;
+  deleteBoard: string;
+}
+
+export const DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT: RdsCompKanbanBoardLocaleText = {
+  moreOptions: 'More options',
+  close: 'Close',
+  boardTitlePlaceholder: 'Enter Board Title',
+  addBoard: 'Add Board',
+  addItem: 'Add Item',
+  category: 'Category',
+  title: 'Title',
+  titlePlaceholder: 'Enter Title',
+  description: 'Description',
+  descriptionPlaceholder: 'Enter Description',
+  tags: 'Tags',
+  selectTags: 'Select Tags',
+  deleteBoard: 'Delete Board',
+};
+
 export interface KanbanAction {
   key: string;
   value: string;
@@ -129,6 +162,8 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   addQuestionData?: Record<string, unknown>;
   /** Called with the selected tags when the tag selection in the add-card form changes. */
   onSelectedTagsListChange?: (items: unknown) => void;
+  /** Overrides for the built-in UI strings (placeholders, labels, button text). */
+  localeText?: Partial<RdsCompKanbanBoardLocaleText>;
   /** Extra class name applied to the root element. */
   className?: string;
   /** MUI system styles applied to the root element. */

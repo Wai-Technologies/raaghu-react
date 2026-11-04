@@ -22,6 +22,7 @@ import { VolumeSliderComponent } from "./VolumeSliderComponent";
 import { SettingsModalComponent } from "./SettingsModalComponent";
 import { AudioEditionControls } from "./AudioEditionControls";
 import { extendedBreakpointTokens } from "../../raaghu-react-themes/tokens/design-tokens";
+import { DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, type RdsCompAudioPlayerLocaleText } from './rds-comp-audio-player-locale';
 
 registerMaterialIcons({
   share_icon: IosShareIcon,
@@ -88,6 +89,8 @@ export interface RdsCompAudioPlayerProps
   id?: string;
   /** System styles applied to the variant's root element. */
   sx?: SxProps<Theme>;
+  /** Overrides for the built-in UI strings (labels, tooltips, menu items). */
+  localeText?: Partial<RdsCompAudioPlayerLocaleText>;
 }
 
 const SLIDER_MAX = 120;
@@ -102,19 +105,19 @@ const VARIANT_TO_TYPE: Record<NonNullable<RdsCompAudioPlayerProps['variant']>, A
 const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
 
-const EXPORT_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Share Link" },
-  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Export Audio" },
-  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Export Transcript" },
-  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Export Summary" },
-  { icon: "download", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "download", label: "Export Mind Map" },
+const buildExportMenuItems = (text: RdsCompAudioPlayerLocaleText): RdsCompAiFabMenuItem[] => [
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: text.shareLink },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: text.exportAudio },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: text.exportTranscript },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: text.exportSummary },
+  { icon: "download", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "download", label: text.exportMindMap },
 ];
 
-const MORE_OPTIONS_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Move to folder" },
-  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Find & Replace" },
-  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Re-Summarize" },
+const buildMoreMenuItems = (text: RdsCompAudioPlayerLocaleText): RdsCompAiFabMenuItem[] => [
+  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: text.moveToFolder },
+  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: text.findAndReplace },
+  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: text.reTranscribe },
+  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: text.reSummarize },
 ];
 
 const DEFAULT_WAVEFORM: number[] = Array.from({ length: 150 }, (_, barIndex) =>
@@ -147,8 +150,8 @@ const RdsCompAudioPlayer = ({
   showTranscript: legacyShowTranscript,
   showExport: legacyShowExport,
   showMoreOptions: legacyShowMoreOptions,
-  exportItems = EXPORT_MENU_ITEMS,
-  moreItems = MORE_OPTIONS_MENU_ITEMS,
+  exportItems: exportItemsProp,
+  moreItems: moreItemsProp,
   onCancel,
   onSave,
   onTrim,
@@ -158,8 +161,12 @@ const RdsCompAudioPlayer = ({
   ref,
   id,
   sx,
+  localeText,
   ...rest
 }: RdsCompAudioPlayerProps) => {
+  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, ...localeText }), [localeText]);
+  const exportItems = exportItemsProp ?? buildExportMenuItems(text);
+  const moreItems = moreItemsProp ?? buildMoreMenuItems(text);
   if (controls !== undefined) {
     warnDeprecatedProp('RdsCompAudioPlayer', 'controls', '`showSettings` / `showVolume` / `showExport` / `showMoreOptions`');
   }
@@ -499,8 +506,8 @@ const RdsCompAudioPlayer = ({
   });
 
   const audioNode = (
-    <audio ref={setAudioRef} src={src || undefined} aria-label="Audio playback">
-      <track kind="captions" srcLang="en" label="English captions" />
+    <audio ref={setAudioRef} src={src || undefined} aria-label={text.audioPlayback}>
+      <track kind="captions" srcLang="en" label={text.captionsLabel} />
     </audio>
   );
 
@@ -528,7 +535,7 @@ const RdsCompAudioPlayer = ({
               type="button"
               className="rds-comp-audio-player__control-btn"
               onClick={skipBackward}
-              aria-label="Skip backward"
+              aria-label={text.skipBackward}
             >
               <RestoreOutlinedIcon />
             </button>
@@ -536,7 +543,7 @@ const RdsCompAudioPlayer = ({
               type="button"
               className="rds-comp-audio-player__play-btn"
               onClick={togglePlayPause}
-              aria-label="Play or pause"
+              aria-label={text.playOrPause}
               aria-pressed={isPlaying}
             >
               {isPlaying ? <Pause /> : <PlayArrow />}
@@ -545,7 +552,7 @@ const RdsCompAudioPlayer = ({
               type="button"
               className="rds-comp-audio-player__control-btn"
               onClick={skipForward}
-              aria-label="Skip forward"
+              aria-label={text.skipForward}
             >
               <Forward10OutlinedIcon />
             </button>
@@ -559,7 +566,7 @@ const RdsCompAudioPlayer = ({
               controlType="one way"
               startLabel=""
               endLabel=""
-              aria-label="Playback progress"
+              aria-label={text.playbackProgress}
             />
             <span className="rds-comp-audio-player__total-time">
               {formatTime(duration > 0 ? duration : SLIDER_MAX)}
@@ -572,7 +579,7 @@ const RdsCompAudioPlayer = ({
                 ref={settingsButtonRef}
                 className="rds-comp-audio-player__settings-button"
                 onClick={toggleSettingsModal}
-                aria-label="Open settings"
+                aria-label={text.openSettings}
               >
                 <SettingsIcon />
               </button>
@@ -603,7 +610,7 @@ const RdsCompAudioPlayer = ({
                   type="button"
                   ref={volumeButtonRef}
                   onClick={toggleVolumeSlider}
-                  aria-label="Toggle volume"
+                  aria-label={text.toggleVolume}
                   aria-expanded={showVolumeSlider}
                 >
                   <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -631,6 +638,8 @@ const RdsCompAudioPlayer = ({
             playbackSpeed={playbackSpeed}
             handlePlaybackSpeedChange={handlePlaybackSpeedChange}
             onClose={closeSettingsModal}
+            title={text.playbackSpeed}
+            ariaLabel={text.playbackSpeedSettings}
           />
         </Box>
       )}
@@ -640,7 +649,7 @@ const RdsCompAudioPlayer = ({
             <RdsButton
               color="primary"
               size="medium"
-              text="Cancel"
+              text={text.cancel}
               layout="text-only"
               shape="rectangle"
               variant="transparent"
@@ -649,7 +658,7 @@ const RdsCompAudioPlayer = ({
             <RdsButton
               color="primary"
               size="medium"
-              text="Save"
+              text={text.save}
               layout="text-only"
               shape="rectangle"
               variant="filled"
@@ -710,7 +719,7 @@ const RdsCompAudioPlayer = ({
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-valuenow={side === 'left' ? leftTrimPosition : rightTrimPosition}
-                aria-label={`${side} trim handle`}
+                aria-label={text.trimHandle(side)}
               >
                 <div className="rds-comp-audio-player__waveform-bar-handle" />
               </button>
@@ -727,6 +736,7 @@ const RdsCompAudioPlayer = ({
             handleZoomChange={handleZoomChange}
             onTrim={handleTrim}
             onDelete={handleDelete}
+            text={text}
           />
           {audioNode}
         </Box>

@@ -442,3 +442,11 @@ describe('RdsCounter additive renames', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   });
 });
+
+describe('RdsCounter localeText', () => {
+  it('overrides button labels', () => {
+    render(<RdsCounter localeText={{ increaseLabel: 'Plus', decreaseLabel: 'Moins' }} />);
+    expect(screen.getByLabelText('Plus')).toBeInTheDocument();
+    expect(screen.getByLabelText('Moins')).toBeInTheDocument();
+  });
+});

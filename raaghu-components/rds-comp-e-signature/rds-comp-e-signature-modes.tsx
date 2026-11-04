@@ -1,7 +1,8 @@
-import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode, type Ref } from 'react';
+import { useRef, useState, useCallback, useMemo, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, type SxProps, type Theme } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, type RdsCompESignatureLocaleText } from './rds-comp-e-signature-locale';
 
 export interface PredefinedSignatureItem {
   id: string;
@@ -23,6 +24,8 @@ export interface RdsESignatureUploadProps {
   title?: string;
   /** Shows the required asterisks. Defaults to `true`. */
   required?: boolean;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompESignatureLocaleText>;
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
@@ -36,13 +39,15 @@ export const RdsESignatureUpload = ({
   width,
   title,
   required = true,
+  localeText,
   onSignatureChange,
   className,
   sx,
   ref,
   ...rest
 }: RdsESignatureUploadProps) => {
-  const resolvedTitle = title ?? (type === 'initials' ? 'Upload Initial' : 'Upload Signature');
+  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText }), [localeText]);
+  const resolvedTitle = title ?? (type === 'initials' ? text.uploadInitial : text.uploadSignature);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -52,7 +57,7 @@ export const RdsESignatureUpload = ({
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_BYTES) {
-        setUploadError(`File too large. Max size is ${MAX_FILE_MB}MB`);
+        setUploadError(text.fileTooLarge(MAX_FILE_MB));
         setSelectedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
         onSignatureChange?.(null);
@@ -62,7 +67,7 @@ export const RdsESignatureUpload = ({
       setSelectedFile(file);
       onSignatureChange?.(file);
     }
-  }, [onSignatureChange]);
+  }, [onSignatureChange, text]);
 
   const handleClearFile = useCallback(() => {
     setSelectedFile(null);
@@ -107,7 +112,7 @@ export const RdsESignatureUpload = ({
       >
         <Box className="rds-e-signature__upload-standard">
           <Typography className="rds-e-signature__upload-label">
-            Title {required && <span className="rds-e-signature__required">*</span>}
+            {text.fileFieldLabel} {required && <span className="rds-e-signature__required">*</span>}
           </Typography>
           <Box className={clsx("rds-e-signature__file-row", selectedFile && "rds-e-signature__file-row--has-file")}>
             <input
@@ -117,7 +122,7 @@ export const RdsESignatureUpload = ({
               onChange={handleFileUpload}
               className="rds-e-signature__file-input"
               disabled={disabled}
-              aria-label={type === 'initials' ? 'Upload initial file' : 'Upload signature file'}
+              aria-label={type === 'initials' ? text.uploadInitialFileLabel : text.uploadSignatureFileLabel}
             />
             <button
               className="rds-e-signature__file-button"
@@ -125,17 +130,17 @@ export const RdsESignatureUpload = ({
               disabled={disabled}
               type="button"
             >
-              Choose File
+              {text.chooseFile}
             </button>
             <span className={clsx("rds-e-signature__file-text", !selectedFile && "rds-e-signature__file-text--placeholder")}>
-              {selectedFile ? selectedFile.name : 'No File Chosen'}
+              {selectedFile ? selectedFile.name : text.noFileChosen}
             </span>
             {selectedFile && (
               <button
                 type="button"
                 className="rds-e-signature__file-delete"
                 onClick={handleClearFile}
-                aria-label="Remove file"
+                aria-label={text.removeFileLabel}
                 disabled={disabled}
               >
                 <Delete fontSize="inherit" />
@@ -143,7 +148,7 @@ export const RdsESignatureUpload = ({
             )}
           </Box>
           <Box className="rds-e-signature__file-hint-row">
-            <Typography className="rds-e-signature__file-limit">Maximum {MAX_FILE_MB}MB</Typography>
+            <Typography className="rds-e-signature__file-limit">{text.maximumFileSize(MAX_FILE_MB)}</Typography>
           </Box>
         </Box>
       </Box>
@@ -174,21 +179,26 @@ export interface RdsESignatureChooseProps {
   onSignatureChange?: (signature: string | File | null) => void;
   /** Called when "Create your own signature" is activated. Without it the text is not interactive. */
   onCreateCustom?: () => void;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompESignatureLocaleText>;
 }
 
 export const RdsESignatureChoose = ({
   type,
   disabled,
   predefinedSignatures,
-  title = 'Choose Signature',
+  title,
   required = true,
   onSignatureChange,
   onCreateCustom,
+  localeText,
   className,
   sx,
   ref,
   ...rest
 }: RdsESignatureChooseProps) => {
+  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText }), [localeText]);
+  const resolvedTitle = title ?? text.chooseSignature;
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const multipleChooseError = selectedStyles.length > 1;
 
@@ -217,7 +227,7 @@ export const RdsESignatureChoose = ({
   return (
     <Box {...rest} ref={ref} className={clsx("rds-e-signature__choose-container", className)} sx={sx}>
       <Typography variant="h6" className="rds-e-signature__title">
-        {title}
+        {resolvedTitle}
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
       <Box className={clsx("rds-e-signature__choose-panel", multipleChooseError && "rds-e-signature__choose-panel--error")}>
@@ -246,7 +256,7 @@ export const RdsESignatureChoose = ({
       {multipleChooseError && (
         <Typography className="rds-e-signature__choose-error" role="alert">
           <span className="rds-e-signature__error-icon" aria-hidden>!</span>
-          Select only one signature style.
+          {text.selectOnlyOneStyle}
         </Typography>
       )}
       {!multipleChooseError && (
@@ -260,7 +270,7 @@ export const RdsESignatureChoose = ({
               tabIndex: 0,
             })}
           >
-            ⊕ Create your own signature
+            {text.createOwnSignature}
           </Typography>
         </Box>
       )}

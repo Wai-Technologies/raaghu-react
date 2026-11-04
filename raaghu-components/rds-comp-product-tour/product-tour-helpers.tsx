@@ -7,12 +7,45 @@ import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomp
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import clsx from 'clsx';
 
+/** Overridable UI strings of `RdsCompProductTour`. */
+export interface RdsCompProductTourLocaleText {
+    close: string;
+    previous: string;
+    next: string;
+    skip: string;
+    create: string;
+    add: string;
+    projectNamePlaceholder: string;
+    teamMembersPlaceholder: string;
+    projectDescriptionPlaceholder: string;
+    tourStepAlt: string;
+    tourAnimationAlt: string;
+    slideAlt: (index: number) => string;
+}
+
+export const DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT: RdsCompProductTourLocaleText = {
+    close: 'Close',
+    previous: 'Previous',
+    next: 'Next',
+    skip: 'Skip',
+    create: 'Create',
+    add: 'Add',
+    projectNamePlaceholder: 'Enter Project Name',
+    teamMembersPlaceholder: 'Add Team Members',
+    projectDescriptionPlaceholder: 'Enter Project Description',
+    tourStepAlt: 'Tour Step',
+    tourAnimationAlt: 'Tour Animation GIF',
+    slideAlt: (index) => `Slide ${index}`,
+};
+
 export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
 export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 /** Single corner, pair shortcuts (`top` / `bottom`), all four (`all`), or an explicit list. */
 export type ProductTourAnchorCorner = ProductTourCorner | "all" | "top" | "bottom" | ProductTourCorner[];
 
 export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
+    /** Overrides for the built-in UI strings (buttons, labels, image alt text, demo form placeholders). */
+    localeText?: Partial<RdsCompProductTourLocaleText>;
     /** Layout of the tour card: Image, Carousel, GIF or Form. */
     variant?: ProductTourVariant;
     /**
@@ -179,10 +212,10 @@ export const renderCornerDots = (topLeft: boolean, topRight: boolean, bottomLeft
     </>
 );
 
-export const renderCloseButton = (showDismiss: boolean, handleClose: () => void) => showDismiss && (
+export const renderCloseButton = (showDismiss: boolean, handleClose: () => void, text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => showDismiss && (
     <IconButton
         className="rds-comp-product-tour__close-btn"
-        aria-label="Close"
+        aria-label={text.close}
         onClick={handleClose}
         sx={{
             position: 'absolute',
@@ -196,14 +229,14 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
     </IconButton>
 );
 
-export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string, onSkip?: () => void) => (
+export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string, onSkip?: () => void, text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => (
     <Box className="rds-comp-product-tour__navigation-row">
         <Typography variant="inherit" component="span" className={stepClass}>{currentIndicator}</Typography>
-        {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
+        {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>{text.skip}</Typography>}
         <Box className={arrowClass}>
             <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
-                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label={text.previous} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label={text.next} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>
@@ -217,13 +250,13 @@ export const renderInfoSection = (header?: string, description?: string, titleId
 );
 
 /** Default form fields for the Form variant. Override by passing `children`. */
-export const renderFormInputs = () => (
+export const renderFormInputs = (text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => (
     <>
         <Box className="rds-comp-product-tour__form-input-row">
              <Box className="rds-comp-product-tour__form-input-row--group">
             <Box className="rds-comp-product-tour__form-input-container">
                 <RdsInput
-                    placeholder="Enter Project Name"
+                    placeholder={text.projectNamePlaceholder}
                     size="small"
                     layout="text"
                     variant="outlined"
@@ -231,7 +264,7 @@ export const renderFormInputs = () => (
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton variant="outlined" size="medium" layout="text-only">Create</RdsButton>
+                <RdsButton variant="outlined" size="medium" layout="text-only">{text.create}</RdsButton>
             </Box>
         </Box>
         </Box>
@@ -254,7 +287,7 @@ export const renderFormInputs = () => (
                         { label: 'Option 4', value: 4 },
                         { label: 'Option 5', value: 5 }
                     ]}
-                    placeholder="Add Team Members"
+                    placeholder={text.teamMembersPlaceholder}
                     popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-xl)' }} />}
                     size="medium"
                     multiple
@@ -276,55 +309,55 @@ export const renderFormInputs = () => (
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">
-                    <RdsButton variant="outlined" size="medium" layout="text-only">Add</RdsButton>
+                    <RdsButton variant="outlined" size="medium" layout="text-only">{text.add}</RdsButton>
                 </Box>
             </Box>
         </Box>
         <Box className="rds-comp-product-tour__form-textarea-container">
-            <RdsInput placeholder="Enter Project Description" multiline rows={1} variant="outlined" size="medium" />
+            <RdsInput placeholder={text.projectDescriptionPlaceholder} multiline rows={1} variant="outlined" size="medium" />
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton variant="outlined" size="medium" layout="text-only">Add</RdsButton>
+                <RdsButton variant="outlined" size="medium" layout="text-only">{text.add}</RdsButton>
             </Box>
         </Box>
     </>
 );
 
-export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
+export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void, text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => (
     <Box className="rds-comp-product-tour__carousel-nav-row">
         <Typography variant="inherit" component="span" className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__carousel-nav-group">
-            {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip" onClick={onSkip}>Skip</button>}
+            {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip" onClick={onSkip}>{text.skip}</button>}
             <Box className="rds-comp-product-tour__carousel-arrows">
-                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label={text.previous} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label={text.next} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>
 );
 
-export const renderGifNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
+export const renderGifNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void, text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => (
     <Box className="rds-comp-product-tour__animation-navigation">
         <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__animation-controls">
-            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-skip" {...getSkipProps(onSkip)}>{text.skip}</Typography>}
             <Box className="rds-comp-product-tour__animation-nav-buttons">
-                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label={text.previous} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label={text.next} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>
 );
 
-export const renderFormNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
+export const renderFormNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void, text: RdsCompProductTourLocaleText = DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT) => (
     <Box className="rds-comp-product-tour__form-navigation">
         <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__form-navigation-actions">
-            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-skip" {...getSkipProps(onSkip)}>{text.skip}</Typography>}
             <Box className="rds-comp-product-tour__form-arrows">
-                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label={text.previous} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label={text.next} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
             </Box>
         </Box>
     </Box>

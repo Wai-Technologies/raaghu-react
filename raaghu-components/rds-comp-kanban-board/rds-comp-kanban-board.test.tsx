@@ -761,3 +761,10 @@ describe('audit fixes', () => {
     expect(onCardAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 1, cardId: 7 });
   });
 });
+
+describe('RdsCompKanbanBoard localeText', () => {
+  it('overrides the add board button text', () => {
+    render(<RdsCompKanbanBoard boardData={[]} allowAddingNewCard localeText={{ addBoard: 'Nuevo tablero' }} />);
+    expect(screen.getByText('Nuevo tablero')).toBeInTheDocument();
+  });
+});

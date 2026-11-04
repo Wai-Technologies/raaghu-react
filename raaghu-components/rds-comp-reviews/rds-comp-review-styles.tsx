@@ -1,7 +1,7 @@
 import { useState, type SyntheticEvent, type MouseEventHandler } from "react";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import RdsRating from "../../raaghu-elements/rds-rating/rds-rating";
-import { Item, ReviewStyle } from "./rds-comp-reviews-types";
+import { Item, ReviewStyle, DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-types";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
@@ -15,16 +15,17 @@ interface FeedbackActionsProps {
   disliked: boolean;
   onLike: MouseEventHandler<HTMLButtonElement>;
   onDislike: MouseEventHandler<HTMLButtonElement>;
+  text: RdsCompReviewsLocaleText;
 }
 
-const FeedbackActions = ({ likes, dislikes, iconSize, liked, disliked, onLike, onDislike }: FeedbackActionsProps) => (
+const FeedbackActions = ({ likes, dislikes, iconSize, liked, disliked, onLike, onDislike, text }: FeedbackActionsProps) => (
   <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", my: 3 }}>
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ display: "flex", alignItems: "center", mr: 3 }}>
         <Box
           component="button"
           onClick={onLike}
-          aria-label="Like"
+          aria-label={text.like}
           aria-pressed={liked}
           sx={{ p: 0, color: "primary.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
         >
@@ -36,7 +37,7 @@ const FeedbackActions = ({ likes, dislikes, iconSize, liked, disliked, onLike, o
         <Box
           component="button"
           onClick={onDislike}
-          aria-label="Dislike"
+          aria-label={text.dislike}
           aria-pressed={disliked}
           sx={{ p: 0, color: "error.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
         >
@@ -58,6 +59,7 @@ export interface ReviewStyleCardProps {
   onRatingChange?: (item: Item, value: number) => void;
   onLike?: (item: Item) => void;
   onDislike?: (item: Item) => void;
+  localeText?: Partial<RdsCompReviewsLocaleText>;
 }
 
 export const ReviewStyleCard = ({
@@ -68,14 +70,16 @@ export const ReviewStyleCard = ({
   onRatingChange,
   onLike,
   onDislike,
+  localeText,
 }: ReviewStyleCardProps) => {
+  const text = { ...DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, ...localeText };
   const getInitialRating = () =>
     variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
       ? 1
       : item.rating ?? 0;
 
   const formatDate = (date?: Date) => {
-    if (!date) return "Date not available";
+    if (!date) return text.dateNotAvailable;
     if (customFormatDate) return customFormatDate(date);
     return date.toLocaleDateString(locale, {
       day: "2-digit",
@@ -368,7 +372,7 @@ export const ReviewStyleCard = ({
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="small" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="small" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} text={text} />
         </Card>
       );
 
@@ -431,7 +435,7 @@ export const ReviewStyleCard = ({
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} text={text} />
         </Card>
       );
 
@@ -463,7 +467,7 @@ export const ReviewStyleCard = ({
             {item.description}
           </Typography>
 
-          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} />
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" liked={liked} disliked={disliked} onLike={handleLike} onDislike={handleDislike} text={text} />
         </Card>
       );
 

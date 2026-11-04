@@ -633,3 +633,15 @@ describe('RdsCarousel additive renames', () => {
   });
 });
 
+describe('RdsCarousel localeText', () => {
+  it('overrides arrow labels', () => {
+    render(
+      <RdsCarousel localeText={{ nextSlideLabel: 'Suivant', previousSlideLabel: 'Précédent' }}>
+        <div>A</div>
+        <div>B</div>
+      </RdsCarousel>,
+    );
+    expect(screen.getByLabelText('Suivant')).toBeInTheDocument();
+    expect(screen.getByLabelText('Précédent')).toBeInTheDocument();
+  });
+});

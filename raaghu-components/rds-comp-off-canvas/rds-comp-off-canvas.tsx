@@ -9,6 +9,7 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 import "./rds-comp-off-canvas.scss";
 export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 import { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
+import { DEFAULT_RDS_COMP_OFFCANVAS_LOCALE_TEXT, type RdsCompOffcanvasLocaleText } from './rds-comp-off-canvas-locale';
 
 export type RdsCompOffcanvasCloseReason =
   | NonNullable<Parameters<NonNullable<DrawerProps["onClose"]>>[1]>
@@ -75,6 +76,8 @@ export interface RdsCompOffcanvasProps
   showSecondaryButton?: boolean;
   /** Shows the default RESTORE TO DEFAULT footer button. @default false */
   showTertiaryButton?: boolean;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompOffcanvasLocaleText>;
   /** Ref to the Drawer root element. */
   ref?: Ref<HTMLDivElement>;
 }
@@ -110,9 +113,11 @@ const RdsCompOffcanvas = ({
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
+  localeText,
   ref,
   ...rest
 }: RdsCompOffcanvasProps) => {
+  const text = { ...DEFAULT_RDS_COMP_OFFCANVAS_LOCALE_TEXT, ...localeText };
   if (placement !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "placement", "`anchor`");
   if (onShow !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onShow", "`onOpen`");
   if (offId !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offId", "`id`");
@@ -180,7 +185,7 @@ const RdsCompOffcanvas = ({
       <div className="offcanvas-text">
         {!isControlled && (
           <div className="offcanvas_btn">
-            <RdsButton variant="filled" size="medium" onClick={handleOpen}>Open Off Canvas</RdsButton>
+            <RdsButton variant="filled" size="medium" onClick={handleOpen}>{text.openOffCanvas}</RdsButton>
           </div>
         )}
         <Drawer
@@ -203,7 +208,7 @@ const RdsCompOffcanvas = ({
                 </div>
               ) : null}
               <div className="offcanvas-close-wrap" id={closeWrapId}>
-                <RdsIconButton onClick={handleClose} tooltip={"Close"} aria-label="Close" className="offcanvas-close-button">
+                <RdsIconButton onClick={handleClose} tooltip={text.close} aria-label={text.close} className="offcanvas-close-button">
                   <Close />
                 </RdsIconButton>
               </div>
@@ -218,17 +223,17 @@ const RdsCompOffcanvas = ({
                     <>
                       <Box className="tertiary-button-container">
                         {showTertiaryButton && (
-                          <RdsButton variant="transparent" size="medium" className="offcanvas-action-btn" onClick={onRestoreDefault}>RESTORE TO DEFAULT</RdsButton>
+                          <RdsButton variant="transparent" size="medium" className="offcanvas-action-btn" onClick={onRestoreDefault}>{text.restoreToDefault}</RdsButton>
                         )}
                       </Box>
                       <Box className="secondary-button-container">
                         {showSecondaryButton && (
-                          <RdsButton variant="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn">CANCEL</RdsButton>
+                          <RdsButton variant="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn">{text.cancel}</RdsButton>
                         )}
                       </Box>
                       <Box className="primary-button-container">
                         {showPrimaryButton && (
-                          <RdsButton variant="filled" size="medium" onClick={handleSave} className="offcanvas-action-btn">SAVE</RdsButton>
+                          <RdsButton variant="filled" size="medium" onClick={handleSave} className="offcanvas-action-btn">{text.save}</RdsButton>
                         )}
                       </Box>
                     </>

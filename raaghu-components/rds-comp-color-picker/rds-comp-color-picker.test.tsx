@@ -693,3 +693,24 @@ describe('ColorPickerSpectrum keyboard support', () => {
     expect(handleChange.mock.calls[1][0].rgb.r).toBeGreaterThan(128);
   });
 });
+
+describe('ColorPickerInfo localeText', () => {
+  it('overrides built-in labels', () => {
+    const { ColorPickerInfo } = jest.requireActual('./color-picker-components');
+    const { DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT } = jest.requireActual('./rds-comp-color-picker.types');
+    render(
+      <ColorPickerInfo
+        colorModeDropdownRef={{ current: null }}
+        selectedColorMode={ColorMode.HEX}
+        selectedColorState={{ hex: '#800000', rgb: { r: 128, g: 0, b: 0, a: 1 } }}
+        showColorModeDropdown={false}
+        setShowColorModeDropdown={jest.fn()}
+        getColorDisplay={() => '#800000'}
+        text={{ ...DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, changeColorMode: 'Farbmodus ändern', hexColorValue: 'Hex-Wert' }}
+      />,
+    );
+    expect(screen.getByLabelText('Farbmodus ändern')).toBeInTheDocument();
+    expect(screen.getByLabelText('Hex-Wert')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Change color mode')).not.toBeInTheDocument();
+  });
+});

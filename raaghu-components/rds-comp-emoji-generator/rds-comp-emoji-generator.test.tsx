@@ -571,3 +571,10 @@ describe('doc-09 renames', () => {
     expect(mod.RdsCompEmojiPicker).toBe(mod.default);
   });
 });
+
+describe('RdsCompEmojiGenerator localeText extra keys', () => {
+  it('overrides the more emojis label', () => {
+    render(<RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} localeText={{ moreEmojisLabel: 'Mas emojis' }} />);
+    expect(screen.getByLabelText('Mas emojis')).toBeInTheDocument();
+  });
+});

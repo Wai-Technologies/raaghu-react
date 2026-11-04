@@ -4,7 +4,8 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
-import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
+import type { FileWithProgress, RdsFileUploaderLocaleText, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 interface RdsFileUploaderStandardViewProps {
   /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
@@ -32,6 +33,7 @@ interface RdsFileUploaderStandardViewProps {
   onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   children?: ReactNode;
   title?: string;
+  text?: RdsFileUploaderLocaleText;
 }
 
 type SxArray = Extract<SxProps<Theme>, ReadonlyArray<unknown>>;
@@ -44,6 +46,7 @@ const RdsFileUploaderStandardView = ({
   viewConfig,
   interactionConfig,
   mandatoryError,
+  text = DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT,
   hintText,
   selectedFileName,
   handleFileSelect,
@@ -68,7 +71,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 'var(--rds-font-weight-medium)' }}>
-            {title || 'File'}
+            {title || text.defaultTitle}
 {mandatory && (
   <span className="rds-file-uploader__mandatory">*</span>
 )}
@@ -102,7 +105,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           aria-describedby={showTitle ? titleId : undefined}
           component="label"
         >
-          Choose File
+          {text.chooseFile}
           <input
             type="file"
             hidden
@@ -110,7 +113,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
             multiple={multiple}
             disabled={disabled}
             onChange={handleFileSelect}
-            aria-label="Choose file"
+            aria-label={text.chooseFileLabel}
           />
         </RdsButton>
         <Typography
@@ -119,13 +122,13 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           noWrap
           sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
-          {selectedFileName || 'No file chosen'}
+          {selectedFileName || text.noFileChosen}
         </Typography>
         {showPreview && selectedFileName && (
           <IconButton
             className="rds-file-uploader__file-remove"
             size="small"
-            aria-label={`Remove ${selectedFileName}`}
+            aria-label={text.removeFileNamedLabel(selectedFileName)}
             onClick={(event) => {
               setSelectedFileName(null);
               setFiles([]);

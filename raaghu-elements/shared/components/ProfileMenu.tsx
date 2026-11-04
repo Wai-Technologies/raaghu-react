@@ -11,6 +11,7 @@ import RdsAvatar from '../../rds-avatar/rds-avatar';
 import { warnDeprecatedProp } from '../utils/deprecation';
 import '../styles/rds-profile-menu.scss';
 import { extendedBreakpointTokens } from '../../../raaghu-react-themes/tokens/design-tokens';
+import { DEFAULT_PROFILE_MENU_LOCALE_TEXT, type ProfileMenuLocaleText } from './profile-menu-locale';
 
 export interface ProfileMenuItem {
   label: string;
@@ -33,6 +34,8 @@ export interface ProfileMenuProps {
   items?: ProfileMenuItem[];
   /** @deprecated Use `items` instead. */
   menuItems?: ProfileMenuItem[];
+  /** Overrides for the built-in English strings (account button label and default menu item labels). */
+  localeText?: Partial<ProfileMenuLocaleText>;
 }
 
 const getInitials = (name: string): string =>
@@ -43,13 +46,13 @@ const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
-const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
-  { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
-  { label: 'Theme', icon: <Brightness5Icon fontSize="small" /> },
-  { label: 'Setting', icon: <SettingsIcon fontSize="small" /> },
-  { label: 'Help', icon: <HelpOutlineIcon fontSize="small" /> },
+const getDefaultMenuItems = (text: ProfileMenuLocaleText): ProfileMenuItem[] => [
+  { label: text.myProfile, icon: <PersonIcon fontSize="small" /> },
+  { label: text.theme, icon: <Brightness5Icon fontSize="small" /> },
+  { label: text.setting, icon: <SettingsIcon fontSize="small" /> },
+  { label: text.help, icon: <HelpOutlineIcon fontSize="small" /> },
   {
-    label: 'Logout',
+    label: text.logout,
     icon: <LogoutIcon fontSize="small" />,
     sx: { borderRadius: '0 0 var(--rds-border-radius-lg) var(--rds-border-radius-lg)' },
   },
@@ -63,13 +66,15 @@ export const ProfileMenu = ({
   designation = 'Developer',
   items,
   menuItems,
+  localeText,
 }: ProfileMenuProps) => {
+  const text = { ...DEFAULT_PROFILE_MENU_LOCALE_TEXT, ...localeText };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isSmallScreen = useMediaQuery(`(max-width:${extendedBreakpointTokens['tablet-md']})`, { noSsr: true });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   if (menuItems !== undefined) warnDeprecatedProp('ProfileMenu', 'menuItems', '`items`');
-  const resolvedItems = items ?? menuItems ?? DEFAULT_MENU_ITEMS;
+  const resolvedItems = items ?? menuItems ?? getDefaultMenuItems(text);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -82,7 +87,7 @@ export const ProfileMenu = ({
   return (
     <>
       <IconButton
-        aria-label={`Account menu for ${name}`}
+        aria-label={text.accountMenuLabel(name)}
         color="inherit"
         onClick={handleClick}
         size="small"

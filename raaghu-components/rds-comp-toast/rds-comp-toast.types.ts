@@ -53,6 +53,19 @@ export type ToastCloseReason = "timeout" | "closeClick";
  * Toast / notification popup.
  * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
  */
+/** Overridable UI strings of `RdsCompToast`. */
+export interface RdsCompToastLocaleText {
+  /** Accessible label of the close button. */
+  close: string;
+  /** Accessible label of the chat reply input when no placeholder is set. */
+  replyInputLabel: string;
+}
+
+export const DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT: RdsCompToastLocaleText = {
+  close: "Close",
+  replyInputLabel: "Toast reply input",
+};
+
 export interface RdsCompToastProps {
   /** Toast title. */
   title?: string;
@@ -113,6 +126,8 @@ export interface RdsCompToastProps {
   showDismiss?: boolean;
   /** Shows the message body; ignored when `chrome.subText` is set. */
   showSubText?: boolean;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompToastLocaleText>;
   /** MUI system styles applied to the toast container. */
   sx?: SxProps<Theme>;
   /** Ref to the toast container element. */

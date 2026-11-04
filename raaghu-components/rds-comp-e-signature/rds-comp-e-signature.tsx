@@ -15,9 +15,17 @@ import clsx from 'clsx';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import type { BoxProps } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
-import { RdsESignatureUpload, RdsESignatureChoose, type PredefinedSignatureItem } from './rds-comp-e-signature-modes';
+import {
+  RdsESignatureUpload,
+  RdsESignatureChoose,
+  type PredefinedSignatureItem,
+} from './rds-comp-e-signature-modes';
+import { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, type RdsCompESignatureLocaleText } from './rds-comp-e-signature-locale';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-e-signature.scss';
+
+export { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT };
+export type { RdsCompESignatureLocaleText };
 
 export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width' | 'height' | 'ref' | 'children'> {
   /** Signature method shown: draw on a canvas, upload an image, or choose a predefined style. */
@@ -69,15 +77,17 @@ export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width'
   title?: string;
   /** Shows the required asterisk next to the headings. Defaults to `true`. */
   required?: boolean;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompESignatureLocaleText>;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
 
 const PEN_COLOR_OPTIONS = [
-  { name: 'Black', value: eSignaturePenColors.black },
-  { name: 'Blue', value: eSignaturePenColors.blue },
-  { name: 'Red', value: eSignaturePenColors.red },
-];
+  { nameKey: 'penColorBlack', value: eSignaturePenColors.black },
+  { nameKey: 'penColorBlue', value: eSignaturePenColors.blue },
+  { nameKey: 'penColorRed', value: eSignaturePenColors.red },
+] as const;
 
 const DEFAULT_PREDEFINED_SIGNATURES: PredefinedSignatureItem[] = [
   { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
@@ -119,6 +129,7 @@ const RdsCompESignature = ({
   onPenColorChange,
   title,
   required = true,
+  localeText,
   className,
   sx,
   ref,
@@ -133,18 +144,19 @@ const RdsCompESignature = ({
   if (disabledFooterMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledFooterMessage', '`slotProps.helperText`');
   if (predefinedSignatures !== undefined) warnDeprecatedProp('RdsCompESignature', 'predefinedSignatures', '`options`');
 
+  const text = { ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText };
   const mode = variant ?? modeProp;
   const type = signatureType ? (signatureType === 'initials' ? 'initials' : 'fullname') : typeProp;
   const resolvedTitle = title ?? (
     mode === 'upload'
-      ? (type === 'initials' ? 'Upload Initial' : 'Upload Signature')
+      ? (type === 'initials' ? text.uploadInitial : text.uploadSignature)
       : mode === 'choose'
-        ? 'Choose Signature'
-        : 'Draw Signature'
+        ? text.chooseSignature
+        : text.drawSignature
   );
   const colorPickerShown = showColorPicker ?? colourSwatch ?? true;
-  const disabledText = slotProps?.disabledMessage?.children ?? disabledMessage ?? 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.';
-  const footerText = slotProps?.helperText?.children ?? disabledFooterMessage ?? 'Another method already selected';
+  const disabledText = slotProps?.disabledMessage?.children ?? disabledMessage ?? text.drawDisabledMessage;
+  const footerText = slotProps?.helperText?.children ?? disabledFooterMessage ?? text.anotherMethodSelected;
   const signatureOptions = options ?? predefinedSignatures ?? DEFAULT_PREDEFINED_SIGNATURES;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -325,7 +337,7 @@ const RdsCompESignature = ({
             ) : (
               <Typography className="rds-e-signature__canvas-title">
                 <Brush className="rds-e-signature__canvas-icon" />
-                {type === 'initials' ? 'Draw Initial' : 'Draw Signature'}
+                {type === 'initials' ? text.drawInitial : text.drawSignature}
               </Typography>
             )}
           </Box>
@@ -334,7 +346,7 @@ const RdsCompESignature = ({
           ref={canvasRef}
           className="rds-e-signature__canvas"
           role="img"
-          aria-label={type === 'initials' ? 'Initials drawing area' : 'Signature drawing area'}
+          aria-label={type === 'initials' ? text.initialsCanvasLabel : text.signatureCanvasLabel}
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
@@ -349,8 +361,8 @@ const RdsCompESignature = ({
 
         <Box className="rds-e-signature__controls">
           {colorPickerShown && (
-            <Box className="rds-e-signature__color-palette" role="radiogroup" aria-label="Pen colour">
-              {PEN_COLOR_OPTIONS.map(({ name, value: color }) => (
+            <Box className="rds-e-signature__color-palette" role="radiogroup" aria-label={text.penColourLabel}>
+              {PEN_COLOR_OPTIONS.map(({ nameKey, value: color }) => (
                 <Box
                   key={color}
                   className={clsx(
@@ -359,7 +371,7 @@ const RdsCompESignature = ({
                   )}
                   role="radio"
                   aria-checked={selectedColor === color}
-                  aria-label={name}
+                  aria-label={text[nameKey]}
                   tabIndex={0}
                   onClick={(e) => selectColor(e, color)}
                   onKeyDown={(e: ReactKeyboardEvent<HTMLElement>) => handleSwatchKeyDown(e, color)}
@@ -371,16 +383,16 @@ const RdsCompESignature = ({
             </Box>
           )}
           <Box className="rds-e-signature__actions">
-            <IconButton className="rds-e-signature__action-button" onClick={handleUndo} disabled={disabled} aria-label="undo">
+            <IconButton className="rds-e-signature__action-button" onClick={handleUndo} disabled={disabled} aria-label={text.undoLabel}>
               <Undo fontSize="small" />
             </IconButton>
-            <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label="save" onClick={handleSave}>
+            <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label={text.saveLabel} onClick={handleSave}>
               <Save fontSize="small" />
             </IconButton>
             <IconButton
               className="rds-e-signature__action-button rds-e-signature__action-button--delete"
               disabled={disabled}
-              aria-label="delete"
+              aria-label={text.deleteLabel}
               onClick={clearCanvas}
             >
               <Delete fontSize="small" />
@@ -392,7 +404,7 @@ const RdsCompESignature = ({
       {showLengthError && (
         <Typography className="rds-e-signature__error" role="alert">
           <span className="rds-e-signature__error-icon" aria-hidden>!</span>
-          Signature not clear. Please draw again.
+          {text.signatureNotClear}
         </Typography>
       )}
       {disabled && footerText && (
@@ -419,6 +431,7 @@ const RdsCompESignature = ({
           width={width}
           title={resolvedTitle}
           required={required}
+          localeText={localeText}
           onSignatureChange={onSignatureChange}
         />
       )}
@@ -429,6 +442,7 @@ const RdsCompESignature = ({
           predefinedSignatures={signatureOptions}
           title={resolvedTitle}
           required={required}
+          localeText={localeText}
           onSignatureChange={onSignatureChange}
           onCreateCustom={onCreateCustom}
         />

@@ -88,6 +88,7 @@ Each folder holds `rds-x.tsx`, `rds-x.scss`, `rds-x.stories.tsx`, `rds-x.test.ts
 - Interface name: `Rds{Name}Props` (elements) / `RdsComp{Name}Props` (components), exported from the barrel with `export type`.
 - Names: `disabled`, `required`, `open`/`defaultOpen`, `value`/`defaultValue`, `variant`, `size: 'small' | 'medium' | 'large'`, `color` from the MUI palette, `orientation`, `placement`, `severity`, `children` for content.
 - Renames are additive: keep the old prop, mark it `/** @deprecated Use \`x\`. */` and call `warnDeprecatedProp` from `raaghu-elements/shared/utils/deprecation.ts`.
+- User-visible fixed text goes through a `localeText` prop with English defaults (`Rds{Name}LocaleText`, `DEFAULT_RDS_{NAME}_LOCALE_TEXT`); enforced by `npm run lint:hardcoded-text`.
 - Document every public prop with a `/** */` comment, including `@default` when it has one.
 
 ### Checks

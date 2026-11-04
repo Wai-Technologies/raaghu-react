@@ -17,6 +17,7 @@ import {
 } from './rds-comp-datepicker-utils';
 import {
     DatePickerStyleType,
+    DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
     type RdsCompDatepickerProps,
 } from './rds-comp-datepicker.types';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
@@ -62,6 +63,7 @@ const RdsDatepicker = ({
     maxDate,
     locale,
     openPickerIcon,
+    localeText,
     className,
     sx,
     ref,
@@ -116,6 +118,10 @@ const RdsDatepicker = ({
     const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 
+    const text = useMemo(
+        () => ({ ...DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, ...localeText }),
+        [localeText]
+    );
     const baseId = useId();
     const inputId = `rds-datepicker-${baseId}`;
 
@@ -301,11 +307,12 @@ const RdsDatepicker = ({
             minDate,
             maxDate,
             locale,
+            text,
         }),
         [
             selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
             customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
-            inputId, baseId, minDate, maxDate, locale,
+            inputId, baseId, minDate, maxDate, locale, text,
         ]
     );
 

@@ -6,6 +6,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';
+import { DEFAULT_RDS_HEADER_LOCALE_TEXT, type RdsHeaderLocaleText } from './rds-header-locale';
 
 /** Props for {@link RdsHeader}. Extends MUI `AppBar` props. */
 export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
@@ -48,6 +49,8 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   /** Content rendered below the header. */
   subHeader?: ReactNode;
   children?: ReactNode;
+  /** Overrides for the built-in English strings (aria-labels and default search placeholder). `searchPlaceholder` takes precedence. */
+  localeText?: Partial<RdsHeaderLocaleText>;
 }
 /** Page header with logo, title, search, profile menu, actions and optional tabs. */
 const RdsHeader = ({
@@ -71,9 +74,11 @@ const RdsHeader = ({
   userShortName: legacyUserShortName,
   userEmail: legacyUserEmail,
   profileMenuItems,
+  localeText,
   elevation = 0,
   ...props
 }: RdsHeaderProps) => {
+  const text = { ...DEFAULT_RDS_HEADER_LOCALE_TEXT, ...localeText };
   const [innerTab, setInnerTab] = useState(0);
   if (tabValue !== undefined) warnDeprecatedProp('RdsHeader', 'tabValue', '`tabsValue`');
   if (onTabChange) warnDeprecatedProp('RdsHeader', 'onTabChange', '`onTabsChange`');
@@ -102,7 +107,7 @@ const RdsHeader = ({
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label={text.menuLabel}
             onClick={onMenuClick}
             sx={{ mr: 2 }}
           >
@@ -117,8 +122,8 @@ const RdsHeader = ({
           <div className="rds-header__search-wrapper">
             <InputBase
               className="rds-header__search"
-              placeholder={searchPlaceholder || 'Search…'}
-              slotProps={{ input: { 'aria-label': searchPlaceholder || 'Search…' } }}
+              placeholder={searchPlaceholder || text.searchPlaceholder}
+              slotProps={{ input: { 'aria-label': searchPlaceholder || text.searchPlaceholder } }}
               value={searchValue}
               onChange={e => onSearchChange(e.target.value)}
             />
@@ -126,7 +131,7 @@ const RdsHeader = ({
               <IconButton
                 className="rds-header__search-clear"
                 size="small"
-                aria-label="Clear search"
+                aria-label={text.clearSearchLabel}
                 onClick={() => onSearchChange('')}
               >
                 <ClearIcon fontSize="small" />
@@ -142,6 +147,7 @@ const RdsHeader = ({
               shortName={userShortName}
               email={userEmail}
               items={profileMenuItems}
+              localeText={{ accountMenuLabel: text.accountMenuLabel }}
             />
           </span>
         ) : (

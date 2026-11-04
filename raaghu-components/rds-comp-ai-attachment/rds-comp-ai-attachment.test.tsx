@@ -507,3 +507,10 @@ describe('RdsCompAiAttachment id', () => {
     expect(b.container.firstChild).not.toHaveAttribute('id');
   });
 });
+
+describe('RdsCompAiAttachment localeText', () => {
+  it('overrides the file input label', () => {
+    render(<RdsCompAiAttachment localeText={{ uploadAttachmentLabel: 'Adjuntar' }} />);
+    expect(screen.getByLabelText('Adjuntar')).toBeInTheDocument();
+  });
+});

@@ -1032,3 +1032,10 @@ describe('RdsCompToast root attributes', () => {
     expect(root).not.toHaveAttribute('style');
   });
 });
+
+describe('RdsCompToast localeText', () => {
+  it('overrides the close button label', () => {
+    render(<RdsCompToast layout={ToastLayout.Text} title="T" message="M" chrome={{ dismiss: 'visible', subText: 'visible' }} localeText={{ close: 'Cerrar' }} />);
+    expect(screen.getByLabelText('Cerrar')).toBeInTheDocument();
+  });
+});

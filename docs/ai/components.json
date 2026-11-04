@@ -936,6 +936,12 @@
           "description": "Content at the right of the bar. Takes precedence over `rightActions` and `actions`."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsAppBarLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (aria-labels, default search placeholder and default profile menu labels). `searchPlaceholder` and `profileMenuItems` take precedence."
+        },
+        {
           "name": "logo",
           "type": "ReactNode",
           "required": false,
@@ -1265,6 +1271,12 @@
           "type": "ReactNode",
           "required": false,
           "description": "Content shown while `loading`. Defaults to a `CircularProgress` spinner."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsBackdropLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (aria-label of the default spinner)."
         },
         {
           "name": "open",
@@ -2002,6 +2014,12 @@
           "type": "ReactNode",
           "required": false,
           "description": "The content of the component."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsHeaderLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (aria-labels and default search placeholder). `searchPlaceholder` takes precedence."
         },
         {
           "name": "logo",
@@ -3680,6 +3698,12 @@
           "description": "Per-slide title and subtitle; they win over `titles`/`subtitles`."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCarouselLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (aria-labels of the carousel, slides, arrows and indicators). `goToSlideLabel` receives the 1-based slide number."
+        },
+        {
           "name": "onActiveIndexChange",
           "type": "((index: number) => void)",
           "required": false,
@@ -4295,6 +4319,12 @@
           "description": "Placement of the value relative to the buttons."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCounterLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (aria-labels of the decrease and increase buttons)."
+        },
+        {
           "name": "max",
           "type": "number",
           "required": false,
@@ -4640,6 +4670,12 @@
           "description": "Field label shown above the uploader (when the title is visible) and used as the input's accessible name."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsFileUploaderLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (labels, drop-zone text, validation and upload messages). `label` and `helperText` take precedence."
+        },
+        {
           "name": "maxFiles",
           "type": "number",
           "required": false,
@@ -4820,6 +4856,12 @@
           "required": false,
           "default": "icon+text",
           "description": "Content layout of the trigger button."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsButtonDropdownLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English strings (placeholder of the search field)."
         },
         {
           "name": "multiple",
@@ -5414,6 +5456,12 @@
           "description": "Last day shown. Strings are parsed with `dateFormat`."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompContributionLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
+        },
+        {
           "name": "monthLabelHeight",
           "type": "number",
           "required": false,
@@ -5562,6 +5610,12 @@
           "type": "string",
           "required": true,
           "description": "Label shown in the picker header and used as its accessible name."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsColorPickerLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English UI strings."
         },
         {
           "name": "onAddSwatch",
@@ -5728,6 +5782,12 @@
           "description": "Toast layout variant: text, download, chat or request."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompToastLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
+        },
+        {
           "name": "message",
           "type": "string",
           "required": false,
@@ -5856,75 +5916,9 @@
       "kind": "component",
       "import": "import { RdsCompScrollbar } from '@waiin/raaghu-react';",
       "source": "raaghu-components/rds-comp-scrollbar/rds-comp-scrollbar.tsx",
-      "props": [
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Content rendered inside the scroll container; replaces the placeholder."
-        },
-        {
-          "name": "className",
-          "type": "string",
-          "required": false,
-          "description": "Extra class name applied to the root element."
-        },
-        {
-          "name": "endIcon",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Custom icon for the scroll-to-bottom button."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "scrollTo",
-          "type": "ScrollPosition",
-          "required": false,
-          "description": "Initial scroll offset within the content."
-        },
-        {
-          "name": "showButtons",
-          "type": "boolean",
-          "required": false,
-          "default": "true",
-          "description": "Shows the scroll-to-top and scroll-to-bottom buttons in the Mac style."
-        },
-        {
-          "name": "startIcon",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Custom icon for the scroll-to-top button."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "type",
-          "type": "ScrollBarType",
-          "required": false,
-          "description": "Scrollbar style (Mac with buttons, or Simple); used when `variant` is not set."
-        },
-        {
-          "name": "variant",
-          "type": "ScrollBarType",
-          "required": false,
-          "description": "Scrollbar style (Mac with buttons, or Simple). Wins over `type`."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "position",
-          "use": "Use `scrollTo` instead. Collides with CSS `position`."
-        }
-      ]
+      "description": "Overridable UI strings of `RdsCompScrollBar`.",
+      "props": [],
+      "deprecatedProps": []
     },
     {
       "name": "RdsCompTruncatedText",
@@ -6034,6 +6028,12 @@
           "type": "string",
           "required": false,
           "description": "HTML id applied to the drawer root."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompOffcanvasLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
         },
         {
           "name": "onClick",
@@ -7368,7 +7368,6 @@
           "name": "exportItems",
           "type": "RdsCompAiFabMenuItem[]",
           "required": false,
-          "default": "[\r\n  { icon: \"users\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"new\", label: \"Share Link\" },\r\n  { icon: \"refresh\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"refresh\", label: \"Export Audio\" },\r\n  { icon: \"export\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"export\", label: \"Export Transcript\" },\r\n  { icon: \"delete\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"delete\", label: \"Export Summary\" },\r\n  { icon: \"download\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"download\", label: \"Export Mind Map\" },\r\n]",
           "description": "Items of the export menu (defaults to the built-in sample items)."
         },
         {
@@ -7378,10 +7377,15 @@
           "description": "Id of the variant's root element."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompAudioPlayerLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings (labels, tooltips, menu items)."
+        },
+        {
           "name": "moreItems",
           "type": "RdsCompAiFabMenuItem[]",
           "required": false,
-          "default": "[\r\n  { icon: \"users\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"new\", label: \"Move to folder\" },\r\n  { icon: \"refresh\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"refresh\", label: \"Find & Replace\" },\r\n  { icon: \"export\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"export\", label: \"Re-Transcribe\" },\r\n  { icon: \"delete\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"delete\", label: \"Re-Summarize\" },\r\n]",
           "description": "Items of the \"more options\" menu (defaults to the built-in sample items)."
         },
         {
@@ -7519,7 +7523,6 @@
           "name": "disabledMessage",
           "type": "string",
           "required": false,
-          "default": "Video player is disabled",
           "description": "Message shown over the player when disabled."
         },
         {
@@ -7528,6 +7531,12 @@
           "required": false,
           "default": "auto",
           "description": "Height of the player."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompVideoPlayerLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings (loading label, disabled message)."
         },
         {
           "name": "loop",
@@ -7618,6 +7627,12 @@
           "type": "string",
           "required": false,
           "description": "Locale used to format dates. Defaults to \"en-GB\"."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompReviewsLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
         },
         {
           "name": "onDislike",
@@ -7881,7 +7896,6 @@
           "name": "acceptLabel",
           "type": "string",
           "required": false,
-          "default": "ACCEPT",
           "description": "Label of the primary (accept) button. Defaults to \"ACCEPT\"."
         },
         {
@@ -7901,7 +7915,6 @@
           "name": "dismissLabel",
           "type": "string",
           "required": false,
-          "default": "DISMISS",
           "description": "Label of the secondary (dismiss) button. Defaults to \"DISMISS\"."
         },
         {
@@ -7921,6 +7934,12 @@
           "type": "NotificationLayout",
           "required": false,
           "description": "Figma-named alias for `orientation`."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompNotificationLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
         },
         {
           "name": "onAccept",
@@ -8062,9 +8081,9 @@
         },
         {
           "name": "localeText",
-          "type": "RdsTimePickerLocaleText",
+          "type": "Partial<RdsTimePickerLocaleText>",
           "required": false,
-          "description": "Overrides for the visible texts."
+          "description": "Overrides for the built-in English UI strings."
         },
         {
           "name": "onChange",
@@ -8307,6 +8326,12 @@
           "description": "Locale for month names / formatting (forwarded to react-datepicker)."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsDatepickerLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in English UI strings."
+        },
+        {
           "name": "maxDate",
           "type": "Date",
           "required": false,
@@ -8484,6 +8509,12 @@
           "description": "Initial columns when uncontrolled."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompKanbanBoardLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings (placeholders, labels, button text)."
+        },
+        {
           "name": "onCardAction",
           "type": "((event: MouseEvent<HTMLElement, MouseEvent>, details: { action: string; columnId: number; cardId: number; }) => void)",
           "required": false,
@@ -8647,6 +8678,12 @@
           "type": "string[]",
           "required": false,
           "description": "Tab titles shown by the tour."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompProductTourLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings (buttons, labels, image alt text, demo form placeholders)."
         },
         {
           "name": "onBack",
@@ -8819,7 +8856,7 @@
         },
         {
           "name": "localeText",
-          "type": "{ searchPlaceholder?: string; moodPrompt?: string; } | undefined",
+          "type": "Partial<RdsCompEmojiGeneratorLocaleText>",
           "required": false,
           "description": "Overridable UI strings."
         },
@@ -9043,6 +9080,12 @@
           "description": "Disables all interaction."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompESignatureLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
+        },
+        {
           "name": "mode",
           "type": "\"upload\" | \"draw\" | \"choose\"",
           "required": false,
@@ -9203,6 +9246,12 @@
           "description": "Built-in icon name or a custom icon element for the menu trigger."
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompAiAttachmentLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
+        },
+        {
           "name": "onAddComment",
           "type": "((comment: Comment) => void)",
           "required": false,
@@ -9332,6 +9381,12 @@
           "type": "string",
           "required": false,
           "description": "Image sent with the prompt when no image was picked."
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompAiTypingSectionLocaleText>",
+          "required": false,
+          "description": "Overrides for the built-in UI strings."
         },
         {
           "name": "onAddComment",

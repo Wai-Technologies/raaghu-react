@@ -6,6 +6,7 @@ import "./rds-comp-toast.scss";
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
         type RdsCompToastProps,
+        DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT,
         ToastLayout,
 } from "./rds-comp-toast.types";
 import {
@@ -22,6 +23,7 @@ const ToastFooter = ({
     progressWidth,
     filename,
     placeholder,
+    replyInputLabel,
     action,
 }: {
     action?: ReactNode;
@@ -29,6 +31,7 @@ const ToastFooter = ({
     progressWidth?: number;
     filename?: string;
     placeholder?: string;
+    replyInputLabel: string;
 }) => {
     if (layout === ToastLayout.Download) {
         return (
@@ -58,7 +61,7 @@ const ToastFooter = ({
                         type="text"
                         className="rds-comp-toast__input"
                         placeholder={placeholder}
-                        aria-label={placeholder || 'Toast reply input'}
+                        aria-label={placeholder || replyInputLabel}
                     />
                 </div>
                 {action != null && (
@@ -98,6 +101,7 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
  * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
  */
 const RdsCompToast = (props: RdsCompToastProps) => {
+    const text = { ...DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT, ...props.localeText };
     const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
     const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;
     const legacyShowDismiss = typeof props['showDismiss'] === 'boolean' ? (props['showDismiss'] as boolean) : undefined;
@@ -174,7 +178,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                     <button
                                         type="button"
                                         className="rds-comp-toast__close-btn"
-                                        aria-label="Close"
+                                        aria-label={text.close}
                                         onClick={hideToast}>
                                         <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                     </button>
@@ -194,6 +198,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
+                            replyInputLabel={text.replyInputLabel}
                         />
                     </div>
                 )}
@@ -215,7 +220,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 <button
                                     type="button"
                                     className="rds-comp-toast__close-btn"
-                                    aria-label="Close"
+                                    aria-label={text.close}
                                     onClick={hideToast} >
                                     <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                 </button>
@@ -227,6 +232,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
+                            replyInputLabel={text.replyInputLabel}
                         />
                     </div>
                 )}

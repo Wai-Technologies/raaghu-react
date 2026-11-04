@@ -572,3 +572,10 @@ describe('audit fixes', () => {
     expect(screen.getByTestId('rds-icon-button')).toBeInTheDocument();
   });
 });
+
+describe('RdsCompNotification localeText', () => {
+  it('overrides the secondary button label', () => {
+    render(<RdsCompNotification items={[{ id: 1, title: 'T' }]} actions="secondary" localeText={{ dismiss: 'DESCARTAR' }} />);
+    expect(screen.getByText('DESCARTAR')).toBeInTheDocument();
+  });
+});

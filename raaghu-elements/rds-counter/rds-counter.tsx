@@ -5,6 +5,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import clsx from 'clsx';
 import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import "./rds-counter.scss";
+import { DEFAULT_RDS_COUNTER_LOCALE_TEXT, type RdsCounterLocaleText } from './rds-counter-locale';
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsCounterProps
@@ -59,6 +60,8 @@ export interface RdsCounterProps
   titleText?: string;
   /** @deprecated Use `required` instead. */
   isMandatory?: boolean;
+  /** Overrides for the built-in English strings (aria-labels of the decrease and increase buttons). */
+  localeText?: Partial<RdsCounterLocaleText>;
 }
 
 /** Whether the typed number `n` is in range, or could still get there by typing more digits. */
@@ -97,11 +100,13 @@ const RdsCounter = ({
   required,
   isMandatory,
   selected = false,
+  localeText,
   className,
   sx,
   ref,
   ...rest
 }: RdsCounterProps) => {
+  const text = { ...DEFAULT_RDS_COUNTER_LOCALE_TEXT, ...localeText };
   if (titleText !== undefined) warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
   if (controlsClassName !== undefined) warnDeprecatedProp('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsCounter', 'isMandatory', '`required`');
@@ -260,7 +265,7 @@ const RdsCounter = ({
 
   const decButton = (
     <IconButton
-      aria-label="Decrease value"
+      aria-label={text.decreaseLabel}
       onClick={handleDecrement}
       disabled={isDisabled || atMin}
       size={size === 'small' ? 'small' : 'medium'}
@@ -279,7 +284,7 @@ const RdsCounter = ({
   );
   const incButton = (
     <IconButton
-      aria-label="Increase value"
+      aria-label={text.increaseLabel}
       onClick={handleIncrement}
       disabled={isDisabled || atMax}
       size={size === 'small' ? 'small' : 'medium'}

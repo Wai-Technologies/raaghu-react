@@ -6,6 +6,7 @@ import type { SxProps, Theme } from '@mui/material';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { DEFAULT_RDS_COMP_CONTRIBUTION_LOCALE_TEXT, type RdsCompContributionLocaleText } from './rds-comp-contribution-locale';
 
 dayjs.extend(customParseFormat);
 
@@ -63,6 +64,8 @@ export interface RdsCompContributionProps
   panelMargin?: number;
   /** Extra class name(s) merged onto the root element. */
   className?: string;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompContributionLocaleText>;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
   /** MUI system styles applied to the root element. */
@@ -93,9 +96,11 @@ const RdsCompContribution = ({
   panelMargin = 2,
   className,
   sx,
+  localeText,
   ref,
   ...rest
 }: RdsCompContributionProps) => {
+  const text = { ...DEFAULT_RDS_COMP_CONTRIBUTION_LOCALE_TEXT, ...localeText };
   const deprecated: [string, unknown, string][] = [
     ['weekNames', weekNamesProp, 'weekdayLabels'],
     ['monthNames', monthNamesProp, 'monthLabels'],
@@ -380,10 +385,10 @@ const RdsCompContribution = ({
             className="rds-comp-contribution__svg"
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             role="img"
-            aria-label="Contribution graph"
+            aria-label={text.graphLabel}
             data-testid="svg-icon"
           >
-            <title>Contribution graph</title>
+            <title>{text.graphLabel}</title>
             {weekLabels}
             {contributionPanels}
             {monthLabels}

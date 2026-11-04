@@ -686,3 +686,13 @@ describe('RdsFileUploader additive renames', () => {
     expect(mockStandardViewProps.rootProps['data-testid']).toBe('avatar-upload');
   });
 });
+
+describe('RdsFileUploader localeText', () => {
+  it('overrides the input label and passes text to the standard view', () => {
+    render(<RdsFileUploader mode="default" localeText={{ fileUploadLabel: 'Fichier' }} />);
+    expect(screen.getByLabelText('Fichier')).toBeInTheDocument();
+    render(<RdsFileUploader mode="standard" localeText={{ browse: 'Parcourir' }} />);
+    expect(mockStandardViewProps.text.browse).toBe('Parcourir');
+    expect(mockStandardViewProps.text.chooseFile).toBe('Choose File');
+  });
+});

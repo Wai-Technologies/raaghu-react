@@ -630,3 +630,10 @@ describe('RdsCompScrollBar style', () => {
     expect(b.container.firstChild).not.toHaveAttribute('style');
   });
 });
+
+describe('RdsCompScrollBar localeText', () => {
+  it('overrides the button labels', () => {
+    render(<RdsCompScrollBar localeText={{ scrollToTop: 'Ir arriba' }} />);
+    expect(screen.getByLabelText('Ir arriba')).toBeInTheDocument();
+  });
+});

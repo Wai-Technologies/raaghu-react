@@ -1,4 +1,5 @@
 import { useCallback, useId, type ChangeEvent } from 'react';
+import { DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, type RdsTimePickerLocaleText } from './time-picker-types';
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 const MINUTES = Array.from({ length: 60 }, (_, i) => i);
@@ -10,6 +11,7 @@ interface CompactTimePickerProps {
   setTempMinute: (minute: number) => void;
   tempPeriod: string;
   setTempPeriod: (period: string) => void;
+  text?: Required<RdsTimePickerLocaleText>;
 }
 
 export const CompactTimePicker = ({
@@ -18,7 +20,8 @@ export const CompactTimePicker = ({
   tempMinute, 
   setTempMinute, 
   tempPeriod, 
-  setTempPeriod
+  setTempPeriod,
+  text = DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT,
 }: CompactTimePickerProps) => {
   const baseId = useId();
   const onHourChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -39,7 +42,7 @@ export const CompactTimePicker = ({
     <div className="time-controls-row">
       <div className="time-select-container">
         <select 
-          id={`${baseId}-hours`} aria-label="Hours"
+          id={`${baseId}-hours`} aria-label={text.hours}
           className="time-select" 
           value={tempHour.toString()} 
           onChange={onHourChange}
@@ -56,7 +59,7 @@ export const CompactTimePicker = ({
       
       <div className="time-select-container">
         <select 
-          id={`${baseId}-minutes`} aria-label="Minutes"
+          id={`${baseId}-minutes`} aria-label={text.minutes}
           className="time-select" 
           value={tempMinute.toString()} 
           onChange={onMinuteChange}
@@ -71,7 +74,7 @@ export const CompactTimePicker = ({
       
       <div className="time-select-container">
         <select 
-          id={`${baseId}-period`} aria-label="AM/PM"
+          id={`${baseId}-period`} aria-label={text.amPm}
           className="time-select" 
           value={tempPeriod} 
           onChange={onPeriodChange}
@@ -93,6 +96,7 @@ interface DefaultTimePickerProps {
   onIncrementMinute: () => void;
   onDecrementMinute: () => void;
   onTogglePeriod: () => void;
+  text?: Required<RdsTimePickerLocaleText>;
 }
 
 export const DefaultTimePicker = ({ 
@@ -104,24 +108,25 @@ export const DefaultTimePicker = ({
   onIncrementMinute,
   onDecrementMinute,
   onTogglePeriod,
+  text = DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT,
 }: DefaultTimePickerProps) => {
   return (
     <div className="time-values-display-row">
       <div className="time-value-display">
-        <button type="button" className="time-control up" onClick={onIncrementHour} aria-label="Increment hour">▲</button>
+        <button type="button" className="time-control up" onClick={onIncrementHour} aria-label={text.incrementHour}>▲</button>
         {String(hours).padStart(2, '0')}
-        <button type="button" className="time-control down" onClick={onDecrementHour} aria-label="Decrement hour">▼</button>
+        <button type="button" className="time-control down" onClick={onDecrementHour} aria-label={text.decrementHour}>▼</button>
       </div>
       <div className="time-value-colon">:</div>
       <div className="time-value-display">
-        <button type="button" className="time-control up" onClick={onIncrementMinute} aria-label="Increment minute">▲</button>
+        <button type="button" className="time-control up" onClick={onIncrementMinute} aria-label={text.incrementMinute}>▲</button>
         {String(minutes).padStart(2, '0')}
-        <button type="button" className="time-control down" onClick={onDecrementMinute} aria-label="Decrement minute">▼</button>
+        <button type="button" className="time-control down" onClick={onDecrementMinute} aria-label={text.decrementMinute}>▼</button>
       </div>
       <div className="time-value-display">
-        <button type="button" className="time-control up" onClick={onTogglePeriod} aria-label="Toggle AM/PM up">▲</button>
-        <button type="button" className="time-value-period" onClick={onTogglePeriod} aria-label="Toggle AM/PM">{period}</button>
-        <button type="button" className="time-control down" onClick={onTogglePeriod} aria-label="Toggle AM/PM down">▼</button>
+        <button type="button" className="time-control up" onClick={onTogglePeriod} aria-label={text.toggleAmPmUp}>▲</button>
+        <button type="button" className="time-value-period" onClick={onTogglePeriod} aria-label={text.toggleAmPm}>{period}</button>
+        <button type="button" className="time-control down" onClick={onTogglePeriod} aria-label={text.toggleAmPmDown}>▼</button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, type RdsCompAudioPlayerLocaleText } from "./rds-comp-audio-player-locale";
 import { Slider } from "@mui/material";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -18,6 +19,7 @@ interface AudioEditionControlsProps {
   handleZoomOut: () => void;
   handleZoomIn: () => void;
   handleZoomChange: (event: Event, value: number | number[]) => void;
+  text?: Pick<RdsCompAudioPlayerLocaleText, "trim" | "playOrPause" | "delete" | "selected" | "zoomOut" | "zoom" | "zoomIn">;
 }
 
 export const AudioEditionControls = memo(
@@ -32,6 +34,7 @@ export const AudioEditionControls = memo(
     handleZoomOut,
     handleZoomIn,
     handleZoomChange,
+    text = DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT,
   }: AudioEditionControlsProps) => {
     const selectedRange = getSelectedTimeRange();
 
@@ -42,30 +45,30 @@ export const AudioEditionControls = memo(
             {formatTime(selectedRange.startTime)} - {formatTime(selectedRange.endTime)}
           </span>
           <span className="rds-comp-audio-player__edition-duration">
-            Selected: {formatTime(selectedRange.selectedDuration)}
+            {text.selected}: {formatTime(selectedRange.selectedDuration)}
           </span>
         </div>
         <div className="rds-comp-audio-player__edition-buttons">
-          <button type="button" className="rds-comp-audio-player__edition-btn" onClick={onTrim} aria-label="Trim">
+          <button type="button" className="rds-comp-audio-player__edition-btn" onClick={onTrim} aria-label={text.trim}>
             <ContentCut className="rds-comp-audio-player__btn-icon" />
-            <span>Trim</span>
+            <span>{text.trim}</span>
           </button>
           <button
             type="button"
             className="rds-comp-audio-player__play-btn"
             onClick={togglePlayPause}
-            aria-label="Play or pause"
+            aria-label={text.playOrPause}
             aria-pressed={isPlaying}
           >
             {isPlaying ? <Pause /> : <PlayArrow />}
           </button>
-          <button type="button" className="rds-comp-audio-player__edition-btn rds-comp-audio-player__edition-btn--active" onClick={onDelete} aria-label="Delete">
+          <button type="button" className="rds-comp-audio-player__edition-btn rds-comp-audio-player__edition-btn--active" onClick={onDelete} aria-label={text.delete}>
             <DeleteOutline className="rds-comp-audio-player__btn-icon" />
-            <span>Delete</span>
+            <span>{text.delete}</span>
           </button>
         </div>
         <div className="rds-comp-audio-player__edition-zoom">
-          <button type="button" onClick={handleZoomOut} disabled={zoomLevel <= 0} aria-label="Zoom out">
+          <button type="button" onClick={handleZoomOut} disabled={zoomLevel <= 0} aria-label={text.zoomOut}>
             <RemoveOutlinedIcon />
           </button>
           <div className="rds-comp-audio-player__zoom-slider-container">
@@ -74,7 +77,7 @@ export const AudioEditionControls = memo(
               min={0}
               value={zoomLevel}
               onChange={handleZoomChange}
-              aria-label="Zoom"
+              aria-label={text.zoom}
               size="small"
               sx={{
                 width: "var(--rds-spacing-100)",
@@ -93,7 +96,7 @@ export const AudioEditionControls = memo(
               }}
             />
           </div>
-          <button type="button" onClick={handleZoomIn} disabled={zoomLevel >= 100} aria-label="Zoom in">
+          <button type="button" onClick={handleZoomIn} disabled={zoomLevel >= 100} aria-label={text.zoomIn}>
             <AddOutlinedIcon />
           </button>
         </div>

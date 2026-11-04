@@ -19,8 +19,11 @@ import {
     renderCarouselNavigation,
     renderGifNavigation,
     renderFormInputs,
-    renderFormNavigation
+    renderFormNavigation,
+    DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT
 } from './product-tour-helpers';
+export { DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT };
+export type { RdsCompProductTourLocaleText } from './product-tour-helpers';
 import './rds-comp-product-tour.scss';
 
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
@@ -61,8 +64,10 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     className,
     sx,
     ref,
+    localeText,
     ...rest
 }) => {
+    const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT, ...localeText }), [localeText]);
     if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
     if (formTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'formTitle', '`subtitle`');
     if (tabTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'tabTitle', '`items`');
@@ -199,13 +204,13 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     };
 
     const cornerDotsElement = renderCornerDots(corners.topLeft, corners.topRight, corners.bottomLeft, corners.bottomRight);
-    const closeButtonElement = renderCloseButton(showDismiss, handleClose);
+    const closeButtonElement = renderCloseButton(showDismiss, handleClose, text);
     const infoSectionElement = renderInfoSection(resolvedHeader, description, headerId);
-    const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);
-    const carouselNavigationElement = renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
-    const gifNavigationElement = renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
-    const formInputsElement = children ?? renderFormInputs();
-    const formNavigationElement = renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
+    const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip, text);
+    const carouselNavigationElement = renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip, text);
+    const gifNavigationElement = renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip, text);
+    const formInputsElement = children ?? renderFormInputs(text);
+    const formNavigationElement = renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip, text);
 
     if (!isVisible) {
         return null;
@@ -217,7 +222,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__image-section">
-                        <img src={effectiveSlides[currentIndex]?.imgUrl || undefined} alt="Tour Step" className="rds-comp-product-tour__image" />
+                        <img src={effectiveSlides[currentIndex]?.imgUrl || undefined} alt={text.tourStepAlt} className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
                     <Box className="rds-comp-product-tour__image-section" sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', background: 'transparent' }} />
@@ -241,7 +246,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__carousel-wrapper">
                     <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height)" activeIndex={currentIndex}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
-                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl || undefined} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
+                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl || undefined} alt={text.slideAlt(index + 1)} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
@@ -262,7 +267,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src={imageSrc || undefined} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src={imageSrc || undefined} alt={text.tourAnimationAlt} className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />

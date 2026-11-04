@@ -12,6 +12,7 @@ import {
     NotificationLayout,
     NotificationStyle,
     NotificationType,
+    DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT,
     type NotificationItem,
     type RdsCompNotificationProps,
 } from "./rds-comp-notification.types";
@@ -41,8 +42,9 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     type,
     actions = 'none',
     dismiss,
-    dismissLabel = 'DISMISS',
-    acceptLabel = 'ACCEPT',
+    dismissLabel,
+    acceptLabel,
+    localeText,
     description,
     className,
     sx,
@@ -55,6 +57,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
     ...rest
 }) => {
+    const text = { ...DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT, ...localeText };
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
     if (defaultImage !== undefined) warnDeprecatedProp('RdsCompNotification', 'defaultImage', '`fallbackImage`');
@@ -115,7 +118,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         <RdsIconButton
                             iconFilled={<Close />}
                             size="small"
-                            aria-label="Dismiss notification"
+                            aria-label={text.dismissNotificationLabel}
                             onClick={(e) => dismissNotification(e, notification, key)}
                             className="rds-comp-notification__dismiss"
                         />
@@ -147,7 +150,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         <RdsIconButton
                             iconFilled={<Close />}
                             size="small"
-                            aria-label="Dismiss notification"
+                            aria-label={text.dismissNotificationLabel}
                             onClick={(e) => dismissNotification(e, notification, key)}
                             className="rds-comp-notification__dismiss"
                         />
@@ -245,13 +248,13 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                 {resolvedShowSecondaryButton && (
                                     <RdsButton size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
                                     >
-                                      {dismissLabel}
+                                      {dismissLabel ?? text.dismiss}
                                     </RdsButton>
                                 )}
                                 {resolvedShowPrimaryButton && (
                                     <RdsButton size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
                                     >
-                                      {acceptLabel}
+                                      {acceptLabel ?? text.accept}
                                     </RdsButton>
                                 )}
                             </>

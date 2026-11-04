@@ -1036,3 +1036,12 @@ describe('RdsCompProductTour', () => {
     });
   });
 });
+
+describe('RdsCompProductTour localeText', () => {
+  it('overrides the close and navigation labels', () => {
+    render(<RdsCompProductTour variant="Image" title="T" steps={3} activeStep={2} localeText={{ close: 'Cerrar', next: 'Siguiente' }} />);
+    expect(screen.getByLabelText('Cerrar')).toBeInTheDocument();
+    expect(screen.getByLabelText('Siguiente')).toBeInTheDocument();
+    expect(screen.getByLabelText('Previous')).toBeInTheDocument();
+  });
+});

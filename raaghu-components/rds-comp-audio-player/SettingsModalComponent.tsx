@@ -10,6 +10,8 @@ interface SettingsModalProps {
   handlePlaybackSpeedChange: (event: Event, value: number | number[]) => void;
   /** Called when Escape is pressed or the popover requests close. */
   onClose?: () => void;
+  title?: string;
+  ariaLabel?: string;
 }
 
 export const SettingsModalComponent = memo(
@@ -20,6 +22,8 @@ export const SettingsModalComponent = memo(
     playbackSpeed,
     handlePlaybackSpeedChange,
     onClose,
+    title = "Playback Speed",
+    ariaLabel = "Playback speed settings",
   }: SettingsModalProps) => {
     if (!showSettingsModal) return null;
 
@@ -48,14 +52,14 @@ export const SettingsModalComponent = memo(
         <div
           ref={settingsModalRef as Ref<HTMLDivElement>}
           role="dialog"
-          aria-label="Playback speed settings"
+          aria-label={ariaLabel}
           tabIndex={-1}
           onKeyDown={(event) => {
             if (event.key === "Escape") onClose?.();
           }}
         >
           <div className="rds-comp-audio-player__settings-header">
-            <h3>Playback Speed</h3>
+            <h3>{title}</h3>
           </div>
           <div className="rds-comp-audio-player__settings-content">
             <div className="rds-comp-audio-player__speed-slider-container">

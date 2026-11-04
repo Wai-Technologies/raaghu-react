@@ -3,6 +3,7 @@ import clsx from "clsx";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, type RdsDatepickerLocaleText } from "./rds-comp-datepicker.types";
 import RdsInput, { type RdsInputProps } from "../../raaghu-elements/rds-input/rds-input";
 
 /**
@@ -24,6 +25,8 @@ interface CustomInputWithClearProps
   expanded?: boolean;
   /** Id of the popup the open button toggles (`aria-controls`). */
   controlsId?: string;
+  /** Localised UI strings. */
+  text?: RdsDatepickerLocaleText;
   /** Ref to the underlying `<input>` element. */
   ref?: Ref<HTMLInputElement>;
 }
@@ -47,6 +50,7 @@ export const CustomInputWithClear = (
       openCustomPicker,
       expanded,
       controlsId,
+      text = DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
       id,
       className,
       disabled,
@@ -104,8 +108,8 @@ export const CustomInputWithClear = (
                       clearDate?.();
                     }
                   }}
-                  title="Clear date"
-                  aria-label="Clear date"
+                  title={text.clearDate}
+                  aria-label={text.clearDate}
                 >
                   <CloseIcon className="rds-datepicker__close-icon" />
                 </button>
@@ -114,8 +118,8 @@ export const CustomInputWithClear = (
                 type="button"
                 className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
                 onClick={handleTriggerClick}
-                title="Open calendar"
-                aria-label="Open calendar"
+                title={text.openCalendar}
+                aria-label={text.openCalendar}
                 aria-expanded={expanded}
                 aria-controls={expanded !== undefined ? controlsId : undefined}
                 disabled={isDisabled}

@@ -5,8 +5,8 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-scrollbar.scss";
-export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
-import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
+export { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
+import { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Scrollbar style (Mac with buttons, or Simple). Wins over `type`. */
@@ -29,6 +29,8 @@ export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   className?: string;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompScrollBarLocaleText>;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
@@ -42,11 +44,13 @@ const RdsCompScrollBar = ({
   startIcon,
   endIcon,
   children,
+  localeText,
   className,
   sx,
   ref,
   ...rest
 }: RdsScrollBarProps) => {
+  const text = { ...DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, ...localeText };
   if (position !== undefined) warnDeprecatedProp("RdsCompScrollBar", "position", "`scrollTo`");
   const resolvedScrollTo = scrollTo ?? position ?? ScrollPosition.Start;
   const resolvedType = variant ?? type ?? ScrollBarType.Mac;
@@ -84,7 +88,7 @@ const RdsCompScrollBar = ({
             type="button"
             className="rds-scrollbar__button"
             onClick={() => applyScrollTo(ScrollPosition.Start)}
-            aria-label="Scroll to top"
+            aria-label={text.scrollToTop}
           >
             {startIcon ?? <KeyboardArrowUp fontSize="small" />}
           </button>
@@ -92,7 +96,7 @@ const RdsCompScrollBar = ({
             type="button"
             className="rds-scrollbar__button"
             onClick={() => applyScrollTo(ScrollPosition.End)}
-            aria-label="Scroll to bottom"
+            aria-label={text.scrollToBottom}
           >
             {endIcon ?? <KeyboardArrowDown fontSize="small" />}
           </button>

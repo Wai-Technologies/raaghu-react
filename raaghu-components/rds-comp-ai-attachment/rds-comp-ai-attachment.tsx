@@ -11,6 +11,7 @@ import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
+import { DEFAULT_RDS_COMP_AI_ATTACHMENT_LOCALE_TEXT, type RdsCompAiAttachmentLocaleText } from './rds-comp-ai-attachment-locale';
 
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
@@ -62,6 +63,8 @@ export interface RdsCompAiAttachmentProps
   placement?: "start" | "end";
   /** @deprecated Use `placement` instead. */
   menuAlignment?: "left" | "right";
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompAiAttachmentLocaleText>;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
   /** MUI system styles applied to the root element. */
@@ -157,11 +160,13 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
     handleAddComment,
     placement,
     menuAlignment,
+    localeText,
     className,
     ref,
     sx,
     ...rest
   } = props;
+  const text = { ...DEFAULT_RDS_COMP_AI_ATTACHMENT_LOCALE_TEXT, ...localeText };
   for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
     if (props[name as keyof typeof DEPRECATED_PROPS] !== undefined) warnDeprecatedProp("RdsCompAiAttachment", name, replacement);
   }
@@ -269,7 +274,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
         className="rds-comp-ai-attachment__file-input"
         style={{ display: "none" }}
         onChange={handleFileUpload}
-        aria-label="Upload attachment"
+        aria-label={text.uploadAttachmentLabel}
       />
 
       <RdsCompAiFabMenu

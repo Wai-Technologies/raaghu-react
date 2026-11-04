@@ -37,6 +37,22 @@ export interface NotificationItem {
   [key: string]: unknown;
 }
 
+/** Overridable UI strings of `RdsCompNotification`. */
+export interface RdsCompNotificationLocaleText {
+  /** Accessible label of the dismiss (close) icon button. */
+  dismissNotificationLabel: string;
+  /** Label of the secondary button when `dismissLabel` is not set. */
+  dismiss: string;
+  /** Label of the primary button when `acceptLabel` is not set. */
+  accept: string;
+}
+
+export const DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT: RdsCompNotificationLocaleText = {
+  dismissNotificationLabel: "Dismiss notification",
+  dismiss: "DISMISS",
+  accept: "ACCEPT",
+};
+
 export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children"> {
   /** Notifications to render. */
   items?: NotificationItem[];
@@ -70,6 +86,8 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   dismissLabel?: string;
   /** Label of the primary (accept) button. Defaults to "ACCEPT". */
   acceptLabel?: string;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompNotificationLocaleText>;
   /** MUI system styles applied to the root. */
   sx?: SxProps<Theme>;
   /** Ref to the root element. */

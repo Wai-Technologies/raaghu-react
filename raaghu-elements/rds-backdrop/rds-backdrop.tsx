@@ -8,6 +8,7 @@ import {
 import type { SystemStyleObject } from '@mui/system';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { DEFAULT_RDS_BACKDROP_LOCALE_TEXT, type RdsBackdropLocaleText } from './rds-backdrop-locale';
 
 export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'component'> {
   /** Shows the loading indicator instead of `children`. Also opens the backdrop when `open` is not set. */
@@ -18,6 +19,8 @@ export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'componen
   loadingComponent?: ReactNode;
   /** Controls whether the backdrop is open; when omitted, `loading` decides. */
   open?: boolean;
+  /** Overrides for the built-in English strings (aria-label of the default spinner). */
+  localeText?: Partial<RdsBackdropLocaleText>;
 }
 
 const baseSx = (theme: Theme): SystemStyleObject<Theme> => ({
@@ -44,10 +47,12 @@ const RdsBackdrop = ({
   loadingComponent,
   children,
   open,
+  localeText,
   className,
   sx,
   ...props
 }: RdsBackdropProps) => {
+  const text = { ...DEFAULT_RDS_BACKDROP_LOCALE_TEXT, ...localeText };
   if (loadingComponent !== undefined) {
     warnDeprecatedProp('RdsBackdrop', 'loadingComponent', '`loadingIndicator`');
   }
@@ -57,7 +62,7 @@ const RdsBackdrop = ({
   const indicator = loadingIndicator !== undefined ? loadingIndicator : loadingComponent;
   const resolvedIndicator =
     indicator == null || typeof indicator === 'boolean'
-      ? <CircularProgress color="inherit" aria-label="Loading" />
+      ? <CircularProgress color="inherit" aria-label={text.loadingLabel} />
       : indicator;
 
   const content = loading ? resolvedIndicator : children;

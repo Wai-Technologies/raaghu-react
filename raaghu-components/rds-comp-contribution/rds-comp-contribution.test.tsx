@@ -868,3 +868,10 @@ describe('audit fixes', () => {
     );
   });
 });
+
+describe('RdsCompContribution localeText', () => {
+  it('overrides the graph label', () => {
+    render(<RdsCompContribution values={{ '2024-01-01': 5 }} until="2024-12-31" panelColors={['#ffffff', '#f0f0f0', '#c0c0c0', '#808080', '#404040']} monthNames={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']} dateFormat="YYYY-MM-DD" localeText={{ graphLabel: 'Grafico' }} />);
+    expect(screen.getByLabelText('Grafico')).toBeInTheDocument();
+  });
+});

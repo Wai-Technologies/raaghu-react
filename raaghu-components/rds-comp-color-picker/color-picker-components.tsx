@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
 import { Slider } from "@mui/material";
 import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb } from "./color-utils";
-import { ColorMode } from "./rds-comp-color-picker.types";
+import { ColorMode, DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, type RdsColorPickerLocaleText } from "./rds-comp-color-picker.types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
@@ -49,6 +49,7 @@ interface SharedColorPickerProps {
   onSelectColorMode?: (mode: ColorMode) => void;
   /** Disables every control in the panel. */
   disabled?: boolean;
+  text?: RdsColorPickerLocaleText;
 }
 
 interface ColorPickerInfoProps {
@@ -60,6 +61,7 @@ interface ColorPickerInfoProps {
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
   disabled?: boolean;
+  text?: RdsColorPickerLocaleText;
 }
 
 export const ColorPickerGrid = memo(({
@@ -74,6 +76,7 @@ export const ColorPickerGrid = memo(({
   getColorDisplay,
   onSelectColorMode,
   disabled,
+  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
 }: SharedColorPickerProps) => {
   return (
     <div>
@@ -115,7 +118,7 @@ export const ColorPickerGrid = memo(({
                     disabled={disabled}
                     style={{ backgroundColor: bgColor }}
                     onClick={() => handleChange({ hex: clickHex, rgb: clickRgb })}
-                    aria-label={`Select color ${clickHex}`}
+                    aria-label={text.selectColor(clickHex)}
                   />
                 );
               })}
@@ -129,6 +132,7 @@ export const ColorPickerGrid = memo(({
         handleHueChange={handleHueChange}
         handleAlphaChange={handleAlphaChange}
         disabled={disabled}
+        text={text}
       />
       <ColorPickerInfo
         colorModeDropdownRef={colorModeDropdownRef}
@@ -139,6 +143,7 @@ export const ColorPickerGrid = memo(({
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
         disabled={disabled}
+        text={text}
       />
     </div>
   );
@@ -161,6 +166,7 @@ export const ColorPickerSpectrum = memo(({
   swatches,
   onAddSwatch,
   disabled,
+  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
 }: SharedColorPickerProps & {
   selectedColorHex: string;
   showSwatches?: boolean;
@@ -196,11 +202,11 @@ export const ColorPickerSpectrum = memo(({
             const rgb = hsvToRgb(spectrumHue / 360, Math.min(100, Math.max(0, s)) / 100, Math.min(100, Math.max(0, b)) / 100);
             handleChange({ hex: rgbToHex(rgb.r, rgb.g, rgb.b), rgb: { ...rgb, a: selectedColorState.rgb ? selectedColorState.rgb.a : 1 } });
           }}
-          aria-label="Saturation and brightness"
+          aria-label={text.saturationBrightness}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={spectrumHsb.s}
-          aria-valuetext={`Saturation ${spectrumHsb.s}%, brightness ${spectrumHsb.b}%`}
+          aria-valuetext={text.saturationBrightnessValue(spectrumHsb.s, spectrumHsb.b)}
         />
       </div>
       
@@ -209,6 +215,7 @@ export const ColorPickerSpectrum = memo(({
         handleHueChange={handleHueChange}
         handleAlphaChange={handleAlphaChange}
         disabled={disabled}
+        text={text}
       />
 
       <ColorPickerInfo
@@ -220,23 +227,25 @@ export const ColorPickerSpectrum = memo(({
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
         disabled={disabled}
+        text={text}
       />
 
       {showSwatches && (
         styleType === "Type 1" ? (
-          <ColorSwatchesType1 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} />
+          <ColorSwatchesType1 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} text={text} />
         ) : (
-          <ColorSwatchesType2 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} />
+          <ColorSwatchesType2 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} disabled={disabled} text={text} />
         )
       )}
     </div>
   );
 });
-export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange, disabled }: {
+export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: {
   selectedColorState: ColorState;
   handleHueChange: (color: ColorUpdate) => void;
   handleAlphaChange: (color: ColorUpdate) => void;
   disabled?: boolean;
+  text?: RdsColorPickerLocaleText;
 }) => {
   const hsb = rgbToHsb(selectedColorState.rgb);
   const hue = ((hsb.h % 360) + 360) % 360;
@@ -257,7 +266,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             max={360}
             value={hue}
             disabled={disabled}
-            aria-label="Hue"
+            aria-label={text.hue}
             onChange={(_, value) => {
               const nextHue = Array.isArray(value) ? value[0] : value;
               const rgb = hsvToRgb(nextHue / 360, hsb.s / 100, hsb.b / 100);
@@ -292,7 +301,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             max={100}
             value={alphaPct}
             disabled={disabled}
-            aria-label="Opacity"
+            aria-label={text.opacity}
             onChange={(_, value) => {
               const pct = Array.isArray(value) ? value[0] : value;
               handleAlphaChange({
@@ -327,6 +336,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
 });
 
 interface ColorInputsProps {
+  text: RdsColorPickerLocaleText;
   selectedColorMode: ColorMode;
   rgb: { r: number; g: number; b: number; a: number };
   hsb: { h: number; s: number; b: number };
@@ -334,19 +344,19 @@ interface ColorInputsProps {
   getColorDisplay: () => string;
 }
 
-const ColorInputs = ({ selectedColorMode, rgb, hsb, hsl, getColorDisplay }: ColorInputsProps) => {
+const ColorInputs = ({ selectedColorMode, rgb, hsb, hsl, getColorDisplay, text }: ColorInputsProps) => {
   switch (selectedColorMode) {
     case ColorMode.RGB:
       return (
         <>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.r} readOnly className="rds-comp-color-picker__color-input" aria-label="Red channel value" />
+            <input type="text" value={rgb.r} readOnly className="rds-comp-color-picker__color-input" aria-label={text.redChannelValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.g} readOnly className="rds-comp-color-picker__color-input" aria-label="Green channel value" />
+            <input type="text" value={rgb.g} readOnly className="rds-comp-color-picker__color-input" aria-label={text.greenChannelValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.b} readOnly className="rds-comp-color-picker__color-input" aria-label="Blue channel value" />
+            <input type="text" value={rgb.b} readOnly className="rds-comp-color-picker__color-input" aria-label={text.blueChannelValue} />
           </div>
         </>
       );
@@ -354,13 +364,13 @@ const ColorInputs = ({ selectedColorMode, rgb, hsb, hsl, getColorDisplay }: Colo
       return (
         <>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.h} readOnly className="rds-comp-color-picker__color-input" aria-label="Hue value" />
+            <input type="text" value={hsb.h} readOnly className="rds-comp-color-picker__color-input" aria-label={text.hueValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.s} readOnly className="rds-comp-color-picker__color-input" aria-label="Saturation value" />
+            <input type="text" value={hsb.s} readOnly className="rds-comp-color-picker__color-input" aria-label={text.saturationValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.b} readOnly className="rds-comp-color-picker__color-input" aria-label="Brightness value" />
+            <input type="text" value={hsb.b} readOnly className="rds-comp-color-picker__color-input" aria-label={text.brightnessValue} />
           </div>
         </>
       );
@@ -368,20 +378,20 @@ const ColorInputs = ({ selectedColorMode, rgb, hsb, hsl, getColorDisplay }: Colo
       return (
         <>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.h} readOnly className="rds-comp-color-picker__color-input" aria-label="Hue value" />
+            <input type="text" value={hsl.h} readOnly className="rds-comp-color-picker__color-input" aria-label={text.hueValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.s} readOnly className="rds-comp-color-picker__color-input" aria-label="Saturation value" />
+            <input type="text" value={hsl.s} readOnly className="rds-comp-color-picker__color-input" aria-label={text.saturationValue} />
           </div>
           <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.l} readOnly className="rds-comp-color-picker__color-input" aria-label="Lightness value" />
+            <input type="text" value={hsl.l} readOnly className="rds-comp-color-picker__color-input" aria-label={text.lightnessValue} />
           </div>
         </>
       );
     default:
       return (
         <div className="rds-comp-color-picker__input-wrapper">
-          <input type="text" value={getColorDisplay()} readOnly className="rds-comp-color-picker__hex-input" aria-label="Hex color value" />
+          <input type="text" value={getColorDisplay()} readOnly className="rds-comp-color-picker__hex-input" aria-label={text.hexColorValue} />
         </div>
       );
   }
@@ -397,6 +407,7 @@ export const ColorPickerInfo = memo(({
   getColorDisplay,
   onSelectColorMode,
   disabled,
+  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
@@ -420,7 +431,7 @@ export const ColorPickerInfo = memo(({
           disabled={disabled}
           onClick={() => setShowColorModeDropdown(!showColorModeDropdown)}
           onKeyDown={closeOnEscape}
-          aria-label="Change color mode"
+          aria-label={text.changeColorMode}
           aria-haspopup="listbox"
           aria-expanded={showColorModeDropdown}
         >
@@ -431,7 +442,7 @@ export const ColorPickerInfo = memo(({
         </button>
         
         {showColorModeDropdown && !disabled && (
-          <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label="Color format">
+          <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label={text.colorFormat}>
             {Object.values(ColorMode).map((mode) => (
               <button
                 type="button"
@@ -458,6 +469,7 @@ export const ColorPickerInfo = memo(({
         hsb={hsb}
         hsl={hsl}
         getColorDisplay={getColorDisplay}
+        text={text}
       />      
       <div className="rds-comp-color-picker__percent-wrapper">
         <input
@@ -465,7 +477,7 @@ export const ColorPickerInfo = memo(({
           value={`${Math.round((rgb.a ?? 1) * 100)}%`}
           readOnly
           className="rds-comp-color-picker__percent-input"
-          aria-label="Opacity percentage"
+          aria-label={text.opacityPercentage}
         />
       </div>
     </div>
@@ -480,13 +492,15 @@ interface ColorSwatchesProps {
   onAddSwatch?: () => void;
   /** Disables swatch selection and the add-swatch control. */
   disabled?: boolean;
+  /** Localised UI strings. */
+  text?: RdsColorPickerLocaleText;
 }
 
-export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch, disabled }: ColorSwatchesProps) => {
+export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
-        <span>Swatches</span>
+        <span>{text.swatches}</span>
       <RdsButton
   changeLeftIcon="add"
   changeRightIcon="save"
@@ -497,7 +511,7 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   size="small"
   variant="transparent"
   textCase="capitalize"
-  aria-label="Add swatch"
+  aria-label={text.addSwatch}
   disabled={disabled}
   onClick={onAddSwatch}
 />
@@ -506,7 +520,7 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
         {swatches.map((hex, index) => {
           const swatchHex = getSwatchHexDisplay(hex);
           return (
-          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-item" disabled={disabled} onClick={() => handleChange({ hex })} aria-label={`Select color ${swatchHex}`}>
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-item" disabled={disabled} onClick={() => handleChange({ hex })} aria-label={text.selectColor(swatchHex)}>
             <div className="rds-comp-color-picker__swatch-color" style={{ backgroundColor: hex }} />
             <div className="rds-comp-color-picker__swatch-label">{swatchHex}</div>
           </button>
@@ -516,18 +530,18 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   );
 });
 
-export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch, disabled }: ColorSwatchesProps) => {
+export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
-        <span>Swatches</span>
+        <span>{text.swatches}</span>
       </div>
       <div className="rds-comp-color-picker__swatch-grid">
         <div
           className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add"
           role="button"
           tabIndex={disabled ? -1 : 0}
-          aria-label="Add swatch"
+          aria-label={text.addSwatch}
           aria-disabled={disabled || undefined}
           onClick={() => { if (!disabled) onAddSwatch?.(); }}
           onKeyDown={(e) => {
@@ -539,16 +553,17 @@ export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE
           }}
         >+</div>
         {swatches.map((hex, index) => (
-          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-tile" disabled={disabled} style={{ backgroundColor: hex }} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} />
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-tile" disabled={disabled} style={{ backgroundColor: hex }} aria-label={text.selectColor(hex)} onClick={() => handleChange({ hex })} />
         ))}
       </div>
     </div>
   );
 });
 
-export const ColorModeSwatches = memo(({ selectedMode, onSelectMode }: {
+export const ColorModeSwatches = memo(({ selectedMode, onSelectMode, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: {
   selectedMode: "solid" | "gradient";
   onSelectMode: (mode: "solid" | "gradient") => void;
+  text?: RdsColorPickerLocaleText;
 }) => {
   return (
     <div className="rds-comp-color-picker__mode-switcher">
@@ -556,7 +571,7 @@ export const ColorModeSwatches = memo(({ selectedMode, onSelectMode }: {
         type="button"
         className={clsx("rds-comp-color-picker__mode-swatch", selectedMode === "solid" && "rds-comp-color-picker__mode-swatch--active")}
         onClick={() => onSelectMode("solid")}
-        aria-label="Select solid mode"
+        aria-label={text.selectSolidMode}
       >
         <div className="rds-comp-color-picker__mode-swatch-solid"></div>
       </button>
@@ -564,7 +579,7 @@ export const ColorModeSwatches = memo(({ selectedMode, onSelectMode }: {
         type="button"
         className={clsx("rds-comp-color-picker__mode-swatch", selectedMode === "gradient" && "rds-comp-color-picker__mode-swatch--active")}
         onClick={() => onSelectMode("gradient")}
-        aria-label="Select gradient mode"
+        aria-label={text.selectGradientMode}
       >
         <div className="rds-comp-color-picker__mode-swatch-gradient"></div>
       </button>
@@ -582,6 +597,7 @@ export const GradientEditor = memo(({
   onGradientPositionChange,
   onAddGradientStop,
   onRemoveGradientStop,
+  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
 }: {
   gradientType: string;
   gradientDirection: number;
@@ -592,6 +608,7 @@ export const GradientEditor = memo(({
   onGradientPositionChange: (index: number, position: number) => void;
   onAddGradientStop: (position: number) => void;
   onRemoveGradientStop: (index: number) => void;
+  text?: RdsColorPickerLocaleText;
 }) => {
   return (
     <div className="rds-comp-color-picker__gradient-editor">
@@ -604,7 +621,7 @@ export const GradientEditor = memo(({
           )}
           onClick={() => onGradientTypeChange("linear")}
         >
-          Linear
+          {text.linear}
         </button>
         <button
           type="button"
@@ -614,13 +631,13 @@ export const GradientEditor = memo(({
           )}
           onClick={() => onGradientTypeChange("radial")}
         >
-          Radial
+          {text.radial}
         </button>
       </div>
       
       {gradientType === "linear" && (
         <div className="rds-comp-color-picker__direction-control">
-          <label>Direction: {gradientDirection}°</label>
+          <label>{text.direction(gradientDirection)}</label>
           <input
             type="range"
             min="0"
@@ -628,7 +645,7 @@ export const GradientEditor = memo(({
             value={gradientDirection}
             onChange={(e) => onGradientDirectionChange(parseInt(e.target.value))}
             className="rds-comp-color-picker__direction-slider"
-            aria-label="Gradient direction"
+            aria-label={text.gradientDirection}
           />
         </div>
       )}
@@ -662,7 +679,7 @@ export const GradientEditor = memo(({
                   type="button"
                   className="rds-comp-color-picker__gradient-stop-select"
                   onClick={() => onGradientStopChange(index, stop.color)}
-                  aria-label={`Select gradient stop ${index + 1}`}
+                  aria-label={text.selectGradientStop(index + 1)}
                 />
                 <input
                   type="range"
@@ -673,7 +690,7 @@ export const GradientEditor = memo(({
                     onGradientPositionChange(index, parseInt(e.target.value) / 100)
                   }
                   className="rds-comp-color-picker__stop-position"
-                  aria-label={`Gradient stop ${index + 1} position`}
+                  aria-label={text.gradientStopPosition(index + 1)}
                 />
                 {gradientStops.length > 2 && (
                   <button
@@ -698,7 +715,7 @@ export const GradientEditor = memo(({
               const position = (e.clientX - rect.left) / rect.width;
               onAddGradientStop(position);
             }}
-            aria-label="Add gradient stop"
+            aria-label={text.addGradientStop}
           />
         </div>
       </div>

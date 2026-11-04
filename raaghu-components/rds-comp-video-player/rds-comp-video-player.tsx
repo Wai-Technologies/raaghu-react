@@ -6,6 +6,7 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 import "./rds-comp-video-player.scss";
 export { VideoPlayerType } from './rds-comp-video-player-types';
 import { VideoPlayerType } from './rds-comp-video-player-types';
+import { DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT, type RdsCompVideoPlayerLocaleText } from './rds-comp-video-player-locale';
 
 const ReactPlayer = lazy(() => import("react-player"));
 
@@ -42,6 +43,8 @@ export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>
   title?: string;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** Overrides for the built-in UI strings (loading label, disabled message). */
+  localeText?: Partial<RdsCompVideoPlayerLocaleText>;
 }
 
 const formatVideoUrl = (videoLink: string): string => {
@@ -109,13 +112,16 @@ const RdsCompVideoPlayer = ({
   className = "",
   sx,
   disabled = false,
-  disabledMessage = "Video player is disabled",
+  disabledMessage,
   loop,
   title,
   style,
   ref,
+  localeText,
   ...rest
 }: RdsVideoPlayerProps) => {
+  const text = { ...DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT, ...localeText };
+  const resolvedDisabledMessage = disabledMessage ?? text.disabledMessage;
   if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
   const shouldAutoPlay = (autoPlay ?? false) && !disabled;
   const formattedUrl = formatVideoUrl(src ?? videoLink ?? "");
@@ -141,7 +147,7 @@ const RdsCompVideoPlayer = ({
       <div className="rds-comp-video-player__wrapper" inert={disabled || undefined}>
         <Suspense
           fallback={
-            <div className="rds-comp-video-player__loading" aria-label="Loading video player" />
+            <div className="rds-comp-video-player__loading" aria-label={text.loading} />
           }
         >
           <ReactPlayer
@@ -167,7 +173,7 @@ const RdsCompVideoPlayer = ({
       </div>
       {disabled && (
         <div className="rds-comp-video-player__overlay">
-          <div className="rds-comp-video-player__disabled-message">{disabledMessage}</div>
+          <div className="rds-comp-video-player__disabled-message">{resolvedDisabledMessage}</div>
         </div>
       )}
     </Box>

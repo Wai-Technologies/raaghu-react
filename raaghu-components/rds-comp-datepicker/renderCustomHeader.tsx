@@ -1,3 +1,5 @@
+import { DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, type RdsDatepickerLocaleText } from "./rds-comp-datepicker.types";
+
 interface CustomHeaderProps {
   date: Date;
   monthDate: Date;
@@ -10,6 +12,7 @@ interface CustomHeaderProps {
   minDate?: Date;
   maxDate?: Date;
   locale?: string;
+  text?: RdsDatepickerLocaleText;
 }
 
 /** Locale-aware short month labels (G4-102). */
@@ -32,6 +35,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
     minDate,
     maxDate,
     locale,
+    text = DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
   }: CustomHeaderProps) => {
     const months = getShortMonths(locale);
     const currentYear = new Date().getFullYear();
@@ -54,7 +58,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               className="rds-datepicker__nav-btn rds-datepicker__nav-btn--previous"
               onClick={decreaseMonth}
               disabled={prevMonthButtonDisabled}
-              aria-label="Previous Month"
+              aria-label={text.previousMonth}
             >
               <span className="rds-datepicker__nav-icon rds-datepicker__nav-icon--previous" aria-hidden="true" />
             </button>
@@ -62,7 +66,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
-              aria-label="Month"
+              aria-label={text.month}
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -74,7 +78,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
-              aria-label="Year"
+              aria-label={text.year}
             >
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -87,7 +91,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               className="rds-datepicker__nav-btn rds-datepicker__nav-btn--next"
               onClick={increaseMonth}
               disabled={nextMonthButtonDisabled}
-              aria-label="Next Month"
+              aria-label={text.nextMonth}
             >
               <span className="rds-datepicker__nav-icon rds-datepicker__nav-icon--next" aria-hidden="true" />
             </button>
@@ -98,7 +102,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
-              aria-label="Month"
+              aria-label={text.month}
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -110,7 +114,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
-              aria-label="Year"
+              aria-label={text.year}
             >
               {years.map((y) => (
                 <option key={y} value={y}>

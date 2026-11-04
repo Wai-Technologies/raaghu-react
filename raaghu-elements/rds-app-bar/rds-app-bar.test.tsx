@@ -661,3 +661,10 @@ describe('RdsAppBar additive renames', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'tabValue', '`tabsProps.value`');
   });
 });
+
+describe('RdsAppBar localeText', () => {
+  it('overrides built-in aria-labels', () => {
+    render(<RdsAppBar onMenuClick={jest.fn()} showMenuButton localeText={{ menuLabel: 'Menü' }} />);
+    expect(screen.getByLabelText('Menü')).toBeInTheDocument();
+  });
+});

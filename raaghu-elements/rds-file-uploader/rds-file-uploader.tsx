@@ -13,7 +13,9 @@ import {
 } from './RdsFileUploaderComponents';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { formatFileSize } from './rds-file-uploader-utils';
+export { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, type RdsFileUploaderLocaleText } from './rds-file-uploader-types';
 export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
 import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
@@ -53,6 +55,7 @@ const RdsFileUploader = ({
   helperText,
   hintText,
   placeholderImage,
+  localeText,
   slotProps,
   mode = 'standard',
   style,
@@ -67,6 +70,7 @@ const RdsFileUploader = ({
   ref,
   ...rest
 }: RdsFileUploaderProps) => {
+  const text = { ...DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, ...localeText };
   if (title !== undefined) warnDeprecatedProp('RdsFileUploader', 'title', '`label`');
   if (hintText !== undefined) warnDeprecatedProp('RdsFileUploader', 'hintText', '`helperText`');
   if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsFileUploader', 'isMandatory', '`required`');
@@ -94,7 +98,7 @@ const RdsFileUploader = ({
   const isMandatory = required ?? (display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false));
   const showHint = display?.hint ? display.hint === 'visible' : (legacyShowHint ?? false);
   const fieldLabel = label ?? title;
-  const hint = helperText || hintText || `Maximum ${formatFileSize(maxSize)}`;
+  const hint = helperText || hintText || text.maximumSize(formatFileSize(maxSize));
   const multiple = multipleProp ?? false;
 
   const {
@@ -120,6 +124,7 @@ const RdsFileUploader = ({
     multiple: multipleProp !== false,
     onFilesChange: emitFilesChange,
     onUpload,
+    text,
   });
 
   return (
@@ -141,6 +146,7 @@ const RdsFileUploader = ({
             multiple,
           }}
           mandatoryError={mandatoryError}
+          text={text}
           hintText={hint}
           selectedFileName={selectedFileName}
           handleFileSelect={handleFileSelect}
@@ -161,7 +167,7 @@ const RdsFileUploader = ({
         >
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1">
-              {fieldLabel || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
+              {fieldLabel || text.defaultFormTitle}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
             </Typography>
           )}
 
@@ -179,7 +185,7 @@ const RdsFileUploader = ({
             onChange={handleFileSelect}
             style={{ display: 'none' }}
             disabled={disabled}
-            aria-label={fieldLabel || 'File upload'}
+            aria-label={fieldLabel || text.fileUploadLabel}
           />
 
           {(() => {
@@ -192,6 +198,7 @@ const RdsFileUploader = ({
               onDrop: handleDrop,
               openFileDialog,
               accept,
+              text,
             };
             if (dropAreaStyle === 'Drop Area - Side Icon') {
               return <RdsDropZoneSideIcon {...dropZoneProps} />;
@@ -224,6 +231,7 @@ const RdsFileUploader = ({
               isUploading={isUploading}
               removeFile={removeFile}
               formatFileSize={formatFileSize}
+              text={text}
             />
           )}
         </Box>
