@@ -1431,7 +1431,7 @@ font-weight: var(--rds-font-weight-bold);
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@include bp.between(tablet-sm, tablet-lg) {
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
     left: calc(100% + var(--rds-spacing-sm));

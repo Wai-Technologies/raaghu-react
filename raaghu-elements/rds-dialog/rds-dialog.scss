@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-dialog {
   --rds-dialog-dim-1: 248px;
 
@@ -131,7 +132,7 @@
       z-index: var(--rds-z-index-above, 3);
     }
 
-    @media (max-width: 360px) {
+    @include bp.down(360) {
       width: calc(100vw - var(--rds-size-xl));
       min-width: unset;
       max-width: calc(100vw - var(--rds-size-xl));
@@ -178,7 +179,7 @@
   }
 }
 
-@media (max-width: 360px) {
+@include bp.down(360) {
   .MuiDialog-paper {
     margin: var(--rds-spacing-md);
     max-height: calc(100% - var(--rds-size-xl));

@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-comments-box {
   --rds-comments-box-dim-1: var(--rds-spacing-cozy);
   --rds-comments-box-dim-2: var(--rds-spacing-11-px);
@@ -1818,7 +1819,7 @@
   font-size: var(--rds-font-size-xl);
 }
 
-  @media (max-width: 320px) {
+  @include bp.down(mobile-sm) {
     .MuiIconButton-root svg {
         margin-left: var(--rds-spacing-micro);
     }
@@ -1859,7 +1860,7 @@
   color: var(--rds-text-primary); 
   font-weight: var(--rds-font-weight-medium);
 }
-@media (max-width: 600px) and (min-width: 320px) {
+@media (max-width: #{bp.bp(sm)}) and (min-width: #{bp.bp(mobile-sm)}) {
   .rds-comments-box__header {
     padding-left: 0;
     margin-left: 0;
@@ -2099,7 +2100,7 @@
   }
 }
 
-@media (min-width: 414px) and (max-width: 900px) {
+@include bp.between(mobile-lg, md) {
   .rds-comments-box__header {
     padding-left: 0;
     margin-left: 0;
@@ -2305,7 +2306,7 @@
   }
 }
 
-@media (min-width: 700px) and (max-width: 1112px) {
+@include bp.between(700, 1112) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-md);
         margin-right: 0;
@@ -2315,13 +2316,13 @@
         margin-right: 0;
     }
   }
-  @media (max-width: 420px) {
+  @include bp.down(420) {
     .MuiIconButton-root svg {
         margin-left: var(--rds-spacing-xxs);
     }
   }
 
-  @media (max-width: 320px) and (min-width: 280px) {
+  @media (max-width: #{bp.bp(mobile-sm)}) and (min-width: #{bp.bp(280)}) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 100%;
@@ -2330,7 +2331,7 @@
     }
 }
 
-@media (max-width: 514px) and (min-width: 320px) {
+@media (max-width: #{bp.bp(514)}) and (min-width: #{bp.bp(mobile-sm)}) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 100%;
@@ -2410,7 +2411,7 @@
   }
 }
 
-@media (min-width: 601px) {
+@include bp.up(601) {
   .rds-comments-box--thread .rds-comments-box__thread-header {
     width: 100%;
     display: flex;
@@ -2433,7 +2434,7 @@
   }
 }
 
-@media (max-width: 1200px) and (min-width: 650px) {
+@media (max-width: #{bp.bp(lg)}) and (min-width: #{bp.bp(650)}) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         margin-left: 0;
@@ -2442,7 +2443,7 @@
     }
 }
 
-@media (max-width: 320px) and (min-width: 280px) {
+@media (max-width: #{bp.bp(mobile-sm)}) and (min-width: #{bp.bp(280)}) {
   .rds-comments-box--typing {
     width: min(var(--rds-comments-panel-width-md), 100%);
     max-width: min(var(--rds-comments-panel-width-md), 100%);

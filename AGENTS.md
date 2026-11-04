@@ -80,6 +80,7 @@ Each folder holds `rds-x.tsx`, `rds-x.scss`, `rds-x.stories.tsx`, `rds-x.test.ts
 - Translucent colors: `color-mix(in srgb, var(--rds-color-black) 12%, transparent)`.
 - Dark mode comes from tokens with different light and dark values. Don't add `[data-theme='dark']` selectors.
 - Scope every selector under the component's BEM block (`.rds-x`, `.rds-x__el`, `.rds-x--mod`). Portalled MUI parts (poppers, menus) get a class through `slotProps`; never style a bare `.Mui*` class globally.
+- In SCSS media queries use the `bp` helpers (`bp.up`, `bp.down`, `bp.between`, `#{bp.bp(key)}`) from `raaghu-react-themes/tokens/_breakpoints.scss`, never literal px.
 - Media queries in TS use `extendedBreakpointTokens` from `design-tokens.ts`.
 
 ### Props conventions

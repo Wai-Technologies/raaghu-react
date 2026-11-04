@@ -274,7 +274,7 @@
 }
 
 .rds-list--align-responsive {
-  @media (max-width: 600px) {
+  @include bp.down(sm) {
     .rds-list__item {
       align-items: flex-start;
     }
@@ -291,7 +291,7 @@
     }
   }
 
-  @media (min-width: 1536px) {
+  @include bp.up(xl) {
     .rds-list__item {
       align-items: center;
     }

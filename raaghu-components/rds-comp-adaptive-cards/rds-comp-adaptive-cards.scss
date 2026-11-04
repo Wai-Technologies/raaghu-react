@@ -1612,7 +1612,7 @@
   flex-wrap: nowrap ;
 }
 
-@media (max-width: 834px) {
+@include bp.down(tablet-md) {
   .rds-adaptive-cards--default,
   .rds-adaptive-cards--football-scorecard {
     min-width: 0;

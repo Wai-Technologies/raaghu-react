@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 // RDS Date Picker Component Styles
 // Following BEM methodology with rds- prefix
 // Uses design tokens for consistency across themes
@@ -728,7 +729,7 @@
 }
 
 // Responsive design
-@media (max-width: 767px) {
+@include bp.down(767) {
   .rds-date-picker {
     width: 100%;
     min-width: 0;
@@ -887,7 +888,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@include bp.down(480) {
   .rds-date-picker {
     &__custom-layout {
       width: calc(100vw - var(--rds-size-md));

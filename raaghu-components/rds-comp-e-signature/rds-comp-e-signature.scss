@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-e-signature {
   --rds-e-signature-dim-1: 34px;
@@ -834,7 +835,7 @@
   color: var(--rds-color-neutral-0);
 }
 
-@media (max-width: 600px) {
+@include bp.down(sm) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: var(--rds-spacing-cozy);
     margin-left: auto;
@@ -868,7 +869,7 @@
   }
 }
 
-@media (min-width: 1536px) {
+@include bp.up(xl) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;

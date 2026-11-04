@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-kanban-board__btn-group.dropstart {
   position: relative;
 }
@@ -558,7 +559,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@include bp.down(md) {
   .rds-kanban-board-container {
     padding: var(--rds-kanban-container-mobile-padding, 0 var(--rds-spacing-md) var(--rds-spacing-tight));
     gap: var(--rds-spacing-sm);
@@ -589,7 +590,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@include bp.down(mobile-md) {
   .rds-kanban-board-container {
     max-height: 100vh;
     overflow-y: auto;

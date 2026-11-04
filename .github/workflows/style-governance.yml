@@ -23,6 +23,7 @@ on:
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'scripts/ts-raw-values-baseline.txt'
       - 'scripts/check-raw-values-in-ts.mjs'
+      - 'scripts/check-media-queries-in-scss.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -50,6 +51,7 @@ on:
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'scripts/ts-raw-values-baseline.txt'
       - 'scripts/check-raw-values-in-ts.mjs'
+      - 'scripts/check-media-queries-in-scss.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -103,6 +105,9 @@ jobs:
 
       - name: Check for raw px/rem/duration literals in TS/TSX styles
         run: node scripts/check-raw-values-in-ts.mjs
+
+      - name: Check for literal px/rem in SCSS media queries
+        run: node scripts/check-media-queries-in-scss.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

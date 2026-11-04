@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-comp-ai-typing-section {
   --rds-ai-typing-section-dim-1: 160px;
   --rds-ai-typing-section-dim-2: 220px;
@@ -245,7 +246,7 @@
 
 
 
-  @media (max-width: 375px) {
+  @include bp.down(mobile-md) {
 
     &__attach {
 
@@ -295,7 +296,7 @@
 
 
 
-  @media (min-width: 768px) {
+  @include bp.up(tablet-sm) {
 
     &__button-sections {
 
@@ -419,7 +420,7 @@
 
 
 
-  @media (max-width: 767px) {
+  @include bp.down(767) {
 
     &__button-sections {
 
@@ -469,7 +470,7 @@
 
 
 
-  @media (max-width: 375px) {
+  @include bp.down(mobile-md) {
 
     &__button-sections {
 
@@ -507,7 +508,7 @@
 
 
 
-  @media (min-width: 1536px) {
+  @include bp.up(xl) {
 
     &__button-sections {
 
@@ -539,7 +540,7 @@
 
 
 
-  @media (min-width: 768px) {
+  @include bp.up(tablet-sm) {
 
     &__project-actions {
 
@@ -575,7 +576,7 @@
 
 
 
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @include bp.between(tablet-sm, tablet-lg) {
 
     &__button-sections {
 

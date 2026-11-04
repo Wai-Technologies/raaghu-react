@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-pagination {
   --rds-pagination-item-size: var(--rds-spacing-xl);
   --rds-pagination-focus-ring-width: 2px;
@@ -255,7 +256,7 @@
       background: var(--rds-color-primary);
     }
   }
-  @media (min-width: 320px) and (max-width: 1024px) {
+  @include bp.between(mobile-sm, tablet-lg) {
     flex-direction: column;
     align-items: center;
     .pagination-dropdown,
@@ -347,7 +348,7 @@
     font-size: var(--rds-font-size-md);
   }
 }
-@media (max-width: 320px) {
+@include bp.down(mobile-sm) {
   .rds-pagination-wrapper {
     flex-direction: column;
     align-items: center;
@@ -427,7 +428,7 @@
     }
   }
 }
-@media (min-width: 320px) and (max-width: 768px) {
+@include bp.between(mobile-sm, tablet-sm) {
   .rds-pagination-wrapper {
     flex-wrap: wrap;
     justify-content: center;

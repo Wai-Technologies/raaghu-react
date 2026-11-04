@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-emoji-generator {
   --rds-emoji-generator-dim-1: 294px;
@@ -417,7 +418,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@include bp.down(sm) {
   .rds-emoji-generator {
     width: min(var(--rds-emoji-generator-dim-1), 100%);
 

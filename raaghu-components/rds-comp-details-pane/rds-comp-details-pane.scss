@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-comp-details-pane {
   --rds-details-pane-dim-1: var(--rds-spacing-xxs);
   --rds-details-pane-dim-2: var(--rds-spacing-tight);
@@ -824,7 +825,7 @@
         display: flex;
         align-items: center;
 
-        @media (max-width: 380px) {
+        @include bp.down(380) {
           right: var(--rds-spacing-xs);
           top: 50%;
           transform: translateY(-50%);
@@ -1372,7 +1373,7 @@
 
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: #{bp.bp(640)}) {
   .rds-comp-details-pane {
     width: var(--rds-details-pane-mobile-width);
     height: auto;
@@ -1774,7 +1775,7 @@
   }
 
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: #{bp.bp(tablet-sm)}) {
   .rds-comp-details-pane {
     &__toolbar-buttons-row,
     &__toolbar-buttons-row--scrollable {
@@ -1792,7 +1793,7 @@
     }
   }
 }
-@media screen and (min-width: 420px) {
+@media screen and (min-width: #{bp.bp(420)}) {
   .rds-comp-details-pane:not(.rds-comp-details-pane--flush):not(.rds-comp-details-pane--flush-toolbar) {
     margin-left: var(--rds-spacing-25);
   }

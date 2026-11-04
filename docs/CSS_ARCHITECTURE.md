@@ -218,5 +218,7 @@ Phase B is independent of Phase A token work — a themed `var(--rds-*)` under
 - **No hardcoded pixel spacing** for theme-sensitive values — use spacing tokens
 - **Local length tokens:** allowed for true one-offs; prefer central
   `--rds-spacing-*` / `--rds-size-*` on exact match; no new numbered `dim-N` names
+- **Breakpoints from helpers** — SCSS media queries use `bp.up/down/between` or
+  `#{bp.bp(key)}` from `raaghu-react-themes/tokens/_breakpoints.scss`, never literal px
 - **No new `!important`** — follow the override hierarchy; CI baseline ratchet
 - **Comments:** only when the WHY is non-obvious (workarounds, known browser bugs)
