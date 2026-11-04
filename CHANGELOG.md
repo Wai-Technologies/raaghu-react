@@ -7,7 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- The npm package now ships only the build output: `dist/`, `raaghu-react-themes/src/styles/index.scss`, the AI docs (`AGENTS.md`, `llms.txt`, `docs/ai/`, `docs/TOKENS.md`), `README.md`, `CHANGELOG.md` and `LICENSE`. The source folders (`raaghu-elements/`, `raaghu-components/`, `raaghu-layouts/`, `raaghu-react-themes/`, `utils/`, `index.ts`) are no longer published. **Migration:** replace deep imports such as `@waiin/raaghu-react/raaghu-elements/...` or `raaghu-react-themes/...` with imports from the package root (`@waiin/raaghu-react`), and load styles with `import '@waiin/raaghu-react/styles.css'`. The optional global resets stay available at `@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss`.
+
 ### Changed
+
+- **Color tokens (visible change).** Light mode: the `dark` (hover/pressed) shade of `primary`, `secondary`, `error`, `warning` and `success` moves from step 600 to 750, and `info.dark` from 600 to 800. The secondary scale mixes pink and blue steps, so the old `secondary.dark` (600, pink) turned blue buttons red on hover. `text.secondary` (`--rds-text-secondary`) moves from neutral 600 to 700 for better contrast. Dark mode: `secondary.dark` moves from step 400 (pink) to 750 (blue). Card hover/selected/filled surfaces and the alert/status colors were also retuned (see `docs/TOKENS.md`).
+- **Dark styles follow the app theme, not the OS.** `RdsToggleButton` group borders used `@media (prefers-color-scheme: dark)`, so a light-mode app showed dark-mode borders to users whose OS was in dark mode. They now follow `data-theme`, which `RaaghuThemeProvider` sets.
+- `RdsCarousel`: `onActiveIndexChange` now fires on every slide change (arrows, dots, keyboard and autoplay), in both controlled and uncontrolled mode. It used to fire only when `activeIndex` was controlled. Autoplay now pauses while the carousel is hovered or has focus.
+- `RdsCounter`: `onChange` now fires in uncontrolled mode as well (it used to fire only when `value` was controlled).
+- `RdsInput` with `layout="phone number"`: the digit-only sanitising now runs in `onChange` instead of `onInput`, so the value passed to `onChange` is already sanitised.
+
+### Deprecated
+
+- `RdsRating` `color="info"`: use `color="primary"`. It still renders as primary and warns in development.
+- `RdsDialog` `showDissmiss`: use `showCloseButton`.
+- `RdsAvatar` `activeDotBottom`: use `status="online"` with `statusPosition="bottom"`.
+- `RdsAppBar` `actions`: use `endSlot`.
+
+### Changed (packaging)
 
 - Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@mui/x-date-pickers`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
 - `npm run type-check` now runs against `tsconfig.library.json` (same as `type-check:all`).

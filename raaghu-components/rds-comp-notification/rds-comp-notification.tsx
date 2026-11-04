@@ -92,6 +92,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     };
 
     const isHorizontalImage = layout === NotificationLayout.Horizontal && style === NotificationStyle.Image;
+    const isHorizontalLayout = layout === NotificationLayout.Horizontal;
 
     return (
         <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}>
@@ -110,6 +111,16 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                     sx={{ padding: isHorizontalImage ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: isHorizontalImage ? "flex" : "block",overflow: "hidden"
                     }}>
 
+                    {resolvedDismissVisible && !isHorizontalLayout && (
+                        <RdsIconButton
+                            iconFilled={<Close />}
+                            size="small"
+                            aria-label="Dismiss notification"
+                            onClick={(e) => dismissNotification(e, notification, key)}
+                            className="rds-comp-notification__dismiss"
+                        />
+                    )}
+
                     {isHorizontalImage && (
                         <Box
                             className="rds-comp-notification__image-sidebar"
@@ -124,14 +135,23 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         </Box>
                     )}
 
-                    <Box sx={{
-                        flex: isHorizontalImage ? 1 : "none",
-                        padding: isHorizontalImage ? 2 : 0,
-                        position: "relative"
-                    }}>
-
-                    {resolvedDismissVisible && (
-                        <RdsIconButton iconFilled={<Close />} size="small" aria-label="Dismiss notification" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__dismiss" />)}
+                    <Box
+                        className="rds-comp-notification__content"
+                        sx={{
+                            flex: isHorizontalImage ? 1 : "none",
+                            padding: isHorizontalImage ? 2 : 0,
+                            position: "relative",
+                        }}
+                    >
+                    {resolvedDismissVisible && isHorizontalLayout && (
+                        <RdsIconButton
+                            iconFilled={<Close />}
+                            size="small"
+                            aria-label="Dismiss notification"
+                            onClick={(e) => dismissNotification(e, notification, key)}
+                            className="rds-comp-notification__dismiss"
+                        />
+                    )}
 
                     <Box
                         className="rds-comp-notification__header"

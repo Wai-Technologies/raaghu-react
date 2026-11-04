@@ -1559,13 +1559,8 @@
           "name": "showCloseButton",
           "type": "boolean",
           "required": false,
-          "description": "Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`."
-        },
-        {
-          "name": "showDissmiss",
-          "type": "boolean",
-          "required": false,
-          "description": "Figma alias of `showCloseButton` (Figma \"Show Dismiss\"); kept without a warning. Prefer `showCloseButton`."
+          "default": "true",
+          "description": "Shows the close button."
         },
         {
           "name": "showPrimary",
@@ -1594,6 +1589,10 @@
         }
       ],
       "deprecatedProps": [
+        {
+          "name": "showDissmiss",
+          "use": "Use `showCloseButton`."
+        },
         {
           "name": "showTitle",
           "use": "Omit `title` instead."
@@ -2711,7 +2710,7 @@
           "name": "color",
           "type": "RatingColor",
           "required": false,
-          "description": "Color of the rating. `'danger'` is deprecated; use `'error'`."
+          "description": "Color of the rating. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "data-testid",
@@ -2767,7 +2766,7 @@
       "deprecatedProps": [
         {
           "name": "colorVariant",
-          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`."
+          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "maxStars",

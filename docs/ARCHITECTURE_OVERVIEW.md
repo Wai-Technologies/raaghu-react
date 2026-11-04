@@ -90,7 +90,7 @@ Do not add another app-root provider. `RaaghuThemeProvider` already covers MUI, 
 ## Theme Hook
 
 ```tsx
-import { useRaaghuTheme } from 'raaghu-react-themes/src/provider/RaaghuThemeProvider';
+import { useRaaghuTheme } from '@waiin/raaghu-react';
 
 const { mode, setMode, toggleMode, isDark } = useRaaghuTheme();
 ```

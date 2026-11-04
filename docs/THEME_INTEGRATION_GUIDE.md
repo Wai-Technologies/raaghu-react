@@ -28,8 +28,8 @@ and keep `theme.palette` / `--mui-palette-*` in sync with `--rds-*` (including
 ```tsx
 // main.tsx or app entry
 import '@waiin/raaghu-react/styles.css'; // bundled component styles from the published package
-// Optional: global resets (source path when consuming the monorepo / theme package path)
-// import 'raaghu-react-themes/src/styles/index.scss';
+// Optional: global resets (box-sizing, body font, scrollbar)
+// import '@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss';
 import { RaaghuThemeProvider } from '@waiin/raaghu-react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -50,7 +50,7 @@ It uses `var(--rds-*)` and does not define any colors by itself.
 ### 2. Toggle the theme from any component
 
 ```tsx
-import { useRaaghuTheme } from 'raaghu-react-themes';
+import { useRaaghuTheme } from '@waiin/raaghu-react';
 
 function ThemeToggle() {
   const { toggleMode, isDark, mode } = useRaaghuTheme();
@@ -184,7 +184,7 @@ Enforcement:
 - `npm run lint:raw-px` — `scripts/check-raw-px-in-scss.mjs` (no bare width/height/border/radius/font-size px in declarations)
 - `npm run lint:local-dim-px` — `scripts/check-local-dim-px-in-scss.mjs` (no new bare `px`/`rem` inside `--` custom-property definitions)
 
-One-shot cleanups: `node scripts/strip-px-fallbacks.mjs`; size/border helpers under `scripts/replace-bare-*.mjs`. Phase A backlog: `docs/THEME_INTEGRATION_COMPLETE.md`.
+Phase A backlog: `docs/THEME_INTEGRATION_COMPLETE.md`.
 
 ```scss
 // Good
