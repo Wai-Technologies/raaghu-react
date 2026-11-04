@@ -7,7 +7,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=18411-195150",
   {
     props: {
-      showDismiss: figma.boolean("👀Show Dismiss"),
+      showTitleIcon: figma.boolean("👀Show Dismiss"),
       showHeader: figma.boolean("👀Show Header"),
     },
     example: (props) => (

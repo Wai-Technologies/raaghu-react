@@ -207,17 +207,24 @@ describe('RdsCompAdaptiveCards', () => {
       expect(screen.getByText('Test Text')).toBeInTheDocument();
     });
 
-    it('renders with dismiss button when showDismiss is true', () => {
+    it('renders title icon when showTitleIcon is true', () => {
       render(
         <RdsCompAdaptiveCards
           type="Default"
-          showDismiss={true}
+          showTitleIcon={true}
           showHeader={true}
           cardTitle="Test"
         />
       );
       const cards = screen.getAllByText('Test');
       expect(cards.length).toBeGreaterThan(0);
+    });
+
+    it('still honours deprecated showDismiss as alias for showTitleIcon', () => {
+      const { container } = render(
+        <RdsCompAdaptiveCards type="Default" showDismiss={true} showHeader={true} cardTitle="Test" />
+      );
+      expect(container.querySelector('.custom-box__circle')).toBeInTheDocument();
     });
 
     it('renders close icon when closeIcon is true', () => {

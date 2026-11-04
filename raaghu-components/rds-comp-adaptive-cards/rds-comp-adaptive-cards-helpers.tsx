@@ -46,6 +46,8 @@ export interface AdaptiveCardProps {
   cardText?: string;
   cardTitle?: string;
   showHeader?: boolean;
+  showTitleIcon?: boolean;
+  /** @deprecated Use `showTitleIcon`. */
   showDismiss?: boolean;
   type?: string;
   closeIcon?: boolean;
@@ -205,13 +207,13 @@ export function InputFormCard(props: AdaptiveCardProps) {
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void }) {
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showTitleIcon, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showTitleIcon?: boolean; onImageClick?: (index: number) => void }) {
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
           <RdsStack direction="row" spacing={0} alignItems="center" className="rds-adaptive-cards__header-title-row">
-            {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
+            {showTitleIcon && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
               <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>

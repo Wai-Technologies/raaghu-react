@@ -62,7 +62,6 @@ const VARIANT_DEFAULTS = {
   btn1Label: "Cancel",
   btn2Label: "Done",
   type: "Default",
-  showDismiss: false,
   closeIcon: false,
   label: "",
   smallText: "",
@@ -77,7 +76,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
 
   const {
     showHeader,
-    showDismiss,
     cardTitle,
     showBtn1,
     showBtn2,
@@ -108,6 +106,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     activityProps = {} as Partial<ActivityProps>,
   } = merged;
 
+  const showTitleIcon = props.showTitleIcon ?? props.showDismiss ?? false;
   const resolvedBtn1Style = getRdsButtonStyle(btn1style);
   const resolvedBtn2Style = getRdsButtonStyle(btn2style);
 
@@ -150,7 +149,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         images={images || []}
         showHeader={showHeader}
         closeIcon={closeIcon}
-        showDismiss={showDismiss}
+        showTitleIcon={showTitleIcon}
       />
     );
   }
@@ -197,7 +196,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               spacing={1}
               className="custom-box__title-stack"
             >
-              {showDismiss && <RdsBox className="custom-box__circle" />}
+              {showTitleIcon && <RdsBox className="custom-box__circle" />}
               {showHeader && (
                 <RdsTypography variant="h5" className="custom-box__title-text">
                   {cardTitle}
@@ -267,7 +266,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     alignItems="center"
                     className="rds-adaptive-cards__header-title-row"
                   >
-                    {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
+                    {showTitleIcon && <RdsBox className="rds-adaptive-cards__title-icon" />}
                     <RdsTypography
                       variant="h5"
                       className="rds-adaptive-cards__title"
