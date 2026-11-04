@@ -1,0 +1,15 @@
+export const raaghuDarkChrome = {
+  appBg: '#1b1b1b',
+  appContentBg: '#1f232b',
+  appPreviewBg: '#1b1b1b',
+  appBorderColor: '#3a4250',
+  textColor: '#e6eaf2',
+  textMutedColor: '#9aa6b8',
+  barBg: '#20242d',
+  barTextColor: '#c4cfde',
+  barSelectedColor: '#7ea8ff',
+  barHoverColor: '#b7c8ff',
+  inputBg: '#171b22',
+  inputBorder: '#3a4250',
+  inputTextColor: '#e6eaf2',
+} as const;
