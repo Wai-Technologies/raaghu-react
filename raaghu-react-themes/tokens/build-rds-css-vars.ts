@@ -3,6 +3,7 @@ import {
   alphaTokens,
   animationTokens,
   motionTokens,
+  reducedMotionTokens,
   appBarTokens,
   breakpointTokens,
   chartPaletteTokens,
@@ -1107,6 +1108,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-list-subheader-line-height': componentStyleTokens['list-subheader-line-height'],
     '--rds-loader-bounce-easing': componentStyleTokens['loader-bounce-easing'],
     '--rds-loader-dash-duration': componentStyleTokens['loader-dash-duration'],
+    '--rds-loader-duration-0-5s': componentStyleTokens['loader-duration-0-5s'],
     '--rds-loader-duration-1s': componentStyleTokens['loader-duration-1s'],
     '--rds-loader-duration-1-5s': componentStyleTokens['loader-duration-1-5s'],
     '--rds-loader-duration-2s': componentStyleTokens['loader-duration-2s'],
@@ -1664,6 +1666,21 @@ export function buildRdsCssVars(mode: RdsThemeMode): Record<string, string> {
  *   '--rds-primary-dark': 'var(--brand-primary-dark)',
  * };
  */
+const TIME_UNIT = /(?<![\w.-])\d*\.?\d+m?s\b/g;
+
+export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+export function reducedMotionCssVars(vars: Record<string, string>): Record<string, string> {
+  const reduced: Record<string, string> = {};
+  for (const [key, value] of Object.entries(vars)) {
+    if (!/(duration|transition)/.test(key) || /ease|easing|timing/.test(key)) continue;
+    if (reducedMotionTokens.keepMoving.some((keep) => key.includes(keep))) continue;
+    const next = value.replace(TIME_UNIT, reducedMotionTokens.duration);
+    if (next !== value) reduced[key] = next;
+  }
+  return reduced;
+}
+
 export type RdsBrandOverrides = Partial<Record<string, string>>;
 
 const TRACKED_CSS_VAR_KEYS = new Set<string>();
@@ -1678,7 +1695,9 @@ const TRACKED_CSS_VAR_KEYS = new Set<string>();
 export function injectTokens(mode: RdsThemeMode = 'light', overrides?: RdsBrandOverrides): void {
   if (typeof document === 'undefined') return;
 
-  const vars = buildRdsCssVars(mode);
+  const baseVars = buildRdsCssVars(mode);
+  const reduceMotion = typeof window.matchMedia === 'function' && window.matchMedia(REDUCED_MOTION_QUERY).matches;
+  const vars = reduceMotion ? { ...baseVars, ...reducedMotionCssVars(baseVars) } : baseVars;
   const root = document.documentElement;
 
   for (const key of TRACKED_CSS_VAR_KEYS) {
@@ -1726,5 +1745,8 @@ export function buildStaticCssSnapshot(mode: RdsThemeMode = 'light'): string {
   const entries = Object.entries(vars)
     .map(([key, value]) => `  ${key}: ${value};`)
     .join('\n');
-  return `:root {\n${entries}\n}`;
+  const reduced = Object.entries(reducedMotionCssVars(vars))
+    .map(([key, value]) => `    ${key}: ${value};`)
+    .join('\n');
+  return `:root {\n${entries}\n}\n@media ${REDUCED_MOTION_QUERY} {\n  :root {\n${reduced}\n  }\n}`;
 }

@@ -1,4 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/motion' as motion;
 .rds-comp-audio-player {
   --rds-audio-player-dim-1: var(--rds-spacing-hairline);
   --rds-audio-player-dim-2: var(--rds-spacing-25);
@@ -940,7 +941,7 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include motion.reduced {
     &__waveform-blue-bar,
     &__waveform-bar-handle,
     &__edition-btn,

@@ -282,6 +282,11 @@
       box-shadow: none;
     }
 
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
+
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;

@@ -167,6 +167,29 @@ describe('RdsCarousel', () => {
       expect(slide(1)).toBeInTheDocument();
     });
 
+    it('does not autoplay when reduced motion is preferred (WCAG 2.2.2)', () => {
+      const original = window.matchMedia;
+      window.matchMedia = ((query: string) => ({
+        matches: query.includes('prefers-reduced-motion'),
+        media: query,
+        onchange: null,
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })) as unknown as typeof window.matchMedia;
+      try {
+        setup({ autoPlay: true, autoPlayInterval: 1000 });
+        act(() => {
+          jest.advanceTimersByTime(3500);
+        });
+        expect(slide(1)).toBeInTheDocument();
+      } finally {
+        window.matchMedia = original;
+      }
+    });
+
     it('pauses autoplay while hovered or focused (WCAG 2.2.2)', () => {
       const onMouseEnter = jest.fn();
       const onActiveIndexChange = jest.fn();

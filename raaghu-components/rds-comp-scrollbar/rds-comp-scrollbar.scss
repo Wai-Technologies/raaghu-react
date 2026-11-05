@@ -142,6 +142,11 @@
   &:focus {
     outline: none;
   }
+
+  &:focus-visible {
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
+  }
   
   svg {
     width: var(--rds-font-size-xs);

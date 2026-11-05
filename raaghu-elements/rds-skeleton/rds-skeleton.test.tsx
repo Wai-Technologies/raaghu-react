@@ -574,3 +574,25 @@ describe('audit fixes 518', () => {
     expect(screen.getByTestId('card-skeleton')).toHaveClass('rds-skeleton');
   });
 });
+
+describe('RdsSkeleton reduced motion', () => {
+  it('stops the pulse animation when reduced motion is preferred', () => {
+    const original = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })) as unknown as typeof window.matchMedia;
+    try {
+      const { container } = renderWithTheme(<RdsSkeleton animation="pulse" />);
+      expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
+    } finally {
+      window.matchMedia = original;
+    }
+  });
+});

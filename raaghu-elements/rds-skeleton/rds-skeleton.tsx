@@ -1,4 +1,4 @@
-import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
+import { Skeleton as MuiSkeleton, type SkeletonProps, Box, useMediaQuery } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
@@ -38,7 +38,8 @@ const RdsSkeleton = ({
   const mergedSx = [...(Array.isArray(sx) ? sx : [sx]), sizeSx];
 
   if (animated !== undefined) warnDeprecatedProp('RdsSkeleton', 'animated', '`animation`');
-  const animationValue = animation ?? (animated === false ? false : 'pulse');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', { noSsr: true });
+  const animationValue = prefersReducedMotion ? false : (animation ?? (animated === false ? false : 'pulse'));
 
   if (frames > 1) {
     return (

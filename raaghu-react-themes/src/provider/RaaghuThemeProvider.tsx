@@ -11,6 +11,7 @@ import {
   type RaaghuThemeMode,
   type RdsBrandOverrides,
 } from './theme-utils';
+import { REDUCED_MOTION_QUERY } from '../../tokens/build-rds-css-vars';
 
 export interface RaaghuThemeProviderProps {
   children: ReactNode;
@@ -72,6 +73,9 @@ export function RaaghuThemeProvider({
   const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
     typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
   );
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(
+    () => typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches,
+  );
   const mode = controlledMode ?? internalMode;
 
   const brandOverridesKey = brandOverrides ? JSON.stringify(brandOverrides) : '';
@@ -87,11 +91,18 @@ export function RaaghuThemeProvider({
 
   useIsomorphicLayoutEffect(() => {
     applyRaaghuTheme(mode, stableBrandOverrides, { persist: !isControlled });
-  }, [mode, systemPrefersDark, stableBrandOverrides, isControlled]);
+  }, [mode, systemPrefersDark, prefersReducedMotion, stableBrandOverrides, isControlled]);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => setSystemPrefersDark(prefersDarkColorScheme());
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia(REDUCED_MOTION_QUERY);
+    const handler = () => setPrefersReducedMotion(mq.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);

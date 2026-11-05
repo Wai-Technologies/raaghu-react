@@ -38,6 +38,11 @@
     transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, var(--rds-motion-duration-quick) ease-in-out));
     outline: none;
 
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
+
     &:hover:not(&--selected) {
       background-color: var(--rds-button-dropdown-hover-bg);
     }

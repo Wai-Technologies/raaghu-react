@@ -565,6 +565,11 @@ font-weight: var(--rds-font-weight-bold);
     outline: none ;
     box-shadow: none ;
   }
+
+  &:focus-visible {
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
+  }
 }
 
 .rds-datepicker__header-select::-ms-expand {
@@ -931,6 +936,11 @@ font-weight: var(--rds-font-weight-bold);
     box-shadow: none ;
     border-color: var(--rds-color-border) ;
   }
+
+  &:focus-visible {
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
+  }
 }
 
 .rds-datepicker__calendar .react-datepicker__month-select,
@@ -961,6 +971,11 @@ font-weight: var(--rds-font-weight-bold);
     outline: none ;
     box-shadow: none ;
     border-color: var(--rds-color-border) ;
+  }
+
+  &:focus-visible {
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
   }
 }
 
@@ -1275,6 +1290,11 @@ font-weight: var(--rds-font-weight-bold);
       box-shadow: none ;
       border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
   }
 
   .rds-datepicker__custom-header-group .rds-datepicker__header-select {
@@ -1375,6 +1395,11 @@ font-weight: var(--rds-font-weight-bold);
       box-shadow: none ;
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
   }
 
   .react-datepicker__month-select,
@@ -1391,6 +1416,11 @@ font-weight: var(--rds-font-weight-bold);
       outline: none ;
       box-shadow: none ;
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
   }
 

@@ -79,6 +79,10 @@
     border-radius: 0;
     outline: none;
     position: relative;
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
     &::after {
       content: "";
       position: absolute;

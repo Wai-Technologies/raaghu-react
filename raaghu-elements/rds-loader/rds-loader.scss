@@ -247,7 +247,7 @@
   top: var(--rds-loader-jump-shadow-top);
   left: 0;
   border-radius: var(--rds-border-radius-pill);
-  animation: rds-loader-shadow324 var(--rds-motion-duration-slower) linear infinite;
+  animation: rds-loader-shadow324 var(--rds-loader-duration-0-5s) linear infinite;
 }
 
 .rds-loader__jump:after {
@@ -259,7 +259,7 @@
   top: 0;
   left: 0;
   border-radius: var(--rds-border-radius-sm);
-  animation: rds-loader-jump7456 var(--rds-motion-duration-slower) linear infinite;
+  animation: rds-loader-jump7456 var(--rds-loader-duration-0-5s) linear infinite;
 }
 
 @keyframes rds-loader-jump7456 {

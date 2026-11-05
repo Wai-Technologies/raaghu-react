@@ -61,6 +61,11 @@
       box-shadow: none;
       color: var(--rds-color-primary);
     }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
   }
 
   &__info--left {
@@ -390,6 +395,11 @@
       outline: none;
       box-shadow: none;
       color: var(--rds-color-primary);
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
   }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
-import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import { Box, IconButton, Typography, useMediaQuery, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -119,16 +119,17 @@ const RdsCarousel = ({
 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', { noSsr: true });
   const paused = hovered || focused;
 
   useEffect(() => {
-    if (autoPlay && !paused && slideCount > 1) {
+    if (autoPlay && !paused && !prefersReducedMotion && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
+  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, prefersReducedMotion, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);

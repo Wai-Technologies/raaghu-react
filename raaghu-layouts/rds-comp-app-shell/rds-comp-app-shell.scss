@@ -102,6 +102,11 @@
         display: none;
       }
     }
+
+    > button:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
   }
 
   .MuiTabs-root,
@@ -771,6 +776,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           content: '';
           display: none;
         }
+      }
+
+      button:focus-visible {
+        outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+        outline-offset: var(--rds-focus-ring-offset);
       }
     }
   }

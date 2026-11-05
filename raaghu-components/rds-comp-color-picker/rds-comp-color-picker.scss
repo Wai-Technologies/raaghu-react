@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/motion' as motion;
+
 .rds-comp-color-picker {
   --rds-color-picker-width: 285px;
   --rds-color-picker-dim-1: var(--rds-spacing-compact);
@@ -82,6 +84,11 @@
       border: none;
       outline: none;
       box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
 
     &--active {
@@ -264,6 +271,10 @@
     margin-top: var(--rds-spacing-xs);
     overflow: hidden;
     animation: fadeIn var(--rds-motion-duration-quick) ease-out;
+
+    @include motion.reduced {
+      animation: none;
+    }
   }
 
   &__dropdown-item {
@@ -285,6 +296,11 @@
     &:active {
       outline: none;
       box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
 
     &:hover {
@@ -349,6 +365,11 @@
       box-shadow: none;
       border-color: var(--rds-color-outline);
     }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
+    }
   }
 
   &__percent-wrapper {
@@ -372,6 +393,11 @@
       outline: none;
       box-shadow: none;
       border-color: var(--rds-color-outline);
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
   }
 
@@ -445,6 +471,11 @@
     &:active {
       outline: none;
       box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+      outline-offset: var(--rds-focus-ring-offset);
     }
   }
 

@@ -1,4 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/motion' as motion;
 
 .rds-emoji-generator {
   --rds-emoji-generator-dim-1: 294px;
@@ -452,7 +453,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include motion.reduced {
   .rds-emoji-generator {
     &__emoji {
       transition: none;

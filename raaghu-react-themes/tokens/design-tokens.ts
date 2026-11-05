@@ -426,6 +426,11 @@ export const animationTokens = {
   },
 };
 
+export const reducedMotionTokens = {
+  duration: '0.01ms',
+  keepMoving: ['loader', 'spinner', 'indeterminate', 'animation-duration'],
+};
+
 export const motionTokens = {
   duration: animationTokens.duration,
   easing: animationTokens.easing,
@@ -1486,6 +1491,7 @@ export const componentStyleTokens = {
   'list-subheader-line-height': '48px',
   'loader-bounce-easing': 'cubic-bezier(0.3, 1, 0, 1)',
   'loader-dash-duration': '1.4s',
+  'loader-duration-0-5s': '500ms',
   'loader-duration-1s': '1s',
   'loader-duration-1-5s': '1.5s',
   'loader-duration-2s': '2s',
