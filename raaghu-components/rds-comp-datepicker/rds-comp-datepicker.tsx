@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, type Theme } from "@mui/material";
 import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -277,8 +277,11 @@ const RdsDatepicker = ({
         };
     }, [isDropdownOpen, type, updatePickerState]);
 
+    const isCompact = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+
     const sharedProps = useMemo(
         () => ({
+            isCompact,
             selectedDate,
             dateForEdit,
             titleText,
@@ -305,7 +308,7 @@ const RdsDatepicker = ({
         [
             selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
             customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
-            inputId, baseId, minDate, maxDate, locale,
+            inputId, baseId, minDate, maxDate, locale, isCompact,
         ]
     );
 
