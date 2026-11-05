@@ -1,4 +1,4 @@
-import { type ReactNode, type SyntheticEvent } from 'react';
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,7 +8,7 @@ import './rds-tabs.scss';
 
 function capitalizeFirstLetter(text: string): string {
   if (typeof text !== 'string' || text.length === 0) return text;
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 export interface RdsTabItem {
@@ -101,7 +101,14 @@ const RdsTabs = ({
   if (tabItems.some((tab) => tab.leftIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].leftIcon', '`items[].startIcon`');
   if (tabItems.some((tab) => tab.rightIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].rightIcon', '`items[].endIcon`');
 
+  const providedValue = value ?? activeTab;
+  const isControlled = providedValue !== undefined;
+  const firstEnabledId = tabItems.find((tab) => !tab.disabled)?.id ?? false;
+  const [internalValue, setInternalValue] = useState<string | number | false>(firstEnabledId);
+  const uncontrolledValue = tabItems.some((tab) => tab.id === internalValue) ? internalValue : firstEnabledId;
+
   const handleChange = (event: SyntheticEvent, newValue: string | number) => {
+    if (!isControlled) setInternalValue(newValue);
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -112,8 +119,12 @@ const RdsTabs = ({
 
 
   const tabsWithIcons = tabItems.map((tab) => {
-    const resolvedStart = tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon;
-    const resolvedEnd = tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon;
+    const tabStart = tab.startIcon ?? tab.leftIcon;
+    const tabEnd = tab.endIcon ?? tab.rightIcon;
+    const globalStart = startIcon ?? leftIcon;
+    const globalEnd = endIcon ?? rightIcon;
+    const resolvedStart = tabStart ?? globalStart;
+    const resolvedEnd = tabEnd ?? globalEnd;
     return {
       ...tab,
       leftIcon: showLeftIcon ? (resolvedStart ?? <PersonIcon fontSize="small" />) : resolvedStart,
@@ -121,11 +132,9 @@ const RdsTabs = ({
     };
   });
 
-  const providedValue = value ?? activeTab;
-
   return (
     <MuiTabs
-      {...(providedValue !== undefined ? { value: providedValue } : {})}
+      value={isControlled ? providedValue : uncontrolledValue}
       onChange={handleChange}
       orientation={orientation ?? type ?? 'horizontal'}
       {...props}

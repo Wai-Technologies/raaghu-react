@@ -8,7 +8,7 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
-  globalIgnores(['dist', 'node_modules', 'storybook-static', '**/*.figma.tsx', '**/*.figma.ts']),
+  globalIgnores(['dist', 'node_modules', 'storybook-static', 'coverage', '.claude', '**/*.figma.tsx', '**/*.figma.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -22,19 +22,19 @@ export default tseslint.config([
       globals: globals.browser,
     },
     rules: {
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
 
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
+        ignoreRestSiblings: true,
       }],
       '@typescript-eslint/no-unused-expressions': ['error', {
         allowShortCircuit: true,
         allowTernary: true,
         allowTaggedTemplates: true,
       }],
-      // Change @ts-ignore to @ts-expect-error only when the fix is well-understood
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
 

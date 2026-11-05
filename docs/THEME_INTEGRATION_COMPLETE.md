@@ -163,8 +163,9 @@ Do not import these paths — they will 404.
 
 ```tsx
 // Entry file (e.g. main.tsx)
-import 'raaghu-react-themes/src/styles/index.scss';   // global resets only
-import { RaaghuThemeProvider } from 'raaghu-react-themes';
+import '@waiin/raaghu-react/styles.css';
+import '@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss';   // optional global resets
+import { RaaghuThemeProvider } from '@waiin/raaghu-react';
 
 createRoot(document.getElementById('root')!).render(
   <RaaghuThemeProvider defaultMode="light">
@@ -175,7 +176,7 @@ createRoot(document.getElementById('root')!).render(
 
 ```tsx
 // Any component that needs theme access
-import { useRaaghuTheme } from 'raaghu-react-themes';
+import { useRaaghuTheme } from '@waiin/raaghu-react';
 
 function ThemeToggle() {
   const { toggleMode, isDark } = useRaaghuTheme();

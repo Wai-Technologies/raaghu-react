@@ -54,3 +54,9 @@ jobs:
 
       - name: Strict declaration type-check
         run: npm run type-check:declarations
+
+      - name: Strict library type-check
+        run: npm run type-check:all
+
+      - name: ESLint (library sources)
+        run: npx eslint raaghu-elements raaghu-components raaghu-layouts raaghu-react-themes utils index.ts

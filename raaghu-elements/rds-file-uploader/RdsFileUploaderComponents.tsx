@@ -87,6 +87,23 @@ export const useFileUploader = ({
     } else {
       setSelectedFileName(null);
     }
+
+    void uploadFiles(validFiles.filter(fwp => !fwp.error).map(fwp => fwp.file));
+  };
+
+  const uploadFiles = async (toUpload: File[]) => {
+    if (!onUpload || toUpload.length === 0) return;
+    const mark = (patch: Partial<FileWithProgress>) =>
+      setFiles(prev => prev.map(fwp => (toUpload.includes(fwp.file) ? { ...fwp, ...patch } : fwp)));
+    setIsUploading(true);
+    try {
+      await onUpload(toUpload);
+      mark({ progress: 100 });
+    } catch {
+      mark({ error: 'Upload failed' });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const removeFile = (index: number, event?: SyntheticEvent) => {
@@ -177,7 +194,7 @@ export const RdsDropZoneSideIcon = ({
     >
       <Box className="rds-file-uploader__side-content">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--left" variant="h6" gutterBottom>
-          Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
+          Drag and Drop files or <button type="button" disabled={disabled} className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
           ({formatAcceptLabel(accept)})
@@ -282,7 +299,7 @@ export const RdsDropZoneDefault = ({
     >
       <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
-        Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
+        Drag and Drop files or <button type="button" disabled={disabled} className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
         ({formatAcceptLabel(accept)})

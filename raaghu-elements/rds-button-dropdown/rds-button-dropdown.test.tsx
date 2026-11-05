@@ -35,13 +35,13 @@ const mockButtonProps = jest.fn();
 jest.mock('../rds-button/rds-button', () => {
   return function MockButton(allProps: any) {
     mockButtonProps(allProps);
-    const { text, onClick, style, children, ...props } = allProps;
+    const { text, onClick, style, children, showLeftIcon, showRightIcon, changeLeftIcon, changeRightIcon, ...props } = allProps;
     return <button onClick={onClick} {...props}>{text ?? children}</button>;
   };
 });
 
 jest.mock('../rds-menu/rds-menu', () => {
-  return function MockMenu({ open, onClose, children, slotProps, ...props }: any) {
+  return function MockMenu({ open, onClose, children, slotProps, anchorEl, ...props }: any) {
     return open ? <div data-testid="rds-menu" onClick={() => onClose()} style={slotProps?.paper?.style} {...props}>{children}</div> : null;
   };
 });

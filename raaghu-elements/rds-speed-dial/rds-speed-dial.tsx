@@ -48,12 +48,12 @@ const RdsSpeedDial = ({
   const isControlled = open !== undefined;
   const finalOpenState = isControlled ? Boolean(open) : internalOpen;
   
-  const handleOpen = (event: SyntheticEvent<{}, Event>, reason: OpenReason) => {
+  const handleOpen = (event: SyntheticEvent<object>, reason: OpenReason) => {
     if (!isControlled) setInternalOpen(true);
     onOpen?.(event, reason);
   };
   
-  const handleClose = (event: SyntheticEvent<{}, Event>, reason: CloseReason) => {
+  const handleClose = (event: SyntheticEvent<object>, reason: CloseReason) => {
     if (!isControlled) setInternalOpen(false);
     onClose?.(event, reason);
   };

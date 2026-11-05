@@ -13,7 +13,7 @@ interface MotionDrawerTransitionProps extends React.HTMLAttributes<HTMLDivElemen
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionDrawerTransition = ({ ref, in: isIn, children, anchor = 'left', onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }: MotionDrawerTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
+const MotionDrawerTransition = ({ ref, in: isIn, children, anchor: _anchor, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }: MotionDrawerTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);

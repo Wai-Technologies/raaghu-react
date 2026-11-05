@@ -120,17 +120,15 @@ const RdsDialog = ({
       <DialogTitle
         component="div"
         className={opts.confirm ? 'rds-dialog__title' : undefined}
-        sx={
-          opts.confirm
-            ? undefined
-            : {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 1,
-                pr: showClose ? 1 : undefined,
-              }
-        }
+        sx={{
+          ...(!opts.confirm && {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 1,
+          }),
+          pr: showClose ? 1 : undefined,
+        }}
       >
         {opts.confirm ? (
           <div className="rds-dialog__title-inner">

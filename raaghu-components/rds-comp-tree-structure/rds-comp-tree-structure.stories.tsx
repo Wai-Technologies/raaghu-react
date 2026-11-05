@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsCompTreeStructure, { IconType, RdsCompTreeStructureProps, TreeLevel } from './rds-comp-tree-structure';
 
 const meta: Meta = {
@@ -77,7 +77,7 @@ const meta: Meta = {
       control: { type: "select" },
       description: "Language type for file icons. Select to show different file type icons."
     },
-    showChewron: { control: 'boolean', description: "Show chevron icon for expandable/collapsible nodes." },
+    showChevron: { control: 'boolean', description: "Show chevron icon for expandable/collapsible nodes." },
     showCheckbox: { control: 'boolean', description: "Show checkbox next to each node for selection." },
     showFolder: { control: 'boolean', description: "Show folder icon for folder nodes." },
     showFile: { control: 'boolean', description: "Show file icon for file nodes." },
@@ -95,7 +95,7 @@ export default meta;
 // export const Default: Story = {
 //   args: {
 //     level: TreeLevel.Level4,  // Use enum instead of string
-//     showChewron: true,
+//     showChevron: true,
 //     showCheckbox: true,
 //     showFolder: true,
 //     showFile: true,
@@ -214,14 +214,14 @@ export default meta;
 // } satisfies Story;
 
 // Default.parameters = {
-//   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'language', 'type', 'treeData'] },
+//   controls: { include: ['level', 'state', 'showChevron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'language', 'type', 'treeData'] },
 // };
 
 export const Default: StoryObj<RdsCompTreeStructureProps> = {
   args: {
     level: TreeLevel.Level2,
     selected: false,
-    showChewron: true,
+    showChevron: true,
     showCheckbox: false,
     showFolder: true,
     showFile: true,

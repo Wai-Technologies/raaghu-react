@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSnackbar from './rds-snackbar';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-snackbar.scss', () => ({}));
 
 const theme = createTheme();
 
@@ -259,7 +258,7 @@ describe('RdsSnackbar', () => {
 
     test('should not call onClose when clickaway reason is provided', () => {
       const onClose = jest.fn();
-      const { rerender } = renderWithTheme(
+      renderWithTheme(
         <RdsSnackbar
           open={true}
           message="Message"
@@ -457,7 +456,7 @@ describe('RdsSnackbar', () => {
     });
 
     test('should handle null children gracefully', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSnackbar open={true} message="Message" />
       );
       expect(screen.getByText('Message')).toBeInTheDocument();

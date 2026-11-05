@@ -669,7 +669,7 @@
 }
 
 // Dark theme support
-@media (prefers-color-scheme: dark) {
+:where([data-theme='dark']) {
   .rds-date-picker {
     .MuiDateCalendar-root {
       color: var(--rds-color-on-surface-dark);

@@ -285,9 +285,7 @@ export const WithUserProfile: Story = {
   args: {
     title: 'User Dashboard',
     showMenuButton: true,
-    userName: 'John Doe',
-    userShortName: 'JD',
-    userEmail: 'Janedoe...',
+    user: { name: 'John Doe', initials: 'JD', email: 'Janedoe...' },
     color: 'default',
   },
 };

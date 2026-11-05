@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompTreeStructure, { TreeLevel, IconType } from './rds-comp-tree-structure';
+import RdsCompTreeStructure, { TreeLevel } from './rds-comp-tree-structure';
 
 jest.mock('./rds-comp-tree-structure.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-checkbox/rds-checkbox', () => ({
@@ -119,5 +119,20 @@ describe('RdsCompTreeStructure', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('showChevron', () => {
+  it('renders chevrons with showChevron and with the deprecated showChewron', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const { unmount } = render(<RdsCompTreeStructure treeData={sampleTreeData} level={TreeLevel.Level2} showChevron />);
+    const count = screen.getAllByTestId('chevron-right').length;
+    expect(count).toBeGreaterThan(0);
+    expect(warn).not.toHaveBeenCalled();
+    unmount();
+    render(<RdsCompTreeStructure treeData={sampleTreeData} level={TreeLevel.Level2} showChewron />);
+    expect(screen.getAllByTestId('chevron-right')).toHaveLength(count);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('showChewron'));
+    warn.mockRestore();
   });
 });

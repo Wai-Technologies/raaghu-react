@@ -134,7 +134,10 @@
   &__title-icon {
     width: var(--rds-font-size-xl);
     height: var(--rds-font-size-xl);
-    border-radius: var(--rds-border-radius-pill);
+    flex: 0 0 auto;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    border-radius: 50%;
     border: var(--rds-border-width-medium) solid var(--rds-text-secondary);
     background: transparent;
     margin-right: var(--rds-spacing-sm);
@@ -286,9 +289,9 @@
     margin-bottom: var(--rds-spacing-sm) ;
   }
   &__calendar-reminder-info-icon {
-    font-size: var(--rds-font-size-2xl) ;
-    margin-bottom: var(--rds-spacing-cozy) ;
-    color: var(--rds-text-secondary) ;
+    font-size: var(--rds-font-size-md);
+    margin-bottom: var(--rds-spacing-cozy);
+    color: color-mix(in srgb, var(--rds-text-secondary) 60%, transparent);
   }
   &__calendar-reminder-small-text {
     color: var(--rds-text-secondary);
@@ -379,10 +382,11 @@
     align-items: center;
   }
   &__restaurant-order-info-icon {
-    font-size: var(--rds-font-size-2xl) ;
-    width: var(--rds-adaptive-cards-thumb-width);
-    height: var(--rds-size-20);
-    color: var(--rds-text-secondary) ;
+    font-size: var(--rds-font-size-md);
+    width: var(--rds-font-size-md);
+    height: var(--rds-font-size-md);
+    flex-shrink: 0;
+    color: color-mix(in srgb, var(--rds-text-secondary) 60%, transparent);
   }
   
   &__placeholder {
@@ -1392,9 +1396,12 @@
 
   &__circle {
     width: var(--rds-adaptive-cards-icon-width);
-    height: var(--rds-size-lg);
+    height: var(--rds-adaptive-cards-icon-width);
+    flex: 0 0 auto;
+    aspect-ratio: 1;
+    box-sizing: border-box;
     border: var(--rds-border-width-medium) solid var(--rds-text-secondary);
-    border-radius: var(--rds-border-radius-pill);
+    border-radius: 50%;
   }
 
   &__title-text {

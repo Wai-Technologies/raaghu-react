@@ -156,9 +156,9 @@ const RdsCompESignature = ({
     hasDrawn: false,
   });
   const { isDrawing, selectedColor, isHovered, showLengthError, hasDrawn } = uiState;
-  const updateUiState = (updates: Partial<typeof uiState>) => {
+  const updateUiState = useCallback((updates: Partial<typeof uiState>) => {
     setUiState((prev) => ({ ...prev, ...updates }));
-  };
+  }, []);
   const [prevPenColor, setPrevPenColor] = useState(penColor);
   if (penColor !== prevPenColor) {
     setPrevPenColor(penColor);
@@ -222,7 +222,7 @@ const RdsCompESignature = ({
       }
       strokesRef.current.push({ color: selectedColor, points: [point] });
     }
-  }, [disabled, getCanvasPoint, selectedColor]);
+  }, [disabled, getCanvasPoint, selectedColor, updateUiState]);
 
   const draw = useCallback((e: ClientPoint) => {
     if (!isDrawing || disabled) return;
@@ -247,7 +247,7 @@ const RdsCompESignature = ({
     const boxW = maxX - minX;
     const hasFourLetters = boxW >= 160 && totalPoints >= 40;
     updateUiState({ showLengthError: !hasFourLetters });
-  }, []);
+  }, [updateUiState]);
 
   const stopDrawing = useCallback(() => {
     if (!isDrawing) return;
@@ -257,7 +257,7 @@ const RdsCompESignature = ({
       onSignatureChange(dataURL);
     }
     evaluateSignatureLength();
-  }, [evaluateSignatureLength, isDrawing, onSignatureChange]);
+  }, [evaluateSignatureLength, isDrawing, onSignatureChange, updateUiState]);
 
   const clearCanvas = useCallback(() => {
     if (canvasRef.current) {
@@ -269,7 +269,7 @@ const RdsCompESignature = ({
     }
     strokesRef.current = [];
     updateUiState({ hasDrawn: false, showLengthError: false });
-  }, [onSignatureChange]);
+  }, [onSignatureChange, updateUiState]);
 
   const handleUndo = useCallback(() => {
     strokesRef.current.pop();
@@ -281,7 +281,7 @@ const RdsCompESignature = ({
     }
     if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
     evaluateSignatureLength();
-  }, [evaluateSignatureLength, onSignatureChange, redraw]);
+  }, [evaluateSignatureLength, onSignatureChange, redraw, updateUiState]);
 
   const handleSave = useCallback(() => {
     if (canvasRef.current) onSave?.(canvasRef.current.toDataURL());

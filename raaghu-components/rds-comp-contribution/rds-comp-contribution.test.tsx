@@ -239,7 +239,7 @@ describe('RdsCompContribution', () => {
 
     test('should apply mobile class to month labels when on mobile', async () => {
       global.innerWidth = 300;
-      const { container, rerender } = render(
+      const { rerender } = render(
         <RdsCompContribution {...defaultProps} showMonthLabels={true} />
       );
       fireEvent(window, new Event('resize'));
@@ -349,7 +349,7 @@ describe('RdsCompContribution', () => {
 
   describe('SVG Rendering', () => {
     test('should render SVG with correct viewBox', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -361,7 +361,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should have minimum SVG width of 280px', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -379,7 +379,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should apply correct sx styles to SVG', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -599,7 +599,7 @@ describe('RdsCompContribution', () => {
 
   describe('Height and Width Configuration', () => {
     test('should use default monthLabelHeight', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} monthLabelHeight={28} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -607,7 +607,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom monthLabelHeight', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} monthLabelHeight={40} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -615,7 +615,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use default weekLabelWidth', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} weekLabelWidth={24} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -623,7 +623,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom weekLabelWidth', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} weekLabelWidth={30} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -631,7 +631,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom panelSize', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} panelSize={15} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -639,7 +639,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom panelMargin', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} panelMargin={3} />
       );
       const svg = screen.getByTestId('svg-icon');

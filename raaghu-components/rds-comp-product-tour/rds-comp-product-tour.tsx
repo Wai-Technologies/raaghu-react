@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useId } from 'react';
+import { useState, useMemo, useCallback, useId, useRef, useEffect } from 'react';
 import type { FC } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
@@ -25,6 +25,7 @@ import './rds-comp-product-tour.scss';
 
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
+const FOCUSABLE_SELECTOR = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     variant,
@@ -74,12 +75,20 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const resolvedSubtitle = subtitle ?? formTitle;
     const corners = resolveCornerDots(anchorCorner, { topLeft, topRight, bottomLeft, bottomRight });
     const headerId = useId();
+    const dialogRef = useRef<HTMLDivElement | null>(null);
+    const setDialogRef = useCallback((node: HTMLDivElement | null) => {
+        dialogRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+    }, [ref]);
     const rootProps = {
         ...rest,
         role: 'dialog' as const,
+        'aria-modal': true,
         'aria-labelledby': resolvedHeader ? headerId : undefined,
+        tabIndex: -1,
         sx,
-        ref,
+        ref: setDialogRef,
     };
     const legacyShowDismiss = legacyShowDismissProp;
     const legacyShowPrimaryButton = legacyShowPrimaryButtonProp;
@@ -140,6 +149,45 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
             onClose();
         }
     }, [onClose]);
+    const closeRef = useRef(handleClose);
+    useEffect(() => {
+        closeRef.current = handleClose;
+    }, [handleClose]);
+
+    useEffect(() => {
+        const node = dialogRef.current;
+        if (!isVisible || !node) return;
+        const previouslyFocused = document.activeElement as HTMLElement | null;
+        node.focus({ preventScroll: true });
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                event.stopPropagation();
+                closeRef.current();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+            const focusable = Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+            if (focusable.length === 0) {
+                event.preventDefault();
+                return;
+            }
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            const active = document.activeElement;
+            if (event.shiftKey && (active === first || active === node)) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && active === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        };
+        node.addEventListener('keydown', onKeyDown);
+        return () => {
+            node.removeEventListener('keydown', onKeyDown);
+            previouslyFocused?.focus?.({ preventScroll: true });
+        };
+    }, [isVisible]);
 
     const handleNext = () => {
         goNext();
@@ -169,7 +217,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__image-section">
-                        <img src={effectiveSlides[currentIndex] ? effectiveSlides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
+                        <img src={effectiveSlides[currentIndex]?.imgUrl || undefined} alt="Tour Step" className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
                     <Box className="rds-comp-product-tour__image-section" sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', background: 'transparent' }} />
@@ -193,7 +241,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__carousel-wrapper">
                     <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height)" activeIndex={currentIndex}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
-                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
+                            <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl || undefined} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
@@ -214,7 +262,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src={imageSrc} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src={imageSrc || undefined} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />
@@ -240,7 +288,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
                         <Typography variant="inherit" component="h2" id={headerId} className="rds-comp-product-tour__form-title">{resolvedHeader}</Typography>
-                        {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" colorVariant="primary" shape="pill" layout="text" />}
+                        {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" color="primary" shape="pill" layout="text" />}
                     </Box>
                     <Typography variant="inherit" component="p" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">

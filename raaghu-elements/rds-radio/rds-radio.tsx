@@ -97,7 +97,15 @@ const RdsRadio = ({
     };
 
     if (layout === 'icon') {
-      return <FormControlLabel {...commonProps} key={option.value} label="" className="rds-radio__option rds-radio__option--icon" />;
+      const control = (
+        <MuiRadio
+          disableRipple
+          {...mergedRadioProps}
+          disabled={finalDisabled}
+          inputProps={{ 'aria-label': optionLabel ?? option.value, ...mergedRadioProps.inputProps }}
+        />
+      );
+      return <FormControlLabel {...commonProps} control={control} key={option.value} label="" className="rds-radio__option rds-radio__option--icon" />;
     }
 
     if (layout === 'icon with bottom label') {

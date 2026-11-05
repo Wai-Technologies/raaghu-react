@@ -7,7 +7,6 @@ import RdsPaper from './rds-paper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-paper.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -497,7 +496,7 @@ describe('RdsPaper', () => {
     });
 
     it('should handle dynamic content updates', () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsPaper padding={16}>Initial content</RdsPaper>
       );
       expect(screen.getByText('Initial content')).toBeInTheDocument();
@@ -569,7 +568,7 @@ describe('RdsPaper', () => {
 
   describe('Props Combinations', () => {
     it('should work with all props combined', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsPaper
           padding={20}
           square={true}
@@ -596,7 +595,7 @@ describe('RdsPaper', () => {
     });
 
     it('should not break with undefined optional props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsPaper padding={undefined} square={undefined as any} sx={undefined}>
           Content
         </RdsPaper>

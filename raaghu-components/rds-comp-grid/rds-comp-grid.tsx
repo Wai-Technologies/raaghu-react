@@ -271,7 +271,6 @@ export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 const EditableCell = ({ 
   value, 
   column, 
-  row, 
   isEditing, 
   onStartEdit, 
   onSave, 
@@ -299,7 +298,7 @@ const EditableCell = ({
       if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
         try {
           inputRef.current.select();
-        } catch (e) {
+        } catch {
           inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
         }
       }
@@ -551,14 +550,14 @@ const RdsCompGrid = ({
   enableColumnSwapping = false,
   showHeader = true,
   showSubHeader = true,
-  showAddNewColumn = false,
+  showAddNewColumn: _showAddNewColumn,
   collapsed = false,
   actions = [],
-  actionPosition = ActionPosition.Right,
+  actionPosition: _actionPosition,
   actionColumnStyle = ActionColumnStyle.ShowDots,
   pagination = false,
   recordsPerPage = 10,
-  recordsPerPageSelectListOption = false,
+  recordsPerPageSelectListOption: _recordsPerPageSelectListOption,
   totalRecords,
   onActionSelection,
   onRowSelect,
@@ -574,7 +573,7 @@ const RdsCompGrid = ({
   onColumnSwap,
   classes,
   fontWeight,
-  illustration = false,
+  illustration: _illustration,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   loading: loadingProp,
@@ -900,7 +899,7 @@ const RdsCompGrid = ({
     }
 
     return filtered;
-  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData]);
+  }, [searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, enableRowSwapping, localTableData, currentData, tableHeaders]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -1756,7 +1755,7 @@ const RdsCompGrid = ({
     refresh: () => {
       setInternalData([...currentData]);
     },
-    scrollToRow: (rowId: string) => {
+    scrollToRow: (_rowId: string) => {
       if (tableRef.current) {
         tableRef.current.scrollIntoView({ behavior: 'smooth' });
       }
@@ -1776,48 +1775,7 @@ const RdsCompGrid = ({
     getColumnCount: () => tableHeaders.length,
     getFilteredRowCount: () => processedData.length,
     getSelectedRowCount: () => selectedRows.size,
-  }), [
-    currentData,
-    controlledData,
-    onDataChange,
-    setInternalData,
-    selectedRows,
-    setSelectedRows,
-    processedData,
-    filterState,
-    setFilterState,
-    onFilterChange,
-    searchValue,
-    setSearchValue,
-    sortColumn,
-    sortDirection,
-    setSortColumn,
-    setSortDirection,
-    onSortChange,
-    currentPage,
-    setCurrentPage,
-    recordsPerPage,
-    onPagination,
-    visibleColumns,
-    setVisibleColumns,
-    handleColumnVisibilityChange,
-    tableHeaders,
-    columnWidths,
-    setColumnWidths,
-    isCollapsed,
-    setIsCollapsed,
-    enableInlineEdit,
-    inlineEditMode,
-    editingCell,
-    editingRow,
-    handleRowEditStart,
-    handleCellEditStart,
-    handleCellEditCancel,
-    handleRowEditCancel,
-    getVisibleHeaders,
-    tableRef,
-    getRowById
-  ]);
+  }));
 
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
@@ -1860,12 +1818,12 @@ const RdsCompGrid = ({
                 sx={{ minWidth: 'var(--rds-spacing-200)' }}
               />
               <Stack direction="row" spacing={1}>
-                <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
-                <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} variant="outlined" size="small">Add New</RdsButton>
+                <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} variant="outlined" size="small">Person</RdsButton>
                 <RdsButton
                   showLeftIcon={true}
                   changeLeftIcon={<FilterIcon />}
-                  style={activeFiltersCount > 0 ? "filled" : "outlined"}
+                  variant={activeFiltersCount > 0 ? "filled" : "outlined"}
                   size="small"
                   onClick={() => setShowFilters(!showFilters)}
                 >
@@ -1874,8 +1832,8 @@ const RdsCompGrid = ({
                     <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                   )}
                 </RdsButton>
-                <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
-                <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} variant="outlined" size="small">Sort</RdsButton>
+                <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} variant="outlined" size="small">Hide</RdsButton>
                 <IconButton size="small" aria-label="More options">
                   <MoreIcon />
                 </IconButton>
@@ -1949,12 +1907,12 @@ const RdsCompGrid = ({
               sx={{ minWidth: 'var(--rds-spacing-200)' }}
             />
             <Stack direction="row" spacing={1}>
-              <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
-              <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} variant="outlined" size="small">Add New</RdsButton>
+              <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} variant="outlined" size="small">Person</RdsButton>
               <RdsButton
                 showLeftIcon={true}
                 changeLeftIcon={<FilterIcon />}
-                style={activeFiltersCount > 0 ? "filled" : "outlined"}
+                variant={activeFiltersCount > 0 ? "filled" : "outlined"}
                 size="small"
                 onClick={() => setShowFilters(!showFilters)}
               >
@@ -1963,8 +1921,8 @@ const RdsCompGrid = ({
                   <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                 )}
               </RdsButton>
-              <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
-              <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} variant="outlined" size="small">Sort</RdsButton>
+              <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} variant="outlined" size="small">Hide</RdsButton>
               <IconButton size="small" aria-label="More options">
                 <MoreIcon />
               </IconButton>
@@ -2010,10 +1968,9 @@ const RdsCompGrid = ({
                 showLeftIcon={true}
                 changeLeftIcon={<ClearIcon />}
                 onClick={clearAllFilters}
-                style="outlined"
+                variant="outlined"
                 size="small"
                 color="secondary"
-                text="Clear All"
                 sx={{
                   fontSize: 'var(--rds-font-size-2xs)',
                   fontWeight: 'var(--rds-font-weight-semibold)',
@@ -2029,7 +1986,9 @@ const RdsCompGrid = ({
                     boxShadow: 'none',
                   }
                 }}
-              />
+              >
+                Clear All
+              </RdsButton>
             </Grid>
           </Grid>
         </Box>
@@ -2169,7 +2128,7 @@ const RdsCompGrid = ({
                             handleCustomDragOver(index);
                           }
                         }}
-                        onDragEnd={(e) => {
+                        onDragEnd={() => {
                           if (enableColumnSwapping && customDragState.isDragging) {
                             handleCustomDragEnd(customDragState.currentHoverIndex ?? undefined);
                           }
@@ -2442,7 +2401,7 @@ const RdsCompGrid = ({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)' }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2454,7 +2413,7 @@ const RdsCompGrid = ({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `var(--rds-border-width-thin) solid ${'var(--rds-border-default)'}` }}
+                        sx={{ borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)' }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2692,12 +2651,13 @@ const RdsCompGrid = ({
                               <RdsButton
                                 key={action.id}
                                 size={action.size || "small"}
-                                style={action.variant === 'contained' ? 'filled' : action.variant === 'text' ? 'transparent' : 'outlined'}
+                                variant={action.variant === 'contained' ? 'filled' : action.variant === 'text' ? 'transparent' : 'outlined'}
                                 color={action.color || "primary"}
                                 disabled={action.disabled || false}
                                 onClick={() => onActionSelection?.(row, action.id)}
-                                text={action.displayName}
-                              />
+                              >
+                                {action.displayName}
+                              </RdsButton>
                             ))
                           ) : (
                             <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
@@ -2720,8 +2680,9 @@ const RdsCompGrid = ({
                                 }}
                                 showLeftIcon={true}
                                 changeLeftIcon={<EditIcon />}
-                                text="Save"
-                              />
+                              >
+                                Save
+                              </RdsButton>
                               <RdsButton
                                 size="small"
                                 variant="outlined"
@@ -2729,8 +2690,9 @@ const RdsCompGrid = ({
                                 onClick={handleRowEditCancel}
                                 showLeftIcon={true}
                                 changeLeftIcon={<ClearIcon />}
-                                text="Cancel"
-                              />
+                              >
+                                Cancel
+                              </RdsButton>
                             </>
                           ) : (
                             <RdsButton
@@ -2740,8 +2702,9 @@ const RdsCompGrid = ({
                               onClick={() => handleRowEditStart(rowId, row)}
                               showLeftIcon={true}
                               changeLeftIcon={<EditIcon />}
-                              text="Edit Row"
-                            />
+                            >
+                              Edit Row
+                            </RdsButton>
                           )}
                         </Stack>
                       </TableCell>
@@ -3165,7 +3128,6 @@ const RdsCompGrid = ({
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
-                      text="Filter"
                       sx={{
                         flexGrow: 1,
                         fontSize: 'var(--rds-font-size-2xs)',
@@ -3185,12 +3147,13 @@ const RdsCompGrid = ({
                           boxShadow: 'none',
                         }
                       }}
-                    />
+                    >
+                      Filter
+                    </RdsButton>
                     <RdsButton
                       variant="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
-                      text="Clear"
                       sx={{
                         flexGrow: 1,
                         fontSize: 'var(--rds-font-size-2xs)',
@@ -3211,7 +3174,9 @@ const RdsCompGrid = ({
                           boxShadow: 'none',
                         }
                       }}
-                    />
+                    >
+                      Clear
+                    </RdsButton>
                   </Stack>
                   
                   {Object.keys(filterState).length > 0 && (
@@ -3225,7 +3190,6 @@ const RdsCompGrid = ({
                         onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
                         handleFilterPopupClose();
                       }}
-                      text="Clear All Filters"
                       sx={{
                         width: '100%',
                         fontSize: 'var(--rds-grid-font-size-xs)',
@@ -3245,7 +3209,9 @@ const RdsCompGrid = ({
                           backgroundColor: 'error.main',
                         }
                       }}
-                    />
+                    >
+                      Clear All Filters
+                    </RdsButton>
                   )}
                 </Stack>
               </Box>

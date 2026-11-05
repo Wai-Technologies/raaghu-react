@@ -42,7 +42,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     tags: ['autodocs', 'stable'],
     argTypes: {
         showHeader: { control: 'boolean', description: 'Show header of the card' },
-        showDismiss: { control: 'boolean', description: 'Show circle button' },
+        showTitleIcon: { control: 'boolean', description: 'Show circle icon before the card title' },
         cardTitle: { control: 'text', description: 'Title of the card' },
         showBtn1: { control: 'boolean', description: 'Show Button 1' },
         showBtn2: { control: 'boolean', description: 'Show Button 2' },
@@ -98,12 +98,12 @@ export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
         showBtn2: true,
         btn1Label: 'Cancel',
         btn2Label: 'Done',
-        showDismiss: true,
+        showTitleIcon: true,
         closeIcon: false,
     },
     parameters: {
         controls: {
-            include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon'],
+            include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showTitleIcon', 'closeIcon'],
         },
     },
     render: (args) => <RdsCompAdaptiveCards {...args} />,
@@ -123,7 +123,7 @@ export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn2style: 'filled',
         btn1Label: 'Button',
         btn2Label: 'Click Here',
-        showDismiss: false,
+        showTitleIcon: false,
         closeIcon: false,
         cardText:
             'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
@@ -140,7 +140,7 @@ export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showTitleIcon', 'closeIcon',
                 'cardText', 'name', 'date', 'activityProps'
             ],
         },
@@ -161,7 +161,7 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn2Label: "I'll be Late",
         smallText: '20:30 - 09:30',
         label: 'Conf Room 112/3377 (10)',
-        showDismiss: false,
+        showTitleIcon: false,
         closeIcon: false,
         calendarReminderLabel: 'Snooze for',
         namePlaceholder: 'Select duration',
@@ -177,7 +177,7 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'smallText', 'label', 'calendarReminderLabel', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
+                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'smallText', 'label', 'calendarReminderLabel', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showTitleIcon', 'closeIcon'
             ],
         },
     },
@@ -225,7 +225,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
         block: true,
         smallText: "Don't worry, we'll never share or sell your information.",
         label: 'We just need a few more details to get you booked for the trip of a lifetime!',
-        showDismiss: false,
+        showTitleIcon: false,
         closeIcon: false,
         nameLabel: 'Name (Last, First)',
         namePlaceholder: 'Enter Name',
@@ -238,7 +238,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'smallText', 'label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'smallText', 'label', 'showTitleIcon', 'closeIcon',
                 'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
             ],
         },
@@ -366,7 +366,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn1style: 'filled',
         btn1Label: 'Place Order',
         block: true,
-        showDismiss: false,
+        showTitleIcon: false,
         closeIcon: false,
         entreeLabel: 'Which entree would you like?',
         entreePlaceholder: 'Select an entree',
@@ -393,7 +393,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'showTitleIcon', 'closeIcon',
                 'entreeLabel', 'entreePlaceholder', 'entreeOptions',
                 'sideLabel', 'sidePlaceholder', 'sideOptions',
                 'drinkLabel', 'drinkPlaceholder', 'drinkOptions'

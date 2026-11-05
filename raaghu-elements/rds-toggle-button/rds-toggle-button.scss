@@ -336,7 +336,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+:where([data-theme='dark']) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
     border-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
 

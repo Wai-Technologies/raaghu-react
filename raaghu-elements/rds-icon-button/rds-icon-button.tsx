@@ -2,6 +2,7 @@ import { isValidElement, cloneElement, type ReactNode, type ReactElement, type E
 import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { warnMissingAccessibleName } from '../shared/utils/a11y-warnings';
 import './rds-icon-button.scss';
 
 /** Props for {@link RdsIconButton}. Extends MUI `IconButton` props. */
@@ -32,6 +33,9 @@ const RdsIconButton = ({
 }: RdsIconButtonProps) => {
   if (variant === 'filled') warnDeprecatedProp('RdsIconButton', "variant='filled'", "variant='standard'");
   const isOutlined = variant === 'outlined';
+  if (!tooltip && !props['aria-label'] && !props['aria-labelledby'] && !props.title) {
+    warnMissingAccessibleName('RdsIconButton', '`aria-label` or `tooltip`');
+  }
 
   const getSizedIcon = (iconNode: ReactNode) => {
     if (isValidElement(iconNode)) {

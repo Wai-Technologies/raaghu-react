@@ -73,7 +73,7 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   onMenuClick?: () => void;
   /** @deprecated The menu button is decided by `onMenuClick`. Documentation only: still works. */
   showMenuButton?: boolean;
-  /** @deprecated Use `endSlot` instead. */
+  /** @deprecated Use `endSlot`. Unlike `actions`, `endSlot` is not hidden when the profile menu (`userName` + `userEmail`) is shown. */
   actions?: ReactNode;
   /** Name of the signed-in user, shown in the profile menu. */
   userName?: string;
@@ -169,7 +169,7 @@ const RdsAppBar = ({
   ...props
 }: RdsAppBarProps) => {
   if (rightActions !== undefined) warnDeprecatedProp('RdsAppBar', 'rightActions', '`endSlot`');
-  if (actions !== undefined) warnDeprecatedProp('RdsAppBar', 'actions', '`endSlot`');
+  if (actions !== undefined) warnDeprecatedProp('RdsAppBar', 'actions', '`endSlot` (unlike `actions`, it stays visible next to the profile menu, so omit `userName`/`userEmail` to hide the menu)');
   if (centerContent !== undefined) warnDeprecatedProp('RdsAppBar', 'centerContent', '`centerSlot`');
   if (tabValue !== undefined) warnDeprecatedProp('RdsAppBar', 'tabValue', '`tabsProps.value`');
   if (onTabChange !== undefined) warnDeprecatedProp('RdsAppBar', 'onTabChange', '`tabsProps.onChange`');

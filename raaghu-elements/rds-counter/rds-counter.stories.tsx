@@ -357,7 +357,7 @@ export const Interactive: Story = {
               {...args}
               value={item.quantity}
               onChange={(quantity) => updateQuantity(item.id, quantity)}
-              controlsClassName={getControlsClassName()}
+              slotProps={{ controls: { className: getControlsClassName() } }}
             />
             <Box className="rds-counter__interactive__item-total">
               ${(item.quantity * item.price).toFixed(2)}

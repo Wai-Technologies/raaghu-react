@@ -499,7 +499,7 @@ const RdsCompAudioPlayer = ({
   });
 
   const audioNode = (
-    <audio ref={setAudioRef} src={src} aria-label="Audio playback">
+    <audio ref={setAudioRef} src={src || undefined} aria-label="Audio playback">
       <track kind="captions" srcLang="en" label="English captions" />
     </audio>
   );
@@ -557,8 +557,8 @@ const RdsCompAudioPlayer = ({
               onChange={handleSeek}
               className="rds-comp-audio-player__slider"
               controlType="one way"
-              leftLabel=""
-              rightLabel=""
+              startLabel=""
+              endLabel=""
               aria-label="Playback progress"
             />
             <span className="rds-comp-audio-player__total-time">

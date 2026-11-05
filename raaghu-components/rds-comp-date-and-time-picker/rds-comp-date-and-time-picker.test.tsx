@@ -1,12 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import RdsCompDatePicker from './rds-comp-date-and-time-picker';
 
 // Mock SCSS module
 jest.mock('./rds-comp-date-and-time-picker.scss', () => ({}));
+
+const mockPickerOnlyProps = ['minDate', 'maxDate', 'minTime', 'maxTime', 'openTo', 'displayWeekNumber', 'ampm', 'timeSteps', 'fullWidth', 'justifyContent', 'views', 'format', 'closeOnSelect', 'disableFuture', 'disablePast', 'viewRenderers', 'slots'];
+const mockOmitPickerProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(props).filter(([key]) => !mockPickerOnlyProps.includes(key)));
 
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
   __esModule: true,
@@ -40,7 +43,7 @@ jest.mock('@mui/x-date-pickers/DatePicker', () => {
             required={textFieldProps.required}
             placeholder={textFieldProps.placeholder}
             data-error={textFieldProps.error ? 'true' : 'false'}
-            {...props}
+            {...mockOmitPickerProps(props)}
           />
         </div>
       );
@@ -71,7 +74,7 @@ jest.mock('@mui/x-date-pickers/TimePicker', () => {
             required={textFieldProps.required}
             placeholder={textFieldProps.placeholder}
             data-error={textFieldProps.error ? 'true' : 'false'}
-            {...props}
+            {...mockOmitPickerProps(props)}
           />
         </div>
       );
@@ -102,7 +105,7 @@ jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
             required={textFieldProps.required}
             placeholder={textFieldProps.placeholder}
             data-error={textFieldProps.error ? 'true' : 'false'}
-            {...props}
+            {...mockOmitPickerProps(props)}
           />
         </div>
       );
@@ -112,7 +115,7 @@ jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
 
 // Mock MUI DateCalendar
 jest.mock('@mui/x-date-pickers/DateCalendar', () => ({
-  DateCalendar: ({ value, onChange, slots, ...props }: any) => (
+  DateCalendar: ({ value, onChange }: any) => (
     <div data-testid="date-calendar" data-value={value?.format('YYYY-MM-DD')}>
       <button
         data-testid="calendar-day-select"
@@ -156,9 +159,9 @@ jest.mock('@mui/material/Popover', () => ({
   __esModule: true,
   default: ({ open, onClose, children }: any) => 
     open ? (
-      <button type="button" data-testid="popover" onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
+      <div role="presentation" data-testid="popover" onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
         {children}
-      </button>
+      </div>
     ) : null,
 }));
 
@@ -183,7 +186,7 @@ jest.mock('@mui/material/TextField', () => ({
         required={required}
         placeholder={placeholder}
         data-error={error ? 'true' : 'false'}
-        {...props}
+        {...mockOmitPickerProps(props)}
       />
       {endAdornment && (
         <div data-testid="input-adornment">{endAdornment}</div>
@@ -219,7 +222,7 @@ jest.mock('@mui/icons-material/Event', () => ({
 
 jest.mock('@mui/material/Box', () => ({
   __esModule: true,
-  default: ({ children, ...props }: any) => <div data-testid="box" {...props}>{children}</div>,
+  default: ({ children, ...props }: any) => <div data-testid="box" {...mockOmitPickerProps(props)}>{children}</div>,
 }));
 
 jest.mock('@mui/material/Button', () => ({

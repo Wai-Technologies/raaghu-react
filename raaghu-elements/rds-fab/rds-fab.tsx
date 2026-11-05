@@ -1,6 +1,7 @@
 import { type ReactNode, type CSSProperties, isValidElement } from 'react';
 import { Fab as MuiFab, type FabProps } from '@mui/material';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { warnMissingAccessibleName } from '../shared/utils/a11y-warnings';
 import './rds-fab.scss';
 
 export type RdsFabPlacement = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
@@ -74,10 +75,14 @@ const RdsFab = ({
   } else {
     fabContent = null;
   }
+  const accessibleName = ariaLabel ?? (isIconOnly && resolvedLabel ? resolvedLabel : undefined);
+  if (isIconOnly && !accessibleName && !props['aria-labelledby']) {
+    warnMissingAccessibleName('RdsFab', '`aria-label` or `label`');
+  }
   return (
     <MuiFab
       {...props}
-      aria-label={ariaLabel ?? (isIconOnly && resolvedLabel ? resolvedLabel : undefined)}
+      aria-label={accessibleName}
       sx={[positionStyles, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       {fabContent}

@@ -40,7 +40,7 @@ const dateRangePresets: DateRangePreset[] = [
   },
 ];
 
-export const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
+export const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect }: {
     children: ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;

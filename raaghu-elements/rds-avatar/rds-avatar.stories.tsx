@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsAvatar> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'padded',
+    controls: { matchers: { color: /^$/ } },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -63,12 +64,9 @@ const meta: Meta<typeof RdsAvatar> = {
     },
     activeDotTop: {
       control: 'boolean',
-      description: 'Show top dot (combine with activeDotBottom for both). Ignored when status is set.',
+      description: 'Show the top status dot. Ignored when status is set; use statusPosition for bottom or both.',
     },
-    activeDotBottom: {
-      control: 'boolean',
-      description: 'Show bottom dot (combine with activeDotTop for both). Ignored when status is set.',
-    },
+    activeDotBottom: { control: false, table: { disable: true } },
     max: {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Maximum number of avatars to show in stacking mode (1-5)',
@@ -214,7 +212,6 @@ export const Stacking: Story = {
         'alt',
         'activityRing',
         'activeDotTop',
-        'activeDotBottom',
         'description',
         'name',
         'showDesignation',

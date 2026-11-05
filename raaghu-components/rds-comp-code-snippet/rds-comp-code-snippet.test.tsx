@@ -33,12 +33,12 @@ jest.mock('@mui/icons-material/OpenInFullOutlined', () => {
   };
 });
 jest.mock('@mui/icons-material/CodeOff', () => {
-  return function MockIcon(props: any) {
+  return function MockIcon() {
     return <span data-testid="code-off-icon" />;
   };
 });
 jest.mock('@mui/icons-material/KeyboardArrowDown', () => {
-  return function MockIcon(props: any) {
+  return function MockIcon() {
     return <span data-testid="arrow-down-icon" />;
   };
 });
@@ -294,7 +294,7 @@ describe('RdsCompCodeSnippet', () => {
     });
 
     it('defaults to html when no language specified', () => {
-      const { container } = render(
+      render(
         <RdsCompCodeSnippet code={defaultCode} type="multiLine" />
       );
       expect(screen.getByTestId('syntax-highlighter')).toHaveAttribute('data-language', 'html');
@@ -718,7 +718,7 @@ describe('RdsCompCodeSnippet', () => {
     });
 
     it('preserves state during re-render', async () => {
-      const { rerender } = render(
+      render(
         <RdsCompCodeSnippet {...defaultProps} type="multiLine" />
       );
       const copyButton = screen.getAllByTestId('rds-button')[0];

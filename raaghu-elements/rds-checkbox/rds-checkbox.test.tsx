@@ -348,7 +348,7 @@ describe('RdsCheckbox', () => {
     });
 
     it('should forward props to MuiCheckbox', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCheckbox {...defaultProps} size="small" />
       );
       const checkbox = screen.getByRole('checkbox');

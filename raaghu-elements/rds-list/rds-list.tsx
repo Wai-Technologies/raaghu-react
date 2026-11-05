@@ -173,9 +173,9 @@ const RdsList = ({
         <MuiListItemIcon className="rds-list__icon">
           <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
-            isDisabled={item.disabled}
+            disabled={item.disabled}
             onChange={(event) => handleCheckboxChange(item.id, event)}
-            style="square"
+            variant="square"
           />
         </MuiListItemIcon>
       ) : null;
@@ -191,7 +191,7 @@ const RdsList = ({
           <MuiListItemButton
             onClick={showCheckboxes
               ? (event: MouseEvent<HTMLElement>) => {
-                  handleCheckboxChange(item.id, event);
+                  if (!(event.target instanceof HTMLInputElement)) handleCheckboxChange(item.id, event);
                   (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
                 }
               : item.onClick}

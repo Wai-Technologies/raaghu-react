@@ -190,7 +190,7 @@ const RdsCompAiTypingSectionComponent = ({
           {!inputText && (
             <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
-                colorVariant="primary"
+                color="primary"
                 height="var(--rds-size-lg)"
                 name="enhance"
                 stroke
@@ -242,11 +242,12 @@ const RdsCompAiTypingSectionComponent = ({
                     color="primary"
                     changeLeftIcon="add"
                     showLeftIcon
-                    text="New Project"
                     onClick={onNewProjectClick}
                     variant="filled"
                     size={isMobile ? "small" : "medium"}
-                  />
+                  >
+                    New Project
+                  </RdsButton>
                 </div>
               )}
               {showImportFromFigma && (
@@ -255,11 +256,12 @@ const RdsCompAiTypingSectionComponent = ({
                     color="primary"
                     changeLeftIcon="add"
                     showLeftIcon
-                    text="Import From Figma"
                     onClick={onImportFromFigmaClick}
                     variant="outlined"
                     size={isMobile ? "small" : "medium"}
-                  />
+                  >
+                    Import From Figma
+                  </RdsButton>
                 </div>
               )}
             </div>

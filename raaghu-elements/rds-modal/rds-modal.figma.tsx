@@ -20,7 +20,7 @@ figma.connect(
           onClick={() => {}}
           shape="rectangle"
           size="medium"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
         >
           Open Modal

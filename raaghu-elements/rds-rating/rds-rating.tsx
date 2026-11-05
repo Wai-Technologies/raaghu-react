@@ -26,9 +26,9 @@ export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'>
   styles?: RatingStyle;
   /** Visual style of the stars. */
   variant?: RatingStyle;
-  /** Color of the rating. `'danger'` is deprecated; use `'error'`. */
+  /** Color of the rating. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`. */
   color?: RatingColor;
-  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
+  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`. */
   colorVariant?: RatingColor;
 }
 
@@ -85,7 +85,11 @@ const RdsRating = ({
   }
   const maxRating = max || maxStars || 5;
   const resolvedStyle = variant ?? styles ?? 'default';
-  const resolvedColor = normalizePaletteColor(color ?? colorVariant);
+  if (color === 'info' || colorVariant === 'info') {
+    warnDeprecatedProp('RdsRating', 'color="info"', '`color: "primary"`');
+  }
+  const normalizedColor = normalizePaletteColor(color ?? colorVariant);
+  const resolvedColor = normalizedColor === 'info' ? 'primary' : normalizedColor;
 
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {

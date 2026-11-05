@@ -1,4 +1,4 @@
-import { expect, within } from 'storybook/test';
+import { expect } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator";
 

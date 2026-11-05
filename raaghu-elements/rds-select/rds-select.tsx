@@ -131,6 +131,7 @@ const RdsSelect = ({
               : undefined
           }
           {...(required !== undefined && { required })}
+          {...(props.value === undefined && props.defaultValue === undefined && { defaultValue: props.multiple ? [] : '' })}
           {...props}
           {...(shrinkFloatingLabel && label ? { notched: true as const } : {})}
           sx={[
@@ -147,9 +148,9 @@ const RdsSelect = ({
             ...(resolvedHelperText ? { 'aria-describedby': helperTextId } : {}),
           }}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <MenuItem 
-              key={option.value} 
+              key={`${option.value}-${index}`} 
               value={option.value}
               disabled={option.disabled}
               className="rds-select__option"

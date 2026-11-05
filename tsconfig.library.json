@@ -26,5 +26,6 @@
     "raaghu-react-themes",
     "utils",
     "types"
-  ]
+  ],
+  "exclude": ["**/*.figma.ts", "**/*.figma.tsx"]
 }

@@ -119,11 +119,8 @@ const RdsCounter = ({
   const currentValue = isControlled ? value : internalValue;
 
   const updateValue = (newValue: number | undefined, event?: SyntheticEvent) => {
-    if (isControlled) {
-      if (typeof newValue === 'number' && event) invokeValueFirstOnChange(onChange, newValue, event);
-    } else {
-      setInternalValue(newValue);
-    }
+    if (!isControlled) setInternalValue(newValue);
+    if (typeof newValue === 'number' && event) invokeValueFirstOnChange(onChange, newValue, event);
   };
 
   const handleIncrement = (event: MouseEvent<HTMLButtonElement>) => {

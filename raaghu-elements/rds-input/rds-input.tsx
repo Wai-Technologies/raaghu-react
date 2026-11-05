@@ -1,9 +1,14 @@
-import { useId, useState, type CSSProperties, type InputHTMLAttributes,type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useId, useState, type CSSProperties, type InputHTMLAttributes,type ReactNode, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-input.scss';
+
+function sanitizePhone(raw: string): string {
+  const plus = raw.startsWith('+');
+  return (plus ? '+' : '') + raw.replace(/\D/g, '').slice(0, plus ? 12 : 10);
+}
 
 function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
   switch (layoutType) {
@@ -118,7 +123,6 @@ const RdsInput = ({
   const isRequired = required ?? isMandatory ?? false;
   const generatedId = useId();
   const inputId = id ?? `rds-input-${generatedId}`;
-  const [showPassword, setShowPassword] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue == null ? '' : String(defaultValue));
   const [prevLayout, setPrevLayout] = useState(layout);
   const isControlled = value !== undefined;
@@ -131,6 +135,7 @@ const RdsInput = ({
   }
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (layout === 'phone number') event.target.value = sanitizePhone(event.target.value);
     if (!isControlled) {
       setInternalValue(event.target.value);
     }
@@ -149,7 +154,7 @@ const RdsInput = ({
   let inputType: string = 'text';
   switch (layout) {
     case 'password':
-      inputType = showPassword ? 'text' : 'password';
+      inputType = 'password';
       break;
     case 'number':
     case 'card number':
@@ -212,22 +217,6 @@ const RdsInput = ({
     }
   };
 
-  const handlePhoneInput = (e: FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    const orig = target.value;
-    const startsWithPlus = orig.startsWith('+');
-    let digits = orig.replace(/\D/g, '');
-    const maxDigits = startsWithPlus ? 12 : 10;
-    if (digits.length > maxDigits) digits = digits.slice(0, maxDigits);
-    const next = (startsWithPlus ? '+' : '') + digits;
-    if (orig !== next) {
-      target.value = next;
-      if (!isControlled) {
-        setInternalValue(next);
-      }
-      onChange?.(e as ChangeEvent<HTMLInputElement>);
-    }
-  };
   const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const isInlineLabel = titlePosition !== 'title-above';
   const inlineTitleClass = titlePosition === 'inline-title' || (isInlineLabel && label) ? 'rds-input--inline-title' : '';
@@ -237,7 +226,6 @@ const RdsInput = ({
           inputMode: layout === 'phone number' ? 'tel' : 'numeric',
           ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
           onKeyDown: handleNumericKeyDown,
-          ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
         }
       : {};
 

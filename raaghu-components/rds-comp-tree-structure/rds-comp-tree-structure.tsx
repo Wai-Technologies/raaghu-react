@@ -4,6 +4,7 @@ import clsx from "clsx";
 import "./rds-comp-tree-structure.scss";
 import { getAllNodeIds } from './tree-structure-utils';
 import { TreeNodeRow } from './TreeNodeRow';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { 
   TreeLevel,
   type RdsCompTreeStructureProps,
@@ -59,6 +60,8 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   // Prefer controlled `checkedNodes` when provided so parent updates are visible.
   const resolvedCheckedNodes = props.checkedNodes ?? checkedNodeIds;
   const { className, sx, ref } = props;
+  if (props.showChewron !== undefined) warnDeprecatedProp('RdsCompTreeStructure', 'showChewron', '`showChevron`');
+  const showChevron = props.showChevron ?? props.showChewron;
   return (
     <Box ref={ref} className={clsx("rds-comp-tree-structure", className)} sx={sx}>
       {props.treeData?.map((node: TreeNode) => (
@@ -67,7 +70,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           node={node}
           level={1}
           maxLevel={maxLevel}
-          props={{ ...props, checkedNodes: resolvedCheckedNodes }}
+          props={{ ...props, showChevron, checkedNodes: resolvedCheckedNodes }}
           expandedNodeIds={expandedNodeIds}
           hoveredNodeId={hoveredNodeId}
           setHoveredNodeId={setHoveredNodeId}

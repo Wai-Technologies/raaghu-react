@@ -194,20 +194,6 @@
         margin-left: auto;
         gap: var(--rds-spacing-sm);
         flex-shrink: 0;
-        
-        > span {
-          display: flex;
-          align-items: center;
-          flex-shrink: 0;
-          align-self: center;
-        }
-      }
-    }
-
-    &-tabs {
-      flex-shrink: 0;
-      padding: 0 var(--rds-spacing-sm);
-      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
 
         .nav-tabs {
           display: flex;
@@ -218,13 +204,15 @@
           padding: 0;
           background: transparent;
           border-bottom: none;
+          height: 100%;
         }
 
         .nav-link {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: var(--rds-spacing-13) var(--rds-spacing-cozy);
+          height: 100%;
+          padding: 0 var(--rds-spacing-cozy);
           border: none;
           border-bottom: var(--rds-border-width-medium) solid transparent;
           border-radius: 0;
@@ -232,11 +220,12 @@
           color: var(--rds-color-on-surface);
           font-weight: var(--rds-font-weight-medium, 500);
           @include bp.down(mobile-sm) {
-            padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
+            padding: 0 var(--rds-spacing-xs);
             font-size: var(--rds-font-size-sm);
             min-width: unset;
           }
         }
+
         .nav-link::before {
           display: none;
           content: none;
@@ -251,8 +240,15 @@
           color: var(--rds-color-primary);
           font-weight: var(--rds-font-weight-bold, 700);
           border-bottom: var(--rds-border-width-medium) solid var(--rds-color-primary);
-          margin-bottom: var(--rds-spacing-neg-1);
         }
+        
+        > span {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          align-self: center;
+        }
+      }
     }
 
     &-main {
@@ -877,7 +873,7 @@
     }
   }
 
-  .rds-comp-chat__window-tabs {
+  .rds-comp-chat__window-header-options {
     .nav-link {
       cursor: pointer;
       user-select: none;
@@ -994,11 +990,9 @@
       }
     }
 
-    &__window-tabs {
-      padding: 0 var(--rds-spacing-xs);
-
+    &__window-header-options {
       .nav-tabs .nav-link {
-        padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+        padding: 0 var(--rds-spacing-sm);
         font-size: var(--rds-font-size-md);
         white-space: nowrap;
       }
@@ -1056,8 +1050,8 @@
       }
     }
 
-    &__window-tabs .nav-tabs .nav-link {
-      padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
+    &__window-header-options .nav-tabs .nav-link {
+      padding: 0 var(--rds-spacing-xs);
       font-size: var(--rds-font-size-xs);
       min-width: unset;
       white-space: nowrap;

@@ -597,7 +597,7 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('handles multiple menu instances independently', () => {
-      const { container } = render(
+      render(
         <div>
           <RdsCompAiFabMenu listItems={[{ key: 'item1', value: 'Menu 1', icon: 'list' }]} />
           <RdsCompAiFabMenu listItems={[{ key: 'item2', value: 'Menu 2', icon: 'list' }]} />

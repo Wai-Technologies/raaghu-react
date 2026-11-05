@@ -68,7 +68,7 @@ jest.mock('@mui/material', () => {
         </div>
       );
     },
-    Button: ({ children, variant, className, onClick, ...props }: any) => (
+    Button: ({ children, variant, className, onClick, startIcon, endIcon, loading, loadingPosition, fullWidth, disableElevation, disableRipple, ...props }: any) => (
       <button className={`button ${variant || ''} ${className || ''}`} onClick={onClick} {...props}>
         {children}
       </button>

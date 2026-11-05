@@ -12,7 +12,6 @@ export function warnDeprecatedProp(component: string, prop: string, replacement:
   const key = `${component}.${prop}`;
   if (warned.has(key)) return;
   warned.add(key);
-  // eslint-disable-next-line no-console -- intentional developer-facing warning
   console.warn(`[${component}] The \`${prop}\` prop is deprecated and will be removed in the next major version. Use ${replacement} instead.`);
 }
 

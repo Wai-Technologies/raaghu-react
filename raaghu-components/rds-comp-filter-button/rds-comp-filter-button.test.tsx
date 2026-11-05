@@ -49,12 +49,16 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   });
 });
 
+const mockMuiOnlyProps = ['fullWidth', 'expandIcon', 'disableRipple', 'indeterminate', 'slotProps', 'disableGutters', 'anchorOrigin', 'transformOrigin', 'disableScrollLock', 'marginThreshold', 'color', 'size', 'variant'];
+const mockOmitMuiProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(props).filter(([key]) => !mockMuiOnlyProps.includes(key)));
+
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
     ...actual,
     Box: ({ children, className, sx, ...props }: any) => (
-      <div className={className} data-testid="box" {...props}>
+      <div className={className} data-testid="box" {...mockOmitMuiProps(props)}>
         {children}
       </div>
     ),
@@ -65,23 +69,23 @@ jest.mock('@mui/material', () => {
     ),
     Popover: ({ children, open, onClose, anchorEl, ...props }: any) => {
       return open ? (
-        <div data-testid="popover" {...props}>
+        <div data-testid="popover" {...mockOmitMuiProps(props)}>
           {children}
         </div>
       ) : null;
     },
     Accordion: ({ children, ...props }: any) => (
-      <div data-testid="accordion" {...props}>
+      <div data-testid="accordion" {...mockOmitMuiProps(props)}>
         {children}
       </div>
     ),
     AccordionSummary: ({ children, ...props }: any) => (
-      <div data-testid="accordion-summary" {...props}>
+      <div data-testid="accordion-summary" {...mockOmitMuiProps(props)}>
         {children}
       </div>
     ),
     AccordionDetails: ({ children, ...props }: any) => (
-      <div data-testid="accordion-details" {...props}>
+      <div data-testid="accordion-details" {...mockOmitMuiProps(props)}>
         {children}
       </div>
     ),
@@ -89,13 +93,13 @@ jest.mock('@mui/material', () => {
       <input
         type="checkbox"
         checked={checked}
-        onChange={onChange}
+        onChange={(e: any) => onChange?.(e, e.target.checked)}
         data-testid="filter-checkbox"
-        {...props}
+        {...mockOmitMuiProps(props)}
       />
     ),
     FormControlLabel: ({ control, label, ...props }: any) => (
-      <label data-testid="form-control-label" {...props}>
+      <label data-testid="form-control-label" {...mockOmitMuiProps(props)}>
         {control}
         {label}
       </label>
@@ -107,11 +111,11 @@ jest.mock('@mui/material', () => {
         onChange={onChange}
         placeholder={placeholder}
         data-testid="search-input"
-        {...props}
+        {...mockOmitMuiProps(props)}
       />
     ),
     Button: ({ children, onClick, className, sx, variant, ...props }: any) => (
-      <button onClick={onClick} className={className} {...props}>
+      <button onClick={onClick} className={className} {...mockOmitMuiProps(props)}>
         {children}
       </button>
     ),

@@ -9,12 +9,12 @@ const meta: Meta<typeof RdsTypography> = {
         status: { type: 'stable' },
     layout: 'padded',
      controls: {
-      include: ['text', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],
+      include: ['children', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    text: {
+    children: {
       control: 'text',
       description: 'Text content to display',
     },
@@ -49,7 +49,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'Heading 1',
+    children: 'Heading 1',
     variant: 'h1',
   },
   play: async ({ canvasElement }) => {
@@ -61,70 +61,70 @@ export const Heading1: Story = { ...Default };
 
 export const Heading2: Story = {
   args: {
-    text: 'Heading 2',
+    children: 'Heading 2',
     variant: 'h2',
   },
 };
 
 export const Heading3: Story = {
   args: {
-    text: 'Heading 3',
+    children: 'Heading 3',
     variant: 'h3',
   },
 };
 
 export const Subtitle1: Story = {
   args: {
-    text: 'Subtitle 1',
+    children: 'Subtitle 1',
     variant: 'subtitle1',
   },
 };
 
 export const Subtitle2: Story = {
   args: {
-    text: 'Subtitle 2',
+    children: 'Subtitle 2',
     variant: 'subtitle2',
   },
 };
 
 export const Body1: Story = {
   args: {
-    text: 'Body 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    children: 'Body 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     variant: 'body1',
   },
 };
 
 export const Body2: Story = {
   args: {
-    text: 'Body 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    children: 'Body 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     variant: 'body2',
   },
 };
 
 export const Caption: Story = {
   args: {
-    text: 'Caption text',
+    children: 'Caption text',
     variant: 'caption',
   },
 };
 
 export const Button: Story = {
   args: {
-    text: 'Button text',
+    children: 'Button text',
     variant: 'button',
   },
 };
 
 export const Overline: Story = {
   args: {
-    text: 'Overline text',
+    children: 'Overline text',
     variant: 'overline',
   },
 };
 
 export const PrimaryColor: Story = {
   args: {
-    text: 'Primary color text',
+    children: 'Primary color text',
     color: 'primary',
     variant: 'h4',
   },
@@ -132,7 +132,7 @@ export const PrimaryColor: Story = {
 
 export const SecondaryColor: Story = {
   args: {
-    text: 'Secondary color text',
+    children: 'Secondary color text',
     color: 'secondary',
     variant: 'h4',
   },
@@ -140,7 +140,7 @@ export const SecondaryColor: Story = {
 
 export const CenterAligned: Story = {
   args: {
-    text: 'Center aligned text',
+    children: 'Center aligned text',
     align: 'center',
     variant: 'h5',
   },
@@ -148,7 +148,7 @@ export const CenterAligned: Story = {
 
 export const NoWrap: Story = {
   args: {
-    text: 'This is a very long text that should not wrap to the next line when noWrap is enabled',
+    children: 'This is a very long text that should not wrap to the next line when noWrap is enabled',
     noWrap: true,
     variant: 'body1',
   },

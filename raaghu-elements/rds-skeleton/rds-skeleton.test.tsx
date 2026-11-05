@@ -4,7 +4,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSkeleton from './rds-skeleton';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-skeleton.scss');
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -400,7 +399,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should pass data attributes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton data-testid="custom-skeleton" data-custom="value" />
       );
       const skeleton = screen.getByTestId('custom-skeleton');

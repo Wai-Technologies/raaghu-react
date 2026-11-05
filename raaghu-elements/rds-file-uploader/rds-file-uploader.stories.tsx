@@ -383,7 +383,7 @@ export const Standard: Story = {
     disabled: false,
   },
   render: (args) => {
-    const [files, setFiles] = React.useState<FileWithProgress[]>([
+    const [, setFiles] = React.useState<FileWithProgress[]>([
       {
         file: new File([''], 'example.pdf', { type: 'application/pdf' }),
         progress: 0,

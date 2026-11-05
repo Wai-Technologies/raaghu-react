@@ -117,7 +117,7 @@ describe('RdsList', () => {
       const itemsWithoutSecondary = [
         { id: 1, primary: 'Item 1' },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList items={itemsWithoutSecondary} />
       );
       expect(screen.getByText('Item 1')).toBeInTheDocument();
@@ -546,7 +546,7 @@ describe('RdsList', () => {
         secondary: `Secondary ${i}`,
       }));
 
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList items={largeItems} withDividers={true} />
       );
       
@@ -557,7 +557,7 @@ describe('RdsList', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional MuiList props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsList 
           items={defaultItems}
           data-testid="custom-list"
@@ -662,6 +662,16 @@ describe('audit fixes (renames)', () => {
     expect(boxes[0]).toBeChecked();
     fireEvent.click(boxes[1]);
     expect(onCheckedChange).toHaveBeenCalledWith(expect.anything(), [1, 2]);
+  });
+
+  it('fires onCheckedChange once per checkbox click and once per row click', () => {
+    const onCheckedChange = jest.fn();
+    const { container } = render(<RdsList checkboxSelection onCheckedChange={onCheckedChange} items={items} />);
+    fireEvent.click(container.querySelectorAll('input[type="checkbox"]')[0]);
+    expect(onCheckedChange).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByText('Two'));
+    expect(onCheckedChange).toHaveBeenCalledTimes(2);
+    expect(onCheckedChange).toHaveBeenLastCalledWith(expect.anything(), [1, 2]);
   });
 
   it('dividers and variant dense match legacy output', () => {

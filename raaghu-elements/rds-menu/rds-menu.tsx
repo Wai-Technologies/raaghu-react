@@ -1,9 +1,15 @@
-import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type MouseEvent, type ReactNode } from 'react';
+import { Children, Fragment, cloneElement, isValidElement, type CSSProperties, type ReactElement, type MouseEvent, type ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, type MenuProps } from '@mui/material';
 import type { MenuOwnerState } from '@mui/material/Menu';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-menu.scss'
+
+function flattenFragments(nodes: ReactNode): ReactNode[] {
+  return Children.toArray(nodes).flatMap((node) =>
+    isValidElement<{ children?: ReactNode }>(node) && node.type === Fragment ? flattenFragments(node.props.children) : [node],
+  );
+}
 
 function getColor(color: string): string {
   switch (color) {
@@ -123,7 +129,7 @@ const RdsMenu = ({
         }}
         className={menuClassName}
       >
-        {children ? children : items.map((item) => {
+        {children ? flattenFragments(children) : items.map((item) => {
           if (item.header) {
             return (
               <ListSubheader key={item.id} component="div" disableSticky className="rds-menu__header">

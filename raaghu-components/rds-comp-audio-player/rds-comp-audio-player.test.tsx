@@ -420,7 +420,7 @@ describe('RdsCompAudioPlayer', () => {
 
     it('has no axe accessibility violations', async () => {
       const { container } = setup();
-      expect(await axe(container)).toHaveNoViolations();
+      expect(await axe(container, { preload: false })).toHaveNoViolations();
     }, 15000);
   });
 

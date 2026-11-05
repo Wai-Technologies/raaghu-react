@@ -51,7 +51,7 @@ const RdsCompAiGradientTextWithIcon = memo(({
     <Box {...rest} ref={ref} className={clsx("rds-gradient-text-with-icon", className)} sx={sx}>
       {icon ?? (
         <>
-          {showImage && <img src={logoUrl} className="rds-gradient-text-with-icon__logo" alt={title ?? ''} />}
+          {showImage && <img src={logoUrl || undefined} className="rds-gradient-text-with-icon__logo" alt={title ?? ''} />}
           {showIcon && logo}
         </>
       )}

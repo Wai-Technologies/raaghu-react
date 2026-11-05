@@ -23,7 +23,7 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
+  return function MockRdsButton({ children, onClick, disabled, style, color, showLeftIcon, showRightIcon, changeLeftIcon, changeRightIcon, textCase, ...props }: any) {
     return (
       <button data-testid="rds-button" onClick={onClick} disabled={disabled} {...props}>
         {children}
@@ -348,8 +348,8 @@ describe('RdsCompColorPicker', () => {
       render(
         <actual.ColorPickerSpectrum {...panelProps} selectedColorHex="#FF0000" showSwatches styleType="Type 2" />,
       );
-      expect(screen.getByRole('button', { name: 'Pick color from spectrum' })).toBeDisabled();
-      screen.getAllByRole('slider').forEach((slider) => expect(slider).toBeDisabled());
+      expect(screen.getByRole('slider', { name: 'Saturation and brightness' })).toHaveAttribute('aria-disabled', 'true');
+      screen.getAllByRole('slider', { name: 'Hue' }).forEach((slider) => expect(slider).toBeDisabled());
       expect(screen.getByRole('button', { name: 'Change color mode' })).toBeDisabled();
       screen.getAllByRole('button', { name: /^Select color/ }).forEach((swatch) => expect(swatch).toBeDisabled());
       expect(screen.getByRole('button', { name: 'Add swatch' })).toHaveAttribute('aria-disabled', 'true');
@@ -505,7 +505,7 @@ describe('RdsCompColorPicker', () => {
           setShowColorModeDropdown={jest.fn()}
         />
       );
-      const area = screen.getByLabelText('Pick color from spectrum');
+      const area = screen.getByLabelText('Saturation and brightness');
       area.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 } as DOMRect);
       fireEvent.click(area, { clientX: 100, clientY: 0 });
       expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ hex: '#0000FF' }));
@@ -653,5 +653,43 @@ describe('RdsCompColorPicker id', () => {
     expect(a.container.firstChild).toHaveAttribute('id', 'cp');
     const b = setup();
     expect(b.container.firstChild).not.toHaveAttribute('id');
+  });
+});
+
+describe('ColorPickerSpectrum keyboard support', () => {
+  const { ColorPickerSpectrum } = jest.requireActual('./color-picker-components');
+  const renderSpectrum = (handleChange = jest.fn()) => {
+    const noop = jest.fn();
+    render(
+      <ColorPickerSpectrum
+        selectedColorHex="#FF0000"
+        selectedColorState={{ hex: '#800000', rgb: { r: 128, g: 0, b: 0, a: 1 } }}
+        handleChange={handleChange}
+        handleHueChange={noop}
+        handleAlphaChange={noop}
+        colorModeDropdownRef={{ current: null }}
+        selectedColorMode={ColorMode.HEX}
+        showColorModeDropdown={false}
+        setShowColorModeDropdown={noop}
+        getColorDisplay={() => '#800000'}
+      />
+    );
+    return handleChange;
+  };
+
+  it('exposes slider semantics', () => {
+    renderSpectrum();
+    const slider = screen.getByRole('slider', { name: 'Saturation and brightness' });
+    expect(slider).toHaveAttribute('tabindex', '0');
+    expect(slider).toHaveAttribute('aria-valuetext', 'Saturation 100%, brightness 50%');
+  });
+
+  it('changes saturation with ArrowLeft and brightness with Shift+ArrowUp', () => {
+    const handleChange = renderSpectrum();
+    const slider = screen.getByRole('slider', { name: 'Saturation and brightness' });
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' });
+    expect(handleChange.mock.calls[0][0].hex).not.toBe('#800000');
+    fireEvent.keyDown(slider, { key: 'ArrowUp', shiftKey: true });
+    expect(handleChange.mock.calls[1][0].rgb.r).toBeGreaterThan(128);
   });
 });

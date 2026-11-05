@@ -256,7 +256,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-red-danger-hover` | `#930011` | `#FF544F` |
 | `--rds-color-red-delete` | `#e53935` | `#e57373` |
 | `--rds-color-red-delete-hover` | `#BD0D1D` | same |
-| `--rds-color-scrollbar-thumb` | — | `#555555` |
+| `--rds-color-scrollbar-thumb` | `color-mix(in srgb, var(--rds-color-black) 32%, transparent)` | `#555555` |
 | `--rds-color-scrollbar-thumb-hover` | — | `#6a6a6a` |
 | `--rds-color-scrollbar-track` | — | `#2a2a2a` |
 | `--rds-color-secondary` | `var(--rds-secondary-main)` | same |
@@ -280,7 +280,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-surface-readonly` | `#fafafa` | same |
 | `--rds-color-surface-selected-dark` | — | `#3b3b3b` |
 | `--rds-color-surface-variant` | `var(--rds-background-surface)` | same |
-| `--rds-color-surface-variant-dark` | — | `#303030` |
+| `--rds-color-surface-variant-dark` | `#2a2a2a` | `#303030` |
 | `--rds-color-surface-variant-hover` | `#f5f5f5` | same |
 | `--rds-color-surface-variant-hover-dark` | — | `#b9b7b7` |
 | `--rds-color-switch-label` | `#757575` | same |
@@ -320,7 +320,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-error-contrast-text` | `#ffffff` | same |
-| `--rds-error-dark` | `#e53935` | `#ef5350` |
+| `--rds-error-dark` | `#930011` | `#ef5350` |
 | `--rds-error-light` | `#ffcdd2` | same |
 | `--rds-error-main` | `#BD0D1D` | same |
 | `--rds-error-rgb` | `189,13,29` | same |
@@ -396,7 +396,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-info-contrast-text` | `#ffffff` | same |
-| `--rds-info-dark` | `#1976D2` | `#42a5f5` |
+| `--rds-info-dark` | `#0D47A1` | `#42a5f5` |
 | `--rds-info-light` | `#BBDEFB` | `#bbdefb` |
 | `--rds-info-main` | `#2196F3` | `#3C98FF` |
 | `--rds-info-rgb` | `33,150,243` | same |
@@ -471,7 +471,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 |---|---|---|
 | `--rds-secondary-alpha-10` | `color-mix(in srgb, var(--rds-secondary-main) 10%, transparent)` | — |
 | `--rds-secondary-contrast-text` | `#ffffff` | `#212121` |
-| `--rds-secondary-dark` | `#d81b60` | `#ec407a` |
+| `--rds-secondary-dark` | `#1827BB` | same |
 | `--rds-secondary-light` | `#f8bbd9` | same |
 | `--rds-secondary-main` | `#2534E9` | same |
 | `--rds-secondary-rgb` | `37,52,233` | same |
@@ -613,7 +613,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-success-contrast-text` | `#ffffff` | same |
-| `--rds-success-dark` | `#43a047` | `#66bb6a` |
+| `--rds-success-dark` | `#1D5E2A` | `#66bb6a` |
 | `--rds-success-light` | `#c8e6c8` | same |
 | `--rds-success-main` | `#1F7630` | same |
 | `--rds-success-rgb` | `31,118,48` | same |
@@ -626,8 +626,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-text-hint` | `#9e9e9e` | same |
 | `--rds-text-primary` | `#212121` | `#ffffff` |
 | `--rds-text-primary-light` | `#212121` | same |
-| `--rds-text-secondary` | `#757575` | `#bdbdbd` |
-| `--rds-text-secondary-rgb` | `117,117,117` | same |
+| `--rds-text-secondary` | `#646464` | `#bdbdbd` |
+| `--rds-text-secondary-rgb` | `100,100,100` | same |
 | `--rds-text-shadow` | `none` | same |
 | `--rds-text-tertiary` | `#757575` | same |
 
@@ -651,7 +651,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | Token | Light | Dark |
 |---|---|---|
 | `--rds-warning-contrast-text` | `#ffffff` | same |
-| `--rds-warning-dark` | `#fdd835` | `#ffee58` |
+| `--rds-warning-dark` | `#9A4012` | `#ffee58` |
 | `--rds-warning-light` | `#fff9c4` | same |
 | `--rds-warning-main` | `#C2510C` | same |
 | `--rds-warning-rgb` | `194,81,12` | same |
@@ -755,10 +755,10 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-ai-typing-textarea-height` | `100px` | same |
 | `--rds-alert-error-bg` | `#FFDAD6` | `rgba(189, 13, 29, 0.15)` |
 | `--rds-alert-error-border` | `#BD0D1D` | same |
-| `--rds-alert-error-text` | `#e53935` | `#BD0D1D` |
+| `--rds-alert-error-text` | `#930011` | `#FF544F` |
 | `--rds-alert-info-bg` | `#ffffff` | `#424242` |
 | `--rds-alert-info-border` | `#646464` | `#bdbdbd` |
-| `--rds-alert-info-text` | `#1976D2` | `#3C98FF` |
+| `--rds-alert-info-text` | `#1976D2` | `#90CAF9` |
 | `--rds-alert-left-border-width` | `6px` | same |
 | `--rds-alert-link-font-size` | `0.8125rem` | same |
 | `--rds-alert-link-margin-right` | `0.625rem` | same |
@@ -770,10 +770,10 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-alert-style1-shadow` | `0px 12px 20px -4px rgba(0, 0, 0, 0.15)` | same |
 | `--rds-alert-success-bg` | `#e3f2fd` | `rgba(31, 118, 48, 0.15)` |
 | `--rds-alert-success-border` | `#7825E9` | `#1F7630` |
-| `--rds-alert-success-text` | `#43a047` | `#1F7630` |
+| `--rds-alert-success-text` | `#1D5E2A` | `#31B64A` |
 | `--rds-alert-warning-bg` | `#FED99B` | `rgba(160, 120, 0, 0.15)` |
 | `--rds-alert-warning-border` | `#C2510C` | same |
-| `--rds-alert-warning-text` | `#C2510C` | same |
+| `--rds-alert-warning-text` | `#C2510C` | `#F98816` |
 | `--rds-appbar-action-font-size-xs` | `10px` | same |
 | `--rds-appbar-badge-bg` | `#e3f2fd` | `#232e3a` |
 | `--rds-appbar-badge-bg-dark` | — | `#232e3a` |
@@ -940,18 +940,18 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-button-text-variant-bg` | `rgba(60, 152, 255, 0.04)` | `color-mix(in srgb, var(--rds-primary-main) 4%, transparent)` |
 | `--rds-card-avatar-controls-mobile-offset` | `6.875rem` | same |
 | `--rds-card-bg` | `var(--rds-background-paper)` | same |
-| `--rds-card-bg-hover` | `var(--rds-color-gray-200)` | same |
+| `--rds-card-bg-hover` | `var(--rds-surface-neutral-light)` | `var(--rds-surface-neutral-medium)` |
 | `--rds-card-border` | `var(--rds-border-light)` | same |
 | `--rds-card-content-min-height` | `20px` | same |
 | `--rds-card-content-padding-left` | `14px` | same |
 | `--rds-card-detail-shadow-dark` | `var(--rds-elevation-4)` | same |
 | `--rds-card-detail-shadow-light` | `var(--rds-elevation-1)` | same |
-| `--rds-card-disabled-bg` | `var(--rds-color-gray-300)` | same |
+| `--rds-card-disabled-bg` | `var(--rds-color-gray-300)` | `#4C4C4C` |
 | `--rds-card-hover-offset` | `-2px` | same |
 | `--rds-card-indicator-bg` | `var(--rds-color-gray-700)` | same |
-| `--rds-card-selected-bg` | `var(--rds-color-gray-200)` | same |
+| `--rds-card-selected-bg` | `var(--rds-surface-neutral-light)` | `var(--rds-surface-neutral-medium)` |
 | `--rds-card-shadow-base` | `#102d56` | same |
-| `--rds-card-surface-filled` | `#fafafa` | same |
+| `--rds-card-surface-filled` | `var(--rds-surface-primary-light)` | same |
 | `--rds-card-text-disabled` | `var(--rds-color-disabled-text)` | same |
 | `--rds-card-text-secondary` | `var(--rds-color-text-secondary)` | same |
 | `--rds-carousel-divider` | `var(--rds-border-light)` | same |

@@ -76,12 +76,9 @@ const preview: Preview = {
     },
     a11y: {
       options: {
-        checks: {
-          'color-contrast': { enabled: false },
-        },
         restoreScroll: true,
       },
-      test: 'off',
+      test: 'todo',
     },
     docs: {
       theme: getDocsTheme('system'),

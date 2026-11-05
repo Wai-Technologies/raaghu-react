@@ -18,14 +18,14 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
       <button
-        data-testid={`btn-${props.text || 'icon-only'}`}
+        data-testid={`btn-${props.text || props.children || 'icon-only'}`}
         onClick={props.onClick}
         data-color={props.color}
         data-style={props.variant ?? props.placement ?? props.style}
         data-layout={props.layout}
         data-size={props.size}
       >
-        {props.text || 'Button'}
+        {props.text || props.children || 'Button'}
       </button>
     );
   };
@@ -51,7 +51,7 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
     default: function MockRdsCompAiIcon(props: any) {
-      const { colorVariant, isCursorPointer, name, ...svgProps } = props;
+      const { colorVariant, isCursorPointer, name, stroke, ...svgProps } = props;
       Object.keys(svgProps).forEach(key => {
         if (key.startsWith('is') || key.startsWith('show') || key.startsWith('backgroundType') || key.startsWith('styleType')) {
           delete svgProps[key];
@@ -289,7 +289,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles file selection from attachment', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const attachment = screen.getByTestId('rds-attachment');
       
       fireEvent.click(attachment);
@@ -522,7 +522,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles undefined callbacks gracefully', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const sendButton = screen.getByTestId('btn-icon-only');
       
       expect(() => fireEvent.click(sendButton)).not.toThrow();
@@ -588,7 +588,7 @@ it('handles emoji input', () => {
 
     it('buttons are keyboard accessible', () => {
       const onSend = jest.fn();
-      const { container } = render(
+      render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
       const sendButton = screen.getByTestId('btn-icon-only');

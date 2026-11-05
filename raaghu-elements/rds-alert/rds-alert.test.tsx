@@ -295,7 +295,7 @@ describe('RdsAlert', () => {
           CustomIcon
         </span>
       );
-      const { container } = render(
+      render(
         <RdsAlert
           {...defaultProps}
           showIcon={true}
@@ -574,7 +574,7 @@ describe('RdsAlert', () => {
     });
 
     it('should accept MUI alert props', () => {
-      const { container } = render(
+      render(
         <RdsAlert {...defaultProps} variant="filled" />
       );
       expect(screen.getByRole('alert')).toBeInTheDocument();

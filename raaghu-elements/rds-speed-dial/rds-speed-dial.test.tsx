@@ -6,7 +6,6 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-jest.mock('./rds-speed-dial.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsSpeedDial', () => {
@@ -64,7 +63,7 @@ describe('RdsSpeedDial', () => {
     });
 
     it('should render with custom icon', () => {
-      const { container } = render(
+      render(
         <RdsSpeedDial
           {...defaultProps}
           icon={<Print data-testid="custom-icon" />}
@@ -365,7 +364,7 @@ describe('RdsSpeedDial', () => {
     });
 
     it('should forward FabProps', () => {
-      const { container } = render(
+      render(
         <RdsSpeedDial
           {...defaultProps}
           FabProps={{ 'data-testid': 'custom-fab' } as any}
@@ -401,7 +400,7 @@ describe('RdsSpeedDial', () => {
 
   describe('Icon Management', () => {
     it('should render openIcon when provided', () => {
-      const { container } = render(
+      render(
         <RdsSpeedDial
           {...defaultProps}
           icon={<Share data-testid="closed-icon" />}
@@ -425,7 +424,7 @@ describe('RdsSpeedDial', () => {
     });
 
     it('should handle both icon and openIcon together', () => {
-      const { container } = render(
+      render(
         <RdsSpeedDial
           {...defaultProps}
           icon={<Share data-testid="regular-icon" />}

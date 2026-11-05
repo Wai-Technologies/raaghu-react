@@ -309,7 +309,7 @@
           "name": "color",
           "type": "(string & {}) | AvatarColor",
           "required": false,
-          "description": "Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. Other strings pass through."
+          "description": "Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`. Other strings pass through."
         },
         {
           "name": "data-testid",
@@ -371,7 +371,7 @@
       "deprecatedProps": [
         {
           "name": "activeDotBottom",
-          "use": "Prefer `status=\"online\"` with `statusPosition`."
+          "use": "Use `status=\"online\"` with `statusPosition=\"bottom\"` (or `\"both\"`)."
         },
         {
           "name": "activeDotTop",
@@ -379,7 +379,7 @@
         },
         {
           "name": "colorVariant",
-          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`."
+          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "maxVisibleAvatars",
@@ -1031,7 +1031,7 @@
       "deprecatedProps": [
         {
           "name": "actions",
-          "use": "Use `endSlot` instead."
+          "use": "Use `endSlot`. Unlike `actions`, `endSlot` is not hidden when the profile menu (`userName` + `userEmail`) is shown."
         },
         {
           "name": "centerContent",
@@ -1559,13 +1559,8 @@
           "name": "showCloseButton",
           "type": "boolean",
           "required": false,
-          "description": "Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`."
-        },
-        {
-          "name": "showDissmiss",
-          "type": "boolean",
-          "required": false,
-          "description": "Figma alias of `showCloseButton` (Figma \"Show Dismiss\"); kept without a warning. Prefer `showCloseButton`."
+          "default": "true",
+          "description": "Shows the close button."
         },
         {
           "name": "showPrimary",
@@ -1594,6 +1589,10 @@
         }
       ],
       "deprecatedProps": [
+        {
+          "name": "showDissmiss",
+          "use": "Use `showCloseButton`."
+        },
         {
           "name": "showTitle",
           "use": "Omit `title` instead."
@@ -2711,7 +2710,7 @@
           "name": "color",
           "type": "RatingColor",
           "required": false,
-          "description": "Color of the rating. `'danger'` is deprecated; use `'error'`."
+          "description": "Color of the rating. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "data-testid",
@@ -2767,7 +2766,7 @@
       "deprecatedProps": [
         {
           "name": "colorVariant",
-          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`."
+          "use": "Use `color` instead. `'danger'` is deprecated; use `'error'`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "maxStars",
@@ -3684,7 +3683,7 @@
           "name": "onActiveIndexChange",
           "type": "((index: number) => void)",
           "required": false,
-          "description": "Called when the user requests a different slide while `activeIndex` is controlled."
+          "description": "Called with the new index whenever the slide changes (navigation or autoplay)."
         },
         {
           "name": "showArrows",
@@ -5284,7 +5283,7 @@
           "name": "color",
           "type": "string",
           "required": false,
-          "description": "Colour name applied as `text-{color}`."
+          "description": "Colour name applied as `text-{color}`. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "id",
@@ -7309,6 +7308,12 @@
           "type": "Ref<HTMLDivElement>",
           "required": false,
           "description": "Ref to the root element."
+        },
+        {
+          "name": "slotProps",
+          "type": "{ typingSection?: Omit<RdsCompAiTypingSectionProps, \"onSend\" | \"onAddComment\">; }",
+          "required": false,
+          "description": "Props passed to inner slots; `typingSection` reaches the prompt input (e.g. project buttons, frontend options)."
         },
         {
           "name": "sx",

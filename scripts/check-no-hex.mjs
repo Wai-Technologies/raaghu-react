@@ -28,7 +28,6 @@ const ALLOW_PATH_INCLUDES = [
   'rds-comp-color-picker/rds-comp-color-picker.tsx',
   'rds-comp-color-picker/rds-comp-color-picker.types.ts',
   'rds-comp-map/rds-comp-map.scss',
-  'scripts/strip-hex-fallbacks.mjs',
   'scripts/check-no-hex.mjs',
 ];
 

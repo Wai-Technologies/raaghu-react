@@ -9,15 +9,20 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
 
+const mockMuiOnlyProps = ['fullWidth', 'loading', 'loadingPosition', 'endIcon', 'displayStyle', 'showRemainingCount', 'MenuProps', 'multiline', 'getOptionLabel', 'slotProps', 'disablePortal', 'anchorOrigin', 'transformOrigin', 'disableRipple', 'minRows', 'maxRows', 'rows'];
+const mockOmitUnknownProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(props).filter(([key]) => !mockMuiOnlyProps.includes(key)));
+const mockSelectContext = React.createContext(false);
+
 jest.mock('@mui/material', () => ({
-  Card: ({ children, ...props }: any) => <div data-testid="card" {...props}>{children}</div>,
-  CardContent: ({ children, ...props }: any) => <div data-testid="card-content" {...props}>{children}</div>,
-  Typography: ({ children, variant, ...props }: any) => <div data-testid="typography" data-variant={variant} {...props}>{children}</div>,
-  IconButton: ({ children, onClick, ...props }: any) => <button data-testid="icon-button" onClick={onClick} {...props}>{children}</button>,
-  Chip: ({ children, label, ...props }: any) => <div data-testid="chip" {...props}>{label || children}</div>,
-  Avatar: ({ children, alt, src, ...props }: any) => <div data-testid="avatar" {...props} data-src={src}>{children}</div>,
-  Menu: ({ children, open, anchorEl, onClose, ...props }: any) => open ? <div data-testid="menu" {...props}>{children}</div> : null,
-  MenuItem: ({ children, onClick, ...props }: any) => <button type="button" data-testid="menu-item" onClick={onClick} {...props} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>{children}</button>,
+  Card: ({ children, ...props }: any) => <div data-testid="card" {...mockOmitUnknownProps(props)}>{children}</div>,
+  CardContent: ({ children, ...props }: any) => <div data-testid="card-content" {...mockOmitUnknownProps(props)}>{children}</div>,
+  Typography: ({ children, variant, ...props }: any) => <div data-testid="typography" data-variant={variant} {...mockOmitUnknownProps(props)}>{children}</div>,
+  IconButton: ({ children, onClick, ...props }: any) => <button data-testid="icon-button" onClick={onClick} {...mockOmitUnknownProps(props)}>{children}</button>,
+  Chip: ({ children, label, ...props }: any) => <div data-testid="chip" {...mockOmitUnknownProps(props)}>{label || children}</div>,
+  Avatar: ({ children, alt, src, ...props }: any) => <div data-testid="avatar" {...mockOmitUnknownProps(props)} data-src={src}>{children}</div>,
+  Menu: ({ children, open, anchorEl, onClose, ...props }: any) => open ? <div data-testid="menu" {...mockOmitUnknownProps(props)}>{children}</div> : null,
+  MenuItem: ({ children, onClick, ...props }: any) => React.useContext(mockSelectContext) ? <option data-testid="menu-item" {...mockOmitUnknownProps(props)}>{children}</option> : <button type="button" data-testid="menu-item" onClick={onClick} {...mockOmitUnknownProps(props)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>{children}</button>,
   TextField: ({ value, onChange, onKeyDown, placeholder, ...props }: any) => (
     <input 
       data-testid="text-field" 
@@ -25,24 +30,24 @@ jest.mock('@mui/material', () => ({
       onChange={(e) => onChange?.(e)} 
       onKeyDown={onKeyDown}
       placeholder={placeholder}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     />
   ),
   Button: ({ children, onClick, startIcon, ...props }: any) => (
-    <button data-testid="button" onClick={onClick} {...props}>{startIcon}{children}</button>
+    <button data-testid="button" onClick={onClick} {...mockOmitUnknownProps(props)}>{startIcon}{children}</button>
   ),
-  Box: React.forwardRef(({ children, className, ...props }: any, ref: any) => <div data-testid="box" className={className} ref={ref} {...props}>{children}</div>),
-  FormControl: ({ children, ...props }: any) => <div data-testid="form-control" {...props}>{children}</div>,
-  InputLabel: ({ children, ...props }: any) => <label data-testid="input-label" {...props}>{children}</label>,
+  Box: React.forwardRef(({ children, className, ...props }: any, ref: any) => <div data-testid="box" className={className} ref={ref} {...mockOmitUnknownProps(props)}>{children}</div>),
+  FormControl: ({ children, ...props }: any) => <div data-testid="form-control" {...mockOmitUnknownProps(props)}>{children}</div>,
+  InputLabel: ({ children, ...props }: any) => <label data-testid="input-label" {...mockOmitUnknownProps(props)}>{children}</label>,
   Select: ({ children, onChange, label, ...props }: any) => (
-    <select data-testid="select" onChange={(e) => onChange?.(e)} {...props}>{children}</select>
+    <mockSelectContext.Provider value><select data-testid="select" onChange={(e) => onChange?.(e)} {...mockOmitUnknownProps(props)}>{children}</select></mockSelectContext.Provider>
   ),
   Autocomplete: ({ onChange, renderInput, label, ...props }: any) => (
-    <div data-testid="autocomplete" {...props}>
+    <div data-testid="autocomplete" {...mockOmitUnknownProps(props)}>
       {renderInput?.({ id: 'autocomplete-input' })}
     </div>
   ),
-  Paper: ({ children, ...props }: any) => <div data-testid="paper" {...props}>{children}</div>,
+  Paper: ({ children, ...props }: any) => <div data-testid="paper" {...mockOmitUnknownProps(props)}>{children}</div>,
 }));
 
 jest.mock('@mui/icons-material', () => ({
@@ -90,13 +95,13 @@ jest.mock('@dnd-kit/utilities', () => ({
 
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, ...props }: any) {
-    return <span data-testid="rds-badge" {...props}>{badgeContent}</span>;
+    return <span data-testid="rds-badge" {...mockOmitUnknownProps(props)}>{badgeContent}</span>;
   };
 });
 
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar({ avatars, ...props }: any) {
-    return <div data-testid="rds-avatar" {...props}>{avatars?.length || 0} avatars</div>;
+    return <div data-testid="rds-avatar" {...mockOmitUnknownProps(props)}>{avatars?.length || 0} avatars</div>;
   };
 });
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
+import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
 import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
@@ -42,7 +42,7 @@ export interface RdsCarouselProps
   defaultIndex?: number;
   /** Active slide index (0-based). When set, changing it moves the carousel to that slide. */
   activeIndex?: number;
-  /** Called when the user requests a different slide while `activeIndex` is controlled. */
+  /** Called with the new index whenever the slide changes (navigation or autoplay). */
   onActiveIndexChange?: (index: number) => void;
   /** Visual variant (Figma "Style"). */
   variant?: CarouselVariant;
@@ -105,24 +105,25 @@ const RdsCarousel = ({
     activeIndex !== undefined && Number.isInteger(activeIndex) && activeIndex >= 0 && activeIndex < slideCount
       ? activeIndex
       : uncontrolledIndex;
-  const changeIndex = (index: number) => {
-    if (activeIndex !== undefined) {
-      onActiveIndexChange?.(index);
-    } else {
-      setUncontrolledIndex(index);
-    }
-  };
+  const changeIndex = useCallback((index: number) => {
+    if (activeIndex === undefined) setUncontrolledIndex(index);
+    onActiveIndexChange?.(index);
+  }, [activeIndex, onActiveIndexChange]);
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const paused = hovered || focused;
+
   useEffect(() => {
-    if (autoPlay && slideCount > 1) {
+    if (autoPlay && !paused && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, slideCount]);
+  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);
@@ -155,6 +156,13 @@ const RdsCarousel = ({
       aria-roledescription="carousel"
       aria-label="Carousel"
       {...rest}
+      onMouseEnter={(event) => { setHovered(true); rest.onMouseEnter?.(event); }}
+      onMouseLeave={(event) => { setHovered(false); rest.onMouseLeave?.(event); }}
+      onFocus={(event) => { setFocused(true); rest.onFocus?.(event); }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
+        rest.onBlur?.(event);
+      }}
       ref={ref}
       style={typeof styleProp === 'object' ? styleProp : undefined}
       className={carouselClassName}

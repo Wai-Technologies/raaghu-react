@@ -25,7 +25,7 @@ jest.mock('./rds-pagination.helpers', () => ({
     showPrevNext: false,
     showNextOnly: false,
   }),
-  calculatePaginationConfig: (style: string, config: any) => ({
+  calculatePaginationConfig: () => ({
     finalSiblingCount: 1,
     finalBoundaryCount: 1,
   }),
@@ -279,6 +279,7 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} showManualInput={true} />
       );
       expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
+      expect(screen.getByRole('spinbutton', { name: 'Go to page' })).toBeInTheDocument();
     });
 
     it('should not render manual input by default', () => {
@@ -689,7 +690,7 @@ describe('RdsPagination', () => {
 
     it('should handle page size changes affecting total pages', async () => {
       const onPageSizeChange = jest.fn();
-      const { rerender } = renderWithTheme(
+      renderWithTheme(
         <RdsPagination 
           {...defaultProps}
           count={100}

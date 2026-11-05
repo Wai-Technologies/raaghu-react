@@ -17,7 +17,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-// @ts-ignore Side-effect stylesheet import is resolved by bundler.
 import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {
@@ -47,6 +46,8 @@ export interface AdaptiveCardProps {
   cardText?: string;
   cardTitle?: string;
   showHeader?: boolean;
+  showTitleIcon?: boolean;
+  /** @deprecated Use `showTitleIcon`. */
   showDismiss?: boolean;
   type?: string;
   closeIcon?: boolean;
@@ -206,13 +207,13 @@ export function InputFormCard(props: AdaptiveCardProps) {
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void }) {
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showTitleIcon, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showTitleIcon?: boolean; onImageClick?: (index: number) => void }) {
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
           <RdsStack direction="row" spacing={0} alignItems="center" className="rds-adaptive-cards__header-title-row">
-            {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
+            {showTitleIcon && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
               <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
@@ -229,7 +230,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             }
             items.push(
               <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" style={{ height: undefined }} onClick={() => onImageClick && onImageClick(index)}>
-                <img src={src} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
+                <img src={src || undefined} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
               </ImageListItem>
             );
             return items;
@@ -292,7 +293,7 @@ export function FootballScorecardCard({
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
             {homeTeam?.logo ? (
               <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--home">
-                <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
+                <img src={homeTeam.logo || undefined} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
               </RdsBox>
             ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{homeTeam?.name}</RdsTypography>
@@ -311,7 +312,7 @@ export function FootballScorecardCard({
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
              {awayTeam?.logo ? (
                 <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--away">
-                  <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
+                  <img src={awayTeam.logo || undefined} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
                 </RdsBox>
               ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam?.name}</RdsTypography>
@@ -401,12 +402,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={snoozeLabel || btn1Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{snoozeLabel || btn1Label}</RdsButton>
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={lateLabel || btn2Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{lateLabel || btn2Label}</RdsButton>
           </RdsBox>
         )}
       </RdsStack>
@@ -434,7 +435,6 @@ export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions 
         options={radioOptionsMapped}
         value={selectedValue}
         onChange={e => setSelectedValue(e.target.value)}
-        direction="column"
         layout="icon with label"
         className="rds-adaptive-cards__activity-update-radio-group"
       />

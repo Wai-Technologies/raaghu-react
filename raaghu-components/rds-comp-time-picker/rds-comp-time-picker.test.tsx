@@ -130,7 +130,7 @@ describe('RdsCompTimePicker', () => {
 
     colorVariants.forEach((color) => {
       it(`should apply color variant ${color}`, () => {
-        const { container } = render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
+        render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
         const input = screen.getByPlaceholderText('12:00 AM');
         expect(input).toHaveClass(`border-${color}`);
       });

@@ -27,7 +27,7 @@ jest.mock('../../raaghu-elements', () => ({
     <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{children ?? buttonText}</button>
   ),
   RdsAvatar: ({ src, className, ...props }: any) => (
-    <img src={src} className={className} alt="avatar" data-testid="rds-avatar" {...props} />
+    <img src={src || undefined} className={className} alt="avatar" data-testid="rds-avatar" {...props} />
   ),
   RdsRadio: ({ options, value, onChange, className, ...props }: any) => (
     <div className={className} data-testid="rds-radio" {...props}>
@@ -128,7 +128,7 @@ jest.mock('../../raaghu-elements/rds-typography/rds-typography', () => {
 
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar({ src, name, className, ...props }: any) {
-    return <img src={src} className={className} alt={name || 'avatar'} data-testid="rds-avatar-standalone" {...props} />;
+    return <img src={src || undefined} className={className} alt={name || 'avatar'} data-testid="rds-avatar-standalone" {...props} />;
   };
 });
 
@@ -144,10 +144,10 @@ jest.mock('../../raaghu-elements/rds-chip/rds-chip', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ text, onClick, className, disabled, style, fullWidth, textCase, sx, ...props }: any) {
+  return function MockRdsButton({ text, children, onClick, className, disabled, style, fullWidth, textCase, sx, ...props }: any) {
     return (
       <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-standalone" {...props}>
-        {text}
+        {text ?? children}
       </button>
     );
   };
@@ -207,17 +207,24 @@ describe('RdsCompAdaptiveCards', () => {
       expect(screen.getByText('Test Text')).toBeInTheDocument();
     });
 
-    it('renders with dismiss button when showDismiss is true', () => {
+    it('renders title icon when showTitleIcon is true', () => {
       render(
         <RdsCompAdaptiveCards
           type="Default"
-          showDismiss={true}
+          showTitleIcon={true}
           showHeader={true}
           cardTitle="Test"
         />
       );
       const cards = screen.getAllByText('Test');
       expect(cards.length).toBeGreaterThan(0);
+    });
+
+    it('still honours deprecated showDismiss as alias for showTitleIcon', () => {
+      const { container } = render(
+        <RdsCompAdaptiveCards type="Default" showDismiss={true} showHeader={true} cardTitle="Test" />
+      );
+      expect(container.querySelector('.custom-box__circle')).toBeInTheDocument();
     });
 
     it('renders close icon when closeIcon is true', () => {
@@ -290,7 +297,7 @@ describe('RdsCompAdaptiveCards', () => {
     });
 
     it('applies correct button styles', () => {
-      const { container } = render(
+      render(
         <RdsCompAdaptiveCards
           type="Default"
           showBtn1={true}

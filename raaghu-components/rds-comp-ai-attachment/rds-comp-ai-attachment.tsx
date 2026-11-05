@@ -291,11 +291,10 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
 
       {showModal && (
         <RdsModal
-          isOpen={showModal}
+          open={showModal}
           onClose={closeModal}
           title={dialog?.title ?? modalTitle}
           actions={null}
-          showCloseButton={true}
         >
           <p className="text-muted rds-comp-ai-attachment__import-size">{dialog?.text ?? modalText}</p>
           <RdsInput

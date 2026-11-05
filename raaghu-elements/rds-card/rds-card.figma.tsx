@@ -21,7 +21,7 @@ figma.connect(
     },
     example: (props) => (
       <RdsCard {...props}
-            cardSubtext="Card Subtitle"
+            subtitle="Card Subtitle"
             icon={<Person />}
             description="In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo"
             layout="vertical"
@@ -38,8 +38,9 @@ figma.connect(
             p: 0,
             textTransform: 'none'
           }}
-          text="Link Button >"
-        />
+        >
+          {"Link Button >"}
+        </RdsButton>
       </RdsCard>
     ),
   },

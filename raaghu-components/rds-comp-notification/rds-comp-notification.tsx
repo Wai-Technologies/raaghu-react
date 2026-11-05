@@ -24,8 +24,8 @@ const CustomBellIcon = () => (
 
 const EMPTY_NOTIFICATIONS: NotificationItem[] = [];
 
-const getNotificationKey = (notification: NotificationItem, index: number): string | number =>
-    notification.id ?? notification.userNotificationId ?? `${notification.title}-${index}`;
+const getNotificationKey = (notification: NotificationItem, index: number): string =>
+    `${notification.id ?? notification.userNotificationId ?? notification.title}-${index}`;
 
 const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string } = ({
     items,
@@ -86,12 +86,13 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
         .map((notification, index) => ({ notification, key: getNotificationKey(notification, index) }))
         .filter(({ key }) => isReset || !dismissedNotificationKeys.includes(key));
 
-    const dismissNotification = (event: MouseEvent<HTMLElement>, notification: NotificationItem, key: string | number) => {
+    const dismissNotification = (event: MouseEvent<HTMLElement>, notification: NotificationItem, key: string) => {
         setDismissedNotificationKeys((prev) => prev.includes(key) ? prev : [...prev, key]);
         onDismiss?.(event, notification);
     };
 
     const isHorizontalImage = layout === NotificationLayout.Horizontal && style === NotificationStyle.Image;
+    const isHorizontalLayout = layout === NotificationLayout.Horizontal;
 
     return (
         <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}>
@@ -110,6 +111,16 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                     sx={{ padding: isHorizontalImage ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: isHorizontalImage ? "flex" : "block",overflow: "hidden"
                     }}>
 
+                    {resolvedDismissVisible && !isHorizontalLayout && (
+                        <RdsIconButton
+                            iconFilled={<Close />}
+                            size="small"
+                            aria-label="Dismiss notification"
+                            onClick={(e) => dismissNotification(e, notification, key)}
+                            className="rds-comp-notification__dismiss"
+                        />
+                    )}
+
                     {isHorizontalImage && (
                         <Box
                             className="rds-comp-notification__image-sidebar"
@@ -124,14 +135,23 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         </Box>
                     )}
 
-                    <Box sx={{
-                        flex: isHorizontalImage ? 1 : "none",
-                        padding: isHorizontalImage ? 2 : 0,
-                        position: "relative"
-                    }}>
-
-                    {resolvedDismissVisible && (
-                        <RdsIconButton iconFilled={<Close />} size="small" aria-label="Dismiss notification" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__dismiss" />)}
+                    <Box
+                        className="rds-comp-notification__content"
+                        sx={{
+                            flex: isHorizontalImage ? 1 : "none",
+                            padding: isHorizontalImage ? 2 : 0,
+                            position: "relative",
+                        }}
+                    >
+                    {resolvedDismissVisible && isHorizontalLayout && (
+                        <RdsIconButton
+                            iconFilled={<Close />}
+                            size="small"
+                            aria-label="Dismiss notification"
+                            onClick={(e) => dismissNotification(e, notification, key)}
+                            className="rds-comp-notification__dismiss"
+                        />
+                    )}
 
                     <Box
                         className="rds-comp-notification__header"
@@ -223,12 +243,16 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         {resolvedShowButton && (
                             <>
                                 {resolvedShowSecondaryButton && (
-                                    <RdsButton text={dismissLabel} size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
-                                    />
+                                    <RdsButton size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
+                                    >
+                                      {dismissLabel}
+                                    </RdsButton>
                                 )}
                                 {resolvedShowPrimaryButton && (
-                                    <RdsButton text={acceptLabel} size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
-                                    />
+                                    <RdsButton size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
+                                    >
+                                      {acceptLabel}
+                                    </RdsButton>
                                 )}
                             </>
                         )}

@@ -10,6 +10,10 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
 
+const mockUnknownProps = ['activeIndex', 'controlStyle', 'endIcon', 'startIcon', 'fullWidth', 'helperText', 'hideClearAllOnMobile', 'openOnFocus', 'popupIcon', 'showCheckbox', 'showHintText', 'showHint', 'showPreview', 'showRadio', 'showTitle', 'showUser', 'slotProps', 'multiline', 'loading', 'loadingPosition'];
+const mockOmitUnknownProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(props).filter(([key]) => !mockUnknownProps.includes(key)));
+
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, sx, ...props }: any) => {
     const style = sx ? Object.keys(sx).reduce((acc: any, key: string) => {
@@ -17,21 +21,21 @@ jest.mock('@mui/material', () => ({
       return acc;
     }, {}) : {};
     return (
-      <div data-testid="box" className={className} style={style} {...props}>{children}</div>
+      <div data-testid="box" className={className} style={style} {...mockOmitUnknownProps(props)}>{children}</div>
     );
   },
   Typography: ({ children, variant, className, ...props }: any) => (
-    <div data-testid={`typography-${variant}`} className={className} {...props}>{children}</div>
+    <div data-testid={`typography-${variant}`} className={className} {...mockOmitUnknownProps(props)}>{children}</div>
   ),
   Paper: ({ children, className, ...props }: any) => (
-    <div data-testid="paper" className={className} {...props}>{children}</div>
+    <div data-testid="paper" className={className} {...mockOmitUnknownProps(props)}>{children}</div>
   ),
   IconButton: ({ children, onClick, className, ...props }: any) => (
     <button
       data-testid="icon-button"
       onClick={onClick}
       className={className}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     >
       {children}
     </button>
@@ -53,7 +57,7 @@ jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
       data-height={height}
       data-style={style}
       data-type={type}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     >
       {children}
     </div>
@@ -69,7 +73,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
       data-color-variant={colorVariant}
       data-shape={shape}
       data-layout={layout}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     >
       {badgeContent}
     </span>
@@ -83,7 +87,7 @@ jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
       data-accept={accept}
       data-max-files={maxFiles}
       data-max-size={maxSize}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     >
       {hintText}
     </div>
@@ -97,14 +101,14 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     />
   ),
 }));
 jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => ({
   __esModule: true,
   default: ({ options, placeholder, ...props }: any) => (
-    <div data-testid="rds-autocomplete" data-placeholder={placeholder} {...props}></div>
+    <div data-testid="rds-autocomplete" data-placeholder={placeholder} {...mockOmitUnknownProps(props)}></div>
   ),
 }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
@@ -116,7 +120,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
       className={className}
       data-style={style}
       data-size={size}
-      {...props}
+      {...mockOmitUnknownProps(props)}
     >
       {text}
     </button>
@@ -162,7 +166,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should not render if not visible', () => {
-      const { rerender } = render(<RdsCompProductTour {...defaultProps} />);
+      render(<RdsCompProductTour {...defaultProps} />);
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
   });
@@ -355,7 +359,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should render form tabs', () => {
-      const { container } = render(
+      render(
         <RdsCompProductTour
           {...defaultProps}
           variant="Form"
@@ -454,7 +458,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should hide component when dismiss button clicked', () => {
-      const { container } = render(
+      render(
         <RdsCompProductTour {...defaultProps} showDismiss={true} variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
@@ -996,6 +1000,39 @@ describe('RdsCompProductTour', () => {
       render(<RdsCompProductTour variant="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'formTitle', '`subtitle`');
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'topLeft', '`anchorCorner`');
+    });
+  });
+
+  describe('focus management', () => {
+    it('sets aria-modal and moves focus into the dialog', () => {
+      render(<RdsCompProductTour variant="Image" title="T" />);
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-modal', 'true');
+      expect(dialog).toHaveFocus();
+    });
+
+    it('closes on Escape via onClose and restores focus', async () => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      render(<RdsCompProductTour variant="Image" title="T" onClose={onClose} />);
+      await user.keyboard('{Escape}');
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(opener).toHaveFocus();
+      opener.remove();
+    });
+
+    it('traps Tab within the dialog', async () => {
+      const user = userEvent.setup();
+      render(<RdsCompProductTour variant="Image" title="T" stepsIndicator="1/3" />);
+      const dialog = screen.getByRole('dialog');
+      await user.tab();
+      await user.tab({ shift: true });
+      await user.tab({ shift: true });
+      expect(dialog).toContainElement(document.activeElement as HTMLElement);
     });
   });
 });

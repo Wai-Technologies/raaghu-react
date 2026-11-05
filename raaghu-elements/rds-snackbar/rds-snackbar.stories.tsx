@@ -50,10 +50,11 @@ const SnackbarTemplate = (args: any) => {
         shape="rectangle"
         size="medium"
         variant="filled"
-        text="Show Snackbar"
         textCase="unset"
         onClick={() => setOpen(true)}
-      />
+      >
+        Show Snackbar
+      </RdsButton>
       <RdsSnackbar
         {...args}
         open={open}

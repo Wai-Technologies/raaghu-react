@@ -101,6 +101,12 @@ describe('RdsRadio', () => {
       expect(container.querySelector('.rds-radio--icon')).toBeInTheDocument();
     });
 
+    it('names each radio from its option label in icon layout', () => {
+      renderWithTheme(<RdsRadio options={[{ value: 'a', label: 'Apple' }, { value: 'b' }]} layout="icon" />);
+      expect(screen.getByRole('radio', { name: 'Apple' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'b' })).toBeInTheDocument();
+    });
+
     it('should render with icon with label layout', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
@@ -680,7 +686,7 @@ describe('RdsRadio', () => {
     });
 
     it('should have proper label associations in standard layout', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
           layout="icon with label"

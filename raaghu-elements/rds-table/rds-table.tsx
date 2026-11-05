@@ -264,10 +264,9 @@ const RdsTable = ({
     );
   };
 
-  const checkboxRowIds = useMemo<string[]>(
-    () => rows.map((r, index) => getRowId(r, index)),
-    [rows]
-  );
+  const rowIdMap = useMemo(() => new Map(rows.map((r, index) => [r, getRowId(r, index)])), [rows]);
+  const checkboxRowIds = useMemo(() => [...rowIdMap.values()], [rowIdMap]);
+  const idOf = (row: RdsTableRow, index: number) => rowIdMap.get(row) ?? getRowId(row, index);
   const isAllCellCheckboxSelected = checkboxRowIds.length > 0 && checkboxRowIds.every((id) => cellCheckboxSelected.has(id));
   const isCellCheckboxIndeterminate = cellCheckboxSelected.size > 0 && !isAllCellCheckboxSelected;
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -284,8 +283,7 @@ const RdsTable = ({
 
   const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const allRowIds = rows.map((row, index) => getRowId(row, index));
-      handleRowSelection(event, allRowIds);
+      handleRowSelection(event, checkboxRowIds);
     } else {
       handleRowSelection(event, []);
     }
@@ -301,7 +299,7 @@ const RdsTable = ({
   const renderCellContent = (column: RdsTableColumn, value: ReactNode, row: RdsTableRow, rowIndex: number, rowNumber: number): ReactNode => {
     switch (column.type) {
       case 'checkbox': {
-        const rowId = getRowId(row, rowIndex);
+        const rowId = idOf(row, rowIndex);
         const isChecked = cellCheckboxSelected.has(rowId);
         return (
           <div className="rds-table__checkbox">
@@ -316,7 +314,7 @@ const RdsTable = ({
         );
       }
       case 'radio': {
-        const rowId = getRowId(row, rowIndex);
+        const rowId = idOf(row, rowIndex);
         const isChecked = cellRadioSelected === rowId;
         return (
           <Radio
@@ -440,7 +438,7 @@ const RdsTable = ({
           </MuiTableHead>
           <MuiTableBody className="rds-table__body">
             {(isClientPaged ? sortedRows.slice(rowOffset, rowOffset + internalPageSize) : sortedRows).map((row, index) => {
-              const rowId = getRowId(row, index);
+              const rowId = idOf(row, index);
               const rowNumber = rowOffset + index + 1;
               const isSelected = currentSelectedRows.includes(rowId);
               return (

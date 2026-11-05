@@ -159,11 +159,12 @@ export const Default: Story = {
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
-        text="Link Button >"
         variant="transparent"
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
-      />
+      >
+        {"Link Button >"}
+      </RdsButton>
     ),
   },
   play: async ({ canvasElement }) => {
@@ -216,8 +217,8 @@ export const WithActions: Story = {
     children: (
       <>
         <CardActions style={{ marginLeft: '-12px' }}>
-          <RdsButton text="Learn More" size="small" textCase='capitalize' variant="transparent" />
-          <RdsButton text="Share" size="small" textCase='capitalize' variant="transparent" />
+          <RdsButton size="small" textCase='capitalize' variant="transparent">Learn More</RdsButton>
+          <RdsButton size="small" textCase='capitalize' variant="transparent">Share</RdsButton>
         </CardActions>
       </>
     ),
@@ -363,22 +364,24 @@ export const WithAvatar: Story = {
                   </div>
                 ) : (
                   <div className="rds-card__edit-actions">
-                    <RdsButton 
-                      text="Save"
+                    <RdsButton
                       variant="filled"
                       textCase='capitalize'
                       color="primary"
                       size="small"
                       onClick={handleSave}
-                    />
-                    <RdsButton 
-                      text="Cancel"
+                    >
+                      Save
+                    </RdsButton>
+                    <RdsButton
                       variant="outlined"
                       textCase='capitalize'
                       color="primary"
                       size="small"
                       onClick={handleCancel}
-                    />
+                    >
+                      Cancel
+                    </RdsButton>
                   </div>
                 )}
               </>
@@ -411,15 +414,15 @@ export const WithBadges: Story = {
       <div className="rds-card__badges">
         <RdsBadge 
           badgeContent="Design System"
-          colorVariant="secondary"
-          styleType="primary"
+          color="secondary"
+          variant="primary"
           size="medium"
           shape="rectangle"
         />
         <RdsBadge 
           badgeContent="Javascript"
-          colorVariant="primary"
-          styleType="primary"
+          color="primary"
+          variant="primary"
           size="medium"
           shape="rectangle"
         />
@@ -449,19 +452,21 @@ export const WithButton: Story = {
     children: (
       <div className="rds-card__button-group">
         <RdsButton
-          text="Cancel"
           variant="transparent"
           textCase='capitalize'
           color="primary"
           size="small"
-        />
+        >
+          Cancel
+        </RdsButton>
         <RdsButton
-          text="Okay"
           variant="filled"
           textCase='capitalize'
           color="primary"
           size="small"
-        />
+        >
+          Okay
+        </RdsButton>
       </div>
     ),
   },
@@ -517,19 +522,21 @@ export const WithImage: Story = {
         </div>
         <div className="rds-card__button-group">
           <RdsButton
-            text="Cancel"
             variant="transparent"
             textCase='capitalize'
             color="primary"
             size="small"
-          />
+          >
+            Cancel
+          </RdsButton>
           <RdsButton
-            text="Okay"
             variant="filled"
             textCase='capitalize'
             color="primary"
             size="small"
-          />
+          >
+            Okay
+          </RdsButton>
         </div>
       </>
     ),
@@ -556,11 +563,12 @@ export const WithLinkButton: Story = {
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
-        text="Link Button >"
         variant="transparent"
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
-      />
+      >
+        {"Link Button >"}
+      </RdsButton>
     ),
   },
 };
@@ -587,8 +595,8 @@ export const WithTags: Story = {
         <div className="rds-card__tags">
           <RdsBadge 
             badgeContent="Javascript"
-            colorVariant="primary"
-            styleType="primary"
+            color="primary"
+            variant="primary"
             size="medium"
             shape="rectangle"
           />

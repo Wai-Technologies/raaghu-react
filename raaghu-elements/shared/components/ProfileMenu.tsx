@@ -95,7 +95,7 @@ export const ProfileMenu = ({
             <RdsAvatar
               description={isSmallScreen ? undefined : designation}
               displayStyle={isSmallScreen ? undefined : 'with-name'}
-              title={name}
+              name={name}
               showDesignation={!isSmallScreen}
               showName={!isSmallScreen}
               size="small"

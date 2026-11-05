@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsFab, { type RdsFabProps } from './rds-fab';
 import * as deprecation from '../shared/utils/deprecation';
+import * as a11yWarnings from '../shared/utils/a11y-warnings';
 
 jest.mock('./rds-fab.scss', () => ({}));
 
@@ -51,7 +52,7 @@ describe('RdsFab', () => {
     });
 
     it('should render icon alone when variant is not extended', () => {
-      render(<RdsFab icon={<span data-testid="test-icon">★</span>} />);
+      render(<RdsFab aria-label="Add" icon={<span data-testid="test-icon">★</span>} />);
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
@@ -67,7 +68,7 @@ describe('RdsFab', () => {
           <circle cx="10" cy="10" r="5" />
         </svg>
       );
-      render(<RdsFab icon={svgIcon} />);
+      render(<RdsFab aria-label="Add" icon={svgIcon} />);
       expect(screen.getByTestId('svg-icon')).toBeInTheDocument();
     });
   });
@@ -255,7 +256,7 @@ describe('RdsFab', () => {
     });
 
     it('should render icon when only icon is provided', () => {
-      render(<RdsFab icon={icon} />);
+      render(<RdsFab aria-label="Add" icon={icon} />);
       expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
 
@@ -272,7 +273,7 @@ describe('RdsFab', () => {
 
   describe('Position with Content', () => {
     it('should apply position styles with icon', () => {
-      render(<RdsFab icon={<span>★</span>} position="bottom-right" />);
+      render(<RdsFab aria-label="Add" icon={<span>★</span>} position="bottom-right" />);
       expect(pos()).toBe('fixed');
     });
 
@@ -293,7 +294,7 @@ describe('RdsFab', () => {
     });
 
     it('should handle empty string label', () => {
-      const { container } = render(<RdsFab label="" icon={<span>Icon</span>} />);
+      const { container } = render(<RdsFab aria-label="Add" label="" icon={<span>Icon</span>} />);
       expect(container).toBeInTheDocument();
     });
 
@@ -419,7 +420,7 @@ describe('audit fixes', () => {
 
     it('keeps icon precedence over array children (unchanged behaviour)', () => {
       render(
-        <RdsFab icon={<span data-testid="icon">I</span>}>
+        <RdsFab aria-label="Add" icon={<span data-testid="icon">I</span>}>
           <span data-testid="c1">1</span>
           <span data-testid="c2">2</span>
         </RdsFab>
@@ -457,8 +458,11 @@ describe('audit fixes', () => {
     });
 
     it('does not set aria-label for an empty label', () => {
+      const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName').mockImplementation(() => {});
       render(<RdsFab icon={<span>★</span>} label="" />);
+      expect(warn).toHaveBeenCalled();
       expect(fabEl()).not.toHaveAttribute('aria-label');
+      warn.mockRestore();
     });
 
     it('does not set aria-label when children are rendered', () => {
@@ -510,12 +514,23 @@ describe('RdsFab additive renames', () => {
   });
 
   it('warns for icon', () => {
-    render(<RdsFab icon={<span />} />);
+    render(<RdsFab aria-label="Add" icon={<span />} />);
     expect(warn).toHaveBeenCalledWith('RdsFab', 'icon', '`startIcon`');
   });
 
   it('forwards data-testid to the root button', () => {
     render(<RdsFab data-testid="add-fab" aria-label="Add" startIcon={<span>★</span>} />);
     expect(screen.getByTestId('add-fab')).toBe(screen.getByRole('button', { name: 'Add' }));
+  });
+});
+
+describe('RdsFab accessible name warning', () => {
+  it('warns only when an icon-only fab has no accessible name', () => {
+    const warn = jest.spyOn(a11yWarnings, 'warnMissingAccessibleName').mockImplementation(() => {});
+    render(<RdsFab startIcon={<span>+</span>} aria-label="Add" />);
+    expect(warn).not.toHaveBeenCalled();
+    render(<RdsFab startIcon={<span>+</span>} />);
+    expect(warn).toHaveBeenCalledWith('RdsFab', expect.any(String));
+    warn.mockRestore();
   });
 });

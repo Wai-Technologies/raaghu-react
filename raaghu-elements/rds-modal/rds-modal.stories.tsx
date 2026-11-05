@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
@@ -114,9 +114,11 @@ export const WithActions = {
           showLeftIcon
           size="medium"
           variant="outlined"
-          text="Cancel"
-          textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
+          textCase="uppercase"
+        >
+          Cancel
+        </RdsButton>
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled">Delete</RdsButton>
       </>
     ),
   },
@@ -146,8 +148,10 @@ export const WithoutCloseButton = {
           showLeftIcon
           size="medium"
           variant="outlined"
-          text="Cancel"
-          textCase="uppercase" />    ),
+          textCase="uppercase"
+        >
+          Cancel
+        </RdsButton>    ),
   },
 };
 
@@ -185,9 +189,11 @@ export const LargeModal = {
           showLeftIcon
           size="medium"
           variant="outlined"
-          text="Cancel"
-          textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
+          textCase="uppercase"
+         >
+           Cancel
+         </RdsButton>
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled">Delete</RdsButton>
       </>
     ),
   },
@@ -218,9 +224,11 @@ export const SmallModal = {
           showLeftIcon
           size="medium"
           variant="outlined"
-          text="Cancel"
-          textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
+          textCase="uppercase"
+         >
+           Cancel
+         </RdsButton>
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled">Delete</RdsButton>
       </>
     ),
   },

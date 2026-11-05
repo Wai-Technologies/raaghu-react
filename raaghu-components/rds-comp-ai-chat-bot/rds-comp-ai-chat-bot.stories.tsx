@@ -19,9 +19,6 @@ const meta: Meta = {
     sx: { control: "object", description: "MUI system styles applied to the chat container." },
     ref: { control: false, description: "React ref to the chat container; assign it in code." },
     slotProps: { control: "object", description: "Props passed to inner slots; `typingSection` reaches the prompt input." },
-    iconName: {
-      table: { disable: true },
-    },
   },
 } satisfies Meta<typeof RdsCompAiChatBot>;
 
@@ -36,7 +33,7 @@ export const Default: Story = {
       <RdsCompAiChatBot
         {...args}
         messages={messages}
-        setMessages={setMessages}
+        onSend={(message) => setMessages((prev) => [...prev, message])}
       />
     );
   },
@@ -44,7 +41,6 @@ export const Default: Story = {
     assistantAvatar: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
     userAvatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     placeholder: "Ask a followup",
-    iconName: "enhancer",
     slotProps: {
       typingSection: {
         onNewProjectClick: fn(),
