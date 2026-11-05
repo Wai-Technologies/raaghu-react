@@ -37,6 +37,9 @@ jest.mock('@mui/material', () => ({
     );
   },
   InputAdornment: ({ children }: any) => <div data-testid="input-adornment">{children}</div>,
+  InputBase: ({ value, onChange, placeholder, className, slotProps }: any) => (
+    <input type="text" value={value} onChange={onChange} placeholder={placeholder} className={className} {...slotProps?.input} />
+  ),
   Chip: ({ icon, label, onClick, variant, color, className, ...props }: any) => (
     <button
       onClick={onClick}
@@ -298,9 +301,25 @@ describe('RdsEmojiGenerator', () => {
       hasNot(setup({ showFooter: false }).container, '.rds-emoji-generator__footer');
     });
 
-    it('should display footer text', () => {
+    it('should display footer mood input', () => {
       setup({ showFooter: true });
-      expect(screen.getByText("What's your mood?")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText("What's your mood?")).toBeInTheDocument();
+    });
+
+    it('should let the user type a mood and report it', () => {
+      const onMoodChange = jest.fn();
+      setup({ showFooter: true, onMoodChange });
+      const input = screen.getByPlaceholderText("What's your mood?") as HTMLInputElement;
+      fireEvent.change(input, { target: { value: 'Feeling great' } });
+      expect(input.value).toBe('Feeling great');
+      expect(onMoodChange).toHaveBeenCalledWith(expect.anything(), 'Feeling great');
+    });
+
+    it('should filter the grid to emojis matching the typed mood', () => {
+      const { container } = setup({ showFooter: true });
+      fireEvent.change(screen.getByPlaceholderText("What's your mood?"), { target: { value: 'dog' } });
+      const shown = [...container.querySelectorAll('.rds-emoji-generator__grid-container .rds-emoji-generator__emoji')].map((e) => e.textContent);
+      expect(shown).toEqual(['🐶', '🐕']);
     });
 
     it('should display footer emoji', () => {

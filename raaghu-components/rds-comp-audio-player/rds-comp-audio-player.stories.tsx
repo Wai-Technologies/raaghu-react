@@ -22,6 +22,7 @@ const meta: Meta<typeof RdsCompAudioPlayer> = {
                 options: ['Audio Edition', 'Audio Player', 'Collapsed'],
                 description: 'Select the audio player type',
             },
+            variant: { table: { disable: true } },
     },
 } satisfies Meta<typeof RdsCompAudioPlayer>;
 
