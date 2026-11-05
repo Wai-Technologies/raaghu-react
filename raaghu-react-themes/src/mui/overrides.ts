@@ -844,18 +844,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
               opacity: 'var(--rds-switch-disabled-opacity, 0.6)',
             },
         },
-        '&.rds-switch--color-info': {
-          '& .MuiSwitch-thumb': {
-            background: 'var(--rds-color-switch-thumb)',
-          },
-          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
-            background: 'var(--rds-info-light)',
-            opacity: 1,
-          },
-          '& .Mui-checked + .MuiSwitch-thumb, & .MuiSwitch-input:checked + .MuiSwitch-thumb': {
-            background: 'var(--rds-primary-main)',
-          },
-        },
         '&.rds-switch--color-success': {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',

@@ -57,7 +57,6 @@ const meta: Meta<typeof RdsLoader> = {
   tags: ['autodocs', 'stable'],
   args: {
     overlay: false,
-    value: 0,
     thickness: 3.6,
   },
   argTypes: {
@@ -86,7 +85,7 @@ const meta: Meta<typeof RdsLoader> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: ['primary', 'secondary', 'error', 'warning', 'success'],
     },
     value: {
       control: { type: 'range', min: 0, max: 100 },
@@ -217,7 +216,6 @@ export const Colors: Story = {
       <RdsLoader variant="circular" color="secondary" />
       <RdsLoader variant="circular" color="error" />
       <RdsLoader variant="circular" color="warning" />
-      <RdsLoader variant="circular" color="info" />
       <RdsLoader variant="circular" color="success" />
     </Box>
   ),
@@ -229,7 +227,6 @@ export const Colors: Story = {
               <RdsLoader variant="circular" color="secondary" />
               <RdsLoader variant="circular" color="error" />
               <RdsLoader variant="circular" color="warning" />
-              <RdsLoader variant="circular" color="info" />
               <RdsLoader variant="circular" color="success" />`,
       },
     },

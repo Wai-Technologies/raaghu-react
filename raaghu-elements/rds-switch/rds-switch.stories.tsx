@@ -37,7 +37,7 @@ const meta: Meta<typeof RdsSwitch> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: ['primary', 'secondary', 'error', 'warning', 'success'],
       description: 'Switch color variant',
     },
   },
