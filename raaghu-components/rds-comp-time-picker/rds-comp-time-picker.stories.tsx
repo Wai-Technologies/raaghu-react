@@ -9,7 +9,7 @@ const meta: Meta = {
         status: { type: 'stable' },
     layout: "padded",
     controls: {
-    exclude: ['onChange', 'value'],
+    exclude: ['onChange', 'value', 'defaultOpen'],
     },
   },
   tags: ["autodocs", 'stable'],

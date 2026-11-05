@@ -72,7 +72,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
     const resolvedShowSecondaryButton = actions === 'secondary' || actions === 'both' || legacyShowSecondaryButton === true;
-    const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
+    const resolvedShowButton = legacyShowButton ?? (actions !== 'none' || resolvedShowPrimaryButton || resolvedShowSecondaryButton);
 
     const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
     const [prevNotifications, setPrevNotifications] = useState(notifications);
