@@ -109,6 +109,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const showTitleIcon = props.showTitleIcon ?? props.showDismiss ?? false;
   const resolvedBtn1Style = getRdsButtonStyle(btn1style);
   const resolvedBtn2Style = getRdsButtonStyle(btn2style);
+  // Input form and restaurant order buttons stay filled unless btn1style is passed, matching the previous look.
+  const formBtn1Style: ButtonStyle = props.btn1style ? resolvedBtn1Style : "filled";
 
   const calendarLabel =
     type === "CalenderReminder" ? label || VARIANT_DEFAULTS.label : label;
@@ -306,6 +308,9 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   showBtn2={showBtn2}
                   btn1Label={props.snoozeLabel ? undefined : btn1Label}
                   btn2Label={props.lateLabel ? undefined : btn2Label}
+                  // Both outlined unless btn1style/btn2style are passed, matching the previous look.
+                  btn1Variant={props.btn1style ? resolvedBtn1Style : undefined}
+                  btn2Variant={props.btn2style ? resolvedBtn2Style : undefined}
                 />
               )}
               {type === "InputForm" && (
@@ -380,8 +385,11 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 showBtn1 ? (
                   <RdsButton
                     textCase="unset"
-                    variant="filled"
-                    className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
+                    variant={formBtn1Style}
+                    className={clsx(
+                      "rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order",
+                      formBtn1Style === "filled" && "rds-button__primary"
+                    )}
                     fullWidth
                     onClick={props.onBtn1Click}
                   >
@@ -394,8 +402,11 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     (type === "InputForm" ? (
                       <RdsButton
                         textCase="unset"
-                        variant="filled"
-                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
+                        variant={formBtn1Style}
+                        className={clsx(
+                          "rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button",
+                          formBtn1Style === "filled" && "rds-button__primary"
+                        )}
                         fullWidth
                         onClick={props.onBtn1Click}
                       >
@@ -403,7 +414,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       </RdsButton>
                     ) : type === "ActivityUpdateCard" ? (
                       <RdsButtonDropdown
-                        variant="outline"
+                        // Outlined unless btn1style is passed, matching the previous look.
+                        variant={props.btn1style ? resolvedBtn1Style : "outlined"}
                         options={activityDropdownOptions}
                         onChange={() => {}}
                         showRadio={true}

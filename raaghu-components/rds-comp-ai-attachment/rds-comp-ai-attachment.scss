@@ -4,6 +4,21 @@
     --rds-ai-attachment-min-width: 273px;
     --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs);
 
+    // `placement` moves the icon to the start or end of the container.
+    &--placement-start,
+    &--placement-end {
+        display: flex;
+        width: 100%;
+    }
+
+    &--placement-start {
+        justify-content: flex-start;
+    }
+
+    &--placement-end {
+        justify-content: flex-end;
+    }
+
     &__icon {
         height: var(--rds-size-xl);
         width: var(--rds-size-xl);

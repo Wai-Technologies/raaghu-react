@@ -255,9 +255,12 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 
   const onAddButtonClick = () => {
+    const name = boardName.trim();
+    // A board without a name is never rendered, so don't add one.
+    if (!name) return;
     const newBoard: KanbanBoardInfo = {
       cardId: generateRandomId(),
-      name: boardName,
+      name,
       color: "primary",
       subCardIndex: boards.length,
       subCards: [],
@@ -269,6 +272,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setIsEditingBoardName((prevState: boolean[]) => [...prevState, false]);
     setShowAddBoardBtn(false);
     setAddButton(true);
+    setBoardName("");
     setShowBoard(true);
   };
 

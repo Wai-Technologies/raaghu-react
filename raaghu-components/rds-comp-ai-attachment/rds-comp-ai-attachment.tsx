@@ -58,7 +58,7 @@ export interface RdsCompAiAttachmentProps
   onAddComment?: (comment: Comment) => void;
   /** @deprecated Use `onAddComment` instead. */
   handleAddComment?: (comment: Comment) => void;
-  /** Side the menu opens to. */
+  /** Puts the icon at the start or end of its container; the menu opens inward from that edge. When omitted the icon keeps its natural position. */
   placement?: "start" | "end";
   /** @deprecated Use `placement` instead. */
   menuAlignment?: "left" | "right";
@@ -128,6 +128,7 @@ const DEPRECATED_PROPS = {
   handleAddComment: "`onAddComment`",
 } as const;
 
+// `placement` puts the icon at the start/end of its container; the menu is anchored on that same edge so it opens inward.
 const PLACEMENT_ALIGNMENT = { start: "left", end: "right" } as const;
 
 /** Attachment menu for the AI chat: upload from Figma (modal) or import an image from the device. */
@@ -261,7 +262,12 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
-    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment", "rds-comp-ai-attachment__dropdown", className)} sx={sx}>
+    <Box {...rest} ref={ref} className={clsx(
+        "rds-comp-ai-attachment",
+        "rds-comp-ai-attachment__dropdown",
+        placement && `rds-comp-ai-attachment--placement-${placement}`,
+        className
+      )} sx={sx}>
       <input
         type="file"
         accept="image/*"

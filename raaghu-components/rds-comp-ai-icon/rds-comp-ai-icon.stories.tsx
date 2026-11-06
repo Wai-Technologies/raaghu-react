@@ -22,7 +22,6 @@ const meta: Meta<typeof RdsCompAiIcon> = {
                 "error",
                 "warning",
                 "light",
-                "info",
                 "secondary",
                 "dark",
             ],

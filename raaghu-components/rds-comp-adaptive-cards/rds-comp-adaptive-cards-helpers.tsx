@@ -342,6 +342,10 @@ export type CalendarReminderFormProps = {
   showBtn2?: boolean;
   btn1Label?: string;
   btn2Label?: string;
+  /** Variant of the first action button. @default 'outlined' */
+  btn1Variant?: 'filled' | 'outlined' | 'transparent';
+  /** Variant of the second action button. @default 'outlined' */
+  btn2Variant?: 'filled' | 'outlined' | 'transparent';
 };
 
 const EMPTY_CALENDAR_REMINDER_OPTIONS: CalendarReminderOption[] = [];
@@ -360,6 +364,8 @@ export function CalendarReminderForm({
   showBtn2,
   btn1Label,
   btn2Label,
+  btn1Variant = 'outlined',
+  btn2Variant = 'outlined',
 }: CalendarReminderFormProps) {
   const [selected, setSelected] = useState("");
   const resolvedSideOptions = sideOptions ?? EMPTY_CALENDAR_REMINDER_OPTIONS;
@@ -402,12 +408,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{snoozeLabel || btn1Label}</RdsButton>
+            <RdsButton variant={btn1Variant} className="rds-adaptive-cards__action-btn" textCase="unset">{snoozeLabel || btn1Label}</RdsButton>
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset">{lateLabel || btn2Label}</RdsButton>
+            <RdsButton variant={btn2Variant} className="rds-adaptive-cards__action-btn" textCase="unset">{lateLabel || btn2Label}</RdsButton>
           </RdsBox>
         )}
       </RdsStack>
