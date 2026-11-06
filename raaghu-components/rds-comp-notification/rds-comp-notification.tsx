@@ -37,6 +37,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     layout: figmaLayout,
     variant,
     style: styleProp,
+    color,
     severity,
     type,
     actions = 'none',
@@ -55,11 +56,12 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
     ...rest
 }) => {
-    if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
+    if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
+    if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
     if (defaultImage !== undefined) warnDeprecatedProp('RdsCompNotification', 'defaultImage', '`fallbackImage`');
     if (dismiss !== undefined) warnDeprecatedProp('RdsCompNotification', 'dismiss', '`showDismiss`');
-    const resolvedType = severity ?? type ?? NotificationType.Info;
+    const resolvedType = color ?? severity ?? type ?? NotificationType.Info;
     const notifications = items ?? legacyNotifications ?? EMPTY_NOTIFICATIONS;
     const layout = orientation ?? figmaLayout ?? NotificationLayout.Horizontal;
     const legacyStyle = typeof styleProp === 'string' ? styleProp : undefined;

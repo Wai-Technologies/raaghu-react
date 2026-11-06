@@ -503,23 +503,27 @@ describe('RdsAlert', () => {
       expect(buttons.every((btn) => btn.getAttribute('data-color') === 'error')).toBe(true);
     });
 
-    it('should use primary color for buttons when alert type is not error', () => {
-      render(
-        <RdsAlert
-          {...defaultProps}
-          type="success"
-          showButtons={true}
-          showSecondary={true}
-          showPrimary={true}
-        />
-      );
-      const buttons = screen.getAllByTestId('rds-button');
-      const primaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Okay');
-      const secondaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Cancel');
+    it.each(['info', 'success', 'warning', 'error'] as const)(
+      'should match button color to color "%s"',
+      (severity) => {
+        render(
+          <RdsAlert
+            {...defaultProps}
+            color={severity}
+            showButtons={true}
+            showSecondary={true}
+            showPrimary={true}
+          />
+        );
+        const buttons = screen.getAllByTestId('rds-button');
+        const primaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Okay');
+        const secondaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Cancel');
 
-      expect(primaryButton).toHaveAttribute('data-color', 'primary');
-      expect(secondaryButton).toHaveAttribute('data-color', 'info');
-    });
+        expect(primaryButton).toHaveAttribute('data-color', severity);
+        expect(secondaryButton).toHaveAttribute('data-color', severity);
+        expect(secondaryButton).toHaveClass(`rds-alert__secondary-button--${severity}`);
+      },
+    );
   });
 
   describe('Custom ClassName', () => {
@@ -869,7 +873,15 @@ describe('RdsAlert audit fixes', () => {
 
   it('does not warn for the boolean props, which are the supported API', () => {
     (warnDeprecatedProp as jest.Mock).mockClear();
-    render(<RdsAlert description="Message" showTitle showLink={false} multiline />);
+    render(<RdsAlert description="Message" color="success" showTitle showLink={false} multiline />);
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('uses color, which wins over the deprecated severity and type', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsAlert description="Message" color="success" severity="error" type="warning" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-alert--success', 'MuiAlert-standardSuccess');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'severity', '`color`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'type', '`color`');
   });
 });

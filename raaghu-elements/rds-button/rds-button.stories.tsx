@@ -22,7 +22,7 @@ const meta: Meta<typeof RdsButton> = {
 },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: ['primary', 'secondary', 'error', 'warning', 'success'],
       description: 'The color of the button',
     },
     size: {

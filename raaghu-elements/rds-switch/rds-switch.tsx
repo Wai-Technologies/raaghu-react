@@ -20,6 +20,8 @@ export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'>
   variant?: SwitchVariant;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: SwitchVariant | CSSProperties;
+  /** Switch color. `'info'` is deprecated; use `'primary'`. @default 'primary' */
+  color?: SwitchProps['color'];
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -46,9 +48,12 @@ const RdsSwitch = ({
   variant,
   showLabel,
   className,
+  color: colorProp,
   'data-testid': dataTestId,
-  ...props
+  ...rest
 }: RdsSwitchProps & { 'data-testid'?: string }) => {
+  if (colorProp === 'info') warnDeprecatedProp('RdsSwitch', 'color="info"', '`color: "primary"`');
+  const props = { ...rest, color: colorProp === 'info' ? 'primary' : colorProp } as Omit<RdsSwitchProps, 'style'>;
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
   if (layout !== undefined) warnDeprecatedProp('RdsSwitch', 'layout', '`labelPlacement`');
   const legacyVariant = typeof style === 'string' ? style : undefined;

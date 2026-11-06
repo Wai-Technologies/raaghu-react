@@ -33,7 +33,7 @@ export interface RdsCompAiAttachmentProps
   /** Props passed to the badge; `color` sets its color variant. */
   badgeProps?: RdsCompAiAttachmentBadgeProps;
   /** @deprecated Use `badgeProps.color` instead. */
-  badgeColor?: RdsBadgeProps["colorVariant"];
+  badgeColor?: RdsBadgeProps["color"];
   /** @deprecated Use `slotProps.menu.uploadText` instead. */
   uploadText?: string;
   /** @deprecated Use `slotProps.menu.importText` instead. */
@@ -69,7 +69,7 @@ export interface RdsCompAiAttachmentProps
 }
 
 export type RdsCompAiAttachmentBadgeProps = Omit<Partial<RdsBadgeProps>, "color"> & {
-  color?: RdsBadgeProps["colorVariant"];
+  color?: RdsBadgeProps["color"];
 };
 
 export interface RdsCompAiAttachmentSlotProps {
@@ -242,7 +242,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
                   size="small"
                   styleType="primary"
                   {...badgeRest}
-                  colorVariant={color ?? badgeRest.colorVariant ?? (badgeColor || "primary")}
+                  color={color ?? badgeRest.colorVariant ?? (badgeColor || "primary")}
                   {...(isValidElement(badgeContent) ? { startIcon: badgeContent } : { badgeContent })}
                 />
               )}

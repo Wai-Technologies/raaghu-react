@@ -18,8 +18,8 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             source: {
                 transform: (code: string) => {
-                    code = code.replace(/severity="([^"]+)"/g, (match, p1) => `severity={ToastSeverity.${p1.replace(/\s+/g, "")}}`);;
-                    code = code.replace(/severity:\s*"([^"]+)"/g, (match, p1) => `severity: ToastSeverity.${p1.replace(/\s+/g, "")}`);
+                    code = code.replace(/color="([^"]+)"/g, (match, p1) => `color={ToastSeverity.${p1.replace(/\s+/g, "")}}`);;
+                    code = code.replace(/color:\s*"([^"]+)"/g, (match, p1) => `color: ToastSeverity.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: ToastLayout.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/icon="([^"]+)"/g, (match, p1) => `icon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
@@ -46,7 +46,7 @@ const meta: Meta<typeof RdsCompToast> = {
             description: 'Screen anchor (`vertical` + `horizontal`). Wins over `position` when both are set.',
         },
         onClose: { control: false, description: 'Called when the toast closes (timeout or dismiss).' },
-        severity: {
+        color: {
             options: Object.values(ToastSeverity),
             control: {
                 type: "select",
@@ -134,7 +134,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        severity: ToastSeverity.Basic,
+        color: ToastSeverity.Basic,
         title: "Toast Headline",
         showSubText: true,
         message: "This is a big sample placeholder text.",

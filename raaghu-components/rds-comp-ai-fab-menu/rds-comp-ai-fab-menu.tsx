@@ -45,9 +45,9 @@ export interface RdsCompAiFabMenuItem {
 export interface RdsCompAiFabMenuProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "color" | "onClick" | "id" | "aria-label" | "children"> {
   /** Color of the trigger button. */
-  color?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
+  color?: "primary" | "secondary" | "success" | "info" | "warning" | "error" | "danger" | "dark" | "light";
   /** @deprecated Use `color` instead. */
-  colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
+  colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "error" | "danger" | "dark" | "light";
   /** Size of the trigger button. */
   size?: "small" | "medium" | "large";
   /** Built-in icon name or custom element shown on the trigger button. */
@@ -160,7 +160,8 @@ function RdsCompAiFabMenu({
   if (backgroundType !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "backgroundType", "`variant`");
   if (alignment !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "alignment", "`placement`");
 
-  const resolvedColor = color ?? colorVariant ?? "primary";
+  const requestedColor = color ?? colorVariant ?? "primary";
+  const resolvedColor = requestedColor === "error" ? "danger" : requestedColor;
   const resolvedIcon = icon ?? menuIcon ?? "list";
   const resolvedItems = items ?? listItems ?? [];
   const resolvedBordered = bordered ?? isShowBorder;

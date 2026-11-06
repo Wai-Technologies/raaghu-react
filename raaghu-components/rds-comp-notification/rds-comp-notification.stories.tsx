@@ -24,7 +24,7 @@ const meta: Meta = {
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: NotificationLayout.${p1.replace(/\s+/g, '')}`);
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: NotificationStyle.${p1.replace(/\s+/g, '')}`);
-                    code = code.replace(/severity="([^"]+)"/g, (match, p1) => `severity={NotificationType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/color="([^"]+)"/g, (match, p1) => `color={NotificationType.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: NotificationType.${p1.replace(/\s+/g, '')}`);
                     return code;
                 }
@@ -59,7 +59,7 @@ const meta: Meta = {
             options: ["default", "avatar", "icon", "image"],
             control: { type: "select" },
         },
-        severity: {
+        color: {
             options: ["error", "info", "success", "warning"],
             control: { type: "select" },
         },
@@ -89,7 +89,7 @@ export const Default: Story = {
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
         orientation: NotificationLayout.Horizontal,
         variant: NotificationStyle.Default,
-        severity: NotificationType.Info,
+        color: NotificationType.Info,
         showButton: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
@@ -113,7 +113,7 @@ export const Default: Story = {
 
 Default.parameters = {
     controls: {
-        include: ['title', 'description', 'fallbackImage', 'orientation', 'variant', 'severity', 'items', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss', 'className', 'sx', 'ref']
+        include: ['title', 'description', 'fallbackImage', 'orientation', 'variant', 'color', 'items', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss', 'className', 'sx', 'ref']
     }
 };
 

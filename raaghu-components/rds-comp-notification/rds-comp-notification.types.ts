@@ -37,7 +37,7 @@ export interface NotificationItem {
   [key: string]: unknown;
 }
 
-export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children"> {
+export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children" | "color"> {
   /** Notifications to render. */
   items?: NotificationItem[];
   /** @deprecated Use `items` instead. */
@@ -58,9 +58,11 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   variant?: NotificationStyle | `${NotificationStyle}`;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: NotificationStyle | `${NotificationStyle}` | CSSProperties;
-  /** MUI-named alias for `type`. */
+  /** Semantic color of the notification. @default 'info' */
+  color?: NotificationType;
+  /** @deprecated Use `color` instead. */
   severity?: NotificationType;
-  /** @deprecated Use `severity` instead. */
+  /** @deprecated Use `color` instead. */
   type?: NotificationType;
   /** Which action buttons to show. @default 'none' */
   actions?: "none" | "primary" | "secondary" | "both";

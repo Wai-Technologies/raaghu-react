@@ -25,10 +25,10 @@ const meta: Meta<typeof RdsAlert> = {
       control: 'text',
       description: 'The message to display in the alert',
     },
-    severity: {
+    color: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
-      description: 'The type/severity of the alert',
+      description: 'Semantic color of the alert',
     },
     variant: {
       control: 'select',
@@ -118,7 +118,7 @@ const baseArgs = {
 export const Default: Story = {
   args: {
     ...baseArgs,
-    severity: 'info',
+    color: 'info',
     size: 'medium',
     multiline: false,
     showDescription: true,
@@ -130,21 +130,21 @@ export const Default: Story = {
 };
 
 export const Error: Story = {
-  args: { ...baseArgs, severity: 'error' },
+  args: { ...baseArgs, color: 'error' },
 };
 
 export const Filled: Story = {
-  args: { ...baseArgs, severity: 'success', variant: 'filled' },
+  args: { ...baseArgs, color: 'success', variant: 'filled' },
 };
 
 export const Outlined: Story = {
-  args: { ...baseArgs, severity: 'warning', variant: 'outlined' },
+  args: { ...baseArgs, color: 'warning', variant: 'outlined' },
 };
 
 export const Success: Story = {
-  args: { ...baseArgs, severity: 'success' },
+  args: { ...baseArgs, color: 'success' },
 };
 
 export const Warning: Story = {
-  args: { ...baseArgs, severity: 'warning' },
+  args: { ...baseArgs, color: 'warning' },
 };

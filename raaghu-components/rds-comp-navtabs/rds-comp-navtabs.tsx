@@ -46,9 +46,9 @@ export type RdsCompNavTabItem = {
   id: string | number;
   count?: number;
   /** Accent color for the tab badge/count. `danger` is accepted as an alias of `error` via consumers. */
-  color?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
+  color?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "info" | "light" | "success";
   /** @deprecated Use `color`. */
-  colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
+  colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "info" | "light" | "success";
 };
 
 export interface RdsCompNavtabsProps {

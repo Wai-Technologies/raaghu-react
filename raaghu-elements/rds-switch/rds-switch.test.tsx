@@ -283,12 +283,12 @@ describe('RdsSwitch', () => {
       expect(switchElement).toBeInTheDocument();
     });
 
-    it('should apply info color', () => {
+    it('maps deprecated info color to primary', () => {
       const { container } = renderWithTheme(
         <RdsSwitch color="info" />
       );
-      const switchElement = container.querySelector('.rds-switch--color-info');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--color-primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--color-info')).not.toBeInTheDocument();
     });
 
     it('should apply success color', () => {
