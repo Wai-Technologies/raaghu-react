@@ -42,7 +42,7 @@ jest.mock('@mui/material', () => ({
   Select: ({ children, onChange, label, ...props }: any) => (
     <mockSelectContext.Provider value><select data-testid="select" onChange={(e) => onChange?.(e)} {...mockOmitUnknownProps(props)}>{children}</select></mockSelectContext.Provider>
   ),
-  Autocomplete: ({ onChange, renderInput, label, ...props }: any) => (
+  Autocomplete: ({ onChange, renderInput, label, isOptionEqualToValue: _isOptionEqualToValue, ...props }: any) => (
     <div data-testid="autocomplete" {...mockOmitUnknownProps(props)}>
       {renderInput?.({ id: 'autocomplete-input' })}
     </div>
@@ -622,6 +622,23 @@ describe('audit fixes', () => {
     fireEvent.click(screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Board'))!);
     const boards = onBoardDataChange.mock.calls[0][0];
     expect(boards.map((b: boardInfo) => b.name)).toEqual(['Board 1', 'Board 2', 'New']);
+  });
+
+  it('does not add a board with an empty title', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} allowAddingNewCard onBoardDataChange={onBoardDataChange} />);
+    fireEvent.change(screen.getByPlaceholderText('Enter Board Title'), { target: { value: '   ' } });
+    fireEvent.keyDown(screen.getByPlaceholderText('Enter Board Title'), { key: 'Enter' });
+    expect(onBoardDataChange).not.toHaveBeenCalled();
+  });
+
+  it('adds a board on Enter and clears the title', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} allowAddingNewCard onBoardDataChange={onBoardDataChange} />);
+    fireEvent.change(screen.getByPlaceholderText('Enter Board Title'), { target: { value: 'New' } });
+    fireEvent.keyDown(screen.getByPlaceholderText('Enter Board Title'), { key: 'Enter' });
+    expect(onBoardDataChange.mock.calls[0][0].map((b: boardInfo) => b.name)).toEqual(['Board 1', 'Board 2', 'New']);
+    expect(screen.queryByText('New', { selector: '.card-name' })).toBeInTheDocument();
   });
 
   it('G5-117: onBoardDataChange fires on board delete', () => {

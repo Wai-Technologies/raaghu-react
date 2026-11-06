@@ -199,11 +199,13 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
 export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__navigation-row">
         <Typography variant="inherit" component="span" className={stepClass}>{currentIndicator}</Typography>
-        {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
-        <Box className={arrowClass}>
-            <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
-                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+        <Box className="rds-comp-product-tour__nav-actions">
+            {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
+            <Box className={arrowClass}>
+                <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
+                    {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+                    {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+                </Box>
             </Box>
         </Box>
     </Box>

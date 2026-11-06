@@ -58,6 +58,10 @@ const meta: Meta<typeof RdsCompToolbar> = {
                 defaultValue: { summary: 'ToolbarLayout.Primary' },
             },
         },
+        variant: {
+            control: false,
+            table: { disable: true },
+        },
         type: {
             control: {
                 type: 'select',

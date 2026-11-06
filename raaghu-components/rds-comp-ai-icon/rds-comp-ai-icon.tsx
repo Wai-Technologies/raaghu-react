@@ -105,7 +105,7 @@ export interface RdsCompAiIconProps
   width?: string;
   /** Icon height as a CSS length. */
   height?: string;
-  /** Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`. */
+  /** Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`; `info` is deprecated and maps to `primary`. */
   color?: RaaghuPaletteColor;
   /** @deprecated Use `color`. */
   colorVariant?: RaaghuPaletteColor;
@@ -290,9 +290,11 @@ const RdsCompAiIconComponent = ({
     [height, width, strokeWidth, position]
   );
 
-  const resolvedColor = normalizePaletteColor(
+  const paletteColor = normalizePaletteColor(
     resolveDeprecatedProp(color, colorVariant, "RdsCompAiIcon", "colorVariant", "`color`"),
   );
+  if (paletteColor === "info") warnDeprecatedProp("RdsCompAiIcon", 'color="info"', '`color: "primary"`');
+  const resolvedColor = paletteColor === "info" ? "primary" : paletteColor;
 
   const className = clsx(
     "rds-comp-ai-icon",

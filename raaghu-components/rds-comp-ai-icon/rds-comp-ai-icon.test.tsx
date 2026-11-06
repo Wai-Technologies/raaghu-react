@@ -136,6 +136,13 @@ describe('RdsCompAiIcon', () => {
       expect(icon).toHaveClass('rds-comp-ai-icon--primary');
     });
 
+    it('maps deprecated info color to primary', () => {
+      const { container } = render(<RdsCompAiIcon {...defaultProps} color="info" />);
+      const icon = getIcon(container);
+      expect(icon).toHaveClass('rds-comp-ai-icon--primary');
+      expect(icon).not.toHaveClass('rds-comp-ai-icon--info');
+    });
+
     it('applies different color variants', () => {
       const variants: RdsCompAiIconProps['colorVariant'][] = ['primary', 'secondary', 'success', 'danger', 'warning'];
       variants.forEach((variant) => {

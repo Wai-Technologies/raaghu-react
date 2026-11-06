@@ -247,6 +247,15 @@ const RdsCompAudioPlayer = ({
     audioElement.volume = volumeLevel / 100;
   }, [audioElement, volumeLevel]);
 
+  // Hiding the volume/settings control also closes its popup, so it doesn't reappear open when shown again.
+  useEffect(() => {
+    if (!showVolume) updateAudioState({ showVolumeSlider: false });
+  }, [showVolume, updateAudioState]);
+
+  useEffect(() => {
+    if (!showSettings) updateAudioState({ showSettingsModal: false });
+  }, [showSettings, updateAudioState]);
+
   useEffect(() => {
     const audio = audioElement;
     if (!audio) return;
@@ -617,7 +626,7 @@ const RdsCompAudioPlayer = ({
                 </button>
               )}
               <VolumeSliderComponent
-                showVolumeSlider={showVolumeSlider}
+                showVolumeSlider={showVolume && showVolumeSlider}
                 volumeSliderRef={volumeSliderRef}
                 volumeLevel={volumeLevel}
                 handleVolumeChange={handleVolumeChange}
@@ -625,7 +634,7 @@ const RdsCompAudioPlayer = ({
             </div>
           </div>
           <SettingsModalComponent
-            showSettingsModal={showSettingsModal}
+            showSettingsModal={showSettings && showSettingsModal}
             settingsModalRef={settingsModalRef}
             anchorEl={settingsButtonRef.current}
             playbackSpeed={playbackSpeed}
