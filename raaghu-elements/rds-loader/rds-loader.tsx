@@ -34,7 +34,7 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
   const {
     variant = 'circular',
     size = 'medium',
-    color: colorProp = 'primary',
+    color: colorProp,
     value,
     label,
     overlay = false,
@@ -43,7 +43,7 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
     ...rest
   } = props;
   if (colorProp === 'info') warnDeprecatedProp('RdsLoader', 'color="info"', '`color: "primary"`');
-  const color = colorProp === 'info' ? 'primary' : colorProp;
+  const color = colorProp === 'info' ? 'primary' : colorProp ?? 'primary';
 
   if (loaderType) {
     let type = loaderType;
@@ -58,7 +58,12 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
       <Root
         {...(rest as object)}
         ref={ref as Ref<HTMLDivElement>}
-        className={clsx('rds-loader__type-wrap', className)}
+        className={clsx(
+          'rds-loader__type-wrap',
+          // CSS loaders keep their own palette unless a color is passed explicitly.
+          colorProp !== undefined && ['rds-loader__type-wrap--colored', `rds-loader__type-wrap--color-${color}`],
+          className,
+        )}
         {...(sx ? { sx } : {})}
       >
         <div className={classes} />

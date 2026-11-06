@@ -705,6 +705,69 @@
   }
 }
 
+// `color` on a CSS-only loader (`type`): recolor each loader with the chosen palette color.
+@each $name in primary, secondary, error, warning, success {
+  .rds-loader__type-wrap--color-#{$name} {
+    --rds-loader-type-color: var(--rds-#{$name}-main);
+  }
+}
+
+.rds-loader__type-wrap--colored {
+  --rds-loader-type-color-soft: color-mix(in srgb, var(--rds-loader-type-color) 40%, transparent);
+
+  .rds-loader__hash {
+    --rds-loader-ball-pink: var(--rds-loader-type-color);
+    --rds-loader-ball-cyan: color-mix(in srgb, var(--rds-loader-type-color) 75%, transparent);
+    --rds-loader-ball-green: color-mix(in srgb, var(--rds-loader-type-color) 55%, transparent);
+    --rds-loader-ball-amber: var(--rds-loader-type-color-soft);
+  }
+
+  .rds-loader__jump {
+    --rds-loader-jump-fill: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__line-wobble {
+    --uib-color: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__sand {
+    --c1: var(--rds-loader-type-color);
+    --c2: var(--rds-loader-type-color-soft);
+  }
+
+  .rds-loader__moving {
+    --loader-color: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__rolling-rock::after {
+    background-color: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__round {
+    color: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__rotate {
+    --rds-loader-rotate-primary: var(--rds-loader-type-color);
+    --rds-loader-rotate-secondary: color-mix(in srgb, var(--rds-loader-type-color) 70%, transparent);
+    --rds-loader-rotate-tertiary: var(--rds-loader-type-color-soft);
+  }
+
+  .rds-loader__spin {
+    border-right-color: var(--rds-loader-type-color);
+  }
+
+  .rds-loader__triangle {
+    background: conic-gradient(from 120deg at 50% 64%, transparent, var(--rds-loader-type-color) 1deg 120deg, transparent 121deg);
+  }
+
+  .rds-loader__spinner-ring {
+    --rds-loader-spinner-accent: var(--rds-loader-type-color-soft);
+    border-top-color: var(--rds-loader-type-color);
+    border-right-color: var(--rds-loader-type-color);
+  }
+}
+
 @keyframes rds-loader-spin {
   0% {
     transform: rotate(0deg);
