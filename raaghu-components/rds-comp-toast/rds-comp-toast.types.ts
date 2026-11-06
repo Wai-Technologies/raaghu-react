@@ -83,7 +83,9 @@ export interface RdsCompToastProps {
   };
   /** Toast layout variant: text, download, chat or request. */
   layout: ToastLayout;
-  /** Severity and visual treatment of the toast. */
+  /** Semantic color of the toast. @default 'basic' */
+  color?: ToastSeverity;
+  /** @deprecated Use `color` instead. */
   severity?: ToastSeverity;
   /** Placeholder of the reply input in the chat layout. */
   placeholder?: string;

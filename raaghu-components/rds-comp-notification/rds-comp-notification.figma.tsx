@@ -30,7 +30,7 @@ figma.connect(
         Icon: NotificationStyle.Icon,
         Image: NotificationStyle.Image,
       }),
-      type: figma.enum("⚠️ Type", {
+      color: figma.enum("⚠️ Type", {
         Error: NotificationType.Error,
         Info: NotificationType.Info,
         Success: NotificationType.Success,

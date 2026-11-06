@@ -124,7 +124,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const progress = props.progress ?? props.progressWidth;
     const position = resolveToastPosition(props.anchorOrigin, props.position);
 
-    const _stateClass = getStateClass(props.severity);
+    if (props.severity !== undefined) warnDeprecatedProp('RdsCompToast', 'severity', '`color`');
+    const _stateClass = getStateClass(props.color ?? props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { onClose } = props;

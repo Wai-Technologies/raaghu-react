@@ -14,9 +14,9 @@ jest.mock('@mui/icons-material/Attachment', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
-  return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
+  return function MockRdsBadge({ badgeContent, color, colorVariant, styleType, ...props }: any) {
     return (
-      <span data-testid="rds-badge" data-color={colorVariant} {...props}>
+      <span data-testid="rds-badge" data-color={color ?? colorVariant} {...props}>
         {badgeContent}
       </span>
     );

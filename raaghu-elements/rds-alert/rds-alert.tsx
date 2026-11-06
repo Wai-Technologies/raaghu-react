@@ -8,7 +8,11 @@ import './rds-alert.scss';
 
 type Visibility = 'visible' | 'hidden';
 
-export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'> {
+export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content' | 'color' | 'severity'> {
+  /** Semantic color of the alert and its action buttons. @default 'info' */
+  color?: AlertColor;
+  /** @deprecated Use `color`. */
+  severity?: AlertColor;
   /** Message text. A string `children` is used when this is not set. */
   description?: string;
   /** Heading shown before the message when `showTitle` is on. */
@@ -45,7 +49,7 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
   onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Called when the primary button is clicked. */
   onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  /** @deprecated Use `severity`. */
+  /** @deprecated Use `color`. */
   type?: AlertColor;
   /** @deprecated Use `icon`. */
   changeIconName?: ReactNode;
@@ -77,6 +81,7 @@ const withIconClass = (node: ReactNode): ReactNode =>
 const RdsAlert = ({
   description,
   children,
+  color,
   severity,
   icon,
   title = 'Heading Title.',
@@ -104,7 +109,8 @@ const RdsAlert = ({
   className,
   ...props
 }: RdsAlertProps) => {
-  if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`severity`');
+  if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`color`');
+  if (severity !== undefined) warnDeprecatedProp('RdsAlert', 'severity', '`color`');
   if (changeIconName !== undefined) warnDeprecatedProp('RdsAlert', 'changeIconName', '`icon`');
   if (content !== undefined) warnDeprecatedProp('RdsAlert', 'content', '`showIcon`, `showTitle`, `showDescription` and `multiline`');
   if (actions !== undefined) warnDeprecatedProp('RdsAlert', 'actions', '`showButtons`, `showLink`, `showSecondary` and `showPrimary`');
@@ -118,8 +124,7 @@ const RdsAlert = ({
   const showSecondary = pick(actions?.secondary, 'visible', showSecondaryProp);
   const showPrimary = pick(actions?.primary, 'visible', showPrimaryProp);
 
-  const resolvedSeverity: AlertColor = severity ?? type ?? 'info';
-  const isError = resolvedSeverity === 'error';
+  const resolvedColor: AlertColor = color ?? severity ?? type ?? 'info';
   const hasElementChildren = isValidElement(children);
   const mainText = description ?? (!hasElementChildren ? children : undefined);
 
@@ -136,12 +141,12 @@ const RdsAlert = ({
   );
   const secondaryButton = showSecondary && (
     <RdsButton
-      className={isError ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
+      className={`rds-alert__secondary-button rds-alert__secondary-button--${resolvedColor}`}
       variant="transparent"
       size="small"
       sx={multiline ? undefined : { mr: showPrimary ? 2 : 0 }}
       textCase="capitalize"
-      color={isError ? 'error' : 'info'}
+      color={resolvedColor}
       onClick={onSecondaryClick}
     >
       {secondaryText}
@@ -152,7 +157,7 @@ const RdsAlert = ({
       className="rds-alert__primary-button"
       variant="filled"
       size="small"
-      color={isError ? 'error' : 'primary'}
+      color={resolvedColor}
       textCase="capitalize"
       onClick={onPrimaryClick}
     >
@@ -164,13 +169,13 @@ const RdsAlert = ({
     <MuiAlert
       {...props}
       variant={variant}
-      severity={resolvedSeverity}
+      severity={resolvedColor}
       icon={iconNode}
       className={clsx(
         'rds-alert',
         `rds-alert--${size}`,
         `rds-alert--${variantStyle}`,
-        `rds-alert--${resolvedSeverity}`,
+        `rds-alert--${resolvedColor}`,
         multiline && 'rds-alert--multiline',
         className,
       )}

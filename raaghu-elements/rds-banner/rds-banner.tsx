@@ -10,7 +10,11 @@ import './rds-banner.scss';
 type Visibility = 'visible' | 'hidden';
 type Toggle = 'on' | 'off';
 
-export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component' | 'content'> {
+export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component' | 'content' | 'color' | 'severity'> {
+  /** Semantic color of the banner. @default 'info' */
+  color?: AlertColor;
+  /** @deprecated Use `color`. */
+  severity?: AlertColor;
   /** Message text. */
   description?: string;
   /** Heading shown before the message when the title is visible. */
@@ -53,7 +57,7 @@ export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component'
   onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Called when the primary button is clicked. */
   onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  /** @deprecated Use `severity`. */
+  /** @deprecated Use `color`. */
   type?: AlertColor;
   /** Extra content rendered next to the close button. MUI `action` replaces the whole action area instead. */
   actions?: ReactNode;
@@ -88,6 +92,7 @@ const pick = (value: string | undefined, on: string, fallback: boolean) =>
 const RdsBanner = ({
   description,
   children,
+  color,
   severity,
   icon,
   action,
@@ -121,7 +126,8 @@ const RdsBanner = ({
   className,
   ...props
 }: RdsBannerProps) => {
-  if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`severity`');
+  if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`color`');
+  if (severity !== undefined) warnDeprecatedProp('RdsBanner', 'severity', '`color`');
 
   const showIcon = pick(content?.icon, 'visible', IconProp ?? true);
   const showTitle = pick(content?.title, 'visible', showTitleProp ?? false);
@@ -149,21 +155,21 @@ const RdsBanner = ({
     return null;
   }
 
-  const resolvedSeverity: AlertColor = severity ?? type ?? 'info';
+  const resolvedColor: AlertColor = color ?? severity ?? type ?? 'info';
   const muiVariant = variant ?? (variantStyle === 'style2' ? 'outlined' : 'standard');
   const iconNode: ReactNode = icon !== undefined ? icon : showIcon ? <InfoOutlinedIcon /> : false;
 
   return (
     <MuiAlert
       {...props}
-      severity={resolvedSeverity}
+      severity={resolvedColor}
       variant={muiVariant}
       icon={iconNode}
       className={clsx(
         'rds-banner',
         `rds-banner--${size}`,
         `rds-banner--${variantStyle}`,
-        `rds-banner--${resolvedSeverity}`,
+        `rds-banner--${resolvedColor}`,
         fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width',
         showOutline && variantStyle !== 'style3' && `rds-banner--${variantStyle}-outline`,
         className,

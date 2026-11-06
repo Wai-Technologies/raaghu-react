@@ -765,6 +765,13 @@
       ],
       "props": [
         {
+          "name": "color",
+          "type": "AlertColor",
+          "required": false,
+          "default": "'info'",
+          "description": "Semantic color of the alert and its action buttons."
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -901,8 +908,12 @@
           "use": "Use `showIcon`, `showTitle`, `showDescription` and `multiline`."
         },
         {
+          "name": "severity",
+          "use": "Use `color`."
+        },
+        {
           "name": "type",
-          "use": "Use `severity`."
+          "use": "Use `color`."
         }
       ]
     },
@@ -3056,6 +3067,12 @@
       ],
       "props": [
         {
+          "name": "color",
+          "type": "AlertColor",
+          "required": false,
+          "description": "Semantic color of the alert. Defaults to 'info'."
+        },
+        {
           "name": "hideCloseButton",
           "type": "boolean",
           "required": false,
@@ -3072,12 +3089,6 @@
           "type": "(() => void)",
           "required": false,
           "description": "Called when the snackbar closes (clickaway is ignored)."
-        },
-        {
-          "name": "severity",
-          "type": "AlertColor",
-          "required": false,
-          "description": "Alert severity. Defaults to 'info'."
         }
       ],
       "deprecatedProps": [
@@ -3086,12 +3097,16 @@
           "use": "Use `autoHideDuration` instead."
         },
         {
+          "name": "severity",
+          "use": "Use `color` instead."
+        },
+        {
           "name": "showCloseButton",
           "use": "Use `hideCloseButton` instead."
         },
         {
           "name": "type",
-          "use": "Use `severity` instead."
+          "use": "Use `color` instead."
         }
       ]
     },
@@ -4439,6 +4454,13 @@
           "description": "Shows the close button. Defaults to `true`. Overridden by `actionsConfig.close`."
         },
         {
+          "name": "color",
+          "type": "AlertColor",
+          "required": false,
+          "default": "'info'",
+          "description": "Semantic color of the banner."
+        },
+        {
           "name": "content",
           "type": "{ icon?: Visibility; title?: Visibility; description?: Visibility | undefined; multiline?: Toggle | undefined; } | undefined",
           "required": false,
@@ -4585,8 +4607,12 @@
       ],
       "deprecatedProps": [
         {
+          "name": "severity",
+          "use": "Use `color`."
+        },
+        {
           "name": "type",
-          "use": "Use `severity`."
+          "use": "Use `color`."
         }
       ]
     },
@@ -5704,6 +5730,13 @@
           "description": "Extra CSS class applied to the toast container."
         },
         {
+          "name": "color",
+          "type": "ToastSeverity",
+          "required": false,
+          "default": "'basic'",
+          "description": "Semantic color of the toast."
+        },
+        {
           "name": "filename",
           "type": "string",
           "required": false,
@@ -5776,12 +5809,6 @@
           "description": "Ref to the toast container element."
         },
         {
-          "name": "severity",
-          "type": "ToastSeverity",
-          "required": false,
-          "description": "Severity and visual treatment of the toast."
-        },
-        {
           "name": "showDismiss",
           "type": "boolean",
           "required": false,
@@ -5844,6 +5871,10 @@
         {
           "name": "progressWidth",
           "use": "Use `progress` instead."
+        },
+        {
+          "name": "severity",
+          "use": "Use `color` instead."
         },
         {
           "name": "subText",
@@ -7892,6 +7923,13 @@
           "description": "Which action buttons to show."
         },
         {
+          "name": "color",
+          "type": "NotificationType",
+          "required": false,
+          "default": "'info'",
+          "description": "Semantic color of the notification."
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -7947,16 +7985,10 @@
           "description": "Ref to the root element."
         },
         {
-          "name": "severity",
-          "type": "NotificationType",
-          "required": false,
-          "description": "MUI-named alias for `type`."
-        },
-        {
           "name": "showButton",
           "type": "boolean",
           "required": false,
-          "description": "Legacy boolean, still supported."
+          "description": "Legacy boolean, still supported. `false` hides all action buttons."
         },
         {
           "name": "showDismiss",
@@ -8009,12 +8041,16 @@
           "use": "Use `items` instead."
         },
         {
+          "name": "severity",
+          "use": "Use `color` instead."
+        },
+        {
           "name": "style",
           "use": "Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles."
         },
         {
           "name": "type",
-          "use": "Use `severity` instead."
+          "use": "Use `color` instead."
         }
       ]
     },
@@ -8843,6 +8879,12 @@
           "description": "Called with the event and the emoji when one is picked."
         },
         {
+          "name": "onMoodChange",
+          "type": "((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement, Element>, mood: string) => void)",
+          "required": false,
+          "description": "Called with the event and the text as the user types in the footer mood input, which filters emojis across all categories."
+        },
+        {
           "name": "onMoreClick",
           "type": "(() => void)",
           "required": false,
@@ -9437,7 +9479,7 @@
         },
         {
           "name": "color",
-          "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warning\" | \"danger\" | \"light\" | \"dark\"",
+          "type": "\"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\" | \"danger\" | \"light\" | \"dark\"",
           "required": false,
           "description": "Color of the trigger button."
         },

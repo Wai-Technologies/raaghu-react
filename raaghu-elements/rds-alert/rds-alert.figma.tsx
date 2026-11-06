@@ -26,7 +26,7 @@ figma.connect(
         "Style 2": "style2",
         "Style 3": "style3"
       }),
-      severity: figma.enum("⚠️ Type", {
+      color: figma.enum("⚠️ Type", {
         "Info": "info",
         "Success": "success",
         "Warning": "warning",
