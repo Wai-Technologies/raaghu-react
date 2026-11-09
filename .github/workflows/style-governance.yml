@@ -26,6 +26,8 @@ on:
       - 'scripts/check-media-queries-in-scss.mjs'
       - 'scripts/check-hardcoded-text-in-tsx.mjs'
       - 'scripts/hardcoded-text-baseline.txt'
+      - 'scripts/check-data-theme-in-scss.mjs'
+      - 'scripts/data-theme-baseline.txt'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -56,6 +58,8 @@ on:
       - 'scripts/check-media-queries-in-scss.mjs'
       - 'scripts/check-hardcoded-text-in-tsx.mjs'
       - 'scripts/hardcoded-text-baseline.txt'
+      - 'scripts/check-data-theme-in-scss.mjs'
+      - 'scripts/data-theme-baseline.txt'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -115,6 +119,9 @@ jobs:
 
       - name: Check for hardcoded UI text in TSX
         run: node scripts/check-hardcoded-text-in-tsx.mjs
+
+      - name: Check for new [data-theme] selectors in SCSS
+        run: node scripts/check-data-theme-in-scss.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

@@ -472,7 +472,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: var(--rds-size-36);
-    background: var(--rds-color-neutral-0);
+    background: var(--rds-e-signature-file-text-background);
     margin-left: 0;
     border-radius: 0 var(--rds-radius-md) var(--rds-radius-md) 0;
   }
@@ -826,7 +826,6 @@
 }
 
 [data-theme="dark"] .rds-e-signature__file-text {
-  background: var(--rds-color-surface-dark);
   color: var(--rds-text-secondary);
   border-color: var(--rds-color-border-subtle-dark);
 }

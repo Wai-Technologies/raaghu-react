@@ -546,7 +546,7 @@ font-weight: var(--rds-font-weight-bold);
   padding: 0 var(--rds-spacing-sm);
   padding-right: var(--rds-spacing-36-px);
   border: var(--rds-border-width-thin) solid var(--rds-color-border);
-  background-color: var(--rds-color-background);
+  background-color: var(--rds-datepicker-header-select-background);
   color: var(--rds-color-text);
   border-radius: var(--rds-border-radius-sm);
   font-size: var(--rds-datepicker-font-size-md);
@@ -1271,7 +1271,6 @@ font-weight: var(--rds-font-weight-bold);
 
   .rds-datepicker__header-select {
     color: var(--rds-text-primary) ;
-    background-color: var(--rds-background-paper) ;
     border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     color-scheme: dark;
     -webkit-appearance: none;
