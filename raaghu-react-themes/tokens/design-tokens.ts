@@ -22,6 +22,8 @@ export const colorTokens = {
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
+    /** Light tint of the blue `700`; the semantic `secondary.light`. */
+    150: '#C8CCFA',
     200: '#2534E9',
     250: '#4666FF',
     300: '#f06292',

@@ -35,7 +35,7 @@ const meta: Meta<typeof RdsToggleButton> = {
     },
     color: {
       control: { type: 'select' },
-      options: ['standard', 'primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: ['standard', 'primary', 'secondary', 'error', 'success', 'warning'],
       description: 'Sets the color of the toggle buttons. Controls the selected button color.',
       table: {
         defaultValue: { summary: 'standard' },

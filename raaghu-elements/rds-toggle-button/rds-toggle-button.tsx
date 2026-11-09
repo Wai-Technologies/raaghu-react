@@ -37,6 +37,8 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   iconTextSpacing?: number;
   /** @deprecated Use `size` instead. */
   inputSize?: 'small' | 'medium' | 'large';
+  /** Color of the selected button. `'info'` is deprecated; use `'primary'`. */
+  color?: ToggleButtonGroupProps['color'];
 }
 
 const RdsToggleButton = ({
@@ -53,7 +55,7 @@ const RdsToggleButton = ({
   inputSize,
   size: sizeProp,
   disabled,
-  color,
+  color: colorProp,
   className,
   sx,
   'data-testid': dataTestId,
@@ -63,6 +65,8 @@ const RdsToggleButton = ({
   if (iconTextSpacing !== undefined) warnDeprecatedProp('RdsToggleButton', 'iconTextSpacing', 'the `--rds-spacing-xs` theme token');
   const mustSelect = required ?? enforceSelected ?? false;
   if (inputSize !== undefined) warnDeprecatedProp('RdsToggleButton', 'inputSize', '`size`');
+  if (colorProp === 'info') warnDeprecatedProp('RdsToggleButton', 'color="info"', '`color: "primary"`');
+  const color = colorProp === 'info' ? 'primary' : colorProp;
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
     if (defaultValue !== undefined) {
       return defaultValue;

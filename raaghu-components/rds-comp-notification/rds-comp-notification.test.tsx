@@ -525,7 +525,7 @@ describe('RdsCompNotification', () => {
 
     it('warns when deprecated type is used (G6-031)', () => {
       render(<RdsCompNotification notifications={two} type="error" />);
-      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'type', '`severity`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'type', '`color`');
     });
 
     it('supports custom button labels (G6-037)', () => {

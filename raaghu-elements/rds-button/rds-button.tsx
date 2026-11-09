@@ -64,6 +64,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   variant?: ButtonVariant;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: ButtonVariant | CSSProperties;
+  /** Button color. `'info'` is deprecated; use `'primary'`. @default 'primary' */
   color?: ButtonProps['color'];
   /** Text transform applied to the label. @default 'uppercase' */
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
@@ -96,7 +97,7 @@ const RdsButton = ({
   sx,
   style,
   variant,
-  color = 'primary',
+  color: colorProp = 'primary',
   layout = 'icon+text',
   showLeftIcon,
   showRightIcon,
@@ -112,6 +113,8 @@ const RdsButton = ({
 }: RdsButtonProps) => {
   if (text !== undefined) warnDeprecatedProp('RdsButton', 'text', '`children`');
   if (isLoading !== undefined) warnDeprecatedProp('RdsButton', 'isLoading', '`loading`');
+  if (colorProp === 'info') warnDeprecatedProp('RdsButton', 'color="info"', '`color: "primary"`');
+  const color = colorProp === 'info' ? 'primary' : colorProp;
 
   const { pending } = useFormStatus();
   const legacyVariant = typeof style === 'string' ? style : undefined;

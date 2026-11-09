@@ -441,6 +441,7 @@
 }
 
 .rds-kanban-board__close-button {
+  flex-shrink: 0;
   color: var(--rds-text-primary);
   
   &:hover {
@@ -450,6 +451,14 @@
 
 .rds-kanban-board__add-item-form {
   margin-top: var(--rds-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rds-spacing-md);
+
+  > *,
+  > .rds-kanban-board__button-container {
+    margin: 0;
+  }
 }
 
 .rds-kanban-board__add-item-simple {
@@ -518,9 +527,14 @@
     stroke-width: inherit;
     fill: none;
     display: flex;
-    width: var(--rds-icon-size-sm);
-    height: var(--rds-icon-size-sm);
+    width: var(--rds-icon-size-sm, var(--rds-size-md));
+    height: var(--rds-icon-size-sm, var(--rds-size-md));
   stroke: var(--rds-primary-main);
+  }
+
+  .rds-kanban-board__close-button svg {
+    fill: currentColor;
+    stroke: none;
   }
 }
 

@@ -275,6 +275,10 @@ const RdsCompKanbanBoard = ({
   };
 
   const isNewItemTitleEmpty = !String(addQuestionData?.title ?? '').trim();
+  // Selected tags are stored as option objects; accept plain ids too.
+  const selectedTagVals = (Array.isArray(addQuestionData?.supportTagIds) ? addQuestionData.supportTagIds : []).map(
+    (tag: unknown) => (tag && typeof tag === 'object' ? (tag as KanbanOption).val : tag),
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -307,9 +311,17 @@ const RdsCompKanbanBoard = ({
                         </Box>
                       </Box>
                       <Box className="add-board add-board--with-input">
-                        <TextField fullWidth size="small" placeholder={text.boardTitlePlaceholder} value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field" />
+                        <TextField
+                          fullWidth
+                          size="small"
+                          placeholder={text.boardTitlePlaceholder}
+                          value={boardName}
+                          onChange={handleDataChanges}
+                          onKeyDown={(e) => { if (e.key === "Enter") onAddButtonClick(); }}
+                          className="rds-kanban-board__input-field"
+                        />
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
-                          <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" textCase="unset">{text.addBoard}</RdsButton>
+                          <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} disabled={!boardName.trim()} className="rds-kanban-board__add-button" textCase="unset">{text.addBoard}</RdsButton>
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button" aria-label={text.close}>
                             <CloseIcon />
                           </IconButton>
@@ -410,12 +422,9 @@ const RdsCompKanbanBoard = ({
                                 size="small"
                                 options={resolvedTagOptions || []}
                                 getOptionLabel={(option: KanbanOption) => option.label}
-value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
-  (Array.isArray(addQuestionData?.supportTagIds)
-    ? addQuestionData.supportTagIds
-    : []
-  ).includes(option.val)
-)}                                onChange={(_event, value) => onSelectedCreators(value)}
+                                value={(resolvedTagOptions || []).filter((option: KanbanOption) => selectedTagVals.includes(option.val))}
+                                isOptionEqualToValue={(option: KanbanOption, value: KanbanOption) => option.val === value.val}
+                                onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
                                 renderInput={(params) => {
                                   const currentTags = addQuestionData?.supportTagIds || [];

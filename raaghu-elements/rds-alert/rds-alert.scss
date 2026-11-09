@@ -4,7 +4,6 @@
   --rds-alert-link-color: var(--rds-primary-main);
   --rds-alert-secondary-text: var(--rds-primary-main);
   --rds-alert-secondary-bg-hover: var(--rds-color-primary-container);
-  --rds-alert-error-bg-hover: var(--rds-error-light);
 
   position: relative;
   display: flex;
@@ -64,6 +63,13 @@
     &.MuiAlert-outlinedError {
       color: var(--rds-alert-error-text);
       border: var(--rds-border-width-emphasis) solid var(--rds-alert-error-border);
+    }
+  }
+
+  @each $severity in info, success, warning, error {
+    &.rds-alert--#{$severity} {
+      --rds-alert-secondary-text: var(--rds-alert-#{$severity}-text);
+      --rds-alert-secondary-bg-hover: var(--rds-#{$severity}-light);
     }
   }
 
@@ -334,18 +340,6 @@
   &:focus-visible {
     background-color: var(--rds-alert-secondary-bg-hover);
     color: var(--rds-alert-secondary-text);
-  }
-}
-
-.rds-alert__secondary-button--error.MuiButton-root {
-  background-color: transparent;
-  color: var(--rds-alert-error-text);
-  border: none;
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--rds-alert-error-bg-hover);
-    color: var(--rds-alert-error-text);
   }
 }
 

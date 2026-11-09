@@ -57,7 +57,6 @@ const meta: Meta<typeof RdsLoader> = {
   tags: ['autodocs', 'stable'],
   args: {
     overlay: false,
-    value: 0,
     thickness: 3.6,
   },
   argTypes: {
@@ -86,7 +85,7 @@ const meta: Meta<typeof RdsLoader> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: ['primary', 'secondary', 'error', 'warning', 'success'],
     },
     value: {
       control: { type: 'range', min: 0, max: 100 },
@@ -135,7 +134,7 @@ export const Default: Story = {
     await expect(loader).toBeTruthy();
   },
 };
-Default.parameters = { controls: { include: ['type', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['type', 'color', 'className', 'sx', 'ref'] } };
 
 export const AnimatedLinearProgress: Story = {
   render: () => {
@@ -217,7 +216,6 @@ export const Colors: Story = {
       <RdsLoader variant="circular" color="secondary" />
       <RdsLoader variant="circular" color="error" />
       <RdsLoader variant="circular" color="warning" />
-      <RdsLoader variant="circular" color="info" />
       <RdsLoader variant="circular" color="success" />
     </Box>
   ),
@@ -229,7 +227,6 @@ export const Colors: Story = {
               <RdsLoader variant="circular" color="secondary" />
               <RdsLoader variant="circular" color="error" />
               <RdsLoader variant="circular" color="warning" />
-              <RdsLoader variant="circular" color="info" />
               <RdsLoader variant="circular" color="success" />`,
       },
     },
@@ -311,7 +308,7 @@ export const LineWobbleWithLabel: Story = {
     label: 'Loading...'
   },
 };
-LineWobbleWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LineWobbleWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoaderHashWithLabel: Story = {
   args: {
@@ -319,7 +316,7 @@ export const LoaderHashWithLabel: Story = {
     label: 'Hashing...'
   },
 };
-LoaderHashWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoaderHashWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoaderJumpWithLabel: Story = {
   args: {
@@ -327,7 +324,7 @@ export const LoaderJumpWithLabel: Story = {
     label: 'Jumping...'
   },
 };
-LoaderJumpWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoaderJumpWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoaderMovingWithLabel: Story = {
   args: {
@@ -335,7 +332,7 @@ export const LoaderMovingWithLabel: Story = {
     label: 'Moving...'
   },
 };
-LoaderMovingWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoaderMovingWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoaderRoundWithLabel: Story = {
   args: {
@@ -343,7 +340,7 @@ export const LoaderRoundWithLabel: Story = {
     label: 'Loading round...'
   },
 };
-LoaderRoundWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoaderRoundWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoadWithLabel: Story = {
   args: {
@@ -351,7 +348,7 @@ export const LoadWithLabel: Story = {
     label: 'Spinning...'
   },
 };
-LoadWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoadWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const LoadingWithLabel: Story = {
   args: {
@@ -360,7 +357,7 @@ export const LoadingWithLabel: Story = {
     label: 'Loading spinner...'
   },
 };
-LoadingWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+LoadingWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const RotateWithLabel: Story = {
   args: {
@@ -368,7 +365,7 @@ export const RotateWithLabel: Story = {
     label: 'Rotating...'
   },
 };
-RotateWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+RotateWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const RollingRockWithLabel: Story = {
   args: {
@@ -376,7 +373,7 @@ export const RollingRockWithLabel: Story = {
     label: 'Rolling...'
   },
 };
-RollingRockWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+RollingRockWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const Sizes: Story = {
   render: () => (
@@ -404,7 +401,7 @@ export const SandWithLabel: Story = {
     label: 'Sifting sand...'
   },
 };
-SandWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+SandWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const TriangleWithLabel: Story = {
   args: {
@@ -412,7 +409,7 @@ export const TriangleWithLabel: Story = {
     label: 'Loading triangle...'
   },
 };
-TriangleWithLabel.parameters = { controls: { include: ['type', 'label', 'className', 'sx', 'ref'] } };
+TriangleWithLabel.parameters = { controls: { include: ['type', 'label', 'color', 'className', 'sx', 'ref'] } };
 
 export const WithOverlay: Story = {
   render: () => {

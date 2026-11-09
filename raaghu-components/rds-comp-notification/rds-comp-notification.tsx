@@ -38,6 +38,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     layout: figmaLayout,
     variant,
     style: styleProp,
+    color,
     severity,
     type,
     actions = 'none',
@@ -58,11 +59,12 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     ...rest
 }) => {
     const text = { ...DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT, ...localeText };
-    if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
+    if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
+    if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
     if (defaultImage !== undefined) warnDeprecatedProp('RdsCompNotification', 'defaultImage', '`fallbackImage`');
     if (dismiss !== undefined) warnDeprecatedProp('RdsCompNotification', 'dismiss', '`showDismiss`');
-    const resolvedType = severity ?? type ?? NotificationType.Info;
+    const resolvedType = color ?? severity ?? type ?? NotificationType.Info;
     const notifications = items ?? legacyNotifications ?? EMPTY_NOTIFICATIONS;
     const layout = orientation ?? figmaLayout ?? NotificationLayout.Horizontal;
     const legacyStyle = typeof styleProp === 'string' ? styleProp : undefined;
@@ -75,7 +77,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
     const resolvedShowSecondaryButton = actions === 'secondary' || actions === 'both' || legacyShowSecondaryButton === true;
-    const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
+    const resolvedShowButton = legacyShowButton ?? (actions !== 'none' || resolvedShowPrimaryButton || resolvedShowSecondaryButton);
 
     const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
     const [prevNotifications, setPrevNotifications] = useState(notifications);

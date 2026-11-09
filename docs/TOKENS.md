@@ -472,7 +472,7 @@ Total: 1345 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-secondary-alpha-10` | `color-mix(in srgb, var(--rds-secondary-main) 10%, transparent)` | — |
 | `--rds-secondary-contrast-text` | `#ffffff` | `#212121` |
 | `--rds-secondary-dark` | `#1827BB` | same |
-| `--rds-secondary-light` | `#f8bbd9` | same |
+| `--rds-secondary-light` | `#C8CCFA` | same |
 | `--rds-secondary-main` | `#2534E9` | same |
 | `--rds-secondary-rgb` | `37,52,233` | same |
 

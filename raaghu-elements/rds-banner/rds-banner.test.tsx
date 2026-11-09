@@ -481,16 +481,17 @@ describe('RdsBanner audit fixes', () => {
     expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
   });
 
-  it('uses severity, which wins over the deprecated type (G1-099)', () => {
-    const { rerender } = render(<RdsBanner description="Message" severity="error" />);
+  it('uses color, which wins over the deprecated severity and type (G1-099)', () => {
+    const { rerender } = render(<RdsBanner description="Message" color="error" />);
     expect(screen.getByRole('alert')).toHaveClass('rds-banner--error');
     expect(screen.getByRole('alert')).toHaveClass('MuiAlert-standardError');
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
 
-    rerender(<RdsBanner description="Message" severity="success" type="warning" />);
+    rerender(<RdsBanner description="Message" color="success" severity="info" type="warning" />);
     expect(screen.getByRole('alert')).toHaveClass('rds-banner--success');
     expect(screen.getByRole('alert')).not.toHaveClass('rds-banner--warning');
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBanner', 'type', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBanner', 'severity', '`color`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBanner', 'type', '`color`');
   });
 
   it('maps variantStyle to the same MUI variant as before (G1-106)', () => {

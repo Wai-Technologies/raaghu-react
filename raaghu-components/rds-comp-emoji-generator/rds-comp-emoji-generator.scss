@@ -391,13 +391,17 @@
       line-height: var(--rds-line-height-none);
     }
 
-    &-text.MuiTypography-root {
-      color: var(--rds-text-secondary);
+    &-input.MuiInputBase-root {
+      color: var(--rds-text-primary);
       font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal, 400);
       line-height: var(--rds-line-height-comfortable);
-      margin: 0;
       flex: 1;
+
+      .MuiInputBase-input::placeholder {
+        color: var(--rds-text-secondary);
+        opacity: 1;
+      }
     }
   }
 

@@ -14,9 +14,9 @@ jest.mock('@mui/icons-material/Attachment', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
-  return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
+  return function MockRdsBadge({ badgeContent, color, colorVariant, styleType, ...props }: any) {
     return (
-      <span data-testid="rds-badge" data-color={colorVariant} {...props}>
+      <span data-testid="rds-badge" data-color={color ?? colorVariant} {...props}>
         {badgeContent}
       </span>
     );
@@ -470,9 +470,10 @@ describe('RdsCompAiAttachment', () => {
     });
 
     it("uses icon, placement, badge and badgeProps.color over the deprecated props", () => {
-      render(<RdsCompAiAttachment {...defaultProps} icon={<span>new_icon</span>} placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
+      const { container } = render(<RdsCompAiAttachment {...defaultProps} icon={<span>new_icon</span>} placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
       expect(screen.getByTestId("fab-menu-trigger")).toHaveTextContent("new_icon");
       expect(screen.getByTestId("rds-fab-menu")).toHaveAttribute("data-alignment", "right");
+      expect(container.querySelector(".rds-comp-ai-attachment")).toHaveClass("rds-comp-ai-attachment--placement-end");
       expect(screen.getByTestId("rds-badge")).toHaveTextContent("Pro");
       expect(screen.getByTestId("rds-badge")).toHaveAttribute("data-color", "success");
     });

@@ -14,6 +14,8 @@ export interface RdsCompEmojiGeneratorLocaleText {
     categoryTitles: string[];
     /** Fallback title when the current category is unknown. */
     emojisTitle: string;
+    /** Title shown while a search term is entered. */
+    searchResults: string;
 }
 
 export const DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT: RdsCompEmojiGeneratorLocaleText = {
@@ -24,4 +26,5 @@ export const DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT: RdsCompEmojiGenerator
     skinToneNames: ['Default', 'Light', 'Medium Light', 'Medium', 'Medium Dark', 'Dark'],
     categoryTitles: ['Smileys & People', 'Animals & Nature', 'Food & Drink', 'Travel & Places', 'Activities', 'Objects', 'Symbols', 'Flags'],
     emojisTitle: 'Emojis',
+    searchResults: 'Search Results',
 };

@@ -76,8 +76,8 @@ const meta: Meta<typeof RdsButtonDropdown> = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outlined', 'transparent', 'primary', 'secondary'],
-      description: 'Shape treatment aligned with RdsButton (`filled` | `outlined` | `transparent`). Legacy `primary` | `secondary` map to filled + color; use `outlined` instead of deprecated `outline`.',
+      options: ['filled', 'outlined', 'transparent'],
+      description: 'Shape treatment aligned with RdsButton (`filled` | `outlined` | `transparent`). Use `color` for the color.',
     },
     color: {
       control: 'select',

@@ -226,12 +226,13 @@ describe('RdsLoader', () => {
       expect(circularProgress).toHaveClass('MuiCircularProgress-colorWarning');
     });
 
-    it('should apply info color when specified', () => {
+    it('maps deprecated info color to primary', () => {
       const { container } = renderWithTheme(
         <RdsLoader color="info" />
       );
       const circularProgress = container.querySelector('.MuiCircularProgress-root');
-      expect(circularProgress).toHaveClass('MuiCircularProgress-colorInfo');
+      expect(circularProgress).toHaveClass('MuiCircularProgress-colorPrimary');
+      expect(circularProgress).not.toHaveClass('MuiCircularProgress-colorInfo');
     });
 
     it('should apply success color when specified', () => {

@@ -518,6 +518,28 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAudioPlayer', 'controls.transcript', '`controls.volume`');
   });
 
+  it('hides an open volume slider when showVolume becomes false', () => {
+    const { rerender } = render(<RdsCompAudioPlayer src="a.mp3" showVolume />);
+    fireEvent.click(screen.getByRole('button', { name: 'Toggle volume' }));
+    expect(screen.getByTestId('volume-slider')).toHaveStyle({ display: 'block' });
+    rerender(<RdsCompAudioPlayer src="a.mp3" showVolume={false} />);
+    expect(screen.queryByRole('button', { name: 'Toggle volume' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('volume-slider')).toHaveStyle({ display: 'none' });
+    rerender(<RdsCompAudioPlayer src="a.mp3" showVolume />);
+    expect(screen.getByTestId('volume-slider')).toHaveStyle({ display: 'none' });
+  });
+
+  it('hides an open settings popup when showSettings becomes false', () => {
+    const { rerender } = render(<RdsCompAudioPlayer src="a.mp3" showSettings />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open settings' }));
+    expect(screen.getByTestId('settings-modal')).toHaveStyle({ display: 'block' });
+    rerender(<RdsCompAudioPlayer src="a.mp3" showSettings={false} />);
+    expect(screen.queryByRole('button', { name: 'Open settings' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('settings-modal')).toHaveStyle({ display: 'none' });
+    rerender(<RdsCompAudioPlayer src="a.mp3" showSettings />);
+    expect(screen.getByTestId('settings-modal')).toHaveStyle({ display: 'none' });
+  });
+
   it('G3-160: variant maps to type and wins over type', () => {
     const { container } = render(<RdsCompAudioPlayer src="a.mp3" type="Audio Player" variant="editor" />);
     expect(container.querySelector('.rds-comp-audio-player__edition-container')).toBeInTheDocument();

@@ -1068,7 +1068,11 @@ font-weight: var(--rds-font-weight-bold);
     left: 0;
     top: calc(100% + var(--rds-spacing-sm));
     right: auto;
-    margin-left: 0;
+    margin: var(--rds-spacing-lg) 0 0 calc(-1 * var(--rds-spacing-md));
+  }
+
+  .rds-datepicker__dropdown-item--custom .react-datepicker__tab-loop {
+    position: relative;
   }
 }
 
@@ -1107,9 +1111,9 @@ font-weight: var(--rds-font-weight-bold);
   
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker,
   .rds-datepicker__dropdown-menu--show .react-datepicker {
-    margin-left: var(--rds-spacing-33);
-    width: calc(85vw - var(--rds-datepicker-dim-5));
-    max-width: var(--rds-datepicker-dim-15);
+    margin-left: 0;
+    width: fit-content;
+    max-width: calc(100vw - var(--rds-datepicker-dim-5));
   }
   
   .react-datepicker--multi-month {
@@ -1179,16 +1183,6 @@ font-weight: var(--rds-font-weight-bold);
     transform: translateX(-50%);
     width: auto;
     max-width: none;
-  }
-}
-
-@include bp.between(361, 576) {
-  .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker, 
-  .rds-datepicker__dropdown-menu--show .react-datepicker {
-    margin-left: var(--rds-spacing-132);
-    margin-top: var(--rds-spacing-hairline);
-    width: calc(68vw - var(--rds-size-40));
-    max-width: var(--rds-datepicker-dim-18);
   }
 }
 @include bp.between(800, 1280) {

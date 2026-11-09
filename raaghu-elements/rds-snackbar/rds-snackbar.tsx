@@ -5,9 +5,11 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 export interface RdsSnackbarProps extends Omit<SnackbarProps, 'component'> {
   /** Content of the alert; when set, the snackbar renders an Alert. */
   message?: ReactNode;
-  /** @deprecated Use `severity` instead. */
+  /** Semantic color of the alert. Defaults to 'info'. */
+  color?: AlertColor;
+  /** @deprecated Use `color` instead. */
   type?: AlertColor;
-  /** Alert severity. Defaults to 'info'. */
+  /** @deprecated Use `color` instead. */
   severity?: AlertColor;
   /** Hides the close button on the alert. */
   hideCloseButton?: boolean;
@@ -22,6 +24,7 @@ export interface RdsSnackbarProps extends Omit<SnackbarProps, 'component'> {
 /** Transient notification built on MUI Snackbar and Alert. */
 const RdsSnackbar = ({
   message,
+  color,
   type,
   severity,
   hideCloseButton,
@@ -32,9 +35,10 @@ const RdsSnackbar = ({
   children,
   ...props
 }: RdsSnackbarProps) => {
-  if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`severity`');
+  if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`color`');
+  if (severity !== undefined) warnDeprecatedProp('RdsSnackbar', 'severity', '`color`');
   if (duration !== undefined) warnDeprecatedProp('RdsSnackbar', 'duration', '`autoHideDuration`');
-  const resolvedSeverity = severity ?? type ?? 'info';
+  const resolvedColor = color ?? severity ?? type ?? 'info';
   if (showCloseButton !== undefined) warnDeprecatedProp('RdsSnackbar', 'showCloseButton', '`hideCloseButton`');
   const showClose = hideCloseButton === undefined ? showCloseButton ?? true : !hideCloseButton;
 
@@ -48,13 +52,13 @@ const RdsSnackbar = ({
   };
 
   const content = message || children;
-  const ALERT_TEXT_BY_SEVERITY: Record<AlertColor, string> = {
+  const ALERT_TEXT_BY_COLOR: Record<AlertColor, string> = {
     success: 'var(--rds-alert-success-text)',
     error: 'var(--rds-alert-error-text)',
     warning: 'var(--rds-alert-warning-text)',
     info: 'var(--rds-alert-info-text)',
   };
-  const alertTextColor = ALERT_TEXT_BY_SEVERITY[resolvedSeverity] ?? 'var(--rds-text-primary)';
+  const alertTextColor = ALERT_TEXT_BY_COLOR[resolvedColor] ?? 'var(--rds-text-primary)';
 
   return (
     <MuiSnackbar
@@ -62,10 +66,10 @@ const RdsSnackbar = ({
       onClose={handleClose}
       {...props}
     >
-      {resolvedSeverity && content ? (
+      {resolvedColor && content ? (
         <Alert
           onClose={showClose ? handleClose : undefined}
-          severity={resolvedSeverity}
+          severity={resolvedColor}
           sx={{
             width: '100%',
             '& .MuiAlert-message': {

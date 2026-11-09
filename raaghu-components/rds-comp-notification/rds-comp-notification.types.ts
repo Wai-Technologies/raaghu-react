@@ -53,7 +53,7 @@ export const DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT: RdsCompNotificationLocal
   accept: "ACCEPT",
 };
 
-export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children"> {
+export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children" | "color"> {
   /** Notifications to render. */
   items?: NotificationItem[];
   /** @deprecated Use `items` instead. */
@@ -74,9 +74,11 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   variant?: NotificationStyle | `${NotificationStyle}`;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: NotificationStyle | `${NotificationStyle}` | CSSProperties;
-  /** MUI-named alias for `type`. */
+  /** Semantic color of the notification. @default 'info' */
+  color?: NotificationType;
+  /** @deprecated Use `color` instead. */
   severity?: NotificationType;
-  /** @deprecated Use `severity` instead. */
+  /** @deprecated Use `color` instead. */
   type?: NotificationType;
   /** Which action buttons to show. @default 'none' */
   actions?: "none" | "primary" | "secondary" | "both";
@@ -96,7 +98,7 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   onDismiss?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   /** Called with the click event and the notification when the primary button is clicked. */
   onAccept?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
-  /** Legacy boolean, still supported. */
+  /** Legacy boolean, still supported. `false` hides all action buttons. */
   showButton?: boolean;
   /** Legacy boolean, still supported. */
   showPrimaryButton?: boolean;

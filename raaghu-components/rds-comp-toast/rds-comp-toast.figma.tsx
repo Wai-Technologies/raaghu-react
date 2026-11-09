@@ -18,7 +18,7 @@ figma.connect(
         Chat: ToastLayout.Chat,
         Request: ToastLayout.Request,
       }),
-      severity: figma.enum("💡 State", {
+      color: figma.enum("💡 State", {
         Basic: ToastSeverity.Basic,
         Success: ToastSeverity.Success,
         Error: ToastSeverity.Error,

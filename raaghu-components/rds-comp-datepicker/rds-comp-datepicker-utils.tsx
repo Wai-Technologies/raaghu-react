@@ -52,6 +52,7 @@ type DatepickerSharedProps = {
     inputId?: string;
     idPrefix?: string;
     text?: RdsDatepickerLocaleText;
+    isCompact?: boolean;
 };
 
 const popperContainer = ({ children }: { children?: ReactNode }) => (
@@ -358,7 +359,7 @@ export const renderDatePickerTypeView = (
                             startDate={startDate}
                             endDate={endDate}
                             selectsRange
-                            popperPlacement="right-start"
+                            popperPlacement={props.isCompact ? "bottom-start" : "right-start"}
                             popperModifiers={
                                 [
                                     {
