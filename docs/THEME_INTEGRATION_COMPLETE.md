@@ -53,11 +53,18 @@ tokens/semantic-palette.ts          ← shared semantic roles
 
 Frozen by CI; **do not raise** baselines. Ratchet down in component PRs.
 
+Gates with remaining debt keep a **per-file** baseline (`count<TAB>path` per line). CI fails when any
+file goes up, and also when any file goes down without the baseline being updated, so every fix is
+locked in. After a cleanup run the script with `--set-baseline` and commit the file.
+
 | Gate | Script | Baseline | npm script |
 |---|---|---|---|
-| `rgb()` / `rgba()` in SCSS | `scripts/check-no-rgba-in-scss.mjs` | **11** | `lint:rgba` |
-| Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **564** | `lint:local-dim-px` |
-| Literal typography / motion values in SCSS | `scripts/check-typography-motion-in-scss.mjs` | **95** | `lint:typography-motion` |
+| `rgb()` / `rgba()` in SCSS | `scripts/check-no-rgba-in-scss.mjs` | **9** (per file) | `lint:rgba` |
+| Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **546** (per file) | `lint:local-dim-px` |
+| `[data-theme]` selectors in SCSS | `scripts/check-data-theme-in-scss.mjs` | **82** (per file) | `lint:data-theme` |
+| Raw style values in TS/TSX | `scripts/check-raw-values-in-ts.mjs` | **15** (per file) | `lint:ts-raw-values` |
+| Hardcoded UI text in TSX | `scripts/check-hardcoded-text-in-tsx.mjs` | **99** (per file) | `lint:hardcoded-text` |
+| Literal typography / motion values in SCSS | `scripts/check-typography-motion-in-scss.mjs` | **0** | `lint:typography-motion` |
 | Hex in SCSS | `scripts/check-no-hex.mjs` | **0** | `lint:hex` |
 | `!important` in SCSS (Phase B) | `scripts/check-no-important-in-scss.mjs` | **0** | `lint:important` |
 

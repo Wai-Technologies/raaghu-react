@@ -2,11 +2,6 @@
 @use '../shared/styles/rds-profile-menu-app-bar-overrides';
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-$rds-app-bar-breakpoint-md: 834px;
-$rds-app-bar-breakpoint-sm: 420px;
-$rds-app-bar-breakpoint-xs: 320px;
-$rds-app-bar-breakpoint-notification-tablet: 1280px;
-
 .rds-app-bar,
 .rds-header,
 .rds-header__search-field,
@@ -39,15 +34,15 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 .rds-story-logo {
   height: var(--rds-spacing-xl);
  
-  @media (max-width: $rds-app-bar-breakpoint-md) {
+  @include bp.down(tablet-md) {
     height: var(--rds-spacing-xl);
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-sm) {
+  @include bp.down(420) {
     height: var(--rds-spacing-xl);
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-xs) {
+  @include bp.down(mobile-sm) {
     height: calc(5.5 * var(--rds-spacing-xs));
     margin-left: 0;
   }
@@ -83,7 +78,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-story-search-min-width-2xs: 100px;
   --rds-story-search-max-width-2xs: 140px;
   min-width: var(--rds-story-search-min-width);
-  @media (max-width: $rds-app-bar-breakpoint-md) {
+  @include bp.down(tablet-md) {
     min-width: var(--rds-story-search-min-width-md);
     max-width: var(--rds-story-search-max-width-md);
   }
@@ -94,12 +89,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     max-width: var(--rds-story-search-max-width-sm);
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-sm) {
+  @include bp.down(420) {
     min-width: var(--rds-story-search-min-width-xs);
     max-width: var(--rds-story-search-max-width-xs);
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-xs) {
+  @include bp.down(mobile-sm) {
     min-width: var(--rds-story-search-min-width-2xs);
     max-width: var(--rds-story-search-max-width-2xs);
   }
@@ -137,14 +132,14 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-story-nav-icon-size-xs: var(--rds-size-14);
   cursor: pointer;
  
-  @media (max-width: $rds-app-bar-breakpoint-sm) {
+  @include bp.down(420) {
     svg {
       width: var(--rds-story-nav-icon-size-sm);
       height: var(--rds-story-nav-icon-size-sm);
     }
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-xs) {
+  @include bp.down(mobile-sm) {
     svg {
       width: var(--rds-story-nav-icon-size-xs);
       height: var(--rds-story-nav-icon-size-xs);
@@ -194,12 +189,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   background-clip: padding-box;
   margin: 0 var(--rds-appbar-separator-horizontal-margin);
   
-  @media (max-width: $rds-app-bar-breakpoint-sm) {
+  @include bp.down(420) {
     margin: 0 var(--rds-appbar-separator-horizontal-margin-sm);
     min-height: var(--rds-appbar-separator-min-height-sm);
   }
   
-  @media (max-width: $rds-app-bar-breakpoint-xs) {
+  @include bp.down(mobile-sm) {
     margin: 0 var(--rds-appbar-separator-horizontal-margin-xs);
     min-height: var(--rds-appbar-separator-min-height-xs);
   }
@@ -269,24 +264,24 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   align-items: center;
   gap: var(--rds-spacing-sm); 
 
-  @media (max-width: $rds-app-bar-breakpoint-sm) {
+  @include bp.down(420) {
     gap: var(--rds-header-center-gap-mobile); 
     margin-left: var(--rds-header-center-margin-left-mobile);
   }
 
-  @media (max-width: $rds-app-bar-breakpoint-xs) {
+  @include bp.down(mobile-sm) {
     gap: calc(2.5 * var(--rds-spacing-xs)); 
     margin-left: var(--rds-header-center-margin-left-xs);
   }
 
   .rds-button {
-    @media (max-width: $rds-app-bar-breakpoint-sm) {
+    @include bp.down(420) {
       font-size: var(--rds-header-center-button-font-size-mobile); 
       padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
       min-height: var(--rds-header-center-button-min-height-mobile);
     }
 
-    @media (max-width: $rds-app-bar-breakpoint-xs) {
+    @include bp.down(mobile-sm) {
       font-size: var(--rds-header-center-button-font-size-xs);
       padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-sm);
       min-height: var(--rds-header-center-button-min-height-xs);

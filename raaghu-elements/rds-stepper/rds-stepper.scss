@@ -1,4 +1,4 @@
-$rds-stepper-breakpoint-sm: 420px;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-stepper {
   --rds-stepper-mobile-offset-left: calc(-1 * var(--rds-spacing-sm));
@@ -12,7 +12,7 @@ $rds-stepper-breakpoint-sm: 420px;
   }
 }
 
-@media (max-width: $rds-stepper-breakpoint-sm) {
+@include bp.down(420) {
   .rds-stepper {
     margin-left: var(--rds-stepper-mobile-offset-left);
 

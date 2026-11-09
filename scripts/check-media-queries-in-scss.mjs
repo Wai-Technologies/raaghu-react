@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const REPO_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SCAN_DIRS = ['raaghu-elements', 'raaghu-components', 'raaghu-layouts', 'raaghu-react-themes'];
 const ALLOWED = new Set(['raaghu-react-themes/tokens/_breakpoints.scss']);
-const LITERAL = /\d(?:px|rem|em)\b/;
+const LITERAL = /\d(?:px|rem|em)\b|\$[\w-]+|var\(/;
 
 function walk(dir, files = []) {
   if (!fs.existsSync(dir)) return files;
@@ -36,9 +36,9 @@ for (const dir of SCAN_DIRS) {
 }
 
 if (violations.length) {
-  console.error(`FAIL: ${violations.length} @media quer${violations.length === 1 ? 'y uses' : 'ies use'} a literal length.`);
+  console.error(`FAIL: ${violations.length} @media quer${violations.length === 1 ? 'y uses' : 'ies use'} a literal length, a SCSS variable or var().`);
   console.error('Use bp.up()/bp.down()/bp.between() or #{bp.bp(key)} from raaghu-react-themes/tokens/_breakpoints.scss.\n');
   for (const v of violations) console.error(`  ${v}`);
   process.exit(1);
 }
-console.log('PASS: no literal lengths in SCSS @media queries');
+console.log('PASS: no literal lengths, SCSS variables or var() in SCSS @media queries');

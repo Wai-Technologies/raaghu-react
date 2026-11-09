@@ -2,18 +2,18 @@
  * Governance: count raw px/rem/em/duration literals and unitless pixel sizes
  * in TS/TSX style code (sx, style, styled objects and *.styles.ts).
  * Excludes tests, stories, figma files, comments and values inside var(...).
- * Fails if count exceeds scripts/ts-raw-values-baseline.txt.
+ * Fails if any file has more than its entry in scripts/ts-raw-values-baseline.txt (count<TAB>path).
  *
  * Usage: node scripts/check-raw-values-in-ts.mjs [--inventory] [--set-baseline]
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { checkFileBaseline } from './lib/file-baseline.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, '..');
 const BASELINE_FILE = path.join(__dirname, 'ts-raw-values-baseline.txt');
-const SET_BASELINE = process.argv.includes('--set-baseline');
 const INVENTORY = process.argv.includes('--inventory');
 
 const SCAN_DIRS = ['raaghu-elements', 'raaghu-components', 'raaghu-layouts', 'raaghu-pages'];
@@ -76,33 +76,22 @@ function scanFile(file) {
 }
 
 const all = [];
+const counts = [];
 for (const dir of SCAN_DIRS) {
   for (const file of walk(path.join(REPO_ROOT, dir))) {
     const rel = path.relative(REPO_ROOT, file).split(path.sep).join('/');
-    for (const h of scanFile(file)) all.push(`${rel}:${h.line}  ${h.text}`);
+    const fileHits = scanFile(file);
+    for (const h of fileHits) all.push(`${rel}:${h.line}  ${h.text}`);
+    counts.push([rel, fileHits.length]);
   }
 }
 
-console.log('Raw TS/TSX style value scan complete');
-console.log(`  Current  : ${all.length}`);
 if (INVENTORY) all.forEach((h) => console.log(`  ${h}`));
 
-if (SET_BASELINE) {
-  fs.writeFileSync(BASELINE_FILE, `${all.length}\n`, 'utf8');
-  console.log(`  Wrote baseline ${all.length} -> ${path.relative(REPO_ROOT, BASELINE_FILE)}`);
-  process.exit(0);
-}
-
-if (!fs.existsSync(BASELINE_FILE)) {
-  console.error(`ERROR: Baseline file not found at ${BASELINE_FILE}`);
-  process.exit(1);
-}
-const BASELINE = Number(fs.readFileSync(BASELINE_FILE, 'utf8').trim());
-console.log(`  Baseline : ${BASELINE}`);
-if (all.length > BASELINE) {
-  console.error(
-    `\nFAIL: raw TS style values increased (current=${all.length} > baseline=${BASELINE}). Use var(--rds-*) tokens from docs/TOKENS.md.`,
-  );
-  process.exit(1);
-}
-console.log(`\nPASS: raw TS style value debt within baseline (current=${all.length} <= baseline=${BASELINE})`);
+checkFileBaseline({
+  label: 'raw TS style values',
+  baselineFile: BASELINE_FILE,
+  counts,
+  script: 'scripts/check-raw-values-in-ts.mjs',
+  fix: 'use var(--rds-*) tokens from docs/TOKENS.md.',
+});

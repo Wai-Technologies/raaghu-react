@@ -57,7 +57,7 @@ export function App() {
 | Date / time | `RdsCompDatepicker`, `RdsCompTimePicker` | |
 | App frame (top bar + side nav) | `RdsCompAppShell` | `RdsLayout` is a simple header + content page |
 
-Internal (not exported, do not import): `rds-comp-grid` (paid enterprise), `rds-comp-adaptive-cards`, `rds-comp-chat`, `rds-comp-code-snippet`, `rds-comp-comments-box`, `rds-comp-date-and-time-picker`, `rds-comp-details-pane`, `rds-comp-navtabs`, `rds-comp-tree-structure`.
+Internal (not exported, do not import): `rds-comp-grid` (paid enterprise), `rds-comp-date-and-time-picker`, `rds-comp-tree-structure`.
 
 ## Changing the library
 
@@ -80,8 +80,8 @@ Each folder holds `rds-x.tsx`, `rds-x.scss`, `rds-x.stories.tsx`, `rds-x.test.ts
 - Translucent colors: `color-mix(in srgb, var(--rds-color-black) 12%, transparent)`.
 - Dark mode comes from tokens with different light and dark values. Don't add `[data-theme='dark']` selectors.
 - Scope every selector under the component's BEM block (`.rds-x`, `.rds-x__el`, `.rds-x--mod`). Portalled MUI parts (poppers, menus) get a class through `slotProps`; never style a bare `.Mui*` class globally.
-- In SCSS media queries use the `bp` helpers (`bp.up`, `bp.down`, `bp.between`, `#{bp.bp(key)}`) from `raaghu-react-themes/tokens/_breakpoints.scss`, never literal px.
-- Media queries in TS use `extendedBreakpointTokens` from `design-tokens.ts`.
+- In SCSS media queries use the `bp` helpers (`bp.up`, `bp.down`, `bp.between`, `#{bp.bp(key)}`) from `raaghu-react-themes/tokens/_breakpoints.scss`, never literal px, SCSS variables or `var()`. Use `mobile-sm` for 320px: `xs` is `0px` in SCSS but `320px` in TS.
+- Media queries and `window.innerWidth` checks in TS use `extendedBreakpointTokens` from `design-tokens.ts`.
 
 ### Props conventions
 

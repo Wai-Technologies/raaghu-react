@@ -15,6 +15,7 @@ import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-co
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, type RdsCompAiTypingSectionLocaleText } from './rds-comp-ai-typing-section-locale';
 import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export interface RdsCompAiTypingSectionOption {
   label: string;
@@ -69,7 +70,7 @@ registerMaterialIcons({
   enhance: AutoAwesomeOutlinedIcon,
 });
 
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = parseInt(extendedBreakpointTokens['tablet-sm'], 10);
 
 /** Prompt input of the AI chat, with the attachment menu, send button and project actions. */
 const RdsCompAiTypingSectionComponent = ({

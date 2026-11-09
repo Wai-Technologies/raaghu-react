@@ -1,16 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { checkFileBaseline } from './lib/file-baseline.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, '..');
 const BASELINE_FILE = path.join(__dirname, 'hardcoded-text-baseline.txt');
-const SET_BASELINE = process.argv.includes('--set-baseline');
 const INVENTORY = process.argv.includes('--inventory');
 
 const SCAN_DIRS = ['raaghu-elements', 'raaghu-components', 'raaghu-layouts'];
 const SKIP_FILE = /\.(test|spec|stories|figma|a11y)\.tsx?$|\.d\.ts$/;
-const HARDCODED_TEXT = /\b(aria-label|placeholder|title)="[A-Z][a-z]/g;
+const TEXT = `[A-Za-z][A-Za-z0-9 ,.'!?…&()-]*`;
+const PATTERNS = [
+  new RegExp(`\\b(?:aria-label|placeholder|title|alt|label|tooltip)=(?:"${TEXT}"|\\{\\s*['"]${TEXT}['"]\\s*\\})`, 'g'),
+  /(?<![=\w])>\s*[A-Z][a-z]+(?:[ ,.'!?-]+[A-Za-z]+)*[.!?]?\s*</g,
+];
 
 function walk(dir, files = []) {
   if (!fs.existsSync(dir)) return files;
@@ -27,34 +31,27 @@ function walk(dir, files = []) {
 }
 
 const hits = [];
+const counts = [];
 for (const dir of SCAN_DIRS) {
   for (const file of walk(path.join(REPO_ROOT, dir))) {
     const rel = path.relative(REPO_ROOT, file).split(path.sep).join('/');
-    const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/);
-    lines.forEach((line, i) => {
-      for (const m of line.matchAll(HARDCODED_TEXT)) hits.push(`${rel}:${i + 1}  ${m[0]}`);
-    });
+    const before = hits.length;
+    fs.readFileSync(file, 'utf8')
+      .split(/\r?\n/)
+      .forEach((line, i) => {
+        if (line.trim().startsWith('//') || line.trim().startsWith('*')) return;
+        for (const re of PATTERNS) for (const m of line.matchAll(re)) hits.push(`${rel}:${i + 1}  ${m[0].trim()}`);
+      });
+    counts.push([rel, hits.length - before]);
   }
 }
 
-if (INVENTORY) {
-  hits.forEach((h) => console.log(h));
-}
+if (INVENTORY) hits.forEach((h) => console.log(h));
 
-if (SET_BASELINE) {
-  fs.writeFileSync(BASELINE_FILE, `${hits.length}\n`);
-  console.log(`Baseline set to ${hits.length}`);
-  process.exit(0);
-}
-
-const baseline = fs.existsSync(BASELINE_FILE) ? parseInt(fs.readFileSync(BASELINE_FILE, 'utf8').trim(), 10) : 0;
-console.log('Hardcoded UI text scan complete');
-console.log(`  Current  : ${hits.length}`);
-console.log(`  Baseline : ${baseline}`);
-
-if (hits.length > baseline) {
-  console.error(`\nFAIL: hardcoded UI text rose above baseline (current=${hits.length} > baseline=${baseline})`);
-  console.error('Expose the string through a localeText prop with English defaults instead.');
-  process.exit(1);
-}
-console.log(`\nPASS: hardcoded UI text within baseline (current=${hits.length} <= baseline=${baseline})`);
+checkFileBaseline({
+  label: 'hardcoded UI text',
+  baselineFile: BASELINE_FILE,
+  counts,
+  script: 'scripts/check-hardcoded-text-in-tsx.mjs',
+  fix: 'expose the string through a localeText prop with English defaults instead.',
+});

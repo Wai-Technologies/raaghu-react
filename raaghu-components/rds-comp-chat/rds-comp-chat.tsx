@@ -9,6 +9,7 @@ import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-ge
 import Box from "@mui/material/Box";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { extendedBreakpointTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
 export interface Comment {
   firstName: string;
@@ -109,6 +110,9 @@ const avatarPropsFor = (user?: UserData) => {
   };
 };
 
+const MOBILE_BREAKPOINT = parseInt(extendedBreakpointTokens.sm, 10);
+const SMALL_MOBILE_BREAKPOINT = parseInt(extendedBreakpointTokens["mobile-sm"], 10);
+
 const RdsCompChat = ({
   chatScreenEnabled: chatScreenEnabledProp,
   isChatScreenEnabled,
@@ -131,8 +135,8 @@ const RdsCompChat = ({
   const onAddComment = onAddCommentProp ?? handleAddCommentProp;
 
   const [state, setState] = useState({
-    isMobile: window.innerWidth <= 600,
-    isSmallMobile: window.innerWidth <= 320,
+    isMobile: window.innerWidth <= MOBILE_BREAKPOINT,
+    isSmallMobile: window.innerWidth <= SMALL_MOBILE_BREAKPOINT,
     showChatWindow: false,
     commentText: "",
     showEmojiPicker: false,
@@ -153,8 +157,8 @@ const RdsCompChat = ({
 
   useEffect(() => {
     const handleResize = () => updateState({
-      isMobile: window.innerWidth <= 600,
-      isSmallMobile: window.innerWidth <= 320,
+      isMobile: window.innerWidth <= MOBILE_BREAKPOINT,
+      isSmallMobile: window.innerWidth <= SMALL_MOBILE_BREAKPOINT,
     });
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

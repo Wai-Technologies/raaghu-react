@@ -10079,6 +10079,768 @@
       ]
     },
     {
+      "name": "RdsCompChat",
+      "kind": "component",
+      "import": "import { RdsCompChat } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-chat/rds-comp-chat.tsx",
+      "props": [
+        {
+          "name": "chatScreenEnabled",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "currentUserCommentBgColor",
+          "type": "string",
+          "required": false,
+          "default": "var(--rds-primary-main)"
+        },
+        {
+          "name": "currentUserCommentTextColor",
+          "type": "string",
+          "required": false,
+          "default": "var(--rds-primary-contrast-text, var(--rds-neutral-0))"
+        },
+        {
+          "name": "onAddComment",
+          "type": "((comment: Comment) => void)",
+          "required": false
+        },
+        {
+          "name": "otherUserCommentBgColor",
+          "type": "string",
+          "required": false,
+          "default": "var(--rds-neutral-300)"
+        },
+        {
+          "name": "otherUserCommentTextColor",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false
+        },
+        {
+          "name": "userData",
+          "type": "UserData[]",
+          "required": true
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "handleAddComment",
+          "use": "Use `onAddComment` instead."
+        },
+        {
+          "name": "isChatScreenEnabled",
+          "use": "Use `chatScreenEnabled` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompAdaptiveCards",
+      "kind": "component",
+      "import": "import { RdsCompAdaptiveCards } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-adaptive-cards/rds-comp-adaptive-cards.tsx",
+      "props": [
+        {
+          "name": "activityProps",
+          "type": "Partial<{ avatar?: string; name?: string; date?: string | undefined; radioOptions?: { value: string; label: string; desc: string; }[] | undefined; }> | undefined",
+          "required": false
+        },
+        {
+          "name": "avatar",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "awayScore",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "awayTeam",
+          "type": "{ name: string; logo: string; status: string; }",
+          "required": false
+        },
+        {
+          "name": "awayTeamLogo",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "awayTeamName",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "awayTeamStatus",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "btn1Label",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "btn1style",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "btn2Label",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "btn2style",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "calendarReminderLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "calendarReminderPlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "cardText",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "cardTitle",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "closeIcon",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "drinkLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "drinkOptions",
+          "type": "{ value: string; label: string; }[]",
+          "required": false
+        },
+        {
+          "name": "drinkPlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "drinkValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "emailError",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "emailLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "emailPlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "emailValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "entreeLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "entreeOptions",
+          "type": "{ value: string; label: string; }[]",
+          "required": false
+        },
+        {
+          "name": "entreePlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "entreeValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "finalText",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "footballProps",
+          "type": "Partial<{ leagueName?: string; leagueAvatar?: string; isLive?: boolean | undefined; date?: string | undefined; isFinal?: boolean | undefined; homeTeam?: { name?: string | undefined; logo?: string | undefined; status?: string | undefined; } | undefined; ... 4 more ...; finalText?: string | und...",
+          "required": false
+        },
+        {
+          "name": "homeScore",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "homeTeam",
+          "type": "{ name: string; logo: string; status: string; }",
+          "required": false
+        },
+        {
+          "name": "homeTeamLogo",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "homeTeamName",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "homeTeamStatus",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "images",
+          "type": "string[]",
+          "required": false
+        },
+        {
+          "name": "isFinal",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "isLive",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "lateLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "leagueAvatar",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "leagueName",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "matchDate",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "nameError",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "nameLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "namePlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "nameValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "onBtn1Click",
+          "type": "(() => void)",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "type": "((data: { name: string; email: string; phone: string; }) => void)",
+          "required": false
+        },
+        {
+          "name": "onDrinkChange",
+          "type": "((e: ChangeEvent<Omit<HTMLInputElement, \"value\"> & { value: string; }, Element> | (Event & { target: { value: string; name: string; }; })) => void)",
+          "required": false
+        },
+        {
+          "name": "onEmailChange",
+          "type": "((e: ChangeEvent<HTMLInputElement, Element>) => void)",
+          "required": false
+        },
+        {
+          "name": "onEntreeChange",
+          "type": "((e: ChangeEvent<Omit<HTMLInputElement, \"value\"> & { value: string; }, Element> | (Event & { target: { value: string; name: string; }; })) => void)",
+          "required": false
+        },
+        {
+          "name": "onNameChange",
+          "type": "((e: ChangeEvent<HTMLInputElement, Element>) => void)",
+          "required": false
+        },
+        {
+          "name": "onPhoneChange",
+          "type": "((e: ChangeEvent<HTMLInputElement, Element>) => void)",
+          "required": false
+        },
+        {
+          "name": "onSideChange",
+          "type": "((e: ChangeEvent<Omit<HTMLInputElement, \"value\"> & { value: string; }, Element> | (Event & { target: { value: string; name: string; }; })) => void)",
+          "required": false
+        },
+        {
+          "name": "options",
+          "type": "{ value: string; label: string; }[]",
+          "required": false
+        },
+        {
+          "name": "phoneError",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phoneLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phonePlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "phoneValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "radioOptions",
+          "type": "{ value: string; label: string; desc: string; }[]",
+          "required": false
+        },
+        {
+          "name": "requiredText",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "showBtn1",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "showBtn2",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "showHeader",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "showTitleIcon",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "sideLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "sideOptions",
+          "type": "{ value: string; label: string; }[]",
+          "required": false
+        },
+        {
+          "name": "sidePlaceholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "sideValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "smallText",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "snoozeLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "time",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "showDismiss",
+          "use": "Use `showTitleIcon`."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompCodeSnippet",
+      "kind": "component",
+      "import": "import { RdsCompCodeSnippet } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-code-snippet/rds-comp-code-snippet.tsx",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "codeLines",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "language",
+          "type": "string | boolean",
+          "required": false,
+          "default": "html"
+        },
+        {
+          "name": "maxHeight",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "sampleCodeSnippets",
+          "type": "Record<string, string>",
+          "required": false
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the code snippet root."
+        },
+        {
+          "name": "theme",
+          "type": "\"light\" | \"dark\"",
+          "required": false,
+          "description": "Color scheme of the snippet. An explicit value always wins over the app/system mode;\nomit it to follow the app (`RaaghuThemeProvider`, including `system`)."
+        },
+        {
+          "name": "type",
+          "type": "\"singleLine\" | \"multiLine\"",
+          "required": false,
+          "default": "multiLine"
+        }
+      ],
+      "deprecatedProps": []
+    },
+    {
+      "name": "RdsCompCommentsBox",
+      "kind": "component",
+      "import": "import { RdsCompCommentsBox } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-comments-box/rds-comp-comments-box.tsx",
+      "props": [],
+      "deprecatedProps": []
+    },
+    {
+      "name": "RdsCompDetailsPane",
+      "kind": "component",
+      "import": "import { RdsCompDetailsPane } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-details-pane/rds-comp-details-pane.tsx",
+      "props": [
+        {
+          "name": "addtofolder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "addtoscreen",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "agents",
+          "type": "DetailsPaneAgent[]",
+          "required": false,
+          "description": "Agents listed in the `Selection` variant."
+        },
+        {
+          "name": "carouselImages",
+          "type": "{ src: string; alt: string; }[]",
+          "required": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "estateDescription",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "estateTitle",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "favouritesTabLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "figmaIconSrc",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "headerSubText",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "headerText",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "historyItems",
+          "type": "{ id: number; name: string; }[]",
+          "required": false
+        },
+        {
+          "name": "historyTabLabel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "olderHistoryItems",
+          "type": "{ id: number; name: string; }[]",
+          "required": false
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false
+        },
+        {
+          "name": "storybookIconSrc",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false
+        },
+        {
+          "name": "thumbnailButtonName",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "style",
+          "use": "Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompNavtabs",
+      "kind": "component",
+      "import": "import { RdsCompNavtabs } from '@waiin/raaghu-react';",
+      "source": "raaghu-components/rds-comp-navtabs/rds-comp-navtabs.tsx",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number",
+          "required": false,
+          "description": "Uncontrolled initial active tab id."
+        },
+        {
+          "name": "fill",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "RdsCompNavTabItem[]",
+          "required": false,
+          "description": "Tab definitions."
+        },
+        {
+          "name": "justified",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "layout",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "nextPressed",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "type": "((event: MouseEvent<HTMLButtonElement, MouseEvent> | null, value: string | number) => void)",
+          "required": false,
+          "description": "Called when a tab is selected."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEvent<HTMLElement, MouseEvent>",
+          "required": false
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "\"default\" | \"tabs\"",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string | number",
+          "required": false,
+          "description": "Controlled active tab id."
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "activeNavTabId",
+          "use": "Use `value` instead."
+        },
+        {
+          "name": "activeNavtabOrder",
+          "use": "Use `onChange` instead."
+        },
+        {
+          "name": "isNextPressed",
+          "use": "Use `nextPressed` instead."
+        },
+        {
+          "name": "navtabsItems",
+          "use": "Use `items` instead."
+        },
+        {
+          "name": "style",
+          "use": "Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles."
+        }
+      ]
+    },
+    {
       "name": "RdsCompAppShell",
       "kind": "layout",
       "import": "import { RdsCompAppShell } from '@waiin/raaghu-react';",

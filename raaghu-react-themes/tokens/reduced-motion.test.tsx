@@ -1,5 +1,7 @@
 import { buildRdsCssVars, buildStaticCssSnapshot, injectTokens, reducedMotionCssVars } from './build-rds-css-vars';
 import { reducedMotionTokens } from './design-tokens';
+import { act, render } from '@testing-library/react';
+import { RaaghuThemeProvider } from '../src/provider/RaaghuThemeProvider';
 
 describe('reduced motion tokens', () => {
   const vars = buildRdsCssVars('light');
@@ -42,5 +44,39 @@ describe('reduced motion tokens', () => {
       injectTokens('light');
     }
     expect(document.documentElement.style.getPropertyValue('--rds-transition-base')).not.toBe(reducedMotionTokens.duration);
+  });
+});
+
+describe('RaaghuThemeProvider and reduced motion', () => {
+  it('re-injects tokens when the OS reduced-motion setting changes', () => {
+    const original = window.matchMedia;
+    let reduce = false;
+    const listeners: Array<() => void> = [];
+    window.matchMedia = ((query: string) => ({
+      get matches() {
+        return query.includes('prefers-reduced-motion') && reduce;
+      },
+      media: query,
+      addEventListener: (_: string, fn: () => void) => {
+        if (query.includes('prefers-reduced-motion')) listeners.push(fn);
+      },
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    })) as unknown as typeof window.matchMedia;
+    const value = () => document.documentElement.style.getPropertyValue('--rds-transition-base');
+    try {
+      const { unmount } = render(<RaaghuThemeProvider defaultMode="light">x</RaaghuThemeProvider>);
+      expect(value()).not.toBe(reducedMotionTokens.duration);
+      reduce = true;
+      act(() => listeners.forEach((fn) => fn()));
+      expect(value()).toBe(reducedMotionTokens.duration);
+      reduce = false;
+      act(() => listeners.forEach((fn) => fn()));
+      expect(value()).not.toBe(reducedMotionTokens.duration);
+      unmount();
+    } finally {
+      window.matchMedia = original;
+    }
   });
 });

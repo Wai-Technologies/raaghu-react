@@ -131,3 +131,16 @@ export type { RdsCompToastLocaleText } from './rds-comp-toast/rds-comp-toast.typ
 export { DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT } from './rds-comp-toast/rds-comp-toast.types';
 export type { RdsCompVideoPlayerLocaleText } from './rds-comp-video-player/rds-comp-video-player-locale';
 export { DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT } from './rds-comp-video-player/rds-comp-video-player-locale';
+export { default as RdsCompChat } from './rds-comp-chat/rds-comp-chat';
+export { default as RdsCompAdaptiveCards } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards';
+export { default as RdsCompCodeSnippet } from './rds-comp-code-snippet/rds-comp-code-snippet';
+export { default as RdsCompCommentsBox } from './rds-comp-comments-box/rds-comp-comments-box';
+export { default as RdsCompDetailsPane } from './rds-comp-details-pane/rds-comp-details-pane';
+export { default as RdsCompNavtabs } from './rds-comp-navtabs/rds-comp-navtabs';
+export type { RdsCompChatProps, Comment as RdsCompChatComment, UserData as RdsCompChatUserData } from './rds-comp-chat/rds-comp-chat';
+export type { AdaptiveCardProps as RdsCompAdaptiveCardsProps } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards-helpers';
+export type { RdsCompCodeSnippetProps } from './rds-comp-code-snippet/rds-comp-code-snippet';
+export type { RdsCommentBoxProps as RdsCompCommentsBoxProps, RdsCommentBoxState as RdsCompCommentsBoxState } from './rds-comp-comments-box/rds-comp-comments-logic-combined';
+export type { RdsCompDetailsPaneProps } from './rds-comp-details-pane/rds-comp-details-pane';
+export type { DetailsPaneAgent as RdsCompDetailsPaneAgent } from './rds-comp-details-pane/details-pane-components';
+export type { RdsCompNavtabsProps, RdsCompNavTabItem } from './rds-comp-navtabs/rds-comp-navtabs';

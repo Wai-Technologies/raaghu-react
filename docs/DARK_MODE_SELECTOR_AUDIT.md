@@ -1,6 +1,6 @@
 # Dark-mode selector audit
 
-`[data-theme='dark']` overrides in SCSS were moved to mode-aware tokens (`componentModeTokens` light/dark pairs) only where the rendered result is provably identical. Internal components (grid, chat, tree structure, comments box, adaptive cards, code snippet, details pane, date-and-time picker, navtabs) are out of scope.
+`[data-theme='dark']` overrides in SCSS were moved to mode-aware tokens (`componentModeTokens` light/dark pairs) only where the rendered result is provably identical. Out of scope: the internal grid, tree structure and date-and-time picker, and chat, comments box, adaptive cards, code snippet, details pane and navtabs, which were internal when this audit ran and are exported now.
 
 A declaration `[dark] X { p: B }` is migrated only when all four rules hold:
 

@@ -1,6 +1,6 @@
 # Keyboard focus audit
 
-Audit of every `outline: none` / `outline: 0` in the SCSS of exported components. Internal components (grid, chat, tree structure, comments box, adaptive cards, code snippet, details pane, date-and-time picker, navtabs) are not covered.
+Audit of every `outline: none` / `outline: 0` in the SCSS of exported components. Not covered: the internal grid, tree structure and date-and-time picker, and chat, comments box, adaptive cards, code snippet, details pane and navtabs, which were internal when this audit ran and are exported now.
 
 A declaration is **fixed** when the element is keyboard-focusable and had no visible focus indicator; a `&:focus-visible` rule using `--rds-focus-ring-width` and `--rds-focus-ring-offset` was added. The mouse (`:focus`) look is unchanged. It is **ok** when a visible indicator already exists (a `:focus-visible` rule, MUI focus-visible styling, or a ring/border on `:focus-within`). It is **skipped** when the element is not a keyboard focus target, or when a ring would also show on mouse focus.
 
