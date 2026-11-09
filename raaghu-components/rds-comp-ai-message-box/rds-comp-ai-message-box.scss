@@ -89,22 +89,6 @@
       margin-top: var(--rds-spacing-hairline);
     }
   }
-
-  @include bp.down(xs) {
-    &__container {
-      padding: 0 var(--rds-spacing-xs);
-    }
-    &__image-wrapper {
-      margin-left: var(--rds-spacing-sm);
-      max-width: calc(100% - var(--rds-spacing-sm));
-      .rds-comp-ai-message-box__image {
-        max-width: 100%;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-      }
-    }
-  }
 }
 
 

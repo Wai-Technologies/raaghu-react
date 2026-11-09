@@ -11,8 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The npm package now ships only the build output: `dist/`, `raaghu-react-themes/src/styles/index.scss`, the AI docs (`AGENTS.md`, `llms.txt`, `docs/ai/`, `docs/TOKENS.md`), `README.md`, `CHANGELOG.md` and `LICENSE`. The source folders (`raaghu-elements/`, `raaghu-components/`, `raaghu-layouts/`, `raaghu-react-themes/`, `utils/`, `index.ts`) are no longer published. **Migration:** replace deep imports such as `@waiin/raaghu-react/raaghu-elements/...` or `raaghu-react-themes/...` with imports from the package root (`@waiin/raaghu-react`), and load styles with `import '@waiin/raaghu-react/styles.css'`. The optional global resets stay available at `@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss`.
 
+### Added
+
+- `localeText` prop on exported components to override built-in English text (`aria-label`s, placeholders, button labels). Types and `DEFAULT_*_LOCALE_TEXT` constants live in `*-locale.ts` files and are exported from the package root.
+- `prefers-reduced-motion` support: `RaaghuThemeProvider` sets the duration and transition tokens to `0.01ms` (and follows changes of the OS setting), loaders and spinners keep moving, `RdsSkeleton` stops pulsing and `RdsCarousel` autoplay does not start.
+- `:focus-visible` rings (`--rds-focus-ring-width`, `--rds-focus-ring-offset`) on 20 focusable elements that had no keyboard focus indicator; see `docs/ACCESSIBILITY_FOCUS_AUDIT.md`.
+- Lint ratchets `lint:media-queries`, `lint:hardcoded-text` and `lint:data-theme`, wired into `npm run lint` and the style-governance workflow.
+- `docs/DARK_MODE_SELECTOR_AUDIT.md`: which `[data-theme]` overrides moved to mode tokens and why the rest stay.
+
 ### Changed
 
+- SCSS media queries use the `bp` helpers from `_breakpoints.scss` instead of literal px; the compiled CSS is identical.
+- `react-player` is no longer bundled into `dist`; it is a runtime dependency. Packed size 6.4 MB to 2.1 MB, unpacked 26.6 MB to 9.5 MB.
+- 5 dark-mode overrides (`RdsMenu` header, divider and shortcut, the datepicker header select and the e-signature file text) moved from `[data-theme='dark']` rules to mode tokens with identical values.
 - **Color tokens (visible change).** Light mode: the `dark` (hover/pressed) shade of `primary`, `secondary`, `error`, `warning` and `success` moves from step 600 to 750, and `info.dark` from 600 to 800. The secondary scale mixes pink and blue steps, so the old `secondary.dark` (600, pink) turned blue buttons red on hover. `text.secondary` (`--rds-text-secondary`) moves from neutral 600 to 700 for better contrast. Dark mode: `secondary.dark` moves from step 400 (pink) to 750 (blue). Card hover/selected/filled surfaces and the alert/status colors were also retuned (see `docs/TOKENS.md`).
 - **Dark styles follow the app theme, not the OS.** `RdsToggleButton` group borders used `@media (prefers-color-scheme: dark)`, so a light-mode app showed dark-mode borders to users whose OS was in dark mode. They now follow `data-theme`, which `RaaghuThemeProvider` sets.
 - `RdsCarousel`: `onActiveIndexChange` now fires on every slide change (arrows, dots, keyboard and autoplay), in both controlled and uncontrolled mode. It used to fire only when `activeIndex` was controlled. Autoplay now pauses while the carousel is hovered or has focus.
@@ -25,6 +36,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `RdsDialog` `showDissmiss`: use `showCloseButton`.
 - `RdsAvatar` `activeDotBottom`: use `status="online"` with `statusPosition="bottom"`.
 - `RdsAppBar` `actions`: use `endSlot`.
+
+### Removed
+
+- 9 `:global(...)` rules in `rds-banner.scss` that browsers never applied (plain SCSS, not CSS Modules).
+- A never-matching `max-width: 0px` media block in `rds-comp-ai-message-box.scss`.
 
 ### Changed (packaging)
 
