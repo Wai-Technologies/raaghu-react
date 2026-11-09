@@ -12,6 +12,7 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { DEFAULT_RDS_COMP_AI_ATTACHMENT_LOCALE_TEXT, type RdsCompAiAttachmentLocaleText } from './rds-comp-ai-attachment-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
@@ -167,7 +168,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
     sx,
     ...rest
   } = props;
-  const text = { ...DEFAULT_RDS_COMP_AI_ATTACHMENT_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_AI_ATTACHMENT_LOCALE_TEXT, localeText);
   for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
     if (props[name as keyof typeof DEPRECATED_PROPS] !== undefined) warnDeprecatedProp("RdsCompAiAttachment", name, replacement);
   }

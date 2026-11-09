@@ -14,6 +14,7 @@ import RdsCompAiAttachment, {
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, type RdsCompAiTypingSectionLocaleText } from './rds-comp-ai-typing-section-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export interface RdsCompAiTypingSectionOption {
   label: string;
@@ -99,7 +100,7 @@ const RdsCompAiTypingSectionComponent = ({
   if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "placeholderText", "`placeholder`");
   if (previewImage !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "previewImage", "`imageSrc`");
   if (autoCompleteMaxWidth !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "autoCompleteMaxWidth", "`slotProps.autocomplete.sx`");
-  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, ...localeText }), [localeText]);
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, localeText), [localeText]);
   const resolvedPlaceholder = placeholder ?? placeholderText;
   const resolvedImage = imageSrc ?? previewImage;
   const { sx: autocompleteSx, ...autocompleteSlotProps } = slotProps?.autocomplete ?? {};

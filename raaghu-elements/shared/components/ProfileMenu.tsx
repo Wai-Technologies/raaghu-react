@@ -12,6 +12,7 @@ import { warnDeprecatedProp } from '../utils/deprecation';
 import '../styles/rds-profile-menu.scss';
 import { extendedBreakpointTokens } from '../../../raaghu-react-themes/tokens/design-tokens';
 import { DEFAULT_PROFILE_MENU_LOCALE_TEXT, type ProfileMenuLocaleText } from './profile-menu-locale';
+import { mergeLocaleText } from '../utils/locale-text';
 
 export interface ProfileMenuItem {
   label: string;
@@ -68,7 +69,7 @@ export const ProfileMenu = ({
   menuItems,
   localeText,
 }: ProfileMenuProps) => {
-  const text = { ...DEFAULT_PROFILE_MENU_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_PROFILE_MENU_LOCALE_TEXT, localeText);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isSmallScreen = useMediaQuery(`(max-width:${extendedBreakpointTokens['tablet-md']})`, { noSsr: true });
   const open = Boolean(anchorEl);

@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';
 import { DEFAULT_RDS_HEADER_LOCALE_TEXT, type RdsHeaderLocaleText } from './rds-header-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 /** Props for {@link RdsHeader}. Extends MUI `AppBar` props. */
 export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
@@ -78,7 +79,7 @@ const RdsHeader = ({
   elevation = 0,
   ...props
 }: RdsHeaderProps) => {
-  const text = { ...DEFAULT_RDS_HEADER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_HEADER_LOCALE_TEXT, localeText);
   const [innerTab, setInnerTab] = useState(0);
   if (tabValue !== undefined) warnDeprecatedProp('RdsHeader', 'tabValue', '`tabsValue`');
   if (onTabChange) warnDeprecatedProp('RdsHeader', 'onTabChange', '`onTabsChange`');

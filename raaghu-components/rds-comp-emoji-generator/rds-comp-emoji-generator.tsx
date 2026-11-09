@@ -29,6 +29,7 @@ import { ensureEmojiData, getEmojiLabel, getEmojisByCategory, isEmojiDataReady, 
 import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT, type RdsCompEmojiGeneratorLocaleText } from './rds-comp-emoji-generator-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const SKIN_TONE_OPTIONS = [
     { value: 0, color: emojiSkinToneColors.default, label: "Default" },
@@ -176,7 +177,7 @@ const RdsCompEmojiGenerator = ({
     ...props
 }: RdsCompEmojiGeneratorProps) => {
     if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
-    const text = { ...DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT, ...localeText };
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT, localeText);
     const searchPlaceholder = text.searchPlaceholder;
     const moodPrompt = text.moodPrompt;
     const resolvedType = typeProp ?? variant ?? EmojiGeneratorType.Default;

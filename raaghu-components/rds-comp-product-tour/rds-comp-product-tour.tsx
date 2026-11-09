@@ -22,6 +22,7 @@ import {
     renderFormNavigation,
     DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT
 } from './product-tour-helpers';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 export { DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT };
 export type { RdsCompProductTourLocaleText } from './product-tour-helpers';
 import './rds-comp-product-tour.scss';
@@ -67,7 +68,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     localeText,
     ...rest
 }) => {
-    const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT, ...localeText }), [localeText]);
+    const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT, localeText), [localeText]);
     if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
     if (formTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'formTitle', '`subtitle`');
     if (tabTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'tabTitle', '`items`');

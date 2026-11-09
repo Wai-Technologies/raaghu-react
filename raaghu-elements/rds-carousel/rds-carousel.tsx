@@ -7,6 +7,7 @@ import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import './rds-carousel.scss';
 import { DEFAULT_RDS_CAROUSEL_LOCALE_TEXT, type RdsCarouselLocaleText } from './rds-carousel-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
@@ -89,7 +90,7 @@ const RdsCarousel = ({
   ref,
   ...rest
 }: RdsCarouselProps) => {
-  const text = { ...DEFAULT_RDS_CAROUSEL_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_CAROUSEL_LOCALE_TEXT, localeText);
   if (showDots !== undefined) warnDeprecatedProp('RdsCarousel', 'showDots', '`showIndicators`');
   if (titles !== undefined) warnDeprecatedProp('RdsCarousel', 'titles', '`items`');
   if (subtitles !== undefined) warnDeprecatedProp('RdsCarousel', 'subtitles', '`items`');

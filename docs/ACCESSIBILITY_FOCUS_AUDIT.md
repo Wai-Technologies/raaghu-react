@@ -2,13 +2,13 @@
 
 Audit of every `outline: none` / `outline: 0` in the SCSS of exported components. Internal components (grid, chat, tree structure, comments box, adaptive cards, code snippet, details pane, date-and-time picker, navtabs) are not covered.
 
-A declaration is **fixed** when the element is keyboard-focusable and had no visible focus indicator; a `&:focus-visible` rule using `--rds-focus-ring-width` and `--rds-focus-ring-offset` was added. The mouse (`:focus`) look is unchanged. It is **ok** when a visible indicator already exists (a `:focus-visible` rule, MUI focus-visible styling, or a ring/border on `:focus-within`). It is **skipped** when the element is not a keyboard focus target.
+A declaration is **fixed** when the element is keyboard-focusable and had no visible focus indicator; a `&:focus-visible` rule using `--rds-focus-ring-width` and `--rds-focus-ring-offset` was added. The mouse (`:focus`) look is unchanged. It is **ok** when a visible indicator already exists (a `:focus-visible` rule, MUI focus-visible styling, or a ring/border on `:focus-within`). It is **skipped** when the element is not a keyboard focus target, or when a ring would also show on mouse focus.
 
 | Result | Count |
 |---|---|
-| Fixed | 20 |
+| Fixed | 19 |
 | Already OK | 30 |
-| Skipped | 2 |
+| Skipped | 3 |
 
 | Location | Result | Reason |
 |---|---|---|
@@ -48,7 +48,7 @@ A declaration is **fixed** when the element is keyboard-focusable and had no vis
 | raaghu-elements/rds-app-bar/rds-app-bar.scss:899 | ok | inner search input; parent &:focus-within changes border-color |
 | raaghu-elements/rds-button-dropdown/rds-button-dropdown.scss:39 | fixed | real button option, no focus style; added focus-visible ring |
 | raaghu-elements/rds-button/rds-button.scss:16 | ok | &:focus-visible ring exists |
-| raaghu-elements/rds-counter/rds-counter.scss:280 | fixed | input:focus removes outline and nothing replaces it; added focus-visible ring |
+| raaghu-elements/rds-counter/rds-counter.scss:280 | skipped | text input matches :focus-visible on mouse click too, so a ring would be a visible change; needs a :focus-within ring on the counter wrapper (design call) |
 | raaghu-elements/rds-dialog/rds-dialog.scss:167 | ok | &:focus-visible ring follows immediately |
 | raaghu-elements/rds-file-uploader/rds-file-uploader.scss:60 | fixed | browse-link button; focus only set color to the already-primary color; added ring |
 | raaghu-elements/rds-file-uploader/rds-file-uploader.scss:390 | fixed | same as above for __browse-link; added ring |

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { Box, Typography, type SxProps, type Theme } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, type RdsCompESignatureLocaleText } from './rds-comp-e-signature-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export interface PredefinedSignatureItem {
   id: string;
@@ -46,7 +47,7 @@ export const RdsESignatureUpload = ({
   ref,
   ...rest
 }: RdsESignatureUploadProps) => {
-  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText }), [localeText]);
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, localeText), [localeText]);
   const resolvedTitle = title ?? (type === 'initials' ? text.uploadInitial : text.uploadSignature);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
@@ -197,7 +198,7 @@ export const RdsESignatureChoose = ({
   ref,
   ...rest
 }: RdsESignatureChooseProps) => {
-  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText }), [localeText]);
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, localeText), [localeText]);
   const resolvedTitle = title ?? text.chooseSignature;
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const multipleChooseError = selectedStyles.length > 1;

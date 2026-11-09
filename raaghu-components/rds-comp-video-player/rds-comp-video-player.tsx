@@ -7,6 +7,7 @@ import "./rds-comp-video-player.scss";
 export { VideoPlayerType } from './rds-comp-video-player-types';
 import { VideoPlayerType } from './rds-comp-video-player-types';
 import { DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT, type RdsCompVideoPlayerLocaleText } from './rds-comp-video-player-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const ReactPlayer = lazy(() => import("react-player"));
 
@@ -120,7 +121,7 @@ const RdsCompVideoPlayer = ({
   localeText,
   ...rest
 }: RdsVideoPlayerProps) => {
-  const text = { ...DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_VIDEO_PLAYER_LOCALE_TEXT, localeText);
   const resolvedDisabledMessage = disabledMessage ?? text.disabledMessage;
   if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
   const shouldAutoPlay = (autoPlay ?? false) && !disabled;

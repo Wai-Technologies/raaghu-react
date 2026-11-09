@@ -23,6 +23,7 @@ import { SettingsModalComponent } from "./SettingsModalComponent";
 import { AudioEditionControls } from "./AudioEditionControls";
 import { extendedBreakpointTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 import { DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, type RdsCompAudioPlayerLocaleText } from './rds-comp-audio-player-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 registerMaterialIcons({
   share_icon: IosShareIcon,
@@ -164,7 +165,7 @@ const RdsCompAudioPlayer = ({
   localeText,
   ...rest
 }: RdsCompAudioPlayerProps) => {
-  const text = useMemo(() => ({ ...DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, ...localeText }), [localeText]);
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_AUDIO_PLAYER_LOCALE_TEXT, localeText), [localeText]);
   const exportItems = exportItemsProp ?? buildExportMenuItems(text);
   const moreItems = moreItemsProp ?? buildMoreMenuItems(text);
   if (controls !== undefined) {

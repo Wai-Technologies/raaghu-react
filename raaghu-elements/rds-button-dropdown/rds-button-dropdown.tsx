@@ -12,6 +12,7 @@ import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import { invokeValueFirstOnChange, resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import { DEFAULT_RDS_BUTTON_DROPDOWN_LOCALE_TEXT, type RdsButtonDropdownLocaleText } from './rds-button-dropdown-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -213,7 +214,7 @@ const RdsButtonDropdown = ({
   localeText,
   ...rest
 }: RdsButtonDropdownProps) => {
-  const text = { ...DEFAULT_RDS_BUTTON_DROPDOWN_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_BUTTON_DROPDOWN_LOCALE_TEXT, localeText);
   if (buttonText !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'buttonText', '`children`');
   if (multiSelect !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'multiSelect', '`multiple`');
   if (rightIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'rightIcon', '`endIcon`');

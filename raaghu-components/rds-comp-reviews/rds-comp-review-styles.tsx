@@ -6,6 +6,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
 import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 interface FeedbackActionsProps {
   likes: number;
@@ -72,7 +73,7 @@ export const ReviewStyleCard = ({
   onDislike,
   localeText,
 }: ReviewStyleCardProps) => {
-  const text = { ...DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, localeText);
   const getInitialRating = () =>
     variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
       ? 1

@@ -42,6 +42,7 @@ import {
   type KanbanAssignee,
   DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT,
 } from './kanban-board-helpers';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 export { DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT };
 export type { RdsCompKanbanBoardLocaleText } from './kanban-board-helpers';
 
@@ -217,7 +218,7 @@ const RdsCompKanbanBoard = ({
   localeText,
   ...rest
 }: RdsCompKanbanBoardProps) => {
-  const text = { ...DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT, localeText);
   const legacy = {
     isIlliustrationSmall, noDataTitle, noDataHeaderTitle, illustration,
     allowAddingDynamicData, onClick, addQuestionData: addQuestionDataProp,

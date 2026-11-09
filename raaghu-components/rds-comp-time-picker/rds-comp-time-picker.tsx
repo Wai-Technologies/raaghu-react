@@ -15,6 +15,7 @@ import {
   getCurrentTime,
   formatTime
 } from './time-picker-utils';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 interface PickerState {
   showPicker: boolean;
@@ -74,7 +75,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'style', '`variant`');
   const pickerStyle = variant ?? legacyStyle ?? 'default';
   const resolvedColor = color ?? colorVariant;
-  const text = { ...DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, localeText);
   const nowText = text.now;
   const cancelText = text.cancel;
   const setTimeText = text.setTime;

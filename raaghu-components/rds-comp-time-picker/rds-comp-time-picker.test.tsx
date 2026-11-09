@@ -715,4 +715,10 @@ describe('RdsCompTimePicker extended localeText', () => {
     expect(screen.getByLabelText('Zeitwähler umschalten')).toBeInTheDocument();
     expect(screen.queryByLabelText('Selected time')).not.toBeInTheDocument();
   });
+
+  it('falls back to English defaults for keys passed as undefined', () => {
+    render(<RdsCompTimePicker localeText={{ selectedTime: undefined, toggleTimePicker: undefined }} />);
+    expect(screen.getByLabelText('Selected time')).toBeInTheDocument();
+    expect(screen.getByLabelText('Toggle time picker')).toBeInTheDocument();
+  });
 });

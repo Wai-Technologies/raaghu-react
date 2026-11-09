@@ -22,6 +22,7 @@ import {
 } from './rds-comp-e-signature-modes';
 import { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, type RdsCompESignatureLocaleText } from './rds-comp-e-signature-locale';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 import './rds-comp-e-signature.scss';
 
 export { DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT };
@@ -144,7 +145,7 @@ const RdsCompESignature = ({
   if (disabledFooterMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledFooterMessage', '`slotProps.helperText`');
   if (predefinedSignatures !== undefined) warnDeprecatedProp('RdsCompESignature', 'predefinedSignatures', '`options`');
 
-  const text = { ...DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_E_SIGNATURE_LOCALE_TEXT, localeText);
   const mode = variant ?? modeProp;
   const type = signatureType ? (signatureType === 'initials' ? 'initials' : 'fullname') : typeProp;
   const resolvedTitle = title ?? (

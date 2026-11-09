@@ -10,6 +10,7 @@ import "./rds-comp-off-canvas.scss";
 export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 import { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 import { DEFAULT_RDS_COMP_OFFCANVAS_LOCALE_TEXT, type RdsCompOffcanvasLocaleText } from './rds-comp-off-canvas-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export type RdsCompOffcanvasCloseReason =
   | NonNullable<Parameters<NonNullable<DrawerProps["onClose"]>>[1]>
@@ -117,7 +118,7 @@ const RdsCompOffcanvas = ({
   ref,
   ...rest
 }: RdsCompOffcanvasProps) => {
-  const text = { ...DEFAULT_RDS_COMP_OFFCANVAS_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_OFFCANVAS_LOCALE_TEXT, localeText);
   if (placement !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "placement", "`anchor`");
   if (onShow !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onShow", "`onOpen`");
   if (offId !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offId", "`id`");

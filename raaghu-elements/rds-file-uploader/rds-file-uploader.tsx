@@ -17,6 +17,7 @@ export { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, type RdsFileUploaderLocaleText }
 export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
 import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps, RdsFileUploaderRootProps {
@@ -70,7 +71,7 @@ const RdsFileUploader = ({
   ref,
   ...rest
 }: RdsFileUploaderProps) => {
-  const text = { ...DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, localeText);
   if (title !== undefined) warnDeprecatedProp('RdsFileUploader', 'title', '`label`');
   if (hintText !== undefined) warnDeprecatedProp('RdsFileUploader', 'hintText', '`helperText`');
   if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsFileUploader', 'isMandatory', '`required`');

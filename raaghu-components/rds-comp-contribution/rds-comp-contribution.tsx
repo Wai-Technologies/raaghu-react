@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DEFAULT_RDS_COMP_CONTRIBUTION_LOCALE_TEXT, type RdsCompContributionLocaleText } from './rds-comp-contribution-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 dayjs.extend(customParseFormat);
 
@@ -100,7 +101,7 @@ const RdsCompContribution = ({
   ref,
   ...rest
 }: RdsCompContributionProps) => {
-  const text = { ...DEFAULT_RDS_COMP_CONTRIBUTION_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_CONTRIBUTION_LOCALE_TEXT, localeText);
   const deprecated: [string, unknown, string][] = [
     ['weekNames', weekNamesProp, 'weekdayLabels'],
     ['monthNames', monthNamesProp, 'monthLabels'],

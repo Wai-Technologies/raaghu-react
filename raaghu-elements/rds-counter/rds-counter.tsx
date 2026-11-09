@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import "./rds-counter.scss";
 import { DEFAULT_RDS_COUNTER_LOCALE_TEXT, type RdsCounterLocaleText } from './rds-counter-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsCounterProps
@@ -106,7 +107,7 @@ const RdsCounter = ({
   ref,
   ...rest
 }: RdsCounterProps) => {
-  const text = { ...DEFAULT_RDS_COUNTER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COUNTER_LOCALE_TEXT, localeText);
   if (titleText !== undefined) warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
   if (controlsClassName !== undefined) warnDeprecatedProp('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsCounter', 'isMandatory', '`required`');

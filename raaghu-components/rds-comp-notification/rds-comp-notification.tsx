@@ -16,6 +16,7 @@ import {
     type NotificationItem,
     type RdsCompNotificationProps,
 } from "./rds-comp-notification.types";
+import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
 
 const CustomBellIcon = () => (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +59,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
     ...rest
 }) => {
-    const text = { ...DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT, ...localeText };
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT, localeText);
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
     if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');

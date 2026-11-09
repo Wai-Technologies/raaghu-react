@@ -18,6 +18,7 @@ import {
   type RdsCompColorPickerProps,
   StyleType,
 } from "./rds-comp-color-picker.types";
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 interface ColorUpdate {
   hex: string;
@@ -74,7 +75,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   );
   if (colorModeProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'colorMode', '`format`');
   if (pickerType !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'pickerType', '`view`');
-  const text = { ...DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, localeText);
   const value = valueProp ?? defaultValue;
   const type = (variant && VARIANT_TO_TYPE[variant]) ?? typeProp ?? ColorPickerType.Default;
   const colorMode = (format?.toUpperCase() as ColorMode | undefined) ?? colorModeProp;

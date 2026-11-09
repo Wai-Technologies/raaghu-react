@@ -17,6 +17,7 @@ import {
     getStateClass,
     useToastTimer,
 } from "./toast-helpers";
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const ToastFooter = ({
     layout,
@@ -101,7 +102,7 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
  * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
  */
 const RdsCompToast = (props: RdsCompToastProps) => {
-    const text = { ...DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT, ...props.localeText };
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT, props.localeText);
     const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
     const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;
     const legacyShowDismiss = typeof props['showDismiss'] === 'boolean' ? (props['showDismiss'] as boolean) : undefined;

@@ -7,6 +7,7 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Scrollbar style (Mac with buttons, or Simple). Wins over `type`. */
@@ -50,7 +51,7 @@ const RdsCompScrollBar = ({
   ref,
   ...rest
 }: RdsScrollBarProps) => {
-  const text = { ...DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, localeText);
   if (position !== undefined) warnDeprecatedProp("RdsCompScrollBar", "position", "`scrollTo`");
   const resolvedScrollTo = scrollTo ?? position ?? ScrollPosition.Start;
   const resolvedType = variant ?? type ?? ScrollBarType.Mac;

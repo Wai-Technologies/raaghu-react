@@ -34,6 +34,7 @@ import { rdsAppBarSx } from './rds-app-bar.styles';
 import "./rds-app-bar.scss";
 import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 import { DEFAULT_RDS_APP_BAR_LOCALE_TEXT, type RdsAppBarLocaleText } from './rds-app-bar-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 
@@ -172,7 +173,7 @@ const RdsAppBar = ({
   sx,
   ...props
 }: RdsAppBarProps) => {
-  const text = { ...DEFAULT_RDS_APP_BAR_LOCALE_TEXT, ...localeText };
+  const text = mergeLocaleText(DEFAULT_RDS_APP_BAR_LOCALE_TEXT, localeText);
   if (rightActions !== undefined) warnDeprecatedProp('RdsAppBar', 'rightActions', '`endSlot`');
   if (actions !== undefined) warnDeprecatedProp('RdsAppBar', 'actions', '`endSlot` (unlike `actions`, it stays visible next to the profile menu, so omit `userName`/`userEmail` to hide the menu)');
   if (centerContent !== undefined) warnDeprecatedProp('RdsAppBar', 'centerContent', '`centerSlot`');
