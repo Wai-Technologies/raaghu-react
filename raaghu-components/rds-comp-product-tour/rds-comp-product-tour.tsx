@@ -6,25 +6,11 @@ import RdsCarousel from '../../raaghu-elements/rds-carousel/rds-carousel';
 import RdsBadge from '../../raaghu-elements/rds-badge/rds-badge';
 import RdsFileUploader from '../../raaghu-elements/rds-file-uploader/rds-file-uploader';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
-import {
-    RdsCompProductTourProps,
-    parseSteps,
-    createEffectiveSlides,
-    deleteIcon,
-    resolveCornerDots,
-    renderCornerDots,
-    renderCloseButton,
-    renderNavRow,
-    renderInfoSection,
-    renderCarouselNavigation,
-    renderGifNavigation,
-    renderFormInputs,
-    renderFormNavigation,
-    DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT
-} from './product-tour-helpers';
+import { RdsCompProductTourProps, parseSteps, createEffectiveSlides, deleteIcon, resolveCornerDots, renderCornerDots, renderCloseButton, renderNavRow, renderInfoSection, renderCarouselNavigation, renderGifNavigation, renderFormInputs, renderFormNavigation } from './product-tour-helpers';
+import { DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT } from './rds-comp-product-tour-locale';
 import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 export { DEFAULT_RDS_COMP_PRODUCT_TOUR_LOCALE_TEXT };
-export type { RdsCompProductTourLocaleText } from './product-tour-helpers';
+export type { RdsCompProductTourLocaleText } from './rds-comp-product-tour-locale';
 import './rds-comp-product-tour.scss';
 
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];

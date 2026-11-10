@@ -8,14 +8,8 @@ import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button
 import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-notification.scss";
-import {
-    NotificationLayout,
-    NotificationStyle,
-    NotificationType,
-    DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT,
-    type NotificationItem,
-    type RdsCompNotificationProps,
-} from "./rds-comp-notification.types";
+import { NotificationLayout, NotificationStyle, NotificationType, type NotificationItem, type RdsCompNotificationProps } from "./rds-comp-notification.types";
+import { DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT } from "./rds-comp-notification-locale";
 import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
 
 const CustomBellIcon = () => (

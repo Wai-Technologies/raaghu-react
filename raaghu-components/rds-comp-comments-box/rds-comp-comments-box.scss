@@ -1860,7 +1860,7 @@
   color: var(--rds-text-primary); 
   font-weight: var(--rds-font-weight-medium);
 }
-@media (max-width: #{bp.bp(sm)}) and (min-width: #{bp.bp(mobile-sm)}) {
+@include bp.between(mobile-sm, sm) {
   .rds-comments-box__header {
     padding-left: 0;
     margin-left: 0;
@@ -2322,7 +2322,7 @@
     }
   }
 
-  @media (max-width: #{bp.bp(mobile-sm)}) and (min-width: #{bp.bp(280)}) {
+  @include bp.between(280, mobile-sm) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 100%;
@@ -2331,7 +2331,7 @@
     }
 }
 
-@media (max-width: #{bp.bp(514)}) and (min-width: #{bp.bp(mobile-sm)}) {
+@include bp.between(mobile-sm, 514) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 100%;
@@ -2434,7 +2434,7 @@
   }
 }
 
-@media (max-width: #{bp.bp(lg)}) and (min-width: #{bp.bp(650)}) {
+@include bp.between(650, lg) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         margin-left: 0;
@@ -2443,7 +2443,7 @@
     }
 }
 
-@media (max-width: #{bp.bp(mobile-sm)}) and (min-width: #{bp.bp(280)}) {
+@include bp.between(280, mobile-sm) {
   .rds-comments-box--typing {
     width: min(var(--rds-comments-panel-width-md), 100%);
     max-width: min(var(--rds-comments-panel-width-md), 100%);

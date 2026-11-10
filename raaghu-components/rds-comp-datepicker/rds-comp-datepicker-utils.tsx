@@ -2,7 +2,7 @@ import { createElement, type MouseEvent, type Ref, type RefObject, type ReactNod
 import DatePicker, { type DatePickerProps } from "react-datepicker";
 import { CustomButtons } from "./CustomButtons";
 import { renderPickerIcon } from "./CustomInputWithClear";
-import { DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, type RdsDatepickerLocaleText } from "./rds-comp-datepicker.types";
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, type RdsCompDatepickerLocaleText } from "./rds-comp-datepicker-locale";
 import {
     RenderDefaultDropdownHeader,
     RenderMultiMonthHeader,
@@ -20,14 +20,14 @@ interface CustomHeaderProps {
     minDate?: Date;
     maxDate?: Date;
     locale?: string;
-    text?: RdsDatepickerLocaleText;
+    text?: RdsCompDatepickerLocaleText;
 }
 
 interface DatePickerBounds {
     minDate?: Date;
     maxDate?: Date;
     locale?: string;
-    text?: RdsDatepickerLocaleText;
+    text?: RdsCompDatepickerLocaleText;
 }
 
 type DatePickerChangeValue = Date | null;
@@ -51,7 +51,7 @@ type DatepickerSharedProps = {
     openPickerIcon?: ReactNode;
     inputId?: string;
     idPrefix?: string;
-    text?: RdsDatepickerLocaleText;
+    text?: RdsCompDatepickerLocaleText;
     isCompact?: boolean;
 };
 
@@ -140,7 +140,7 @@ const buildDatePickerProps = ({
         wrapperClassName: "rds-datepicker__wrapper",
         popperPlacement: "bottom-start",
         disabled: props.isDisabled,
-        placeholderText: props.placeholderText || (props.text ?? DEFAULT_RDS_DATEPICKER_LOCALE_TEXT).selectDate,
+        placeholderText: props.placeholderText || (props.text ?? DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT).selectDate,
         showMonthYearPicker: props.layout === "Month Picker",
         showYearPicker: props.layout === "Year Picker",
         showPreviousMonths: true,
@@ -200,7 +200,7 @@ export const renderDatePickerTypeView = (
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
     void datePickerRef;
-    const text = props.text ?? DEFAULT_RDS_DATEPICKER_LOCALE_TEXT;
+    const text = props.text ?? DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT;
 
     if (type === "Default") {
         const pickerProps = buildDatePickerProps({

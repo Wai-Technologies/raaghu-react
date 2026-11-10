@@ -4,8 +4,9 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
-import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
-import type { FileWithProgress, RdsFileUploaderLocaleText, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-locale';
+import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import type { RdsFileUploaderLocaleText } from './rds-file-uploader-locale';
 
 interface RdsFileUploaderStandardViewProps {
   /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */

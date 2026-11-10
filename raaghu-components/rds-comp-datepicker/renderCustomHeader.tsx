@@ -1,4 +1,4 @@
-import { DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, type RdsDatepickerLocaleText } from "./rds-comp-datepicker.types";
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, type RdsCompDatepickerLocaleText } from "./rds-comp-datepicker-locale";
 
 interface CustomHeaderProps {
   date: Date;
@@ -12,7 +12,7 @@ interface CustomHeaderProps {
   minDate?: Date;
   maxDate?: Date;
   locale?: string;
-  text?: RdsDatepickerLocaleText;
+  text?: RdsCompDatepickerLocaleText;
 }
 
 /** Locale-aware short month labels (G4-102). */
@@ -35,7 +35,7 @@ const createRenderCustomHeader = (showNavigation: boolean) => {
     minDate,
     maxDate,
     locale,
-    text = DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
+    text = DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT,
   }: CustomHeaderProps) => {
     const months = getShortMonths(locale);
     const currentYear = new Date().getFullYear();

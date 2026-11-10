@@ -7,8 +7,10 @@ import type { HTMLAttributes, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-export { type Item, VariantType, ReviewStyle, RevieweStyle, DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-types";
-import { type Item, VariantType, type ReviewStyle, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-types";
+export { type Item, VariantType, ReviewStyle, RevieweStyle } from "./rds-comp-reviews-types";
+export { DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-locale";
+import { type Item, VariantType, type ReviewStyle } from "./rds-comp-reviews-types";
+import type { RdsCompReviewsLocaleText } from "./rds-comp-reviews-locale";
 
 export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
   /** Reviews to render. */

@@ -576,23 +576,17 @@ describe('audit fixes 518', () => {
 });
 
 describe('RdsSkeleton reduced motion', () => {
-  it('stops the pulse animation when reduced motion is preferred', () => {
-    const original = window.matchMedia;
-    window.matchMedia = ((query: string) => ({
-      matches: query.includes('prefers-reduced-motion'),
-      media: query,
-      onchange: null,
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-    })) as unknown as typeof window.matchMedia;
-    try {
-      const { container } = renderWithTheme(<RdsSkeleton animation="pulse" />);
-      expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
-    } finally {
-      window.matchMedia = original;
-    }
+  it('keeps the requested animation class so server and client render the same markup', () => {
+    const { container } = renderWithTheme(<RdsSkeleton animation="pulse" />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).not.toBeNull();
+  });
+
+  it('stops the animation through a prefers-reduced-motion media rule', () => {
+    renderWithTheme(<RdsSkeleton animation="wave" />);
+    const css = Array.from(document.styleSheets)
+      .flatMap((sheet) => Array.from(sheet.cssRules, (rule) => rule.cssText))
+      .join('')
+      .replace(/\s+/g, '');
+    expect(css).toMatch(/@media\(prefers-reduced-motion:reduce\)\{[^{]*\{[^}]*animation:none;\}[^{]*::after\{[^}]*animation:none;\}/);
   });
 });

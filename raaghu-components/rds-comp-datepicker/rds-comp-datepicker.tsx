@@ -15,11 +15,8 @@ import {
 import {
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
-import {
-    DatePickerStyleType,
-    DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
-    type RdsCompDatepickerProps,
-} from './rds-comp-datepicker.types';
+import { DatePickerStyleType, type RdsCompDatepickerProps } from './rds-comp-datepicker.types';
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT } from './rds-comp-datepicker-locale';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
@@ -120,7 +117,7 @@ const RdsDatepicker = ({
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 
     const text = useMemo(
-        () => mergeLocaleText(DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, localeText),
+        () => mergeLocaleText(DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, localeText),
         [localeText]
     );
     const baseId = useId();

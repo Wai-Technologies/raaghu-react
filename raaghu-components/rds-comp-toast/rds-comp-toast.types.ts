@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode, Ref, SyntheticEvent } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompToastLocaleText } from './rds-comp-toast-locale';
 
 export const ToastLayout = {
   Text: 'text',
@@ -48,23 +49,6 @@ export interface ToastAnchorOrigin {
 }
 
 export type ToastCloseReason = "timeout" | "closeClick";
-
-/**
- * Toast / notification popup.
- * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
- */
-/** Overridable UI strings of `RdsCompToast`. */
-export interface RdsCompToastLocaleText {
-  /** Accessible label of the close button. */
-  close: string;
-  /** Accessible label of the chat reply input when no placeholder is set. */
-  replyInputLabel: string;
-}
-
-export const DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT: RdsCompToastLocaleText = {
-  close: "Close",
-  replyInputLabel: "Toast reply input",
-};
 
 export interface RdsCompToastProps {
   /** Toast title. */

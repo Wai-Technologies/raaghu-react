@@ -1,5 +1,5 @@
 import { useCallback, useId, type ChangeEvent } from 'react';
-import { DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, type RdsTimePickerLocaleText } from './time-picker-types';
+import { DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT, type RdsCompTimePickerLocaleText } from './rds-comp-time-picker-locale';
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 const MINUTES = Array.from({ length: 60 }, (_, i) => i);
@@ -11,7 +11,7 @@ interface CompactTimePickerProps {
   setTempMinute: (minute: number) => void;
   tempPeriod: string;
   setTempPeriod: (period: string) => void;
-  text?: Required<RdsTimePickerLocaleText>;
+  text?: Required<RdsCompTimePickerLocaleText>;
 }
 
 export const CompactTimePicker = ({
@@ -21,7 +21,7 @@ export const CompactTimePicker = ({
   setTempMinute, 
   tempPeriod, 
   setTempPeriod,
-  text = DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT,
 }: CompactTimePickerProps) => {
   const baseId = useId();
   const onHourChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -96,7 +96,7 @@ interface DefaultTimePickerProps {
   onIncrementMinute: () => void;
   onDecrementMinute: () => void;
   onTogglePeriod: () => void;
-  text?: Required<RdsTimePickerLocaleText>;
+  text?: Required<RdsCompTimePickerLocaleText>;
 }
 
 export const DefaultTimePicker = ({ 
@@ -108,7 +108,7 @@ export const DefaultTimePicker = ({
   onIncrementMinute,
   onDecrementMinute,
   onTogglePeriod,
-  text = DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT,
 }: DefaultTimePickerProps) => {
   return (
     <div className="time-values-display-row">

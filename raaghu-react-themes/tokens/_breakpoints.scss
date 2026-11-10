@@ -1,7 +1,7 @@
 @use 'sass:map';
 
 $rds-breakpoints: (
-  xs: 0px,
+  xs: 320px,
   sm: 600px,
   md: 900px,
   lg: 1200px,
@@ -41,6 +41,7 @@ $rds-breakpoints: (
   835: 835px,
   840: 840px,
   896: 896px,
+  900: 900px,
   992: 992px,
   1023: 1023px,
   1025: 1025px,
@@ -58,20 +59,28 @@ $rds-breakpoints: (
   @return map.get($rds-breakpoints, $key);
 }
 
-@mixin up($key) {
-  @media (min-width: bp($key)) {
+@function media($features, $type) {
+  @if $type {
+    @return '#{$type} and #{$features}';
+  }
+
+  @return $features;
+}
+
+@mixin up($key, $type: null) {
+  @media #{media('(min-width: #{bp($key)})', $type)} {
     @content;
   }
 }
 
-@mixin down($key) {
-  @media (max-width: bp($key)) {
+@mixin down($key, $type: null) {
+  @media #{media('(max-width: #{bp($key)})', $type)} {
     @content;
   }
 }
 
-@mixin between($min, $max) {
-  @media (min-width: bp($min)) and (max-width: bp($max)) {
+@mixin between($min, $max, $type: null) {
+  @media #{media('(min-width: #{bp($min)}) and (max-width: #{bp($max)})', $type)} {
     @content;
   }
 }

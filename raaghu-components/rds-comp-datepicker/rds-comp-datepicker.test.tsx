@@ -4,7 +4,8 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDatepicker from './rds-comp-datepicker';
-import { DatePickerStyleType, DatePickerLayout, DEFAULT_RDS_DATEPICKER_LOCALE_TEXT } from './rds-comp-datepicker.types';
+import { DatePickerStyleType, DatePickerLayout } from './rds-comp-datepicker.types';
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT } from './rds-comp-datepicker-locale';
 
 jest.mock('./rds-comp-datepicker.scss', () => ({}));
 
@@ -541,7 +542,7 @@ describe('RdsDatepicker style', () => {
 describe('RdsDatepicker localeText', () => {
   it('overrides the input button labels and reaches the shared props', () => {
     const { CustomInputWithClear } = jest.requireActual('./CustomInputWithClear');
-    render(<CustomInputWithClear value="01/01/2025" showClearDate text={{ ...DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, clearDate: 'Datum löschen', openCalendar: 'Kalender öffnen' }} />);
+    render(<CustomInputWithClear value="01/01/2025" showClearDate text={{ ...DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, clearDate: 'Datum löschen', openCalendar: 'Kalender öffnen' }} />);
     expect(screen.getByRole('button', { name: 'Datum löschen' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Kalender öffnen' })).toBeInTheDocument();
     render(<RdsDatepicker isDropdownOpen={false} localeText={{ selectDate: 'Datum wählen' }} />);

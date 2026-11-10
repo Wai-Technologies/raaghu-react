@@ -4,7 +4,8 @@ import { Box } from '@mui/material';
 import { useForkRef } from '@mui/material/utils';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
-import { DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, type RdsTimePickerProps } from './time-picker-types';
+import type { RdsTimePickerProps } from './time-picker-types';
+import { DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT } from './rds-comp-time-picker-locale';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
@@ -75,7 +76,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'style', '`variant`');
   const pickerStyle = variant ?? legacyStyle ?? 'default';
   const resolvedColor = color ?? colorVariant;
-  const text = mergeLocaleText(DEFAULT_RDS_TIME_PICKER_LOCALE_TEXT, localeText);
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT, localeText);
   const nowText = text.now;
   const cancelText = text.cancel;
   const setTimeText = text.setTime;

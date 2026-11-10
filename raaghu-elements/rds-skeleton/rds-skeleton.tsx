@@ -1,6 +1,14 @@
-import { Skeleton as MuiSkeleton, type SkeletonProps, Box, useMediaQuery } from '@mui/material';
+import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { REDUCED_MOTION_QUERY } from '../../raaghu-react-themes/tokens/build-rds-css-vars';
+
+const REDUCED_MOTION_SX = {
+  [`@media ${REDUCED_MOTION_QUERY}`]: {
+    animation: 'none',
+    '&::after': { animation: 'none' },
+  },
+};
 
 export interface RdsSkeletonProps extends Omit<SkeletonProps, 'component'> {
   /** Number of skeleton blocks to render. Values above 1 wrap them in a flex container. */
@@ -35,11 +43,10 @@ const RdsSkeleton = ({
     ...(height !== undefined && { height }),
     ...(width !== undefined && { width }),
   };
-  const mergedSx = [...(Array.isArray(sx) ? sx : [sx]), sizeSx];
+  const mergedSx = [REDUCED_MOTION_SX, ...(Array.isArray(sx) ? sx : [sx]), sizeSx];
 
   if (animated !== undefined) warnDeprecatedProp('RdsSkeleton', 'animated', '`animation`');
-  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', { noSsr: true });
-  const animationValue = prefersReducedMotion ? false : (animation ?? (animated === false ? false : 'pulse'));
+  const animationValue = animation ?? (animated === false ? false : 'pulse');
 
   if (frames > 1) {
     return (

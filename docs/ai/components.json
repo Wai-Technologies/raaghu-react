@@ -5646,7 +5646,7 @@
         },
         {
           "name": "localeText",
-          "type": "Partial<RdsColorPickerLocaleText>",
+          "type": "Partial<RdsCompColorPickerLocaleText>",
           "required": false,
           "description": "Overrides for the built-in English UI strings."
         },
@@ -5954,7 +5954,7 @@
       "kind": "component",
       "import": "import { RdsCompScrollbar } from '@waiin/raaghu-react';",
       "source": "raaghu-components/rds-comp-scrollbar/rds-comp-scrollbar.tsx",
-      "description": "Overridable UI strings of `RdsCompScrollBar`.",
+      "description": "Overridable UI strings of `RdsCompScrollbar`.",
       "props": [],
       "deprecatedProps": []
     },
@@ -8124,7 +8124,7 @@
         },
         {
           "name": "localeText",
-          "type": "Partial<RdsTimePickerLocaleText>",
+          "type": "Partial<RdsCompTimePickerLocaleText>",
           "required": false,
           "description": "Overrides for the built-in English UI strings."
         },
@@ -8370,7 +8370,7 @@
         },
         {
           "name": "localeText",
-          "type": "Partial<RdsDatepickerLocaleText>",
+          "type": "Partial<RdsCompDatepickerLocaleText>",
           "required": false,
           "description": "Overrides for the built-in English UI strings."
         },

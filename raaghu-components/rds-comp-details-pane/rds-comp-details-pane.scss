@@ -1373,7 +1373,7 @@
 
 }
 
-@media screen and (max-width: #{bp.bp(640)}) {
+@include bp.down(640, screen) {
   .rds-comp-details-pane {
     width: var(--rds-details-pane-mobile-width);
     height: auto;
@@ -1775,7 +1775,7 @@
   }
 
 }
-@media screen and (min-width: #{bp.bp(tablet-sm)}) {
+@include bp.up(tablet-sm, screen) {
   .rds-comp-details-pane {
     &__toolbar-buttons-row,
     &__toolbar-buttons-row--scrollable {
@@ -1793,7 +1793,7 @@
     }
   }
 }
-@media screen and (min-width: #{bp.bp(420)}) {
+@include bp.up(420, screen) {
   .rds-comp-details-pane:not(.rds-comp-details-pane--flush):not(.rds-comp-details-pane--flush-toolbar) {
     margin-left: var(--rds-spacing-25);
   }

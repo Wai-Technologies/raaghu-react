@@ -3,7 +3,7 @@ import clsx from "clsx";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { DEFAULT_RDS_DATEPICKER_LOCALE_TEXT, type RdsDatepickerLocaleText } from "./rds-comp-datepicker.types";
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, type RdsCompDatepickerLocaleText } from "./rds-comp-datepicker-locale";
 import RdsInput, { type RdsInputProps } from "../../raaghu-elements/rds-input/rds-input";
 
 /**
@@ -26,7 +26,7 @@ interface CustomInputWithClearProps
   /** Id of the popup the open button toggles (`aria-controls`). */
   controlsId?: string;
   /** Localised UI strings. */
-  text?: RdsDatepickerLocaleText;
+  text?: RdsCompDatepickerLocaleText;
   /** Ref to the underlying `<input>` element. */
   ref?: Ref<HTMLInputElement>;
 }
@@ -50,7 +50,7 @@ export const CustomInputWithClear = (
       openCustomPicker,
       expanded,
       controlsId,
-      text = DEFAULT_RDS_DATEPICKER_LOCALE_TEXT,
+      text = DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT,
       id,
       className,
       disabled,

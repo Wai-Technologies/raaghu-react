@@ -3,8 +3,9 @@ import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import CloudUpload from '@mui/icons-material/CloudUpload';
 import Close from '@mui/icons-material/Close';
-import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
-import type { FileWithProgress, RdsFileUploaderLocaleText, RdsFileUploaderProps } from './rds-file-uploader-types';
+import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-locale';
+import type { FileWithProgress, RdsFileUploaderProps } from './rds-file-uploader-types';
+import type { RdsFileUploaderLocaleText } from './rds-file-uploader-locale';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import { formatAcceptLabel, formatFileSize } from './rds-file-uploader-utils';
 

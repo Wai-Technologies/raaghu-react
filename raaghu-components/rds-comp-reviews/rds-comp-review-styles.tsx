@@ -1,7 +1,8 @@
 import { useState, type SyntheticEvent, type MouseEventHandler } from "react";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import RdsRating from "../../raaghu-elements/rds-rating/rds-rating";
-import { Item, ReviewStyle, DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-types";
+import { Item, ReviewStyle } from "./rds-comp-reviews-types";
+import { DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-locale";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";

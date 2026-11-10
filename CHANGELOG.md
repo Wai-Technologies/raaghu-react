@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- SCSS media queries use the `bp` helpers from `_breakpoints.scss` instead of literal px; the compiled CSS is identical.
+- SCSS media queries use the `bp` helpers from `_breakpoints.scss` instead of literal px; the compiled CSS is identical. `bp.up`, `bp.down` and `bp.between` take an optional media type (`bp.down(640, screen)`).
+- `_breakpoints.scss` and `extendedBreakpointTokens` now hold the same keys and values (`xs` is `320px` in both; no SCSS used `xs`). `breakpoint-parity.test.ts` keeps them in sync.
 - The last local breakpoint variables (`RdsAppBar`, `RdsDrawer`, `RdsBottomNavigation`, `RdsStepper`) use the `bp` helpers too, and the `window.innerWidth` checks in `RdsCompChat` and `RdsCompAiTypingSection` read `extendedBreakpointTokens`. Compiled CSS and behaviour are unchanged.
 - Lint gates that still carry debt (`lint:rgba`, `lint:local-dim-px`, `lint:data-theme`, `lint:ts-raw-values`, `lint:hardcoded-text`) keep a per-file baseline: a file cannot gain new violations, and fixes must be locked in with `--set-baseline`. `lint:media-queries` also rejects SCSS variables and `var()`; `lint:hardcoded-text` also checks `alt`, `label`, `tooltip`, lowercase and `{'…'}` values and plain JSX text.
 - `react-player` is no longer bundled into `dist`; it is a runtime dependency. Packed size 6.4 MB to 2.1 MB, unpacked 26.6 MB to 9.5 MB.

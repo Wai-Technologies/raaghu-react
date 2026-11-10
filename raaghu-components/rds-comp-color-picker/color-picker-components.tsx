@@ -2,7 +2,8 @@ import clsx from "clsx";
 import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
 import { Slider } from "@mui/material";
 import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb } from "./color-utils";
-import { ColorMode, DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, type RdsColorPickerLocaleText } from "./rds-comp-color-picker.types";
+import { ColorMode } from "./rds-comp-color-picker.types";
+import { DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT, type RdsCompColorPickerLocaleText } from "./rds-comp-color-picker-locale";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
@@ -49,7 +50,7 @@ interface SharedColorPickerProps {
   onSelectColorMode?: (mode: ColorMode) => void;
   /** Disables every control in the panel. */
   disabled?: boolean;
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }
 
 interface ColorPickerInfoProps {
@@ -61,7 +62,7 @@ interface ColorPickerInfoProps {
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
   disabled?: boolean;
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }
 
 export const ColorPickerGrid = memo(({
@@ -76,7 +77,7 @@ export const ColorPickerGrid = memo(({
   getColorDisplay,
   onSelectColorMode,
   disabled,
-  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT,
 }: SharedColorPickerProps) => {
   return (
     <div>
@@ -166,7 +167,7 @@ export const ColorPickerSpectrum = memo(({
   swatches,
   onAddSwatch,
   disabled,
-  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT,
 }: SharedColorPickerProps & {
   selectedColorHex: string;
   showSwatches?: boolean;
@@ -240,12 +241,12 @@ export const ColorPickerSpectrum = memo(({
     </div>
   );
 });
-export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: {
+export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange, disabled, text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT }: {
   selectedColorState: ColorState;
   handleHueChange: (color: ColorUpdate) => void;
   handleAlphaChange: (color: ColorUpdate) => void;
   disabled?: boolean;
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }) => {
   const hsb = rgbToHsb(selectedColorState.rgb);
   const hue = ((hsb.h % 360) + 360) % 360;
@@ -336,7 +337,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
 });
 
 interface ColorInputsProps {
-  text: RdsColorPickerLocaleText;
+  text: RdsCompColorPickerLocaleText;
   selectedColorMode: ColorMode;
   rgb: { r: number; g: number; b: number; a: number };
   hsb: { h: number; s: number; b: number };
@@ -407,7 +408,7 @@ export const ColorPickerInfo = memo(({
   getColorDisplay,
   onSelectColorMode,
   disabled,
-  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
@@ -493,10 +494,10 @@ interface ColorSwatchesProps {
   /** Disables swatch selection and the add-swatch control. */
   disabled?: boolean;
   /** Localised UI strings. */
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }
 
-export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
+export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch, disabled, text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -530,7 +531,7 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   );
 });
 
-export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch, disabled, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
+export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch, disabled, text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -560,10 +561,10 @@ export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE
   );
 });
 
-export const ColorModeSwatches = memo(({ selectedMode, onSelectMode, text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT }: {
+export const ColorModeSwatches = memo(({ selectedMode, onSelectMode, text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT }: {
   selectedMode: "solid" | "gradient";
   onSelectMode: (mode: "solid" | "gradient") => void;
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }) => {
   return (
     <div className="rds-comp-color-picker__mode-switcher">
@@ -597,7 +598,7 @@ export const GradientEditor = memo(({
   onGradientPositionChange,
   onAddGradientStop,
   onRemoveGradientStop,
-  text = DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT,
+  text = DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT,
 }: {
   gradientType: string;
   gradientDirection: number;
@@ -608,7 +609,7 @@ export const GradientEditor = memo(({
   onGradientPositionChange: (index: number, position: number) => void;
   onAddGradientStop: (position: number) => void;
   onRemoveGradientStop: (index: number) => void;
-  text?: RdsColorPickerLocaleText;
+  text?: RdsCompColorPickerLocaleText;
 }) => {
   return (
     <div className="rds-comp-color-picker__gradient-editor">

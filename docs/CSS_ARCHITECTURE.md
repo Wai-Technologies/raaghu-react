@@ -221,8 +221,7 @@ Phase B is independent of Phase A token work — a themed `var(--rds-*)` under
 - **Breakpoints from helpers** — SCSS media queries use `bp.up/down/between` or
   `#{bp.bp(key)}` from `raaghu-react-themes/tokens/_breakpoints.scss`, never literal px,
   SCSS variables or `var()` (`var()` is invalid inside `@media` and never matches).
-  `xs` differs between sources: `0px` in `_breakpoints.scss` (so `bp.down(xs)` never
-  matches) but `320px` in `breakpointTokens` / `--rds-breakpoint-xs`. Use `mobile-sm`
-  for 320px in both.
+  The SCSS map and `extendedBreakpointTokens` in `design-tokens.ts` must stay identical
+  (`breakpoint-parity.test.ts` enforces it), so add a new breakpoint to both.
 - **No new `!important`** — follow the override hierarchy; CI baseline ratchet
 - **Comments:** only when the WHY is non-obvious (workarounds, known browser bugs)

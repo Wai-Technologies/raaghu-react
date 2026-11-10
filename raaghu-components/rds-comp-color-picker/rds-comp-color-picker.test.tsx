@@ -697,7 +697,7 @@ describe('ColorPickerSpectrum keyboard support', () => {
 describe('ColorPickerInfo localeText', () => {
   it('overrides built-in labels', () => {
     const { ColorPickerInfo } = jest.requireActual('./color-picker-components');
-    const { DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT } = jest.requireActual('./rds-comp-color-picker.types');
+    const { DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT } = jest.requireActual('./rds-comp-color-picker.types');
     render(
       <ColorPickerInfo
         colorModeDropdownRef={{ current: null }}
@@ -706,7 +706,7 @@ describe('ColorPickerInfo localeText', () => {
         showColorModeDropdown={false}
         setShowColorModeDropdown={jest.fn()}
         getColorDisplay={() => '#800000'}
-        text={{ ...DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT, changeColorMode: 'Farbmodus ändern', hexColorValue: 'Hex-Wert' }}
+        text={{ ...DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT, changeColorMode: 'Farbmodus ändern', hexColorValue: 'Hex-Wert' }}
       />,
     );
     expect(screen.getByLabelText('Farbmodus ändern')).toBeInTheDocument();

@@ -74,7 +74,7 @@ export function RaaghuThemeProvider({
     typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
   );
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(
-    () => typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(REDUCED_MOTION_QUERY).matches,
   );
   const mode = controlledMode ?? internalMode;
 
@@ -101,6 +101,7 @@ export function RaaghuThemeProvider({
   }, []);
 
   useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return;
     const mq = window.matchMedia(REDUCED_MOTION_QUERY);
     const handler = () => setPrefersReducedMotion(mq.matches);
     mq.addEventListener('change', handler);

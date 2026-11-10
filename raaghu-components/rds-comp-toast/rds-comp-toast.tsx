@@ -4,11 +4,8 @@ import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
-import {
-        type RdsCompToastProps,
-        DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT,
-        ToastLayout,
-} from "./rds-comp-toast.types";
+import { type RdsCompToastProps, ToastLayout } from "./rds-comp-toast.types";
+import { DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT } from "./rds-comp-toast-locale";
 import {
     getLeadingIconClass,
     resolveToastPosition,

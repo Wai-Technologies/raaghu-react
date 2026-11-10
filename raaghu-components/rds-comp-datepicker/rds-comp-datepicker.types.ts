@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompDatepickerLocaleText } from './rds-comp-datepicker-locale';
 
 export const DatePickerStyleType = {
   Dropdown: 'Dropdown',
@@ -14,39 +15,6 @@ export const DatePickerLayout = {
   MultiMonth: 'Multi Month',
 } as const;
 export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePickerLayout];
-
-/** Overridable UI strings of the datepicker. */
-export interface RdsDatepickerLocaleText {
-  selectDate: string;
-  clearDate: string;
-  openCalendar: string;
-  previousMonth: string;
-  nextMonth: string;
-  month: string;
-  year: string;
-  custom: string;
-  customDate: string;
-  today: string;
-  yesterday: string;
-  lastSevenDays: string;
-  lastFourteenDays: string;
-}
-
-export const DEFAULT_RDS_DATEPICKER_LOCALE_TEXT: RdsDatepickerLocaleText = {
-  selectDate: 'Select date',
-  clearDate: 'Clear date',
-  openCalendar: 'Open calendar',
-  previousMonth: 'Previous Month',
-  nextMonth: 'Next Month',
-  month: 'Month',
-  year: 'Year',
-  custom: 'Custom',
-  customDate: 'Custom Date',
-  today: 'Today',
-  yesterday: 'Yesterday',
-  lastSevenDays: 'Last 7 days',
-  lastFourteenDays: 'Last 14 days',
-};
 
 export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children" | "defaultValue"> {
   /** @deprecated Use `onChange` instead (single-date picks). */
@@ -126,7 +94,7 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   /** Has no effect: the preset list manages its own open state. Kept for backwards compatibility. */
   isDropdownOpen?: boolean;
   /** Overrides for the built-in English UI strings. */
-  localeText?: Partial<RdsDatepickerLocaleText>;
+  localeText?: Partial<RdsCompDatepickerLocaleText>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Ref forwarded to the root element. */

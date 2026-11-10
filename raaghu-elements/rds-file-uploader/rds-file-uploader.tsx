@@ -13,9 +13,9 @@ import {
 } from './RdsFileUploaderComponents';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { formatFileSize } from './rds-file-uploader-utils';
-export { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, type RdsFileUploaderLocaleText } from './rds-file-uploader-types';
+export { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT, type RdsFileUploaderLocaleText } from './rds-file-uploader-locale';
 export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
-import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-types';
+import { DEFAULT_RDS_FILE_UPLOADER_LOCALE_TEXT } from './rds-file-uploader-locale';
 import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 import { mergeLocaleText } from '../shared/utils/locale-text';
 

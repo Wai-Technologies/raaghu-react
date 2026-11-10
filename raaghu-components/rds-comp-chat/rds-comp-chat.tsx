@@ -136,7 +136,7 @@ const RdsCompChat = ({
   ...rest
 }: RdsCompChatProps) => {
   const resolvedOtherUserCommentTextColor = otherUserCommentTextColor ?? "var(--rds-text-primary)";
-  const text = mergeLocaleText(DEFAULT_RDS_COMP_CHAT_LOCALE_TEXT, localeText);
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_CHAT_LOCALE_TEXT, localeText), [localeText]);
   if (isChatScreenEnabled !== undefined) warnDeprecatedProp('RdsCompChat', 'isChatScreenEnabled', '`chatScreenEnabled`');
   if (handleAddCommentProp !== undefined) warnDeprecatedProp('RdsCompChat', 'handleAddComment', '`onAddComment`');
   const chatScreenEnabled = chatScreenEnabledProp ?? isChatScreenEnabled;

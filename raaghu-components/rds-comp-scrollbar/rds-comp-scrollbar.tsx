@@ -5,8 +5,10 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-scrollbar.scss";
-export { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
-import { ScrollBarType, ScrollPosition, DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollBarLocaleText } from './rds-comp-scrollbar-types';
+export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
+export { DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollbarLocaleText } from './rds-comp-scrollbar-locale';
+import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
+import { DEFAULT_RDS_COMP_SCROLLBAR_LOCALE_TEXT, type RdsCompScrollbarLocaleText } from './rds-comp-scrollbar-locale';
 import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -31,7 +33,7 @@ export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Overrides for the built-in UI strings. */
-  localeText?: Partial<RdsCompScrollBarLocaleText>;
+  localeText?: Partial<RdsCompScrollbarLocaleText>;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }

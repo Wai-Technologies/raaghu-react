@@ -1,5 +1,6 @@
 import type { CSSProperties, HTMLAttributes, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompColorPickerLocaleText } from './rds-comp-color-picker-locale';
 
 /** Canonical layout union — prefer over {@link ColorPickerType}. */
 export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
@@ -51,73 +52,6 @@ export interface ColorChangeDetails {
   hex8: string;
 }
 
-/** Overridable UI strings of the colour picker. */
-export interface RdsColorPickerLocaleText {
-  colorPicker: string;
-  grid: string;
-  spectrum: string;
-  selectColor: (hex: string) => string;
-  saturationBrightness: string;
-  saturationBrightnessValue: (saturation: number, brightness: number) => string;
-  hue: string;
-  opacity: string;
-  redChannelValue: string;
-  greenChannelValue: string;
-  blueChannelValue: string;
-  hueValue: string;
-  saturationValue: string;
-  brightnessValue: string;
-  lightnessValue: string;
-  hexColorValue: string;
-  changeColorMode: string;
-  colorFormat: string;
-  opacityPercentage: string;
-  swatches: string;
-  addSwatch: string;
-  selectSolidMode: string;
-  selectGradientMode: string;
-  linear: string;
-  radial: string;
-  direction: (degrees: number) => string;
-  gradientDirection: string;
-  selectGradientStop: (index: number) => string;
-  gradientStopPosition: (index: number) => string;
-  addGradientStop: string;
-}
-
-export const DEFAULT_RDS_COLOR_PICKER_LOCALE_TEXT: RdsColorPickerLocaleText = {
-  colorPicker: 'Color Picker',
-  grid: 'Grid',
-  spectrum: 'Spectrum',
-  selectColor: (hex) => `Select color ${hex}`,
-  saturationBrightness: 'Saturation and brightness',
-  saturationBrightnessValue: (s, b) => `Saturation ${s}%, brightness ${b}%`,
-  hue: 'Hue',
-  opacity: 'Opacity',
-  redChannelValue: 'Red channel value',
-  greenChannelValue: 'Green channel value',
-  blueChannelValue: 'Blue channel value',
-  hueValue: 'Hue value',
-  saturationValue: 'Saturation value',
-  brightnessValue: 'Brightness value',
-  lightnessValue: 'Lightness value',
-  hexColorValue: 'Hex color value',
-  changeColorMode: 'Change color mode',
-  colorFormat: 'Color format',
-  opacityPercentage: 'Opacity percentage',
-  swatches: 'Swatches',
-  addSwatch: 'Add swatch',
-  selectSolidMode: 'Select solid mode',
-  selectGradientMode: 'Select gradient mode',
-  linear: 'Linear',
-  radial: 'Radial',
-  direction: (d) => `Direction: ${d}°`,
-  gradientDirection: 'Gradient direction',
-  selectGradientStop: (i) => `Select gradient stop ${i}`,
-  gradientStopPosition: (i) => `Gradient stop ${i} position`,
-  addGradientStop: 'Add gradient stop',
-};
-
 export interface RdsCompColorPickerProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'defaultValue'> {
   /** Selected colour. */
@@ -164,7 +98,7 @@ export interface RdsCompColorPickerProps
   /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
   swatches?: string[];
   /** Overrides for the built-in English UI strings. */
-  localeText?: Partial<RdsColorPickerLocaleText>;
+  localeText?: Partial<RdsCompColorPickerLocaleText>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Ref to the root `div`. */

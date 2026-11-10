@@ -29,22 +29,11 @@ import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } fr
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
-import {
-  RdsCompKanbanBoardProps,
-  useKanbanBoardState,
-  createEventHandlers,
-  createDragEndHandler,
-  createDragOverHandler,
-  colorClass,
-  cardIdOf,
-  KanbanSubCard,
-  KanbanAction,
-  type KanbanAssignee,
-  DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT,
-} from './kanban-board-helpers';
+import { RdsCompKanbanBoardProps, useKanbanBoardState, createEventHandlers, createDragEndHandler, createDragOverHandler, colorClass, cardIdOf, KanbanSubCard, KanbanAction, type KanbanAssignee } from './kanban-board-helpers';
+import { DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT } from './rds-comp-kanban-board-locale';
 import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 export { DEFAULT_RDS_COMP_KANBAN_BOARD_LOCALE_TEXT };
-export type { RdsCompKanbanBoardLocaleText } from './kanban-board-helpers';
+export type { RdsCompKanbanBoardLocaleText } from './rds-comp-kanban-board-locale';
 
 interface KanbanOption {
   val: string | number;
