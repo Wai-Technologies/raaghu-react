@@ -63,7 +63,7 @@ locked in. After a cleanup run the script with `--set-baseline` and commit the f
 | Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **546** (per file) | `lint:local-dim-px` |
 | `[data-theme]` selectors in SCSS | `scripts/check-data-theme-in-scss.mjs` | **82** (per file) | `lint:data-theme` |
 | Raw style values in TS/TSX | `scripts/check-raw-values-in-ts.mjs` | **15** (per file) | `lint:ts-raw-values` |
-| Hardcoded UI text in TSX | `scripts/check-hardcoded-text-in-tsx.mjs` | **99** (per file) | `lint:hardcoded-text` |
+| Hardcoded UI text in TSX | `scripts/check-hardcoded-text-in-tsx.mjs` | **51** (per file) | `lint:hardcoded-text` |
 | Literal typography / motion values in SCSS | `scripts/check-typography-motion-in-scss.mjs` | **0** | `lint:typography-motion` |
 | Hex in SCSS | `scripts/check-no-hex.mjs` | **0** | `lint:hex` |
 | `!important` in SCSS (Phase B) | `scripts/check-no-important-in-scss.mjs` | **0** | `lint:important` |

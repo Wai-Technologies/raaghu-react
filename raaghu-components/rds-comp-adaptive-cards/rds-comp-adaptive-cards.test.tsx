@@ -1071,6 +1071,22 @@ describe('RdsCompAdaptiveCards', () => {
     });
   });
 
+  describe('Locale text', () => {
+    it('uses localeText overrides', () => {
+      render(
+        <RdsCompAdaptiveCards
+          type="Default"
+          showHeader={true}
+          closeIcon={true}
+          cardText=""
+          localeText={{ close: 'Fermer', instanceSlot: 'Emplacement' }}
+        />
+      );
+      expect(screen.getByLabelText('Fermer')).toBeInTheDocument();
+      expect(screen.getByText('Emplacement')).toBeInTheDocument();
+    });
+  });
+
   describe('Display Name', () => {
     it('has correct display name for debugging', () => {
       expect(RdsCompAdaptiveCards.displayName).toBe('RdsCompAdaptiveCards');

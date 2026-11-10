@@ -144,3 +144,13 @@ export type { RdsCommentBoxProps as RdsCompCommentsBoxProps, RdsCommentBoxState 
 export type { RdsCompDetailsPaneProps } from './rds-comp-details-pane/rds-comp-details-pane';
 export type { DetailsPaneAgent as RdsCompDetailsPaneAgent } from './rds-comp-details-pane/details-pane-components';
 export type { RdsCompNavtabsProps, RdsCompNavTabItem } from './rds-comp-navtabs/rds-comp-navtabs';
+export type { RdsCompChatLocaleText } from './rds-comp-chat/rds-comp-chat-locale';
+export { DEFAULT_RDS_COMP_CHAT_LOCALE_TEXT } from './rds-comp-chat/rds-comp-chat-locale';
+export type { RdsCompAdaptiveCardsLocaleText } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards-locale';
+export { DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards-locale';
+export type { RdsCompCodeSnippetLocaleText } from './rds-comp-code-snippet/rds-comp-code-snippet-locale';
+export { DEFAULT_RDS_COMP_CODE_SNIPPET_LOCALE_TEXT } from './rds-comp-code-snippet/rds-comp-code-snippet-locale';
+export type { RdsCompCommentsBoxLocaleText } from './rds-comp-comments-box/rds-comp-comments-box-locale';
+export { DEFAULT_RDS_COMP_COMMENTS_BOX_LOCALE_TEXT } from './rds-comp-comments-box/rds-comp-comments-box-locale';
+export type { RdsCompDetailsPaneLocaleText } from './rds-comp-details-pane/rds-comp-details-pane-locale';
+export { DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT } from './rds-comp-details-pane/rds-comp-details-pane-locale';

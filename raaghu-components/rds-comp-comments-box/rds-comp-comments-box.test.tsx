@@ -730,4 +730,10 @@ describe('DropdownMenu Component', () => {
       expect(screen.getByText('07')).toBeInTheDocument();
     });
   });
+
+  it('uses localeText overrides', () => {
+    render(<RdsCommentBox state="comment Thread" localeText={{ pinThread: 'Thread anheften', close: 'Schliessen' }} />);
+    expect(screen.getByLabelText('Thread anheften')).toBeInTheDocument();
+    expect(screen.getByLabelText('Schliessen')).toBeInTheDocument();
+  });
 });

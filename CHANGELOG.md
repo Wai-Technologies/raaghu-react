@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `RdsCompChat`, `RdsCompAdaptiveCards`, `RdsCompCodeSnippet`, `RdsCompCommentsBox`, `RdsCompDetailsPane` and `RdsCompNavtabs` are exported from the package root, with their props types (`RdsCompChatProps`, `RdsCompAdaptiveCardsProps`, `RdsCompCodeSnippetProps`, `RdsCompCommentsBoxProps`, `RdsCompDetailsPaneProps`, `RdsCompNavtabsProps`). They were already shown in Storybook but could not be imported.
+- `RdsCompChat`, `RdsCompAdaptiveCards`, `RdsCompCodeSnippet`, `RdsCompCommentsBox`, `RdsCompDetailsPane` and `RdsCompNavtabs` are exported from the package root, with their props types (`RdsCompChatProps`, `RdsCompAdaptiveCardsProps`, `RdsCompCodeSnippetProps`, `RdsCompCommentsBoxProps`, `RdsCompDetailsPaneProps`, `RdsCompNavtabsProps`). They were already shown in Storybook but could not be imported. Each also takes a `localeText` prop (`RdsCompChatLocaleText`, `RdsCompAdaptiveCardsLocaleText`, `RdsCompCodeSnippetLocaleText`, `RdsCompCommentsBoxLocaleText`, `RdsCompDetailsPaneLocaleText`, with `DEFAULT_*_LOCALE_TEXT` English defaults); `RdsCompNavtabs` has no fixed text.
 - `localeText` prop on exported components to override built-in English text (`aria-label`s, placeholders, button labels). Types and `DEFAULT_*_LOCALE_TEXT` constants live in `*-locale.ts` files and are exported from the package root.
 - `prefers-reduced-motion` support: `RaaghuThemeProvider` sets the duration and transition tokens to `0.01ms` (and follows changes of the OS setting), loaders and spinners keep moving, `RdsSkeleton` stops pulsing and `RdsCarousel` autoplay does not start.
 - `:focus-visible` rings (`--rds-focus-ring-width`, `--rds-focus-ring-offset`) on 19 focusable elements that had no keyboard focus indicator; see `docs/ACCESSIBILITY_FOCUS_AUDIT.md`.
@@ -48,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed (packaging)
 
-- Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@mui/x-date-pickers`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
+- Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
+- `@mui/x-date-pickers` and `@hello-pangea/dnd` are no longer installed with the package (now `devDependencies` only). Only the internal grid and date-and-time picker use them, so no exported component imports them: `RdsCompDatepicker` uses `react-datepicker` and `RdsCompKanbanBoard` uses `@dnd-kit`. Apps that use either package directly should list it in their own `package.json`.
 - `npm run type-check` now runs against `tsconfig.library.json` (same as `type-check:all`).
 
 ### Fixed

@@ -76,7 +76,7 @@ Each type is exported as `Rds{Name}LocaleText` and the defaults as `DEFAULT_RDS_
 
 ## Known gaps
 
-- Some components still contain fixed English text: the internal grid and tree structure, the exported chat, comments box, details pane, code snippet and adaptive cards (no `localeText` prop yet), and a few labels in other exported components (close/search buttons, sidebar `alt` text). `npm run lint:hardcoded-text` checks `aria-label`, `placeholder`, `title`, `alt`, `label` and `tooltip` values plus plain JSX text, and keeps a per-file baseline so no file can gain new strings.
+- Some components still contain fixed English text: the internal grid and tree structure, and a few labels in exported components (close/search buttons, sidebar `alt` text). `npm run lint:hardcoded-text` checks `aria-label`, `placeholder`, `title`, `alt`, `label` and `tooltip` values plus plain JSX text, and keeps a per-file baseline so no file can gain new strings.
 - Right-to-left layout is not tested or supported yet.
 
 Report a missing translation hook as an issue naming the component and the text.

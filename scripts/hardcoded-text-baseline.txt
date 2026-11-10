@@ -1,12 +1,6 @@
-2	raaghu-components/rds-comp-adaptive-cards/rds-comp-adaptive-cards-helpers.tsx
-2	raaghu-components/rds-comp-adaptive-cards/rds-comp-adaptive-cards.tsx
-21	raaghu-components/rds-comp-chat/rds-comp-chat.tsx
-3	raaghu-components/rds-comp-code-snippet/rds-comp-code-snippet.tsx
-13	raaghu-components/rds-comp-comments-box/rds-comp-comments-logic-combined.tsx
 4	raaghu-components/rds-comp-date-and-time-picker/RangeComponents.tsx
 4	raaghu-components/rds-comp-date-and-time-picker/rds-comp-date-and-time-picker.tsx
 2	raaghu-components/rds-comp-datepicker/CustomButtons.tsx
-7	raaghu-components/rds-comp-details-pane/details-pane-components.tsx
 18	raaghu-components/rds-comp-grid/rds-comp-grid.tsx
 6	raaghu-components/rds-comp-tree-structure/TreeNodeRow.tsx
 2	raaghu-elements/rds-avatar/rds-avatar.tsx

@@ -10102,6 +10102,12 @@
           "default": "var(--rds-primary-contrast-text, var(--rds-neutral-0))"
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompChatLocaleText>",
+          "required": false,
+          "description": "Overrides the built-in English UI text."
+        },
+        {
           "name": "onAddComment",
           "type": "((comment: Comment) => void)",
           "required": false
@@ -10371,6 +10377,12 @@
           "required": false
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompAdaptiveCardsLocaleText>",
+          "required": false,
+          "description": "Overrides the built-in English UI text."
+        },
+        {
           "name": "matchDate",
           "type": "string",
           "required": false
@@ -10578,6 +10590,12 @@
           "default": "html"
         },
         {
+          "name": "localeText",
+          "type": "Partial<RdsCompCodeSnippetLocaleText>",
+          "required": false,
+          "description": "Overrides the built-in English UI text."
+        },
+        {
           "name": "maxHeight",
           "type": "string",
           "required": false
@@ -10687,6 +10705,12 @@
           "name": "historyTabLabel",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "localeText",
+          "type": "Partial<RdsCompDetailsPaneLocaleText>",
+          "required": false,
+          "description": "Overrides the built-in English UI text."
         },
         {
           "name": "olderHistoryItems",

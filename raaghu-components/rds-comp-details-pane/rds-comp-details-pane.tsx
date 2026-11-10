@@ -4,7 +4,12 @@ import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
 import "./rds-comp-details-pane.scss";
+import {
+  DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
+  type RdsCompDetailsPaneLocaleText,
+} from "./rds-comp-details-pane-locale";
 import {
   HistoryFavoritesTabs,
   RealEstateContent,
@@ -38,6 +43,8 @@ export interface RdsCompDetailsPaneProps {
   sx?: SxProps<Theme>;
   ref?: Ref<HTMLDivElement>;
   className?: string;
+  /** Overrides the built-in English UI text. */
+  localeText?: Partial<RdsCompDetailsPaneLocaleText>;
 }
 
 const DEFAULT_HISTORY_ITEMS = [
@@ -63,7 +70,9 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     className,
     sx,
     ref,
+    localeText,
   } = props;
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT, localeText);
   const legacyVariant = typeof style === "string" ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompDetailsPane", "style", "`variant`");
   const variant = variantProp ?? legacyVariant;
@@ -117,6 +126,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
               olderHistoryItems={olderHistoryItems}
               handleDeleteHistoryItem={handleDeleteHistoryItem}
               handleDeleteOlderHistoryItem={handleDeleteOlderHistoryItem}
+              text={text}
             />
           </div>
         ) : variant === "Real Estate" ? (
@@ -130,15 +140,18 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
             headerText={props.headerText}
             headerSubText={props.headerSubText}
             agents={props.agents}
+            text={text}
           />
         ) : variant === "Toolbar" ? (
           <ToolbarContent 
           figmaIconSrc={props.figmaIconSrc}
             storybookIconSrc={props.storybookIconSrc}
+            text={text}
           />
         ) : variant === "Thumbnail View" ? (
           <ThumbnailViewContent 
             thumbnailButtonName={props.thumbnailButtonName}
+            text={text}
           />
         ) : null        
         }

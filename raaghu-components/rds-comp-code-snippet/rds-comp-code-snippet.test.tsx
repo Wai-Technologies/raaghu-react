@@ -803,4 +803,10 @@ describe('RdsCompCodeSnippet', () => {
       expect(mainDiv?.className).not.toContain('undefined');
     });
   });
+
+  it('uses localeText overrides', () => {
+    render(<RdsCompCodeSnippet code="test" localeText={{ copyCodeAriaLabel: 'Kopieren', showMore: 'Mehr anzeigen' }} />);
+    expect(screen.getByLabelText('Kopieren')).toBeInTheDocument();
+    expect(screen.getByText('Mehr anzeigen')).toBeInTheDocument();
+  });
 });
