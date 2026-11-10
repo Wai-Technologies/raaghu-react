@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-datepicker {  
@@ -349,8 +350,6 @@ font-weight: var(--rds-font-weight-bold);
     }
   }
   
-  // Calendar and clear buttons live in the input's end adornment; they flow inline instead of
-  // being absolutely positioned over the field.
   &__adornment {
     display: inline-flex;
     align-items: center;
@@ -566,10 +565,7 @@ font-weight: var(--rds-font-weight-bold);
     box-shadow: none ;
   }
 
-  &:focus-visible {
-    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-    outline-offset: var(--rds-focus-ring-offset);
-  }
+  @include focus.ring;
 }
 
 .rds-datepicker__header-select::-ms-expand {
@@ -937,10 +933,7 @@ font-weight: var(--rds-font-weight-bold);
     border-color: var(--rds-color-border) ;
   }
 
-  &:focus-visible {
-    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-    outline-offset: var(--rds-focus-ring-offset);
-  }
+  @include focus.ring;
 }
 
 .rds-datepicker__calendar .react-datepicker__month-select,
@@ -973,10 +966,7 @@ font-weight: var(--rds-font-weight-bold);
     border-color: var(--rds-color-border) ;
   }
 
-  &:focus-visible {
-    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-    outline-offset: var(--rds-focus-ring-offset);
-  }
+  @include focus.ring;
 }
 
 .rds-datepicker__calendar .react-datepicker__month-read-view--selected-month,
@@ -1284,10 +1274,7 @@ font-weight: var(--rds-font-weight-bold);
       border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   .rds-datepicker__custom-header-group .rds-datepicker__header-select {
@@ -1389,10 +1376,7 @@ font-weight: var(--rds-font-weight-bold);
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   .react-datepicker__month-select,
@@ -1411,10 +1395,7 @@ font-weight: var(--rds-font-weight-bold);
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   .react-datepicker__month-read-view--down-arrow,

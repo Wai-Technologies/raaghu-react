@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 :is(.Default, .default, .relaxing, .top-nav, .side-nav, .double-nav, .triPane),
 .rds-appshell-appbar {
@@ -103,9 +104,8 @@
       }
     }
 
-    > button:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
+    > button {
+      @include focus.ring;
     }
   }
 
@@ -621,7 +621,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
 
-    // Size follows `headingLevel`; h2 (the default) keeps the original size.
     &--h1 { font-size: var(--rds-font-size-2xl); }
     &--h2 { font-size: var(--rds-font-size-xl); }
     &--h3 { font-size: var(--rds-font-size-lg); }
@@ -778,9 +777,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
 
-      button:focus-visible {
-        outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-        outline-offset: var(--rds-focus-ring-offset);
+      button {
+        @include focus.ring;
       }
     }
   }

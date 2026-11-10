@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 .rds-scrollbar {
   --rds-scrollbar-dim-1: 1px;
   --rds-scrollbar-dim-2: 2px;
@@ -143,10 +144,7 @@
     outline: none;
   }
 
-  &:focus-visible {
-    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-    outline-offset: var(--rds-focus-ring-offset);
-  }
+  @include focus.ring;
   
   svg {
     width: var(--rds-font-size-xs);

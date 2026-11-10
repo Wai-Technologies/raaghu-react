@@ -265,7 +265,6 @@ const RdsCompKanbanBoard = ({
   };
 
   const isNewItemTitleEmpty = !String(addQuestionData?.title ?? '').trim();
-  // Selected tags are stored as option objects; accept plain ids too.
   const selectedTagVals = (Array.isArray(addQuestionData?.supportTagIds) ? addQuestionData.supportTagIds : []).map(
     (tag: unknown) => (tag && typeof tag === 'object' ? (tag as KanbanOption).val : tag),
   );

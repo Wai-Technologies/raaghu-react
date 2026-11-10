@@ -16,9 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `RdsCompChat`, `RdsCompAdaptiveCards`, `RdsCompCodeSnippet`, `RdsCompCommentsBox`, `RdsCompDetailsPane` and `RdsCompNavtabs` are exported from the package root, with their props types (`RdsCompChatProps`, `RdsCompAdaptiveCardsProps`, `RdsCompCodeSnippetProps`, `RdsCompCommentsBoxProps`, `RdsCompDetailsPaneProps`, `RdsCompNavtabsProps`). They were already shown in Storybook but could not be imported. Each also takes a `localeText` prop (`RdsCompChatLocaleText`, `RdsCompAdaptiveCardsLocaleText`, `RdsCompCodeSnippetLocaleText`, `RdsCompCommentsBoxLocaleText`, `RdsCompDetailsPaneLocaleText`, with `DEFAULT_*_LOCALE_TEXT` English defaults); `RdsCompNavtabs` has no fixed text.
 - `localeText` prop on exported components to override built-in English text (`aria-label`s, placeholders, button labels). Types and `DEFAULT_*_LOCALE_TEXT` constants live in `*-locale.ts` files and are exported from the package root.
 - `prefers-reduced-motion` support: `RaaghuThemeProvider` sets the duration and transition tokens to `0.01ms` (and follows changes of the OS setting), loaders and spinners keep moving, `RdsSkeleton` stops pulsing and `RdsCarousel` autoplay does not start.
-- `:focus-visible` rings (`--rds-focus-ring-width`, `--rds-focus-ring-offset`) on 19 focusable elements that had no keyboard focus indicator; see `docs/ACCESSIBILITY_FOCUS_AUDIT.md`.
+- `:focus-visible` rings (`--rds-focus-ring-width`, `--rds-focus-ring-offset`) on 19 focusable elements that had no keyboard focus indicator.
 - Lint ratchets `lint:media-queries`, `lint:hardcoded-text` and `lint:data-theme`, wired into `npm run lint` and the style-governance workflow.
-- `docs/DARK_MODE_SELECTOR_AUDIT.md`: which `[data-theme]` overrides moved to mode tokens and why the rest stay.
 
 ### Changed
 

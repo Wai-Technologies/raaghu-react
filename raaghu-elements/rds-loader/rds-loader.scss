@@ -705,7 +705,6 @@
   }
 }
 
-// `color` on a CSS-only loader (`type`): recolor each loader with the chosen palette color.
 @each $name in primary, secondary, error, warning, success {
   .rds-loader__type-wrap--color-#{$name} {
     --rds-loader-type-color: var(--rds-#{$name}-main);

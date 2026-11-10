@@ -96,7 +96,6 @@ export const CustomInputWithClear = (
           inputRef={ref}
           slotProps={{ htmlInput: inputProps }}
           endIcon={
-            // Rendered as the input's end adornment so the buttons always sit inside the field.
             <span className="rds-datepicker__adornment">
               {showClearDate && value && (
                 <button

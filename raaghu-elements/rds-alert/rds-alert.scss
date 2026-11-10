@@ -232,7 +232,6 @@
     }
   }
 
-  // `&.` doubles the class so the size wins over the theme's MuiAlert root padding.
   &.rds-alert--small {
     padding: var(--rds-alert-padding-sm);
     gap: var(--rds-spacing-xs);

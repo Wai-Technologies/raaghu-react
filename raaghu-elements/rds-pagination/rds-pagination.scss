@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-pagination {
   --rds-pagination-item-size: var(--rds-spacing-xl);
@@ -79,10 +80,7 @@
     border-radius: 0;
     outline: none;
     position: relative;
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
     &::after {
       content: "";
       position: absolute;

@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 @use '../../raaghu-react-themes/tokens/motion' as motion;
 
 .rds-comp-color-picker {
@@ -86,10 +87,7 @@
       box-shadow: none;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
 
     &--active {
       border: none;
@@ -298,10 +296,7 @@
       box-shadow: none;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
 
     &:hover {
       background-color: var(--rds-color-surface-variant);
@@ -366,10 +361,7 @@
       border-color: var(--rds-color-outline);
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   &__percent-wrapper {
@@ -395,10 +387,7 @@
       border-color: var(--rds-color-outline);
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   &__swatches {
@@ -473,10 +462,7 @@
       box-shadow: none;
     }
 
-    &:focus-visible {
-      outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
-      outline-offset: var(--rds-focus-ring-offset);
-    }
+    @include focus.ring;
   }
 
   &__swatch-color {

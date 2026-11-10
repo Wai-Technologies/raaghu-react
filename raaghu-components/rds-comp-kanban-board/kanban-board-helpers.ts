@@ -259,7 +259,6 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 
   const onAddButtonClick = () => {
     const name = boardName.trim();
-    // A board without a name is never rendered, so don't add one.
     if (!name) return;
     const newBoard: KanbanBoardInfo = {
       cardId: generateRandomId(),

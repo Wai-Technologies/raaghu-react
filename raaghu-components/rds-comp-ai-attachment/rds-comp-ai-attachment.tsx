@@ -132,7 +132,6 @@ const DEPRECATED_PROPS = {
   handleAddComment: "`onAddComment`",
 } as const;
 
-// `placement` puts the icon at the start/end of its container; the menu is anchored on that same edge so it opens inward.
 const PLACEMENT_ALIGNMENT = { start: "left", end: "right" } as const;
 
 /** Attachment menu for the AI chat: upload from Figma (modal) or import an image from the device. */
