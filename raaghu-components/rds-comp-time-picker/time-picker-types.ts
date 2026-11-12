@@ -2,6 +2,9 @@ import type { CSSProperties, Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material';
 import type { RdsCompTimePickerLocaleText } from './rds-comp-time-picker-locale';
 
+/** @deprecated Use `RdsCompTimePickerLocaleText` instead. */
+export type RdsTimePickerLocaleText = Partial<RdsCompTimePickerLocaleText>;
+
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
 
 export interface RdsTimePickerProps {

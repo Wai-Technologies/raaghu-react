@@ -79,7 +79,7 @@ export type { RdsCompTextEditorProps } from './rds-comp-text-editor/rds-comp-tex
 export type { RdsCompMapProps } from './rds-comp-map/rds-comp-map';
 export type { RdsCompNotificationProps, NotificationItem } from './rds-comp-notification/rds-comp-notification.types';
 export { NotificationLayout, NotificationStyle, NotificationType } from './rds-comp-notification/rds-comp-notification.types';
-export type { RdsTimePickerProps, TimePickerColor } from './rds-comp-time-picker/time-picker-types';
+export type { RdsTimePickerProps, RdsTimePickerLocaleText, TimePickerColor } from './rds-comp-time-picker/time-picker-types';
 export type { RdsCompToolbarProps, ToolbarButtonConfig, ToolbarOption } from './rds-comp-toolbar/rds-comp-toolbar';
 export { ToolbarLayout, ToolbarType } from './rds-comp-toolbar/rds-comp-toolbar';
 export type { RdsCompDatepickerProps } from './rds-comp-datepicker/rds-comp-datepicker.types';
