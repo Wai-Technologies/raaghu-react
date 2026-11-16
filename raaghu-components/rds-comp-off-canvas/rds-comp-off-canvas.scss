@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 :root {
   --rds-off-canvas-dim-1: 320px;
   --rds-off-canvas-dim-2: 375px;
@@ -286,7 +287,7 @@
 
 }
 
-@media (max-width: 767px) {
+@include bp.down(767) {
 
   .offcanvas-drawer .MuiDrawer-paper {
 
@@ -330,7 +331,7 @@
 
 }
 
-@media (max-width: 420px) {
+@include bp.down(420) {
 
   .offcanvas-drawer .MuiDrawer-paper {
 
@@ -546,7 +547,7 @@
 
 }
 
-@media (max-width: 896px) {
+@include bp.down(896) {
 
   .offcanvas-drawer .MuiDrawer-paper { width: min(var(--rds-off-canvas-dim-3), 100vw); }
 

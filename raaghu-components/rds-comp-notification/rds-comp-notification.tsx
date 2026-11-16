@@ -8,13 +8,9 @@ import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button
 import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-notification.scss";
-import {
-    NotificationLayout,
-    NotificationStyle,
-    NotificationType,
-    type NotificationItem,
-    type RdsCompNotificationProps,
-} from "./rds-comp-notification.types";
+import { NotificationLayout, NotificationStyle, NotificationType, type NotificationItem, type RdsCompNotificationProps } from "./rds-comp-notification.types";
+import { DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT } from "./rds-comp-notification-locale";
+import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
 
 const CustomBellIcon = () => (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,8 +38,9 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     type,
     actions = 'none',
     dismiss,
-    dismissLabel = 'DISMISS',
-    acceptLabel = 'ACCEPT',
+    dismissLabel,
+    acceptLabel,
+    localeText,
     description,
     className,
     sx,
@@ -56,6 +53,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
     ...rest
 }) => {
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_NOTIFICATION_LOCALE_TEXT, localeText);
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
     if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
@@ -117,7 +115,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         <RdsIconButton
                             iconFilled={<Close />}
                             size="small"
-                            aria-label="Dismiss notification"
+                            aria-label={text.dismissNotificationLabel}
                             onClick={(e) => dismissNotification(e, notification, key)}
                             className="rds-comp-notification__dismiss"
                         />
@@ -149,7 +147,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         <RdsIconButton
                             iconFilled={<Close />}
                             size="small"
-                            aria-label="Dismiss notification"
+                            aria-label={text.dismissNotificationLabel}
                             onClick={(e) => dismissNotification(e, notification, key)}
                             className="rds-comp-notification__dismiss"
                         />
@@ -247,13 +245,13 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                 {resolvedShowSecondaryButton && (
                                     <RdsButton size="small" onClick={(e) => dismissNotification(e, notification, key)} className="rds-comp-notification__secondary-button"
                                     >
-                                      {dismissLabel}
+                                      {dismissLabel ?? text.dismiss}
                                     </RdsButton>
                                 )}
                                 {resolvedShowPrimaryButton && (
                                     <RdsButton size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
                                     >
-                                      {acceptLabel}
+                                      {acceptLabel ?? text.accept}
                                     </RdsButton>
                                 )}
                             </>

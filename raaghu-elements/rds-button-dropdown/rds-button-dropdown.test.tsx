@@ -667,3 +667,10 @@ describe('audit fixes', () => {
     });
   });
 });
+
+describe('RdsButtonDropdown localeText', () => {
+  it('overrides the search placeholder', () => {
+    render(<RdsButtonDropdown open showSearch options={[{ id: 1, label: 'A' }]} localeText={{ searchPlaceholder: 'Chercher' }}>Menu</RdsButtonDropdown>);
+    expect(screen.getByPlaceholderText('Chercher')).toBeInTheDocument();
+  });
+});

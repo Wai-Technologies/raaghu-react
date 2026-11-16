@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode, Ref, SyntheticEvent } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompToastLocaleText } from './rds-comp-toast-locale';
 
 export const ToastLayout = {
   Text: 'text',
@@ -49,10 +50,6 @@ export interface ToastAnchorOrigin {
 
 export type ToastCloseReason = "timeout" | "closeClick";
 
-/**
- * Toast / notification popup.
- * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
- */
 export interface RdsCompToastProps {
   /** Toast title. */
   title?: string;
@@ -115,6 +112,8 @@ export interface RdsCompToastProps {
   showDismiss?: boolean;
   /** Shows the message body; ignored when `chrome.subText` is set. */
   showSubText?: boolean;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompToastLocaleText>;
   /** MUI system styles applied to the toast container. */
   sx?: SxProps<Theme>;
   /** Ref to the toast container element. */

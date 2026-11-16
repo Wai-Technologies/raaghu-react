@@ -565,3 +565,10 @@ describe('audit fixes', () => {
     expect(screen.queryByText('Old')).not.toBeInTheDocument();
   });
 });
+
+describe('RdsHeader localeText', () => {
+  it('overrides built-in aria-labels', () => {
+    render(<RdsHeader title="T" showMenuButton localeText={{ menuLabel: 'Menü' }} />);
+    expect(screen.getByLabelText('Menü')).toBeInTheDocument();
+  });
+});

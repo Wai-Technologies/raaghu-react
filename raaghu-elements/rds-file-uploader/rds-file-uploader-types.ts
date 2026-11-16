@@ -1,5 +1,6 @@
 import type { CSSProperties, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import type { BoxProps } from '@mui/material';
+import type { RdsFileUploaderLocaleText } from './rds-file-uploader-locale';
 
 /** Root `Box` props forwarded to the uploader's outer element (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, handlers…). */
 export type RdsFileUploaderRootProps = Omit<BoxProps, 'style' | 'title' | 'onChange' | 'children' | 'display' | 'component' | 'ref'> & {
@@ -54,6 +55,8 @@ export interface RdsFileUploaderProps {
   };
   /** Helper text shown below the uploader when the hint is visible. */
   helperText?: string;
+  /** Overrides for the built-in English strings (labels, drop-zone text, validation and upload messages). `label` and `helperText` take precedence. */
+  localeText?: Partial<RdsFileUploaderLocaleText>;
   /** @deprecated Use `helperText` instead. */
   hintText?: string;
   /** @deprecated Use `slotProps.placeholder.src` instead. */

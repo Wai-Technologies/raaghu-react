@@ -4,7 +4,8 @@ import { Box } from '@mui/material';
 import { useForkRef } from '@mui/material/utils';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
-import { type RdsTimePickerProps } from './time-picker-types';
+import type { RdsTimePickerProps } from './time-picker-types';
+import { DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT } from './rds-comp-time-picker-locale';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
@@ -15,6 +16,7 @@ import {
   getCurrentTime,
   formatTime
 } from './time-picker-utils';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 interface PickerState {
   showPicker: boolean;
@@ -74,10 +76,11 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'style', '`variant`');
   const pickerStyle = variant ?? legacyStyle ?? 'default';
   const resolvedColor = color ?? colorVariant;
-  const nowText = localeText?.now ?? 'NOW';
-  const cancelText = localeText?.cancel ?? 'Cancel';
-  const setTimeText = localeText?.setTime ?? 'Set Time';
-  const placeholderText = localeText?.placeholder ?? '12:00 AM';
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_TIME_PICKER_LOCALE_TEXT, localeText);
+  const nowText = text.now;
+  const cancelText = text.cancel;
+  const setTimeText = text.setTime;
+  const placeholderText = text.placeholder;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useForkRef(containerRef, ref);
@@ -229,7 +232,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           readOnly
           disabled={disabled}
           placeholder={placeholderText}
-          aria-label="Selected time"
+          aria-label={text.selectedTime}
           onClick={!disabled ? togglePicker : undefined}
           onKeyDown={!disabled ? (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
@@ -243,7 +246,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           className="time-icon"
           onClick={!disabled ? togglePicker : undefined}
           disabled={disabled}
-          aria-label="Toggle time picker"
+          aria-label={text.toggleTimePicker}
         >
           <AccessTimeIcon fontSize="small" />
         </button>
@@ -252,7 +255,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       {showPicker && (
         <div
           role="dialog"
-          aria-label="Time picker"
+          aria-label={text.timePicker}
           className={clsx(
             "time-picker",
             pickerStyle === 'compact' ? "time-picker-compact" : "time-picker",
@@ -279,6 +282,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                   setTempMinute={setTempMinute}
                   tempPeriod={tempPeriod}
                   setTempPeriod={setTempPeriod}
+                  text={text}
                 />
               : <DefaultTimePicker
                   hours={hours}
@@ -289,6 +293,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                   onIncrementMinute={incrementMinute}
                   onDecrementMinute={decrementMinute}
                   onTogglePeriod={togglePeriod}
+                  text={text}
                 />
             }
           </div>

@@ -1,4 +1,4 @@
-$rds-bottom-navigation-mobile-breakpoint: 568px;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-bottom-navigation {
   display: block;
@@ -54,7 +54,7 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     pointer-events: none;
   }
 
-  @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
+  @include bp.down(568) {
     .MuiBottomNavigationAction-root {
       padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs);
 

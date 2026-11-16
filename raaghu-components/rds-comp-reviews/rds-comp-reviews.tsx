@@ -8,7 +8,9 @@ import type { SxProps, Theme } from "@mui/material";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 export { type Item, VariantType, ReviewStyle, RevieweStyle } from "./rds-comp-reviews-types";
+export { DEFAULT_RDS_COMP_REVIEWS_LOCALE_TEXT, type RdsCompReviewsLocaleText } from "./rds-comp-reviews-locale";
 import { type Item, VariantType, type ReviewStyle } from "./rds-comp-reviews-types";
+import type { RdsCompReviewsLocaleText } from "./rds-comp-reviews-locale";
 
 export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
   /** Reviews to render. */
@@ -33,6 +35,8 @@ export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>
   onDislike?: (item: Item) => void;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompReviewsLocaleText>;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
 }
@@ -59,6 +63,7 @@ const RdsCompReviews = ({
   onRatingChange,
   onLike,
   onDislike,
+  localeText,
   className,
   sx,
   ref,
@@ -87,6 +92,7 @@ const RdsCompReviews = ({
                 onRatingChange={onRatingChange}
                 onLike={onLike}
                 onDislike={onDislike}
+                localeText={localeText}
               />
             </Grid>
           ))}

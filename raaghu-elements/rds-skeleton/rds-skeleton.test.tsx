@@ -574,3 +574,19 @@ describe('audit fixes 518', () => {
     expect(screen.getByTestId('card-skeleton')).toHaveClass('rds-skeleton');
   });
 });
+
+describe('RdsSkeleton reduced motion', () => {
+  it('keeps the requested animation class so server and client render the same markup', () => {
+    const { container } = renderWithTheme(<RdsSkeleton animation="pulse" />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).not.toBeNull();
+  });
+
+  it('stops the animation through a prefers-reduced-motion media rule', () => {
+    renderWithTheme(<RdsSkeleton animation="wave" />);
+    const css = Array.from(document.styleSheets)
+      .flatMap((sheet) => Array.from(sheet.cssRules, (rule) => rule.cssText))
+      .join('')
+      .replace(/\s+/g, '');
+    expect(css).toMatch(/@media\(prefers-reduced-motion:reduce\)\{[^{]*\{[^}]*animation:none;\}[^{]*::after\{[^}]*animation:none;\}/);
+  });
+});

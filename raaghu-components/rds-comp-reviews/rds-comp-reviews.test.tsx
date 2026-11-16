@@ -446,3 +446,16 @@ describe('audit fixes', () => {
     expect(screen.getByLabelText('Like')).toBeInTheDocument();
   });
 });
+
+describe('RdsCompReviews localeText', () => {
+  it('overrides the like and dislike labels', () => {
+    render(
+      <RdsCompReviews
+        items={[{ id: 1, name: 'A', username: 'a', description: 'd', rating: 3 }]}
+        variant={ReviewStyle.Style7}
+        localeText={{ like: 'Me gusta' }}
+      />
+    );
+    expect(screen.getByLabelText('Me gusta')).toBeInTheDocument();
+  });
+});

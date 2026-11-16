@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/motion' as motion;
 .rds-comp-audio-player {
   --rds-audio-player-dim-1: var(--rds-spacing-hairline);
   --rds-audio-player-dim-2: var(--rds-spacing-25);
@@ -724,7 +726,7 @@
     }
   }
 
-  @media (max-width: 900px) {
+  @include bp.down(md) {
     &__player {
       min-width: auto;
       flex-direction: column;
@@ -878,7 +880,7 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @include bp.down(sm) {
     &__edition-timemarks {
       font-size: var(--rds-font-size-caption);
     }
@@ -939,7 +941,7 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include motion.reduced {
     &__waveform-blue-bar,
     &__waveform-bar-handle,
     &__edition-btn,
@@ -972,7 +974,7 @@
   }
 }
 
-@media (max-width: 430px) {
+@include bp.down(430) {
   .rds-comp-audio-player__settings-modal {
       top: 95%;
       right: var(--rds-spacing-neg-17);

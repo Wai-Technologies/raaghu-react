@@ -18,6 +18,10 @@ import RdsAccordion from "../../raaghu-elements/rds-accordion/rds-accordion";
 import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
 import RdsCheckbox from "../../raaghu-elements/rds-checkbox/rds-checkbox";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
+import {
+  DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
+  type RdsCompDetailsPaneLocaleText,
+} from './rds-comp-details-pane-locale';
 
 export interface HistoryFavoriteTabsProps {
   activeTab: string;
@@ -33,6 +37,7 @@ export interface HistoryFavoriteTabsProps {
   handleDeleteOlderHistoryItem: (id: number) => void;
   favouriteCardTitle?: string;
   favouriteCardImage?: string;
+  text?: RdsCompDetailsPaneLocaleText;
 }
 
 export interface RealEstateContentProps {
@@ -53,24 +58,27 @@ export interface SelectionContentProps {
   headerText?: string;
   headerSubText?: string;
   agents?: DetailsPaneAgent[];
+  text?: RdsCompDetailsPaneLocaleText;
 }
 
 export interface ToolbarContentProps {
   initialTab?: string;
   figmaIconSrc?: string | ReactNode;
   storybookIconSrc?: string | ReactNode;
+  text?: RdsCompDetailsPaneLocaleText;
 }
 
 const TOOLBAR_TABS = [
-  { id: 'icon_font', ariaLabel: 'Font settings' },
-  { id: 'icon_color', ariaLabel: 'Color settings' },
-  { id: 'icon_frame', ariaLabel: 'Corner radius settings' },
-  { id: 'icon_line_height', ariaLabel: 'Spacing settings' },
-  { id: 'icon_block', ariaLabel: 'Block settings' },
+  { id: 'icon_font', labelKey: 'fontSettings' },
+  { id: 'icon_color', labelKey: 'colorSettings' },
+  { id: 'icon_frame', labelKey: 'cornerRadiusSettings' },
+  { id: 'icon_line_height', labelKey: 'spacingSettings' },
+  { id: 'icon_block', labelKey: 'blockSettings' },
 ] as const;
 
 export interface ThumbnailViewContentProps {
   thumbnailButtonName?: string;
+  text?: RdsCompDetailsPaneLocaleText;
 }
 
 export interface FigmaUIKitButtonProps {
@@ -167,6 +175,7 @@ export const HistoryFavoritesTabs = ({
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
   favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
+  text = DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
 }: HistoryFavoriteTabsProps) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
   const resolvedHistoryItems = historyItems ?? EMPTY_HISTORY_ITEMS;
@@ -202,13 +211,13 @@ export const HistoryFavoritesTabs = ({
             fontSize="small"
             onClick={() => handleDelete(item.id)}
             className="rds-comp-details-pane__icon-delete"
-            aria-label={`Delete ${item.name}`}
+            aria-label={text.deleteItem(item.name)}
           />
         </div>
       </div>
       <div className="rds-comp-details-pane__history-divider" />
     </div>
-  ), []);
+  ), [text]);
 
   return (
     <div>
@@ -243,7 +252,7 @@ export const HistoryFavoritesTabs = ({
             role="tabpanel"
           >
             <div className="rds-comp-details-pane__section-heading">
-              <span className="rds-comp-details-pane__section-heading-text">Today</span>
+              <span className="rds-comp-details-pane__section-heading-text">{text.today}</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
             <div>
@@ -251,7 +260,7 @@ export const HistoryFavoritesTabs = ({
             </div>
             
             <div className="rds-comp-details-pane__section-heading">
-              <span className="rds-comp-details-pane__section-heading-text">Older</span>
+              <span className="rds-comp-details-pane__section-heading-text">{text.older}</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
             <div>
@@ -299,7 +308,7 @@ export const HistoryFavoritesTabs = ({
                   <div className="rds-comp-details-pane__favourite-card-image-wrapper">
                     <img
                       src={favouriteCardImage}
-                      alt="Login page"
+                      alt={text.loginPage}
                       className="rds-comp-details-pane__favourite-card-image"
                     />
                     <span className="rds-comp-details-pane__favourite-card-image-star">
@@ -456,7 +465,8 @@ const SELECTION_AGENTS: DetailsPaneAgent[] = [
 export const SelectionContent = ({
   headerText = "Bayshore Transportation System",
   headerSubText = "Agent Information",
-  agents: agentList = SELECTION_AGENTS
+  agents: agentList = SELECTION_AGENTS,
+  text = DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
 }: SelectionContentProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const query = searchValue.trim().toLowerCase();
@@ -489,7 +499,7 @@ export const SelectionContent = ({
             onChange={handleSearchChange}
             iconPosition="end"
             labelPosition="top"
-            placeholder="Search for Agents by Name or # ID"
+            placeholder={text.searchAgentsPlaceholder}
             size="small"
             fullWidth
             className="rds-comp-details-pane__search-field rds-comp-details-pane__search-field--compact"
@@ -509,7 +519,7 @@ export const SelectionContent = ({
               <div className="rds-comp-details-pane__agent-left">
                 <div className="rds-comp-details-pane__agent-avatar">
                   <RdsAvatar
-                    alt="User Avatar"
+                    alt={text.userAvatar}
                     displayStyle="with-name"
                     showDesignation
                     showName
@@ -552,7 +562,8 @@ export const SelectionContent = ({
 export const ToolbarContent = ({
   initialTab = 'icon_font',
   figmaIconSrc,
-  storybookIconSrc
+  storybookIconSrc,
+  text = DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
 }: ToolbarContentProps) => {
   const [toolbarState, setToolbarState] = useState({
     activeToolbarTab: initialTab,
@@ -572,7 +583,7 @@ export const ToolbarContent = ({
       <div className="rds-comp-details-pane__toolbar-pane-container">
         <div className="rds-comp-details-pane__toolbar-content">
           <div>
-            <h3>Toolbar</h3>
+            <h3>{text.toolbar}</h3>
             <div className="rds-comp-details-pane__toolbar-buttons-row rds-comp-details-pane__toolbar-buttons-row--scrollable">
               {TOOLBAR_TABS.map((tab) => {
                 const isSelected = activeToolbarTab === tab.id;
@@ -584,7 +595,7 @@ export const ToolbarContent = ({
                       'rds-comp-details-pane__toolbar-circle-btn',
                       isSelected && 'rds-comp-details-pane__toolbar-circle-btn--selected',
                     )}
-                    aria-label={tab.ariaLabel}
+                    aria-label={text[tab.labelKey]}
                     aria-pressed={isSelected}
                     onClick={() => updateToolbarState({ activeToolbarTab: tab.id })}
                   >
@@ -602,7 +613,7 @@ export const ToolbarContent = ({
                     <hr className="rds-comp-details-pane__toolbar-divider"/>
                   </div>
                   <div className="rds-comp-details-pane__font-size-btn-group">
-                    <p className="rds-comp-details-pane__font-label">Font Size</p>
+                    <p className="rds-comp-details-pane__font-label">{text.fontSize}</p>
                     <div className="rds-comp-details-pane__font-size-grid">
                       <div className="rds-comp-details-pane__row">
                         {[14, 16, 18, 20, 24].map(size => (
@@ -634,7 +645,7 @@ export const ToolbarContent = ({
                   </div>
                   
                   <div className="rds-comp-details-pane__font-weight-btn-group">
-                    <p className="rds-comp-details-pane__font-label">Font Weight</p>
+                    <p className="rds-comp-details-pane__font-label">{text.fontWeight}</p>
                     <div className="rds-comp-details-pane__font-weight-grid">
                       <div className="rds-comp-details-pane__row">
                         {['Regular', 'Medium'].map(weight => (
@@ -1004,7 +1015,8 @@ const THUMBNAIL_ACCORDION_ITEMS = [
 ];
 
 export const ThumbnailViewContent = ({
-  thumbnailButtonName
+  thumbnailButtonName,
+  text = DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
 }: ThumbnailViewContentProps) => {
   const accordionItems = THUMBNAIL_ACCORDION_ITEMS;
 
@@ -1012,12 +1024,12 @@ export const ThumbnailViewContent = ({
     <div className="rds-comp-details-pane__thumbnail-view-wrapper">
       <div className="rds-comp-details-pane__thumbnail-content">
         <div className="rds-comp-details-pane__pages-header">
-          Pages
+          {text.pages}
         </div>
 
         <div className="rds-comp-details-pane__download-button-container">
           <button type="button" className="rds-comp-details-pane__download-button">
-            {thumbnailButtonName || "Download Project"}
+            {thumbnailButtonName || text.downloadProject}
           </button>
         </div>
 
@@ -1034,7 +1046,7 @@ export const ThumbnailViewContent = ({
               <div className="rds-comp-details-pane__thumbnail-image-wrap">
                 <img 
                   src={item.imgSrc}
-                  alt="Night Sky"
+                  alt={text.nightSky}
                   className="rds-comp-details-pane__thumbnail-img-square"
                 />
               </div>

@@ -1,4 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/motion' as motion;
 
 .rds-progress {
   --rds-progress-dim-1: 2px;
@@ -233,7 +234,7 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include motion.reduced {
     .rds-progress__stepper-step,
     .rds-progress__stepper-connector,
     .rds-progress__dash,

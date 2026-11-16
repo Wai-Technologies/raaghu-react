@@ -256,7 +256,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 ## <a name='started'></a> Getting Started with Raaghu
 
 ```bash
-npm install @waiin/raaghu-react @mui/material @mui/system @mui/icons-material @mui/lab @mui/x-date-pickers @emotion/react @emotion/styled
+npm install @waiin/raaghu-react @mui/material @mui/system @mui/icons-material @mui/lab @emotion/react @emotion/styled
 ```
 
 Peer dependencies: `react` / `react-dom` (`^19.0.0`), plus MUI 7 / Emotion 11 (listed above) so the host app owns a single theme tree.

@@ -631,3 +631,10 @@ describe('RdsCompESignature', () => {
     });
   });
 });
+
+describe('RdsCompESignature localeText', () => {
+  it('overrides the pen colour group label', () => {
+    render(<RdsCompESignature localeText={{ penColourLabel: 'Color del lapiz' }} />);
+    expect(screen.getByRole('radiogroup', { name: 'Color del lapiz' })).toBeInTheDocument();
+  });
+});

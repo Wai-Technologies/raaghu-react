@@ -613,3 +613,12 @@ describe('RdsCompAudioPlayer id and sx', () => {
     expect(container.firstChild).not.toHaveAttribute('id');
   });
 });
+
+describe('RdsCompAudioPlayer localeText', () => {
+  it('overrides built-in labels', () => {
+    render(<RdsCompAudioPlayer src="a.mp3" localeText={{ skipBackward: 'Retroceder', skipForward: 'Avanzar' }} />);
+    expect(screen.getByLabelText('Retroceder')).toBeInTheDocument();
+    expect(screen.getByLabelText('Avanzar')).toBeInTheDocument();
+    expect(screen.getByLabelText('Play or pause')).toBeInTheDocument();
+  });
+});

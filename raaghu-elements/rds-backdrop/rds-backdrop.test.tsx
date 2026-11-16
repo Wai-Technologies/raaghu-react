@@ -423,3 +423,10 @@ describe('RdsBackdrop', () => {
     });
   });
 });
+
+describe('RdsBackdrop localeText', () => {
+  it('overrides the spinner label', () => {
+    render(<RdsBackdrop open loading localeText={{ loadingLabel: 'Chargement' }} />);
+    expect(screen.getByLabelText('Chargement')).toBeInTheDocument();
+  });
+});

@@ -1,5 +1,6 @@
 import type { CSSProperties, HTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompNotificationLocaleText } from './rds-comp-notification-locale';
 
 export const NotificationLayout = {
   Vertical: 'vertical',
@@ -72,6 +73,8 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   dismissLabel?: string;
   /** Label of the primary (accept) button. Defaults to "ACCEPT". */
   acceptLabel?: string;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompNotificationLocaleText>;
   /** MUI system styles applied to the root. */
   sx?: SxProps<Theme>;
   /** Ref to the root element. */

@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-ai-chat-bot {
   --rds-ai-chat-bot-dim-1: 400px;
 
@@ -43,7 +44,7 @@
 
 }
 
-@media (max-width: 900px) {
+@include bp.down(md) {
     .rds-ai-chat-bot {
         height: 100vh;
         min-height: var(--rds-ai-chat-bot-dim-1);

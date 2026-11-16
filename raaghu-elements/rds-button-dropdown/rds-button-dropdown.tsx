@@ -11,6 +11,8 @@ import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import { invokeValueFirstOnChange, resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+import { DEFAULT_RDS_BUTTON_DROPDOWN_LOCALE_TEXT, type RdsButtonDropdownLocaleText } from './rds-button-dropdown-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -162,6 +164,8 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   rightIcon?: ReactNode;
   /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** Overrides for the built-in English strings (placeholder of the search field). */
+  localeText?: Partial<RdsButtonDropdownLocaleText>;
   [key: `data-${string}`]: string | number | boolean | undefined;
 }
 
@@ -207,8 +211,10 @@ const RdsButtonDropdown = ({
   sx,
   ref,
   id,
+  localeText,
   ...rest
 }: RdsButtonDropdownProps) => {
+  const text = mergeLocaleText(DEFAULT_RDS_BUTTON_DROPDOWN_LOCALE_TEXT, localeText);
   if (buttonText !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'buttonText', '`children`');
   if (multiSelect !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'multiSelect', '`multiple`');
   if (rightIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'rightIcon', '`endIcon`');
@@ -350,7 +356,7 @@ const RdsButtonDropdown = ({
               <RdsSearch
                 value={search}
                 onChange={setSearch}
-                placeholder="Search"
+                placeholder={text.searchPlaceholder}
                 showClearButton
                 showSearchIcon
                 size='small'

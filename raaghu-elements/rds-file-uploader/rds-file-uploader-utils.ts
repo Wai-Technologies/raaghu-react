@@ -16,7 +16,7 @@ const MIME_LABELS: Record<string, string> = {
 };
 
 /** Turns an `accept` attribute (`.png,.jpg`, `image/*`, `application/pdf`) into a display label (`PNG, JPG`). */
-export function formatAcceptLabel(accept?: string): string {
+export function formatAcceptLabel(accept?: string, allFilesLabel = 'All files'): string {
   const labels = (accept ?? '')
     .split(',')
     .map((token) => token.trim())
@@ -26,5 +26,5 @@ export function formatAcceptLabel(accept?: string): string {
       const label = subtype === undefined || subtype === '*' ? type : subtype;
       return (MIME_LABELS[label] ?? label).replace(/^\./, '').toUpperCase();
     });
-  return labels.length > 0 ? Array.from(new Set(labels)).join(', ') : 'All files';
+  return labels.length > 0 ? Array.from(new Set(labels)).join(', ') : allFilesLabel;
 }

@@ -18,6 +18,8 @@ import {
   InputFormCard,
   AdaptiveCardProps,
 } from "./rds-comp-adaptive-cards-helpers";
+import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
+import { DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT } from "./rds-comp-adaptive-cards-locale";
 import { capitalizeFirstWord } from "./rds-comp-adaptive-cards-utils";
 
 type FootballProps = {
@@ -72,6 +74,7 @@ const getRdsButtonStyle = (style: unknown): ButtonStyle =>
 
 const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const type = props.type || "Default";
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT, props.localeText);
   const merged = useMemo(() => ({ ...VARIANT_DEFAULTS, ...props }), [props]);
 
   const {
@@ -109,7 +112,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const showTitleIcon = props.showTitleIcon ?? props.showDismiss ?? false;
   const resolvedBtn1Style = getRdsButtonStyle(btn1style);
   const resolvedBtn2Style = getRdsButtonStyle(btn2style);
-  // Input form and restaurant order buttons stay filled unless btn1style is passed, matching the previous look.
   const formBtn1Style: ButtonStyle = props.btn1style ? resolvedBtn1Style : "filled";
 
   const calendarLabel =
@@ -152,6 +154,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         showHeader={showHeader}
         closeIcon={closeIcon}
         showTitleIcon={showTitleIcon}
+        text={text}
       />
     );
   }
@@ -179,6 +182,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         time={time ?? footballProps?.time ?? ""}
         finalText={merged.finalText ?? footballProps?.finalText ?? "Final"}
         closeIcon={false}
+        text={text}
       />
     );
   }
@@ -207,7 +211,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               <RdsBox sx={{ flex: 1 }} />
               {closeIcon && (
                 <IconButton
-                  aria-label="Close"
+                  aria-label={text.close}
                   size="small"
                   className="custom-box__close-icon"
                   onClick={handleDismiss}
@@ -223,7 +227,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             )}
             <RdsBox className="custom-box__slot">
               <RdsTypography variant="body1" color="text.secondary">
-                {cardText || "Instance Slot"}
+                {cardText || text.instanceSlot}
               </RdsTypography>
             </RdsBox>
             <RdsStack
@@ -282,7 +286,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               action={
                 closeIcon && (
                   <IconButton
-                    aria-label="Close"
+                    aria-label={text.close}
                     size="small"
                     className="rds-adaptive-cards__close-btn"
                     onClick={handleDismiss}
@@ -308,7 +312,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   showBtn2={showBtn2}
                   btn1Label={props.snoozeLabel ? undefined : btn1Label}
                   btn2Label={props.lateLabel ? undefined : btn2Label}
-                  // Both outlined unless btn1style/btn2style are passed, matching the previous look.
                   btn1Variant={props.btn1style ? resolvedBtn1Style : undefined}
                   btn2Variant={props.btn2style ? resolvedBtn2Style : undefined}
                 />
@@ -414,7 +417,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       </RdsButton>
                     ) : type === "ActivityUpdateCard" ? (
                       <RdsButtonDropdown
-                        // Outlined unless btn1style is passed, matching the previous look.
                         variant={props.btn1style ? resolvedBtn1Style : "outlined"}
                         options={activityDropdownOptions}
                         onChange={() => {}}

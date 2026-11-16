@@ -11,8 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The npm package now ships only the build output: `dist/`, `raaghu-react-themes/src/styles/index.scss`, the AI docs (`AGENTS.md`, `llms.txt`, `docs/ai/`, `docs/TOKENS.md`), `README.md`, `CHANGELOG.md` and `LICENSE`. The source folders (`raaghu-elements/`, `raaghu-components/`, `raaghu-layouts/`, `raaghu-react-themes/`, `utils/`, `index.ts`) are no longer published. **Migration:** replace deep imports such as `@waiin/raaghu-react/raaghu-elements/...` or `raaghu-react-themes/...` with imports from the package root (`@waiin/raaghu-react`), and load styles with `import '@waiin/raaghu-react/styles.css'`. The optional global resets stay available at `@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss`.
 
+### Added
+
+- `RdsCompChat`, `RdsCompAdaptiveCards`, `RdsCompCodeSnippet`, `RdsCompCommentsBox`, `RdsCompDetailsPane` and `RdsCompNavtabs` are exported from the package root, with their props types (`RdsCompChatProps`, `RdsCompAdaptiveCardsProps`, `RdsCompCodeSnippetProps`, `RdsCompCommentsBoxProps`, `RdsCompDetailsPaneProps`, `RdsCompNavtabsProps`). They were already shown in Storybook but could not be imported. Each also takes a `localeText` prop (`RdsCompChatLocaleText`, `RdsCompAdaptiveCardsLocaleText`, `RdsCompCodeSnippetLocaleText`, `RdsCompCommentsBoxLocaleText`, `RdsCompDetailsPaneLocaleText`, with `DEFAULT_*_LOCALE_TEXT` English defaults); `RdsCompNavtabs` has no fixed text.
+- `localeText` prop on exported components to override built-in English text (`aria-label`s, placeholders, button labels). Types and `DEFAULT_*_LOCALE_TEXT` constants live in `*-locale.ts` files and are exported from the package root.
+- `prefers-reduced-motion` support: `RaaghuThemeProvider` sets the duration and transition tokens to `0.01ms` (and follows changes of the OS setting), loaders and spinners keep moving, `RdsSkeleton` stops pulsing and `RdsCarousel` autoplay does not start.
+- `:focus-visible` rings (`--rds-focus-ring-width`, `--rds-focus-ring-offset`) on 19 focusable elements that had no keyboard focus indicator.
+- Lint ratchets `lint:media-queries`, `lint:hardcoded-text` and `lint:data-theme`, wired into `npm run lint` and the style-governance workflow.
+
 ### Changed
 
+- SCSS media queries use the `bp` helpers from `_breakpoints.scss` instead of literal px; the compiled CSS is identical. `bp.up`, `bp.down` and `bp.between` take an optional media type (`bp.down(640, screen)`).
+- `_breakpoints.scss` and `extendedBreakpointTokens` now hold the same keys and values (`xs` is `320px` in both; no SCSS used `xs`). `breakpoint-parity.test.ts` keeps them in sync.
+- The last local breakpoint variables (`RdsAppBar`, `RdsDrawer`, `RdsBottomNavigation`, `RdsStepper`) use the `bp` helpers too, and the `window.innerWidth` checks in `RdsCompChat` and `RdsCompAiTypingSection` read `extendedBreakpointTokens`. Compiled CSS and behaviour are unchanged.
+- Lint gates that still carry debt (`lint:rgba`, `lint:local-dim-px`, `lint:data-theme`, `lint:ts-raw-values`, `lint:hardcoded-text`) keep a per-file baseline: a file cannot gain new violations, and fixes must be locked in with `--set-baseline`. `lint:media-queries` also rejects SCSS variables and `var()`; `lint:hardcoded-text` also checks `alt`, `label`, `tooltip`, lowercase and `{'…'}` values and plain JSX text.
+- `react-player` is no longer bundled into `dist`; it is a runtime dependency. Packed size 6.4 MB to 2.1 MB, unpacked 26.6 MB to 9.5 MB.
+- 5 dark-mode overrides (`RdsMenu` header, divider and shortcut, the datepicker header select and the e-signature file text) moved from `[data-theme='dark']` rules to mode tokens with identical values. **Migration:** these now take their dark values from the injected tokens, like every other `--rds-*` value. Apps that use `RaaghuThemeProvider` need no change. Apps that set `data-theme="dark"` themselves must also inject the dark tokens with `injectTokens('dark')` or `buildStaticCssSnapshot('dark')`.
 - **Color tokens (visible change).** Light mode: the `dark` (hover/pressed) shade of `primary`, `secondary`, `error`, `warning` and `success` moves from step 600 to 750, and `info.dark` from 600 to 800. The secondary scale mixes pink and blue steps, so the old `secondary.dark` (600, pink) turned blue buttons red on hover. `text.secondary` (`--rds-text-secondary`) moves from neutral 600 to 700 for better contrast. Dark mode: `secondary.dark` moves from step 400 (pink) to 750 (blue). Card hover/selected/filled surfaces and the alert/status colors were also retuned (see `docs/TOKENS.md`).
 - **Dark styles follow the app theme, not the OS.** `RdsToggleButton` group borders used `@media (prefers-color-scheme: dark)`, so a light-mode app showed dark-mode borders to users whose OS was in dark mode. They now follow `data-theme`, which `RaaghuThemeProvider` sets.
 - `RdsCarousel`: `onActiveIndexChange` now fires on every slide change (arrows, dots, keyboard and autoplay), in both controlled and uncontrolled mode. It used to fire only when `activeIndex` was controlled. Autoplay now pauses while the carousel is hovered or has focus.
@@ -26,13 +40,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `RdsAvatar` `activeDotBottom`: use `status="online"` with `statusPosition="bottom"`.
 - `RdsAppBar` `actions`: use `endSlot`.
 
+### Removed
+
+- 9 `:global(...)` rules in `rds-banner.scss` that browsers never applied (plain SCSS, not CSS Modules).
+- A never-matching `max-width: 0px` media block in `rds-comp-ai-message-box.scss`.
+- Three `@media (max-width: var(--rds-modal-mobile-breakpoint))` rules in `rds-modal.scss` and the `--rds-modal-mobile-breakpoint`, `--rds-modal-image-width-mobile` and `--rds-modal-image-mobile-margin-right` properties they used. `var()` is not allowed in a media query, so these rules never applied.
+
 ### Changed (packaging)
 
-- Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@mui/x-date-pickers`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
+- Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
+- `@mui/x-date-pickers` and `@hello-pangea/dnd` are no longer installed with the package (now `devDependencies` only). Only the internal grid and date-and-time picker use them, so no exported component imports them: `RdsCompDatepicker` uses `react-datepicker` and `RdsCompKanbanBoard` uses `@dnd-kit`. Apps that use either package directly should list it in their own `package.json`.
 - `npm run type-check` now runs against `tsconfig.library.json` (same as `type-check:all`).
 
 ### Fixed
 
+- `localeText` keys passed as `undefined` fall back to the English default instead of rendering empty text (or throwing for function entries such as `fileTooLarge`).
 - Excluded `*.figma.*`, `rds-carousel-figma-slide.tsx`, and `rds-file-uploader-render.tsx` from the published npm tarball; declaration emit also skips the two helpers.
 - Removed obsolete `@types/react-datepicker` (react-datepicker 8 ships its own types).
 - Standard MUI Alert text uses palette `.dark` on light backgrounds for readable contrast.

@@ -707,3 +707,18 @@ describe('RdsCompTimePicker root attributes', () => {
     expect(b.container.firstChild).not.toHaveAttribute('aria-label');
   });
 });
+
+describe('RdsCompTimePicker extended localeText', () => {
+  it('overrides aria labels', () => {
+    render(<RdsCompTimePicker localeText={{ selectedTime: 'Gewählte Zeit', toggleTimePicker: 'Zeitwähler umschalten' }} />);
+    expect(screen.getByLabelText('Gewählte Zeit')).toBeInTheDocument();
+    expect(screen.getByLabelText('Zeitwähler umschalten')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Selected time')).not.toBeInTheDocument();
+  });
+
+  it('falls back to English defaults for keys passed as undefined', () => {
+    render(<RdsCompTimePicker localeText={{ selectedTime: undefined, toggleTimePicker: undefined }} />);
+    expect(screen.getByLabelText('Selected time')).toBeInTheDocument();
+    expect(screen.getByLabelText('Toggle time picker')).toBeInTheDocument();
+  });
+});

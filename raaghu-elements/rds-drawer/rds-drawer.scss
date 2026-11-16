@@ -1,6 +1,4 @@
-
-$rds-drawer-breakpoint-md: 768px;
-$rds-drawer-breakpoint-sm: 480px;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-drawer-close-button {
   margin-left: var(--rds-spacing-md);
@@ -26,12 +24,12 @@ $rds-drawer-breakpoint-sm: 480px;
   min-height: var(--rds-drawer-persistent-min-height);
   padding: var(--rds-spacing-lg);
   
-  @media (max-width: $rds-drawer-breakpoint-md) {
+  @include bp.down(tablet-sm) {
     min-height: var(--rds-drawer-persistent-min-height-md);
     padding: var(--rds-spacing-md);
   }
   
-  @media (max-width: $rds-drawer-breakpoint-sm) {
+  @include bp.down(480) {
     min-height: var(--rds-drawer-persistent-min-height-sm);
     padding: var(--rds-spacing-sm);
   }

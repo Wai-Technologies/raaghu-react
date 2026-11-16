@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 .rds-alert {
   --rds-alert-icon-color: inherit;
   --rds-alert-link-color: var(--rds-primary-main);
@@ -231,7 +232,6 @@
     }
   }
 
-  // `&.` doubles the class so the size wins over the theme's MuiAlert root padding.
   &.rds-alert--small {
     padding: var(--rds-alert-padding-sm);
     gap: var(--rds-spacing-xs);
@@ -387,7 +387,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@include bp.down(640) {
   .rds-alert {
     gap: var(--rds-spacing-sm);
     align-items: flex-start;

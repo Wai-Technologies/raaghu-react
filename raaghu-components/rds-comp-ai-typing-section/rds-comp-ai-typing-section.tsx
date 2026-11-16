@@ -13,6 +13,9 @@ import RdsCompAiAttachment, {
 } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, type RdsCompAiTypingSectionLocaleText } from './rds-comp-ai-typing-section-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
+import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export interface RdsCompAiTypingSectionOption {
   label: string;
@@ -53,6 +56,8 @@ export interface RdsCompAiTypingSectionProps extends Omit<HTMLAttributes<HTMLDiv
   autocompleteOptions?: RdsCompAiTypingSectionOption[];
   /** Badge label on the attachment menu button. No badge is shown when omitted. */
   attachmentBadge?: string | null;
+  /** Overrides for the built-in UI strings. */
+  localeText?: Partial<RdsCompAiTypingSectionLocaleText>;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
   /** MUI system styles applied to the root element. */
@@ -65,17 +70,7 @@ registerMaterialIcons({
   enhance: AutoAwesomeOutlinedIcon,
 });
 
-const MOBILE_BREAKPOINT = 768;
-
-const ATTACHMENT_SLOT_PROPS = {
-  menu: { uploadText: "Upload From Figma", importText: "Import From This Device" },
-  dialog: {
-    title: "Import From Figma",
-    text: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
-    hintText: "Hint Text",
-    placeholder: "Enter URL",
-  },
-};
+const MOBILE_BREAKPOINT = parseInt(extendedBreakpointTokens['tablet-sm'], 10);
 
 /** Prompt input of the AI chat, with the attachment menu, send button and project actions. */
 const RdsCompAiTypingSectionComponent = ({
@@ -94,6 +89,7 @@ const RdsCompAiTypingSectionComponent = ({
   onImportFromFigmaClick,
   autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
   attachmentBadge,
+  localeText,
   className,
   ref,
   sx,
@@ -105,15 +101,22 @@ const RdsCompAiTypingSectionComponent = ({
   if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "placeholderText", "`placeholder`");
   if (previewImage !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "previewImage", "`imageSrc`");
   if (autoCompleteMaxWidth !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "autoCompleteMaxWidth", "`slotProps.autocomplete.sx`");
+  const text = useMemo(() => mergeLocaleText(DEFAULT_RDS_COMP_AI_TYPING_SECTION_LOCALE_TEXT, localeText), [localeText]);
   const resolvedPlaceholder = placeholder ?? placeholderText;
   const resolvedImage = imageSrc ?? previewImage;
   const { sx: autocompleteSx, ...autocompleteSlotProps } = slotProps?.autocomplete ?? {};
   const attachmentSlotProps = useMemo<RdsCompAiAttachmentSlotProps>(
     () => ({
-      menu: { ...ATTACHMENT_SLOT_PROPS.menu, ...slotProps?.attachment?.menu },
-      dialog: { ...ATTACHMENT_SLOT_PROPS.dialog, ...slotProps?.attachment?.dialog },
+      menu: { uploadText: text.uploadFromFigma, importText: text.importFromDevice, ...slotProps?.attachment?.menu },
+      dialog: {
+        title: text.figmaDialogTitle,
+        text: text.figmaDialogText,
+        hintText: text.figmaHintText,
+        placeholder: text.figmaUrlPlaceholder,
+        ...slotProps?.attachment?.dialog,
+      },
     }),
-    [slotProps?.attachment]
+    [slotProps?.attachment, text]
   );
   const showNewProject = onNewProjectClick !== undefined;
   const showImportFromFigma = onImportFromFigmaClick !== undefined;
@@ -184,8 +187,8 @@ const RdsCompAiTypingSectionComponent = ({
             placeholder={!enhancedImage ? (resolvedPlaceholder ?? "") : ""}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            title="Enter your prompt here"
-            aria-label="Prompt input"
+            title={text.promptTitle}
+            aria-label={text.promptInputLabel}
           />
           {!inputText && (
             <span className="rds-comp-ai-typing-section__input-icon">
@@ -226,7 +229,7 @@ const RdsCompAiTypingSectionComponent = ({
                 variant="filled"
                 layout="icon-only"
                 onClick={handleSent}
-                aria-label="Send"
+                aria-label={text.sendLabel}
               />
             </div>
           </div>
@@ -246,7 +249,7 @@ const RdsCompAiTypingSectionComponent = ({
                     variant="filled"
                     size={isMobile ? "small" : "medium"}
                   >
-                    New Project
+                    {text.newProject}
                   </RdsButton>
                 </div>
               )}
@@ -260,7 +263,7 @@ const RdsCompAiTypingSectionComponent = ({
                     variant="outlined"
                     size={isMobile ? "small" : "medium"}
                   >
-                    Import From Figma
+                    {text.importFromFigma}
                   </RdsButton>
                 </div>
               )}
@@ -273,7 +276,7 @@ const RdsCompAiTypingSectionComponent = ({
                 required={false}
                 label=""
                 options={autocompleteOptions}
-                placeholder="Select Frontend"
+                placeholder={text.selectFrontendPlaceholder}
                 showHintText={false}
                 showTitle={false}
                 {...autocompleteSlotProps}

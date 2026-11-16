@@ -8,6 +8,7 @@ import {
 } from 'react';
 import type { DragEndEvent, DragOverEvent, UniqueIdentifier } from '@dnd-kit/core';
 import type { SxProps, Theme } from '@mui/material';
+import type { RdsCompKanbanBoardLocaleText } from './rds-comp-kanban-board-locale';
 
 export interface KanbanAction {
   key: string;
@@ -129,6 +130,8 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   addQuestionData?: Record<string, unknown>;
   /** Called with the selected tags when the tag selection in the add-card form changes. */
   onSelectedTagsListChange?: (items: unknown) => void;
+  /** Overrides for the built-in UI strings (placeholders, labels, button text). */
+  localeText?: Partial<RdsCompKanbanBoardLocaleText>;
   /** Extra class name applied to the root element. */
   className?: string;
   /** MUI system styles applied to the root element. */
@@ -256,7 +259,6 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 
   const onAddButtonClick = () => {
     const name = boardName.trim();
-    // A board without a name is never rendered, so don't add one.
     if (!name) return;
     const newBoard: KanbanBoardInfo = {
       cardId: generateRandomId(),

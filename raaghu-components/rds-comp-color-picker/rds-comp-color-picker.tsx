@@ -10,13 +10,9 @@ import {
   ColorPickerSpectrum,
 } from "./color-picker-components";
 import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
-import {
-  ColorMode,
-  ColorPickerType,
-  PickerType,
-  type RdsCompColorPickerProps,
-  StyleType,
-} from "./rds-comp-color-picker.types";
+import { ColorMode, ColorPickerType, PickerType, type RdsCompColorPickerProps, StyleType } from "./rds-comp-color-picker.types";
+import { DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT } from "./rds-comp-color-picker-locale";
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 interface ColorUpdate {
   hex: string;
@@ -58,6 +54,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     onChange,
     onAddSwatch,
     swatches,
+    localeText,
     sx,
     className,
     ref,
@@ -72,6 +69,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   );
   if (colorModeProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'colorMode', '`format`');
   if (pickerType !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'pickerType', '`view`');
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_COLOR_PICKER_LOCALE_TEXT, localeText);
   const value = valueProp ?? defaultValue;
   const type = (variant && VARIANT_TO_TYPE[variant]) ?? typeProp ?? ColorPickerType.Default;
   const colorMode = (format?.toUpperCase() as ColorMode | undefined) ?? colorModeProp;
@@ -280,7 +278,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
           disabled={isDisabled}
           onClick={handleButtonClick}
         >
-          {label || "Color Picker"}
+          {label || text.colorPicker}
         </RdsButton>
       )}
       {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (
@@ -295,7 +293,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
                 className={clsx("rds-comp-color-picker__tab", selectedTab === "Grid" && "rds-comp-color-picker__tab--active")}
                 onClick={() => handleTabClick("Grid")}
               >
-                Grid
+                {text.grid}
               </button>
               <button
                 type="button"
@@ -308,7 +306,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
                 )}
                 onClick={() => handleTabClick("Spectrum")}
               >
-                Spectrum
+                {text.spectrum}
               </button>
             </div>
           )}
@@ -326,6 +324,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
               getColorDisplay={getColorDisplayValue}
               onSelectColorMode={handleSelectColorMode}
               disabled={isDisabled}
+              text={text}
             />
           ) : (
             <ColorPickerSpectrum
@@ -345,6 +344,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
               swatches={swatches}
               onAddSwatch={onAddSwatch}
               disabled={isDisabled}
+              text={text}
             />
           )}
         </div>

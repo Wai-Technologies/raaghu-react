@@ -1,6 +1,6 @@
 /**
  * Governance: count rgb()/rgba() color literals in SCSS.
- * Fails if count exceeds scripts/rgba-baseline.txt.
+ * Fails if any file has more than its entry in scripts/rgba-baseline.txt (count<TAB>path).
  * Prefer var(--rds-*) / color-mix / alpha tokens — migrate in Phase A.
  *
  * Usage: node scripts/check-no-rgba-in-scss.mjs
@@ -9,11 +9,11 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { checkFileBaseline } from './lib/file-baseline.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, '..');
 const BASELINE_FILE = path.join(__dirname, 'rgba-baseline.txt');
-const SET_BASELINE = process.argv.includes('--set-baseline');
 
 const SCAN_DIRS = ['raaghu-elements', 'raaghu-components', 'raaghu-layouts'];
 
@@ -54,55 +54,17 @@ function countRgbInFile(file) {
   return count;
 }
 
-let TOTAL = 0;
-const offending = [];
+const counts = [];
 for (const dir of SCAN_DIRS) {
   for (const file of walkScss(path.join(REPO_ROOT, dir))) {
-    const count = countRgbInFile(file);
-    if (count > 0) {
-      TOTAL += count;
-      offending.push({ count, file: file.replace(/\\/g, '/') });
-    }
+    counts.push([file, countRgbInFile(file)]);
   }
 }
 
-console.log('rgb()/rgba() SCSS scan complete');
-console.log(`  Current  : ${TOTAL}`);
-
-if (SET_BASELINE) {
-  fs.writeFileSync(BASELINE_FILE, `${TOTAL}\n`, 'utf8');
-  console.log(`  Wrote baseline ${TOTAL} → ${path.relative(REPO_ROOT, BASELINE_FILE)}`);
-  process.exit(0);
-}
-
-if (!fs.existsSync(BASELINE_FILE)) {
-  console.error(`ERROR: Baseline file not found at ${BASELINE_FILE}`);
-  console.error('       Run: node scripts/check-no-rgba-in-scss.mjs --set-baseline');
-  process.exit(1);
-}
-
-const baselineRaw = fs.readFileSync(BASELINE_FILE, 'utf8').trim();
-if (!/^\d+$/.test(baselineRaw)) {
-  console.error(`ERROR: Invalid baseline '${baselineRaw}'`);
-  process.exit(1);
-}
-const BASELINE = Number(baselineRaw);
-
-console.log(`  Baseline : ${BASELINE}`);
-console.log('');
-
-if (TOTAL > BASELINE) {
-  console.error(
-    `FAIL: ${TOTAL - BASELINE} new rgb()/rgba() literal(s) (current=${TOTAL}, baseline=${BASELINE})`,
-  );
-  offending
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 30)
-    .forEach(({ count, file }) => console.error(`${count}\t${file}`));
-  console.error('');
-  console.error('Fix: replace with var(--rds-*) / color-mix / alpha tokens from design-tokens.ts.');
-  process.exit(1);
-}
-
-console.log(`PASS: rgb()/rgba() debt within baseline (current=${TOTAL} <= baseline=${BASELINE})`);
-process.exit(0);
+checkFileBaseline({
+  label: 'rgb()/rgba() literals',
+  baselineFile: BASELINE_FILE,
+  counts,
+  script: 'scripts/check-no-rgba-in-scss.mjs',
+  fix: 'replace with var(--rds-*) / color-mix / alpha tokens from design-tokens.ts.',
+});

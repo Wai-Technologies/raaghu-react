@@ -40,12 +40,6 @@
     "**/rds-file-uploader-render.tsx",
     "types/jest-axe.d.ts",
     "raaghu-components/rds-comp-tree-structure/**",
-    "raaghu-components/rds-comp-adaptive-cards/**",
-    "raaghu-components/rds-comp-chat/**",
-    "raaghu-components/rds-comp-code-snippet/**",
-    "raaghu-components/rds-comp-comments-box/**",
-    "raaghu-components/rds-comp-details-pane/**",
-    "raaghu-components/rds-comp-navtabs/**",
     "raaghu-components/rds-comp-grid/**",
     "raaghu-components/rds-comp-date-and-time-picker/**"
   ]

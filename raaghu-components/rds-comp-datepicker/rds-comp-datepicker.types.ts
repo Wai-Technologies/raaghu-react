@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompDatepickerLocaleText } from './rds-comp-datepicker-locale';
 
 export const DatePickerStyleType = {
   Dropdown: 'Dropdown',
@@ -92,6 +93,8 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   isMandatory?: boolean;
   /** Has no effect: the preset list manages its own open state. Kept for backwards compatibility. */
   isDropdownOpen?: boolean;
+  /** Overrides for the built-in English UI strings. */
+  localeText?: Partial<RdsCompDatepickerLocaleText>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Ref forwarded to the root element. */

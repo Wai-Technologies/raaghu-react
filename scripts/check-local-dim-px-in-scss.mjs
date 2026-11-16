@@ -1,7 +1,7 @@
 /**
  * Governance: count bare px/rem inside --custom-property definitions in SCSS.
  * Closes the loophole where check-raw-px / check-spacing skip lines starting with --.
- * Fails if count exceeds scripts/local-dim-px-baseline.txt.
+ * Fails if any file has more than its entry in scripts/local-dim-px-baseline.txt (count<TAB>path).
  *
  * Counts length literals on definition lines like:
  *   --rds-app-bar-dim-8: 100px;
@@ -14,6 +14,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { checkFileBaseline } from './lib/file-baseline.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, '..');
@@ -204,7 +205,7 @@ for (const dir of SCAN_DIRS) {
     if (count > 0) {
       TOTAL += count;
       const rel = path.relative(REPO_ROOT, file).replace(/\\/g, '/');
-      offending.push({ count, file: rel });
+      offending.push([rel, count]);
       for (const d of details) {
         allDetails.push({ file: rel, ...d });
       }
@@ -250,44 +251,10 @@ if (INVENTORY) {
   if (!SET_BASELINE) process.exit(0);
 }
 
-if (SET_BASELINE) {
-  fs.writeFileSync(BASELINE_FILE, `${TOTAL}\n`, 'utf8');
-  console.log(`  Wrote baseline ${TOTAL} → ${path.relative(REPO_ROOT, BASELINE_FILE)}`);
-  process.exit(0);
-}
-
-if (!fs.existsSync(BASELINE_FILE)) {
-  console.error(`ERROR: Baseline file not found at ${BASELINE_FILE}`);
-  console.error('       Run: node scripts/check-local-dim-px-in-scss.mjs --set-baseline');
-  process.exit(1);
-}
-
-const baselineRaw = fs.readFileSync(BASELINE_FILE, 'utf8').trim();
-if (!/^\d+$/.test(baselineRaw)) {
-  console.error(`ERROR: Invalid baseline '${baselineRaw}'`);
-  process.exit(1);
-}
-const BASELINE = Number(baselineRaw);
-
-console.log(`  Baseline : ${BASELINE}`);
-console.log('');
-
-if (TOTAL > BASELINE) {
-  console.error(
-    `FAIL: ${TOTAL - BASELINE} new bare px/rem in --custom-property defs (current=${TOTAL}, baseline=${BASELINE})`,
-  );
-  offending
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 30)
-    .forEach(({ count, file }) => console.error(`${count}\t${file}`));
-  console.error('');
-  console.error(
-    'Fix: point at var(--rds-spacing-*) / var(--rds-size-*) when values match; otherwise use a semantic local name (not dim-N).',
-  );
-  process.exit(1);
-}
-
-console.log(
-  `PASS: local custom-property length debt within baseline (current=${TOTAL} <= baseline=${BASELINE})`,
-);
-process.exit(0);
+checkFileBaseline({
+  label: 'bare px/rem in --custom-property defs',
+  baselineFile: BASELINE_FILE,
+  counts: offending,
+  script: 'scripts/check-local-dim-px-in-scss.mjs',
+  fix: 'point at var(--rds-spacing-*) / var(--rds-size-*) when values match; otherwise use a semantic local name (not dim-N).',
+});

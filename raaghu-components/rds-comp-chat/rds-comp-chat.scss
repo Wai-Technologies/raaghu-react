@@ -1271,7 +1271,7 @@
   @extend .rds-comp-chat__input-send;
 }
 
-@media (min-width: 900px) {
+@include bp.up(md) {
   .rds-comp-chat {
     flex-direction: row;
     align-items: stretch;

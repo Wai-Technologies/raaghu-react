@@ -18,8 +18,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import './rds-comp-adaptive-cards.scss';
+import {
+  DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT,
+  type RdsCompAdaptiveCardsLocaleText,
+} from './rds-comp-adaptive-cards-locale';
 
 export interface AdaptiveCardProps {
+  /** Overrides the built-in English UI text. */
+  localeText?: Partial<RdsCompAdaptiveCardsLocaleText>;
   onBtn1Click?: () => void;
   nameValue?: string;
   emailValue?: string;
@@ -207,7 +213,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showTitleIcon, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showTitleIcon?: boolean; onImageClick?: (index: number) => void }) {
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showTitleIcon, onImageClick, text = DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT }: AdaptiveCardProps & { text?: RdsCompAdaptiveCardsLocaleText; cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showTitleIcon?: boolean; onImageClick?: (index: number) => void }) {
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
@@ -216,7 +222,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             {showTitleIcon && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
-              <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+              <IconButton aria-label={text.close} size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
             )}
           </RdsStack>
         </div>
@@ -230,7 +236,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             }
             items.push(
               <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" style={{ height: undefined }} onClick={() => onImageClick && onImageClick(index)}>
-                <img src={src || undefined} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
+                <img src={src || undefined} alt={text.thumbnail(index + 1)} loading="lazy" className="rds-adaptive-cards__image" />
               </ImageListItem>
             );
             return items;
@@ -253,7 +259,8 @@ export function FootballScorecardCard({
   awayScore,
   time,
   finalText,
-}: AdaptiveCardProps) {
+  text = DEFAULT_RDS_COMP_ADAPTIVE_CARDS_LOCALE_TEXT,
+}: AdaptiveCardProps & { text?: RdsCompAdaptiveCardsLocaleText }) {
   return (
     <RdsCard className={clsx("rds-adaptive-cards", "rds-adaptive-cards--football-scorecard", isLive && " is-live")} showIcon={false} showIndicator={false}>
       <div className="rds-adaptive-cards__content">
@@ -271,7 +278,7 @@ export function FootballScorecardCard({
             </div>
             {isLive && (
               <RdsChip
-                label="Live"
+                label={text.live}
                 color="error"
                 size="small"
                 icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}

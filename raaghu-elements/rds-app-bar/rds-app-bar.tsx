@@ -33,6 +33,8 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { rdsAppBarSx } from './rds-app-bar.styles';
 import "./rds-app-bar.scss";
 import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
+import { DEFAULT_RDS_APP_BAR_LOCALE_TEXT, type RdsAppBarLocaleText } from './rds-app-bar-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 
@@ -108,6 +110,8 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
    * No demo content by default; pass nodes (e.g. a trial badge) when needed.
    */
   bottomActions?: ReactNode;
+  /** Overrides for the built-in English strings (aria-labels, default search placeholder and default profile menu labels). `searchPlaceholder` and `profileMenuItems` take precedence. */
+  localeText?: Partial<RdsAppBarLocaleText>;
 }
 
 const toolbarHeights: Record<RdsAppBarSize, number> = {
@@ -116,9 +120,9 @@ const toolbarHeights: Record<RdsAppBarSize, number> = {
   large: 80,
 };
 
-const DEFAULT_PROFILE_MENU_ITEMS: ProfileMenuItem[] = [
-  { label: 'My Profile', icon: <PersonIcon /> },
-  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
+const getDefaultProfileMenuItems = (text: RdsAppBarLocaleText): ProfileMenuItem[] => [
+  { label: text.myProfile, icon: <PersonIcon /> },
+  { label: text.logout, icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
 ];
 
 const TABLET_BOTTOM_NAV_VARIANTS = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
@@ -163,11 +167,13 @@ const RdsAppBar = ({
   variantStyle,
   overflowContent,
   bottomActions,
+  localeText,
   elevation = 0,
   className,
   sx,
   ...props
 }: RdsAppBarProps) => {
+  const text = mergeLocaleText(DEFAULT_RDS_APP_BAR_LOCALE_TEXT, localeText);
   if (rightActions !== undefined) warnDeprecatedProp('RdsAppBar', 'rightActions', '`endSlot`');
   if (actions !== undefined) warnDeprecatedProp('RdsAppBar', 'actions', '`endSlot` (unlike `actions`, it stays visible next to the profile menu, so omit `userName`/`userEmail` to hide the menu)');
   if (centerContent !== undefined) warnDeprecatedProp('RdsAppBar', 'centerContent', '`centerSlot`');
@@ -367,7 +373,7 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} className="rds-header__menu-button">
+            <IconButton edge="start" color="inherit" aria-label={text.menuLabel} onClick={onMenuClick} className="rds-header__menu-button">
               <DehazeIcon />
             </IconButton>
           )}
@@ -398,7 +404,7 @@ const RdsAppBar = ({
             <div className="rds-header__search-wrapper">
               <InputBase
                 className="rds-header__search"
-                placeholder={searchPlaceholder || 'Search…'}
+                placeholder={searchPlaceholder || text.searchPlaceholder}
                 value={searchValue}
                 onChange={(event) => onSearchChange(event.target.value)}
               />
@@ -406,7 +412,7 @@ const RdsAppBar = ({
                 <IconButton
                   className="rds-header__search-clear"
                   size="small"
-                  aria-label="Clear search"
+                  aria-label={text.clearSearchLabel}
                   onClick={() => onSearchChange('')}
                 >
                   <ClearIcon fontSize="small" />
@@ -418,7 +424,7 @@ const RdsAppBar = ({
 
           {userName && userEmail ? (
             <span className="rds-header__actions">
-              <ProfileMenu name={userName} email={userEmail} items={profileMenuItems ?? DEFAULT_PROFILE_MENU_ITEMS} />
+              <ProfileMenu name={userName} email={userEmail} items={profileMenuItems ?? getDefaultProfileMenuItems(text)} localeText={{ accountMenuLabel: text.accountMenuLabel }} />
             </span>
           ) : (
             endSlot === undefined && actions && <span className="rds-header__actions">{actions}</span>
@@ -429,7 +435,7 @@ const RdsAppBar = ({
               <IconButton
                 className="rds-appbar-overflow-button"
                 color="inherit"
-                aria-label="open overflow menu"
+                aria-label={text.openOverflowMenuLabel}
                 onClick={() => setOverflowOpen(true)}
                 size="small"
               >
@@ -440,7 +446,7 @@ const RdsAppBar = ({
               <Drawer anchor="right" open={overflowOpen} onClose={() => setOverflowOpen(false)} slotProps={{ paper: { sx: { width: tokens.space(40) } } }}>
                 <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
+                    <IconButton onClick={() => setOverflowOpen(false)} aria-label={text.closeLabel}>
                       <Close />
                     </IconButton>
                   </Box>

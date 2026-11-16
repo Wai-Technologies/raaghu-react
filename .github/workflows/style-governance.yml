@@ -23,6 +23,12 @@ on:
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'scripts/ts-raw-values-baseline.txt'
       - 'scripts/check-raw-values-in-ts.mjs'
+      - 'scripts/check-media-queries-in-scss.mjs'
+      - 'scripts/check-hardcoded-text-in-tsx.mjs'
+      - 'scripts/hardcoded-text-baseline.txt'
+      - 'scripts/check-data-theme-in-scss.mjs'
+      - 'scripts/data-theme-baseline.txt'
+      - 'scripts/lib/**'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -50,6 +56,12 @@ on:
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'scripts/ts-raw-values-baseline.txt'
       - 'scripts/check-raw-values-in-ts.mjs'
+      - 'scripts/check-media-queries-in-scss.mjs'
+      - 'scripts/check-hardcoded-text-in-tsx.mjs'
+      - 'scripts/hardcoded-text-baseline.txt'
+      - 'scripts/check-data-theme-in-scss.mjs'
+      - 'scripts/data-theme-baseline.txt'
+      - 'scripts/lib/**'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
       - 'raaghu-components/**/*.{ts,tsx}'
@@ -103,6 +115,15 @@ jobs:
 
       - name: Check for raw px/rem/duration literals in TS/TSX styles
         run: node scripts/check-raw-values-in-ts.mjs
+
+      - name: Check for literal px/rem in SCSS media queries
+        run: node scripts/check-media-queries-in-scss.mjs
+
+      - name: Check for hardcoded UI text in TSX
+        run: node scripts/check-hardcoded-text-in-tsx.mjs
+
+      - name: Check for new [data-theme] selectors in SCSS
+        run: node scripts/check-data-theme-in-scss.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

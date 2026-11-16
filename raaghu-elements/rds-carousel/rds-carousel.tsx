@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
-import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import { Box, IconButton, Typography, useMediaQuery, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import './rds-carousel.scss';
+import { DEFAULT_RDS_CAROUSEL_LOCALE_TEXT, type RdsCarouselLocaleText } from './rds-carousel-locale';
+import { mergeLocaleText } from '../shared/utils/locale-text';
 
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
@@ -58,6 +60,8 @@ export interface RdsCarouselProps
   title?: string;
   /** Subtitle shown on the slides. */
   subtitle?: string;
+  /** Overrides for the built-in English strings (aria-labels of the carousel, slides, arrows and indicators). `goToSlideLabel` receives the 1-based slide number. */
+  localeText?: Partial<RdsCarouselLocaleText>;
 }
 
 const RdsCarousel = ({
@@ -81,10 +85,12 @@ const RdsCarousel = ({
   subtitles,
   title,
   subtitle,
+  localeText,
   sx,
   ref,
   ...rest
 }: RdsCarouselProps) => {
+  const text = mergeLocaleText(DEFAULT_RDS_CAROUSEL_LOCALE_TEXT, localeText);
   if (showDots !== undefined) warnDeprecatedProp('RdsCarousel', 'showDots', '`showIndicators`');
   if (titles !== undefined) warnDeprecatedProp('RdsCarousel', 'titles', '`items`');
   if (subtitles !== undefined) warnDeprecatedProp('RdsCarousel', 'subtitles', '`items`');
@@ -114,16 +120,17 @@ const RdsCarousel = ({
 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', { noSsr: true });
   const paused = hovered || focused;
 
   useEffect(() => {
-    if (autoPlay && !paused && slideCount > 1) {
+    if (autoPlay && !paused && !prefersReducedMotion && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
+  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, prefersReducedMotion, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);
@@ -154,7 +161,7 @@ const RdsCarousel = ({
     <Box
       role="region"
       aria-roledescription="carousel"
-      aria-label="Carousel"
+      aria-label={text.carouselLabel}
       {...rest}
       onMouseEnter={(event) => { setHovered(true); rest.onMouseEnter?.(event); }}
       onMouseLeave={(event) => { setHovered(false); rest.onMouseLeave?.(event); }}
@@ -204,7 +211,7 @@ const RdsCarousel = ({
               key={slideKey}
               role="group"
               aria-roledescription="slide"
-              aria-label={`${index + 1} of ${slideCount}`}
+              aria-label={text.slideLabel(index + 1, slideCount)}
               inert={!isActive}
               className="rds-carousel__slide"
               sx={{
@@ -274,7 +281,7 @@ const RdsCarousel = ({
       {showArrows && slideCount > 1 && (
         <>
           <IconButton
-            aria-label="Previous slide"
+            aria-label={text.previousSlideLabel}
             onClick={prevSlide}
             className="rds-carousel__navigation rds-carousel__navigation--prev"
             sx={{
@@ -298,7 +305,7 @@ const RdsCarousel = ({
             <ChevronLeft />
           </IconButton>
           <IconButton
-            aria-label="Next slide"
+            aria-label={text.nextSlideLabel}
             onClick={nextSlide}
             className="rds-carousel__navigation rds-carousel__navigation--next"
             sx={{
@@ -342,7 +349,7 @@ const RdsCarousel = ({
               key={`rds-carousel-indicator-${index}`}
               role="button"
               tabIndex={0}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={text.goToSlideLabel(index + 1)}
               aria-current={currentIndex === index ? 'true' : undefined}
               onClick={() => goToSlide(index)}
               onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => handleIndicatorKeyDown(event, index)}

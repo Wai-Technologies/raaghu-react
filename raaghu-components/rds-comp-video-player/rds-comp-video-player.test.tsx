@@ -752,3 +752,10 @@ describe('audit fixes', () => {
     expect(player).toHaveAttribute('data-title', 'T');
   });
 });
+
+describe('RdsCompVideoPlayer localeText', () => {
+  it('overrides the disabled message', () => {
+    render(<RdsCompVideoPlayer src="https://example.com/v.mp4" disabled localeText={{ disabledMessage: 'Lecteur desactive' }} />);
+    expect(screen.getByText('Lecteur desactive')).toBeInTheDocument();
+  });
+});

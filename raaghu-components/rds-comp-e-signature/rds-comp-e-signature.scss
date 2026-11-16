@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-e-signature {
   --rds-e-signature-dim-1: 34px;
@@ -471,7 +472,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: var(--rds-size-36);
-    background: var(--rds-color-neutral-0);
+    background: var(--rds-e-signature-file-text-background);
     margin-left: 0;
     border-radius: 0 var(--rds-radius-md) var(--rds-radius-md) 0;
   }
@@ -825,7 +826,6 @@
 }
 
 [data-theme="dark"] .rds-e-signature__file-text {
-  background: var(--rds-color-surface-dark);
   color: var(--rds-text-secondary);
   border-color: var(--rds-color-border-subtle-dark);
 }
@@ -834,7 +834,7 @@
   color: var(--rds-color-neutral-0);
 }
 
-@media (max-width: 600px) {
+@include bp.down(sm) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: var(--rds-spacing-cozy);
     margin-left: auto;
@@ -868,7 +868,7 @@
   }
 }
 
-@media (min-width: 1536px) {
+@include bp.up(xl) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;

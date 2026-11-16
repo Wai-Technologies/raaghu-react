@@ -15,11 +15,10 @@ import {
 import {
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
-import {
-    DatePickerStyleType,
-    type RdsCompDatepickerProps,
-} from './rds-comp-datepicker.types';
+import { DatePickerStyleType, type RdsCompDatepickerProps } from './rds-comp-datepicker.types';
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT } from './rds-comp-datepicker-locale';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
 const toDate = (value?: Date | string | null) => (value ? new Date(value) : null);
@@ -62,6 +61,7 @@ const RdsDatepicker = ({
     maxDate,
     locale,
     openPickerIcon,
+    localeText,
     className,
     sx,
     ref,
@@ -116,6 +116,10 @@ const RdsDatepicker = ({
     const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 
+    const text = useMemo(
+        () => mergeLocaleText(DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, localeText),
+        [localeText]
+    );
     const baseId = useId();
     const inputId = `rds-datepicker-${baseId}`;
 
@@ -305,11 +309,12 @@ const RdsDatepicker = ({
             minDate,
             maxDate,
             locale,
+            text,
         }),
         [
             selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
             customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
-            inputId, baseId, minDate, maxDate, locale, isCompact,
+            inputId, baseId, minDate, maxDate, locale, text, isCompact,
         ]
     );
 

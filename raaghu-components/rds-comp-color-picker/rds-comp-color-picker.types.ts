@@ -1,5 +1,6 @@
 import type { CSSProperties, HTMLAttributes, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
+import type { RdsCompColorPickerLocaleText } from './rds-comp-color-picker-locale';
 
 /** Canonical layout union — prefer over {@link ColorPickerType}. */
 export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
@@ -96,6 +97,8 @@ export interface RdsCompColorPickerProps
   onAddSwatch?: () => void;
   /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
   swatches?: string[];
+  /** Overrides for the built-in English UI strings. */
+  localeText?: Partial<RdsCompColorPickerLocaleText>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Ref to the root `div`. */

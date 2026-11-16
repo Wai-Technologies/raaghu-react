@@ -28,6 +28,8 @@ import "./rds-comp-emoji-generator.scss";
 import { ensureEmojiData, getEmojiLabel, getEmojisByCategory, isEmojiDataReady, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT, type RdsCompEmojiGeneratorLocaleText } from './rds-comp-emoji-generator-locale';
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const SKIN_TONE_OPTIONS = [
     { value: 0, color: emojiSkinToneColors.default, label: "Default" },
@@ -68,6 +70,8 @@ interface SkinTonePickerProps {
     size?: "small" | "medium";
     /** @deprecated Use `size`. */
     buttonSize?: "small" | "medium";
+    skinToneLabel: RdsCompEmojiGeneratorLocaleText["skinToneLabel"];
+    skinToneNames: string[];
 }
 
 const SkinTonePicker = ({
@@ -76,13 +80,15 @@ const SkinTonePicker = ({
     onSelect,
     size,
     buttonSize,
+    skinToneLabel,
+    skinToneNames,
 }: SkinTonePickerProps) => (
     <>
         {skinToneOptions.map((o) => {
             const selected = selectedSkinTone === o.value;
             return (
             <IconButton
-                aria-label={`Skin tone: ${o.label}`}
+                aria-label={skinToneLabel(skinToneNames[o.value] ?? o.label)}
                 aria-pressed={selected}
                 key={o.value}
                 onClick={() => onSelect(o.value)}
@@ -91,7 +97,7 @@ const SkinTonePicker = ({
                     selected && 'rds-emoji-generator__skin-tone-option--selected'
                 )}
                 style={{ backgroundColor: o.color }}
-                title={o.label}
+                title={skinToneNames[o.value] ?? o.label}
                 size={size ?? buttonSize}
             />
             );
@@ -131,10 +137,7 @@ export interface RdsCompEmojiGeneratorProps {
     /** Base URL (folder, with 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL. */
     flagBaseUrl?: string;
     /** Overridable UI strings. */
-    localeText?: {
-        searchPlaceholder?: string;
-        moodPrompt?: string;
-    };
+    localeText?: Partial<RdsCompEmojiGeneratorLocaleText>;
     /** MUI system styles for the root element. */
     sx?: SxProps<Theme>;
     /** Extra class name(s) merged onto the root element. */
@@ -151,7 +154,6 @@ export interface RdsCompEmojiGeneratorProps {
 
 /** @deprecated Use `RdsCompEmojiGeneratorProps` instead. */
 export type RdsEmojiGeneratorProps = RdsCompEmojiGeneratorProps;
-
 
 const RdsCompEmojiGenerator = ({
     type: typeProp,
@@ -175,8 +177,9 @@ const RdsCompEmojiGenerator = ({
     ...props
 }: RdsCompEmojiGeneratorProps) => {
     if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
-    const searchPlaceholder = localeText?.searchPlaceholder ?? 'Search';
-    const moodPrompt = localeText?.moodPrompt ?? "What's your mood?";
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_EMOJI_GENERATOR_LOCALE_TEXT, localeText);
+    const searchPlaceholder = text.searchPlaceholder;
+    const moodPrompt = text.moodPrompt;
     const resolvedType = typeProp ?? variant ?? EmojiGeneratorType.Default;
     const skinToneExpanded = skinTonePickerOpen ?? false;
     const categoryProp = category;
@@ -261,7 +264,7 @@ const RdsCompEmojiGenerator = ({
                     </Box>
                 ))}
                 <IconButton
-                  aria-label="More emojis"
+                  aria-label={text.moreEmojisLabel}
                     className="rds-emoji-generator__plus"
                     onClick={(ev) => (onMoreClick ? onMoreClick() : handleEmojiClick('+', ev))}
                     size="small"
@@ -296,7 +299,7 @@ const RdsCompEmojiGenerator = ({
                         {showSkinTone && (
                             <Box sx={{ position: 'relative' }}>
                                 <IconButton
-                                  aria-label={`Skin tone: ${SKIN_TONE_OPTIONS[selectedSkinTone].label}`}
+                                  aria-label={text.skinToneLabel(text.skinToneNames[selectedSkinTone] ?? SKIN_TONE_OPTIONS[selectedSkinTone].label)}
                                     className="rds-emoji-generator__skin-tone-button"
                                     onClick={handleSkinToneClick}
                                     style={{ backgroundColor: SKIN_TONE_OPTIONS[selectedSkinTone].color }}
@@ -309,6 +312,8 @@ const RdsCompEmojiGenerator = ({
                                             selectedSkinTone={selectedSkinTone}
                                             onSelect={handleSkinToneSelect}
                                             size="small"
+                                            skinToneLabel={text.skinToneLabel}
+                                            skinToneNames={text.skinToneNames}
                                         />
                                     </Box>
                                 )}
@@ -330,6 +335,8 @@ const RdsCompEmojiGenerator = ({
                                     skinToneOptions={SKIN_TONE_OPTIONS}
                                     selectedSkinTone={selectedSkinTone}
                                     onSelect={handleSkinToneSelect}
+                                    skinToneLabel={text.skinToneLabel}
+                                    skinToneNames={text.skinToneNames}
                                 />
                             </Box>
                         </Popover>
@@ -339,7 +346,7 @@ const RdsCompEmojiGenerator = ({
 
             <Box className="rds-emoji-generator__categories">
                 <Box className="rds-emoji-generator__categories-container">
-                    {CATEGORY_TABS.map(t => {
+                    {CATEGORY_TABS.map((t, tabIndex) => {
                         const I = t.icon;
                         return (
                             <Chip
@@ -349,7 +356,7 @@ const RdsCompEmojiGenerator = ({
                                                                 variant={currentCategory === t.id ? 'filled' : 'outlined'}
                                                                 color={currentCategory === t.id ? 'primary' : 'default'}
                                 onClick={() => handleCategoryChange(t.id)}
-                                title={t.title}
+                                title={text.categoryTitles[tabIndex] ?? t.title}
                                 className={clsx(
                                   "rds-emoji-generator__category-chip",
                                                                     currentCategory === t.id && "rds-emoji-generator__category-chip--selected"
@@ -363,7 +370,7 @@ const RdsCompEmojiGenerator = ({
             <Box className="rds-emoji-generator__grid">
                 <Box className="rds-emoji-generator__category-title">
                     <Typography variant="h6" className="rds-emoji-generator__category-title-text">
-                        {mood.trim() ? "Search Results" : CATEGORY_TABS.find(t => t.id === currentCategory)?.title || "Emojis"}
+                        {mood.trim() ? text.searchResults : (text.categoryTitles[CATEGORY_TABS.findIndex(t => t.id === currentCategory)] ?? text.emojisTitle)}
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container" tabIndex={0}>

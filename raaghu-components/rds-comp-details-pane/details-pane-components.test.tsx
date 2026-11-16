@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { SelectionContent } from './details-pane-components';
+import { DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT } from './rds-comp-details-pane-locale';
+import { HistoryFavoritesTabs, SelectionContent } from './details-pane-components';
 
 jest.mock('./rds-comp-details-pane.scss', () => ({}));
 
@@ -22,5 +23,27 @@ describe('SelectionContent', () => {
     fireEvent.change(screen.getByPlaceholderText(/Search for Agents/), { target: { value: 'b-2' } });
     expect(screen.queryByText('Asha Rao')).not.toBeInTheDocument();
     expect(screen.getByText('Ben Cole')).toBeInTheDocument();
+  });
+});
+
+describe('HistoryFavoritesTabs locale text', () => {
+  it('uses text overrides for headings and delete labels', () => {
+    render(
+      <HistoryFavoritesTabs
+        activeTab="history"
+        setActiveTab={() => undefined}
+        historyItems={[{ id: 1, name: 'Item' }]}
+        olderHistoryItems={[]}
+        handleDeleteHistoryItem={() => undefined}
+        handleDeleteOlderHistoryItem={() => undefined}
+        text={{
+          ...DEFAULT_RDS_COMP_DETAILS_PANE_LOCALE_TEXT,
+          today: 'Heute',
+          deleteItem: (name) => `Loeschen ${name}`,
+        }}
+      />
+    );
+    expect(screen.getByText('Heute')).toBeInTheDocument();
+    expect(screen.getByLabelText('Loeschen Item')).toBeInTheDocument();
   });
 });

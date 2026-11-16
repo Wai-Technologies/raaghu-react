@@ -2,6 +2,7 @@ import { createElement, type MouseEvent, type Ref, type RefObject, type ReactNod
 import DatePicker, { type DatePickerProps } from "react-datepicker";
 import { CustomButtons } from "./CustomButtons";
 import { renderPickerIcon } from "./CustomInputWithClear";
+import { DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT, type RdsCompDatepickerLocaleText } from "./rds-comp-datepicker-locale";
 import {
     RenderDefaultDropdownHeader,
     RenderMultiMonthHeader,
@@ -19,12 +20,14 @@ interface CustomHeaderProps {
     minDate?: Date;
     maxDate?: Date;
     locale?: string;
+    text?: RdsCompDatepickerLocaleText;
 }
 
 interface DatePickerBounds {
     minDate?: Date;
     maxDate?: Date;
     locale?: string;
+    text?: RdsCompDatepickerLocaleText;
 }
 
 type DatePickerChangeValue = Date | null;
@@ -48,6 +51,7 @@ type DatepickerSharedProps = {
     openPickerIcon?: ReactNode;
     inputId?: string;
     idPrefix?: string;
+    text?: RdsCompDatepickerLocaleText;
     isCompact?: boolean;
 };
 
@@ -60,7 +64,9 @@ const PresetRangeCustomInput = ({
     ref,
     onClick,
     onActivate,
+    label,
 }: {
+    label: string;
     ref?: Ref<HTMLButtonElement>;
     value?: string;
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -75,7 +81,7 @@ const PresetRangeCustomInput = ({
         }}
         ref={ref}
     >
-        Custom
+        {label}
     </button>
 );
 
@@ -121,6 +127,7 @@ const buildDatePickerProps = ({
             minDate: props.minDate,
             maxDate: props.maxDate,
             locale: props.locale,
+            text: props.text,
         }
     );
 
@@ -133,7 +140,7 @@ const buildDatePickerProps = ({
         wrapperClassName: "rds-datepicker__wrapper",
         popperPlacement: "bottom-start",
         disabled: props.isDisabled,
-        placeholderText: props.placeholderText || "Select date",
+        placeholderText: props.placeholderText || (props.text ?? DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT).selectDate,
         showMonthYearPicker: props.layout === "Month Picker",
         showYearPicker: props.layout === "Year Picker",
         showPreviousMonths: true,
@@ -193,6 +200,7 @@ export const renderDatePickerTypeView = (
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
     void datePickerRef;
+    const text = props.text ?? DEFAULT_RDS_COMP_DATEPICKER_LOCALE_TEXT;
 
     if (type === "Default") {
         const pickerProps = buildDatePickerProps({
@@ -201,7 +209,8 @@ export const renderDatePickerTypeView = (
             props,
             dayClassName,
             customInput: createElement(CustomInputWithClear, {
-                placeholder: props.placeholderText || "Select date",
+                placeholder: props.placeholderText || text.selectDate,
+                text,
                 isDisabled: props.isDisabled,
                 showClearDate: props.showClearDate,
                 clearDate: props.clearDate,
@@ -218,6 +227,7 @@ export const renderDatePickerTypeView = (
     } else if (type === "Custom") {
         const rangeCustomInput = createElement(PresetRangeCustomInput, {
             onActivate: customClickHandler,
+            label: text.custom,
         });
 
         const pickerProps = buildDatePickerProps({
@@ -226,7 +236,8 @@ export const renderDatePickerTypeView = (
             props,
             dayClassName,
             customInput: createElement(CustomInputWithClear, {
-                placeholder: props.placeholderText || "Select date",
+                placeholder: props.placeholderText || text.selectDate,
+                text,
                 isDisabled: props.isDisabled,
                 showClearDate: props.showClearDate,
                 clearDate: props.clearDate,
@@ -256,7 +267,7 @@ export const renderDatePickerTypeView = (
                 >
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">
-                            Custom Date
+                            {text.customDate}
                         </strong>
 
                         {dropdownDisplayValue ? (
@@ -279,7 +290,7 @@ export const renderDatePickerTypeView = (
                             className="rds-datepicker__dropdown-action"
                             onClick={todayClickHandler}
                         >
-                            Today
+                            {text.today}
                         </button>
                     </li>
 
@@ -296,7 +307,7 @@ export const renderDatePickerTypeView = (
                             className="rds-datepicker__dropdown-action"
                             onClick={yesterdayClickHandler}
                         >
-                            Yesterday
+                            {text.yesterday}
                         </button>
                     </li>
 
@@ -313,7 +324,7 @@ export const renderDatePickerTypeView = (
                             className="rds-datepicker__dropdown-action"
                             onClick={lastSevenDaysClickHandler}
                         >
-                            Last 7 days
+                            {text.lastSevenDays}
                         </button>
                     </li>
 
@@ -330,7 +341,7 @@ export const renderDatePickerTypeView = (
                             className="rds-datepicker__dropdown-action"
                             onClick={lastFourteenDaysClickHandler}
                         >
-                            Last 14 days
+                            {text.lastFourteenDays}
                         </button>
                     </li>
 
@@ -375,7 +386,7 @@ export const renderDatePickerTypeView = (
                             todayButton={<CustomButtons />}
                             disabled={props.isDisabled}
                             placeholderText={
-                                props.placeholderText || "Select date"
+                                props.placeholderText || text.selectDate
                             }
                             showMonthYearPicker={
                                 props.layout === "Month Picker"
@@ -404,7 +415,8 @@ export const renderDatePickerTypeView = (
                             dayClassName={dayClassName}
                             renderCustomHeader={getRenderCustomHeader(
                                 props.layout ?? "Default",
-                                props.datePickerStyleType ?? "Selector"
+                                props.datePickerStyleType ?? "Selector",
+                                { text }
                             )}
                             calendarClassName={
                                 [

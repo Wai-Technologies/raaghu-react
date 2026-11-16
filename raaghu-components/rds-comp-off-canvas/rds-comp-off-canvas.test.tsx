@@ -479,3 +479,10 @@ describe('RdsCompOffcanvas', () => {
     });
   });
 });
+
+describe('RdsCompOffcanvas localeText', () => {
+  it('overrides the footer button labels', () => {
+    render(<RdsCompOffcanvas open showPrimaryButton localeText={{ save: 'GUARDAR' }} />);
+    expect(screen.getByText('GUARDAR')).toBeInTheDocument();
+  });
+});

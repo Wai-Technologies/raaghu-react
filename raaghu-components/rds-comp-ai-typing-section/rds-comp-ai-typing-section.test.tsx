@@ -652,3 +652,10 @@ it('handles emoji input', () => {
     });
   });
 });
+
+describe('RdsCompAiTypingSection localeText', () => {
+  it('overrides the prompt input label', () => {
+    render(<RdsCompAiTypingSection onSend={jest.fn()} localeText={{ promptInputLabel: 'Entrada' }} />);
+    expect(screen.getByLabelText('Entrada')).toBeInTheDocument();
+  });
+});

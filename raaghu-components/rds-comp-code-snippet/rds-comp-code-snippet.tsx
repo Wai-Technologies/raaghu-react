@@ -6,12 +6,12 @@ import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-// @ts-expect-error no declaration file for react-syntax-highlighter subpath
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
-// @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
 import { useRaaghuTheme } from "../../raaghu-react-themes/src/provider/RaaghuThemeProvider";
+import { DEFAULT_RDS_COMP_CODE_SNIPPET_LOCALE_TEXT, type RdsCompCodeSnippetLocaleText } from "./rds-comp-code-snippet-locale";
+import { mergeLocaleText } from "../../raaghu-elements/shared/utils/locale-text";
 type HighlighterStyle = Record<string, Record<string, string> | string>;
 
 const atomOneLightBase = atomOneLight as HighlighterStyle;
@@ -79,6 +79,8 @@ export interface RdsCompCodeSnippetProps {
   /** MUI system styles applied to the code snippet root. */
   sx?: SxProps<Theme>;
   sampleCodeSnippets?: Record<string, string>;
+  /** Overrides the built-in English UI text. */
+  localeText?: Partial<RdsCompCodeSnippetLocaleText>;
 }
 
 const RdsCompCodeSnippet = ({
@@ -91,8 +93,10 @@ const RdsCompCodeSnippet = ({
   className = "",
   sx,
   sampleCodeSnippets,
+  localeText,
 }: RdsCompCodeSnippetProps) => {
   const { isDark } = useRaaghuTheme();
+  const text = mergeLocaleText(DEFAULT_RDS_COMP_CODE_SNIPPET_LOCALE_TEXT, localeText);
   const theme = themeProp ?? (isDark ? "dark" : "light");
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
@@ -145,14 +149,14 @@ const RdsCompCodeSnippet = ({
               <RdsButton
                 className={clsx("rds-comp-code-snippet__copy-button", copied && "rds-comp-code-snippet__copy-button--copied")}
                 onClick={handleCopy}
-                aria-label="Copy code"
+                aria-label={text.copyCodeAriaLabel}
                 size="small"
                 variant="outlined"
                 showLeftIcon={true}
                 textCase="unset"
                 changeLeftIcon={copied ? COPIED_ICON : COPY_ICON}
               >
-                {copied ? "Copied!" : "Copy Code"}
+                {copied ? text.copied : text.copyCode}
               </RdsButton>
               <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
             </div>
@@ -180,14 +184,14 @@ const RdsCompCodeSnippet = ({
                 <RdsButton
                   className={clsx("rds-comp-code-snippet__copy-button", copied && "rds-comp-code-snippet__copy-button--copied")}
                   onClick={handleCopy}
-                  aria-label="Copy code"
+                  aria-label={text.copyCodeAriaLabel}
                   size="small"
                   variant="outlined"
                   showLeftIcon={true}
                   textCase="unset"
                   changeLeftIcon={copied ? COPIED_ICON : COPY_ICON}
                 >
-                  {copied ? "Copied!" : "Copy Code"}
+                  {copied ? text.copied : text.copyCode}
                 </RdsButton>
                 <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
               </div>
@@ -209,7 +213,7 @@ const RdsCompCodeSnippet = ({
             </div>
             <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent">Show More</RdsButton>
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent">{text.showMore}</RdsButton>
               </div>
             </div>
           </>

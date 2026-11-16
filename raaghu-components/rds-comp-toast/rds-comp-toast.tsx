@@ -4,10 +4,8 @@ import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
-import {
-        type RdsCompToastProps,
-        ToastLayout,
-} from "./rds-comp-toast.types";
+import { type RdsCompToastProps, ToastLayout } from "./rds-comp-toast.types";
+import { DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT } from "./rds-comp-toast-locale";
 import {
     getLeadingIconClass,
     resolveToastPosition,
@@ -16,12 +14,14 @@ import {
     getStateClass,
     useToastTimer,
 } from "./toast-helpers";
+import { mergeLocaleText } from '../../raaghu-elements/shared/utils/locale-text';
 
 const ToastFooter = ({
     layout,
     progressWidth,
     filename,
     placeholder,
+    replyInputLabel,
     action,
 }: {
     action?: ReactNode;
@@ -29,6 +29,7 @@ const ToastFooter = ({
     progressWidth?: number;
     filename?: string;
     placeholder?: string;
+    replyInputLabel: string;
 }) => {
     if (layout === ToastLayout.Download) {
         return (
@@ -58,7 +59,7 @@ const ToastFooter = ({
                         type="text"
                         className="rds-comp-toast__input"
                         placeholder={placeholder}
-                        aria-label={placeholder || 'Toast reply input'}
+                        aria-label={placeholder || replyInputLabel}
                     />
                 </div>
                 {action != null && (
@@ -98,6 +99,7 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
  * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
  */
 const RdsCompToast = (props: RdsCompToastProps) => {
+    const text = mergeLocaleText(DEFAULT_RDS_COMP_TOAST_LOCALE_TEXT, props.localeText);
     const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
     const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;
     const legacyShowDismiss = typeof props['showDismiss'] === 'boolean' ? (props['showDismiss'] as boolean) : undefined;
@@ -175,7 +177,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                     <button
                                         type="button"
                                         className="rds-comp-toast__close-btn"
-                                        aria-label="Close"
+                                        aria-label={text.close}
                                         onClick={hideToast}>
                                         <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                     </button>
@@ -195,6 +197,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
+                            replyInputLabel={text.replyInputLabel}
                         />
                     </div>
                 )}
@@ -216,7 +219,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 <button
                                     type="button"
                                     className="rds-comp-toast__close-btn"
-                                    aria-label="Close"
+                                    aria-label={text.close}
                                     onClick={hideToast} >
                                     <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                 </button>
@@ -228,6 +231,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
+                            replyInputLabel={text.replyInputLabel}
                         />
                     </div>
                 )}

@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 .rds-button-dropdown {
   --rds-button-dropdown-dim-1: 220px;
 
@@ -37,6 +38,8 @@
     background-color: transparent;
     transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, var(--rds-motion-duration-quick) ease-in-out));
     outline: none;
+
+    @include focus.ring;
 
     &:hover:not(&--selected) {
       background-color: var(--rds-button-dropdown-hover-bg);

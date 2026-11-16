@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-datepicker {  
@@ -349,8 +350,6 @@ font-weight: var(--rds-font-weight-bold);
     }
   }
   
-  // Calendar and clear buttons live in the input's end adornment; they flow inline instead of
-  // being absolutely positioned over the field.
   &__adornment {
     display: inline-flex;
     align-items: center;
@@ -546,7 +545,7 @@ font-weight: var(--rds-font-weight-bold);
   padding: 0 var(--rds-spacing-sm);
   padding-right: var(--rds-spacing-36-px);
   border: var(--rds-border-width-thin) solid var(--rds-color-border);
-  background-color: var(--rds-color-background);
+  background-color: var(--rds-datepicker-header-select-background);
   color: var(--rds-color-text);
   border-radius: var(--rds-border-radius-sm);
   font-size: var(--rds-datepicker-font-size-md);
@@ -565,6 +564,8 @@ font-weight: var(--rds-font-weight-bold);
     outline: none ;
     box-shadow: none ;
   }
+
+  @include focus.ring;
 }
 
 .rds-datepicker__header-select::-ms-expand {
@@ -931,6 +932,8 @@ font-weight: var(--rds-font-weight-bold);
     box-shadow: none ;
     border-color: var(--rds-color-border) ;
   }
+
+  @include focus.ring;
 }
 
 .rds-datepicker__calendar .react-datepicker__month-select,
@@ -962,6 +965,8 @@ font-weight: var(--rds-font-weight-bold);
     box-shadow: none ;
     border-color: var(--rds-color-border) ;
   }
+
+  @include focus.ring;
 }
 
 .rds-datepicker__calendar .react-datepicker__month-read-view--selected-month,
@@ -1250,7 +1255,6 @@ font-weight: var(--rds-font-weight-bold);
 
   .rds-datepicker__header-select {
     color: var(--rds-text-primary) ;
-    background-color: var(--rds-background-paper) ;
     border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     color-scheme: dark;
     -webkit-appearance: none;
@@ -1269,6 +1273,8 @@ font-weight: var(--rds-font-weight-bold);
       box-shadow: none ;
       border: var(--rds-border-width-thin) solid var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
+
+    @include focus.ring;
   }
 
   .rds-datepicker__custom-header-group .rds-datepicker__header-select {
@@ -1369,6 +1375,8 @@ font-weight: var(--rds-font-weight-bold);
       box-shadow: none ;
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
+
+    @include focus.ring;
   }
 
   .react-datepicker__month-select,
@@ -1386,6 +1394,8 @@ font-weight: var(--rds-font-weight-bold);
       box-shadow: none ;
       border-color: var(--rds-border-default, color-mix(in srgb, var(--rds-color-white) 18%, transparent)) ;
     }
+
+    @include focus.ring;
   }
 
   .react-datepicker__month-read-view--down-arrow,
@@ -1425,7 +1435,7 @@ font-weight: var(--rds-font-weight-bold);
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@include bp.between(tablet-sm, tablet-lg) {
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
     left: calc(100% + var(--rds-spacing-sm));

@@ -1,4 +1,5 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/motion' as motion;
 
 @keyframes rds-empty-state-content-rise {
   from {
@@ -183,7 +184,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include motion.reduced {
   .rds-comp-empty-state {
     &__button {
       transition: none;

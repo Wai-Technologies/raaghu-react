@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 :is(.Default, .default, .relaxing, .top-nav, .side-nav, .double-nav, .triPane),
 .rds-appshell-appbar {
   --rds-app-shell-divider-height: var(--rds-spacing-micro);
@@ -100,6 +102,10 @@
         content: none;
         display: none;
       }
+    }
+
+    > button {
+      @include focus.ring;
     }
   }
 
@@ -214,7 +220,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   background: var(--rds-surface-dark-deep);
 }
 
-@media (min-width: 769px) {
+@include bp.up(769) {
   html[data-theme="dark"] {
     .double-nav .MuiBottomNavigation-root,
     .double-nav .rds-footer-navigation,
@@ -615,7 +621,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
 
-    // Size follows `headingLevel`; h2 (the default) keeps the original size.
     &--h1 { font-size: var(--rds-font-size-2xl); }
     &--h2 { font-size: var(--rds-font-size-xl); }
     &--h3 { font-size: var(--rds-font-size-lg); }
@@ -639,7 +644,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: 900px) {
+@include bp.down(md) {
   .TopNav, .Default, .relaxing, .side-nav, .triPane, .double-nav {
     overflow-x: hidden;
 
@@ -770,6 +775,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           content: '';
           display: none;
         }
+      }
+
+      button {
+        @include focus.ring;
       }
     }
   }
@@ -1522,7 +1531,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: 576px) {
+@include bp.down(576) {
   .double-nav {
     &.mobile-sidebar-open > .sidebar-layout {
       left: 0;
@@ -1589,7 +1598,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: 480px) {
+@include bp.down(480) {
   .rds-story-topnav-content {
     padding-bottom: var(--rds-spacing-44);
 
@@ -1602,7 +1611,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 769px) and (max-width: 833px) {
+@include bp.between(769, 833) {
   .TopNav {
     .rds-header__navigation,
     .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root),
@@ -1810,7 +1819,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 834px) and (max-width: 1112px) {
+@include bp.between(tablet-md, 1112) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
@@ -2417,7 +2426,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 834px) {
+@include bp.up(tablet-md) {
   .side-nav {
     --rds-side-nav-top-height: var(--rds-size-3xl);
 
@@ -2719,7 +2728,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 1025px) {
+@include bp.up(1025) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
@@ -2739,7 +2748,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 1113px) {
+@include bp.up(1113) {
   .MuiTabs-root,
   .rds-header__navigation,
   .rds-appshell-appbar .MuiTabs-root,
@@ -2852,7 +2861,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: 769px) {
+@include bp.up(769) {
   .rds-appshell-appbar .MuiTabs-root,
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {

@@ -722,6 +722,14 @@ describe('RdsCompChat', () => {
     });
   });
 
+  describe('localeText', () => {
+    it('uses overridden UI text', () => {
+      render(<RdsCompChat {...defaultProps} localeText={{ send: 'Enviar', typeCommentPlaceholder: 'Escribe...' }} />);
+      expect(screen.getByRole('button', { name: 'Enviar' })).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Escribe...')).toBeInTheDocument();
+    });
+  });
+
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompChat {...defaultProps} />);

@@ -1,14 +1,11 @@
 import type { CSSProperties, Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material';
+import type { RdsCompTimePickerLocaleText } from './rds-comp-time-picker-locale';
+
+/** @deprecated Use `RdsCompTimePickerLocaleText` instead. */
+export type RdsTimePickerLocaleText = Partial<RdsCompTimePickerLocaleText>;
 
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
-
-export interface RdsTimePickerLocaleText {
-  now?: string;
-  cancel?: string;
-  setTime?: string;
-  placeholder?: string;
-}
 
 export interface RdsTimePickerProps {
   /** Layout variant of the picker. */
@@ -35,8 +32,8 @@ export interface RdsTimePickerProps {
   value?: string;
   /** Disables the picker. */
   disabled?: boolean;
-  /** Overrides for the visible texts. */
-  localeText?: RdsTimePickerLocaleText;
+  /** Overrides for the built-in English UI strings. */
+  localeText?: Partial<RdsCompTimePickerLocaleText>;
   /** Extra CSS class applied to the root element. */
   className?: string;
   /** MUI system styles applied to the root element. */

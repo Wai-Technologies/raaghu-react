@@ -1,3 +1,4 @@
+@use '../../raaghu-react-themes/tokens/focus' as focus;
 
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
@@ -61,6 +62,8 @@
       box-shadow: none;
       color: var(--rds-color-primary);
     }
+
+    @include focus.ring;
   }
 
   &__info--left {
@@ -393,6 +396,8 @@
       box-shadow: none;
       color: var(--rds-color-primary);
     }
+
+    @include focus.ring;
   }
 
   &__file-list {
