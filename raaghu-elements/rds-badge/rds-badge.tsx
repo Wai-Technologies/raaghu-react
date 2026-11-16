@@ -98,6 +98,7 @@ const RdsBadge = ({
     `rds-badge--${resolvedStyleType}`,
     `rds-badge--${bemColor || 'primary'}`,
     disabled && 'rds-badge--disabled',
+    children && typeof badgeContent === 'number' && badgeContent > max && 'rds-badge--wide',
     className,
   );
 

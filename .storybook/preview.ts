@@ -7,7 +7,7 @@ import {
 import { RaaghuThemeProvider } from '../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
-import { getDocsTheme } from './storybook-docs-theme';
+import { RaaghuDocsContainer } from './storybook-docs-theme';
 import './storybook-theme-sync';
 import {
   reactNodeArgTypesEnhancer,
@@ -81,7 +81,7 @@ const preview: Preview = {
       test: 'todo',
     },
     docs: {
-      theme: getDocsTheme('system'),
+      container: RaaghuDocsContainer,
     },
   },
   decorators: [
@@ -89,12 +89,6 @@ const preview: Preview = {
       const mode = (context.globals.theme ??
         getStorybookThemeFromUrl() ??
         'system') as RaaghuThemeMode;
-      const docsTheme = getDocsTheme(mode);
-
-      context.parameters.docs = {
-        ...context.parameters.docs,
-        theme: docsTheme,
-      };
 
       const safeArgs = sanitizeArrayArgs(
         sanitizeReactNodeArgs((context.args ?? {}) as Record<string, unknown>),
