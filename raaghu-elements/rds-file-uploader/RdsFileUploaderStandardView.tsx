@@ -92,12 +92,18 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           variant="filled"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
+          style={{
+            borderRadius: 'var(--rds-file-uploader-control-radius) 0 0 var(--rds-file-uploader-control-radius)',
+          }}
           sx={{
             minWidth: 'var(--rds-file-uploader-btn-min-width)',
             fontSize: 'var(--rds-font-size-md)',
             fontWeight: 'var(--rds-font-weight-medium)',
             padding: 'var(--rds-file-uploader-upload-padding-y) var(--rds-file-uploader-upload-padding-x)',
             flexShrink: 0,
+            alignSelf: 'stretch',
+            minHeight: 'var(--rds-file-uploader-filename-height)',
+            height: 'auto',
           }}
           aria-describedby={showTitle ? titleId : undefined}
           component="label"
@@ -117,7 +123,14 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           className="rds-file-uploader__filename"
           variant="body2"
           noWrap
-          sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
+          sx={{
+            color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)',
+            display: 'flex',
+            alignItems: 'center',
+            height: 'var(--rds-file-uploader-filename-height)',
+            lineHeight: 'var(--rds-line-height-dense)',
+            fontSize: 'var(--rds-font-size-md)',
+          }}
         >
           {selectedFileName || 'No file chosen'}
         </Typography>
