@@ -246,7 +246,7 @@
 
   &__input-row {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
     width: 100%;
     max-width: 100%;
@@ -266,38 +266,40 @@
     flex: 1;
   }
 
-  &__choose-btn {
+  &__input-row &__choose-btn {
     background: var(--rds-color-primary);
     color: var(--rds-primary-contrast-text);
-    border-radius: var(--rds-file-uploader-control-radius) 0 0
-      var(--rds-file-uploader-control-radius);
+    align-self: stretch;
+    height: auto;
+    min-height: var(--rds-file-uploader-filename-height);
     min-width: var(--rds-file-uploader-btn-min-width);
     font-weight: var(--rds-font-weight-medium, 500);
     text-transform: none;
     box-shadow: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-start-start-radius: var(--rds-file-uploader-control-radius);
+    border-end-start-radius: var(--rds-file-uploader-control-radius);
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
   }
 
-  &__filename {
+  &__input-row &__filename {
     background: var(--rds-color-surface);
     border-radius: 0 var(--rds-border-radius)
       var(--rds-border-radius) 0;
     height: var(--rds-file-uploader-filename-height);
-    display: block;
+    display: flex;
     align-items: center;
     flex: 1 1 auto;
     min-width: 0;
     max-width: 100%;
     color: var(--rds-color-on-surface);
     font-weight: var(--rds-font-weight-medium, 500);
-    font-size: var(--rds-font-size-lg);
+    font-size: var(--rds-font-size-md);
     padding-left: var(--rds-spacing-md);
-    line-height: var(--rds-file-uploader-filename-height);
+    line-height: var(--rds-line-height-dense);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: calc(var(--rds-spacing-xs) / -4);
   }
 
   &__hint-row {
@@ -453,6 +455,7 @@
 
   &__file-remove {
     flex-shrink: 0;
+    align-self: center;
   }
 
   &__file-icon {

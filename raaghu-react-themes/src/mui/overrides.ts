@@ -242,15 +242,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
       },
     },
   },
-  MuiAccordionDetails: {
-    styleOverrides: {
-      root: {
-        '&.rds-accordion__details': {
-          paddingTop: 0,
-        },
-      },
-    },
-  },
   MuiCard: {
     styleOverrides: {
       root: ({ theme, ownerState }) => ({
