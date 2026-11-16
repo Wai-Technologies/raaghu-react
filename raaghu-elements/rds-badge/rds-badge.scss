@@ -281,6 +281,15 @@
   &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
     transform: translate(12px, -6px);
   }
+
+  /* "99+" is wider than the count the offsets above were set for. Shift only that extra width to the right. */
+  &--small { --rds-badge-count-min: var(--rds-badge-dim-2); }
+  &--medium { --rds-badge-count-min: var(--rds-badge-dot-min-size); }
+  &--large { --rds-badge-count-min: var(--rds-size-lg); }
+
+  &.rds-badge--wide .MuiBadge-badge:not(.MuiBadge-dot) {
+    translate: calc(100% - var(--rds-badge-count-min)) 0;
+  }
   
   &--medium .rds-badge__badge {
     font-size: var(--rds-font-size-md);

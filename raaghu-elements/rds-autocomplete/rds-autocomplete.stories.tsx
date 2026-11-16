@@ -28,6 +28,13 @@ const meta: Meta<typeof RdsAutocomplete> = {
     exclude: ['component', 'slots', 'slotProps', 'ref'],
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 'var(--rds-spacing-240)' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {

@@ -12,8 +12,6 @@
 }
 
 @include _rds-dark {
-  .rds-accordion__container {  border-color: var(--rds-color-border-dark); }
-
   .rds-accordion { background-color: var(--rds-color-surface); }
   .rds-accordion__summary { background-color: var(--rds-color-surface); }
   .rds-accordion__summary:hover { background-color: var(--rds-color-surface-hover); }
@@ -23,7 +21,6 @@
     color: var(--rds-color-on-surface-dark);
   }
   .rds-accordion:not(.rds-accordion--selected):not(.rds-accordion--hover) .rds-accordion__details {
-    border-color: var(--rds-color-border-dark);
     background-color: var(--rds-color-surface);
   }
   .rds-accordion__details .MuiAccordionDetails-root,
@@ -58,15 +55,12 @@
   .rds-accordion__details-panel {
     background: var(--rds-color-surface);
   }
-  .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
-    background: var(--rds-color-border-dark);
-  }
 }
 .rds-accordion__container {
   --rds-accordion-container-radius: 4px;
   --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs));
-  --rds-accordion-item-divider-color: var(--rds-border-default);
-  border: var(--rds-border-width-thin) solid var(--rds-border-default);
+  --rds-accordion-item-divider-color: var(--rds-color-on-surface);
+  border: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
   background: var(--rds-color-surface);
   border-radius: var(--rds-accordion-container-radius);
   overflow: hidden;
@@ -74,7 +68,7 @@
   
   &.rds-accordion--bottomline {
   border: none;
-  border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
     border-radius: 0;
     
     .MuiAccordion-root:not(:last-child) {
@@ -107,14 +101,14 @@
         right: 0;
         bottom: 0;
         height: var(--rds-border-width-hairline);
-        background: var(--rds-border-default);
+        background: var(--rds-color-on-surface);
         display: none;
       }
     }
   }
   
-  .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
-    display: block;
+  .rds-accordion.rds-accordion--expanded .rds-accordion__summary {
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
   }
   
   .MuiAccordion-root {
@@ -171,7 +165,7 @@
   }
   
   &:not(:last-child) {
-    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
   }
   
   &.Mui-expanded,
@@ -187,8 +181,8 @@
       background-color: var(--rds-color-surface);
     }
 
-    .rds-accordion__summary::after {
-      display: block;
+    .rds-accordion__summary {
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
     }
   }
 
@@ -208,7 +202,7 @@
       right: 0;
       bottom: 0;
       height: var(--rds-accordion-dim-1);
-      background: var(--rds-border-default);
+      background: var(--rds-color-on-surface);
       display: none;
     }
     
@@ -264,7 +258,7 @@
   
  &__details {
     .rds-accordion__details-panel {
-      border: var(--rds-border-width-emphasis) solid var(--rds-border-default);
+      border: var(--rds-border-width-emphasis) solid var(--rds-color-on-surface);
       background: var(--rds-color-surface);
       border-radius: var(--rds-border-radius-sm);
       margin: var(--rds-accordion-details-margin-top) var(--rds-accordion-details-margin-right) var(--rds-accordion-details-margin-bottom) var(--rds-accordion-details-margin-left);
@@ -295,7 +289,7 @@
   }
 
   &--selected {
-    border: var(--rds-border-width-medium) solid var(--rds-color-secondary);
+    border: var(--rds-border-width-medium) solid var(--rds-color-on-surface);
 
     .rds-accordion__summary {
       background-color: var(--rds-color-primary-hover);
@@ -349,9 +343,8 @@
       }
 
       &.rds-accordion--border {
-        .rds-accordion__summary::after {
-          display: block;
-          background: var(--rds-color-on-surface);
+        .rds-accordion__summary {
+          border-bottom: var(--rds-border-width-thin) solid var(--rds-color-on-surface);
         }
 
         .rds-accordion__details-panel {

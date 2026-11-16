@@ -658,6 +658,22 @@ describe('RdsBadge audit fixes', () => {
     expect(container.querySelector('.rds-badge')).toHaveClass('my-badge');
   });
 
+  it('marks counts above max so the badge sits to the right of an icon', () => {
+    const { container, rerender } = render(
+      <RdsBadge badgeContent={150}>
+        <span>Inbox</span>
+      </RdsBadge>,
+    );
+    expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--wide');
+    expect(screen.getByText('99+')).toBeInTheDocument();
+    rerender(
+      <RdsBadge badgeContent={99}>
+        <span>Inbox</span>
+      </RdsBadge>,
+    );
+    expect(container.querySelector('.rds-badge')).not.toHaveClass('rds-badge--wide');
+  });
+
   it('caps standalone numeric content at max (G1-087)', () => {
     const { rerender } = render(<RdsBadge badgeContent={150} />);
     expect(screen.getByText('99+')).toBeInTheDocument();
