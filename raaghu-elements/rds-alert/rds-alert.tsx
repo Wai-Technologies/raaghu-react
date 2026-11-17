@@ -3,11 +3,17 @@ import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/materi
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-alert.scss';
 
-export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'> {
+export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content' | 'color'> {
   description?: string;
+  /** Semantic color of the alert. @default 'info' */
+  color?: AlertColor;
+  /** @deprecated Use `color`. */
   type?: AlertColor;
+  /** @deprecated Use `color`. */
+  severity?: AlertColor;
   changeIconName?: ReactNode;
   title?: string;
   content?: {
@@ -30,7 +36,8 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
 const RdsAlert= ({
   description,
   children,
-  type = 'info',
+  color,
+  type,
   severity,
   changeIconName,
   title = 'Heading Title.',
@@ -41,6 +48,8 @@ const RdsAlert= ({
   variant = 'standard',
   ...props
 }:RdsAlertProps) => {
+  if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`color`');
+  if (severity !== undefined) warnDeprecatedProp('RdsAlert', 'severity', '`color`');
   const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
   const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
   const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
@@ -82,7 +91,7 @@ const RdsAlert= ({
 
   const hasElementChildren = isValidElement(children);
   const mainText = description ?? (!hasElementChildren ? children : undefined);
-  const resolvedSeverity = severity || type;
+  const resolvedSeverity: AlertColor = color ?? severity ?? type ?? 'info';
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
   const severityClass = `rds-alert--${resolvedSeverity}`;

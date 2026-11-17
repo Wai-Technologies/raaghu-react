@@ -169,7 +169,7 @@ describe('RdsBadge', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-badge--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-error')).toBeInTheDocument();
     });
 
     it('should apply warning color', () => {
@@ -335,7 +335,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--large')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--rectangle')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--outline')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-error')).toBeInTheDocument();
     });
 
     it('should handle size, shape, and color variations', () => {
@@ -562,11 +562,12 @@ describe('RdsBadge', () => {
     });
 
     it('should accept valid colorVariant prop values', () => {
-      const colors: Array<'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success'> = [
+      const colors: Array<'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success'> = [
         'primary',
         'secondary',
         'tertiary',
         'danger',
+        'error',
         'warning',
         'light',
         'success',
@@ -575,7 +576,8 @@ describe('RdsBadge', () => {
         const { container } = render(
           <RdsBadge badgeContent={5} colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-badge--color-${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color;
+        expect(container.querySelector(`.rds-badge--color-${expected}`)).toBeInTheDocument();
       });
     });
   });

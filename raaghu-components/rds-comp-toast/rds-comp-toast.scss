@@ -48,6 +48,7 @@
   &--border-light,
   &--border-dark,
   &--border-primary,
+  &--border-error,
   &--border-danger {
     border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
     border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
@@ -462,6 +463,7 @@ body.dark-theme .rds-comp-toast {
   &.rds-comp-toast--border-light,
   &.rds-comp-toast--border-dark,
   &.rds-comp-toast--border-primary,
+  &.rds-comp-toast--border-error,
   &.rds-comp-toast--border-danger {
     border-top-color: var(--rds-color-border-overlay);
     border-right-color: var(--rds-color-border-overlay);

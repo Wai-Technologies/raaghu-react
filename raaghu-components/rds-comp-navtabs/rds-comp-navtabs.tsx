@@ -13,7 +13,8 @@ export interface RdsCompNavtabsProps {
     disabled?: boolean;
     id: string | number;
     count?: number; 
-    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success";  
+    /** `'danger'` is deprecated; use `'error'`. */
+    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";  
   }[];
   type: "default" | "tabs";
   fill?: boolean;

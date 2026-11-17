@@ -259,12 +259,13 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('renders with different color variants', () => {
-      const variants = ['primary', 'danger', 'secondary'];
+      const variants = ['primary', 'danger', 'secondary'] as const;
       variants.forEach((variant) => {
         const { container, unmount } = render(
-          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant as 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light'} />
+          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant} />
         );
-        const button = container.querySelector(`.rds-fab-menu__button--${variant}`);
+        const expected = variant === 'danger' ? 'error' : variant;
+        const button = container.querySelector(`.rds-fab-menu__button--${expected}`);
         expect(button).toBeInTheDocument();
         unmount();
       });
@@ -593,7 +594,7 @@ describe('RdsCompAiFabMenu', () => {
       rerender(
         <RdsCompAiFabMenu {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-fab-menu__button--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--error')).toBeInTheDocument();
     });
 
     it('maintains open state across re-renders with same props', async () => {

@@ -9,10 +9,14 @@ import {
   BannerTextContent,
   BannerActionButtons,
 } from './rds-banner.helpers';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-banner.scss';
 
-export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
+export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose' | 'color'> {
   description?: string;
+  /** Semantic color of the banner. @default 'info' */
+  color?: AlertProps['severity'];
+  /** @deprecated Use `color`. */
   type?: AlertProps['severity'];
   Icon?: boolean;
   title?: string;
@@ -35,7 +39,8 @@ export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'>
 const RdsBanner: React.FC<RdsBannerProps> = ({
   description,
   children,
-  type = 'info',
+  color,
+  type,
   Icon = true,
   title = 'Heading Title.',
   showTitle = false,
@@ -54,6 +59,8 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   showOutline = false,
   ...props
 }) => {
+  if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`color`');
+  const resolvedColor = color ?? type ?? 'info';
   const [isVisible, setIsVisible] = React.useState(true);
 
   const handleClose = () => {
@@ -73,10 +80,10 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
 
   return (
     <MuiAlert
-      severity={type}
+      severity={resolvedColor}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-      className={resolveBannerClasses(size, variantStyle, type!, fullWidth, showOutline, props.className)}
+      className={resolveBannerClasses(size, variantStyle, resolvedColor!, fullWidth, showOutline, props.className)}
       action={
         <div className="rds-banner__action-container">
           {actions}

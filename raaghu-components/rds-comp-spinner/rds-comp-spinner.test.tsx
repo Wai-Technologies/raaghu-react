@@ -309,7 +309,7 @@ describe('RdsCompSpinner', () => {
     it('should apply danger color variant', () => {
       render(<RdsCompSpinner {...defaultProps} colorVariant="danger" />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveClass('text-danger');
+      expect(spinner).toHaveClass('text-error');
     });
 
     it('should apply warning color variant', () => {
@@ -480,7 +480,7 @@ describe('RdsCompSpinner', () => {
 
     it('should handle all spinner types with all colors', () => {
       const types = ['border', 'grow'];
-      const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info'];
+      const colors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'];
 
       types.forEach(type => {
         colors.forEach(color => {
@@ -568,7 +568,7 @@ describe('RdsCompSpinner', () => {
 
       spinner = screen.getByRole('status');
       expect(spinner).toHaveStyle({ width: '45px', height: '45px' });
-      expect(spinner).toHaveClass('text-danger');
+      expect(spinner).toHaveClass('text-error');
     });
   });
 });

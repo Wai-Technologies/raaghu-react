@@ -6,6 +6,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 
 // register icons once at module load to avoid repeated registrations on render
 registerMaterialIcons({
@@ -25,7 +27,8 @@ export interface RdsCompAiFabMenuItem {
 }
 
 export interface RdsCompAiFabMenuProps {
-    colorVariant?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light';
+    /** `'danger'` is deprecated; use `'error'`. */
+    colorVariant?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'error' | 'dark' | 'light';
     size?: 'small' | 'medium' | 'large';
     menuIcon?: string;
     menuiconWidth?: string;
@@ -44,6 +47,11 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+
+    if (props.colorVariant === 'danger') {
+        warnDeprecatedProp('RdsCompAiFabMenu', 'colorVariant="danger"', '`colorVariant: "error"`');
+    }
+    const resolvedColorVariant = normalizePaletteColor(props.colorVariant) ?? 'primary';
     
     const getBackgroundType = () => {
         if (props.backgroundType) {
@@ -53,7 +61,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     };
     
     const backgroundType = getBackgroundType();
-    const baseClasses = `rds-fab-menu__button rds-fab-menu__button--${props.colorVariant || 'primary'}`;
+    const baseClasses = `rds-fab-menu__button rds-fab-menu__button--${resolvedColorVariant}`;
     const sizeClass = props.size ? `rds-fab-menu__button--${props.size}` : '';
     const backgroundClass = `rds-fab-menu__button--${backgroundType}`;
     const customClasses = `${baseClasses} ${sizeClass} ${backgroundClass} ${props.className || ''}`.trim();
@@ -104,7 +112,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     stroke={true}
                     height="var(--rds-spacing-lg)"
                     width="var(--rds-spacing-lg)"
-                    colorVariant={props.colorVariant === 'dark' || props.colorVariant === 'primary' || props.colorVariant === 'danger' ? 'light' : 'dark'}
+                    colorVariant={resolvedColorVariant === 'dark' || resolvedColorVariant === 'primary' || resolvedColorVariant === 'error' ? 'light' : 'dark'}
                 />
             </button>
             <div className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${props.alignment || 'left'} ${isMenuOpen ? 'rds-fab-menu__dropdown-container--open' : ''}`} ref={menuRef}>

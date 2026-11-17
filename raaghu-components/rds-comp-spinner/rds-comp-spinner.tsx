@@ -1,4 +1,6 @@
 import React from "react";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import "./rds-comp-spinner.scss";
 
 export enum SpinnerSize {
@@ -45,8 +47,12 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     colorVariant,
     level
 }) => {
+    if (colorVariant === "danger") {
+        warnDeprecatedProp("RdsCompSpinner", 'colorVariant="danger"', '`colorVariant: "error"`');
+    }
+    const resolvedColorVariant = normalizePaletteColor(colorVariant);
     const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
-    const colorClass = colorVariant ? `text-${colorVariant}` : "";
+    const colorClass = resolvedColorVariant ? `text-${resolvedColorVariant}` : "";
 
     const getSizeDimensions = () => {
         switch (size) {

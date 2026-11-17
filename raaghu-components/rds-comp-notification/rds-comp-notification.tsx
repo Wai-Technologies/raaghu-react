@@ -8,6 +8,7 @@ import {
   RdsCompNotificationProps,
 } from "./rds-comp-notification-types";
 import { NotificationCard } from "./rds-comp-notification-helpers";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export { NotificationLayout, NotificationStyle, NotificationType };
 export type { NotificationItem, RdsCompNotificationProps };
@@ -17,7 +18,9 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     title,
     layout = NotificationLayout.Horizontal,
     style = NotificationStyle.Default,
-    type = NotificationType.Info,
+    color,
+    severity,
+    type,
     showButton = false,
     showPrimaryButton = false,
     showSecondaryButton = false,
@@ -26,6 +29,9 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     onDismiss,
     onAccept,
 }) => {
+    if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
+    if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
+    const resolvedType = color ?? severity ?? type ?? NotificationType.Info;
     const [visibleNotifications, setVisibleNotifications] = useState(notifications);
 
     useEffect(() => {
@@ -48,7 +54,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     index={index}
                     layout={layout}
                     style={style}
-                    type={type}
+                    type={resolvedType}
                     title={title}
                     description={description}
                     showButton={showButton}

@@ -28,10 +28,15 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       control: 'text',
       description: 'Description to display in the banner',
     },
+    color: {
+      control: 'select',
+      options: ['error', 'warning', 'info', 'success'],
+      description: 'Semantic color of the banner',
+    },
     type: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
-      description: 'The type/severity of the banner',
+      description: 'Deprecated: use color',
     },
     Icon: {
       control: 'boolean',
@@ -115,7 +120,7 @@ export const Info: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
-  },
+  },
 };
 
 export const Success: Story = {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-badge.scss';
 
 export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
@@ -12,7 +14,8 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
   styleType?: 'primary' | 'outline' | 'transparent';
   state?: 'default' | 'disabled';
-  colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success';
+  /** `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
 }
 
 
@@ -30,9 +33,13 @@ const RdsBadge= ({
   colorVariant = 'primary',
   ...props
 }:RdsBadgeProps) => {
+  if (colorVariant === 'danger') {
+    warnDeprecatedProp('RdsBadge', 'colorVariant="danger"', '`colorVariant: "error"`');
+  }
+  const resolvedColorVariant = normalizePaletteColor(colorVariant) ?? 'primary';
   const content = badgeContent;
   
-  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
+  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${resolvedColorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
   
   const isZeroContent = content === 0 || content === '0';
   

@@ -7,9 +7,12 @@ import {
   NamedAvatarView,
   SingleAvatarView,
 } from './rds-avatar.helpers';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 
 export interface RdsAvatarProps extends AvatarProps {
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  /** `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;
   size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
@@ -47,6 +50,11 @@ const RdsAvatar = ({
   showRemainingCount = true,
   ...props
 }: RdsAvatarProps) => {
+  if (colorVariant === 'danger') {
+    warnDeprecatedProp('RdsAvatar', 'colorVariant="danger"', '`colorVariant: "error"`');
+  }
+  const resolvedColorVariant = normalizePaletteColor(colorVariant) ?? 'primary';
+
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     return (
       <StackingAvatarsView
@@ -64,7 +72,7 @@ const RdsAvatar = ({
     activityRing,
     activeDotTop,
     activeDotBottom,
-    colorVariant,
+    resolvedColorVariant,
     displayStyle === 'with-name' || displayStyle === 'name-bottom' ? displayStyle : undefined
   );
 

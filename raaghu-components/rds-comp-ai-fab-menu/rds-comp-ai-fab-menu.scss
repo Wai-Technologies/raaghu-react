@@ -121,9 +121,10 @@
         color: var(--rds-color-warning);
       }
 
-      &.rds-fab-menu__button--danger {
+      &.rds-fab-menu__button--danger,
+      &.rds-fab-menu__button--error {
         background-color: transparent;
-        color: var(--rds-color-danger);
+        color: var(--rds-color-error, var(--rds-color-danger));
       }
 
       &.rds-fab-menu__button--dark {
@@ -170,6 +171,7 @@
       &.rds-fab-menu__button--info:hover,
       &.rds-fab-menu__button--warning:hover,
       &.rds-fab-menu__button--danger:hover,
+      &.rds-fab-menu__button--error:hover,
       &.rds-fab-menu__button--dark:hover,
       &.rds-fab-menu__button--light:hover {
         background-color: transparent;
@@ -183,6 +185,7 @@
       &.rds-fab-menu__button--info:focus,
       &.rds-fab-menu__button--warning:focus,
       &.rds-fab-menu__button--danger:focus,
+      &.rds-fab-menu__button--error:focus,
       &.rds-fab-menu__button--dark:focus,
       &.rds-fab-menu__button--light:focus {
         background-color: transparent;
@@ -195,6 +198,7 @@
       &.rds-fab-menu__button--info:active,
       &.rds-fab-menu__button--warning:active,
       &.rds-fab-menu__button--danger:active,
+      &.rds-fab-menu__button--error:active,
       &.rds-fab-menu__button--dark:active,
       &.rds-fab-menu__button--light:active {
         background-color: transparent;

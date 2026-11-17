@@ -1,9 +1,15 @@
 import React from 'react';
 import { Snackbar as MuiSnackbar, Alert, SnackbarProps } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-export interface RdsSnackbarProps extends SnackbarProps {
+type SnackbarColor = 'success' | 'error' | 'warning' | 'info';
+
+export interface RdsSnackbarProps extends Omit<SnackbarProps, 'color'> {
   message?: string;
-  type?: 'success' | 'error' | 'warning' | 'info';
+  /** Semantic color of the snackbar alert. @default 'info' */
+  color?: SnackbarColor;
+  /** @deprecated Use `color`. */
+  type?: SnackbarColor;
   showCloseButton?: boolean;
   onClose?: () => void;
   duration?: number;
@@ -11,7 +17,8 @@ export interface RdsSnackbarProps extends SnackbarProps {
 
 const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   message,
-  type = 'info',
+  color,
+  type,
   showCloseButton = true,
   onClose,
   duration = 6000,
@@ -19,6 +26,9 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   children,
   ...props
 }) => {
+  if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`color`');
+  const resolvedColor: SnackbarColor = color ?? type ?? 'info';
+
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -29,7 +39,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   };
 
   const content = message || children;
-  const alertTextColor = type ? `var(--rds-alert-${type}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
+  const alertTextColor = `var(--rds-alert-${resolvedColor}-text, var(--rds-text-primary))`;
 
   return (
     <MuiSnackbar
@@ -38,10 +48,10 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       onClose={handleClose}
       {...props}
     >
-      {type && message ? (
+      {message ? (
         <Alert
           onClose={showCloseButton ? handleClose : undefined}
-          severity={type}
+          severity={resolvedColor}
           sx={{
             width: '100%',
             '& .MuiAlert-message': {

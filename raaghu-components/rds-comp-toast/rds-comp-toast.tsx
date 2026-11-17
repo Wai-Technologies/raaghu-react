@@ -87,7 +87,7 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
     basic: 'light',
     info: 'dark',
     success: 'primary',
-    error: 'danger',
+    error: 'error',
 };
 
 const RdsCompToast = (props: RdsCompToastProps) => {

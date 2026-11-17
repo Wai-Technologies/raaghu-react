@@ -9,6 +9,8 @@ import {
   snapToAllowed,
 } from './rds-rating.helpers';
 import { StarRatingView, SliderRatingView } from './rds-rating.views';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-rating.scss';
 
 export interface RdsRatingProps extends RatingProps {
@@ -18,7 +20,8 @@ export interface RdsRatingProps extends RatingProps {
   type?: 'star' | 'slider';
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
   styles?: 'default' | 'filled' | 'outlined';
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  /** `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 }
 
 const RdsRating = ({
@@ -35,6 +38,11 @@ const RdsRating = ({
   precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
+  if (colorVariant === 'danger') {
+    warnDeprecatedProp('RdsRating', 'colorVariant="danger"', '`colorVariant: "error"`');
+  }
+  const resolvedColorVariant = normalizePaletteColor(colorVariant);
+
   const maxRating = max || maxStars;
   const [internalValue, setInternalValue] = useState<number | null>(() =>
     getInitialInternalValue(type, level, value)
@@ -69,7 +77,7 @@ const RdsRating = ({
 
   return (
     <div
-      className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass(type, level)} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}
+      className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass(type, level)} ${resolvedColorVariant ? `rds-rating--color-${resolvedColorVariant}` : ''}`}
     >
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? (
@@ -77,7 +85,7 @@ const RdsRating = ({
           currentValue={currentValue}
           maxRating={maxRating}
           precision={precision}
-          colorVariant={colorVariant}
+          colorVariant={resolvedColorVariant}
           showValue={showValue}
           onChange={handleSliderChange}
         />
@@ -87,7 +95,7 @@ const RdsRating = ({
           currentValue={currentValue}
           precision={precision}
           styles={styles}
-          colorVariant={colorVariant}
+          colorVariant={resolvedColorVariant}
           onChange={handleStarChange}
           {...props}
         />

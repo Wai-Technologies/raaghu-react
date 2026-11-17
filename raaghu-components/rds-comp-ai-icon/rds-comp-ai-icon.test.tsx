@@ -133,7 +133,8 @@ describe('RdsCompAiIcon', () => {
           />
         );
         const icon = getIcon(container);
-        expect(icon).toHaveClass(`rds-comp-ai-icon--${variant}`);
+        const expected = variant === 'danger' ? 'error' : variant;
+        expect(icon).toHaveClass(`rds-comp-ai-icon--${expected}`);
         unmount();
       });
     });
@@ -379,7 +380,7 @@ describe('RdsCompAiIcon', () => {
       );
       const icon = getIcon(container);
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveClass('rds-comp-ai-icon--danger');
+      expect(icon).toHaveClass('rds-comp-ai-icon--error');
       expect(icon).toHaveClass('rds-comp-ai-icon--cursor');
       expect(icon).toHaveClass('custom');
       expect(icon).toHaveAttribute('id', 'my-icon');
@@ -602,7 +603,7 @@ describe('RdsCompAiIcon', () => {
         <RdsCompAiIcon {...defaultProps} colorVariant="danger" />
       );
       icon = getIcon(container);
-      expect(icon).toHaveClass('rds-comp-ai-icon--danger');
+      expect(icon).toHaveClass('rds-comp-ai-icon--error');
       expect(icon).not.toHaveClass('rds-comp-ai-icon--primary');
     });
 

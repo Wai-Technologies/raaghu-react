@@ -110,7 +110,7 @@ describe('RdsCompToast', () => {
       render(<RdsCompToast {...defaultProps} state={ToastState.Error} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should apply correct border color for each state', () => {
@@ -724,7 +724,7 @@ describe('RdsCompToast', () => {
 
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should render info toast with chat layout', () => {

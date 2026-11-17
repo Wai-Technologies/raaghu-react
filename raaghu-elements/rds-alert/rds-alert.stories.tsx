@@ -21,10 +21,15 @@ const meta: Meta<typeof RdsAlert> = {
       control: 'text',
       description: 'The message to display in the alert',
     },
+    color: {
+      control: 'select',
+      options: ['error', 'warning', 'info', 'success'],
+      description: 'Semantic color of the alert',
+    },
     type: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
-      description: 'The type/severity of the alert',
+      description: 'Deprecated: use color',
     },
     variant: {
       control: 'select',
@@ -118,7 +123,7 @@ export const Default: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
-  },
+  },
 };
 
 export const Error: Story = {
