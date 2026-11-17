@@ -7,14 +7,15 @@
     &.nav-tabs {
       .nav-link {
         cursor: pointer;
-        transition: all 0.2s ease;
+        --rds-duration-local-0_2s: 0.2s;
+        transition: all var(--rds-duration-local-0_2s) ease;
         
         &:hover {
-          background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-color-surface-hover);
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary);
+          outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -81,7 +82,7 @@
       .nav-link {
         &.selected {
           background-color: var(--rds-color-primary);
-          color: var(--rds-color-on-primary, white);
+          color: var(--rds-color-on-primary);
         }
       }
     }
@@ -98,16 +99,17 @@
   }
   
   &__nav-link {
-    transition: all 0.2s ease;
+    --rds-duration-local-0_2s: 0.2s;
+    transition: all var(--rds-duration-local-0_2s) ease;
     
     &--active {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
     
     &--selected {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
     
     &--inactive {
@@ -117,19 +119,19 @@
   }
 
   &__label {
-    font-weight: 500;
-    padding: 0 var(--rds-spacing-sm, 0.75rem);
+    font-weight: var(--rds-font-weight-medium);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
-    margin-left: var(--rds-spacing-xs, 0.25rem);
+    margin-left: var(--rds-spacing-xs);
   }
   
   &[id="features"] {
     .nav-link {
       &.active {
         background-color: var(--rds-color-primary);
-        color: var(--rds-color-on-primary, white);
+        color: var(--rds-color-on-primary);
       }
       
       text-align: start;
@@ -153,7 +155,7 @@
     
     .nav-link.selected {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
   }
   
@@ -194,7 +196,7 @@
 
 @include bp.down(1023) {
   .bs-md-0 {
-    border-left: 0px solid transparent;
+    border-left: 0 solid transparent;
   }
   
   .rds-comp-navtabs {

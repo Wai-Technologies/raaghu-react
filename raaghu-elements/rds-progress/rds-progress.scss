@@ -13,7 +13,7 @@
   --rds-progress-connector-width: 60px;
   --rds-progress-connector-width-mobile: 35px;
   --rds-progress-inner-dot-size: 20px;
-  --rds-progress-transition: var(--rds-transition-base, 0.2s ease-in-out);
+  --rds-progress-transition: var(--rds-transition-base);
 
   &__bar {
     display: block;
@@ -76,7 +76,8 @@
   }
 
   &--indeterminate {
-    animation: rds-progress-indeterminate 1.5s infinite linear;
+    --rds-duration-local-1_5s: 1.5s;
+    animation: rds-progress-indeterminate var(--rds-duration-local-1_5s) infinite linear;
   }
 
   &__dash {
@@ -84,7 +85,7 @@
     height: var(--rds-progress-dash-height);
     background-color: var(--rds-color-gray-300);
     border-radius: var(--rds-border-radius-sm);
-    transition: background-color var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
+    transition: background-color var(--rds-progress-transition, var(--rds-transition-base));
 
     &--filled {
       background-color: var(--progress-color);
@@ -101,7 +102,7 @@
     color: var(--rds-color-gray-600);
     font-weight: var(--rds-font-weight-bold);
     font-size: var(--rds-font-size-sm);
-    transition: background-color var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
+    transition: background-color var(--rds-progress-transition, var(--rds-transition-base));
 
     &--filled {
       background-color: var(--progress-color);
@@ -111,17 +112,20 @@
 
   @include bp.between(420, 834) {
     &__block {
-      width: 75px !important;
-      height: 35px !important;
-      font-size: var(--rds-font-size-md) !important;
+      width: var(--rds-spacing-75);
+      --rds-local-35px: 35px;
+      height: var(--rds-local-35px);
+      font-size: var(--rds-font-size-md);
     }
   }
 
   @include bp.between(mobile-sm, mobile-lg) {
     &__block {
-      width: 58px !important;
-      height: 35px !important;
-      font-size: var(--rds-font-size-sm) !important;
+      --rds-local-58px: 58px;
+      width: var(--rds-local-58px);
+      --rds-local-35px: 35px;
+      height: var(--rds-local-35px);
+      font-size: var(--rds-font-size-sm);
     }
   }
 
@@ -137,9 +141,9 @@
       width: var(--rds-progress-step-size);
       height: var(--rds-progress-step-size);
       border-radius: var(--rds-border-radius-pill);
-      border: 2px solid var(--rds-color-gray-300);
+      border: var(--rds-spacing-xxs) solid var(--rds-color-gray-300);
       background-color: var(--rds-color-white);
-      transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
+      transition: all var(--rds-progress-transition, var(--rds-transition-base));
       font-weight: var(--rds-font-weight-medium);
       font-size: var(--rds-font-size-sm);
       color: var(--rds-color-gray-500);
@@ -173,31 +177,31 @@
 
     @include bp.between(420, 834) {
       &-step {
-        width: var(--rds-progress-step-size-mobile) !important;
-        height: var(--rds-progress-step-size-mobile) !important;
+        width: var(--rds-progress-step-size-mobile);
+        height: var(--rds-progress-step-size-mobile);
       }
 
       &--stepper {
-        width: 100% !important;
+        width: 100%;
       }
     }
 
     @include bp.between(mobile-sm, mobile-lg) {
       &-step {
-        width: var(--rds-progress-step-size-mobile) !important;
-        height: var(--rds-progress-step-size-mobile) !important;
+        width: var(--rds-progress-step-size-mobile);
+        height: var(--rds-progress-step-size-mobile);
       }
 
       &-connector {
-        width: var(--rds-progress-connector-width-mobile) !important;
+        width: var(--rds-progress-connector-width-mobile);
       }
     }
 
     &-connector {
     width: var(--rds-progress-connector-width);
-    height: 2px;
+    height: var(--rds-spacing-xxs);
     background-color: var(--rds-color-gray-300);
-      transition: background-color var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
+      transition: background-color var(--rds-progress-transition, var(--rds-transition-base));
 
       &--completed {
         background-color: var(--progress-color);
@@ -206,19 +210,19 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--progress-color);
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-spacing-xxs) solid var(--progress-color);
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-opacity-disabled, 0.6);
+    opacity: var(--rds-opacity-disabled);
     pointer-events: none;
 
     .rds-progress__stepper-step,
     .rds-progress__dash,
     .rds-progress__block {
-      opacity: var(--rds-opacity-disabled, 0.6);
+      opacity: var(--rds-opacity-disabled);
     }
   }
 
@@ -233,11 +237,11 @@
 
   @media (prefers-contrast: high) {
     .rds-progress__stepper-step {
-      border-width: 3px;
+      border-width: var(--rds-spacing-micro);
     }
 
     .rds-progress__stepper-connector {
-      height: 3px;
+      height: var(--rds-spacing-micro);
     }
   }
 
@@ -259,9 +263,9 @@
         width: var(--rds-progress-inner-dot-size);
         height: var(--rds-progress-inner-dot-size);
         border-radius: var(--rds-border-radius-pill);
-        border: 2px solid var(--rds-color-gray-600);
+        border: var(--rds-spacing-xxs) solid var(--rds-color-gray-600);
         background-color: transparent;
-        transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
+        transition: all var(--rds-progress-transition, var(--rds-transition-base));
       }
 
   &--circle.rds-progress__stepper-step--completed .rds-progress__stepper-inner-dot,

@@ -5,7 +5,8 @@
 
   .MuiChip-label {
     display: block;
-    line-height: 1.43;
+    --rds-line-height-local-1_43: 1.43;
+    line-height: var(--rds-line-height-local-1_43);
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -14,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 5px 0 -6px;
+    margin: 0 var(--rds-spacing-tight) 0 var(--rds-spacing-neg-6);
   }
 }
 
@@ -22,7 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--rds-spacing-xs, 8px);
+  gap: var(--rds-spacing-xs);
 }
 
 [data-theme="dark"] {
@@ -37,10 +38,10 @@
 
   .MuiChip-filled .MuiChip-deleteIcon,
   .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
-    color: var(--rds-text-primary) !important;
+    color: var(--rds-text-primary);
   }
 
   .MuiChip-outlined .MuiChip-deleteIcon {
-    color: inherit !important;
+    color: inherit;
   }
 }

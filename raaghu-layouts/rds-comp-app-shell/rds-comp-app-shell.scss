@@ -1,6 +1,6 @@
 .rds-appshell-appbar {
   width: 100%;
-  z-index: var(--rds-z-index-dropdown, 1000);
+  z-index: var(--rds-z-index-dropdown);
   
   &--fixed {
     position: fixed;
@@ -9,7 +9,8 @@
     right: 0;
     background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2);
-    transition: box-shadow 0.2s ease;
+    --rds-duration-local-0_2s: 0.2s;
+    transition: box-shadow var(--rds-duration-local-0_2s) ease;
   }
 }
 
@@ -21,29 +22,29 @@
   .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: var(--rds-font-weight-semibold);
   }
   
   .MuiTabs-indicator {
-    background-color: var(--rds-color-primary) !important;
-    height: 3px !important;
+    background-color: var(--rds-color-primary);
+    height: var(--rds-spacing-micro);
   }
   
   .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: var(--rds-font-weight-semibold);
   }
   
   .MuiTab-root:hover,
   .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary-hover) !important;
+    color: var(--rds-color-primary-hover);
     opacity: 0.8;
   }
   
   .MuiTab-root.Mui-focusVisible,
   .MuiBottomNavigationAction-root.Mui-focusVisible {
-    background-color: var(--rds-color-primary-container) !important;
+    background-color: var(--rds-color-primary-container);
   }
 }
 
@@ -51,21 +52,21 @@
 // primary token so the text colour and border stay consistent.
 .topnav-layout .rds-header__tabs-inline {
   .MuiTab-root {
-    color: var(--rds-color-on-surface) !important;
+    color: var(--rds-color-on-surface);
 
     &:hover {
-      color: var(--rds-color-primary) !important;
-      background-color: var(--rds-color-primary-container) !important;
-      opacity: 1 !important;
+      color: var(--rds-color-primary);
+      background-color: var(--rds-color-primary-container);
+      opacity: 1;
     }
 
     &.Mui-selected {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary);
     }
   }
 
   .MuiTabs-indicator {
-    background-color: var(--rds-color-primary) !important;
+    background-color: var(--rds-color-primary);
   }
 }
 
@@ -77,7 +78,7 @@
   display: flex;
   
   #sidebar {
-    height: 100vh !important;
+    height: 100vh;
   }
   
   .sidebar-layout {
@@ -93,14 +94,15 @@
     
     > .rds-appshell-appbar {
       position: relative;
-      z-index: var(--rds-z-index-dropdown, 1000);
+      z-index: var(--rds-z-index-dropdown);
     }
   }
 }
 
 .sidebar-layout {
   flex: 0 0 auto;
-  transition: width 0.3s ease;
+  --rds-duration-local-0_3s: 0.3s;
+  transition: width var(--rds-duration-local-0_3s) ease;
 }
 
 .topnav-layout {
@@ -143,8 +145,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: bold;
+  --rds-font-size-local-2rem: 2rem;
+  font-size: var(--rds-font-size-local-2rem);
+  font-weight: var(--rds-font-weight-bold);
   z-index: var(--rds-z-index-layer-1);
   pointer-events: none;
 }
@@ -155,7 +158,7 @@
   align-items: center;
   justify-content: center;
   background: var(--rds-surface-subtle);
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-spacing-98));
   width: 100%;
 }
 
@@ -163,7 +166,7 @@ html[data-theme="dark"] {
   .rds-appshell-add-layout-center,
   .rds-appshell-add-layout-flex-center,
   .side-nav .sidenav-mobile-content {
-    background: var(--rds-surface-dark-deep, #1b1d1f);
+    background: var(--rds-surface-dark-deep);
   }
 }
 
@@ -171,7 +174,7 @@ html[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 body[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 html[data-theme="dark"] .side-nav .sidenav-desktop-content,
 body[data-theme="dark"] .side-nav .sidenav-desktop-content {
-  background: var(--rds-surface-dark-deep, #1b1d1f);
+  background: var(--rds-surface-dark-deep);
 }
 
 @media (min-width: 769px) {
@@ -184,9 +187,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .topnav-layout .rds-footer-navigation,
     .triPane .topnav-layout .MuiBottomNavigation-root,
     .triPane .topnav-layout .rds-footer-navigation {
-      background: var(--rds-surface-dark, #1f2123) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      background: var(--rds-surface-dark);
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+      color: var(--rds-text-primary);
     }
 
     .double-nav .MuiBottomNavigation-root .MuiBottomNavigationAction-root,
@@ -197,7 +200,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .rds-footer-navigation .MuiTab-root,
     .triPane .MuiBottomNavigation-root .MuiTab-root,
     .triPane .rds-footer-navigation .MuiTab-root {
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      color: var(--rds-text-primary);
     }
   }
 }
@@ -221,8 +224,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-add-layout-text {
-  font-size: 2rem;
-  font-weight: bold;
+  --rds-font-size-local-2rem: 2rem;
+  font-size: var(--rds-font-size-local-2rem);
+  font-weight: var(--rds-font-weight-bold);
 }
 
 .rds-appshell-side-nav-layout {
@@ -230,29 +234,31 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: 400px;
+  --rds-local-400px: 400px;
+  min-height: var(--rds-local-400px);
 }
 
 .rds-appshell-side-nav-center {
   flex: 1;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: calc(100vh - 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--rds-spacing-52));
   height: 100%;
   width: 100%;
   
   .rds-appshell-add-layout-flex-center {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     position: relative;
     
     .rds-appshell-add-layout-text {
-      font-size: 2rem;
-      font-weight: bold;
+      --rds-font-size-local-2rem: 2rem;
+      font-size: var(--rds-font-size-local-2rem);
+      font-weight: var(--rds-font-weight-bold);
       color: var(--rds-text-secondary);
       text-align: center;
       position: absolute;
@@ -266,15 +272,18 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 
 .rds-appshell-side-nav-left {
   flex: 0 0 245px;
-  min-width: 245px;
-  max-width: 245px;
+  --rds-local-245px: 245px;
+  min-width: var(--rds-local-245px);
+  --rds-local-245px: 245px;
+  max-width: var(--rds-local-245px);
   height: 100%;
 }
 
 .rds-appshell-side-nav-right {
   flex: 0 0 80px;
-  min-width: 80px;
-  max-width: 120px;
+  min-width: var(--rds-spacing-80-px);
+  --rds-local-120px: 120px;
+  max-width: var(--rds-local-120px);
   height: 100%;
 }
 
@@ -285,13 +294,13 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  margin-top: 68px;
+  margin-top: var(--rds-spacing-68);
 }
 
 .rds-story-double-nav-content {
   display: flex;
   flex-direction: row;
-  gap: calc(var(--rds-spacing-sm) - 1px);
+  gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-hairline));
 }
 
 .rds-story-relaxing-layout {
@@ -300,21 +309,25 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   height: 100vh;
   width: 100%;
   position: relative;
-  margin-top: 50px;
+  --rds-local-50px: 50px;
+  margin-top: var(--rds-local-50px);
 }
 
 .rds-story-relaxing-content {
   display: flex;
   flex-direction: row;
   min-height: 0;
-  padding-top: 50px;
+  --rds-local-50px: 50px;
+  padding-top: var(--rds-local-50px);
   position: relative;
   z-index: var(--rds-z-index-layer-1);
 }
 
 .rds-story-relaxing-sidebar {
-  min-width: 245px;
-  max-width: 245px;
+  --rds-local-245px: 245px;
+  min-width: var(--rds-local-245px);
+  --rds-local-245px: 245px;
+  max-width: var(--rds-local-245px);
   height: 100%;
   position: relative;
   z-index: var(--rds-z-index-raised);
@@ -323,9 +336,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 .rds-story-standard-content {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 64px);
-  height: calc(100vh - 64px);
-  margin-top: 64px;
+  min-height: calc(100vh - var(--rds-spacing-3xl));
+  height: calc(100vh - var(--rds-spacing-3xl));
+  margin-top: var(--rds-spacing-3xl);
   z-index: var(--rds-z-index-layer-1);
   
   .rds-appshell-add-layout-center {
@@ -338,8 +351,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
+    --rds-font-size-local-2rem: 2rem;
+    font-size: var(--rds-font-size-local-2rem);
+    font-weight: var(--rds-font-weight-bold);
     z-index: var(--rds-z-index-layer-1);
   }
 }
@@ -377,24 +391,25 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   cursor: pointer;
   padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   border-radius: var(--rds-border-radius-sm);
-  transition: background-color 0.2s;
+  --rds-duration-local-0_2s: 0.2s;
+  transition: background-color var(--rds-duration-local-0_2s);
   
   &:hover {
     background-color: var(--rds-action-hover);
   }
   
   &--primary {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: var(--rds-font-weight-semibold);
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary);
     }
   }
   
   &--inherit {
     color: inherit;
-    font-weight: 400;
+    font-weight: var(--rds-font-weight-regular);
     
     .rds-story-sub-tab-icon {
       color: inherit;
@@ -408,82 +423,85 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 
 #sidebar.toggle.hide,
 nav#sidebar {
-  box-shadow: var(--rds-elevation-2) !important;
-  z-index: var(--rds-z-index-layer-1) !important;
+  box-shadow: var(--rds-elevation-2);
+  z-index: var(--rds-z-index-layer-1);
 }
 
 #sidebar.toggle.hide {
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-spacing-98));
 }
 
 nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.pt-xxl-0.pt-xl-0.pt-lg-0.pt-md-0.pt-4.shadow.px-2.side-navigation.hide.toggle-sidebar-menu.show {
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - var(--rds-spacing-98));
 }
 
 #details-pane-app-shell {
   margin-top: var(--rds-spacing-md);
-  height: calc(100vh - 82px);
+  --rds-local-82px: 82px;
+  height: calc(100vh - var(--rds-local-82px));
   display: flex;
   flex-direction: column;
 }
 
 #details-pane-app-shell .rds-comp-details-pane {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 
 #details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row,
 #details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row--scrollable {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin: 0 !important;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
 #details-pane-app-shell .detail-pane-container {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
-  margin-top: 200px;
+  --rds-local-200px: 200px;
+  margin-top: var(--rds-local-200px);
 }
 
 #detail-pane-one-three-one {
   margin-top: var(--rds-spacing-md);
-  height: calc(100vh - 82px);
+  --rds-local-82px: 82px;
+  height: calc(100vh - var(--rds-local-82px));
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 #detail-pane-one-three-one .rds-comp-details-pane {
-  height: 100% !important;
-  flex-direction: column !important;
-  padding: calc(var(--rds-spacing-xs) * 1.25) !important;
-  overflow: hidden !important;
+  height: 100%;
+  flex-direction: column;
+  padding: calc(var(--rds-spacing-xs) * 1.25);
+  overflow: hidden;
 }
 
 #detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row,
 #detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row--scrollable {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin: 0 !important;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
 #detail-pane-one-three-one .detail-pane-container {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 #detail-pane-one-three-one .custom-content-wrapper {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1,
@@ -501,14 +519,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 84px;
-    margin-left: 87px;
+    --rds-local-84px: 84px;
+    margin-top: var(--rds-local-84px);
+    --rds-local-87px: 87px;
+    margin-left: var(--rds-local-87px);
   }
   
   .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper,
   .css-1movy1a .MuiDrawer-paper {
-    margin-top: 84px;
-    margin-left: 12px;
+    --rds-local-84px: 84px;
+    margin-top: var(--rds-local-84px);
+    margin-left: var(--rds-spacing-12-px);
   }
 }
 
@@ -524,12 +545,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 67px;
-    margin-left: 12px;
+    margin-top: var(--rds-spacing-67);
+    margin-left: var(--rds-spacing-12-px);
   }
   
   .rds-header__toolbar {
-    gap: 0 !important;
+    gap: 0;
   }
   
   .topnav-layout {
@@ -550,7 +571,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 84px;
+    --rds-local-84px: 84px;
+    margin-top: var(--rds-local-84px);
     margin-left: var(--rds-spacing-md);
   }
 }
@@ -559,10 +581,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: block;
   
   &__header {
-    margin: 0 0 var(--rds-spacing-md, 16px);
+    margin: 0 0 var(--rds-spacing-md);
     padding: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: var(--rds-font-size-xl);
+    font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
   }
   
@@ -571,13 +593,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   &--small .rds-comp-app-shell-item__header {
-    font-size: 1rem;
-    margin-bottom: var(--rds-spacing-sm, 12px);
+    font-size: var(--rds-font-size-md);
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &--large .rds-comp-app-shell-item__header {
-    font-size: 1.5rem;
-    margin-bottom: var(--rds-spacing-lg, 20px);
+    font-size: var(--rds-font-size-2xl);
+    margin-bottom: var(--rds-spacing-lg);
   }
 }
 
@@ -585,7 +607,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .TopNav, .Default, .relaxing, .side-nav, .triPane, .double-nav {
     .rds-header__navigation,
     .MuiTabs-root {
-      display: none !important;
+      display: none;
     }
   }
   
@@ -594,102 +616,102 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .MuiAppBar-root .MuiTabs-root,
   .rds-header__navigation .MuiTabs-root,
   .rds-header__toolbar .MuiTabs-root {
-    display: none !important;
+    display: none;
   }
   
   .TopNav {
     .rds-header__sub-tabs,
     .rds-story-sub-tabs {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      grid-gap: var(--rds-spacing-sm) !important;
-      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
-      justify-content: start !important;
-      width: 100% !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+      justify-content: start;
+      width: 100%;
       
       .MuiButton-root,
       .rds-story-sub-tab-button {
-        width: 100% !important;
-        justify-content: flex-start !important;
-        text-align: left !important;
-        padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-        font-size: var(--rds-font-size-xs, 13px) !important;
-        min-width: auto !important;
-        white-space: nowrap !important;
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+        padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        font-size: var(--rds-font-size-xs);
+        min-width: auto;
+        white-space: nowrap;
         
         .MuiSvgIcon-root,
         .rds-story-sub-tab-icon {
-          margin-right: 6px !important;
-          font-size: var(--rds-font-size-lg) !important;
+          margin-right: var(--rds-spacing-compact);
+          font-size: var(--rds-font-size-lg);
         }
       }
     }
     
     .rds-header__sub-tabs .MuiButton-root:nth-child(5),
     .rds-story-sub-tabs .rds-story-sub-tab-button:nth-child(5) {
-      grid-column: 1 / -1 !important;
-      max-width: 50% !important;
+      grid-column: 1 / -1;
+      max-width: 50%;
     }
     
     .rds-profile-menu__name,
     .rds-profile-menu__email,
     .rds-profile-menu__chevron {
-      display: none !important;
+      display: none;
     }
     
     .rds-profile-menu__button {
-      min-width: auto !important;
-      padding: var(--rds-spacing-sm) !important;
+      min-width: auto;
+      padding: var(--rds-spacing-sm);
     }
     
     .rds-story-topnav-content {
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl);
       
       .rds-appshell-add-layout-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
       }
     }
   }
   
   // Top Nav story specific mobile fix
   .rds-story-topnav-content {
-    padding-bottom: 64px !important;
+    padding-bottom: var(--rds-spacing-3xl);
     overflow: hidden;
     box-sizing: border-box;
     
     .rds-appshell-add-layout-center {
-      position: relative !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      text-align: center !important;
-      top: auto !important;
-      left: auto !important;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      top: auto;
+      left: auto;
     }
   }
   
   .triPane {
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      font-family: var(--rds-font-family-base) !important;
+      font-family: var(--rds-font-family-base);
       
       button {
-        background: none !important;
-        border: none !important;
-        outline: none !important;
-        text-decoration: none !important;
-        text-shadow: none !important;
-        box-shadow: none !important;
-        font-variant: normal !important;
-        text-rendering: optimizeLegibility !important;
+        background: none;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        text-shadow: none;
+        box-shadow: none;
+        font-variant: normal;
+        text-rendering: optimizeLegibility;
         
         &::before,
         &::after {
-          content: '' !important;
-          display: none !important;
+          content: '';
+          display: none;
         }
       }
     }
@@ -697,113 +719,113 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .rds-footer-navigation,
   .MuiBottomNavigation-root {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: var(--rds-z-index-modal, 1400) !important;
-    border-top: 1px solid var(--rds-border-default) !important;
-    box-shadow: var(--rds-elevation-3) !important;
-    height: 56px !important;
-    display: flex !important;
-    align-items: center !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--rds-z-index-modal);
+    border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+    box-shadow: var(--rds-elevation-3);
+    height: var(--rds-spacing-56-px);
+    display: flex;
+    align-items: center;
     
     .MuiTabs-root,
     .rds-header__navigation {
-      display: none !important;
+      display: none;
     }
     
     > div {
-      display: flex !important;
-      width: 100% !important;
-      height: 100% !important;
-      align-items: center !important;
-      justify-content: space-around !important;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: space-around;
       
       > button {
-        background: none !important;
-        border: none !important;
-        padding: var(--rds-spacing-sm) var(--rds-spacing-xs) !important;
-        cursor: pointer !important;
-        flex: 1 !important;
-        text-align: center !important;
-        font-size: var(--rds-font-size-caption, 11px) !important;
-        font-weight: 400 !important;
-        color: inherit !important;
-        min-width: 0 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        height: 100% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-shadow: none !important;
-        text-decoration: none !important;
+        background: none;
+        border: none;
+        padding: var(--rds-spacing-sm) var(--rds-spacing-xs);
+        cursor: pointer;
+        flex: 1;
+        text-align: center;
+        font-size: var(--rds-font-size-caption);
+        font-weight: var(--rds-font-weight-regular);
+        color: inherit;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: none;
+        text-decoration: none;
         
         &:hover {
-          background-color: var(--rds-action-hover) !important;
+          background-color: var(--rds-action-hover);
         }
         
         &[data-active="true"] {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
+          color: var(--rds-color-primary);
+          font-weight: var(--rds-font-weight-semibold);
         }
         
         &::before,
         &::after {
-          content: none !important;
-          display: none !important;
+          content: none;
+          display: none;
         }
       }
     }
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: var(--rds-spacing-micro);
     }
   }
   
   .double-nav, .triPane {
     .MuiTabs-root:not(.rds-footer-navigation *),
     .rds-header__navigation:not(.rds-footer-navigation *) {
-      display: none !important;
+      display: none;
     }
     
     .rds-footer-navigation:not(:first-of-type),
     .MuiBottomNavigation-root:not(:first-of-type) {
-      display: none !important;
+      display: none;
     }
     
     .rds-footer-navigation button,
     .MuiBottomNavigation-root button {
-      text-indent: 0 !important;
-      letter-spacing: 0 !important;
-      text-shadow: none !important;
+      text-indent: 0;
+      letter-spacing: 0;
+      text-shadow: none;
       
       &::before,
       &::after {
-        content: none !important;
-        display: none !important;
+        content: none;
+        display: none;
       }
     }
   }
   
   .double-nav, .side-nav, .triPane, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
         color: inherit;
       }
       
@@ -815,13 +837,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
         color: inherit;
       }
       
@@ -837,11 +859,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(0);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -850,11 +873,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -872,19 +896,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         top: 0;
         left: 0;
         height: 100vh;
-        width: 240px;
-        z-index: var(--rds-z-index-modal, 1400);
+        width: var(--rds-spacing-240);
+        z-index: var(--rds-z-index-modal);
         transform: translateX(0);
-        transition: transform 0.3s ease;
-        background: var(--rds-background-paper, #ffffff);
+        --rds-duration-local-0_3s: 0.3s;
+        transition: transform var(--rds-duration-local-0_3s) ease;
+        background: var(--rds-background-paper);
         box-shadow: var(--rds-elevation-3);
       }
       
       .rds-story-standard-content {
-        margin-left: 0 !important;
-        margin-top: 48px !important;
-        padding-bottom: 20px !important;
-        min-height: calc(100vh - 112px) !important;
+        margin-left: 0;
+        margin-top: var(--rds-spacing-2xl);
+        padding-bottom: var(--rds-spacing-20-px);
+        --rds-local-112px: 112px;
+        min-height: calc(100vh - var(--rds-local-112px));
         overflow-y: auto;
       }
     }
@@ -894,11 +920,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -913,30 +940,31 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-appshell-appbar,
     .MuiAppBar-root {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-drawer, 1200) !important;
-      width: 100% !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-drawer);
+      width: 100%;
     }
     
     .MuiTabs-root,
     .rds-header__navigation {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-drawer, 1200) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-drawer);
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     }
     
     .rds-story-standard-content {
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      margin-bottom: 44px;
-      padding-bottom: 68px;
-      min-height: calc(100vh - 136px);
+      margin-bottom: var(--rds-spacing-44);
+      padding-bottom: var(--rds-spacing-68);
+      --rds-local-136px: 136px;
+      min-height: calc(100vh - var(--rds-local-136px));
       padding-left: var(--rds-spacing-md);
       padding-right: var(--rds-spacing-md);
       overflow-y: auto;
@@ -947,9 +975,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 200px);
-        font-size: 2rem;
-        font-weight: bold;
+        --rds-local-200px: 200px;
+        min-height: calc(100vh - var(--rds-local-200px));
+        --rds-font-size-local-2rem: 2rem;
+        font-size: var(--rds-font-size-local-2rem);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
       }
     }
@@ -960,7 +990,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       flex-direction: column;
       height: 100vh;
-      padding-top: 68px;
+      padding-top: var(--rds-spacing-68);
       
       .rds-story-double-nav-content {
         display: block;
@@ -976,8 +1006,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
         
         .MuiDrawer-paper {
-          margin-left: 0 !important;
-          margin-top: 0 !important;
+          margin-left: 0;
+          margin-top: 0;
         }
       }
       
@@ -999,7 +1029,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1017,7 +1047,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 0;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: opacity var(--rds-duration-local-0_3s) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -1033,8 +1064,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          --rds-font-size-local-2rem: 2rem;
+          font-size: var(--rds-font-size-local-2rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1049,7 +1081,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      --rds-duration-local-0_2s: 0.2s;
+      transition: background-color var(--rds-duration-local-0_2s) ease;
       color: inherit;
       
       &:hover {
@@ -1057,8 +1090,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
       }
     }
     
@@ -1068,11 +1101,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 80%;
-      max-width: 400px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      --rds-local-400px: 400px;
+      max-width: var(--rds-local-400px);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
@@ -1082,7 +1117,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .doublenav-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-top: 68px;
+        padding-top: var(--rds-spacing-68);
       }
     }
     
@@ -1093,16 +1128,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
     }
   }
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - 148px);
+      --rds-local-148px: 148px;
+      min-height: calc(100vh - var(--rds-local-148px));
     }
     
     .sidenav-mobile-content {
@@ -1126,8 +1162,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          --rds-font-size-local-2rem: 2rem;
+          font-size: var(--rds-font-size-local-2rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1160,8 +1197,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         overflow-y: auto;
         
         .MuiDrawer-paper {
-          margin-top: 0 !important;
-          margin-left: 0 !important;
+          margin-top: 0;
+          margin-left: 0;
         }
       }
       
@@ -1182,7 +1219,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1198,7 +1235,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 63px;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: opacity var(--rds-duration-local-0_3s) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1210,8 +1248,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: 100%;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          --rds-font-size-local-2rem: 2rem;
+          font-size: var(--rds-font-size-local-2rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1226,7 +1265,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      --rds-duration-local-0_2s: 0.2s;
+      transition: background-color var(--rds-duration-local-0_2s) ease;
       color: inherit;
       
       &:hover {
@@ -1234,8 +1274,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
       }
     }
     
@@ -1245,11 +1285,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 80%;
-      max-width: 400px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      --rds-local-400px: 400px;
+      max-width: var(--rds-local-400px);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
@@ -1269,7 +1311,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
     }
   }
   
@@ -1286,7 +1328,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1297,8 +1339,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       position: relative;
       width: 100%;
       height: 100%;
-      margin-top: 52px;
-      padding-bottom: 56px;
+      margin-top: var(--rds-spacing-52);
+      padding-bottom: var(--rds-spacing-56-px);
     }
     
     .rds-story-relaxing-content {
@@ -1325,8 +1367,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-layer-1);
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
-          font-weight: bold;
+          --rds-font-size-local-2rem: 2rem;
+          font-size: var(--rds-font-size-local-2rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1338,7 +1381,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      z-index: var(--rds-z-index-toast, 1700) !important;
+      z-index: var(--rds-z-index-toast);
     }
   }
 }
@@ -1346,37 +1389,38 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (max-width: 576px) {
   .double-nav {
     .doublenav-mobile-content {
-      bottom: 45px !important;
+      bottom: 45px;
     }
   }
 
   .triPane {
     .tripane-mobile-content {
-      bottom: 45px !important;
+      bottom: 45px;
     }
   }
 
   .rds-story-topnav-content {
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px);
 
     .rds-appshell-add-layout-center {
-      margin-top: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
 
 @media (max-width: 480px) {
   .rds-story-topnav-content {
-    padding-bottom: 44px !important;
+    padding-bottom: var(--rds-spacing-44);
 
     .rds-appshell-add-layout-center {
-      margin-top: 210px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+      --rds-local-210px: 210px;
+      margin-top: var(--rds-local-210px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -1388,24 +1432,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-appshell-appbar .MuiTabs-root,
     .rds-header .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root),
     .MuiAppBar-root .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
-      display: none !important;
+      display: none;
     }
     
     .rds-header__toolbar .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
-      display: none !important;
+      display: none;
     }
     
     .rds-header__sub-tabs,
     .rds-story-sub-tabs,
     .rds-header__sub-header {
-      display: flex !important;
-      position: relative !important;
+      display: flex;
+      position: relative;
     }
     
     .rds-header__sub-tabs .MuiTabs-root,
     .rds-story-sub-tabs .MuiButton-root,
     .rds-header__sub-header .MuiButton-root {
-      display: inline-flex !important;
+      display: inline-flex;
     }
   }
   
@@ -1413,23 +1457,23 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header__navigation,
   .MuiBottomNavigation-root,
   .rds-footer-navigation {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: var(--rds-z-index-toast, 1700) !important;
-    box-shadow: var(--rds-elevation-3) !important;
-    background: transparent !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--rds-z-index-toast);
+    box-shadow: var(--rds-elevation-3);
+    background: transparent;
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: var(--rds-spacing-micro);
     }
   }
   
@@ -1437,26 +1481,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px);
     box-sizing: border-box;
     
     .rds-appshell-add-layout-center {
       flex: 1;
-      position: relative !important;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
       text-align: center;
-      top: auto !important;
-      left: auto !important;
+      top: auto;
+      left: auto;
     }
   }
   
   .side-nav, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
     }
@@ -1466,11 +1510,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(0);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -1479,11 +1524,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -1496,10 +1542,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - 148px);
+      --rds-local-148px: 148px;
+      min-height: calc(100vh - var(--rds-local-148px));
     }
     
     .sidenav-mobile-content {
@@ -1523,8 +1570,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          --rds-font-size-local-2_5rem: 2.5rem;
+          font-size: var(--rds-font-size-local-2_5rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
           white-space: nowrap;
@@ -1547,13 +1595,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .double-nav {
     .doublenav-mobile-content {
-      bottom: 70px !important;
+      bottom: 70px;
     }
   }
   
   .triPane {
     .tripane-mobile-content {
-      bottom: 70px !important;
+      bottom: 70px;
     }
   }
 }
@@ -1561,16 +1609,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (min-width: 834px) and (max-width: 1112px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
 
     .sidebar-layout {
-      position: relative !important;
-      transform: none !important;
-      width: auto !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      z-index: var(--rds-z-index-layer-1) !important;
+      position: relative;
+      transform: none;
+      width: auto;
+      background: transparent;
+      box-shadow: none;
+      z-index: var(--rds-z-index-layer-1);
     }
   }
 
@@ -1581,38 +1629,38 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      background: transparent !important;
-      border-top: 1px solid var(--rds-border-default) !important;
-      box-shadow: var(--rds-elevation-3) !important;
-      display: flex !important;
-      width: 100% !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-toast);
+      background: transparent;
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
+      box-shadow: var(--rds-elevation-3);
+      display: flex;
+      width: 100%;
       .MuiTabs-flexContainer {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: space-between !important;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
       
       .MuiTab-root {
-        flex: 1 !important;
-        max-width: none !important;
-        min-width: 0 !important;
+        flex: 1;
+        max-width: none;
+        min-width: 0;
         
         &.Mui-selected {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
+          color: var(--rds-color-primary);
+          font-weight: var(--rds-font-weight-semibold);
         }
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
-        top: 0 !important;
-        bottom: auto !important;
+        background-color: var(--rds-color-primary);
+        height: var(--rds-spacing-micro);
+        top: 0;
+        bottom: auto;
       }
     }
     
@@ -1621,21 +1669,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl);
       box-sizing: border-box;
       
       .rds-appshell-add-layout-center,
       .rds-appshell-add-layout-flex-center {
         flex: 1;
-        position: relative !important;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
         text-align: center;
-        top: auto !important;
-        left: auto !important;
+        top: auto;
+        left: auto;
       }
     }
   }
@@ -1647,29 +1695,29 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      display: none !important;
+      display: none;
     }
     
     .MuiBottomNavigation-root,
     .rds-footer-navigation {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      box-shadow: var(--rds-elevation-3) !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
-      display: flex !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--rds-z-index-toast);
+      box-shadow: var(--rds-elevation-3);
+      background: var(--rds-surface-primary);
+      display: flex;
 
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary) !important;
-        font-weight: 600 !important;
+        color: var(--rds-color-primary);
+        font-weight: var(--rds-font-weight-semibold);
       }
 
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
+        background-color: var(--rds-color-primary);
+        height: var(--rds-spacing-micro);
       }
     }
 
@@ -1677,29 +1725,29 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     // from the @media (max-width: 900px) block which has specificity (0,3,0).
     .topnav-layout .MuiBottomNavigation-root,
     .topnav-layout .rds-footer-navigation {
-      display: flex !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
+      display: flex;
+      background: var(--rds-surface-primary);
+      border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     }
 
     .doublenav-mobile-content,
     .tripane-mobile-content {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 70px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow-y: auto !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 70px;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
 
       .rds-appshell-add-layout-flex-center {
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        min-height: 100% !important;
-        border-radius: 0 !important;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        border-radius: 0;
       }
     }
   }
@@ -1711,30 +1759,30 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header .MuiTabs-root,
     .MuiAppBar-root .MuiTabs-root,
     .rds-header__toolbar .MuiTabs-root {
-      position: relative !important;
-      bottom: auto !important;
-      left: auto !important;
-      right: auto !important;
-      z-index: auto !important;
-      background: transparent !important;
-      border-top: none !important;
-      box-shadow: none !important;
-      display: flex !important;
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      z-index: auto;
+      background: transparent;
+      border-top: none;
+      box-shadow: none;
+      display: flex;
     }
     
     .MuiBottomNavigation-root,
     .rds-footer-navigation {
-      display: none !important;
+      display: none;
     }
   }
   
   .double-nav {
     .rds-story-double-nav-layout {
-      display: none !important;
+      display: none;
     }
     
     .doublenav-mobile-content {
-      display: flex !important;
+      display: flex;
       position: absolute;
       top: 0;
       left: 0;
@@ -1743,7 +1791,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: opacity var(--rds-duration-local-0_3s) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
       
@@ -1759,8 +1808,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          --rds-font-size-local-2_5rem: 2.5rem;
+          font-size: var(--rds-font-size-local-2_5rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -1773,11 +1823,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
     }
     
     .rds-toolbar-toggle-btn {
-      display: flex !important;
+      display: flex;
       align-items: center;
       justify-content: center;
       background: none;
@@ -1785,7 +1835,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      --rds-duration-local-0_2s: 0.2s;
+      transition: background-color var(--rds-duration-local-0_2s) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -1795,8 +1846,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
       }
     }
     
@@ -1815,63 +1866,64 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
       box-shadow: none;
-      display: block !important;
-      visibility: visible !important;
+      display: block;
+      visibility: visible;
       
       .double-nav-sidebar {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
         padding: 0;
         margin: 0;
-        visibility: visible !important;
+        visibility: visible;
         
         .rds-story-double-nav-content {
-          display: block !important;
+          display: block;
           flex: 1;
           overflow-y: auto;
           height: 100%;
-          padding-top: 68px;
-          visibility: visible !important;
+          padding-top: var(--rds-spacing-68);
+          visibility: visible;
           
           > div:first-child {
-            display: none !important;
+            display: none;
           }
           
           > div:last-child {
-            display: block !important;
-            height: calc(100vh - 68px);
-            visibility: visible !important;
+            display: block;
+            height: calc(100vh - var(--rds-spacing-68));
+            visibility: visible;
             
             .MuiDrawer-root {
-              display: block !important;
-              visibility: visible !important;
+              display: block;
+              visibility: visible;
               
               .MuiDrawer-paper {
-                margin-left: 0 !important;
-                margin-top: 0 !important;
-                position: relative !important;
-                transform: none !important;
-                width: 100% !important;
-                height: 100% !important;
-                box-shadow: none !important;
-                background: transparent !important;
-                border-right: none !important;
-                display: block !important;
-                visibility: visible !important;
+                margin-left: 0;
+                margin-top: 0;
+                position: relative;
+                transform: none;
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                background: transparent;
+                border-right: none;
+                display: block;
+                visibility: visible;
                 
                 > div {
-                  height: 100% !important;
-                  display: flex !important;
-                  flex-direction: column !important;
-                  visibility: visible !important;
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  visibility: visible;
                 }
               }
             }
@@ -1890,21 +1942,23 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 395px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      --rds-local-395px: 395px;
+      width: var(--rds-local-395px);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
-        transform: translateX(0) !important;
+        transform: translateX(0);
       }
       
       .doublenav-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-top: 68px;
+        padding-top: var(--rds-spacing-68);
         padding-left: var(--rds-spacing-md);
         padding-right: var(--rds-spacing-md);
       }
@@ -1912,10 +1966,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     &.mobile-sidebar-open {
       .sidebar-layout {
-        transform: translateX(0) !important;
+        transform: translateX(0);
         box-shadow: var(--rds-elevation-3);
-        display: block !important;
-        visibility: visible !important;
+        display: block;
+        visibility: visible;
       }
       
       .doublenav-mobile-content {
@@ -1924,24 +1978,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .doublenav-mobile-toolbar {
-        transform: translateX(100%) !important;
+        transform: translateX(100%);
       }
       
       .sidebar-layout .double-nav-sidebar {
-        display: flex !important;
-        visibility: visible !important;
+        display: flex;
+        visibility: visible;
         
         .rds-story-double-nav-content {
-          display: block !important;
-          visibility: visible !important;
+          display: block;
+          visibility: visible;
           
           > div:first-child {
-            display: none !important;
+            display: none;
           }
           
           > div:last-child {
-            display: block !important;
-            visibility: visible !important;
+            display: block;
+            visibility: visible;
           }
         }
       }
@@ -1955,24 +2009,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
     
     .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
     .css-dm61o6 .MuiDrawer-paper {
-      margin-left: 0 !important;
+      margin-left: 0;
       margin-top: 0;
     }
   }
   
   .triPane {
     .rds-story-tripane-layout {
-      display: none !important;
+      display: none;
     }
     
     .tripane-mobile-content {
-      display: flex !important;
+      display: flex;
       position: absolute;
       top: 68px;
       left: 0;
@@ -1981,7 +2035,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: opacity var(--rds-duration-local-0_3s) ease;
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1992,8 +2047,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         border-radius: var(--rds-border-radius-md);
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
-          font-weight: bold;
+          --rds-font-size-local-2_5rem: 2.5rem;
+          font-size: var(--rds-font-size-local-2_5rem);
+          font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
@@ -2002,18 +2058,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
       button {
-        font-family: inherit !important;
-        text-transform: none !important;
-        line-height: 1 !important;
+        font-family: inherit;
+        text-transform: none;
+        line-height: var(--rds-line-height-none);
         
         &::before,
         &::after {
-          content: none !important;
-          display: none !important;
+          content: none;
+          display: none;
         }
         
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
     }
     
@@ -2024,11 +2080,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: flex !important;
+      display: flex;
     }
     
     .rds-toolbar-toggle-btn {
-      display: flex !important;
+      display: flex;
       align-items: center;
       justify-content: center;
       background: none;
@@ -2036,7 +2092,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      transition: background-color 0.2s ease;
+      --rds-duration-local-0_2s: 0.2s;
+      transition: background-color var(--rds-duration-local-0_2s) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
@@ -2046,8 +2103,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       svg {
-        width: 24px;
-        height: 24px;
+        width: var(--rds-spacing-lg);
+        height: var(--rds-spacing-lg);
       }
     }
     
@@ -2066,55 +2123,56 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      width: var(--rds-spacing-240);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
+      background: var(--rds-background-paper);
       box-shadow: none;
-      display: block !important;
-      visibility: visible !important;
+      display: block;
+      visibility: visible;
       
       .tripane-sidebar {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
         padding: 0;
         margin: 0;
-        visibility: visible !important;
+        visibility: visible;
         
         > div:first-child {
-          display: block !important;
+          display: block;
           flex: 1;
           overflow-y: auto;
-          height: calc(100vh - 68px);
-          padding-top: 68px;
-          visibility: visible !important;
+          height: calc(100vh - var(--rds-spacing-68));
+          padding-top: var(--rds-spacing-68);
+          visibility: visible;
           
           .MuiDrawer-root {
-            height: 100% !important;
-            display: block !important;
-            visibility: visible !important;
+            height: 100%;
+            display: block;
+            visibility: visible;
             
             .MuiDrawer-paper {
-              margin-left: 0 !important;
-              margin-top: 0 !important;
-              position: relative !important;
-              transform: none !important;
-              width: 100% !important;
-              height: 100% !important;
-              box-shadow: none !important;
-              background: transparent !important;
-              border-right: none !important;
-              display: block !important;
-              visibility: visible !important;
+              margin-left: 0;
+              margin-top: 0;
+              position: relative;
+              transform: none;
+              width: 100%;
+              height: 100%;
+              box-shadow: none;
+              background: transparent;
+              border-right: none;
+              display: block;
+              visibility: visible;
               
               > div {
-                height: 100% !important;
-                display: flex !important;
-                flex-direction: column !important;
-                visibility: visible !important;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                visibility: visible;
               }
             }
           }
@@ -2132,15 +2190,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 395px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      --rds-local-395px: 395px;
+      width: var(--rds-local-395px);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      --rds-duration-local-0_3s: 0.3s;
+      transition: transform var(--rds-duration-local-0_3s) ease;
       box-shadow: var(--rds-elevation-3);
       
       &.open {
-        transform: translateX(0) !important;
+        transform: translateX(0);
       }
       
       .tripane-toolbar-content {
@@ -2153,10 +2213,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     &.mobile-sidebar-open {
       .sidebar-layout {
-        transform: translateX(0) !important;
+        transform: translateX(0);
         box-shadow: var(--rds-elevation-3);
-        display: block !important;
-        visibility: visible !important;
+        display: block;
+        visibility: visible;
       }
       
       .tripane-mobile-content {
@@ -2165,16 +2225,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .tripane-mobile-toolbar {
-        transform: translateX(100%) !important;
+        transform: translateX(100%);
       }
       
       .sidebar-layout .tripane-sidebar {
-        display: flex !important;
-        visibility: visible !important;
+        display: flex;
+        visibility: visible;
         
         > div:first-child {
-          display: block !important;
-          visibility: visible !important;
+          display: block;
+          visibility: visible;
         }
       }
     }
@@ -2187,7 +2247,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
   }
@@ -2196,7 +2256,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (min-width: 834px) {
   .side-nav {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout {
@@ -2205,52 +2265,54 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: auto;
       background: transparent;
       box-shadow: none;
-      display: block !important;
+      display: block;
     }
     
     .sidenav-mobile-content {
-      display: none !important;
+      display: none;
     }
     
     .sidenav-desktop-content {
-      position: fixed !important;
-      top: 52px !important;
-      left: 230px !important;
-      right: 50px !important;
-      bottom: 0 !important;
-      display: flex !important;
-      align-items: stretch !important;
-      justify-content: stretch !important;
+      position: fixed;
+      top: 52px;
+      left: 230px;
+      right: 50px;
+      bottom: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
       
       .rds-appshell-add-layout-flex-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        height: 100% !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
         background: var(--rds-surface-subtle);
       }
       
       .rds-appshell-add-layout-text {
-        font-size: 2rem;
-        font-weight: bold;
+        --rds-font-size-local-2rem: 2rem;
+        font-size: var(--rds-font-size-local-2rem);
+        font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
         text-align: center;
       }
     }
     
     .rds-appshell-side-nav-right {
-      position: fixed !important;
-      right: 0 !important;
-      top: 52px !important;
-      bottom: 0 !important;
-      width: 120px !important;
-      z-index: var(--rds-z-index-raised) !important;
-      display: block !important;
+      position: fixed;
+      right: 0;
+      top: 52px;
+      bottom: 0;
+      --rds-local-120px: 120px;
+      width: var(--rds-local-120px);
+      z-index: var(--rds-z-index-raised);
+      display: block;
     }
     
     .topnav-layout {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       width: 100%;
       position: relative;
@@ -2260,7 +2322,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout {
@@ -2272,26 +2334,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-story-relaxing-sidebar {
-      display: block !important;
-      min-width: 0px;
-      max-width: 0px;
-      height: calc(100vh - 52px);
+      display: block;
+      min-width: 0;
+      max-width: 0;
+      height: calc(100vh - var(--rds-spacing-52));
       position: relative;
       z-index: var(--rds-z-index-raised);
     }
     
     .rds-story-relaxing-content {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       min-height: 0;
       padding-top: 0;
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      height: calc(100vh - 52px);
+      height: calc(100vh - var(--rds-spacing-52));
     }
     
     .rds-story-relaxing-layout {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       height: 100vh;
       width: 100%;
@@ -2303,7 +2365,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 @media (min-width: 1025px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .sidebar-layout {
@@ -2323,20 +2385,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root,
   .rds-header__toolbar .MuiTabs-root {
-    display: flex !important;
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    z-index: auto !important;
-    background: transparent !important;
-    border-top: none !important;
-    box-shadow: none !important;
+    display: flex;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    background: transparent;
+    border-top: none;
+    box-shadow: none;
   }
   
   .MuiBottomNavigation-root,
   .rds-footer-navigation {
-    display: none !important;
+    display: none;
   }
   
   .rds-story-topnav-content {
@@ -2346,21 +2408,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-appshell-add-layout-center {
       flex: 1;
-      position: relative !important;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
       text-align: center;
-      top: auto !important;
-      left: auto !important;
+      top: auto;
+      left: auto;
     }
   }
   
   .double-nav, .triPane {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
-      display: none !important;
+      display: none;
     }
     
     .rds-toolbar-toggle-btn {
@@ -2395,13 +2457,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: var(--rds-font-weight-semibold);
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: var(--rds-spacing-micro);
     }
   }
 }
@@ -2425,7 +2487,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .sidebar-layout {
     flex: 0 0 auto;
-    transition: width 0.3s ease;
+    --rds-duration-local-0_3s: 0.3s;
+    transition: width var(--rds-duration-local-0_3s) ease;
     width: fit-content;
     z-index: var(--rds-z-index-layer-1);
   }
@@ -2448,7 +2511,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   width: 100%;
   height: 100%;
   background-color: var(--rds-overlay-dark);
-  z-index: var(--rds-z-index-drawer, 1200);
+  z-index: var(--rds-z-index-drawer);
   display: block;
   cursor: pointer;
 }

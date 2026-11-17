@@ -14,7 +14,8 @@
     @include bp.between(md, lg) {
         
         canvas {
-            height: 600px !important;
+            --rds-local-600px: 600px;
+            height: var(--rds-local-600px);
         }
     }
 }

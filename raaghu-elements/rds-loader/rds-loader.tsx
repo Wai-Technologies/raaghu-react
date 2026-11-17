@@ -125,7 +125,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5))',
+          backgroundColor: 'var(--rds-overlay-dark)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

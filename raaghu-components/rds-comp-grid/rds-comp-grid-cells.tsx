@@ -290,7 +290,7 @@ export const GridBodyCell: React.FC<GridBodyCellProps> = ({
     width: cellWidth,
     minWidth: header.minWidth || 50,
     maxWidth: header.maxWidth || 800,
-    borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+    borderRight: '1px solid var(--rds-border-default)',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

@@ -16,8 +16,8 @@
 .rds-comp-grid-container {
   width: 100%;
   height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   overflow: hidden;
   color: var(--rds-grid-text);
@@ -26,17 +26,17 @@
 }
 
 // Filter Popup -------------------------------------------------------------
-.rds-comp-grid__filter-popup { position:absolute; top:100%; right:0; width:140px; max-height:160px; overflow:auto; padding: var(--rds-spacing-xs, 4px); background:var(--rds-grid-bg); border:1px solid var(--rds-grid-border); border-radius: var(--rds-border-radius-sm, 4px); box-shadow: var(--shadow4); z-index: var(--rds-z-index-local-20); }
-.rds-comp-grid__filter-popup-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--rds-spacing-xs); }
+.rds-comp-grid__filter-popup { --rds-local-140px: 140px;  position: absolute; top: 100%; right: 0; width: var(--rds-local-140px); max-height: var(--rds-spacing-160); overflow: auto; padding: var(--rds-spacing-xs); background: var(--rds-grid-bg); border: var(--rds-border-width-thin) solid var(--rds-grid-border); border-radius: var(--rds-border-radius-sm); box-shadow: var(--shadow4); z-index: var(--rds-z-index-local-20); }
+.rds-comp-grid__filter-popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--rds-spacing-xs); }
 .rds-comp-grid__filter-section { margin-bottom: var(--rds-spacing-xs); }
 .rds-comp-grid__filter-item-active { background: var(--rds-grid-row-hover); }
 
 // Column Visibility Panel --------------------------------------------------
-.rds-comp-grid__column-panel { margin-top:0; padding: var(--rds-spacing-xs, 4px); border:1px solid var(--rds-grid-border); border-top:none; border-radius:0 0 var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px); background:var(--rds-grid-bg-alt); width:100%; }
-.rds-comp-grid__column-panel-item { display:flex; align-items:center; gap: var(--rds-spacing-xs, 4px); padding:2px var(--rds-spacing-xs, 4px); border-radius: calc(var(--rds-border-radius-sm, 4px) / 2); transition: background-color var(--rds-transition-base); &:hover{ background: var(--rds-grid-row-hover); } }
+.rds-comp-grid__column-panel { margin-top: 0; padding: var(--rds-spacing-xs); border: var(--rds-border-width-thin) solid var(--rds-grid-border); border-top: none; border-radius: 0 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm); background: var(--rds-grid-bg-alt); width: 100%; }
+.rds-comp-grid__column-panel-item { display: flex; align-items: center; gap: var(--rds-spacing-xs); padding: var(--rds-spacing-xxs) var(--rds-spacing-xs); border-radius: calc(var(--rds-border-radius-sm) / 2); transition: background-color var(--rds-transition-base); &:hover{ background: var(--rds-grid-row-hover); } }
 
 // Accessibility Helpers ----------------------------------------------------
-.rds-comp-grid__resize-handle:focus { outline:2px solid var(--colorBrandBackground, var(--rds-primary-main)); outline-offset:-2px; }
+.rds-comp-grid__resize-handle:focus { outline: var(--rds-spacing-xxs) solid var(--colorBrandBackground, var(--rds-primary-main)); outline-offset: -2px; }
 
 .rds-comp-grid--dark {
   color: var(--rds-grid-text);
@@ -44,21 +44,21 @@
 
   // Inner grid panel 
   .rds-comp-grid { 
-    background-color: var(--rds-grid-bg) !important;
+    background-color: var(--rds-grid-bg);
     border-color: var(--rds-grid-border);
   }
   
   // Table header specific styles for dark theme
   .fui-DataGridHeader,
   thead,
-  tr:first-child,
+  tr: first-child,
   .rds-comp-grid-header-row,
   th,
   .rds-comp-grid-header-cell,
   th.MuiTableCell-head,
   [role="columnheader"],
   .rds-comp-grid__header-cell {
-    background-color: var(--rds-grid-header-bg) !important;
+    background-color: var(--rds-grid-header-bg);
   }
  // .rds-comp-grid-sub-header
   // {
@@ -86,9 +86,9 @@
   div[class*="toolbar"],
   div[class*="header-controls"],
   div[class*="grid-controls"] {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
-    border-bottom-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
+    border-bottom-color: var(--rds-grid-border-soft);
   }
   
   /* Search input in the header */
@@ -108,12 +108,12 @@
   [type="search"],
   div[class*="search"] input,
   .search-input {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
     
     &::placeholder {
-      color: var(--rds-grid-text-subtle) !important;
+      color: var(--rds-grid-text-subtle);
       opacity: 0.7;
     }
   }
@@ -132,18 +132,18 @@
   div[class*="toolbar"] button,
   div[class*="header"] button,
   div[class*="controls"] button {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
     
     &:hover {
-      background-color: var(--rds-grid-row-hover) !important;
+      background-color: var(--rds-grid-row-hover);
     }
     
     /* Fix button icons and text */
     svg, span, .MuiButton-label, .MuiButton-startIcon, .MuiButton-endIcon {
-      fill: var(--rds-grid-text) !important;
-      color: var(--rds-grid-text) !important;
+      fill: var(--rds-grid-text);
+      color: var(--rds-grid-text);
     }
   }
   .rds-comp-grid__header-text,
@@ -153,7 +153,7 @@
   .rds-comp-grid-cell-text,
   .rds-comp-grid-header-title,
   .rds-comp-grid-title {
-    color: var(--rds-grid-text) !important;
+    color: var(--rds-grid-text);
   }
 
   .rds-comp-grid__btn,
@@ -182,16 +182,16 @@
   .rds-comp-grid__table,
   .rds-comp-grid table,
   .rds-comp-grid-table {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
     
     /* Table header row */
     .fui-DataGridHeader,
     thead,
-    tr:first-child,
+    tr: first-child,
     .rds-comp-grid-header-row {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
     }
     
     /* Table header cells */
@@ -200,11 +200,11 @@
     .rds-comp-grid-header-cell,
     th.MuiTableCell-head,
     [role="columnheader"] {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
-      border-bottom-color: var(--rds-grid-border-soft) !important;
-      border-right-color: var(--rds-grid-border-soft) !important;
-      font-weight: var(--rds-font-weight-semibold, 600);
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
+      border-bottom-color: var(--rds-grid-border-soft);
+      border-right-color: var(--rds-grid-border-soft);
+      font-weight: var(--rds-font-weight-semibold);
     }
     /* Table rows */
     .fui-DataGridRow,
@@ -226,7 +226,7 @@
       &--selected,
       &.selected,
       &.Mui-selected { 
-        background-color: var(--rds-grid-row-selected) !important; 
+        background-color: var(--rds-grid-row-selected); 
       }
     }
     
@@ -244,7 +244,7 @@
 
   .rds-comp-grid-pagination {
     background-color: var(--rds-grid-bg);
-    border-top: 1px solid var(--rds-grid-border);
+    border-top: var(--rds-border-width-thin) solid var(--rds-grid-border);
     color: var(--rds-neutral-0);
   }
 
@@ -270,8 +270,8 @@
   .rds-comp-grid-header-cell {
     background-color: var(--rds-grid-bg);
     color: var(--rds-neutral-0);
-    border-bottom: 2px solid var(--rds-grid-border);
-    border-right: 1px solid var(--rds-grid-border);
+    border-bottom: var(--rds-spacing-xxs) solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border);
   }
   .rds-comp-grid-row {
     background-color: var(--rds-grid-bg);
@@ -282,8 +282,8 @@
   .rds-comp-grid-cell {
     background-color: transparent;
     color: var(--rds-neutral-0);
-    border-right: 1px solid var(--rds-grid-border);
-    border-bottom: 1px solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
   }
   .rds-comp-grid-cell-text,
   .rds-comp-grid-cell-html { color: var(--rds-neutral-0); }
@@ -296,8 +296,8 @@
 .rds-comp-grid {
   width: 100%;
   height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   overflow: hidden;
 
@@ -305,20 +305,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--rds-spacing-md, 16px);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    padding: var(--rds-spacing-md);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
     background-color: var(--rds-grid-bg-alt);
 
     &-search {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
 
     &-controls {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
   }
 
@@ -326,18 +326,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--rds-spacing-sm, 8px);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    padding: var(--rds-spacing-sm);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
     background-color: var(--rds-grid-bg-alt);
 
     &-left {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
 
     &-title {
-      font-weight: var(--rds-font-weight-semibold, 600);
+      font-weight: var(--rds-font-weight-semibold);
       font-size: var(--rds-font-size-xl);
       color: var(--rds-grid-text);
     }
@@ -353,9 +353,9 @@
   }
 
   &__filters {
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     background-color: var(--rds-grid-bg-alt);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
 
     &-content {
       display: flex;
@@ -369,7 +369,8 @@
     display: flex;
     align-items: center;
     gap: var(--spacingHorizontalS);
-    min-width: 200px;
+    --rds-local-200px: 200px;
+    min-width: var(--rds-local-200px);
   }
 
   &__filter-label {
@@ -380,10 +381,11 @@
 
   &__filter-input {
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
-    min-width: 150px;
+    --rds-local-150px: 150px;
+    min-width: var(--rds-local-150px);
     
     &:focus {
       outline: none;
@@ -393,7 +395,7 @@
 
   &__filter-select {
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
     background-color: var(--colorNeutralBackground1);
@@ -406,10 +408,11 @@
 
   &__search-input {
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
-    min-width: 200px;
+    --rds-local-200px: 200px;
+    min-width: var(--rds-local-200px);
     
     &:focus {
       outline: none;
@@ -419,7 +422,7 @@
 
   &__btn {
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     background-color: var(--colorNeutralBackground1);
     color: var(--colorNeutralForeground1);
@@ -499,7 +502,7 @@
 
   &__action-btn {
     padding: var(--spacingVerticalXXS) var(--spacingHorizontalXS);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     background-color: var(--colorNeutralBackground1);
     color: var(--colorNeutralForeground1);
@@ -522,11 +525,12 @@
     top: 100%;
     right: 0;
     background-color: var(--colorNeutralBackground1);
-    border: 1px solid var(--colorNeutralStroke1);
+    border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     box-shadow: var(--shadow8);
-    z-index: var(--rds-z-index-modal, 1400);
-    min-width: 120px;
+    z-index: var(--rds-z-index-modal);
+    --rds-local-120px: 120px;
+    min-width: var(--rds-local-120px);
     display: none;
     
     .rds-comp-grid__action-menu:hover & {
@@ -566,13 +570,13 @@
 
     .fui-DataGridHeader {
       background-color: var(--rds-grid-bg-alt);
-      border-bottom: 2px solid var(--rds-grid-border);
+      border-bottom: var(--rds-spacing-xxs) solid var(--rds-grid-border);
     }
 
     .fui-DataGridHeaderCell {
-      font-weight: var(--rds-font-weight-semibold, 600);
-      padding: var(--rds-spacing-sm, 8px);
-      border-right: 1px solid var(--rds-grid-border-soft);
+      font-weight: var(--rds-font-weight-semibold);
+      padding: var(--rds-spacing-sm);
+      border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
       position: relative;
 
       &--resizable {
@@ -582,7 +586,7 @@
           right: 0;
           top: 0;
           bottom: 0;
-          width: 4px;
+          width: var(--rds-spacing-xs);
           cursor: col-resize;
           background-color: transparent;
           transition: background-color var(--rds-transition-base);
@@ -609,8 +613,8 @@
     }
 
     .fui-DataGridCell {
-      padding: var(--rds-spacing-sm, 8px);
-      border-right: 1px solid var(--rds-grid-border-soft);
+      padding: var(--rds-spacing-sm);
+      border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
     }
   }
 
@@ -618,15 +622,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-md, 16px);
-    border-top: 1px solid var(--rds-grid-border-soft);
+    padding: var(--rds-spacing-md);
+    border-top: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
   }
 
   &__loader {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-2xl, 48px);
+    padding: var(--rds-spacing-2xl);
   }
 
   &__empty-state {
@@ -634,14 +638,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-2xl, 48px);
+    padding: var(--rds-spacing-2xl);
     text-align: center;
 
     &-title {
       font-size: var(--rds-font-size-xl);
-      font-weight: var(--rds-font-weight-semibold, 600);
+      font-weight: var(--rds-font-weight-semibold);
       color: var(--rds-grid-text);
-      margin-bottom: var(--rds-spacing-sm, 8px);
+      margin-bottom: var(--rds-spacing-sm);
     }
 
     &-description {
@@ -651,12 +655,12 @@
   }
 
   &__sort-icon {
-    margin-left: var(--rds-spacing-xs, 4px);
+    margin-left: var(--rds-spacing-xs);
     color: var(--rds-grid-text-subtle);
   }
 
   &__filter-icon {
-    margin-left: var(--rds-spacing-xs, 4px);
+    margin-left: var(--rds-spacing-xs);
     color: var(--rds-grid-text-subtle);
   }
 
@@ -665,7 +669,8 @@
   }
 
   &__search-box {
-    min-width: 200px;
+    --rds-local-200px: 200px;
+    min-width: var(--rds-local-200px);
   }
 }
 
@@ -705,14 +710,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--rds-spacing-md, 16px);
-  border-bottom: 1px solid var(--rds-grid-border);
+  padding: var(--rds-spacing-md);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
   background-color: var(--rds-grid-bg-alt);
 
   &-controls {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 }
 
@@ -748,10 +753,10 @@
 }
 
 .rds-comp-grid-header-cell {
-  font-weight: var(--rds-font-weight-semibold, 600);
+  font-weight: var(--rds-font-weight-semibold);
   background-color: var(--rds-grid-bg-alt);
-  border-bottom: 2px solid var(--rds-grid-border);
-  border-right: 1px solid var(--rds-grid-border-alt);
+  border-bottom: var(--rds-spacing-xxs) solid var(--rds-grid-border);
+  border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
   padding: var(--rds-spacing-sm);
   text-align: left;
   position: relative;
@@ -785,8 +790,8 @@
 
 .rds-comp-grid-cell {
   padding: var(--rds-spacing-sm);
-  border-right: 1px solid var(--rds-grid-border-alt);
-  border-bottom: 1px solid var(--rds-grid-border);
+  border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
   position: relative;
 
   &:last-child {
@@ -834,7 +839,7 @@
     max-height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
-    margin-right: var(--rds-spacing-sm, 8px);
+    margin-right: var(--rds-spacing-sm);
   }
   
   .status-pill {
@@ -842,9 +847,9 @@
     padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-lg);
     font-size: var(--rds-font-size-sm);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     text-align: center;
-    min-width: 60px;
+    min-width: var(--rds-spacing-60);
     
     &.status-qualified {
       background-color: var(--rds-success-light);
@@ -879,15 +884,16 @@
   
   .progress-bar {
     width: 100%;
-    height: 8px;
+    height: var(--rds-spacing-sm);
     background-color: var(--rds-neutral-100);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     overflow: hidden;
     
     .progress-fill {
       height: 100%;
-      background-color: var(--rds-info-dark) !important;
-      transition: width 0.3s ease;
+      background-color: var(--rds-info-dark);
+      --rds-duration-local-0_3s: 0.3s;
+      transition: width var(--rds-duration-local-0_3s) ease;
     }
   }
   
@@ -895,18 +901,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: var(--rds-spacing-20-px);
+    height: var(--rds-spacing-20-px);
     border-radius: var(--rds-border-radius-pill);
 
     &.verified {
       background-color: var(--rds-success-main);
-      color: white;
+      color: var(--rds-neutral-0);
     }
     
     &.not-verified {
       background-color: var(--rds-error-main);
-      color: white;
+      color: var(--rds-neutral-0);
     }
   }
 }
@@ -915,15 +921,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-md, 16px);
-  border-top: 1px solid var(--rds-grid-border);
+  padding: var(--rds-spacing-md);
+  border-top: var(--rds-border-width-thin) solid var(--rds-grid-border);
 }
 
 .rds-comp-grid-loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-2xl, 48px);
+  padding: var(--rds-spacing-2xl);
 }
 
 .rds-comp-grid-empty-state {
@@ -931,40 +937,40 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-2xl, 48px);
+  padding: var(--rds-spacing-2xl);
   text-align: center;
 
   &-title {
     font-size: var(--rds-font-size-xl);
-    font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-grid-text-subtle, #666);
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    font-weight: var(--rds-font-weight-semibold);
+    color: var(--rds-grid-text-subtle);
+    margin-bottom: var(--rds-spacing-sm);
   }
 
   &-description {
     font-size: var(--rds-font-size-md);
-    color: var(--rds-grid-text-subtle, #999);
+    color: var(--rds-grid-text-subtle);
   }
 }
 
 .rds-comp-grid-sort-icon {
-  margin-left: var(--rds-spacing-xs, 4px);
-  color: var(--rds-grid-text-subtle, #666);
+  margin-left: var(--rds-spacing-xs);
+  color: var(--rds-grid-text-subtle);
 }
 
 .rds-comp-grid-filter-container {
   position: relative;
   display: inline-block;
-  z-index: var(--rds-z-index-modal, 1400);
+  z-index: var(--rds-z-index-modal);
 }
 
 .rds-comp-grid-filter-icon {
-  margin-left: var(--rds-spacing-xs, 4px);
-  color: var(--rds-grid-text-subtle, #666);
+  margin-left: var(--rds-spacing-xs);
+  color: var(--rds-grid-text-subtle);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
-    color: var(--rds-color-light, #ffffff) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
+    color: var(--rds-color-light);
   }
 }
 
@@ -978,7 +984,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: var(--rds-spacing-xs);
   cursor: col-resize;
   background-color: transparent;
   transition: background-color var(--rds-transition-base);
@@ -999,11 +1005,11 @@
 .rds-comp-grid-table {
   border-collapse: separate;
   border-spacing: 0;
-  border: 1px solid var(--rds-grid-border-alt);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
   
   th, td {
-    border-right: 1px solid var(--rds-grid-border-alt);
-    border-bottom: 1px solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
     
     &:last-child {
       border-right: none;
@@ -1011,7 +1017,7 @@
   }
   
   thead th {
-    border-bottom: 2px solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-spacing-xxs) solid var(--rds-grid-border-alt);
     background-color: var(--rds-grid-bg-alt);
   }
   
@@ -1025,52 +1031,54 @@
   position: absolute;
   top: 100%;
   right: 0;
-  width: 120px;
-  max-height: 100px;
+  --rds-local-120px: 120px;
+  width: var(--rds-local-120px);
+  --rds-local-100px: 100px;
+  max-height: var(--rds-local-100px);
   overflow: visible;
-  padding: var(--rds-spacing-xs, 4px);
+  padding: var(--rds-spacing-xs);
   background-color: var(--rds-grid-bg);
-  border: 1px solid var(--rds-grid-border);
-  border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: calc(var(--rds-border-radius-sm) / 2);
   box-shadow: var(--shadow4);
-  z-index: var(--rds-z-index-modal, 1400);
-  margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
+  z-index: var(--rds-z-index-modal);
+  margin-top: calc(var(--rds-spacing-xs) / 2);
   display: block;
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-bottom: calc(var(--rds-spacing-xs) / 2);
     font-size: var(--rds-font-size-sm);
     color: var(--rds-grid-text);
   }
 }
 
 .rds-comp-grid-filter-section {
-  margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+  margin-bottom: calc(var(--rds-spacing-xs) / 2);
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-bottom: calc(var(--rds-spacing-xs) / 2);
   }
 }
 
 .rds-comp-grid-filter-item {
-  margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
-  padding: calc(var(--rds-spacing-xs, 4px) / 2);
-  border: 1px solid var(--rds-grid-border-soft);
-  border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
+  margin-bottom: calc(var(--rds-spacing-xs) / 2);
+  padding: calc(var(--rds-spacing-xs) / 2);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
+  border-radius: calc(var(--rds-border-radius-sm) / 2);
   background-color: var(--rds-grid-bg-alt);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
-    color: var(--rds-color-light, #ffffff);
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
+    color: var(--rds-color-light);
 
     .rds-comp-grid-filter-label {
-      color: var(--rds-color-light, #ffffff);
+      color: var(--rds-color-light);
     }
   }
 
@@ -1081,24 +1089,25 @@
 
 .rds-comp-grid-filter-label {
   display: block;
-  font-weight: var(--rds-font-weight-medium, 500);
-  margin-bottom: var(--rds-spacing-xs, 4px);
+  font-weight: var(--rds-font-weight-medium);
+  margin-bottom: var(--rds-spacing-xs);
   font-size: var(--rds-font-size-md);
 }
 
 .rds-comp-grid-filter-controls {
   display: flex;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
   align-items: center;
 }
 
 .rds-comp-grid-filter-operator {
   padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
-  border: 1px solid var(--rds-border-default);
-  border-radius: var(--rds-border-radius-sm, 4px);
-  background-color: var(--rds-grid-bg, #ffffff);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
+  border-radius: var(--rds-border-radius-sm);
+  background-color: var(--rds-grid-bg);
   font-size: var(--rds-font-size-md);
-  min-width: 120px;
+  --rds-local-120px: 120px;
+  min-width: var(--rds-local-120px);
 
   &:focus {
     outline: none;
@@ -1118,12 +1127,12 @@
   position: absolute;
   right: 8px;
   pointer-events: none;
-  color: var(--rds-grid-text-subtle, #605e5c);
+  color: var(--rds-grid-text-subtle);
 }
 
 .rds-comp-grid-clear-all {
   width: 100%;
-  margin-top: var(--rds-spacing-sm, 8px);
+  margin-top: var(--rds-spacing-sm);
 }
 
 // Column visibility styles
@@ -1131,8 +1140,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  padding: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-sm);
   cursor: pointer;
   transition: background-color var(--rds-transition-base);
 
@@ -1142,20 +1151,21 @@
 }
 
 .rds-comp-grid-column-list {
-  margin-top: var(--rds-spacing-xs, 4px);
-  max-height: 150px;
+  margin-top: var(--rds-spacing-xs);
+  --rds-local-150px: 150px;
+  max-height: var(--rds-local-150px);
   overflow-y: auto;
-  border: 1px solid var(--rds-grid-border-alt);
-  border-radius: var(--rds-border-radius-sm, 4px);
-  padding: var(--rds-spacing-xs, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+  border-radius: var(--rds-border-radius-sm);
+  padding: var(--rds-spacing-xs);
 }
 
 .rds-comp-grid-column-item {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px);
-  padding: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-sm);
   transition: background-color var(--rds-transition-base);
 
   &:hover {
@@ -1188,9 +1198,9 @@
 .rds-comp-grid-column-panel {
   margin-top: 0;
   padding: var(--rds-spacing-xxs);
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-top: none;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm);
   background-color: var(--rds-background-surface);
   width: 100%;
 
@@ -1201,7 +1211,8 @@
     padding: 0 var(--rds-spacing-xxs);
     min-height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-xs);
-    transition: background-color 0.2s;
+    --rds-duration-local-0_2s: 0.2s;
+    transition: background-color var(--rds-duration-local-0_2s);
 
     &:hover {
       background-color: var(--rds-primary-light);
@@ -1214,47 +1225,47 @@
 
 // Background color variants for cell content
 .rds-grid-cell-bg-blue-light {
-  background-color: var(--rds-color-info-light, #e3f2fd);
+  background-color: var(--rds-color-info-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-indigo-light {
-  background-color: var(--rds-color-indigo-light, #e8eaf6);
+  background-color: var(--rds-color-indigo-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-pink-light {
-  background-color: var(--rds-color-pink-light, #fce4ec);
+  background-color: var(--rds-color-pink-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-green-light {
-  background-color: var(--rds-color-success-light, #e8f5e8);
+  background-color: var(--rds-color-success-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-orange-light {
-  background-color: var(--rds-color-warning-light, #fff3e0);
+  background-color: var(--rds-color-warning-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-purple-light {
-  background-color: var(--rds-color-purple-light, #f3e5f5);
+  background-color: var(--rds-color-purple-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-cyan-light {
-  background-color: var(--rds-color-cyan-light, #e1f5fe);
+  background-color: var(--rds-color-cyan-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-teal-light {
-  background-color: var(--rds-color-teal-light, #e0f2f1);
+  background-color: var(--rds-color-teal-light);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-lime-light {
-  background-color: var(--rds-color-lime-light, #f1f8e9);
+  background-color: var(--rds-color-lime-light);
   color: var(--rds-text-primary);
 }
 
@@ -1265,12 +1276,12 @@
 
 // Border radius variants
 .rds-grid-cell-rounded-sm {
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border-radius: var(--rds-border-radius-sm);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-rounded-md {
-  border-radius: var(--rds-border-radius-md, 8px);
+  border-radius: var(--rds-border-radius-md);
   color: var(--rds-text-primary);
 }
 
@@ -1280,42 +1291,42 @@
 
 .rds-comp-grid--dark {
   .rds-grid-cell-bg-indigo-light {
-    background-color: var(--rds-color-indigo-dark, rgba(63, 81, 181, 0.2));
+    background-color: var(--rds-color-indigo-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-pink-light {
-    background-color: var(--rds-color-pink-dark, rgba(233, 30, 99, 0.2));
+    background-color: var(--rds-color-pink-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-green-light {
-    background-color: var(--rds-color-success-dark, rgba(76, 175, 80, 0.2));
+    background-color: var(--rds-color-success-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-orange-light {
-    background-color: var(--rds-color-warning-dark, rgba(255, 152, 0, 0.2));
+    background-color: var(--rds-color-warning-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-purple-light {
-    background-color: var(--rds-color-purple-dark, rgba(156, 39, 176, 0.2));
+    background-color: var(--rds-color-purple-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-cyan-light {
-    background-color: var(--rds-color-cyan-dark, rgba(0, 188, 212, 0.2));
+    background-color: var(--rds-color-cyan-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-teal-light {
-    background-color: var(--rds-color-teal-dark, rgba(0, 150, 136, 0.2));
+    background-color: var(--rds-color-teal-dark);
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-lime-light {
-    background-color: var(--rds-color-lime-dark, rgba(205, 220, 57, 0.2));
+    background-color: var(--rds-color-lime-dark);
     color: var(--rds-text-primary);
   }
 

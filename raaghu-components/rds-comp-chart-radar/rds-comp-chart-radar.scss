@@ -3,31 +3,39 @@
 .rds-comp-chart-radar {
 	&-container {
 		width: 90%;
-		max-width: 680px;
-		height: 520px;
+		--rds-local-680px: 680px;
+		max-width: var(--rds-local-680px);
+		--rds-local-520px: 520px;
+		height: var(--rds-local-520px);
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
 		@include bp.up(lg) {
-			max-width: 580px;
-			height: 520px;
+			--rds-local-580px: 580px;
+			max-width: var(--rds-local-580px);
+			--rds-local-520px: 520px;
+			height: var(--rds-local-520px);
 		}
 
 		@include bp.between(sm, lg) {
-			max-width: 420px;
-			height: 280px;
+			--rds-local-420px: 420px;
+			max-width: var(--rds-local-420px);
+			--rds-local-280px: 280px;
+			height: var(--rds-local-280px);
 		}
 
 		@include bp.down(600) {
-			height: 430px !important;
-            width: 100% !important;
+			--rds-local-430px: 430px;
+			height: var(--rds-local-430px);
+            width: 100%;
 			max-width: 100%;
 		}
 
 		@include bp.down(400) {
-			height: 335px !important;
-            width: 100% !important;
+			--rds-local-335px: 335px;
+			height: var(--rds-local-335px);
+            width: 100%;
 			max-width: 100%;
 		}
 	}

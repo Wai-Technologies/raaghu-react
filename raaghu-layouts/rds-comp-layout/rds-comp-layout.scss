@@ -7,7 +7,8 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  transition: box-shadow 0.3s;
+  --rds-duration-local-0_3s: 0.3s;
+  transition: box-shadow var(--rds-duration-local-0_3s);
 }
 
 .rds-comp-layout-inner-wrapper_basic {
@@ -15,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--rds-spacing-sm, 8px);
+  padding: var(--rds-spacing-sm);
 }
 
 
@@ -23,18 +24,20 @@
 .rds-comp-layout__card_basic {
   position: relative;
   padding: var(--rds-spacing-lg); 
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background-color: var(--rds-background-default);
-  min-height: 200px;
+  --rds-local-200px: 200px;
+  min-height: var(--rds-local-200px);
   height: 83vh;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  transition: box-shadow 0.3s, border 0.3s;
+  --rds-duration-local-0_3s: 0.3s;
+  transition: box-shadow var(--rds-duration-local-0_3s), border var(--rds-duration-local-0_3s);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07)) !important
+  box-shadow: var(--rds-box-shadow-card)
 }
 
 
@@ -49,7 +52,8 @@
 }
 
 .rds-comp-layout-inner-wrapper {
-  min-height: 100px;
+  --rds-local-100px: 100px;
+  min-height: var(--rds-local-100px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,152 +62,180 @@
 
 
 .rds-comp-layout__paper {
-  border: 1px solid var(--rds-border-light);
-  border-radius: var(--rds-border-radius-sm) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-background-default);
-  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
+  box-shadow: var(--rds-box-shadow-card);
   
   &--height-xs {
-    min-height: 80px;
+    min-height: var(--rds-spacing-80-px);
     
     @include bp.up(600) {
-      min-height: 100px;
+      --rds-local-100px: 100px;
+      min-height: var(--rds-local-100px);
     }
     
     @include bp.up(md) {
-      min-height: 100px;
+      --rds-local-100px: 100px;
+      min-height: var(--rds-local-100px);
     }
   }
   
   &--height-sm {
-    min-height: 80px;
+    min-height: var(--rds-spacing-80-px);
     
     @include bp.up(600) {
-      min-height: 120px;
+      --rds-local-120px: 120px;
+      min-height: var(--rds-local-120px);
     }
     
     @include bp.up(md) {
-      min-height: 120px;
+      --rds-local-120px: 120px;
+      min-height: var(--rds-local-120px);
     }
   }
   
   &--height-md {
-    min-height: 120px;
+    --rds-local-120px: 120px;
+    min-height: var(--rds-local-120px);
     
     @include bp.up(600) {
-      min-height: 180px;
+      --rds-local-180px: 180px;
+      min-height: var(--rds-local-180px);
     }
     
     @include bp.up(md) {
-      min-height: 180px;
+      --rds-local-180px: 180px;
+      min-height: var(--rds-local-180px);
     }
   }
   
   &--height-lg {
-    min-height: 180px;
+    --rds-local-180px: 180px;
+    min-height: var(--rds-local-180px);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
     
     @include bp.up(md) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
   }
   
   &--height-xl {
-    min-height: 240px;
+    min-height: var(--rds-spacing-240);
     
     @include bp.up(600) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
   }
   
   &--height-xxl {
-    min-height: 240px;
+    min-height: var(--rds-spacing-240);
     
     @include bp.up(600) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      --rds-local-400px: 400px;
+      min-height: var(--rds-local-400px);
     }
   }
   
   &--height-full {
-    min-height: 240px;
+    min-height: var(--rds-spacing-240);
     
     @include bp.up(600) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
     
     @include bp.up(md) {
-      min-height: 500px;
+      --rds-local-500px: 500px;
+      min-height: var(--rds-local-500px);
     }
   }
   
   &--height-tall {
-    min-height: 400px;
+    --rds-local-400px: 400px;
+    min-height: var(--rds-local-400px);
     
     @include bp.up(600) {
-      min-height: 600px;
+      --rds-local-600px: 600px;
+      min-height: var(--rds-local-600px);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      --rds-local-600px: 600px;
+      min-height: var(--rds-local-600px);
     }
   }
   
   &--height-spotlight {
-    min-height: 120px;
+    --rds-local-120px: 120px;
+    min-height: var(--rds-local-120px);
     
     @include bp.up(600) {
-      min-height: 180px;
+      --rds-local-180px: 180px;
+      min-height: var(--rds-local-180px);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      --rds-local-400px: 400px;
+      min-height: var(--rds-local-400px);
     }
   }
   
   &--height-stacks {
-    min-height: 180px;
+    --rds-local-180px: 180px;
+    min-height: var(--rds-local-180px);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
     
     @include bp.up(md) {
-      min-height: 300px;
+      --rds-local-300px: 300px;
+      min-height: var(--rds-local-300px);
     }
   }
   
   &--height-relaxed-left {
-    min-height: 180px;
+    --rds-local-180px: 180px;
+    min-height: var(--rds-local-180px);
     
     @include bp.up(600) {
-      min-height: 600px;
+      --rds-local-600px: 600px;
+      min-height: var(--rds-local-600px);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      --rds-local-600px: 600px;
+      min-height: var(--rds-local-600px);
     }
   }
   
   &--height-relaxed-big {
-    min-height: 180px;
+    --rds-local-180px: 180px;
+    min-height: var(--rds-local-180px);
     
     @include bp.up(600) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      --rds-local-360px: 360px;
+      min-height: var(--rds-local-360px);
     }
   }
 }
@@ -243,8 +275,8 @@
   }
   
   .rds-layout-item {
-    flex: none !important;
-    width: 100% !important;
+    flex: none;
+    width: 100%;
   }
 }
 

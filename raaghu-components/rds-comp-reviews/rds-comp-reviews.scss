@@ -2,7 +2,7 @@
     
     .card {
         margin-bottom: var(--rds-spacing-md);
-        border: 1px solid var(--rds-border-default);
+        border: var(--rds-border-width-thin) solid var(--rds-border-default);
         overflow: hidden;
         background-color: var(--rds-color-primary-bg);
         padding: var(--rds-spacing-lg);
@@ -42,7 +42,7 @@
     &__text {
         font-size: var(--rds-font-size-sm);
         color: var(--rds-text-secondary);
-        line-height: 1.5;
+        line-height: var(--rds-line-height-normal);
         margin-top: var(--rds-spacing-sm);
         margin-bottom: 0;
         font-weight: var(--rds-font-weight-regular);
@@ -52,7 +52,7 @@
     .card-text {
         font-size: var(--rds-font-size-sm);
         color: var(--rds-text-secondary);
-        line-height: 1.5;
+        line-height: var(--rds-line-height-normal);
         margin-top: var(--rds-spacing-sm);
         margin-bottom: 0;
         font-weight: var(--rds-font-weight-regular);
@@ -60,11 +60,12 @@
     }
 
     .text-muted {
-        color: var(--rds-text-tertiary) !important;
+        color: var(--rds-text-tertiary);
         font-size: var(--rds-font-size-xs);
         font-weight: var(--rds-font-weight-regular);
         font-family: var(--rds-font-family-base);
-        letter-spacing: 0.01em;
+        --rds-letter-spacing-local-0_01em: 0.01em;
+        letter-spacing: var(--rds-letter-spacing-local-0_01em);
     }
 
     .bi-hand-thumbs-up, .bi-hand-thumbs-down, .fa-thumbs-up, .fa-thumbs-down {
@@ -82,20 +83,20 @@
         
         .card-title,
         &__title {
-            color: var(--rds-text-primary) !important;
+            color: var(--rds-text-primary);
         }
         
         .card-text,
         &__text {
-            color: var(--rds-text-secondary) !important;
+            color: var(--rds-text-secondary);
         }
         
         .text-muted {
-            color: var(--rds-text-tertiary) !important;
+            color: var(--rds-text-tertiary);
         }
         
         .review-footer {
-            border-top-color: rgba(255,255,255,0.08);
+            border-top-color: color-mix(in srgb, var(--rds-neutral-0) 8%, transparent);
         }
         
         .btn-outline-primary {
@@ -135,39 +136,39 @@
         
         .MuiSvgIcon-colorPrimary,
         svg.MuiSvgIcon-colorPrimary {
-            color: var(--rds-color-primary) !important;
+            color: var(--rds-color-primary);
         }
         
         .MuiSvgIcon-colorError,
         svg.MuiSvgIcon-colorError {
-            color: var(--rds-color-danger) !important;
+            color: var(--rds-color-danger);
         }
         
         .MuiIconButton-root,
         .MuiButton-root,
         button {
             .MuiSvgIcon-colorPrimary {
-                color: var(--rds-color-primary) !important;
+                color: var(--rds-color-primary);
             }
             
             .MuiSvgIcon-colorError {
-                color: var(--rds-color-danger) !important;
+                color: var(--rds-color-danger);
             }
             
             .fa-thumbs-up,
             .bi-hand-thumbs-up {
-                color: var(--rds-color-primary) !important;
+                color: var(--rds-color-primary);
             }
             
             .fa-thumbs-down,
             .bi-hand-thumbs-down {
-                color: var(--rds-color-danger) !important;
+                color: var(--rds-color-danger);
             }
         }
         
         .MuiTypography-root,
         .MuiTypography-body2 {
-            color: var(--rds-text-primary) !important;
+            color: var(--rds-text-primary);
         }
     }
 }
@@ -179,10 +180,10 @@
         .MuiRating-root .MuiRating-iconEmpty,
         span.MuiRating-icon.MuiRating-iconEmpty,
         label.MuiRating-label .MuiRating-iconEmpty {
-            color: rgba(255, 255, 255, 0.15) !important;
+            color: color-mix(in srgb, var(--rds-neutral-0) 15%, transparent);
             
             svg {
-                color: rgba(255, 255, 255, 0.15) !important;
+                color: color-mix(in srgb, var(--rds-neutral-0) 15%, transparent);
             }
         }
         
@@ -191,104 +192,104 @@
         span.MuiRating-icon.MuiRating-iconFilled,
         label.MuiRating-label .MuiRating-iconFilled,
         .MuiRating-decimal .MuiRating-iconFilled {
-            color: var(--rds-primary-main) !important;
+            color: var(--rds-primary-main);
             
             svg {
-                color: var(--rds-primary-main) !important;
-                fill: var(--rds-primary-main) !important;
+                color: var(--rds-primary-main);
+                fill: var(--rds-primary-main);
             }
         }
         
         .MuiRating-root {
-            color: var(--rds-primary-main) !important;
+            color: var(--rds-primary-main);
             
             svg {
-                color: inherit !important;
+                color: inherit;
             }
         }
         
         .rds-rating--color-primary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-primary, var(--rds-primary-main)) !important;
-                svg { color: var(--rds-color-primary, var(--rds-primary-main)) !important; fill: var(--rds-color-primary, var(--rds-primary-main)) !important; }
+                color: var(--rds-color-primary, var(--rds-primary-main));
+                svg { color: var(--rds-color-primary, var(--rds-primary-main)); fill: var(--rds-color-primary, var(--rds-primary-main)); }
             }
-            .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main)) !important; }
+            .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main)); }
         }
         
         .rds-rating--color-success {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-success) !important;
-                svg { color: var(--rds-color-success) !important; fill: var(--rds-color-success) !important; }
+                color: var(--rds-color-success);
+                svg { color: var(--rds-color-success); fill: var(--rds-color-success); }
             }
-            .MuiRating-root { color: var(--rds-color-success) !important; }
+            .MuiRating-root { color: var(--rds-color-success); }
         }
         
         .rds-rating--color-danger {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-danger) !important;
-                svg { color: var(--rds-color-danger) !important; fill: var(--rds-color-danger) !important; }
+                color: var(--rds-color-danger);
+                svg { color: var(--rds-color-danger); fill: var(--rds-color-danger); }
             }
-            .MuiRating-root { color: var(--rds-color-danger) !important; }
+            .MuiRating-root { color: var(--rds-color-danger); }
         }
         
         .rds-rating--color-warning {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-warning) !important;
-                svg { color: var(--rds-color-warning) !important; fill: var(--rds-color-warning) !important; }
+                color: var(--rds-color-warning);
+                svg { color: var(--rds-color-warning); fill: var(--rds-color-warning); }
             }
-            .MuiRating-root { color: var(--rds-color-warning) !important; }
+            .MuiRating-root { color: var(--rds-color-warning); }
         }
         
         .rds-rating--color-info {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-info) !important;
-                svg { color: var(--rds-color-info) !important; fill: var(--rds-color-info) !important; }
+                color: var(--rds-color-info);
+                svg { color: var(--rds-color-info); fill: var(--rds-color-info); }
             }
-            .MuiRating-root { color: var(--rds-color-info) !important; }
+            .MuiRating-root { color: var(--rds-color-info); }
         }
         
         .rds-rating--color-secondary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-secondary) !important;
-                svg { color: var(--rds-color-secondary) !important; fill: var(--rds-color-secondary) !important; }
+                color: var(--rds-color-secondary);
+                svg { color: var(--rds-color-secondary); fill: var(--rds-color-secondary); }
             }
-            .MuiRating-root { color: var(--rds-color-secondary) !important; }
+            .MuiRating-root { color: var(--rds-color-secondary); }
         }
         
         .rds-rating--color-dark {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-on-surface) !important;
-                svg { color: var(--rds-color-on-surface) !important; fill: var(--rds-color-on-surface) !important; }
+                color: var(--rds-color-on-surface);
+                svg { color: var(--rds-color-on-surface); fill: var(--rds-color-on-surface); }
             }
-            .MuiRating-root { color: var(--rds-color-on-surface) !important; }
+            .MuiRating-root { color: var(--rds-color-on-surface); }
         }
         
         .rds-rating--color-light {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-surface) !important;
-                svg { color: var(--rds-color-surface) !important; fill: var(--rds-color-surface) !important; }
+                color: var(--rds-color-surface);
+                svg { color: var(--rds-color-surface); fill: var(--rds-color-surface); }
             }
-            .MuiRating-root { color: var(--rds-color-surface) !important; }
+            .MuiRating-root { color: var(--rds-color-surface); }
         }
     }
     .rating-value {
-        font-weight: bold;
+        font-weight: var(--rds-font-weight-bold);
     }
     
 }
     .css-gmzbdb {
-        margin: 0 !important;
+        margin: 0;
     }
 
     .css-j0azdm {
-        margin: 0 !important;
+        margin: 0;
     }
  

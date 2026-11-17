@@ -54,7 +54,7 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
               height: 16,
               backgroundColor: 'var(--rds-primary-main)',
               '&:hover': {
-                boxShadow: '0 0 0 8px var(--rds-primary-focus-ring, rgba(25, 118, 210, 0.16))',
+                boxShadow: '0 0 0 8px var(--rds-primary-focus-ring)',
               },
             },
             '& .MuiSlider-track': {
@@ -63,7 +63,7 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
             },
             '& .MuiSlider-rail': {
               width: 4,
-              backgroundColor: 'var(--rds-neutral-300, #e0e0e0)',
+              backgroundColor: 'var(--rds-neutral-300)',
             },
           }}
         />

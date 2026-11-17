@@ -96,7 +96,7 @@ const RdsCompEmptyState = ({
             className="rds-comp-empty-state__title"
             data-testid="labelElement"
             style={{
-              color: isDarkMode ? "#ffffff" : "#000000",
+              color: isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)",
               fontSize: "20px",
               fontWeight: 600,
               marginBottom: "8px",
@@ -121,7 +121,7 @@ const RdsCompEmptyState = ({
             data-testid="sublabelElement"
             style={{
               textAlign: "center",
-              color: isDarkMode ? "#ffffff" : "#000000",
+              color: isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)",
             }}
             sx={{
               textAlign: "center",

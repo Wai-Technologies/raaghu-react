@@ -17,6 +17,7 @@ export default {
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/',
+    '<rootDir>/.claude/',
   ],
   collectCoverageFrom: [
     'raaghu-elements/**/*.{ts,tsx}',
@@ -55,7 +56,7 @@ export default {
       useESM: true
     }]
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],

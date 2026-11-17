@@ -174,7 +174,7 @@ const RdsButton = ({
   const paletteMain = getPaletteColor('main');
   const paletteDark = getPaletteColor('dark');
   const paletteLight = getPaletteColor('light');
-  const paletteContrast = getPaletteColor('contrastText') ?? '#ffffff';
+  const paletteContrast = getPaletteColor('contrastText') ?? 'var(--rds-neutral-0)';
 
   const getOutlinedHoverStyles = () => {
     if (!paletteMain) return {};

@@ -1746,7 +1746,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx={{ 
                       width: '60px',
                       padding: 'var(--rds-spacing-sm-px)',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -1758,7 +1758,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -1775,7 +1775,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >

@@ -3,8 +3,8 @@
   position: relative;
   --rds-stack-divider-color-light: var(--rds-border-light);
   --rds-stack-divider-color-dark: var(--rds-border-default);
-  --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
-  --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
+  --rds-stack-item-radius: var(--rds-border-radius-sm);
+  --rds-stack-item-font-weight: var(--rds-font-weight-medium);
 }
 
 .rds-stack .MuiDivider-root,
@@ -20,8 +20,8 @@
 
 .rds-stack__demo-item {
   padding: 0.25rem 0.5rem;
-  border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm, 4px));
-  font-weight: var(--rds-stack-item-font-weight, var(--rds-font-weight-medium, 500));
+  border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm));
+  font-weight: var(--rds-stack-item-font-weight, var(--rds-font-weight-medium));
   color: var(--rds-neutral-0, var(--rds-color-on-primary));
   display: inline-flex;
   align-items: center;

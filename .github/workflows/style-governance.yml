@@ -2,25 +2,61 @@ name: Style Governance
 
 on:
   push:
-    branches: [main, development, production]
+    branches: [main, development, production, development-react-v18, production-react-v18]
     paths:
       - 'raaghu-elements/**/*.scss'
       - 'raaghu-components/**/*.scss'
       - 'raaghu-layouts/**/*.scss'
-      - 'scripts/hex-baseline.txt'
-      - 'scripts/check-hex-in-scss.sh'
+      - 'raaghu-elements/**/*.ts'
+      - 'raaghu-elements/**/*.tsx'
+      - 'raaghu-components/**/*.ts'
+      - 'raaghu-components/**/*.tsx'
+      - 'raaghu-layouts/**/*.ts'
+      - 'raaghu-layouts/**/*.tsx'
+      - 'raaghu-react-themes/**/*.ts'
+      - 'raaghu-react-themes/**/*.tsx'
+      - 'raaghu-react-themes/**/*.scss'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/check-spacing-in-scss.mjs'
+      - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/check-no-important-in-scss.mjs'
+      - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/check-typography-motion-in-scss.mjs'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
-      - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/raw-px-baseline.txt'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/typography-motion-baseline.txt'
+      - 'scripts/local-dim-px-baseline.txt'
   pull_request:
-    branches: [main, development, production]
+    branches: [main, development, production, development-react-v18, production-react-v18]
     paths:
       - 'raaghu-elements/**/*.scss'
       - 'raaghu-components/**/*.scss'
       - 'raaghu-layouts/**/*.scss'
-      - 'scripts/hex-baseline.txt'
-      - 'scripts/check-hex-in-scss.sh'
+      - 'raaghu-elements/**/*.ts'
+      - 'raaghu-elements/**/*.tsx'
+      - 'raaghu-components/**/*.ts'
+      - 'raaghu-components/**/*.tsx'
+      - 'raaghu-layouts/**/*.ts'
+      - 'raaghu-layouts/**/*.tsx'
+      - 'raaghu-react-themes/**/*.ts'
+      - 'raaghu-react-themes/**/*.tsx'
+      - 'raaghu-react-themes/**/*.scss'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/check-spacing-in-scss.mjs'
+      - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/check-no-important-in-scss.mjs'
+      - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/check-typography-motion-in-scss.mjs'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
-      - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/raw-px-baseline.txt'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/typography-motion-baseline.txt'
+      - 'scripts/local-dim-px-baseline.txt'
   workflow_dispatch:
 
 permissions:
@@ -37,14 +73,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Make governance script executable
-        run: chmod +x scripts/check-hex-in-scss.sh scripts/check-spacing-in-scss.sh
+      - name: Check for hardcoded hex colors
+        run: node scripts/check-no-hex.mjs
 
-      - name: Check for new hardcoded hex colors in SCSS
-        run: bash scripts/check-hex-in-scss.sh
+      - name: Check for hardcoded px spacing in SCSS
+        run: node scripts/check-spacing-in-scss.mjs
 
-      - name: Check for new hardcoded px spacing in SCSS
-        run: bash scripts/check-spacing-in-scss.sh
+      - name: Check for raw px sizes in SCSS
+        run: node scripts/check-raw-px-in-scss.mjs
+
+      - name: Check for !important in SCSS
+        run: node scripts/check-no-important-in-scss.mjs
+
+      - name: Check for rgb and rgba literals in SCSS
+        run: node scripts/check-no-rgba-in-scss.mjs
+
+      - name: Check typography and motion literals in SCSS
+        run: node scripts/check-typography-motion-in-scss.mjs
+
+      - name: Check local custom-property lengths in SCSS
+        run: node scripts/check-local-dim-px-in-scss.mjs
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

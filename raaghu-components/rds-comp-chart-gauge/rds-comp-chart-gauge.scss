@@ -9,8 +9,10 @@
     @include bp.between(md, lg) {
        
         canvas {
-            height: 317.9px !important;
-            width: 1196px !important;
+            --rds-local-317_9px: 317.9px;
+            height: var(--rds-local-317_9px);
+            --rds-local-1196px: 1196px;
+            width: var(--rds-local-1196px);
         }
     }
 }

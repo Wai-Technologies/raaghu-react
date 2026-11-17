@@ -45,11 +45,11 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 'var(--rds-z-index-overlay, 1300)',
-      backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
-      color: 'var(--rds-neutral-0, #ffffff)',
+      backgroundColor: 'var(--rds-overlay-dark)',
+      color: 'var(--rds-neutral-0)',
     },
     '.dark-theme &.rds-backdrop, [data-theme="dark"] &.rds-backdrop': {
-      backgroundColor: 'var(--rds-overlay-semi, rgba(128, 128, 128, 0.4))',
+      backgroundColor: 'var(--rds-overlay-semi)',
     },
     ...sx
   };

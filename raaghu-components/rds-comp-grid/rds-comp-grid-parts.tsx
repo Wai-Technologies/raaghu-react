@@ -156,7 +156,7 @@ export const GridHeaderCell: React.FC<GridHeaderCellProps> = ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
-        borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+        borderRight: '1px solid var(--rds-border-default)',
         bgcolor: 'action.hover !important',
         transition: isDragging ? 'none' : 'all 0.2s ease',
         '&:last-child': { borderRight: 'none' },
@@ -356,7 +356,7 @@ export const GridDataRow: React.FC<GridDataRowProps> = ({
             sx={{
               width: '60px',
               padding: 'var(--rds-spacing-sm-px)',
-              borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+              borderRight: '1px solid var(--rds-border-default)',
               textAlign: 'center',
               verticalAlign: 'middle',
             }}

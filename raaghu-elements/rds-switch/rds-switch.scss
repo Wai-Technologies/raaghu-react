@@ -12,7 +12,7 @@
   --rds-switch-style1-track-height: 1.5rem;
   --rds-switch-style1-track-width: 5.5rem;
   --rds-switch-style3-track-height: 1.4rem;
-  --rds-switch-style4-track-height: var(--rds-spacing-sm, 8px);
+  --rds-switch-style4-track-height: var(--rds-spacing-sm);
   &__track {
     display: block;
   }
@@ -26,48 +26,48 @@
   }
 
   &:focus-visible {
-    outline: var(--rds-switch-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-switch-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &__disabled {
-    opacity: var(--rds-switch-disabled-opacity, 0.6);
+    opacity: var(--rds-switch-disabled-opacity);
     pointer-events: none;
   }
 }
 
 .MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase:hover {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase {
-  background-color: transparent !important;
+  background-color: transparent;
   
   &:hover {
-    background-color: transparent !important;
+    background-color: transparent;
   }
   
   &:focus {
-    background-color: transparent !important;
+    background-color: transparent;
   }
   
   &:active {
-    background-color: transparent !important;
+    background-color: transparent;
   }
   
   .MuiTouchRipple-root {
-    display: none !important;
+    display: none;
   }
 }
 
 .rds-switch .MuiButtonBase-root {
-  background-color: transparent !important;
+  background-color: transparent;
   
   &:hover,
   &:focus,
   &:active {
-    background-color: transparent !important;
+    background-color: transparent;
   }
 }
 
@@ -82,121 +82,122 @@
 
 .rds-switch.MuiSwitch-root,
 .rds-switch .MuiSwitch-root {
-  width: var(--rds-switch-root-width) !important;
-  height: var(--rds-switch-root-height) !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  width: var(--rds-switch-root-width);
+  height: var(--rds-switch-root-height);
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
 .rds-switch .MuiSwitch-switchBase {
-  left: 0 !important;
-  right: auto !important;
-  top: 0 !important;
-  margin: 0 !important;
-  padding: var(--rds-switch-thumb-padding) !important;
-  transform: translateX(0) !important;
+  left: 0;
+  right: auto;
+  top: 0;
+  margin: 0;
+  padding: var(--rds-switch-thumb-padding);
+  transform: translateX(0);
 }
 
 .rds-switch .MuiSwitch-switchBase.Mui-checked {
-  transform: translateX(var(--rds-switch-thumb-translate-x)) !important;
+  transform: translateX(var(--rds-switch-thumb-translate-x));
 }
 
 .rds-switch .MuiSwitch-thumb {
-  width: var(--rds-switch-thumb-size) !important;
-  height: var(--rds-switch-thumb-size) !important;
+  width: var(--rds-switch-thumb-size);
+  height: var(--rds-switch-thumb-size);
   box-sizing: border-box;
-  margin: 0 !important;
+  margin: 0;
 }
 
 .rds-switch .MuiSwitch-track {
-  opacity: 1 !important;
+  opacity: 1;
   overflow: hidden;
 }
 
 .rds-switch--style1 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl, 1.5rem)) !important;
-  width: 100% !important;
+  background-color: var(--rds-color-switch-track);
+  height: 100%;
+  border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl));
+  width: 100%;
 }
 .rds-switch--style1 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--style2 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: var(--rds-border-radius-xl, 16px) !important;
+  background-color: var(--rds-color-switch-track);
+  height: 100%;
+  border-radius: var(--rds-border-radius-xl);
 }
 .rds-switch--style2 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--style3 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  background-color: var(--rds-color-switch-track);
+  height: 100%;
+  border-radius: var(--rds-border-radius-sm);
 }
 .rds-switch--style3 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  background-color: var(--rds-color-switch-thumb);
+  border-radius: var(--rds-border-radius-sm);
 }
 
 .rds-switch--style4 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 10px !important;
-  width: 100% !important;
-  border-radius: 999px !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 0 !important;
-  right: 0 !important;
-  transform: translateY(-50%) !important;
+  background-color: var(--rds-color-switch-track);
+  height: var(--rds-spacing-cozy);
+  width: 100%;
+  --rds-local-999px: 999px;
+  border-radius: var(--rds-local-999px);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
 }
 .rds-switch--style4 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--style5 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: calc(2.5 * var(--rds-spacing-xs, 4px)) !important;
-  position: relative !important;
+  background-color: var(--rds-color-switch-track);
+  height: 100%;
+  border-radius: calc(2.5 * var(--rds-spacing-xs));
+  position: relative;
 }
 .rds-switch--style5 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--style5 .MuiSwitch-track::before {
-  content: 'On' !important;
-  position: absolute !important;
-  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  content: 'On';
+  position: absolute;
+  left: calc(var(--rds-spacing-xs) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rds-color-switch-label);
+  font-size: var(--rds-font-size-sm);
 }
 
 .rds-switch--style5 .MuiSwitch-track::after {
-  content: 'Off' !important;
-  position: absolute !important;
-  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  content: 'Off';
+  position: absolute;
+  right: calc(var(--rds-spacing-xs) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rds-color-switch-label);
+  font-size: var(--rds-font-size-sm);
 }
 
 .rds-switch--style6 .MuiSwitch-track {
-  background-color: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: calc(0.75 * var(--rds-spacing-xs, 4px)) !important;
-  position: relative !important;
+  background-color: var(--rds-color-switch-track);
+  height: 100%;
+  border-radius: calc(0.75 * var(--rds-spacing-xs));
+  position: relative;
 }
 .rds-switch--style6 .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  background-color: var(--rds-color-switch-thumb);
+  border-radius: var(--rds-border-radius-sm);
 }
 
 .rds-switch--style5,
@@ -215,49 +216,49 @@
     var(--rds-switch-root-width) - var(--rds-switch-thumb-size)
   );
 
-  width: var(--rds-switch-root-width) !important;
-  height: var(--rds-switch-root-height) !important;
+  width: var(--rds-switch-root-width);
+  height: var(--rds-switch-root-height);
 
   .MuiSwitch-switchBase {
-    padding: 0 !important;
-    top: 50% !important;
-    left: 0 !important;
-    right: auto !important;
-    width: var(--rds-switch-thumb-size) !important;
-    height: var(--rds-switch-thumb-size) !important;
-    transform: translateY(-50%) !important;
+    padding: 0;
+    top: 50%;
+    left: 0;
+    right: auto;
+    width: var(--rds-switch-thumb-size);
+    height: var(--rds-switch-thumb-size);
+    transform: translateY(-50%);
   }
 
   .MuiSwitch-switchBase.Mui-checked {
-    left: auto !important;
-    right: 0 !important;
-    transform: translateY(-50%) !important;
+    left: auto;
+    right: 0;
+    transform: translateY(-50%);
   }
 
   .MuiSwitch-thumb {
-    width: 100% !important;
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
   }
 }
 
 .rds-switch--style6 .MuiSwitch-track::before {
-  content: 'On' !important;
-  position: absolute !important;
-  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  content: 'On';
+  position: absolute;
+  left: calc(var(--rds-spacing-xs) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rds-color-switch-label);
+  font-size: var(--rds-font-size-sm);
 }
 
 .rds-switch--style6 .MuiSwitch-track::after {
-  content: 'Off' !important;
-  position: absolute !important;
-  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  content: 'Off';
+  position: absolute;
+  right: calc(var(--rds-spacing-xs) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rds-color-switch-label);
+  font-size: var(--rds-font-size-sm);
 }
 
 .rds-switch--style1 .Mui-checked + .MuiSwitch-track,
@@ -272,193 +273,193 @@
 .rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track,
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-active-bg) !important;
+  background-color: var(--rds-switch-active-bg);
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track {
-  background-color: var(--rds-switch-active-bg) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-active-bg);
+  opacity: 1;
 }
 
 .rds-switch--color-primary .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-primary-track-bg, var(--rds-primary-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-primary-track-bg, var(--rds-primary-light));
+  opacity: 1;
 }
 
 .rds-switch--color-primary .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-switch-primary-thumb-bg, var(--rds-primary-main)) !important;
+  background-color: var(--rds-switch-primary-thumb-bg, var(--rds-primary-main));
 }
 
 .rds-switch--color-primary .MuiSwitch-thumb {
-  background-color: var(--rds-background-paper) !important;
+  background-color: var(--rds-background-paper);
 }
 
 .rds-switch--color-secondary .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-secondary-track-bg, var(--rds-secondary-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-secondary-track-bg, var(--rds-secondary-light));
+  opacity: 1;
 }
 
 .rds-switch--color-secondary .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-switch-secondary-thumb-bg, var(--rds-secondary-main)) !important;
+  background-color: var(--rds-switch-secondary-thumb-bg, var(--rds-secondary-main));
 }
 
 .rds-switch--color-secondary .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--color-error .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-error-track-bg, var(--rds-error-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-error-track-bg, var(--rds-error-light));
+  opacity: 1;
 }
 
 .rds-switch--color-error .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-switch-error-thumb-bg, var(--rds-error-main)) !important;
+  background-color: var(--rds-switch-error-thumb-bg, var(--rds-error-main));
 }
 
 .rds-switch--color-error .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--color-warning .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-warning-track-bg, var(--rds-warning-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-warning-track-bg, var(--rds-warning-light));
+  opacity: 1;
 }
 
 .rds-switch--color-warning .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-switch-warning-thumb-bg, var(--rds-warning-main)) !important;
+  background-color: var(--rds-switch-warning-thumb-bg, var(--rds-warning-main));
 }
 
 .rds-switch--color-warning .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--color-info .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-info-track-bg, var(--rds-info-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-info-track-bg, var(--rds-info-light));
+  opacity: 1;
 }
 
 .rds-switch--color-info .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-primary-main) !important;
+  background-color: var(--rds-primary-main);
 }
 
 .rds-switch--color-info .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .rds-switch--color-success .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-track {
-  background-color: var(--rds-switch-success-track-bg, var(--rds-success-light)) !important;
-  opacity: 1 !important;
+  background-color: var(--rds-switch-success-track-bg, var(--rds-success-light));
+  opacity: 1;
 }
 
 .rds-switch--color-success .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-switch-success-thumb-bg, var(--rds-success-main)) !important;
+  background-color: var(--rds-switch-success-thumb-bg, var(--rds-success-main));
 }
 
 .rds-switch--color-success .MuiSwitch-thumb {
-  background-color: var(--rds-color-switch-thumb) !important;
+  background-color: var(--rds-color-switch-thumb);
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
-  background-color: var(--rds-switch-inactive-bg) !important;
+  opacity: var(--rds-switch-disabled-track-opacity);
+  background-color: var(--rds-switch-inactive-bg);
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
-  background-color: var(--rds-switch-disabled-bg) !important;
+  opacity: var(--rds-switch-disabled-track-opacity);
+  background-color: var(--rds-switch-disabled-bg);
 }
 .Mui-checked + .MuiSwitch-thumb,
 .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-primary) !important;
-  margin-left: 0 !important;
+  background-color: var(--rds-color-on-primary);
+  margin-left: 0;
 }
 
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
-  background-color: var(--rds-switch-disabled-bg) !important;
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
+  background-color: var(--rds-switch-disabled-bg);
+  opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
-  background-color: var(--rds-switch-disabled-secondary-bg, rgba(24,39,187,0.24)) !important;
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
+  background-color: var(--rds-switch-disabled-secondary-bg);
+  opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-warning .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
-  background-color: var(--rds-switch-disabled-warning-bg, rgba(255,152,0,0.24)) !important;
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
+  background-color: var(--rds-switch-disabled-warning-bg);
+  opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-default .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
-  background-color: var(--rds-switch-disabled-default-bg, rgba(158,158,158,0.24)) !important;
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
+  background-color: var(--rds-switch-disabled-default-bg);
+  opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-primary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-primary) !important;
-  opacity: var(--rds-switch-disabled-opacity, 0.6) !important;
+  background-color: var(--rds-color-on-primary);
+  opacity: var(--rds-switch-disabled-opacity);
 }
 
 .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-secondary) !important;
-  opacity: var(--rds-switch-disabled-opacity, 0.6) !important;
+  background-color: var(--rds-color-on-secondary);
+  opacity: var(--rds-switch-disabled-opacity);
 }
 
 [data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 [data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
 [data-theme="dark"] .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
-  background-color: var(--rds-switch-disabled-secondary-dark-bg, var(--rds-switch-disabled-secondary-bg)) !important;
-  opacity: 0.85 !important;
+  background-color: var(--rds-switch-disabled-secondary-dark-bg, var(--rds-switch-disabled-secondary-bg));
+  opacity: 0.85;
 }
 
 [data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 [data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
 [data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-secondary) !important;
-  opacity: 0.9 !important;
+  background-color: var(--rds-color-on-secondary);
+  opacity: 0.9;
 }
 
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-warning .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-warning) !important;
-  opacity: var(--rds-switch-disabled-opacity, 0.6) !important;
+  background-color: var(--rds-color-on-warning);
+  opacity: var(--rds-switch-disabled-opacity);
 }
 
 .rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-default .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
-  background-color: var(--rds-color-on-default) !important;
-  opacity: var(--rds-switch-disabled-opacity, 0.6) !important;
+  background-color: var(--rds-color-on-default);
+  opacity: var(--rds-switch-disabled-opacity);
 }
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track::before,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::before,
 .rds-switch--style5 .Mui-checked + .MuiSwitch-track::before,
 .rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::before {
-  color: var(--rds-color-on-primary) !important;
+  color: var(--rds-color-on-primary);
 }
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track::after,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::after,
 .rds-switch--style5 .Mui-checked + .MuiSwitch-track::after,
 .rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::after {
-  color: var(--rds-color-on-primary) !important;
+  color: var(--rds-color-on-primary);
 }
 
 .rds-switch--style1.MuiFormControlLabel-root,
@@ -466,7 +467,7 @@
 .rds-switch--style4.MuiFormControlLabel-root,
 .rds-switch--style5.MuiFormControlLabel-root,
 .rds-switch--style6.MuiFormControlLabel-root {
-  align-items: center !important;
+  align-items: center;
 }
 
 .rds-switch--style1 .MuiFormControlLabel-label,
@@ -474,12 +475,12 @@
 .rds-switch--style4 .MuiFormControlLabel-label,
 .rds-switch--style5 .MuiFormControlLabel-label,
 .rds-switch--style6 .MuiFormControlLabel-label {
-  margin-top: 0 !important;
+  margin-top: 0;
   display: inline-flex;
   align-items: center;
 }
 
 .MuiSwitch-track .css-1khxa25{
-  opacity: var(--rds-switch-disabled-track-opacity, 0.4) !important;
-  background-color: var(--rds-switch-disabled-bg) !important;
+  opacity: var(--rds-switch-disabled-track-opacity);
+  background-color: var(--rds-switch-disabled-bg);
 }

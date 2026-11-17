@@ -912,6 +912,25 @@ export const interactiveTokens = {
   alertErrorBg: '#FFDAD6',
   /** Alert warning background (neutral mid) */
   alertWarningBg: '#FED99B',
+  /** Alert loading border */
+  alertLoadingBorder: '#3D98FF',
+};
+
+/**
+ * Fixed accent colors that are not part of the brand scales.
+ * Chart and utility CSS vars read these instead of inline hex.
+ */
+export const utilityColorTokens = {
+  cyanLight: '#80DEEA',
+  cyanDark: '#00838F',
+  indigoLight: '#9FA8DA',
+  indigoDark: '#1A237E',
+  limeLight: '#E6EE9C',
+  limeDark: '#827717',
+  pinkLight: '#F48FB1',
+  pinkDark: '#880E4F',
+  tealLight: '#80CBC4',
+  tealDark: '#004D40',
 };
 
 /**
@@ -933,6 +952,10 @@ export const alphaTokens = {
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */
   actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+  /** Selected state (light) */
+  actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
+  /** Disabled control background (light) */
+  actionDisabledBgLight: 'rgba(0, 0, 0, 0.12)',
 
   // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
@@ -941,6 +964,10 @@ export const alphaTokens = {
   actionActiveDark: 'rgba(255, 255, 255, 0.16)',
   /** Disabled state (dark) */
   actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+  /** Selected state (dark) */
+  actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
+  /** Disabled control background (dark) */
+  actionDisabledBgDark: 'rgba(255, 255, 255, 0.12)',
 
   // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
@@ -1044,6 +1071,8 @@ export const miscTokens = {
   focusRingOffset: '2px',
   /** Base font size (px, for CSS var) */
   fontSizeBase: '14px',
+  /** Soft purple shadow used by the badge label chip */
+  badgeLabelShadow: '0 1px 4px rgba(108, 46, 183, 0.08)',
 };
 
 /**
@@ -1060,6 +1089,10 @@ export const spinnerTokens = {
   lightColor: '#f8f9fa',
   darkColor: '#343a40',
   animationDuration: '0.75s',
+  hashPink: 'rgba(225, 20, 98, 0.75)',
+  hashCyan: 'rgba(111, 202, 220, 0.75)',
+  hashGreen: 'rgba(61, 184, 143, 0.75)',
+  hashGold: 'rgba(233, 169, 32, 0.75)',
 };
 
 /**
@@ -1264,6 +1297,7 @@ export const designTokens = {
   component: componentTokens,
   surface: surfaceTokens,
   interactive: interactiveTokens,
+  utilityColor: utilityColorTokens,
   alpha: alphaTokens,
   elevation: elevationTokens,
   grid: gridTokens,

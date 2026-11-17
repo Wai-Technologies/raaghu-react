@@ -10,8 +10,8 @@
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color) !important;
-    opacity: 1 !important;
+    color: var(--rds-placeholder-color);
+    opacity: 1;
   }
 }
 
@@ -22,15 +22,15 @@
 }
 
 .rds-form-control .MuiFormLabel-asterisk {
-  color: var(--rds-form-control-asterisk-color) !important;
+  color: var(--rds-form-control-asterisk-color);
 }
 
 .rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
-  color: var(--rds-form-control-asterisk-color) !important;
+  color: var(--rds-form-control-asterisk-color);
 }
 
 .rds-form-control .MuiFormHelperText-root,
 .rds-form-control .css-1t6h741-MuiFormHelperText-root {
-  margin-left: 0 !important;
+  margin-left: 0;
 }

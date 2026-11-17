@@ -22,10 +22,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     const { mapType = 'default' } = props;
     const themeMode = useChartThemeMode();
     const isDarkTheme = themeMode === 'dark';
-    const mapBackgroundColor = getCSSVar(
-        '--rds-background-surface',
-        isDarkTheme ? '#424242' : '#ffffff',
-    );
+    const mapBackgroundColor = getCSSVar('--rds-background-surface');
 
     const defaultStylingFunction = (context: WorldMapStylingContext) => {
         const range = context.maxValue - context.minValue;
@@ -81,7 +78,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         return {
             fill: color,
             fillOpacity: 0.7 + (0.3 * intensity),
-            stroke: getCSSVar('--rds-border-default', isDarkTheme ? 'rgba(255,255,255,0.24)' : 'rgba(0,0,0,0.12)'),
+            stroke: getCSSVar('--rds-border-default'),
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
             cursor: 'pointer'
