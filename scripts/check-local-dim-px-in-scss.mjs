@@ -194,22 +194,34 @@ function countLocalDimInFile(file) {
   return { count, details };
 }
 
+const MECHANICAL_LOCAL = /--rds-(?:local|font-size-local|font-weight-local|line-height-local|letter-spacing-local|duration-local)-/;
+
 let TOTAL = 0;
 const offending = [];
 const allDetails = [];
+const mechanical = [];
 
 for (const dir of SCAN_DIRS) {
   for (const file of walkScss(path.join(REPO_ROOT, dir))) {
     const { count, details } = countLocalDimInFile(file);
+    const rel = path.relative(REPO_ROOT, file).replace(/\\/g, '/');
+    const text = fs.readFileSync(file, 'utf8');
+    if (MECHANICAL_LOCAL.test(text)) mechanical.push(rel);
     if (count > 0) {
       TOTAL += count;
-      const rel = path.relative(REPO_ROOT, file).replace(/\\/g, '/');
       offending.push({ count, file: rel });
       for (const d of details) {
         allDetails.push({ file: rel, ...d });
       }
     }
   }
+}
+
+if (mechanical.length) {
+  console.error(`FAIL: ${mechanical.length} file(s) still use mechanical --rds-local-* names:`);
+  mechanical.slice(0, 30).forEach((file) => console.error(`  ${file}`));
+  console.error('Name one-off sizes for the component (--rds-comments-box-max-width) or use a spacing/size token.');
+  process.exit(1);
 }
 
 console.log('Local custom-property bare px/rem scan complete');

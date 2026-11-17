@@ -10,19 +10,19 @@
   transition: border-color var(--rds-motion-duration-fast) ease, background-color var(--rds-motion-duration-fast) ease;
   resize: none;
   position: relative;
-  
+
   &--selected {
     border: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
-  
+
   &--error {
     border-color: var(--rds-color-error);
   }
-  
+
   &--active {
     border-color: var(--rds-color-primary);
   }
-  
+
   &--disabled {
     background-color: var(--rds-color-disabled-bg);
     color: var(--rds-color-disabled-text);
@@ -38,7 +38,7 @@
     bottom: var(--rds-spacing-xxs);
     width: var(--rds-resize-handle-size);
     height: var(--rds-resize-handle-size);
-    background: 
+    background:
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 0 0/6px 6px no-repeat,
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 6px 6px/6px 6px no-repeat;
     pointer-events: none;
@@ -46,6 +46,7 @@
 }
 
 .rds-comp-text-editor__wrapper {
+  --rds-text-editor-transition: 0.2s;
   .rdw-editor-toolbar,
   .rds-comp-text-editor__toolbar {
     border-color: var(--rds-color-border-light);
@@ -55,13 +56,13 @@
     border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
     margin-bottom: 0;
     transition: background-color var(--rds-motion-duration-fast) ease, border-color var(--rds-motion-duration-fast) ease;
-    
+
     .rds-comp-text-editor--disabled & {
       background-color: var(--rds-surface-subtle);
       opacity: 1;
       cursor: not-allowed;
     }
-    
+
     .rdw-option-wrapper {
       border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       padding: var(--rds-spacing-xxs);
@@ -77,23 +78,23 @@
       color: var(--rds-color-on-surface);
       text-transform: capitalize;
       transition: color var(--rds-motion-duration-fast) ease, background-color var(--rds-motion-duration-fast) ease;
-      
+
       .rds-comp-text-editor--disabled & {
         background-color: var(--rds-surface-subtle);
         border-color: var(--rds-border-default);
         cursor: not-allowed;
       }
-      
+
       &:hover {
         box-shadow: 1px 1px 0px var(--rds-color-border);
       }
-      
+
       &.rdw-option-active {
         background-color: var(--rds-color-surface-variant);
         color: var(--rds-color-primary);
       }
     }
-    
+
     .rdw-dropdown-wrapper {
       border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       background-color: var(--rds-color-surface);
@@ -147,7 +148,7 @@
         cursor: not-allowed;
       }
     }
-    
+
     .rdw-image-wrapper {
       .rdw-image-modal {
         border-radius: var(--rds-border-radius);
@@ -156,25 +157,25 @@
         border: var(--rds-border-width-thin) solid var(--rds-color-border);
         box-shadow: var(--rds-elevation-3);
         z-index: var(--rds-z-index-modal);
-        
+
         .rdw-image-modal-header-option {
           color: var(--rds-color-on-surface);
-          
+
           &.rdw-image-modal-header-option-selected {
             border-bottom-color: var(--rds-color-primary);
           }
         }
-        
+
         .rdw-image-modal-btn {
           background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary);
           border-radius: var(--rds-border-radius-sm);
-          
+
           &:hover {
             background-color: var(--rds-color-primary-dark);
             box-shadow: var(--rds-elevation-1);
           }
-          
+
           &:disabled {
             background-color: var(--rds-color-disabled-bg);
             color: var(--rds-color-disabled-text);
@@ -183,7 +184,7 @@
       }
     }
   }
-  
+
     .rdw-editor-main,
   .rds-comp-text-editor__content {
     padding: var(--rds-spacing-sm);
@@ -192,49 +193,48 @@
     line-height: var(--rds-line-height-body);
     background-color: var(--rds-color-surface);
     color: var(--rds-color-on-surface);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background-color var(--rds-duration-local-0_2s) ease, color var(--rds-duration-local-0_2s) ease;
+
+    transition: background-color var(--rds-text-editor-transition) ease, color var(--rds-text-editor-transition) ease;
     resize: vertical;
     overflow: auto;
-    
+
     .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
       color: var(--rds-neutral-900);
-      
 
     }
-    
+
     .rds-comp-text-editor--disabled & {
       background-color: var(--rds-surface-subtle);
       color: var(--rds-text-secondary);
       cursor: not-allowed;
       opacity: 1;
     }
-    
+
     blockquote {
       border-left: var(--rds-blockquote-border-width) solid var(--rds-color-border-light);
       padding-left: var(--rds-spacing-sm);
       margin-left: 0;
       color: var(--rds-color-text-secondary);
     }
-    
+
     a {
       color: var(--rds-color-primary);
       text-decoration: underline;
-      
+
       &:hover {
         color: var(--rds-color-primary-dark);
       }
     }
-    
+
     .public-DraftStyleDefault-block {
       margin: var(--rds-spacing-xs) 0;
     }
-    
+
     img {
       max-width: 100%;
       height: auto;
     }
-    
+
     pre {
       background-color: var(--rds-color-surface-variant);
       padding: var(--rds-spacing-xs);
@@ -247,19 +247,19 @@
 }
 
 .rds-comp-text-editor-label {
+  --rds-text-editor-transition: 0.2s;
   display: block;
   margin-bottom: var(--rds-spacing-xs);
   font-weight: var(--rds-font-weight-medium);
   color: var(--rds-color-on-surface);
-  --rds-duration-local-0_2s: 0.2s;
-  transition: color var(--rds-duration-local-0_2s) ease;
-  
+
+  transition: color var(--rds-text-editor-transition) ease;
 
 }
 
 .form-control-feedback {
   margin-top: var(--rds-spacing-xs);
-  
+
   .text-danger {
     color: var(--rds-color-error);
     font-size: var(--rds-font-size-small);
@@ -400,19 +400,19 @@ body.dark-theme .rds-comp-text-editor {
     }
     .rdw-image-modal {
       left: -93px;
-      --rds-local-100px: 100px;
-      max-height: calc(100vh - var(--rds-local-100px));
+
+      max-height: calc(100vh - var(--rds-text-editor-max-height));
       overflow-y: auto;
       box-shadow: var(--rds-elevation-4);
       border: var(--rds-border-width-thin) solid var(--rds-color-border);
-      
+
       @include bp.down(mobile-sm) {
         position: fixed;
         left: 50%;
         top: 70%;
         transform: translate(-50%, -50%);
-        --rds-local-260px: 260px;
-        width: var(--rds-local-260px);
+
+        width: var(--rds-text-editor-width);
         max-width: calc(100vw - var(--rds-spacing-30));
         max-height: calc(100vh - var(--rds-spacing-40-px));
         z-index: var(--rds-z-index-modal);
@@ -429,8 +429,8 @@ body.dark-theme .rds-comp-text-editor {
     .rdw-image-modal {
       right: 0;
       left: auto;
-      --rds-local-320px: 320px;
-      max-width: var(--rds-local-320px);
+
+      max-width: var(--rds-text-editor-max-width);
       box-shadow: var(--rds-elevation-4);
       border: var(--rds-border-width-thin) solid var(--rds-color-border);
       z-index: var(--rds-z-index-modal);

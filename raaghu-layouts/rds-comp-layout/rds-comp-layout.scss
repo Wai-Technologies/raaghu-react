@@ -1,14 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-layout-wrapper_basic {
+  --rds-layout-transition: 0.3s;
   min-height: 83vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  --rds-duration-local-0_3s: 0.3s;
-  transition: box-shadow var(--rds-duration-local-0_3s);
+
+  transition: box-shadow var(--rds-layout-transition);
 }
 
 .rds-comp-layout-inner-wrapper_basic {
@@ -19,28 +20,26 @@
   padding: var(--rds-spacing-sm);
 }
 
-
-
 .rds-comp-layout__card_basic {
+  --rds-layout-transition: 0.3s;
+  --rds-layout-min-height-1: 200px;
   position: relative;
-  padding: var(--rds-spacing-lg); 
+  padding: var(--rds-spacing-lg);
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background-color: var(--rds-background-default);
-  --rds-local-200px: 200px;
-  min-height: var(--rds-local-200px);
+
+  min-height: var(--rds-layout-min-height-1);
   height: 83vh;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  --rds-duration-local-0_3s: 0.3s;
-  transition: box-shadow var(--rds-duration-local-0_3s), border var(--rds-duration-local-0_3s);
+
+  transition: box-shadow var(--rds-layout-transition), border var(--rds-layout-transition);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--rds-box-shadow-card)
 }
-
-
 
 .rds-comp-layout-wrapper {
   width: 100%;
@@ -48,194 +47,201 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 .rds-comp-layout-inner-wrapper {
-  --rds-local-100px: 100px;
-  min-height: var(--rds-local-100px);
+  --rds-layout-min-height-2: 100px;
+  min-height: var(--rds-layout-min-height-2);
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-
 .rds-comp-layout__paper {
+  --rds-layout-min-height-2: 100px;
+  --rds-layout-min-height-3: 120px;
+  --rds-layout-min-height-4: 180px;
+  --rds-layout-min-height-5: 360px;
+  --rds-layout-min-height-6: 400px;
+  --rds-layout-min-height-7: 500px;
+  --rds-layout-min-height-8: 600px;
+  --rds-layout-min-height-9: 300px;
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-background-default);
   box-shadow: var(--rds-box-shadow-card);
-  
+
   &--height-xs {
     min-height: var(--rds-spacing-80-px);
-    
+
     @include bp.up(600) {
-      --rds-local-100px: 100px;
-      min-height: var(--rds-local-100px);
+
+      min-height: var(--rds-layout-min-height-2);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-100px: 100px;
-      min-height: var(--rds-local-100px);
+
+      min-height: var(--rds-layout-min-height-2);
     }
   }
-  
+
   &--height-sm {
     min-height: var(--rds-spacing-80-px);
-    
+
     @include bp.up(600) {
-      --rds-local-120px: 120px;
-      min-height: var(--rds-local-120px);
+
+      min-height: var(--rds-layout-min-height-3);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-120px: 120px;
-      min-height: var(--rds-local-120px);
+
+      min-height: var(--rds-layout-min-height-3);
     }
   }
-  
+
   &--height-md {
-    --rds-local-120px: 120px;
-    min-height: var(--rds-local-120px);
-    
+
+    min-height: var(--rds-layout-min-height-3);
+
     @include bp.up(600) {
-      --rds-local-180px: 180px;
-      min-height: var(--rds-local-180px);
+
+      min-height: var(--rds-layout-min-height-4);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-180px: 180px;
-      min-height: var(--rds-local-180px);
+
+      min-height: var(--rds-layout-min-height-4);
     }
   }
-  
+
   &--height-lg {
-    --rds-local-180px: 180px;
-    min-height: var(--rds-local-180px);
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
       min-height: var(--rds-spacing-240);
     }
-    
+
     @include bp.up(md) {
       min-height: var(--rds-spacing-240);
     }
   }
-  
+
   &--height-xl {
     min-height: var(--rds-spacing-240);
-    
+
     @include bp.up(600) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
   }
-  
+
   &--height-xxl {
     min-height: var(--rds-spacing-240);
-    
+
     @include bp.up(600) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-400px: 400px;
-      min-height: var(--rds-local-400px);
+
+      min-height: var(--rds-layout-min-height-6);
     }
   }
-  
+
   &--height-full {
     min-height: var(--rds-spacing-240);
-    
+
     @include bp.up(600) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-500px: 500px;
-      min-height: var(--rds-local-500px);
+
+      min-height: var(--rds-layout-min-height-7);
     }
   }
-  
+
   &--height-tall {
-    --rds-local-400px: 400px;
-    min-height: var(--rds-local-400px);
-    
+
+    min-height: var(--rds-layout-min-height-6);
+
     @include bp.up(600) {
-      --rds-local-600px: 600px;
-      min-height: var(--rds-local-600px);
+
+      min-height: var(--rds-layout-min-height-8);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-600px: 600px;
-      min-height: var(--rds-local-600px);
+
+      min-height: var(--rds-layout-min-height-8);
     }
   }
-  
+
   &--height-spotlight {
-    --rds-local-120px: 120px;
-    min-height: var(--rds-local-120px);
-    
+
+    min-height: var(--rds-layout-min-height-3);
+
     @include bp.up(600) {
-      --rds-local-180px: 180px;
-      min-height: var(--rds-local-180px);
+
+      min-height: var(--rds-layout-min-height-4);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-400px: 400px;
-      min-height: var(--rds-local-400px);
+
+      min-height: var(--rds-layout-min-height-6);
     }
   }
-  
+
   &--height-stacks {
-    --rds-local-180px: 180px;
-    min-height: var(--rds-local-180px);
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
       min-height: var(--rds-spacing-240);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-300px: 300px;
-      min-height: var(--rds-local-300px);
+
+      min-height: var(--rds-layout-min-height-9);
     }
   }
-  
+
   &--height-relaxed-left {
-    --rds-local-180px: 180px;
-    min-height: var(--rds-local-180px);
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      --rds-local-600px: 600px;
-      min-height: var(--rds-local-600px);
+
+      min-height: var(--rds-layout-min-height-8);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-600px: 600px;
-      min-height: var(--rds-local-600px);
+
+      min-height: var(--rds-layout-min-height-8);
     }
   }
-  
+
   &--height-relaxed-big {
-    --rds-local-180px: 180px;
-    min-height: var(--rds-local-180px);
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      --rds-local-360px: 360px;
-      min-height: var(--rds-local-360px);
+
+      min-height: var(--rds-layout-min-height-5);
     }
   }
 }
@@ -273,7 +279,7 @@
   .rds-layout.row {
     flex-direction: column;
   }
-  
+
   .rds-layout-item {
     flex: none;
     width: 100%;

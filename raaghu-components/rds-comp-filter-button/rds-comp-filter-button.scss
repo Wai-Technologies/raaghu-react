@@ -1,9 +1,8 @@
 .rds-comp-filter-button {
+  --rds-filter-button-width: 380px;
+  --rds-filter-button-max-height: 450px;
   position: relative;
   display: inline-block;
-
-
-
 
   &__trigger {
     transition: var(--rds-transition-base);
@@ -38,10 +37,10 @@
     }
     &::-webkit-scrollbar-track {
       .rds-filter-button__popover{
-    --rds-local-380px: 380px;
-    width: var(--rds-local-380px);
 
-  } 
+    width: var(--rds-filter-button-width);
+
+  }
       background-color: var(--rds-color-scrollbar-track);
     }
     &::-webkit-scrollbar-thumb {
@@ -69,8 +68,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    --rds-local-450px: 450px;
-    max-height: var(--rds-local-450px);
+
+    max-height: var(--rds-filter-button-max-height);
     background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius);
     overflow: hidden;
@@ -97,11 +96,12 @@
   }
 
   .rds-filter-button__content {
+    --rds-filter-button-max-height: 450px;
     display: flex;
     flex-direction: column;
     height: 100%;
-    --rds-local-450px: 450px;
-    max-height: var(--rds-local-450px);
+
+    max-height: var(--rds-filter-button-max-height);
   }
 
   .rds-filter-button__header {
@@ -121,13 +121,13 @@
     height: var(--rds-spacing-hairline);
     background-color: var(--rds-border-light);
   }
-  
+
   .rds-filter-button__search {
     padding: var(--rds-spacing-md);
   border-bottom: none;
     flex-shrink: 0;
   }
- 
+
   .rds-filter-button__search .MuiOutlinedInput-root {
     border-radius: var(--rds-border-radius-sm);
     background-color: var(--rds-color-surface);
@@ -160,12 +160,13 @@
     }
   }
   .rds-filter-button__header-title{
+    --rds-filter-button-line-height: 22px;
     font-family: var(--rds-font-family-base);
     font-size: var(--rds-font-size-lg);
     font-style: normal;
     font-weight: var(--rds-font-weight-medium);
-    --rds-local-22px: 22px;
-    line-height: var(--rds-local-22px);
+
+    line-height: var(--rds-filter-button-line-height);
    }
 .css-13y3d29 {
   padding: var(--rds-spacing-md);

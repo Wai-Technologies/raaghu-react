@@ -1,7 +1,8 @@
 .rds-appshell-appbar {
+  --rds-app-shell-transition-1: 0.2s;
   width: 100%;
   z-index: var(--rds-z-index-dropdown);
-  
+
   &--fixed {
     position: fixed;
     top: 0;
@@ -9,8 +10,8 @@
     right: 0;
     background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: box-shadow var(--rds-duration-local-0_2s) ease;
+
+    transition: box-shadow var(--rds-app-shell-transition-1) ease;
   }
 }
 
@@ -25,23 +26,23 @@
     color: var(--rds-color-primary);
     font-weight: var(--rds-font-weight-semibold);
   }
-  
+
   .MuiTabs-indicator {
     background-color: var(--rds-color-primary);
     height: var(--rds-spacing-micro);
   }
-  
+
   .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
     color: var(--rds-color-primary);
     font-weight: var(--rds-font-weight-semibold);
   }
-  
+
   .MuiTab-root:hover,
   .MuiBottomNavigationAction-root:hover {
     color: var(--rds-color-primary-hover);
     opacity: 0.8;
   }
-  
+
   .MuiTab-root.Mui-focusVisible,
   .MuiBottomNavigationAction-root.Mui-focusVisible {
     background-color: var(--rds-color-primary-container);
@@ -76,22 +77,22 @@
   height: 100vh;
   overflow: hidden;
   display: flex;
-  
+
   #sidebar {
     height: 100vh;
   }
-  
+
   .sidebar-layout {
     width: fit-content;
     z-index: var(--rds-z-index-layer-1);
   }
-  
+
   .topnav-layout {
     width: 100%;
     position: relative;
     z-index: var(--rds-z-index-layer-1);
     overflow-y: auto;
-    
+
     > .rds-appshell-appbar {
       position: relative;
       z-index: var(--rds-z-index-dropdown);
@@ -100,9 +101,10 @@
 }
 
 .sidebar-layout {
+  --rds-app-shell-transition-2: 0.3s;
   flex: 0 0 auto;
-  --rds-duration-local-0_3s: 0.3s;
-  transition: width var(--rds-duration-local-0_3s) ease;
+
+  transition: width var(--rds-app-shell-transition-2) ease;
 }
 
 .topnav-layout {
@@ -121,11 +123,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  
+
   .sidebar-layout {
     display: none;
   }
-  
+
   .topnav-layout {
     width: 100%;
     flex: 1;
@@ -136,6 +138,7 @@
 }
 
 .rds-appshell-add-layout-center {
+  --rds-app-shell-font-size-1: 2rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -145,8 +148,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  --rds-font-size-local-2rem: 2rem;
-  font-size: var(--rds-font-size-local-2rem);
+
+  font-size: var(--rds-app-shell-font-size-1);
   font-weight: var(--rds-font-weight-bold);
   z-index: var(--rds-z-index-layer-1);
   pointer-events: none;
@@ -224,21 +227,23 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-add-layout-text {
-  --rds-font-size-local-2rem: 2rem;
-  font-size: var(--rds-font-size-local-2rem);
+  --rds-app-shell-font-size-1: 2rem;
+  font-size: var(--rds-app-shell-font-size-1);
   font-weight: var(--rds-font-weight-bold);
 }
 
 .rds-appshell-side-nav-layout {
+  --rds-app-shell-min-height-1: 400px;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  --rds-local-400px: 400px;
-  min-height: var(--rds-local-400px);
+
+  min-height: var(--rds-app-shell-min-height-1);
 }
 
 .rds-appshell-side-nav-center {
+  --rds-app-shell-font-size-1: 2rem;
   flex: 1;
   display: flex;
   align-items: center;
@@ -246,7 +251,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   min-height: calc(100vh - var(--rds-spacing-52));
   height: 100%;
   width: 100%;
-  
+
   .rds-appshell-add-layout-flex-center {
     display: flex;
     align-items: center;
@@ -254,10 +259,10 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     width: 100%;
     height: 100%;
     position: relative;
-    
+
     .rds-appshell-add-layout-text {
-      --rds-font-size-local-2rem: 2rem;
-      font-size: var(--rds-font-size-local-2rem);
+
+      font-size: var(--rds-app-shell-font-size-1);
       font-weight: var(--rds-font-weight-bold);
       color: var(--rds-text-secondary);
       text-align: center;
@@ -271,19 +276,22 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-side-nav-left {
+  --rds-app-shell-min-width: 245px;
+  --rds-app-shell-max-width-1: 245px;
   flex: 0 0 245px;
-  --rds-local-245px: 245px;
-  min-width: var(--rds-local-245px);
-  --rds-local-245px: 245px;
-  max-width: var(--rds-local-245px);
+
+  min-width: var(--rds-app-shell-min-width);
+
+  max-width: var(--rds-app-shell-max-width-1);
   height: 100%;
 }
 
 .rds-appshell-side-nav-right {
+  --rds-app-shell-max-width-2: 120px;
   flex: 0 0 80px;
   min-width: var(--rds-spacing-80-px);
-  --rds-local-120px: 120px;
-  max-width: var(--rds-local-120px);
+
+  max-width: var(--rds-app-shell-max-width-2);
   height: 100%;
 }
 
@@ -304,43 +312,47 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-story-relaxing-layout {
+  --rds-app-shell-margin-top-1: 50px;
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
   position: relative;
-  --rds-local-50px: 50px;
-  margin-top: var(--rds-local-50px);
+
+  margin-top: var(--rds-app-shell-margin-top-1);
 }
 
 .rds-story-relaxing-content {
+  --rds-app-shell-padding-top: 50px;
   display: flex;
   flex-direction: row;
   min-height: 0;
-  --rds-local-50px: 50px;
-  padding-top: var(--rds-local-50px);
+
+  padding-top: var(--rds-app-shell-padding-top);
   position: relative;
   z-index: var(--rds-z-index-layer-1);
 }
 
 .rds-story-relaxing-sidebar {
-  --rds-local-245px: 245px;
-  min-width: var(--rds-local-245px);
-  --rds-local-245px: 245px;
-  max-width: var(--rds-local-245px);
+  --rds-app-shell-min-width: 245px;
+  --rds-app-shell-max-width-1: 245px;
+  min-width: var(--rds-app-shell-min-width);
+
+  max-width: var(--rds-app-shell-max-width-1);
   height: 100%;
   position: relative;
   z-index: var(--rds-z-index-raised);
 }
 
 .rds-story-standard-content {
+  --rds-app-shell-font-size-1: 2rem;
   position: relative;
   width: 100%;
   min-height: calc(100vh - var(--rds-spacing-3xl));
   height: calc(100vh - var(--rds-spacing-3xl));
   margin-top: var(--rds-spacing-3xl);
   z-index: var(--rds-z-index-layer-1);
-  
+
   .rds-appshell-add-layout-center {
     position: absolute;
     top: 0;
@@ -351,8 +363,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    --rds-font-size-local-2rem: 2rem;
-    font-size: var(--rds-font-size-local-2rem);
+
+    font-size: var(--rds-app-shell-font-size-1);
     font-weight: var(--rds-font-weight-bold);
     z-index: var(--rds-z-index-layer-1);
   }
@@ -366,7 +378,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  
+
   .rds-appshell-add-layout-center {
     flex: 1;
     display: flex;
@@ -384,6 +396,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-story-sub-tab-button {
+  --rds-app-shell-transition-1: 0.2s;
   background: none;
   border: none;
   display: flex;
@@ -391,26 +404,26 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   cursor: pointer;
   padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   border-radius: var(--rds-border-radius-sm);
-  --rds-duration-local-0_2s: 0.2s;
-  transition: background-color var(--rds-duration-local-0_2s);
-  
+
+  transition: background-color var(--rds-app-shell-transition-1);
+
   &:hover {
     background-color: var(--rds-action-hover);
   }
-  
+
   &--primary {
     color: var(--rds-color-primary);
     font-weight: var(--rds-font-weight-semibold);
-    
+
     .rds-story-sub-tab-icon {
       color: var(--rds-color-primary);
     }
   }
-  
+
   &--inherit {
     color: inherit;
     font-weight: var(--rds-font-weight-regular);
-    
+
     .rds-story-sub-tab-icon {
       color: inherit;
     }
@@ -436,9 +449,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 #details-pane-app-shell {
+  --rds-app-shell-height: 82px;
   margin-top: var(--rds-spacing-md);
-  --rds-local-82px: 82px;
-  height: calc(100vh - var(--rds-local-82px));
+
+  height: calc(100vh - var(--rds-app-shell-height));
   display: flex;
   flex-direction: column;
 }
@@ -465,14 +479,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
-  --rds-local-200px: 200px;
-  margin-top: var(--rds-local-200px);
+  --rds-app-shell-margin-top-2: 200px;
+  margin-top: var(--rds-app-shell-margin-top-2);
 }
 
 #detail-pane-one-three-one {
+  --rds-app-shell-height: 82px;
   margin-top: var(--rds-spacing-md);
-  --rds-local-82px: 82px;
-  height: calc(100vh - var(--rds-local-82px));
+
+  height: calc(100vh - var(--rds-app-shell-height));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -510,25 +525,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .double-nav {
+  --rds-app-shell-margin-top-3: 84px;
+  --rds-app-shell-margin-left: 87px;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  
+
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-    --rds-local-84px: 84px;
-    margin-top: var(--rds-local-84px);
-    --rds-local-87px: 87px;
-    margin-left: var(--rds-local-87px);
+
+    margin-top: var(--rds-app-shell-margin-top-3);
+
+    margin-left: var(--rds-app-shell-margin-left);
   }
-  
+
   .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper,
   .css-1movy1a .MuiDrawer-paper {
-    --rds-local-84px: 84px;
-    margin-top: var(--rds-local-84px);
+
+    margin-top: var(--rds-app-shell-margin-top-3);
     margin-left: var(--rds-spacing-12-px);
   }
 }
@@ -542,17 +559,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   position: relative;
   display: flex;
   flex-direction: column;
-  
+
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
     margin-top: var(--rds-spacing-67);
     margin-left: var(--rds-spacing-12-px);
   }
-  
+
   .rds-header__toolbar {
     gap: 0;
   }
-  
+
   .topnav-layout {
     flex: 1;
     display: flex;
@@ -562,24 +579,25 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .triPane {
+  --rds-app-shell-margin-top-3: 84px;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  
+
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-    --rds-local-84px: 84px;
-    margin-top: var(--rds-local-84px);
+
+    margin-top: var(--rds-app-shell-margin-top-3);
     margin-left: var(--rds-spacing-md);
   }
 }
 
 .rds-comp-app-shell-item {
   display: block;
-  
+
   &__header {
     margin: 0 0 var(--rds-spacing-md);
     padding: 0;
@@ -587,16 +605,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
   }
-  
+
   &__content {
     display: block;
   }
-  
+
   &--small .rds-comp-app-shell-item__header {
     font-size: var(--rds-font-size-md);
     margin-bottom: var(--rds-spacing-sm);
   }
-  
+
   &--large .rds-comp-app-shell-item__header {
     font-size: var(--rds-font-size-2xl);
     margin-bottom: var(--rds-spacing-lg);
@@ -610,7 +628,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none;
     }
   }
-  
+
   .rds-appshell-appbar .MuiTabs-root,
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root,
@@ -618,7 +636,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header__toolbar .MuiTabs-root {
     display: none;
   }
-  
+
   .TopNav {
     .rds-header__sub-tabs,
     .rds-story-sub-tabs {
@@ -628,7 +646,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       justify-content: start;
       width: 100%;
-      
+
       .MuiButton-root,
       .rds-story-sub-tab-button {
         width: 100%;
@@ -638,7 +656,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         font-size: var(--rds-font-size-xs);
         min-width: auto;
         white-space: nowrap;
-        
+
         .MuiSvgIcon-root,
         .rds-story-sub-tab-icon {
           margin-right: var(--rds-spacing-compact);
@@ -646,27 +664,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
     }
-    
+
     .rds-header__sub-tabs .MuiButton-root:nth-child(5),
     .rds-story-sub-tabs .rds-story-sub-tab-button:nth-child(5) {
       grid-column: 1 / -1;
       max-width: 50%;
     }
-    
+
     .rds-profile-menu__name,
     .rds-profile-menu__email,
     .rds-profile-menu__chevron {
       display: none;
     }
-    
+
     .rds-profile-menu__button {
       min-width: auto;
       padding: var(--rds-spacing-sm);
     }
-    
+
     .rds-story-topnav-content {
       padding-bottom: var(--rds-spacing-3xl);
-      
+
       .rds-appshell-add-layout-center {
         display: flex;
         align-items: center;
@@ -675,13 +693,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
   }
-  
+
   // Top Nav story specific mobile fix
   .rds-story-topnav-content {
     padding-bottom: var(--rds-spacing-3xl);
     overflow: hidden;
     box-sizing: border-box;
-    
+
     .rds-appshell-add-layout-center {
       position: relative;
       display: flex;
@@ -692,12 +710,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
     }
   }
-  
+
   .triPane {
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
       font-family: var(--rds-font-family-base);
-      
+
       button {
         background: none;
         border: none;
@@ -707,7 +725,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         box-shadow: none;
         font-variant: normal;
         text-rendering: optimizeLegibility;
-        
+
         &::before,
         &::after {
           content: '';
@@ -716,7 +734,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
   }
-  
+
   .rds-footer-navigation,
   .MuiBottomNavigation-root {
     position: fixed;
@@ -729,19 +747,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     height: var(--rds-spacing-56-px);
     display: flex;
     align-items: center;
-    
+
     .MuiTabs-root,
     .rds-header__navigation {
       display: none;
     }
-    
+
     > div {
       display: flex;
       width: 100%;
       height: 100%;
       align-items: center;
       justify-content: space-around;
-      
+
       > button {
         background: none;
         border: none;
@@ -762,16 +780,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: center;
         text-shadow: none;
         text-decoration: none;
-        
+
         &:hover {
           background-color: var(--rds-action-hover);
         }
-        
+
         &[data-active="true"] {
           color: var(--rds-color-primary);
           font-weight: var(--rds-font-weight-semibold);
         }
-        
+
         &::before,
         &::after {
           content: none;
@@ -779,36 +797,36 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
     }
-    
+
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-semibold);
     }
-    
+
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
       height: var(--rds-spacing-micro);
     }
   }
-  
+
   .double-nav, .triPane {
     .MuiTabs-root:not(.rds-footer-navigation *),
     .rds-header__navigation:not(.rds-footer-navigation *) {
       display: none;
     }
-    
+
     .rds-footer-navigation:not(:first-of-type),
     .MuiBottomNavigation-root:not(:first-of-type) {
       display: none;
     }
-    
+
     .rds-footer-navigation button,
     .MuiBottomNavigation-root button {
       text-indent: 0;
       letter-spacing: 0;
       text-shadow: none;
-      
+
       &::before,
       &::after {
         content: none;
@@ -816,44 +834,45 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
   }
-  
+
   .double-nav, .side-nav, .triPane, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
-      
+
       .MuiSvgIcon-root {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
         color: inherit;
       }
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
     }
   }
-  
+
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
-      
+
       .MuiSvgIcon-root {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
         color: inherit;
       }
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
     }
   }
-  
+
   .double-nav, .side-nav, .triPane, .relaxing {
+    --rds-app-shell-transition-2: 0.3s;
     &.mobile-sidebar-open .sidebar-layout {
       position: fixed;
       top: 0;
@@ -862,12 +881,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(0);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
-    
+
     .sidebar-layout {
       position: fixed;
       top: 0;
@@ -876,11 +895,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
     }
-    
+
     .topnav-layout {
       margin-left: 0;
       width: 100%;
@@ -888,8 +907,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
     }
   }
-  
+
   .Default {
+    --rds-app-shell-transition-2: 0.3s;
+    --rds-app-shell-font-size-1: 2rem;
+    --rds-app-shell-min-height-2: 112px;
+    --rds-app-shell-min-height-3: 136px;
+    --rds-app-shell-min-height-4: 200px;
     &.mobile-sidebar-open {
       .sidebar-layout {
         position: fixed;
@@ -899,22 +923,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         width: var(--rds-spacing-240);
         z-index: var(--rds-z-index-modal);
         transform: translateX(0);
-        --rds-duration-local-0_3s: 0.3s;
-        transition: transform var(--rds-duration-local-0_3s) ease;
+
+        transition: transform var(--rds-app-shell-transition-2) ease;
         background: var(--rds-background-paper);
         box-shadow: var(--rds-elevation-3);
       }
-      
+
       .rds-story-standard-content {
         margin-left: 0;
         margin-top: var(--rds-spacing-2xl);
         padding-bottom: var(--rds-spacing-20-px);
-        --rds-local-112px: 112px;
-        min-height: calc(100vh - var(--rds-local-112px));
+
+        min-height: calc(100vh - var(--rds-app-shell-min-height-2));
         overflow-y: auto;
       }
     }
-    
+
     .sidebar-layout {
       position: fixed;
       top: 0;
@@ -923,11 +947,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
     }
-    
+
     .topnav-layout {
       margin-left: 0;
       width: 100%;
@@ -937,7 +961,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       flex-direction: column;
     }
-    
+
     .rds-appshell-appbar,
     .MuiAppBar-root {
       position: fixed;
@@ -947,7 +971,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       width: 100%;
     }
-    
+
     .MuiTabs-root,
     .rds-header__navigation {
       position: fixed;
@@ -957,73 +981,77 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     }
-    
+
     .rds-story-standard-content {
       position: relative;
       z-index: var(--rds-z-index-layer-1);
       margin-bottom: var(--rds-spacing-44);
       padding-bottom: var(--rds-spacing-68);
-      --rds-local-136px: 136px;
-      min-height: calc(100vh - var(--rds-local-136px));
+
+      min-height: calc(100vh - var(--rds-app-shell-min-height-3));
       padding-left: var(--rds-spacing-md);
       padding-right: var(--rds-spacing-md);
       overflow-y: auto;
       flex: 1;
-      
+
       .rds-appshell-add-layout-center {
         border-radius: var(--rds-border-radius-md);
         display: flex;
         align-items: center;
         justify-content: center;
-        --rds-local-200px: 200px;
-        min-height: calc(100vh - var(--rds-local-200px));
-        --rds-font-size-local-2rem: 2rem;
-        font-size: var(--rds-font-size-local-2rem);
+
+        min-height: calc(100vh - var(--rds-app-shell-min-height-4));
+
+        font-size: var(--rds-app-shell-font-size-1);
         font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
       }
     }
   }
-  
+
   .double-nav {
+    --rds-app-shell-transition-1: 0.2s;
+    --rds-app-shell-transition-2: 0.3s;
+    --rds-app-shell-font-size-1: 2rem;
+    --rds-app-shell-max-width-3: 400px;
     &.mobile-sidebar-open .sidebar-layout .double-nav-sidebar {
       display: flex;
       flex-direction: column;
       height: 100vh;
       padding-top: var(--rds-spacing-68);
-      
+
       .rds-story-double-nav-content {
         display: block;
         flex: 1;
         overflow-y: auto;
-        
+
         > div:first-child {
           display: none;
         }
-        
+
         > div:last-child {
           display: block;
         }
-        
+
         .MuiDrawer-paper {
           margin-left: 0;
           margin-top: 0;
         }
       }
-      
+
       .rds-appshell-add-layout-flex-center,
       #details-pane-app-shell {
         display: none;
       }
     }
-    
+
     .topnav-layout {
       display: flex;
       flex-direction: column;
       height: 100vh;
       position: relative;
     }
-    
+
     .rds-appshell-appbar--fixed {
       position: fixed;
       top: 0;
@@ -1032,11 +1060,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
-    
+
     .rds-story-double-nav-layout {
       display: none;
     }
-    
+
     .doublenav-mobile-content {
       position: absolute;
       top: 0;
@@ -1047,11 +1075,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 0;
       display: flex;
       flex-direction: column;
-      --rds-duration-local-0_3s: 0.3s;
-      transition: opacity var(--rds-duration-local-0_3s) ease;
+
+      transition: opacity var(--rds-app-shell-transition-2) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
-      
+
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
@@ -1062,16 +1090,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
         margin: 0;
         padding: 0;
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2rem: 2rem;
-          font-size: var(--rds-font-size-local-2rem);
+
+          font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
     }
-    
+
     .rds-toolbar-toggle-btn {
       display: flex;
       align-items: center;
@@ -1081,46 +1109,46 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: background-color var(--rds-duration-local-0_2s) ease;
+
+      transition: background-color var(--rds-app-shell-transition-1) ease;
       color: inherit;
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
-      
+
       svg {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
       }
     }
-    
+
     .doublenav-mobile-toolbar {
       position: fixed;
       top: 0;
       right: 0;
       height: 100vh;
       width: 80%;
-      --rds-local-400px: 400px;
-      max-width: var(--rds-local-400px);
+
+      max-width: var(--rds-app-shell-max-width-3);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       box-shadow: var(--rds-elevation-3);
-      
+
       &.open {
         transform: translateX(0);
       }
-      
+
       .doublenav-toolbar-content {
         height: 100%;
         overflow-y: auto;
         padding-top: var(--rds-spacing-68);
       }
     }
-    
+
     .doublenav-toolbar-backdrop {
       position: fixed;
       top: 0;
@@ -1131,16 +1159,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
     }
   }
-  
+
   .side-nav {
+    --rds-app-shell-font-size-1: 2rem;
+    --rds-app-shell-min-height-5: 148px;
     .rds-appshell-side-nav-layout {
       padding-top: var(--rds-spacing-68);
       padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      --rds-local-148px: 148px;
-      min-height: calc(100vh - var(--rds-local-148px));
+
+      min-height: calc(100vh - var(--rds-app-shell-min-height-5));
     }
-    
+
     .sidenav-mobile-content {
       position: fixed;
       top: 68px;
@@ -1152,7 +1182,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       justify-content: center;
       background: var(--rds-surface-subtle);
       z-index: var(--rds-z-index-layer-1);
-      
+
       .rds-appshell-add-layout-flex-center {
         padding: 2rem 1.5rem;
         border-radius: var(--rds-border-radius-md);
@@ -1160,10 +1190,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         align-items: center;
         justify-content: center;
         background: transparent;
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2rem: 2rem;
-          font-size: var(--rds-font-size-local-2rem);
+
+          font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
@@ -1171,49 +1201,53 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
     }
-    
+
     .sidenav-desktop-content {
       display: none;
     }
-    
+
     &.mobile-sidebar-open .sidenav-mobile-content {
       display: none;
     }
-    
+
     .rds-appshell-side-nav-right {
       display: none;
     }
   }
-  
+
   .triPane {
+    --rds-app-shell-transition-1: 0.2s;
+    --rds-app-shell-transition-2: 0.3s;
+    --rds-app-shell-font-size-1: 2rem;
+    --rds-app-shell-max-width-3: 400px;
     &.mobile-sidebar-open .sidebar-layout .tripane-sidebar {
       display: flex;
       flex-direction: column;
       height: 100vh;
-      
+
       > div:first-child {
         display: block;
         flex: 1;
         overflow-y: auto;
-        
+
         .MuiDrawer-paper {
           margin-top: 0;
           margin-left: 0;
         }
       }
-      
+
       .rds-appshell-add-layout-flex-center,
       #detail-pane-one-three-one {
         display: none;
       }
     }
-    
+
     .topnav-layout {
       display: flex;
       flex-direction: column;
       height: 100vh;
     }
-    
+
     .rds-appshell-appbar--fixed {
       position: fixed;
       top: 0;
@@ -1222,11 +1256,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
-    
+
     .rds-story-tripane-layout {
       display: none;
     }
-    
+
     .tripane-mobile-content {
       position: absolute;
       top: 53px;
@@ -1235,10 +1269,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 63px;
       display: flex;
       flex-direction: column;
-      --rds-duration-local-0_3s: 0.3s;
-      transition: opacity var(--rds-duration-local-0_3s) ease;
+
+      transition: opacity var(--rds-app-shell-transition-2) ease;
       overflow-y: auto;
-      
+
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
@@ -1246,16 +1280,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: center;
         border-radius: var(--rds-border-radius-md);
         min-height: 100%;
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2rem: 2rem;
-          font-size: var(--rds-font-size-local-2rem);
+
+          font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
     }
-    
+
     .rds-toolbar-toggle-btn {
       display: flex;
       align-items: center;
@@ -1265,45 +1299,45 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: background-color var(--rds-duration-local-0_2s) ease;
+
+      transition: background-color var(--rds-app-shell-transition-1) ease;
       color: inherit;
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
-      
+
       svg {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
       }
     }
-    
+
     .tripane-mobile-toolbar {
       position: fixed;
       top: 0;
       right: 0;
       height: 100vh;
       width: 80%;
-      --rds-local-400px: 400px;
-      max-width: var(--rds-local-400px);
+
+      max-width: var(--rds-app-shell-max-width-3);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       box-shadow: var(--rds-elevation-3);
-      
+
       &.open {
         transform: translateX(0);
       }
-      
+
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
       }
     }
-    
+
     .tripane-toolbar-backdrop {
       position: fixed;
       top: 0;
@@ -1314,15 +1348,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
     }
   }
-  
+
   .relaxing {
+    --rds-app-shell-font-size-1: 2rem;
     position: relative;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    
+
     .rds-appshell-appbar--fixed {
       position: fixed;
       top: 0;
@@ -1331,7 +1366,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
-    
+
     .rds-story-relaxing-layout {
       flex: 1;
       display: flex;
@@ -1342,7 +1377,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin-top: var(--rds-spacing-52);
       padding-bottom: var(--rds-spacing-56-px);
     }
-    
+
     .rds-story-relaxing-content {
       flex: 1;
       display: flex;
@@ -1352,7 +1387,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       height: 100%;
       padding: 0;
       margin: 0;
-      
+
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         border-radius: 0;
@@ -1365,20 +1400,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         position: relative;
         z-index: var(--rds-z-index-layer-1);
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2rem: 2rem;
-          font-size: var(--rds-font-size-local-2rem);
+
+          font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
     }
-    
+
     .rds-story-relaxing-sidebar {
       display: none;
     }
-    
+
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
       z-index: var(--rds-z-index-toast);
@@ -1413,11 +1448,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (max-width: 480px) {
   .rds-story-topnav-content {
+    --rds-app-shell-margin-top-4: 210px;
     padding-bottom: var(--rds-spacing-44);
 
     .rds-appshell-add-layout-center {
-      --rds-local-210px: 210px;
-      margin-top: var(--rds-local-210px);
+
+      margin-top: var(--rds-app-shell-margin-top-4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1434,25 +1470,25 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .MuiAppBar-root .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
       display: none;
     }
-    
+
     .rds-header__toolbar .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root) {
       display: none;
     }
-    
+
     .rds-header__sub-tabs,
     .rds-story-sub-tabs,
     .rds-header__sub-header {
       display: flex;
       position: relative;
     }
-    
+
     .rds-header__sub-tabs .MuiTabs-root,
     .rds-story-sub-tabs .MuiButton-root,
     .rds-header__sub-header .MuiButton-root {
       display: inline-flex;
     }
   }
-  
+
   .MuiTabs-root,
   .rds-header__navigation,
   .MuiBottomNavigation-root,
@@ -1464,26 +1500,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     z-index: var(--rds-z-index-toast);
     box-shadow: var(--rds-elevation-3);
     background: transparent;
-    
+
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-semibold);
     }
-    
+
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
       height: var(--rds-spacing-micro);
     }
   }
-  
+
   .rds-story-topnav-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding-bottom: var(--rds-spacing-56-px);
     box-sizing: border-box;
-    
+
     .rds-appshell-add-layout-center {
       flex: 1;
       position: relative;
@@ -1497,14 +1533,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
     }
   }
-  
+
   .side-nav, .relaxing {
+    --rds-app-shell-transition-2: 0.3s;
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex;
       margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       padding: var(--rds-spacing-sm);
     }
-    
+
     &.mobile-sidebar-open .sidebar-layout {
       position: fixed;
       top: 0;
@@ -1513,12 +1550,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(0);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
-    
+
     .sidebar-layout {
       position: fixed;
       top: 0;
@@ -1527,11 +1564,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
     }
-    
+
     .topnav-layout {
       margin-left: 0;
       width: 100%;
@@ -1539,16 +1576,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
     }
   }
-  
+
   .side-nav {
+    --rds-app-shell-min-height-5: 148px;
+    --rds-app-shell-font-size-2: 2.5rem;
     .rds-appshell-side-nav-layout {
       padding-top: var(--rds-spacing-68);
       padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      --rds-local-148px: 148px;
-      min-height: calc(100vh - var(--rds-local-148px));
+
+      min-height: calc(100vh - var(--rds-app-shell-min-height-5));
     }
-    
+
     .sidenav-mobile-content {
       position: fixed;
       top: 68px;
@@ -1560,7 +1599,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       justify-content: center;
       background: var(--rds-surface-subtle);
       z-index: var(--rds-z-index-layer-1);
-      
+
       .rds-appshell-add-layout-flex-center {
         padding: 2.5rem 2rem;
         border-radius: var(--rds-border-radius-md);
@@ -1568,10 +1607,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         align-items: center;
         justify-content: center;
         background: transparent;
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2_5rem: 2.5rem;
-          font-size: var(--rds-font-size-local-2_5rem);
+
+          font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
           text-align: center;
@@ -1579,26 +1618,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
     }
-    
+
     &.mobile-sidebar-open .sidenav-mobile-content {
       display: none;
     }
-    
+
     .rds-appshell-side-nav-right {
       display: none;
     }
   }
-  
+
   .relaxing .rds-story-relaxing-sidebar {
     display: none;
   }
-  
+
   .double-nav {
     .doublenav-mobile-content {
       bottom: 70px;
     }
   }
-  
+
   .triPane {
     .tripane-mobile-content {
       bottom: 70px;
@@ -1644,18 +1683,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: flex;
         justify-content: space-between;
       }
-      
+
       .MuiTab-root {
         flex: 1;
         max-width: none;
         min-width: 0;
-        
+
         &.Mui-selected {
           color: var(--rds-color-primary);
           font-weight: var(--rds-font-weight-semibold);
         }
       }
-      
+
       .MuiTabs-indicator {
         background-color: var(--rds-color-primary);
         height: var(--rds-spacing-micro);
@@ -1663,7 +1702,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         bottom: auto;
       }
     }
-    
+
     .topnav-content,
     .rds-story-topnav-content {
       flex: 1;
@@ -1671,7 +1710,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex-direction: column;
       padding-bottom: var(--rds-spacing-3xl);
       box-sizing: border-box;
-      
+
       .rds-appshell-add-layout-center,
       .rds-appshell-add-layout-flex-center {
         flex: 1;
@@ -1687,7 +1726,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
   }
-  
+
   .double-nav, .triPane {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1697,7 +1736,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header__toolbar .MuiTabs-root {
       display: none;
     }
-    
+
     .MuiBottomNavigation-root,
     .rds-footer-navigation {
       position: fixed;
@@ -1751,7 +1790,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
   }
-  
+
   .relaxing, .side-nav, .Default {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1769,18 +1808,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       box-shadow: none;
       display: flex;
     }
-    
+
     .MuiBottomNavigation-root,
     .rds-footer-navigation {
       display: none;
     }
   }
-  
+
   .double-nav {
+    --rds-app-shell-transition-1: 0.2s;
+    --rds-app-shell-transition-2: 0.3s;
+    --rds-app-shell-font-size-2: 2.5rem;
+    --rds-app-shell-width-1: 395px;
     .rds-story-double-nav-layout {
       display: none;
     }
-    
+
     .doublenav-mobile-content {
       display: flex;
       position: absolute;
@@ -1791,11 +1834,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      --rds-duration-local-0_3s: 0.3s;
-      transition: opacity var(--rds-duration-local-0_3s) ease;
+
+      transition: opacity var(--rds-app-shell-transition-2) ease;
       z-index: var(--rds-z-index-layer-1);
       overflow-y: auto;
-      
+
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
@@ -1806,26 +1849,26 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
         margin: 0;
         padding: 0;
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2_5rem: 2.5rem;
-          font-size: var(--rds-font-size-local-2_5rem);
+
+          font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
     }
-    
+
     .doublenav-mobile-toolbar.open ~ * .doublenav-mobile-content,
     &:has(.doublenav-mobile-toolbar.open) .doublenav-mobile-content {
       opacity: 0.3;
       pointer-events: none;
     }
-    
+
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex;
     }
-    
+
     .rds-toolbar-toggle-btn {
       display: flex;
       align-items: center;
@@ -1835,22 +1878,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: background-color var(--rds-duration-local-0_2s) ease;
+
+      transition: background-color var(--rds-app-shell-transition-1) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
-      
+
       svg {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
       }
     }
-    
+
     .topnav-layout {
       width: 100%;
       margin-left: 0;
@@ -1860,7 +1903,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex-direction: column;
       height: 100vh;
     }
-    
+
     .sidebar-layout {
       position: fixed;
       top: 0;
@@ -1869,13 +1912,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
       box-shadow: none;
       display: block;
       visibility: visible;
-      
+
       .double-nav-sidebar {
         display: flex;
         flex-direction: column;
@@ -1884,7 +1927,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         margin: 0;
         visibility: visible;
-        
+
         .rds-story-double-nav-content {
           display: block;
           flex: 1;
@@ -1892,20 +1935,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           height: 100%;
           padding-top: var(--rds-spacing-68);
           visibility: visible;
-          
+
           > div:first-child {
             display: none;
           }
-          
+
           > div:last-child {
             display: block;
             height: calc(100vh - var(--rds-spacing-68));
             visibility: visible;
-            
+
             .MuiDrawer-root {
               display: block;
               visibility: visible;
-              
+
               .MuiDrawer-paper {
                 margin-left: 0;
                 margin-top: 0;
@@ -1918,7 +1961,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
                 border-right: none;
                 display: block;
                 visibility: visible;
-                
+
                 > div {
                   height: 100%;
                   display: flex;
@@ -1929,32 +1972,32 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
             }
           }
         }
-        
+
         .rds-appshell-add-layout-flex-center,
         #details-pane-app-shell {
           display: none;
         }
       }
     }
-    
+
     .doublenav-mobile-toolbar {
       position: fixed;
       top: 0;
       right: 0;
       height: 100vh;
-      --rds-local-395px: 395px;
-      width: var(--rds-local-395px);
+
+      width: var(--rds-app-shell-width-1);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       box-shadow: var(--rds-elevation-3);
-      
+
       &.open {
         transform: translateX(0);
       }
-      
+
       .doublenav-toolbar-content {
         height: 100%;
         overflow-y: auto;
@@ -1963,7 +2006,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding-right: var(--rds-spacing-md);
       }
     }
-    
+
     &.mobile-sidebar-open {
       .sidebar-layout {
         transform: translateX(0);
@@ -1971,28 +2014,28 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: block;
         visibility: visible;
       }
-      
+
       .doublenav-mobile-content {
         opacity: 0.3;
         pointer-events: none;
       }
-      
+
       .doublenav-mobile-toolbar {
         transform: translateX(100%);
       }
-      
+
       .sidebar-layout .double-nav-sidebar {
         display: flex;
         visibility: visible;
-        
+
         .rds-story-double-nav-content {
           display: block;
           visibility: visible;
-          
+
           > div:first-child {
             display: none;
           }
-          
+
           > div:last-child {
             display: block;
             visibility: visible;
@@ -2000,7 +2043,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
     }
-    
+
     .doublenav-toolbar-backdrop,
     .mobile-sidebar-backdrop {
       position: fixed;
@@ -2012,19 +2055,23 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
-    
+
     .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
     .css-dm61o6 .MuiDrawer-paper {
       margin-left: 0;
       margin-top: 0;
     }
   }
-  
+
   .triPane {
+    --rds-app-shell-transition-1: 0.2s;
+    --rds-app-shell-transition-2: 0.3s;
+    --rds-app-shell-font-size-2: 2.5rem;
+    --rds-app-shell-width-1: 395px;
     .rds-story-tripane-layout {
       display: none;
     }
-    
+
     .tripane-mobile-content {
       display: flex;
       position: absolute;
@@ -2035,54 +2082,54 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      --rds-duration-local-0_3s: 0.3s;
-      transition: opacity var(--rds-duration-local-0_3s) ease;
+
+      transition: opacity var(--rds-app-shell-transition-2) ease;
       overflow-y: auto;
-      
+
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: var(--rds-border-radius-md);
-        
+
         .rds-appshell-add-layout-text {
-          --rds-font-size-local-2_5rem: 2.5rem;
-          font-size: var(--rds-font-size-local-2_5rem);
+
+          font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
         }
       }
     }
-    
+
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
       button {
         font-family: inherit;
         text-transform: none;
         line-height: var(--rds-line-height-none);
-        
+
         &::before,
         &::after {
           content: none;
           display: none;
         }
-        
+
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
     }
-    
+
     .tripane-mobile-toolbar.open ~ * .tripane-mobile-content,
     &:has(.tripane-mobile-toolbar.open) .tripane-mobile-content {
       opacity: 0.3;
       pointer-events: none;
     }
-    
+
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex;
     }
-    
+
     .rds-toolbar-toggle-btn {
       display: flex;
       align-items: center;
@@ -2092,22 +2139,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: var(--rds-spacing-sm);
       cursor: pointer;
       border-radius: var(--rds-border-radius-sm);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: background-color var(--rds-duration-local-0_2s) ease;
+
+      transition: background-color var(--rds-app-shell-transition-1) ease;
       color: inherit;
       margin-left: auto;
       margin-right: var(--rds-spacing-sm);
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
-      
+
       svg {
         width: var(--rds-spacing-lg);
         height: var(--rds-spacing-lg);
       }
     }
-    
+
     .topnav-layout {
       width: 100%;
       margin-left: 0;
@@ -2117,7 +2164,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex-direction: column;
       height: 100vh;
     }
-    
+
     .sidebar-layout {
       position: fixed;
       top: 0;
@@ -2126,13 +2173,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: var(--rds-spacing-240);
       z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       background: var(--rds-background-paper);
       box-shadow: none;
       display: block;
       visibility: visible;
-      
+
       .tripane-sidebar {
         display: flex;
         flex-direction: column;
@@ -2141,7 +2188,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         margin: 0;
         visibility: visible;
-        
+
         > div:first-child {
           display: block;
           flex: 1;
@@ -2149,12 +2196,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           height: calc(100vh - var(--rds-spacing-68));
           padding-top: var(--rds-spacing-68);
           visibility: visible;
-          
+
           .MuiDrawer-root {
             height: 100%;
             display: block;
             visibility: visible;
-            
+
             .MuiDrawer-paper {
               margin-left: 0;
               margin-top: 0;
@@ -2167,7 +2214,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
               border-right: none;
               display: block;
               visibility: visible;
-              
+
               > div {
                 height: 100%;
                 display: flex;
@@ -2177,32 +2224,32 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
             }
           }
         }
-        
+
         .rds-appshell-add-layout-flex-center,
         #detail-pane-one-three-one {
           display: none;
         }
       }
     }
-    
+
     .tripane-mobile-toolbar {
       position: fixed;
       top: 0;
       right: 0;
       height: 100vh;
-      --rds-local-395px: 395px;
-      width: var(--rds-local-395px);
+
+      width: var(--rds-app-shell-width-1);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: transform var(--rds-duration-local-0_3s) ease;
+
+      transition: transform var(--rds-app-shell-transition-2) ease;
       box-shadow: var(--rds-elevation-3);
-      
+
       &.open {
         transform: translateX(0);
       }
-      
+
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
@@ -2210,7 +2257,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding-right: var(--rds-spacing-md);
       }
     }
-    
+
     &.mobile-sidebar-open {
       .sidebar-layout {
         transform: translateX(0);
@@ -2218,27 +2265,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: block;
         visibility: visible;
       }
-      
+
       .tripane-mobile-content {
         opacity: 0.3;
         pointer-events: none;
       }
-      
+
       .tripane-mobile-toolbar {
         transform: translateX(100%);
       }
-      
+
       .sidebar-layout .tripane-sidebar {
         display: flex;
         visibility: visible;
-        
+
         > div:first-child {
           display: block;
           visibility: visible;
         }
       }
     }
-    
+
     .tripane-toolbar-backdrop,
     .mobile-sidebar-backdrop {
       position: fixed;
@@ -2255,10 +2302,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (min-width: 834px) {
   .side-nav {
+    --rds-app-shell-font-size-1: 2rem;
+    --rds-app-shell-width-2: 120px;
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
     }
-    
+
     .sidebar-layout {
       position: relative;
       transform: none;
@@ -2267,11 +2316,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       box-shadow: none;
       display: block;
     }
-    
+
     .sidenav-mobile-content {
       display: none;
     }
-    
+
     .sidenav-desktop-content {
       position: fixed;
       top: 52px;
@@ -2281,7 +2330,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       align-items: stretch;
       justify-content: stretch;
-      
+
       .rds-appshell-add-layout-flex-center {
         display: flex;
         align-items: center;
@@ -2290,27 +2339,27 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
         background: var(--rds-surface-subtle);
       }
-      
+
       .rds-appshell-add-layout-text {
-        --rds-font-size-local-2rem: 2rem;
-        font-size: var(--rds-font-size-local-2rem);
+
+        font-size: var(--rds-app-shell-font-size-1);
         font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);
         text-align: center;
       }
     }
-    
+
     .rds-appshell-side-nav-right {
       position: fixed;
       right: 0;
       top: 52px;
       bottom: 0;
-      --rds-local-120px: 120px;
-      width: var(--rds-local-120px);
+
+      width: var(--rds-app-shell-width-2);
       z-index: var(--rds-z-index-raised);
       display: block;
     }
-    
+
     .topnav-layout {
       display: flex;
       flex-direction: column;
@@ -2319,12 +2368,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-2);
     }
   }
-  
+
   .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
     }
-    
+
     .sidebar-layout {
       position: relative;
       transform: none;
@@ -2332,7 +2381,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: transparent;
       box-shadow: none;
     }
-    
+
     .rds-story-relaxing-sidebar {
       display: block;
       min-width: 0;
@@ -2341,7 +2390,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       position: relative;
       z-index: var(--rds-z-index-raised);
     }
-    
+
     .rds-story-relaxing-content {
       display: flex;
       flex-direction: row;
@@ -2351,7 +2400,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
       height: calc(100vh - var(--rds-spacing-52));
     }
-    
+
     .rds-story-relaxing-layout {
       display: flex;
       flex-direction: column;
@@ -2367,7 +2416,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
     }
-    
+
     .sidebar-layout {
       position: relative;
       transform: none;
@@ -2395,17 +2444,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     border-top: none;
     box-shadow: none;
   }
-  
+
   .MuiBottomNavigation-root,
   .rds-footer-navigation {
     display: none;
   }
-  
+
   .rds-story-topnav-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    
+
     .rds-appshell-add-layout-center {
       flex: 1;
       position: relative;
@@ -2419,16 +2468,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
     }
   }
-  
+
   .double-nav, .triPane {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none;
     }
-    
+
     .rds-toolbar-toggle-btn {
       display: none;
     }
-    
+
     .sidebar-layout {
       position: relative;
       transform: none;
@@ -2436,7 +2485,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: transparent;
       box-shadow: none;
     }
-    
+
     .doublenav-mobile-content,
     .doublenav-mobile-toolbar,
     .doublenav-toolbar-backdrop,
@@ -2446,7 +2495,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none;
     }
   }
-  
+
   .mobile-sidebar-backdrop {
     display: none;
   }
@@ -2460,7 +2509,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-semibold);
     }
-    
+
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
       height: var(--rds-spacing-micro);
@@ -2478,21 +2527,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .side-nav, .relaxing {
+  --rds-app-shell-transition-2: 0.3s;
   position: relative;
   margin: 0;
   padding: 0;
   height: 100vh;
   overflow: hidden;
   display: flex;
-  
+
   .sidebar-layout {
     flex: 0 0 auto;
-    --rds-duration-local-0_3s: 0.3s;
-    transition: width var(--rds-duration-local-0_3s) ease;
+
+    transition: width var(--rds-app-shell-transition-2) ease;
     width: fit-content;
     z-index: var(--rds-z-index-layer-1);
   }
-  
+
   .topnav-layout {
     flex: 1;
     display: flex;

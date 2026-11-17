@@ -1,4 +1,5 @@
 .rds-radio {
+  --rds-radio-line-height: 1.2;
   display: block;
   position: relative;
   /* use centralized tokens */
@@ -18,7 +19,7 @@
     color: var(--rds-text-primary, var(--rds-color-text-primary));
     display: flex;
     align-items: center;
-    
+
     .MuiFormControlLabel-label {
       font-size: var(--rds-font-size-body);
       line-height: var(--rds-line-height-body);
@@ -30,12 +31,12 @@
         display: none;
       }
     }
-    
+
     &--with-label {
       display: flex;
       align-items: center;
     }
-    
+
     &--hoverable {
       &:hover {
           .MuiRadio-root {
@@ -46,7 +47,7 @@
 
     &.Mui-disabled {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
-      
+
       .MuiFormControlLabel-label {
         color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       }
@@ -61,7 +62,7 @@
     color: var(--rds-text-primary, var(--rds-color-text-primary));
     user-select: none;
     cursor: pointer;
-    
+
     &--disabled {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       cursor: not-allowed;
@@ -134,8 +135,8 @@
       cursor: pointer;
       display: block;
       width: 100%;
-      --rds-line-height-local-1_2: 1.2;
-      line-height: var(--rds-line-height-local-1_2);
+
+      line-height: var(--rds-radio-line-height);
     }
   }
 
@@ -193,11 +194,11 @@
    .MuiFormLabel-root {
     color: var(--rds-color-light);
   }
-  
+
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
     color: var(--rds-primary-main);
-    
+
     svg {
       color: var(--rds-primary-main);
       fill: var(--rds-primary-main);

@@ -1,6 +1,17 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-product-tour {
+  --rds-product-tour-max-width-1: 700px;
+  --rds-product-tour-min-height: 137.74px;
+  --rds-product-tour-border: 0.5px;
+  --rds-product-tour-transition-1: 0.2s;
+  --rds-product-tour-max-width-2: 280px;
+  --rds-product-tour-max-height-1: 280px;
+  --rds-product-tour-width-1: 306px;
+  --rds-product-tour-transition-2: 0.3s;
+  --rds-product-tour-min-width: 90px;
+  --rds-product-tour-width-2: 90px;
+  --rds-product-tour-height-1: 38px;
   &__container {
     background: var(--rds-background-paper);
     box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow);
@@ -39,8 +50,8 @@
 
     &--form {
       padding: var(--rds-spacing-md) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
-      --rds-local-700px: 700px;
-      max-width: var(--rds-local-700px);
+
+      max-width: var(--rds-product-tour-max-width-1);
       margin-top: var(--rds-spacing-md);
       height: auto;
       min-height: unset;
@@ -122,8 +133,8 @@
 
   &__info-nav-section {
     width: 100%;
-    --rds-local-137_74px: 137.74px;
-    min-height: var(--rds-local-137_74px);
+
+    min-height: var(--rds-product-tour-min-height);
     background: var(--rds-background-paper);
     border-radius: 0 0 var(--rds-border-radius-md) var(--rds-border-radius-md);
     display: flex;
@@ -182,8 +193,8 @@
   }
 
     &__arrow {
-    --rds-local-0_5px: 0.5px;
-    border: var(--rds-local-0_5px) solid var(--rds-primary-main);
+
+    border: var(--rds-product-tour-border) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -193,8 +204,8 @@
     justify-content: center;
     cursor: pointer;
     padding: 0;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background var(--rds-duration-local-0_2s), color var(--rds-duration-local-0_2s), border var(--rds-duration-local-0_2s);
+
+    transition: background var(--rds-product-tour-transition-1), color var(--rds-product-tour-transition-1), border var(--rds-product-tour-transition-1);
 
     &--prev {
       color: var(--rds-primary-main);
@@ -273,8 +284,8 @@
     height: var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-pill);
     background-color: var(--rds-carousel-dot-bg);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background-color var(--rds-duration-local-0_2s) ease;
+
+    transition: background-color var(--rds-product-tour-transition-1) ease;
 
     &--active {
       background-color: var(--rds-primary-main);
@@ -325,8 +336,8 @@
 
   &__carousel-arrow-prev,
   &__carousel-arrow-next {
-    --rds-local-0_5px: 0.5px;
-    border: var(--rds-local-0_5px) solid var(--rds-primary-main);
+
+    border: var(--rds-product-tour-border) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -365,12 +376,12 @@
     width: 100%;
     flex-shrink: 0;
 
-    img, 
+    img,
     .rds-comp-product-tour__gif {
-      --rds-local-280px: 280px;
-      max-width: var(--rds-local-280px);
-      --rds-local-280px: 280px;
-      max-height: var(--rds-local-280px);
+
+      max-width: var(--rds-product-tour-max-width-2);
+
+      max-height: var(--rds-product-tour-max-height-1);
       width: 100%;
       height: auto;
       display: block;
@@ -437,8 +448,8 @@
 
   &__animation-nav-prev,
   &__animation-nav-next {
-    --rds-local-0_5px: 0.5px;
-    border: var(--rds-local-0_5px) solid var(--rds-primary-main);
+
+    border: var(--rds-product-tour-border) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -527,8 +538,8 @@
     left: 0;
     height: var(--rds-spacing-hairline);
     background-color: var(--rds-border-default);
-    --rds-local-306px: 306px;
-    width: var(--rds-local-306px);
+
+    width: var(--rds-product-tour-width-1);
   }
 
   &__form-tab {
@@ -541,9 +552,9 @@
     overflow: visible;
     text-overflow: clip;
     text-align: center;
-    flex: 0 0 auto; 
-    --rds-duration-local-0_3s: 0.3s;
-    transition: all var(--rds-duration-local-0_3s) ease;
+    flex: 0 0 auto;
+
+    transition: all var(--rds-product-tour-transition-2) ease;
     border-radius: var(--rds-spacing-micro);
     position: relative;
 
@@ -569,13 +580,13 @@
       border-color: var(--rds-primary-main);
       color: var(--rds-primary-main);
       background-color: transparent;
-      --rds-local-90px: 90px;
-      min-width: var(--rds-local-90px);
-      --rds-local-90px: 90px;
-      width: var(--rds-local-90px);
-      --rds-local-38px: 38px;
-      height: var(--rds-local-38px);
-      text-transform: none; 
+
+      min-width: var(--rds-product-tour-min-width);
+
+      width: var(--rds-product-tour-width-2);
+
+      height: var(--rds-product-tour-height-1);
+      text-transform: none;
 
       &:hover {
         background-color: var(--rds-primary-main);
@@ -606,23 +617,23 @@
         color: var(--rds-text-secondary);
         opacity: 1;
       }
-    
+
       & input::-webkit-input-placeholder {
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-secondary);
       }
-    
+
       & input::-moz-placeholder {
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-secondary);
       }
-     
+
       & input:-ms-input-placeholder {
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-secondary);
       }
     }
-    
+
     .rds-input,
     textarea,
     .MuiInputBase-root {
@@ -670,14 +681,14 @@
 
   .rds-comp-product-tour__form-action-btn .rds-button,
   .rds-comp-product-tour__form-action-btn .MuiButton-root {
-    --rds-local-90px: 90px;
-    min-width: var(--rds-local-90px); 
-    --rds-local-90px: 90px;
-    width: var(--rds-local-90px); 
+
+    min-width: var(--rds-product-tour-min-width);
+
+    width: var(--rds-product-tour-width-2);
     height: var(--rds-spacing-36-px);
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     box-sizing: border-box;
-    text-transform: none; 
+    text-transform: none;
   }
 
   &__form-button-right {
@@ -700,14 +711,14 @@
 
     .rds-comp-product-tour__form-action-btn .rds-button,
     .rds-comp-product-tour__form-action-btn .MuiButton-root {
-      --rds-local-90px: 90px;
-      min-width: var(--rds-local-90px);
-      --rds-local-90px: 90px;
-      width: var(--rds-local-90px);
+
+      min-width: var(--rds-product-tour-min-width);
+
+      width: var(--rds-product-tour-width-2);
       height: var(--rds-spacing-36-px);
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       box-sizing: border-box;
-      text-transform: none; 
+      text-transform: none;
     }
   }
 
@@ -730,20 +741,20 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    
+
     &-wrapper {
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
       overflow: visible;
-      
+
       > * {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
       }
     }
-    
+
     .rds-file-uploader {
       width: 100%;
       max-width: 100%;
@@ -768,13 +779,13 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    
+
     .rds-file-uploader__container {
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
     }
-    
+
     .rds-file-uploader__drop-zone {
       width: 100%;
       max-width: 100%;
@@ -806,7 +817,7 @@
       text-transform: none;
     }
     .rds-file-uploader__choose-btn:hover {
-      background-color: var(--rds-primary-main); 
+      background-color: var(--rds-primary-main);
       border-color: var(--rds-primary-main);
       color: var(--rds-neutral-0);
     }
@@ -863,8 +874,8 @@
 
   &__form-arrow-prev,
   &__form-arrow-next {
-    --rds-local-0_5px: 0.5px;
-    border: var(--rds-local-0_5px) solid var(--rds-primary-main);
+
+    border: var(--rds-product-tour-border) solid var(--rds-primary-main);
     background: var(--rds-neutral-0);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -925,15 +936,15 @@
 @include bp.down(420) {
   .rds-comp-product-tour__container--image {
     .rds-comp-product-tour__close-btn {
-      top: 0px; 
-      right: 0px; 
+      top: 0px;
+      right: 0px;
     }
   }
 }
 
 @include bp.down(420) {
   .rds-comp-product-tour__container--carousel {
-    padding: var(--rds-spacing-md) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)); 
+    padding: var(--rds-spacing-md) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     margin: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) auto;
     max-width: 100%;
     width: 100%;
@@ -950,13 +961,13 @@
 
     .rds-comp-product-tour__carousel-desc {
       font-size: var(--rds-font-size-md);
-      --rds-line-height-local-1_3: 1.3;
-      line-height: var(--rds-line-height-local-1_3);
+
+      line-height: var(--rds-product-tour-line-height-1);
       margin-bottom: var(--rds-spacing-cozy);
     }
 
     .rds-comp-product-tour__carousel-wrapper {
-      height: var(--rds-carousel-mobile-height); 
+      height: var(--rds-carousel-mobile-height);
       border-radius: var(--rds-border-radius-sm);
       margin-bottom: var(--rds-spacing-sm);
     }
@@ -1015,8 +1026,8 @@
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,
   .rds-comp-product-tour__animation-info {
-    --rds-local-120px: 120px;
-    max-height: calc(100vh - var(--rds-local-120px)); 
+
+    max-height: calc(100vh - var(--rds-product-tour-max-height-2));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1031,9 +1042,9 @@
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,
   .rds-comp-product-tour__animation-info {
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
     scrollbar-width: none;
-    padding-bottom: var(--rds-spacing-18); 
+    padding-bottom: var(--rds-spacing-18);
   }
 
   .rds-comp-product-tour__container--animation {
@@ -1080,8 +1091,8 @@
   }
 
   .rds-comp-product-tour__carousel-wrapper {
-    --rds-local-180px: 180px;
-    height: clamp(var(--rds-local-180px), 34vh, var(--rds-spacing-240));
+
+    height: clamp(var(--rds-product-tour-height-2), 34vh, var(--rds-spacing-240));
   }
 
   .rds-comp-product-tour__carousel-dots {
@@ -1099,8 +1110,8 @@
   }
 
   .rds-comp-product-tour__form-tab {
-    --rds-local-88px: 88px;
-    max-width: var(--rds-local-88px); 
+
+    max-width: var(--rds-product-tour-max-width-3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1117,8 +1128,8 @@
         padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
         min-width: var(--rds-spacing-40-px);
         height: var(--rds-size-lg);
-        --rds-line-height-local-1_2: 1.2;
-        line-height: var(--rds-line-height-local-1_2);
+
+        line-height: var(--rds-product-tour-line-height-2);
       }
     }
 
@@ -1210,8 +1221,8 @@ padding: var(--rds-spacing-lg);
         .rds-autocomplete__chip {
           flex-shrink: 1;
           min-width: 0;
-          --rds-local-72px: 72px;
-          max-width: var(--rds-local-72px);
+
+          max-width: var(--rds-product-tour-max-width-4);
         }
 
         .rds-autocomplete__chip--overflow {

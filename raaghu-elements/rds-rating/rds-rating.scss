@@ -3,6 +3,7 @@
   --rds-rating-focus-ring-width: 2px;
   --rds-rating-icon-size-small: 1.2rem;
   --rds-rating-icon-size-large: 2rem;
+  --rds-rating-empty-opacity: 0.6;
   --rds-rating-color-dark: var(--rds-text-primary);
   --rds-rating-color-light: var(--rds-border-default);
   align-items: center;
@@ -64,7 +65,6 @@
 
   &__star-icon {
     &--empty {
-      --rds-rating-empty-opacity: 0.6;
       opacity: var(--rds-rating-empty-opacity);
       color: var(--rds-color-outline-variant);
     }

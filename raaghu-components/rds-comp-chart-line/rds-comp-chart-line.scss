@@ -1,18 +1,20 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-chart-line {
-    display: flex;
+  --rds-chart-line-height: 460.1px;
+  --rds-chart-line-width: 802.4px;
+  display: flex;
     justify-content: center;
     align-items: center;
 
     // Tablet view - full screen
     @include bp.between(md, lg) {
-      
+
         canvas {
-            --rds-local-460_1px: 460.1px;
-            height: var(--rds-local-460_1px);
-            --rds-local-802_4px: 802.4px;
-            width: var(--rds-local-802_4px);
+
+            height: var(--rds-chart-line-height);
+
+            width: var(--rds-chart-line-width);
         }
     }
 }

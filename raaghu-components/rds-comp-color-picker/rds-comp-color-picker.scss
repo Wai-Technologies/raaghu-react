@@ -1,6 +1,13 @@
-.rds-comp-color-picker {  
+.rds-comp-color-picker {
+  --rds-color-picker-width-1: 285px;
+  --rds-color-picker-min-width-1: 70px;
+  --rds-color-picker-min-width-2: 120px;
+  --rds-color-picker-animation: 0.2s;
+  --rds-color-picker-transition-1: 0.2s;
+  --rds-color-picker-transition-2: 0.1s;
+  --rds-color-picker-width-2: 100px;
   display: block;
-  
+
   &__color-swatch {
     border: var(--rds-border-width-thin) solid var(--rds-color-surface-contrast);
     padding: 0;
@@ -8,23 +15,23 @@
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius);
   }
-  
+
   &__container {
     position: relative;
     box-shadow: var(--rds-elevation-2);
     border-radius: var(--rds-border-radius);
     background: var(--rds-color-surface);
     padding: var(--rds-spacing-sm);
-    --rds-local-285px: 285px;
-    width: var(--rds-local-285px);
+
+    width: var(--rds-color-picker-width-1);
   }
-  
+
   &__spectrum-type1 {
     width: 100%;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
   }
-  
+
   &__tabs {
     display: flex;
     margin-bottom: var(--rds-spacing-sm);
@@ -35,7 +42,7 @@
     gap: var(--rds-spacing-sm);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline);
   }
-  
+
   &__tab {
     cursor: pointer;
     border: none;
@@ -54,13 +61,13 @@
       outline: none;
       box-shadow: none;
     }
-    
+
     &--active {
       background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
     }
   }
-  
+
   &__color-grid-container {
     display: flex;
     flex-direction: column;
@@ -70,31 +77,31 @@
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
     border-radius: var(--rds-border-radius);
     overflow: hidden;
-    
+
     &--spectrum {
       height: var(--rds-spacing-160);
       margin: 0 0 var(--rds-spacing-md) 0;
     }
   }
-  
+
   &__color-row {
     display: flex;
     gap: 0;
     height: var(--rds-spacing-md);
   }
-  
+
   &__color-cell {
     flex: 1;
     cursor: pointer;
     transition: transform var(--rds-transition-fast);
-    
+
     &:hover {
       transform: scale(1.15);
       z-index: var(--rds-z-index-layer-2);
       box-shadow: var(--rds-elevation-1);
       outline: var(--rds-border-width-thin) solid var(--rds-color-surface-contrast);
     }
-    
+
     &--selected {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-surface-contrast);
       box-shadow: 0 0 0 1px var(--rds-color-neutral-1000);
@@ -102,7 +109,7 @@
       position: relative;
     }
   }
-  
+
   &__edit-button {
     position: absolute;
     right: -6px;
@@ -117,13 +124,13 @@
     color: var(--rds-color-on-primary);
     cursor: pointer;
     box-shadow: var(--rds-elevation-1);
-    
+
     svg {
       width: var(--rds-spacing-12-px);
       height: var(--rds-spacing-12-px);
     }
   }
-  
+
   &__sliders-row {
     display: flex;
     align-items: center;
@@ -143,7 +150,7 @@
     box-shadow: var(--rds-elevation-1);
     flex-shrink: 0;
     cursor: pointer;
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
@@ -189,23 +196,23 @@
   &__slider-pointer {
     box-sizing: border-box;
   }
-  
+
   &__alpha-slider-container {
     .rds-comp-color-picker__alpha-picker > div > div:last-child {
       border-radius: var(--rds-border-radius-lg);
     }
   }
-  
+
   &__color-info {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm);
   }
-  
+
   &__dropdown-container {
     position: relative;
   }
-  
+
   &__dropdown-button {
     display: flex;
     align-items: center;
@@ -213,18 +220,18 @@
     background: transparent;
     border: none;
     padding: 0;
-    --rds-local-70px: 70px;
-    min-width: var(--rds-local-70px);
+
+    min-width: var(--rds-color-picker-min-width-1);
     gap: var(--rds-spacing-compact);
     position: relative;
     z-index: var(--rds-z-index-layer-2);
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
     }
   }
-  
+
   &__color-circle {
     width: var(--rds-size-lg);
     height: var(--rds-size-lg);
@@ -232,14 +239,14 @@
     background-color: var(--rds-color-primary);
     flex-shrink: 0;
   }
-  
+
   &__dropdown-label {
     font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium);
     color: var(--rds-color-on-surface);
     flex-shrink: 0;
   }
-  
+
   &__dropdown-caret {
     width: var(--rds-spacing-cozy);
     height: var(--rds-spacing-compact);
@@ -247,13 +254,13 @@
     flex-shrink: 0;
     margin-left: var(--rds-spacing-neg-2);
   }
-  
+
   &__dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
-    --rds-local-120px: 120px;
-    min-width: var(--rds-local-120px);
+
+    min-width: var(--rds-color-picker-min-width-2);
     background-color: var(--rds-color-surface);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline);
     border-radius: var(--rds-border-radius);
@@ -261,10 +268,10 @@
     z-index: var(--rds-z-index-raised);
     margin-top: var(--rds-spacing-xs);
     overflow: hidden;
-    --rds-duration-local-0_2s: 0.2s;
-    animation: fadeIn var(--rds-duration-local-0_2s) ease-out;
+
+    animation: fadeIn var(--rds-color-picker-animation) ease-out;
   }
-  
+
   &__dropdown-item {
     display: flex;
     align-items: center;
@@ -275,28 +282,28 @@
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     font-size: var(--rds-font-size-md);
     cursor: pointer;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background-color var(--rds-duration-local-0_2s);
+
+    transition: background-color var(--rds-color-picker-transition-1);
     color: var(--rds-color-on-surface);
     min-height: var(--rds-spacing-36-px);
-    
+
     &:focus,
     &:focus-visible,
     &:active {
       outline: none;
       box-shadow: none;
     }
-    
+
     &:hover {
       background-color: var(--rds-color-surface-variant);
     }
-    
+
     &.active {
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-medium);
       gap: var(--rds-spacing-sm-px);
       padding-left: var(--rds-spacing-md);
-      
+
       &::before {
         content: '';
         position: static;
@@ -309,21 +316,21 @@
       }
     }
   }
-  
+
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  
+
   &__input-wrapper {
     flex: 1;
     margin-right: var(--rds-spacing-xs);
-    
+
     &:last-child {
       margin-right: 0;
     }
   }
-  
+
   &__hex-input {
     width: 100%;
     height: var(--rds-size-xl);
@@ -334,7 +341,7 @@
     background-color: var(--rds-color-surface);
     text-align: center;
   }
-  
+
   &__color-input {
     width: 100%;
     height: var(--rds-size-xl);
@@ -345,11 +352,11 @@
     background-color: var(--rds-color-surface);
     text-align: center;
   }
-  
+
   &__percent-wrapper {
     width: var(--rds-spacing-60);
   }
-  
+
   &__percent-input {
     width: 100%;
     text-align: center;
@@ -362,8 +369,8 @@
     color: var(--rds-color-on-surface);
     background-color: var(--rds-color-surface);
   }
-  
-  /* Remove the default blue focus ring on inputs when clicked (mouse). 
+
+  /* Remove the default blue focus ring on inputs when clicked (mouse).
      Keepability for keyboard users can be added with :focus-visible if desired. */
   &__hex-input,
   &__color-input,
@@ -375,26 +382,26 @@
       box-shadow: none;
     }
   }
-  
+
   &__swatches {
     margin-top: var(--rds-spacing-sm);
     padding-top: var(--rds-spacing-12-px);
     border-top: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
   }
-  
+
   &__swatches-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--rds-spacing-sm);
-    
+
     span {
       font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-medium);
       color: var(--rds-color-on-surface);
     }
   }
-  
+
   &__add-swatch {
     width: var(--rds-spacing-20-px);
     height: var(--rds-spacing-20-px);
@@ -408,23 +415,23 @@
     font-size: var(--rds-font-size-md);
     line-height: var(--rds-line-height-none);
     color: var(--rds-color-on-surface-variant);
-    
+
     &:hover {
       background-color: var(--rds-color-surface-variant);
     }
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
     }
   }
-  
+
   &__swatch-list {
     display: flex;
     flex-wrap: wrap;
     gap: var(--rds-spacing-sm);
   }
-  
+
   &__swatch-list--vertical {
     display: flex;
     flex-direction: column;
@@ -468,11 +475,11 @@
     border-radius: var(--rds-border-radius);
     cursor: pointer;
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
-    
+
     &:hover {
       transform: scale(1.05);
     }
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
@@ -492,13 +499,13 @@
     border-radius: var(--rds-border-radius);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
     cursor: pointer;
-    --rds-duration-local-0_1s: 0.1s;
-    transition: transform var(--rds-duration-local-0_1s) ease;
-    
+
+    transition: transform var(--rds-color-picker-transition-2) ease;
+
     &:hover {
       transform: scale(1.05);
     }
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
@@ -512,13 +519,13 @@
     background: var(--rds-color-surface-variant);
     color: var(--rds-color-on-surface-variant);
   }
-  
+
   &__spectrum-area {
     width: 100%;
     height: 100%;
     border-radius: var(--rds-border-radius);
-    background-image: 
-      linear-gradient(to top, var(--rds-neutral-1000), transparent), 
+    background-image:
+      linear-gradient(to top, var(--rds-neutral-1000), transparent),
       linear-gradient(to right, var(--rds-neutral-0), transparent);
     background-blend-mode: normal;
     cursor: crosshair;
@@ -528,7 +535,7 @@
     gap: var(--rds-spacing-cozy);
     margin-top: var(--rds-spacing-sm);
   }
-  
+
   &__mode-swatch {
     width: var(--rds-spacing-28-px);
     height: var(--rds-spacing-28-px);
@@ -539,41 +546,41 @@
     align-items: center;
     justify-content: center;
     padding: var(--rds-spacing-xxs);
-    
+
     &--active {
       border: var(--rds-spacing-xxs) solid var(--rds-color-primary);
     }
-    
+
     &:hover:not(&--active) {
       border-color: var(--rds-color-on-surface-variant);
     }
   }
-  
+
   &__mode-swatch-solid {
     width: 100%;
     height: 100%;
     background-color: var(--rds-color-on-surface-variant);
     border-radius: var(--rds-border-radius-xs);
   }
-  
+
   &__mode-swatch-gradient {
     width: 100%;
     height: 100%;
     background: linear-gradient(to right, var(--rds-semantic-warning-main), var(--rds-info-main));
     border-radius: var(--rds-border-radius-xs);
   }
-  
+
   &__gradient-editor {
     margin-top: var(--rds-spacing-sm);
     width: 100%;
   }
-  
+
   &__gradient-type {
     display: flex;
     gap: var(--rds-spacing-sm);
     margin-bottom: var(--rds-spacing-sm);
   }
-  
+
   &__gradient-btn {
     flex: 1;
     padding: var(--rds-spacing-compact) var(--rds-spacing-3);
@@ -582,17 +589,17 @@
     background-color: var(--rds-color-surface);
     cursor: pointer;
     font-size: var(--rds-font-size-md);
-    
+
     &--active {
       background-color: var(--rds-color-primary-container);
       border-color: var(--rds-color-primary);
       color: var(--rds-color-primary);
     }
   }
-  
+
   &__direction-control {
     margin-bottom: var(--rds-spacing-sm);
-    
+
     label {
       display: block;
       margin-bottom: var(--rds-spacing-xs);
@@ -600,23 +607,23 @@
       color: var(--rds-color-on-surface);
     }
   }
-  
+
   &__direction-slider {
     width: 100%;
     height: var(--rds-spacing-xs);
   }
-  
+
   &__gradient-stops-container {
     margin-top: var(--rds-spacing-md);
   }
-  
+
   &__gradient-preview {
     height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius);
     margin-bottom: var(--rds-spacing-sm);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
   }
-  
+
   &__gradient-slider {
     height: var(--rds-spacing-30);
     position: relative;
@@ -627,13 +634,13 @@
     border-radius: var(--rds-border-radius);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline);
   }
-  
+
   &__gradient-stops {
     position: absolute;
     width: 100%;
     height: 100%;
   }
-  
+
   &__gradient-stop {
     position: absolute;
     width: var(--rds-size-md);
@@ -645,21 +652,21 @@
     cursor: pointer;
     box-shadow: var(--rds-elevation-1);
     z-index: var(--rds-z-index-layer-1);
-    
+
     &:hover {
       transform: translateX(-8px) scale(1.1);
     }
   }
-  
+
   &__stop-position {
     position: absolute;
-    --rds-local-100px: 100px;
-    width: var(--rds-local-100px);
+
+    width: var(--rds-color-picker-width-2);
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
   }
-  
+
   &__remove-stop {
     position: absolute;
     top: -8px;
@@ -678,7 +685,7 @@
     padding: 0;
     line-height: var(--rds-line-height-none);
   }
-  
+
   &__add-stop-area {
     position: absolute;
     width: 100%;
@@ -687,7 +694,7 @@
   }
 }
  [data-theme="dark"] {
-  .rds-comp-color-picker { 
+  .rds-comp-color-picker {
     span , .MuiSvgIcon-root{
     color: var(--rds-color-on-surface);
     fill: var(--rds-color-on-surface);
@@ -698,8 +705,6 @@
     }
   }
 }
-
-
 
 .rds-comp-color-picker__container{
   margin-top: var(--rds-spacing-compact);

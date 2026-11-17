@@ -1,6 +1,14 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-map {
+  --rds-map-letter-spacing: 0.2px;
+  --rds-map-max-width-1: 700px;
+  --rds-map-min-width-1: 280px;
+  --rds-map-width-1: 310px;
+  --rds-map-max-width-2: 310px;
+  --rds-map-width-2: 400px;
+  --rds-map-max-width-3: 400px;
+  --rds-map-min-width-2: 380px;
   /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
   background-color: var(--rds-bg, transparent);
   border: none;
@@ -18,8 +26,8 @@
     color: var(--rds-text);
     margin-bottom: var(--rds-spacing-sm);
     margin-left: 0;
-    --rds-local-0_2px: 0.2px;
-    letter-spacing: var(--rds-local-0_2px);
+
+    letter-spacing: var(--rds-map-letter-spacing);
     text-align: left;
   }
 
@@ -31,7 +39,7 @@
     position: relative;
     min-height: auto;
     height: auto;
-    
+
     & > div {
       width: 100%;
       max-width: 100%;
@@ -45,11 +53,11 @@
     margin: 0 auto;
     width: 100%;
     height: auto;
-    --rds-local-700px: 700px;
-    max-width: var(--rds-local-700px);
-    --rds-local-280px: 280px;
-    min-width: var(--rds-local-280px);
-    
+
+    max-width: var(--rds-map-max-width-1);
+
+    min-width: var(--rds-map-min-width-1);
+
     & > * {
       max-width: 100%;
       height: auto;
@@ -78,8 +86,8 @@
     margin: 0 auto;
     width: 100%;
     height: auto;
-    --rds-local-700px: 700px;
-    max-width: var(--rds-local-700px);
+
+    max-width: var(--rds-map-max-width-1);
     border-radius: var(--rds-border-radius-sm);
     box-shadow: var(--rds-elevation-2);
   }
@@ -88,7 +96,7 @@
     &__label {
       font-size: var(--rds-font-size-xl);
     }
-    
+
     svg, &__heatmap-image {
       max-width: 100%;
     }
@@ -100,12 +108,12 @@
     box-sizing: border-box;
     height: auto;
     min-height: auto;
-    
+
     &__label {
       font-size: var(--rds-font-size-lg);
       margin-bottom: var(--rds-spacing-sm);
     }
-    
+
     &__center {
       width: 100%;
       max-width: 100%;
@@ -118,14 +126,14 @@
       justify-content: center;
       align-items: flex-start;
     }
-    
+
     svg, &__heatmap-image {
-      --rds-local-310px: 310px;
-      width: var(--rds-local-310px);
-      --rds-local-310px: 310px;
-      max-width: var(--rds-local-310px);
-      --rds-local-280px: 280px;
-      min-width: var(--rds-local-280px);
+
+      width: var(--rds-map-width-1);
+
+      max-width: var(--rds-map-max-width-2);
+
+      min-width: var(--rds-map-min-width-1);
       height: auto;
       transform: scale(1);
       transform-origin: center top;
@@ -135,10 +143,10 @@
     }
 
     & > div {
-      --rds-local-310px: 310px;
-      width: var(--rds-local-310px);
-      --rds-local-310px: 310px;
-      max-width: var(--rds-local-310px);
+
+      width: var(--rds-map-width-1);
+
+      max-width: var(--rds-map-max-width-2);
       height: auto;
       margin: 0 auto;
       overflow: visible;
@@ -151,12 +159,12 @@
     box-sizing: border-box;
     height: auto;
     min-height: auto;
-    
+
     &__label {
       font-size: var(--rds-font-size-lg);
       margin-bottom: var(--rds-spacing-sm);
     }
-    
+
     &__center {
       width: 100%;
       max-width: 100%;
@@ -169,14 +177,14 @@
       justify-content: center;
       align-items: flex-start;
     }
-    
+
     svg, &__heatmap-image {
-      --rds-local-400px: 400px;
-      width: var(--rds-local-400px);
-      --rds-local-400px: 400px;
-      max-width: var(--rds-local-400px);
-      --rds-local-380px: 380px;
-      min-width: var(--rds-local-380px);
+
+      width: var(--rds-map-width-2);
+
+      max-width: var(--rds-map-max-width-3);
+
+      min-width: var(--rds-map-min-width-2);
       height: auto;
       transform: scale(1);
       transform-origin: center top;
@@ -186,10 +194,10 @@
     }
 
     & > div {
-      --rds-local-400px: 400px;
-      width: var(--rds-local-400px);
-      --rds-local-400px: 400px;
-      max-width: var(--rds-local-400px);
+
+      width: var(--rds-map-width-2);
+
+      max-width: var(--rds-map-max-width-3);
       height: auto;
       margin: 0 auto;
       overflow: visible;

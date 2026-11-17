@@ -5,8 +5,6 @@
 .rds-range {
   --rds-range-max-width-sm: 370px;
   --rds-range-max-width-xs: 275px;
-  --rds-range-slider-width-mobile: 288px;
-  --rds-range-slider-width-tablet: 382px;
   --rds-range-disabled-opacity: 0.6;
   display: block;
   position: relative;
@@ -39,11 +37,13 @@
 
 @include bp.between(mobile-sm, 568) {
   .css-3k03ww, .css-1fm6jzk {
+    --rds-range-slider-width-mobile: 288px;
     width: var(--rds-range-slider-width-mobile);
   }
 }
 @include bp.between(mobile-lg, 896) {
   .css-3k03ww, .css-1fm6jzk {
+    --rds-range-slider-width-tablet: 382px;
     width: var(--rds-range-slider-width-tablet);
   }
 }

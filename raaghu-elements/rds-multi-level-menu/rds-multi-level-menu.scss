@@ -33,14 +33,12 @@
   background-color: transparent;
 }
 
-
 .rds-mlm-paper .MuiMenuItem-root:hover,
 .rds-mlm-paper .MuiMenuItem-root.force-hover,
 .rds-mlm-paper .MuiMenuItem-root:active,
 .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
   background-color: var(--rds-background-surface-hover);
 }
-
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
@@ -65,11 +63,11 @@
   color: var(--rds-primary-main);
 }
 
-
 .rds-mlm-paper .MuiMenuItem-root.large {
+  --rds-multi-level-menu-line-height: 24px;
   font-size: var(--rds-font-size-lg);
-  --rds-local-24px: 24px;
-  line-height: var(--rds-local-24px);
+
+  line-height: var(--rds-multi-level-menu-line-height);
   min-height: var(--rds-spacing-2xl);
   padding: var(--rds-spacing-md) calc(var(--rds-spacing-lg) + var(--rds-spacing-xxs));
 }
@@ -83,11 +81,10 @@
 }
 
 .rds-mlm-paper.size-large {
-  --rds-local-520px: 520px;
-  max-height: var(--rds-local-520px);
+  --rds-multi-level-menu-max-height: 520px;
+  max-height: var(--rds-multi-level-menu-max-height);
   overflow: auto;
 }
-
 
 .rds-mlm-paper .rds-mlm-shortcut {
   color: var(--rds-text-secondary);
@@ -97,7 +94,6 @@
   text-align: right;
 }
 
-
 .rds-mlm-paper .rds-mlm-leading {
   width: var(--rds-size-md);
   display: inline-flex;
@@ -105,7 +101,4 @@
   justify-content: center;
   margin-right: var(--rds-spacing-sm);
 }
-
-
-
 

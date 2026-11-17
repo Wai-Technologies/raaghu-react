@@ -1,12 +1,12 @@
 .rds-tooltip {
-  --rds-tooltip-bg: var(--rds-background-paper);
-  --rds-tooltip-color: var(--rds-text-primary);
-  --rds-tooltip-border: var(--rds-border-default);
   --rds-tooltip-border-width: 1.5px;
   --rds-tooltip-arrow-offset: 0.4em;
   --rds-tooltip-focus-ring-width: 2px;
   --rds-tooltip-min-width: 80px;
   --rds-tooltip-max-width: 320px;
+  --rds-tooltip-bg: var(--rds-background-paper);
+  --rds-tooltip-color: var(--rds-text-primary);
+  --rds-tooltip-border: var(--rds-border-default);
   z-index: var(--rds-z-index-popover);
 
   .MuiTooltip-tooltip {

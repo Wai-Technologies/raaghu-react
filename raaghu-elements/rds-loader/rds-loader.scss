@@ -1,64 +1,57 @@
 .rds-loader {
+  --rds-loader-animation-1: 1.4s;
+  --rds-loader-animation-2: 2s;
   --rds-loader-size-medium: 40px;
   --rds-loader-size-large: 60px;
-  --rds-loader-dash-offset-mid: -35px;
-  --rds-loader-dash-offset-end: -48px;
-  --rds-loader-moving-width: 130px;
-  --rds-loader-round-size: 44.8px;
-  --rds-loader-spin-size: 56px;
-  --rds-loader-rotate-size: 40px;
-  --rds-loader-triangle-size: 50px;
-  --rds-loader-sand-width: 40px;
-  --rds-loader-sand-height: 80px;
   display: inline-block;
-  
+
   &__spinner {
     stroke: currentColor;
     stroke-linecap: round;
-    --rds-duration-local-1_4s: 1.4s;
-    animation: rds-loader-dash var(--rds-duration-local-1_4s) ease-in-out infinite;
+
+    animation: rds-loader-dash var(--rds-loader-animation-1) ease-in-out infinite;
   }
-  
+
   &--small {
     width: var(--rds-font-size-2xl);
     height: var(--rds-font-size-2xl);
   }
-  
+
   &--medium {
     width: var(--rds-loader-size-medium);
     height: var(--rds-loader-size-medium);
   }
-  
+
   &--large {
     width: var(--rds-loader-size-large);
     height: var(--rds-loader-size-large);
   }
-  
+
   &--primary {
     color: var(--rds-color-primary, var(--rds-primary-main));
   }
-  
+
   &--secondary {
     color: var(--rds-secondary-main);
   }
-  
+
   &--linear {
     width: 100%;
     height: var(--rds-spacing-xs);
     background-color: var(--rds-border-default);
     border-radius: var(--rds-border-radius-xs);
     overflow: hidden;
-    
+
     .rds-loader__bar {
       width: 100%;
       height: 100%;
       background-color: currentColor;
       transform-origin: left;
-      --rds-duration-local-2s: 2s;
-      animation: rds-loader-linear var(--rds-duration-local-2s) linear infinite;
+
+      animation: rds-loader-linear var(--rds-loader-animation-2) linear infinite;
     }
   }
-  
+
   &--determinate {
     .rds-loader__circle {
       animation: none;
@@ -83,10 +76,12 @@
     stroke-dashoffset: 0;
   }
   50% {
+    --rds-loader-dash-offset-mid: -35px;
     stroke-dasharray: 89, 200;
     stroke-dashoffset: var(--rds-loader-dash-offset-mid);
   }
   100% {
+    --rds-loader-dash-offset-end: -48px;
     stroke-dasharray: 89, 200;
     stroke-dashoffset: var(--rds-loader-dash-offset-end);
   }
@@ -127,8 +122,12 @@
   text-align: center;
   width: 100%;
 }
-.rds-loader__hash:before { --rds-duration-local-2s: 2s;  animation: before8 var(--rds-duration-local-2s) infinite; }
-.rds-loader__hash:after { --rds-duration-local-2s: 2s;  animation: after6 var(--rds-duration-local-2s) infinite; }
+.rds-loader__hash:before {
+  --rds-loader-animation-2: 2s;
+  animation: before8 var(--rds-loader-animation-2) infinite; }
+.rds-loader__hash:after {
+  --rds-loader-animation-2: 2s;
+  animation: after6 var(--rds-loader-animation-2) infinite; }
 @keyframes before8 {
   0% { width: 0.5em; box-shadow: 1em -0.5em var(--rds-loader-hash-pink), -1em 0.5em var(--rds-loader-hash-cyan); }
   35% { width: 2.5em; box-shadow: 0 -0.5em var(--rds-loader-hash-pink), 0 0.5em var(--rds-loader-hash-cyan); }
@@ -219,6 +218,9 @@
 }
 
 .rds-loader__sand {
+  --rds-loader-animation-2: 2s;
+  --rds-loader-sand-width: 40px;
+  --rds-loader-sand-height: 80px;
   --c1: var(--rds-loader-sand-dark);
   --c2: var(--rds-loader-sand-light);
   width: var(--rds-loader-sand-width);
@@ -228,8 +230,8 @@
   background: linear-gradient(90deg, var(--c1) 2px, var(--c2) 0 5px,var(--c1) 0) 50%/7px 8px no-repeat;
   display: grid;
   overflow: hidden;
-  --rds-duration-local-2s: 2s;
-  animation: l5-0 var(--rds-duration-local-2s) infinite linear;
+
+  animation: l5-0 var(--rds-loader-animation-2) infinite linear;
 }
 .rds-loader__sand::before,
 .rds-loader__sand::after {
@@ -252,7 +254,6 @@
     linear-gradient(var(--c2) 0 0) center/0 100%;
   animation: inherit;
 
-
   transform-origin: 50% calc(100% + 2px);
   transform: scaleY(-1);
   --s: 3px;
@@ -268,6 +269,7 @@
 }
 
 .rds-loader__moving {
+  --rds-loader-moving-width: 130px;
   --height-of-loader: 4px;
   --loader-color: var(--rds-primary-main);
   width: var(--rds-loader-moving-width);
@@ -277,6 +279,7 @@
   position: relative;
 }
 .rds-loader__moving::before {
+  --rds-loader-animation-3: 1s;
   content: "";
   position: absolute;
   background-color: var(--loader-color);
@@ -285,8 +288,8 @@
   width: 0%;
   height: 100%;
   border-radius: var(--rds-spacing-30);
-  --rds-duration-local-1s: 1s;
-  animation: moving var(--rds-duration-local-1s) ease-in-out infinite;
+
+  animation: moving var(--rds-loader-animation-3) ease-in-out infinite;
 }
 @keyframes moving {
   50% { width: 100%; }
@@ -310,6 +313,7 @@
   top: 50%;
 }
 .rds-loader__rolling-rock:after {
+  --rds-loader-animation-4: 2.5s;
   content: '';
   position: absolute;
   left: 0.2em;
@@ -318,8 +322,8 @@
   height: 1em;
   background-color: var(--rds-warning-main, orange);
   border-radius: 15%;
-  --rds-duration-local-2_5s: 2.5s;
-  animation: rollingRock var(--rds-duration-local-2_5s) cubic-bezier(.79, 0, .47, .97) infinite;
+
+  animation: rollingRock var(--rds-loader-animation-4) cubic-bezier(.79, 0, .47, .97) infinite;
 }
 @keyframes rollingRock {
   0% { transform: translate(0, -1em) rotate(-45deg)}
@@ -336,6 +340,7 @@
 }
 
 .rds-loader__round {
+  --rds-loader-round-size: 44.8px;
   width: var(--rds-loader-round-size);
   height: var(--rds-loader-round-size);
   color: var(--rds-loader-round-color);
@@ -343,6 +348,7 @@
   background: radial-gradient(11.2px,currentColor 94%,transparent);
 }
 .rds-loader__round:before {
+  --rds-loader-animation-5: 1.5s;
   content: '';
   position: absolute;
   inset: 0;
@@ -351,23 +357,27 @@
       radial-gradient(10.08px at bottom left ,transparent 94%,currentColor) top    right,
       radial-gradient(10.08px at top    right,transparent 94%,currentColor) bottom left,
       radial-gradient(10.08px at top    left ,transparent 94%,currentColor) bottom right;
-  --rds-duration-local-1_5s: 1.5s;
-  animation: loader var(--rds-duration-local-1_5s) infinite cubic-bezier(0.3,1,0,1);
+
+  animation: loader var(--rds-loader-animation-5) infinite cubic-bezier(0.3,1,0,1);
 }
 @keyframes loader {
-  33% { --rds-local-neg-11_2px: -11.2px;  inset: var(--rds-local-neg-11_2px); transform: rotate(0deg); }
-  66% { --rds-local-neg-11_2px: -11.2px;  inset: var(--rds-local-neg-11_2px); transform: rotate(90deg); }
+  33% {
+    --rds-loader-inset: -11.2px; inset: var(--rds-loader-inset); transform: rotate(0deg); }
+  66% {
+    --rds-loader-inset: -11.2px; inset: var(--rds-loader-inset); transform: rotate(90deg); }
   100% { inset: 0; transform: rotate(90deg); }
 }
 
 .rds-loader__rotate, .rds-loader__rotate::before, .rds-loader__rotate::after {
+  --rds-loader-animation-6: 5s;
   border-width: var(--rds-spacing-xxs);
   border-style: solid;
   border-radius: var(--rds-spacing-cozy);
-  --rds-duration-local-5s: 5s;
-  animation: rotate var(--rds-duration-local-5s) linear infinite;
+
+  animation: rotate var(--rds-loader-animation-6) linear infinite;
 }
 .rds-loader__rotate {
+  --rds-loader-rotate-size: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,67 +391,76 @@
   content: "";
 }
 .rds-loader__rotate::before {
+  --rds-loader-animation-delay-1: .5s;
   border-color: var(--rds-loader-rotate-secondary);
   width: 110%;
   height: 110%;
-  --rds-duration-local-_5s: .5s;
-  animation-delay: var(--rds-duration-local-_5s)
+
+  animation-delay: var(--rds-loader-animation-delay-1)
 }
 .rds-loader__rotate::after {
+  --rds-loader-animation-delay-2: .10s;
   border-color: var(--rds-loader-rotate-tertiary);
   width: 120%;
   height: 120%;
-  --rds-duration-local-_10s: .10s;
-  animation-delay: var(--rds-duration-local-_10s);
+
+  animation-delay: var(--rds-loader-animation-delay-2);
 }
 @keyframes rotate {
   to { transform: rotate(360deg)}
 }
 
 .rds-loader__spin {
+  --rds-loader-spin-size: 56px;
+  --rds-loader-animation-3: 1s;
   width: var(--rds-loader-spin-size);
   height: var(--rds-loader-spin-size);
   display: grid;
   border: var(--rds-loader-spin-border) solid transparent;
   border-radius: var(--rds-border-radius-pill);
   border-right-color: var(--rds-loader-spin-color, var(--rds-primary-main));
-  --rds-duration-local-1s: 1s;
-  animation: spinner-a4dj62 var(--rds-duration-local-1s) infinite linear;
+
+  animation: spinner-a4dj62 var(--rds-loader-animation-3) infinite linear;
 }
 .rds-loader__spin::before, .rds-loader__spin::after {
+  --rds-loader-animation-2: 2s;
   content: "";
   grid-area: 1/1;
   margin: calc(var(--rds-spacing-xs) / 2);
   border: inherit;
   border-radius: var(--rds-border-radius-pill);
-  --rds-duration-local-2s: 2s;
-  animation: spinner-a4dj62 var(--rds-duration-local-2s) infinite;
+
+  animation: spinner-a4dj62 var(--rds-loader-animation-2) infinite;
 }
 .rds-loader__spin::after {
+  --rds-loader-animation-duration: 3s;
   margin: var(--rds-spacing-sm);
-  --rds-duration-local-3s: 3s;
-  animation-duration: var(--rds-duration-local-3s);
+
+  animation-duration: var(--rds-loader-animation-duration);
 }
 @keyframes spinner-a4dj62 {
   100% { transform: rotate(1turn); }
 }
 
 .rds-loader__triangle {
+  --rds-loader-triangle-size: 50px;
+  --rds-loader-animation-5: 1.5s;
   width: var(--rds-loader-triangle-size);
   aspect-ratio: 1.154;
   position: relative;
   background: conic-gradient(from 120deg at 50% 64%,transparent, var(--rds-semantic-error-main) 1deg 120deg,transparent 121deg);
-  --rds-duration-local-1_5s: 1.5s;
-  animation: l27-0 var(--rds-duration-local-1_5s) infinite cubic-bezier(0.3,1,0,1);
+
+  animation: l27-0 var(--rds-loader-animation-5) infinite cubic-bezier(0.3,1,0,1);
 }
 .rds-loader__triangle:before, .rds-loader__triangle:after {
+  --rds-loader-animation-5: 1.5s;
   content: '';
   position: absolute;
   inset: 0;
   background-color: inherit;
   transform-origin: 50% 66%;
-  --rds-duration-local-1_5s: 1.5s;
-  animation: l27-1 var(--rds-duration-local-1_5s) infinite;
+
+  animation: l27-1 var(--rds-loader-animation-5) infinite;
 }
 .rds-loader__triangle:after { --s: -1; }
 @keyframes l27-0 {
@@ -456,6 +475,7 @@
 }
 
 .rds-loader__spinner-ring {
+  --rds-loader-animation-3: 1s;
   --spinner-ring-size: 120px;
   --spinner-ring-border-main: 8px;
   --spinner-ring-border-pseudo: 3px;
@@ -466,8 +486,8 @@
   border-top: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-right: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-radius: var(--rds-border-radius-pill);
-  --rds-duration-local-1s: 1s;
-  animation: spin var(--rds-duration-local-1s) linear infinite;
+
+  animation: spin var(--rds-loader-animation-3) linear infinite;
   position: relative;
   display: flex;
   align-items: center;

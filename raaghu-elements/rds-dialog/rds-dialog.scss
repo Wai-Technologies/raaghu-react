@@ -1,4 +1,8 @@
 .rds-dialog {
+  --rds-dialog-max-width: 248px;
+  --rds-dialog-line-height-1: 20px;
+  --rds-dialog-line-height-2: 1.45;
+  --rds-dialog-line-height-3: 16px;
   --rds-dialog-focus-ring-width: 2px;
   --rds-dialog-disabled-opacity: 0.6;
   --rds-dialog-icon-paper-width: 310px;
@@ -54,8 +58,8 @@
       padding: var(--rds-spacing-sm) var(--rds-dialog-title-padding-right) var(--rds-spacing-xs) var(--rds-dialog-title-padding-left);
       font-size: var(--rds-font-size-xl);
       font-weight: var(--rds-font-weight-medium);
-      --rds-local-20px: 20px;
-      line-height: var(--rds-local-20px);
+
+      line-height: var(--rds-dialog-line-height-1);
       color: var(--rds-text-primary);
     }
 
@@ -82,12 +86,12 @@
 
     .rds-dialog__content p,
     .rds-dialog__content .MuiTypography-root {
-      --rds-local-248px: 248px;
-      max-width: var(--rds-local-248px);
+
+      max-width: var(--rds-dialog-max-width);
       margin: 0 auto;
       font-size: var(--rds-font-size-md);
-      --rds-line-height-local-1_45: 1.45;
-      line-height: var(--rds-line-height-local-1_45);
+
+      line-height: var(--rds-dialog-line-height-2);
       color: var(--rds-text-secondary);
     }
 
@@ -140,8 +144,8 @@
       font-family: var(--rds-font-family-base);
       font-weight: var(--rds-font-weight-regular);
       font-size: var(--rds-font-size-xs);
-      --rds-local-16px: 16px;
-      line-height: var(--rds-local-16px);
+
+      line-height: var(--rds-dialog-line-height-3);
       text-align: center;
       vertical-align: middle;
       text-transform: none;
@@ -174,8 +178,8 @@
       font-family: var(--rds-font-family-base);
       font-weight: var(--rds-font-weight-regular);
       font-size: var(--rds-font-size-xs);
-      --rds-local-16px: 16px;
-      line-height: var(--rds-local-16px);
+
+      line-height: var(--rds-dialog-line-height-3);
       text-align: center;
       vertical-align: middle;
       text-transform: none;
@@ -364,7 +368,6 @@
     }
   }
 
-
   &:focus {
     outline: none;
   }
@@ -394,9 +397,4 @@
     max-width: calc(100vw - var(--rds-spacing-xl));
   }
 }
-
-
-
-
-
 

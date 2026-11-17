@@ -1,6 +1,7 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-card {
+  --rds-card-line-height-1: 1.3;
   border-radius: var(--rds-border-radius-md);
   box-shadow: var(--rds-elevation-3);
   overflow: hidden;
@@ -9,8 +10,7 @@
 
   &--layout-horizontal {
     display: block;
-    
-    
+
     .rds-card__header-row {
       display: flex;
       flex-direction: row;
@@ -27,27 +27,27 @@
     .rds-card__below-content {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
     }
-    
+
     .MuiCardContent-root {
       padding-top: 0;
       flex: 1;
       min-width: 0;
     }
-    
+
     .MuiCardActions-root {
       padding-top: 0;
     }
-    
+
     .MuiCardContent-root .MuiTypography-gutterBottom {
       margin-top: 0;
     }
-    
+
     &.rds-card--hide-icon {
       > .MuiCardContent-root {
         flex: 1;
         min-width: 0;
       }
-      
+
       > .MuiTypography-root:only-child {
         flex: 1;
         min-width: 0;
@@ -56,30 +56,30 @@
         padding: var(--rds-spacing-md);
       }
     }
-    
+
   }
-  
+
   &--layout-vertical {
     display: flex;
     flex-direction: column;
-    
+
     .rds-card__icon-container--vertical {
       padding: var(--rds-spacing-md);
     }
-    
+
     .MuiCardContent-root {
       padding-top: 0;
     }
-    
+
     .MuiCardActions-root {
       padding-top: 0;
     }
-    
+
     .MuiCardContent-root .MuiTypography-gutterBottom {
       margin-top: 0;
     }
   }
-  
+
   &__content-wrapper {
     display: flex;
     flex-direction: column;
@@ -96,25 +96,25 @@
       padding-left: var(--rds-spacing-xs);
     }
   }
-  
+
   &--hide-icon {
     .rds-card__icon-container {
       display: none;
     }
   }
-  
+
   &--style-outlined {
     background-color: transparent;
     border: var(--rds-border-width-thin) solid var(--rds-card-border);
     box-shadow: none;
   }
-  
+
   &--style-filled {
     background-color: var(--rds-card-surface-filled);
     border: none;
     box-shadow: none;
   }
-  
+
   &--hide-title {
     h1, h2, h3, h4, h5, h6,
     .MuiTypography-h1,
@@ -126,14 +126,14 @@
     .MuiTypography-root[class*="gutterBottom"] {
       display: none;
     }
-    
+
     [data-role="card-title"],
     .card-title,
     .rds-card-title {
       display: none;
     }
   }
-  
+
   &__indicator {
     position: absolute;
     top: 0;
@@ -142,7 +142,7 @@
     width: var(--rds-spacing-xs);
     z-index: calc(var(--rds-z-index-base) + 1);
   }
-  
+
   &__indicator-icon {
     width: 100%;
     height: 100%;
@@ -150,28 +150,28 @@
     transition: var(--rds-transition-base);
     border-radius: 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0;
   }
-  
+
   &--hover {
     box-shadow: var(--rds-elevation-2);
     background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200));
   }
-  
+
   &--selected {
     background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200));
     box-shadow: var(--rds-elevation-focus);
-    
+
     .rds-card__subtext {
       color: var(--rds-color-primary);
     }
   }
-  
+
   &--disabled {
     opacity: 0.6;
     background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300));
     color: var(--rds-card-text-disabled, var(--rds-color-disabled-text));
     pointer-events: none;
     cursor: not-allowed;
-    
+
     .MuiButton-root,
     .rds-button,
     button {
@@ -180,78 +180,78 @@
       cursor: not-allowed;
     }
   }
-  
+
   &__header {
     padding: var(--rds-spacing-md);
     border-bottom: var(--rds-border-width-thin) solid var(--rds-card-border, var(--rds-border-light));
-    
+
     &:last-child {
       border-bottom: none;
     }
   }
-  
+
   &__media {
     display: block;
     width: 100%;
     height: auto;
   }
-  
+
   &__actions {
     padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
     display: flex;
     gap: var(--rds-spacing-sm);
     align-items: center;
   }
-  
+
   &--elevation-0 {
     box-shadow: var(--rds-elevation-0, none);
     border: var(--rds-border-width-thin) solid var(--rds-card-border);
   }
-  
+
   &--elevation-1 {
     box-shadow: var(--rds-elevation-1);
   }
-  
+
   &--elevation-2 {
     box-shadow: var(--rds-elevation-2);
   }
-  
+
   &--elevation-3 {
     box-shadow: var(--rds-elevation-3);
   }
-  
+
   &--clickable {
     cursor: pointer;
     transition: transform var(--rds-transition-base),
                 box-shadow var(--rds-transition-base);
-    
+
     &:hover {
       transform: translateY(var(--rds-card-hover-offset));
     }
-    
+
     &:active {
       transform: translateY(0);
     }
   }
-  
+
   &__content {
     display: flex;
     flex-direction: column;
   }
-  
+
   &--layout-vertical {
     .rds-card__content {
-      padding-top: var(--rds-spacing-xs); 
+      padding-top: var(--rds-spacing-xs);
     }
   }
-  
+
   &[style*="padding"] {
     .rds-card__content,
     .rds-card__content-wrapper {
       min-height: var(--rds-card-content-min-height);
       display: block;
     }
-    
+
     &.rds-card--layout-horizontal.rds-card--hide-icon {
       > .MuiTypography-root:only-child {
         flex: 1;
@@ -262,56 +262,56 @@
       }
     }
   }
-  
+
   &__title {
     font-weight: var(--rds-font-weight-medium);
     font-size: var(--rds-font-size-xl);
-    --rds-line-height-local-1_3: 1.3;
-    line-height: var(--rds-line-height-local-1_3);
+
+    line-height: var(--rds-card-line-height-1);
     color: var(--rds-color-text-secondary);
     margin: 0;
   }
-  
+
   &__subtext {
     font-weight: var(--rds-font-weight-normal);
     font-size: var(--rds-font-size-sm);
     color: var(--rds-text-secondary);
     margin: 0;
-    
+
     &.MuiTypography-root {
       margin-bottom: var(--rds-spacing-xs);
     }
   }
-  
+
   &__description {
     font-weight: var(--rds-font-weight-normal);
-    font-size: var(--rds-font-size-sm); 
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-card-text-secondary, var(--rds-color-text-secondary));
     margin: 0;
   }
-  
+
   &__additional-content {
     margin-top: var(--rds-spacing-sm);
-    
+
     > *:first-child {
       margin-top: 0;
     }
-    
+
     > *:last-child {
       margin-bottom: 0;
     }
-    
+
     .MuiButton-root,
     .rds-button {
       margin-top: var(--rds-spacing-xs);
     }
-    
+
     .rds-card__button-group {
       display: flex;
       justify-content: flex-end;
       gap: var(--rds-spacing-xs);
       margin: var(--rds-spacing-md);
-      
+
       .rds-button {
         margin-top: 0;
       }
@@ -320,7 +320,7 @@
     .rds-card__image {
       margin-bottom: var(--rds-spacing-md);
       margin-right: var(--rds-spacing-md);
-      
+
       img {
         width: 100%;
         height: auto;
@@ -335,7 +335,7 @@
       gap: var(--rds-spacing-xs);
       flex-wrap: wrap;
       margin-bottom: var(--rds-spacing-sm);
-      
+
       .rds-badge {
         flex-shrink: 0;
       }
@@ -347,30 +347,30 @@
       gap: var(--rds-spacing-sm);
       margin-bottom: var(--rds-spacing-sm);
       position: relative;
-      
+
       .rds-card__avatar-info {
         flex: 1;
         min-width: 0;
-        
+
         .rds-card__avatar-name {
           font-size: var(--rds-font-size-md);
           font-weight: var(--rds-font-weight-semibold);
           color: var(--rds-color-text-primary);
           margin: 0 0 var(--rds-spacing-xs) 0;
-          --rds-line-height-local-1_3: 1.3;
-          line-height: var(--rds-line-height-local-1_3);
+
+          line-height: var(--rds-card-line-height-1);
         }
-        
+
         .rds-card__avatar-designation {
           font-size: var(--rds-font-size-sm);
           font-weight: var(--rds-font-weight-normal);
           color: var(--rds-color-text-secondary);
           margin: 0;
-          --rds-line-height-local-1_3: 1.3;
-          line-height: var(--rds-line-height-local-1_3);
+
+          line-height: var(--rds-card-line-height-1);
         }
       }
-      
+
       .rds-card__edit-controls {
         display: flex;
         align-items: center;
@@ -385,14 +385,14 @@
       @include bp.down(mobile-sm) {
         flex-direction: column;
         align-items: stretch;
-        
+
         .rds-card__avatar-row {
           display: flex;
           align-items: flex-start;
           gap: var(--rds-spacing-sm);
           margin-bottom: var(--rds-spacing-xs);
         }
-        
+
         .rds-card__edit-controls {
           margin-left: var(--rds-card-avatar-controls-mobile-offset);
           justify-content: flex-end;
@@ -417,19 +417,19 @@
     margin: 0 0 var(--rds-spacing-md) 0;
     display: block;
   }
-  
+
   &--hide-title {
     .rds-card__title {
       display: none;
     }
   }
-  
+
   &--hide-subtext {
     .rds-card__subtext {
       display: none;
     }
   }
-  
+
   &--hide-description {
     .rds-card__description {
       display: none;
@@ -455,7 +455,7 @@
   gap: var(--rds-spacing-xs);
   flex-wrap: wrap;
   margin-bottom: var(--rds-spacing-md);
-  
+
   .rds-badge {
     flex-shrink: 0;
   }
@@ -478,36 +478,37 @@
 }
 
 .rds-card__avatar-section {
+  --rds-card-line-height-2: 1.2;
   &--editable {
     position: relative;
     align-items: flex-start;
-    
+
     .rds-card__edit-controls {
       display: flex;
       align-items: center;
       gap: var(--rds-spacing-xs);
       margin-left: var(--rds-spacing-xs);
     }
-    
+
     .rds-card__edit-icon {
       cursor: pointer;
       padding: var(--rds-spacing-xs);
       border-radius: var(--rds-border-radius-sm);
       transition: background-color var(--rds-transition-base);
       }
-      
+
       .MuiSvgIcon-root {
         font-size: var(--rds-font-size-lg);
         color: var(--rds-color-primary);
       }
     }
-    
+
     .rds-card__edit-actions {
       display: flex;
       gap: var(--rds-spacing-sm);
       align-items: center;
       padding: var(--rds-spacing-sm);
-      
+
       .rds-button {
         font-size: var(--rds-font-size-xs);
         padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
@@ -516,16 +517,16 @@
         text-transform: uppercase;
         font-weight: var(--rds-font-weight-medium);
         border-radius: var(--rds-border-radius-xs);
-        --rds-line-height-local-1_2: 1.2;
-        line-height: var(--rds-line-height-local-1_2);
+
+        line-height: var(--rds-card-line-height-2);
       }
-      
+
       .rds-card__action-icon {
         cursor: pointer;
         padding: var(--rds-spacing-xs);
         border-radius: var(--rds-border-radius-sm);
         transition: background-color var(--rds-transition-base);
-        
+
         &:hover {
           background-color: var(--rds-color-hover, var(--rds-color-overlay-hover));
         }
@@ -535,7 +536,7 @@
     @include bp.down(mobile-sm) {
       .rds-card__edit-controls {
         margin-left: 0;
-        
+
         .rds-card__edit-icon {
           margin-bottom: 0;
         }
@@ -543,34 +544,33 @@
     }
   }
 
-
 .rds-card__editable-field {
   padding: var(--rds-spacing-xs);
-  
+
   .rds-input {
     margin-bottom: var(--rds-spacing-sm);
-    
+
     &:last-child {
       margin-bottom: 0;
     }
-    
+
     .MuiTextField-root {
       width: 100%;
-      
+
       .MuiInputBase-root {
         font-size: var(--rds-font-size-sm);
-        
+
         &.Mui-focused fieldset {
           border-color: var(--rds-color-primary);
         }
-        
+
         .MuiInputBase-input {
           padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
         }
       }
     }
   }
-  
+
   .rds-card__input--title {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-lg);
@@ -578,7 +578,7 @@
       color: var(--rds-color-text-primary);
     }
   }
-  
+
   .rds-card__input--subtitle {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm);
@@ -586,7 +586,7 @@
       color: var(--rds-color-text-secondary);
     }
   }
-  
+
   .rds-card__input--avatar-name {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-md);
@@ -594,7 +594,7 @@
       color: var(--rds-color-text-primary);
     }
   }
-  
+
   .rds-card__input--avatar-designation {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm);
@@ -602,7 +602,7 @@
       color: var(--rds-color-text-secondary);
     }
   }
-} 
+}
 
 .rds-card .rds-avatar {
    justify-content: flex-start;

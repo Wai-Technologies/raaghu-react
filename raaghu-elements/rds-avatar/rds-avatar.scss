@@ -1,4 +1,11 @@
 .rds-avatar {
+  --rds-avatar-font-size-1: 0.5625rem;
+  --rds-avatar-font-size-2: 0.625rem;
+  --rds-avatar-font-size-3: 0.6875rem;
+  --rds-avatar-font-size-4: 0.95rem;
+  --rds-avatar-font-size-5: 1.3125rem;
+  --rds-avatar-font-size-6: 1.0625rem;
+  --rds-avatar-line-height: 1.1;
   display: inline-flex;
   align-items: center;
   border-radius: var(--rds-border-radius-full);
@@ -12,7 +19,7 @@
     object-fit: cover;
     border-radius: inherit;
   }
-  
+
   &__text,
   &__icon {
     font-size: 0.8em;
@@ -69,11 +76,11 @@
     .MuiAvatar-root {
       width: var(--rds-spacing-lg);
       height: var(--rds-spacing-lg);
-      --rds-font-size-local-0_5625rem: 0.5625rem;
-      font-size: var(--rds-font-size-local-0_5625rem);
+
+      font-size: var(--rds-avatar-font-size-1);
     }
     .rds-avatar__name { font-size: var(--rds-font-size-xs); }
-    .rds-avatar__designation { --rds-font-size-local-0_625rem: 0.625rem;  font-size: var(--rds-font-size-local-0_625rem); }
+    .rds-avatar__designation { font-size: var(--rds-avatar-font-size-2); }
   }
 
   &--small {
@@ -81,8 +88,8 @@
     .MuiAvatar-root {
       width: var(--rds-spacing-xl);
       height: var(--rds-spacing-xl);
-      --rds-font-size-local-0_6875rem: 0.6875rem;
-      font-size: var(--rds-font-size-local-0_6875rem);
+
+      font-size: var(--rds-avatar-font-size-3);
     }
     .rds-avatar__name { font-size: var(--rds-font-size-sm); }
     .rds-avatar__designation { font-size: var(--rds-font-size-xs); }
@@ -107,7 +114,7 @@
       font-size: var(--rds-font-size-lg);
     }
     .rds-avatar__name { font-size: var(--rds-font-size-lg); }
-    .rds-avatar__designation { --rds-font-size-local-0_95rem: 0.95rem;  font-size: var(--rds-font-size-local-0_95rem); }
+    .rds-avatar__designation { font-size: var(--rds-avatar-font-size-4); }
   }
 
   &--largest {
@@ -115,11 +122,11 @@
     .MuiAvatar-root {
       width: var(--rds-spacing-3xl);
       height: var(--rds-spacing-3xl);
-      --rds-font-size-local-1_3125rem: 1.3125rem;
-      font-size: var(--rds-font-size-local-1_3125rem);
+
+      font-size: var(--rds-avatar-font-size-5);
     }
     .rds-avatar__name { font-size: var(--rds-font-size-xl); }
-    .rds-avatar__designation { --rds-font-size-local-1_0625rem: 1.0625rem;  font-size: var(--rds-font-size-local-1_0625rem); }
+    .rds-avatar__designation { font-size: var(--rds-avatar-font-size-6); }
   }
 
   &--with-name {
@@ -191,7 +198,7 @@
       right: calc(0px * var(--dot-scale, 1));
     }
   }
-  
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -207,8 +214,8 @@
     font-size: var(--rds-font-size-md);
     font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-text-primary);
-    --rds-line-height-local-1_1: 1.1;
-    line-height: var(--rds-line-height-local-1_1);
+
+    line-height: var(--rds-avatar-line-height);
   }
 
   &__designation {

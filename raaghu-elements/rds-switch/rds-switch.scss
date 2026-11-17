@@ -1,17 +1,6 @@
 .rds-switch {
   --rds-switch-focus-ring-width: 2px;
   --rds-switch-disabled-opacity: 0.6;
-  --rds-switch-disabled-track-opacity: 0.4;
-  --rds-switch-root-width: 44px;
-  --rds-switch-root-height: 24px;
-  --rds-switch-thumb-size: 20px;
-  --rds-switch-thumb-padding: 2px;
-  --rds-switch-thumb-translate-x: 20px;
-  --rds-switch-thumb-offset-x: 4px;
-  --rds-switch-thumb-offset-x-checked: 3px;
-  --rds-switch-style1-track-height: 1.5rem;
-  --rds-switch-style1-track-width: 5.5rem;
-  --rds-switch-style3-track-height: 1.4rem;
   --rds-switch-style4-track-height: var(--rds-spacing-sm);
   &__track {
     display: block;
@@ -43,19 +32,19 @@
 
 .MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase {
   background-color: transparent;
-  
+
   &:hover {
     background-color: transparent;
   }
-  
+
   &:focus {
     background-color: transparent;
   }
-  
+
   &:active {
     background-color: transparent;
   }
-  
+
   .MuiTouchRipple-root {
     display: none;
   }
@@ -63,7 +52,7 @@
 
 .rds-switch .MuiButtonBase-root {
   background-color: transparent;
-  
+
   &:hover,
   &:focus,
   &:active {
@@ -82,6 +71,8 @@
 
 .rds-switch.MuiSwitch-root,
 .rds-switch .MuiSwitch-root {
+  --rds-switch-root-width: 40px;
+  --rds-switch-root-height: 20px;
   width: var(--rds-switch-root-width);
   height: var(--rds-switch-root-height);
   padding: 0;
@@ -90,6 +81,7 @@
 }
 
 .rds-switch .MuiSwitch-switchBase {
+  --rds-switch-thumb-padding: 0px;
   left: 0;
   right: auto;
   top: 0;
@@ -99,10 +91,12 @@
 }
 
 .rds-switch .MuiSwitch-switchBase.Mui-checked {
+  --rds-switch-thumb-translate-x: 28px;
   transform: translateX(var(--rds-switch-thumb-translate-x));
 }
 
 .rds-switch .MuiSwitch-thumb {
+  --rds-switch-thumb-size: 16px;
   width: var(--rds-switch-thumb-size);
   height: var(--rds-switch-thumb-size);
   box-sizing: border-box;
@@ -144,11 +138,12 @@
 }
 
 .rds-switch--style4 .MuiSwitch-track {
+  --rds-switch-border-radius: 999px;
   background-color: var(--rds-color-switch-track);
   height: var(--rds-spacing-cozy);
   width: 100%;
-  --rds-local-999px: 999px;
-  border-radius: var(--rds-local-999px);
+
+  border-radius: var(--rds-switch-border-radius);
   position: absolute;
   top: 50%;
   left: 0;
@@ -202,16 +197,13 @@
 
 .rds-switch--style5,
 .rds-switch--style6 {
-  --rds-switch-root-width: 52px;
-  --rds-switch-thumb-translate-x: 28px;
-}
+  }
 
 .rds-switch--style4.MuiSwitch-root,
 .rds-switch--style4 .MuiSwitch-root {
   --rds-switch-root-width: 40px;
   --rds-switch-root-height: 20px;
   --rds-switch-thumb-size: 16px;
-  --rds-switch-thumb-padding: 0px;
   --rds-switch-thumb-translate-x: calc(
     var(--rds-switch-root-width) - var(--rds-switch-thumb-size)
   );
@@ -372,11 +364,13 @@
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   opacity: var(--rds-switch-disabled-track-opacity);
   background-color: var(--rds-switch-inactive-bg);
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   opacity: var(--rds-switch-disabled-track-opacity);
   background-color: var(--rds-switch-disabled-bg);
 }
@@ -388,6 +382,7 @@
 
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   background-color: var(--rds-switch-disabled-bg);
   opacity: var(--rds-switch-disabled-track-opacity);
 }
@@ -395,24 +390,28 @@
 .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   background-color: var(--rds-switch-disabled-secondary-bg);
   opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-warning .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   background-color: var(--rds-switch-disabled-warning-bg);
   opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-default .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  --rds-switch-disabled-track-opacity: 0.4;
   background-color: var(--rds-switch-disabled-default-bg);
   opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-primary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  --rds-switch-disabled-opacity: 0.6;
   background-color: var(--rds-color-on-primary);
   opacity: var(--rds-switch-disabled-opacity);
 }
@@ -420,6 +419,7 @@
 .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  --rds-switch-disabled-opacity: 0.6;
   background-color: var(--rds-color-on-secondary);
   opacity: var(--rds-switch-disabled-opacity);
 }
@@ -440,12 +440,14 @@
 
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-warning .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  --rds-switch-disabled-opacity: 0.6;
   background-color: var(--rds-color-on-warning);
   opacity: var(--rds-switch-disabled-opacity);
 }
 
 .rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-default .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  --rds-switch-disabled-opacity: 0.6;
   background-color: var(--rds-color-on-default);
   opacity: var(--rds-switch-disabled-opacity);
 }
@@ -481,6 +483,7 @@
 }
 
 .MuiSwitch-track .css-1khxa25{
+  --rds-switch-disabled-track-opacity: 0.4;
   opacity: var(--rds-switch-disabled-track-opacity);
   background-color: var(--rds-switch-disabled-bg);
 }

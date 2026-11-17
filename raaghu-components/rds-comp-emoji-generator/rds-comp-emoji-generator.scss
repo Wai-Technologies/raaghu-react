@@ -1,4 +1,8 @@
 .rds-emoji-generator {
+  --rds-emoji-generator-width: 294px;
+  --rds-emoji-generator-line-height-1: 1.2;
+  --rds-emoji-generator-transition: 0.2s;
+  --rds-emoji-generator-line-height-2: 1.4;
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper);
@@ -23,20 +27,20 @@
     max-height: none;
     height: auto;
   }
-  
+
   &__search {
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
-    
+
     &-container {
       display: flex;
       align-items: center;
       gap: var(--rds-spacing-sm);
     }
-    
+
     .MuiTextField-root {
       flex: 1;
-      
+
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm);
@@ -44,33 +48,33 @@
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
-        
+
         &:hover {
           border-color: var(--rds-border-hover);
           background-color: var(--rds-background-paper);
         }
-        
+
         &.Mui-focused {
           border-color: var(--rds-border-focus);
           background-color: var(--rds-background-paper);
         }
       }
-      
+
       .MuiInputBase-input {
         padding: var(--rds-spacing-xs) var(--rds-spacing-md);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
-        
+
         &::placeholder {
           color: var(--rds-text-secondary);
           opacity: 0.8;
         }
       }
-      
+
       .MuiSvgIcon-root {
         color: var(--rds-text-secondary);
       }
-      
+
       .MuiOutlinedInput-notchedOutline {
         display: none;
       }
@@ -87,7 +91,7 @@
     min-width: var(--rds-size-sm);
     padding: 0;
     margin-left: var(--rds-spacing-sm);
-    
+
     &:hover {
       transform: scale(1.05);
       box-shadow: var(--rds-elevation-2);
@@ -131,7 +135,7 @@
     flex-direction: column;
     gap: calc(var(--rds-spacing-xs) / 2);
     align-items: center;
-    
+
     .MuiIconButton-root {
       transition: all var(--rds-transition-base);
       display: block;
@@ -139,7 +143,7 @@
         height: var(--rds-size-sm);
         min-width: var(--rds-size-sm);
       padding: 0;
-      
+
       &:hover {
         transform: scale(1.08);
         box-shadow: var(--rds-elevation-2);
@@ -156,12 +160,12 @@
     margin: var(--rds-spacing-xs) 0;
     display: block;
   }
-  
+
   &__categories {
     background-color: var(--rds-background-paper);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     overflow: hidden;
-    
+
     &-container {
       display: flex;
       flex-wrap: nowrap;
@@ -171,13 +175,13 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       padding: var(--rds-spacing-xs) 0;
-      
+
       &::-webkit-scrollbar {
         display: none;
       }
     }
   }
-  
+
   &__category-chip {
     flex-shrink: 0;
     transition: all var(--rds-transition-base);
@@ -198,23 +202,23 @@
     .MuiChip-label {
       display: none;
     }
-    
+
     &:hover {
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
       background-color: var(--rds-background-neutral-50);
     }
-    
+
     &--selected {
       box-shadow: 0 2px 8px var(--rds-color-primary-30);
     }
-    
+
     .MuiChip-icon {
       margin: 0;
       font-size: var(--rds-font-size-sm);
     }
   }
-  
+
   &__grid {
     flex: 1;
     overflow: hidden;
@@ -233,22 +237,22 @@
       object-fit: contain;
       pointer-events: none;
   }
-  
+
   &__category-title {
     margin-bottom: var(--rds-spacing-md);
     padding: 0 var(--rds-spacing-xs);
     flex-shrink: 0;
-    
+
     &-text {
       font-size: var(--rds-font-size-md);
       font-weight: var(--rds-font-weight-semibold);
       color: var(--rds-text-primary);
       margin: 0;
-      --rds-line-height-local-1_2: 1.2;
-      line-height: var(--rds-line-height-local-1_2);
+
+      line-height: var(--rds-emoji-generator-line-height-1);
     }
   }
-  
+
   &__grid {
     &-container {
       display: grid;
@@ -262,39 +266,39 @@
       align-content: start;
       grid-auto-rows: min-content;
       scrollbar-width: thin;
-      
+
       &::-webkit-scrollbar {
         width: var(--rds-spacing-xs);
         background-color: var(--rds-background-neutral-50);
         border-radius: var(--rds-border-radius-xs);
       }
-      
+
       &::-webkit-scrollbar-track {
         background-color: var(--rds-background-neutral-50);
         border-radius: var(--rds-border-radius-xs);
       }
-      
+
       &::-webkit-scrollbar-thumb {
         background-color: var(--rds-border-default);
         border-radius: var(--rds-border-radius-xs);
-        --rds-duration-local-0_2s: 0.2s;
-        transition: background-color var(--rds-duration-local-0_2s) ease;
-        
+
+        transition: background-color var(--rds-emoji-generator-transition) ease;
+
         &:hover {
           background-color: var(--rds-border-hover);
         }
-        
+
         &:active {
           background-color: var(--rds-border-strong);
         }
       }
-      
+
       &::-webkit-scrollbar-corner {
         background-color: var(--rds-background-neutral-50);
       }
     }
   }
-  
+
   &__emoji {
     display: flex;
     align-items: center;
@@ -303,16 +307,16 @@
     height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-md);
     cursor: pointer;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: transform var(--rds-duration-local-0_2s) ease;
+
+    transition: transform var(--rds-emoji-generator-transition) ease;
     font-size: var(--rds-font-size-xl);
     border: var(--rds-border-width-thin) solid transparent;
     background-color: transparent;
-    
+
     &:hover {
       transform: scale(1.1);
     }
-    
+
     &:active {
       transform: scale(0.95);
     }
@@ -324,15 +328,15 @@
       font-size: var(--rds-font-size-xl);
       background-color: transparent;
       border: none;
-      --rds-duration-local-0_2s: 0.2s;
-      transition: transform var(--rds-duration-local-0_2s) ease;
-      
+
+      transition: transform var(--rds-emoji-generator-transition) ease;
+
       &:hover {
         background-color: transparent;
         border: none;
         transform: scale(1.1);
       }
-      
+
       &:active {
         transform: scale(0.95);
         background-color: transparent;
@@ -345,17 +349,17 @@
     height: var(--rds-size-md);
     border-radius: 0;
     cursor: pointer;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-emoji-generator-transition) ease;
     border: none;
     background-color: transparent;
     padding: 0;
-    
+
     &:active {
       transform: scale(0.95);
       background-color: transparent;
     }
-    
+
     .MuiSvgIcon-root {
       color: var(--rds-text-secondary);
       font-size: var(--rds-font-size-lg);
@@ -371,19 +375,19 @@
     background-color: var(--rds-background-paper);
     flex-shrink: 0;
     min-height: var(--rds-size-xl);
-    
+
     &-emoji {
       font-size: var(--rds-font-size-xl);
       flex-shrink: 0;
       line-height: var(--rds-line-height-none);
     }
-    
+
     &-text {
       color: var(--rds-text-secondary);
       font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal);
-      --rds-line-height-local-1_4: 1.4;
-      line-height: var(--rds-line-height-local-1_4);
+
+      line-height: var(--rds-emoji-generator-line-height-2);
       margin: 0;
       flex: 1;
     }
@@ -392,16 +396,16 @@
   &__grid::-webkit-scrollbar {
     width: var(--rds-spacing-xs);
   }
-  
+
   &__grid::-webkit-scrollbar-track {
     background-color: var(--rds-background-neutral-50);
   }
-  
+
   &__grid::-webkit-scrollbar-thumb {
     background-color: var(--rds-border-default);
     border-radius: var(--rds-border-radius-xs);
   }
-  
+
   &__grid::-webkit-scrollbar-thumb:hover {
     background-color: var(--rds-border-hover);
   }
@@ -409,8 +413,9 @@
 
 @media (max-width: 600px) {
   .rds-emoji-generator {
-    --rds-local-294px: 294px;
-    width: min(var(--rds-local-294px), 100%);
+    --rds-emoji-generator-width: 294px;
+
+    width: min(var(--rds-emoji-generator-width), 100%);
 
     &__grid-container {
       grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg), 1fr));
@@ -430,10 +435,10 @@
 @media (prefers-contrast: high) {
   .rds-emoji-generator {
     border-color: var(--rds-border-strong);
-    
+
     &__emoji {
       border: var(--rds-border-width-thin) solid transparent;
-      
+
       &:hover {
         border-color: var(--rds-color-primary);
       }
@@ -445,19 +450,19 @@
   .rds-emoji-generator {
     &__emoji {
       transition: none;
-      
+
       &:active {
         transform: none;
       }
     }
-    
+
     &__plus {
       transition: none;
-      
+
       &:hover {
         transform: none;
       }
-      
+
       &:active {
         transform: none;
       }

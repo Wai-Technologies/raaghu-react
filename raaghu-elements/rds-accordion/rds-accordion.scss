@@ -29,7 +29,7 @@
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: var(--rds-color-on-surface-variant-dark); }
   .rds-accordion__title { color: var(--rds-color-on-surface-variant-dark); }
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: var(--rds-color-icon-muted-dark); }
-  .rds-accordion--expanded { 
+  .rds-accordion--expanded {
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-neutral-1000); }
     &.rds-accordion--hover .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-primary-hover); }
     &.rds-accordion--selected .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: var(--rds-color-primary-hover); }
@@ -42,7 +42,7 @@
     .MuiAccordionSummary-expandIconWrapper { color: var(--rds-color-on-primary-soft); }
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root { color: var(--rds-color-on-primary-soft); }
   }
-  
+
   .rds-accordion.rds-accordion--hover {
     .rds-accordion__summary { background-color: var(--rds-color-primary-hover); }
     .rds-accordion__title { color: var(--rds-color-on-primary-soft); }
@@ -58,6 +58,7 @@
   }
 }
 .rds-accordion__container {
+  --rds-accordion-height: 0.5px;
   --rds-accordion-container-radius: 4px;
   --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs));
   --rds-accordion-item-divider-color: var(--rds-border-default);
@@ -66,30 +67,30 @@
   border-radius: var(--rds-accordion-container-radius);
   overflow: hidden;
   margin-bottom: var(--rds-accordion-container-gap-bottom, calc(1.75 * var(--rds-spacing-xs)));
-  
+
   &.rds-accordion--bottomline {
   border: none;
   border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
     border-radius: 0;
-    
+
     .MuiAccordion-root:not(:last-child) {
       border-bottom: var(--rds-border-width-thin) solid var(--rds-accordion-item-divider-color);
     }
   }
-  
+
   &.rds-accordion--borderhide {
     border: none;
     border-radius: 0;
-    
+
     .MuiAccordion-root {
       border: none;
-      
+
       &:not(:last-child) {
         border-bottom: none;
       }
     }
   }
-  
+
   &.rds-accordion--border {
     .rds-accordion__summary {
       position: relative;
@@ -98,55 +99,53 @@
       &::after {
         content: '';
         position: absolute;
-        left: 0px; 
+        left: 0px;
         right: 0px;
         bottom: 0;
-        --rds-local-0_5px: 0.5px;
-        height: var(--rds-local-0_5px);
+
+        height: var(--rds-accordion-height);
         background: var(--rds-border-default);
         display: none;
       }
     }
   }
-  
+
   .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
     display: block;
   }
-  
+
   .MuiAccordion-root {
     border: none;
     border-radius: 0;
     box-shadow: none;
     background-color: var(--rds-color-surface);
     margin: 0;
-    
+
     &:before {
       display: none;
     }
-    
+
     &:not(:last-child) {
       border-bottom: var(--rds-border-width-thin) solid var(--rds-accordion-item-divider-color);
     }
     }
-    
+
     &.Mui-expanded {
       margin: 0;
     }
   }
 
-
 .rds-accordion {
+  --rds-accordion-border: 1.5px;
   --rds-accordion-summary-height-sm: 32px;
   --rds-accordion-summary-height-md: 48px;
   --rds-accordion-summary-height-lg: 64px;
-  --rds-accordion-summary-padding-sm-x: 8px;
   --rds-accordion-summary-padding-md-x: 16px;
   --rds-accordion-summary-padding-lg-x: 24px;
   --rds-accordion-size-sm: 16px;
   --rds-accordion-size-md: 20px;
   --rds-accordion-size-lg: 28px;
   --rds-accordion-disabled-opacity: 0.6;
-  /* Component-local spacing vars (preserve existing layout but avoid raw px usage) */
   --rds-accordion-summary-content-margin-sm: 6px;
   --rds-accordion-summary-content-margin-md: 12px;
   --rds-accordion-summary-content-margin-lg: 16px;
@@ -155,20 +154,21 @@
   --rds-accordion-details-margin-bottom: 20px;
   --rds-accordion-details-margin-left: 12px;
   --rds-accordion-details-min-height: 80px;
+  /* Component-local spacing vars (preserve existing layout but avoid raw px usage) */
   border: none;
   border-radius: 0;
   box-shadow: none;
   background-color: var(--rds-color-surface);
   margin: 0;
-  
+
   &:before {
     display: none;
   }
-  
+
   &:not(:last-child) {
     border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
-  
+
   &.Mui-expanded {
     margin: 0;
   }
@@ -179,7 +179,7 @@
       margin-top: 0;
       background-color: transparent;
     }
-    
+
     .rds-accordion__summary::after {
       display: block;
     }
@@ -193,7 +193,7 @@
     padding: 0 var(--rds-accordion-summary-padding-md-x);
     border-bottom: none;
     position: relative;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -204,25 +204,25 @@
       background: var(--rds-border-default);
       display: none;
     }
-    
+
     &:hover {
       background-color: var(--rds-color-surface-hover);
       .rds-accordion__title { color: var(--rds-color-on-surface); }
       .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: var(--rds-color-on-surface); }
     }
-    
+
     .MuiAccordionSummary-content {
       margin: var(--rds-accordion-summary-content-margin-md) 0;
-      
+
       &.Mui-expanded {
         margin: var(--rds-accordion-summary-content-margin-md) 0;
       }
     }
-    
+
     .MuiAccordionSummary-expandIconWrapper {
       color: var(--rds-color-text-secondary);
       transition: transform var(--rds-transition-slow);
-      
+
       &.Mui-expanded {
         transform: rotate(180deg);
       }
@@ -249,16 +249,16 @@
     justify-content: center;
     color: var(--rds-color-text-secondary);
     margin-right: var(--rds-spacing-sm);
-    
+
     .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-md);
     }
   }
-  
+
  &__details {
     .rds-accordion__details-panel {
-      --rds-local-1_5px: 1.5px;
-      border: var(--rds-local-1_5px) solid var(--rds-border-default);
+
+      border: var(--rds-accordion-border) solid var(--rds-border-default);
       background: var(--rds-color-surface);
       border-radius: var(--rds-border-radius-sm);
       margin: var(--rds-accordion-details-margin-top) var(--rds-accordion-details-margin-right) var(--rds-accordion-details-margin-bottom) var(--rds-accordion-details-margin-left);
@@ -280,7 +280,7 @@
     .rds-accordion__summary {
       background-color: var(--rds-color-primary-hover);
     }
-    
+
     .rds-accordion__title {
       color: var(--rds-color-on-surface);
     }
@@ -379,10 +379,10 @@
     .rds-accordion__summary {
       min-height: var(--rds-accordion-summary-height-sm);
       padding: 0 var(--rds-accordion-summary-padding-sm);
-      
+
       .MuiAccordionSummary-content {
         margin: var(--rds-accordion-summary-content-margin-sm) 0;
-        
+
         &.Mui-expanded {
           margin: var(--rds-accordion-summary-content-margin-sm) 0;
         }
@@ -396,7 +396,7 @@
     .rds-accordion__icon .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-sm);
     }
-    
+
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-sm);
     }
@@ -419,7 +419,7 @@
     .rds-accordion__icon .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-md);
     }
-    
+
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-md);
     }
@@ -433,10 +433,10 @@
     .rds-accordion__summary {
       min-height: var(--rds-accordion-summary-height-lg);
       padding: 0 var(--rds-accordion-summary-padding-lg-x);
-      
+
       .MuiAccordionSummary-content {
         margin: var(--rds-accordion-summary-content-margin-lg) 0;
-        
+
         &.Mui-expanded {
           margin: var(--rds-accordion-summary-content-margin-lg) 0;
         }
@@ -450,7 +450,7 @@
     .rds-accordion__icon .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-lg);
     }
-    
+
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
       font-size: var(--rds-accordion-size-lg);
     }

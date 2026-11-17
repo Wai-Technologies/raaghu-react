@@ -18,6 +18,8 @@ body.dark .rds-comp-empty-state__subtitle {
 }
 
 .rds-comp-empty-state {
+  --rds-empty-state-line-height-1: 1.4;
+  --rds-empty-state-line-height-2: 1.2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +42,7 @@ body.dark .rds-comp-empty-state__subtitle {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0; 
+    margin-bottom: 0;
       overflow: hidden; /* prevent animated content from overflowing and changing visual size */
       min-width: 0;
       min-height: 0;
@@ -63,7 +65,7 @@ body.dark .rds-comp-empty-state__subtitle {
 
     &--animated {
       position: relative;
-      
+
       & > div {
           width: 100%;
           height: 100%;
@@ -72,7 +74,7 @@ body.dark .rds-comp-empty-state__subtitle {
           overflow: hidden;
           display: block;
       }
-        
+
         /* also make sure any svg inside the lottie wrapper obeys sizing */
         & > div svg {
           width: 100%;
@@ -88,10 +90,10 @@ body.dark .rds-comp-empty-state__subtitle {
     font-weight: var(--rds-font-weight-medium);
     color: var(--rds-text-primary);
     font-size: var(--rds-font-size-lg);
-    --rds-line-height-local-1_4: 1.4;
-    line-height: var(--rds-line-height-local-1_4);
+
+    line-height: var(--rds-empty-state-line-height-1);
     margin: var(--rds-spacing-xs) 0;
-    font-family: var(--rds-font-family-base); 
+    font-family: var(--rds-font-family-base);
     margin-top: var(--rds-spacing-lg);
   }
 
@@ -110,7 +112,7 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 
   &__button {
-    background-color: var(--rds-color-neutral-600); 
+    background-color: var(--rds-color-neutral-600);
     color: var(--rds-color-neutral-50);
     border-radius: var(--rds-border-radius-sm);
     padding: var(--rds-spacing-xs) var(--rds-spacing-md);
@@ -118,8 +120,8 @@ body.dark .rds-comp-empty-state__subtitle {
     font-weight: var(--rds-font-weight-medium);
     text-transform: none;
     min-width: var(--rds-spacing-160);
-    --rds-line-height-local-1_2: 1.2;
-    line-height: var(--rds-line-height-local-1_2);
+
+    line-height: var(--rds-empty-state-line-height-2);
     box-shadow: none;
     border: var(--rds-border-width-thin) solid var(--rds-color-neutral-600);
     transition: background-color var(--rds-transition-fast), border-color var(--rds-transition-fast), color var(--rds-transition-fast);
@@ -194,11 +196,11 @@ body.dark .rds-comp-empty-state__subtitle {
   .rds-comp-empty-state {
     &__button {
       transition: none;
-      
+
       &:hover {
         transform: none;
       }
-      
+
       &:active {
         transform: none;
       }

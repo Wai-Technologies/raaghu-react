@@ -420,12 +420,14 @@
 }
 
 .rds-input--inline-title {
+  --rds-input-max-width: 0.01px;
+  --rds-input-width: 0.01px;
   .MuiOutlinedInput-notchedOutline {
     legend {
-      --rds-local-0_01px: 0.01px;
-      max-width: var(--rds-local-0_01px);
-      --rds-local-0_01px: 0.01px;
-      width: var(--rds-local-0_01px);
+
+      max-width: var(--rds-input-max-width);
+
+      width: var(--rds-input-width);
       padding: 0;
       visibility: hidden;
       border: 0;

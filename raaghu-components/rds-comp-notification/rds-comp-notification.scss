@@ -1,6 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-notification {
+  --rds-notification-width-1: 250px;
+  --rds-notification-height-1: 115px;
+  --rds-notification-width-2: 38px;
+  --rds-notification-height-2: 38px;
+  --rds-notification-line-height: 1.4;
   &.MuiCard-root {
     position: relative;
     transition: all var(--rds-transition-slow);
@@ -10,7 +15,7 @@
   .MuiTypography-root {
     color: var(--rds-text-primary, inherit);
   }
-  
+
   .rds-comp-notification__title,
   .rds-comp-notification__time,
   .rds-comp-notification__description,
@@ -38,7 +43,6 @@
 
   &--layout-vertical.rds-comp-notification--style-image {
     width: 100%;
-    
 
     .rds-comp-notification__image-container {
       width: 100%;
@@ -51,12 +55,12 @@
       margin: var(--rds-spacing-xs) 0;
       padding: var(--rds-spacing-10) 0;
     }
-    
+
     .rds-comp-notification__image-container img {
-      --rds-local-250px: 250px;
-      width: var(--rds-local-250px);
-      --rds-local-115px: 115px;
-      height: var(--rds-local-115px);
+
+      width: var(--rds-notification-width-1);
+
+      height: var(--rds-notification-height-1);
       object-fit: contain;
       display: block;
       margin: 0;
@@ -65,19 +69,19 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     .rds-comp-notification__header {
-      margin-bottom: var(--rds-spacing-xs); 
+      margin-bottom: var(--rds-spacing-xs);
     }
-    
+
     .rds-comp-notification__body {
-      margin-top: var(--rds-spacing-xs); 
+      margin-top: var(--rds-spacing-xs);
     }
-    
+
     .rds-comp-notification__footer {
-      margin-top: var(--rds-spacing-sm); 
+      margin-top: var(--rds-spacing-sm);
     }
-    
+
     .rds-comp-notification__body img {
       float: none;
       margin: 0;
@@ -97,17 +101,17 @@
     .rds-comp-notification__icon {
       display: flex;
       align-items: center;
-      --rds-local-38px: 38px;
-      width: var(--rds-local-38px);
-      --rds-local-38px: 38px;
-      height: var(--rds-local-38px);
+
+      width: var(--rds-notification-width-2);
+
+      height: var(--rds-notification-height-2);
       margin-top: 0;
       margin-right: var(--rds-spacing-14);
-      
+
       svg {
         width: 100%;
         height: 100%;
-        
+
         stroke: var(--rds-text-secondary, currentColor);
         color: var(--rds-text-secondary, inherit);
       }
@@ -128,7 +132,7 @@
       margin-bottom: 0;
       display: inline-block;
     }
-    
+
     &.rds-comp-notification--layout-horizontal img {
       margin-top: 0;
       margin-bottom: 0;
@@ -177,8 +181,8 @@
   &__title {
     font-weight: var(--rds-font-weight-semibold);
     font-size: var(--rds-font-size-md);
-    --rds-line-height-local-1_4: 1.4;
-    line-height: var(--rds-line-height-local-1_4);
+
+    line-height: var(--rds-notification-line-height);
     color: var(--rds-text-primary, inherit);
   }
 
@@ -191,7 +195,7 @@
   &__body {
     .MuiCardContent-root {
       padding: 0;
-      
+
       &:last-child {
         padding-bottom: 0;
       }
@@ -220,11 +224,11 @@
       right: 5px;
       padding: var(--rds-spacing-xs);
       background-color: transparent;
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
-      
+
       svg {
         width: var(--rds-spacing-20-px);
         height: var(--rds-spacing-20-px);
@@ -257,7 +261,7 @@
     .rds-button {
       background-color: transparent;
       color: var(--rds-button-primary-text, var(--rds-color-primary));
-      
+
       &:hover {
         background-color: var(--rds-action-hover);
       }
@@ -268,7 +272,7 @@
     .rds-button {
       color: var(--rds-text-secondary, var(--rds-color-text-secondary));
       border-color: var(--rds-form-border, var(--rds-color-border));
-      
+
       &:hover {
         background-color: var(--rds-button-text-bg-hover);
       }
@@ -282,13 +286,13 @@
     .rds-comp-notification__title-section {
       padding-left: 0;
     }
-    
+
     .rds-comp-notification__body img {
       margin-top: var(--rds-spacing-neg-35);
       float: left;
       margin-right: var(--rds-spacing-compact);
     }
-    
+
     .rds-comp-notification__header {
       margin-bottom: var(--rds-spacing-xs);
     }
@@ -305,7 +309,7 @@
       margin-left: 0;
     }
   }
-  
+
   &--layout-horizontal.rds-comp-notification--style-avatar,
   &--layout-horizontal.rds-comp-notification--style-icon {
     .rds-comp-notification__body {
@@ -321,11 +325,11 @@
         flex-direction: column;
         align-items: flex-start;
       }
-      
+
       .rds-comp-notification__body {
         margin-left: 0;
       }
-      
+
       &.rds-comp-notification--style-image {
         .rds-comp-notification__title-section {
           padding-left: 0;
@@ -341,7 +345,6 @@
         }
       }
     }
-
 
     &--layout-horizontal.rds-comp-notification--style-avatar,
     &--layout-horizontal.rds-comp-notification--style-icon {
@@ -365,27 +368,27 @@ body: not(.theme-dark):not([data-theme="dark"]) {
         color: var(--rds-neutral-900);
         border: none;
       }
-      
+
       .MuiTypography-root,
       .rds-comp-notification__title,
       .rds-comp-notification__time,
       .rds-comp-notification__description {
         color: var(--rds-neutral-900);
       }
-      
+
       .rds-comp-notification__dismiss svg {
         color: var(--rds-neutral-900);
       }
-      
+
       .rds-comp-notification__secondary-button {
         color: var(--rds-neutral-900);
       }
-      
-      .MuiPaper-root, .MuiCard-root { 
-        background-color: var(--rds-background-paper); 
+
+      .MuiPaper-root, .MuiCard-root {
+        background-color: var(--rds-background-paper);
       }
-      .rds-comp-notification__image-container { 
-        background-color: transparent; 
+      .rds-comp-notification__image-container {
+        background-color: transparent;
       }
     }
   }
@@ -405,48 +408,48 @@ body: not(.theme-dark):not([data-theme="dark"]) {
       color: var(--rds-neutral-900);
       border: none;
     }
-    
+
     .MuiTypography-root,
     .rds-comp-notification__title,
     .rds-comp-notification__time,
     .rds-comp-notification__description {
       color: var(--rds-neutral-900);
     }
-    
+
     .rds-comp-notification__dismiss svg {
       color: var(--rds-neutral-900);
     }
-    
+
     .rds-comp-notification__secondary-button {
       color: var(--rds-neutral-900);
     }
-    
-    .MuiPaper-root, .MuiCard-root { 
-      background-color: var(--rds-background-paper); 
+
+    .MuiPaper-root, .MuiCard-root {
+      background-color: var(--rds-background-paper);
     }
-    .rds-comp-notification__image-container { 
-      background-color: transparent; 
+    .rds-comp-notification__image-container {
+      background-color: transparent;
     }
   }
-  
+
   :root:not([data-theme="dark"]) .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
       background-color: var(--rds-background-paper);
       color: var(--rds-neutral-900);
       border: none;
     }
-    
+
     .MuiTypography-root,
     .rds-comp-notification__title,
     .rds-comp-notification__time,
     .rds-comp-notification__description {
       color: var(--rds-neutral-900);
     }
-    
+
     .rds-comp-notification__dismiss svg {
       color: var(--rds-neutral-900);
     }
-    
+
     .rds-comp-notification__secondary-button {
       color: var(--rds-neutral-900);
     }

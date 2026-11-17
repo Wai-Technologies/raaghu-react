@@ -88,7 +88,6 @@
   }
 }
 
-
 .rds-tabs {
   display: flex;
   flex-direction: column;
@@ -96,26 +95,19 @@
   font-family: var(--rds-font-family-base);
   --rds-tabs-corner-radius: var(--rds-border-radius-md);
   --rds-tabs-pill-radius: var(--rds-border-radius-full);
-  --rds-tabs-flap-arrow-bottom: -9px;
-  --rds-tabs-flap-arrow-left: 75px;
-  --rds-tabs-flap-arrow-size: 10px;
-  --rds-tabs-tab-max-width: 150px;
-  --rds-tabs-tab-min-width: 120px;
-  --rds-tabs-tab-mobile-min-width: 140px;
-  --rds-tabs-tab-mobile-max-width: 200px;
   --rds-tabs-mobile-font-size: var(--rds-font-size-sm);
-  
+
   &--flap {
     overflow: visible;
-    
+
     .MuiTabs-root {
       overflow: visible;
     }
-    
+
     .MuiTabs-scroller {
       overflow: visible;
     }
-    
+
     .MuiTabPanel-root {
       overflow: visible;
     }
@@ -165,6 +157,9 @@
 }
 
 .rds-tabs--flap .Mui-selected::after {
+  --rds-tabs-flap-arrow-bottom: -9px;
+  --rds-tabs-flap-arrow-left: 75px;
+  --rds-tabs-flap-arrow-size: 10px;
   content: '';
   position: absolute;
   bottom: var(--rds-tabs-flap-arrow-bottom);
@@ -192,6 +187,8 @@
 }
 
 .MuiTab-root {
+  --rds-tabs-tab-max-width: 150px;
+  --rds-tabs-tab-min-width: 120px;
   position: relative;
   overflow: visible;
   max-width: var(--rds-tabs-tab-max-width);
@@ -200,6 +197,7 @@
 }
 
 .css-1usuzwp-MuiButtonBase-root-MuiTab-root{
+  --rds-tabs-tab-max-width: 150px;
   overflow: visible;
   max-width: var(--rds-tabs-tab-max-width);
 }
@@ -209,17 +207,17 @@
 }
 
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+  --rds-tabs-width: 211px;
   content: "";
   position: absolute;
   right: -12px;
   z-index: calc(var(--rds-z-index-base) + 1);
 
-
     left: calc(100% + 0px);
     top: 48%;
     transform: translateY(-48%);
-    --rds-local-211px: 211px;
-    width: var(--rds-local-211px);
+
+    width: var(--rds-tabs-width);
     height: var(--rds-spacing-18);
     border-top: var(--rds-spacing-27) solid transparent;
     border-bottom: var(--rds-spacing-22) solid transparent;
@@ -269,11 +267,11 @@
 
 .rds-tabs__label {
    display: inline-flex;
-   align-items: center;      
-   justify-content: center;  
-  gap: var(--rds-spacing-sm);                 
+   align-items: center;
+   justify-content: center;
+  gap: var(--rds-spacing-sm);
    line-height: var(--rds-line-height-normal);
-   text-transform: none;       
+   text-transform: none;
 }
 
 .rds-tabs .MuiTab-root .rds-tabs__label span {
@@ -291,21 +289,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-   font-size: 1.2em;        
+   font-size: 1.2em;
 }
 
 .css-nowihk-MuiButtonBase-root-MuiTab-root,
 .css-r0euln-MuiButtonBase-root-MuiTab-root {
+  --rds-tabs-tab-max-width: 150px;
   max-width: var(--rds-tabs-tab-max-width);
 }
 
 .MuiTabs-vertical .MuiTab-root {
+  --rds-tabs-tab-max-width: 150px;
+  --rds-tabs-tab-min-width: 120px;
   max-width: var(--rds-tabs-tab-max-width);
   min-width: var(--rds-tabs-tab-min-width);
   width: var(--rds-tabs-tab-max-width);
 }
 
 .rds-tabs .MuiTabs-vertical {
+  --rds-tabs-tab-max-width: 150px;
+  --rds-tabs-tab-min-width: 120px;
   max-width: var(--rds-tpx);
   min-width: var(--rds-tabs-tab-min-width);
   width: var(--rds-tabs-tab-max-width);
@@ -333,6 +336,8 @@
   }
 
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
+    --rds-tabs-tab-mobile-min-width: 140px;
+    --rds-tabs-tab-mobile-max-width: 200px;
     flex: 0 1 auto;
     width: auto;
     min-width: var(--rds-tabs-tab-mobile-min-width);
@@ -354,13 +359,14 @@
   }
 }
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
-    content: "";
+  --rds-tabs-width: 211px;
+  content: "";
     position: absolute;
     left: calc(100% + 0px);
     top: 48%;
     transform: translateY(-48%);
-    --rds-local-211px: 211px;
-    width: var(--rds-local-211px);
+
+    width: var(--rds-tabs-width);
     height: var(--rds-spacing-18);
     border-top: var(--rds-spacing-27) solid transparent;
     border-bottom: var(--rds-spacing-22) solid transparent;
@@ -375,6 +381,7 @@
 }
 
 [data-theme="dark"] {
+  --rds-tabs-flap-arrow-size: 10px;
   .rds-tabs .MuiTab-root {
     color: var(--rds-neutral-300);
   }

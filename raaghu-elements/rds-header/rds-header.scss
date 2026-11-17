@@ -57,6 +57,9 @@
 }
 
 .rds-header {
+  --rds-header-min-width: 100px;
+  --rds-header-max-width-1: 150px;
+  --rds-header-max-width-2: 120px;
   --rds-header-search-width: 220px;
   --rds-header-search-height: 36px;
   --rds-header-search-input-height: 34px;
@@ -223,16 +226,16 @@
     min-width: 0;
 
     @media (max-width: 420px) {
-      --rds-local-100px: 100px;
-      min-width: var(--rds-local-100px);
-      --rds-local-150px: 150px;
-      max-width: var(--rds-local-150px);
+
+      min-width: var(--rds-header-min-width);
+
+      max-width: var(--rds-header-max-width-1);
     }
 
     @media (max-width: 320px) {
       min-width: var(--rds-spacing-80-px);
-      --rds-local-120px: 120px;
-      max-width: var(--rds-local-120px);
+
+      max-width: var(--rds-header-max-width-2);
     }
   }
 
@@ -263,6 +266,7 @@
 
 @media (max-width: 420px) {
   .rds-header--has-menu-button {
+    --rds-header-max-width-2: 120px;
     .rds-header__title {
       flex: 0 1 auto;
       min-width: 0;
@@ -275,8 +279,8 @@
     .rds-header__search-wrapper {
       flex: 1 1 0;
       min-width: 0;
-      --rds-local-120px: 120px;
-      max-width: var(--rds-local-120px);
+
+      max-width: var(--rds-header-max-width-2);
     }
 
     .rds-header__actions > .MuiButton-root {
@@ -290,8 +294,8 @@
 @media (max-width: 320px) {
   .rds-header--has-menu-button {
     .rds-header__title {
-      --rds-local-130px: 130px;
-      max-width: calc(100% - var(--rds-local-130px));
+
+      max-width: calc(100% - var(--rds-header-max-width-3));
       font-size: var(--rds-font-size-sm);
       margin: 0 var(--rds-spacing-xxs);
     }

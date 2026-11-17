@@ -1,20 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-popover {
-  display: block;
-  position: relative;
-  overflow: visible;
   --rds-popover-arrow-size: 8px;
   --rds-popover-arrow-edge-inset: 8px;
   --rds-popover-arrow-offset-primary: 30px;
   --rds-popover-arrow-offset-secondary: 42px;
-  --rds-popover-surface-border: 1px solid var(--rds-border-default);
-  --rds-popover-surface-shadow-top: drop-shadow(0px -1px 0px var(--rds-border-default));
-  --rds-popover-surface-shadow-bottom: drop-shadow(0px 1px 0px var(--rds-border-default));
-  --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-default));
-  --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-default));
   --rds-popover-position-option-size: 32px;
-  --rds-popover-list-mobile-padding: var(--rds-spacing-sm);
   --rds-popover-container-max-width: 400px;
   --rds-popover-container-min-width: 200px;
   --rds-popover-wide-min-width: 300px;
@@ -22,9 +13,15 @@
   --rds-popover-narrow-min-width: 150px;
   --rds-popover-narrow-max-width: 250px;
   --rds-popover-position-grid-max-width: 120px;
-  --rds-popover-list-mobile-max-width: 220px;
-  --rds-popover-list-mobile-min-width: 120px;
-
+  display: block;
+  position: relative;
+  overflow: visible;
+  --rds-popover-surface-border: 1px solid var(--rds-border-default);
+  --rds-popover-surface-shadow-top: drop-shadow(0px -1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-bottom: drop-shadow(0px 1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-default));
+  --rds-popover-list-mobile-padding: var(--rds-spacing-sm);
   &-highlight-box {
     margin-top: var(--rds-spacing-md);
     padding: var(--rds-spacing-md);
@@ -60,7 +57,7 @@
 
   &__close-button {
     color: var(--rds-text-secondary, var(--rds-color-text-secondary));
-    
+
     &:hover {
       color: var(--rds-text-primary, var(--rds-color-text-primary));
       background-color: var(--rds-action-hover);
@@ -236,18 +233,19 @@
   }
 }
 
-
 .MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
   color: var(--rds-color-on-primary);
 }
 
 @include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
+    --rds-popover-list-mobile-max-width: 220px;
+    --rds-popover-list-mobile-min-width: 120px;
     max-width: var(--rds-popover-list-mobile-max-width);
     min-width: var(--rds-popover-list-mobile-min-width);
     padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm));
-    --rds-font-size-local-0_95rem: 0.95rem;
-    font-size: var(--rds-font-size-local-0_95rem);
+
+    font-size: var(--rds-popover-font-size);
   }
   .with-list-popover .MuiListItem-root {
     padding-top: var(--rds-spacing-xxs);
@@ -257,21 +255,21 @@
 
 @include bp.between(mobile-sm, sm) {
   .rds-popover__container {
-    --rds-local-285px: 285px;
-    max-width: var(--rds-local-285px);
+
+    max-width: var(--rds-popover-max-width-1);
   }
 }
 @include bp.between(mobile-lg, md) {
   .rds-popover__container {
-    --rds-local-380px: 380px;
-    max-width: var(--rds-local-380px);
+
+    max-width: var(--rds-popover-max-width-2);
   }
 }
 
 @include bp.between(tablet-md, lg) {
     .rds-popover__container {
-        --rds-local-330px: 330px;
-        max-width: var(--rds-local-330px);
+
+        max-width: var(--rds-popover-max-width-3);
     }
 }
 

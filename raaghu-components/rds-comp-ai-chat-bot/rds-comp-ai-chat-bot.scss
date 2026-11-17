@@ -1,5 +1,6 @@
 .rds-ai-chat-bot {
-    display: flex;
+  --rds-ai-chat-bot-min-height: 400px;
+  display: flex;
     flex-direction: column;
     height: 95vh;
     min-height: var(--rds-ai-chat-bot-min-height);
@@ -18,11 +19,11 @@
 
     &__message {
         margin-bottom: var(--rds-spacing-sm);
-        
+
         &--sender {
             text-align: right;
         }
-        
+
         &--receiver {
             text-align: left;
         }
@@ -49,11 +50,11 @@
 
 .chat-message {
     @extend .rds-ai-chat-bot__message;
-    
+
     &.sender {
         @extend .rds-ai-chat-bot__message--sender;
     }
-    
+
     &.receiver {
         @extend .rds-ai-chat-bot__message--receiver;
     }
@@ -69,9 +70,10 @@
 
 @media (max-width: 900px) {
     .rds-ai-chat-bot {
+      --rds-ai-chat-bot-min-height: 400px;
         height: 100vh;
-        --rds-local-400px: 400px;
-        min-height: var(--rds-local-400px);
+
+        min-height: var(--rds-ai-chat-bot-min-height);
 
         &__input-wrapper {
             padding: var(--rds-spacing-sm);

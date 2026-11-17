@@ -1,40 +1,47 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-chart-radar {
-	&-container {
+  --rds-chart-radar-max-width-1: 680px;
+  --rds-chart-radar-height-1: 520px;
+  --rds-chart-radar-max-width-2: 580px;
+  --rds-chart-radar-max-width-3: 420px;
+  --rds-chart-radar-height-2: 280px;
+  --rds-chart-radar-height-3: 430px;
+  --rds-chart-radar-height-4: 335px;
+  &-container {
 		width: 90%;
-		--rds-local-680px: 680px;
-		max-width: var(--rds-local-680px);
-		--rds-local-520px: 520px;
-		height: var(--rds-local-520px);
+
+		max-width: var(--rds-chart-radar-max-width-1);
+
+		height: var(--rds-chart-radar-height-1);
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
 		@include bp.up(lg) {
-			--rds-local-580px: 580px;
-			max-width: var(--rds-local-580px);
-			--rds-local-520px: 520px;
-			height: var(--rds-local-520px);
+
+			max-width: var(--rds-chart-radar-max-width-2);
+
+			height: var(--rds-chart-radar-height-1);
 		}
 
 		@include bp.between(sm, lg) {
-			--rds-local-420px: 420px;
-			max-width: var(--rds-local-420px);
-			--rds-local-280px: 280px;
-			height: var(--rds-local-280px);
+
+			max-width: var(--rds-chart-radar-max-width-3);
+
+			height: var(--rds-chart-radar-height-2);
 		}
 
 		@include bp.down(600) {
-			--rds-local-430px: 430px;
-			height: var(--rds-local-430px);
+
+			height: var(--rds-chart-radar-height-3);
             width: 100%;
 			max-width: 100%;
 		}
 
 		@include bp.down(400) {
-			--rds-local-335px: 335px;
-			height: var(--rds-local-335px);
+
+			height: var(--rds-chart-radar-height-4);
             width: 100%;
 			max-width: 100%;
 		}

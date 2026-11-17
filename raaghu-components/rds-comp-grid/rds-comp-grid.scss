@@ -22,11 +22,12 @@
   overflow: hidden;
   color: var(--rds-grid-text);
 
-
 }
 
 // Filter Popup -------------------------------------------------------------
-.rds-comp-grid__filter-popup { --rds-local-140px: 140px;  position: absolute; top: 100%; right: 0; width: var(--rds-local-140px); max-height: var(--rds-spacing-160); overflow: auto; padding: var(--rds-spacing-xs); background: var(--rds-grid-bg); border: var(--rds-border-width-thin) solid var(--rds-grid-border); border-radius: var(--rds-border-radius-sm); box-shadow: var(--shadow4); z-index: var(--rds-z-index-local-20); }
+.rds-comp-grid__filter-popup {
+  --rds-grid-width-1: 140px;
+  position: absolute; top: 100%; right: 0; width: var(--rds-grid-width-1); max-height: var(--rds-spacing-160); overflow: auto; padding: var(--rds-spacing-xs); background: var(--rds-grid-bg); border: var(--rds-border-width-thin) solid var(--rds-grid-border); border-radius: var(--rds-border-radius-sm); box-shadow: var(--shadow4); z-index: var(--rds-z-index-local-20); }
 .rds-comp-grid__filter-popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--rds-spacing-xs); }
 .rds-comp-grid__filter-section { margin-bottom: var(--rds-spacing-xs); }
 .rds-comp-grid__filter-item-active { background: var(--rds-grid-row-hover); }
@@ -42,12 +43,12 @@
   color: var(--rds-grid-text);
   border-color: var(--rds-grid-border);
 
-  // Inner grid panel 
-  .rds-comp-grid { 
+  // Inner grid panel
+  .rds-comp-grid {
     background-color: var(--rds-grid-bg);
     border-color: var(--rds-grid-border);
   }
-  
+
   // Table header specific styles for dark theme
   .fui-DataGridHeader,
   thead,
@@ -90,7 +91,7 @@
     color: var(--rds-grid-text);
     border-bottom-color: var(--rds-grid-border-soft);
   }
-  
+
   /* Search input in the header */
   input.rds-comp-grid__search-input,
   input[placeholder="Search..."],
@@ -111,7 +112,7 @@
     background-color: var(--rds-grid-bg);
     color: var(--rds-grid-text);
     border-color: var(--rds-grid-border-soft);
-    
+
     &::placeholder {
       color: var(--rds-grid-text-subtle);
       opacity: 0.7;
@@ -135,11 +136,11 @@
     background-color: var(--rds-grid-bg);
     color: var(--rds-grid-text);
     border-color: var(--rds-grid-border-soft);
-    
+
     &:hover {
       background-color: var(--rds-grid-row-hover);
     }
-    
+
     /* Fix button icons and text */
     svg, span, .MuiButton-label, .MuiButton-startIcon, .MuiButton-endIcon {
       fill: var(--rds-grid-text);
@@ -184,7 +185,7 @@
   .rds-comp-grid-table {
     background-color: var(--rds-grid-bg-alt);
     color: var(--rds-grid-text);
-    
+
     /* Table header row */
     .fui-DataGridHeader,
     thead,
@@ -193,7 +194,7 @@
       background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
       color: var(--rds-grid-text);
     }
-    
+
     /* Table header cells */
     .fui-DataGridHeaderCell,
     th,
@@ -211,25 +212,25 @@
     tbody tr,
     .rds-comp-grid-row {
       background-color: var(--rds-grid-bg-alt);
-      
+
       /* Zebra striping */
-      &:nth-child(even) { 
-        background-color: var(--rds-grid-bg); 
+      &:nth-child(even) {
+        background-color: var(--rds-grid-bg);
       }
-      
+
       /* Hover effect */
-      &:hover { 
-        background-color: var(--rds-grid-row-hover); 
+      &:hover {
+        background-color: var(--rds-grid-row-hover);
       }
-      
+
       /* Selected row */
       &--selected,
       &.selected,
-      &.Mui-selected { 
-        background-color: var(--rds-grid-row-selected); 
+      &.Mui-selected {
+        background-color: var(--rds-grid-row-selected);
       }
     }
-    
+
     /* Table cells */
     .fui-DataGridCell,
     td,
@@ -264,7 +265,7 @@
   .rds-comp-grid-column-item:hover { background-color: var(--rds-color-surface-container); }
   .rds-comp-grid-column-list { background-color: var(--rds-grid-bg); border-color: var(--rds-grid-border); }
   .rds-comp-grid-resize-handle:hover { background-color: var(--rds-color-scrollbar-thumb-hover); }
-  
+
    // New structure (non-BEM) class names support
   .rds-comp-grid-table { background-color: var(--rds-grid-bg); }
   .rds-comp-grid-header-cell {
@@ -294,6 +295,9 @@
 // RDS Fluent Grid Component Styles
 
 .rds-comp-grid {
+  --rds-grid-min-width-1: 200px;
+  --rds-grid-min-width-2: 150px;
+  --rds-grid-min-width-3: 120px;
   width: 100%;
   height: 100%;
   border: var(--rds-border-width-thin) solid var(--rds-grid-border);
@@ -369,8 +373,8 @@
     display: flex;
     align-items: center;
     gap: var(--spacingHorizontalS);
-    --rds-local-200px: 200px;
-    min-width: var(--rds-local-200px);
+
+    min-width: var(--rds-grid-min-width-1);
   }
 
   &__filter-label {
@@ -384,9 +388,9 @@
     border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
-    --rds-local-150px: 150px;
-    min-width: var(--rds-local-150px);
-    
+
+    min-width: var(--rds-grid-min-width-2);
+
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground);
@@ -399,7 +403,7 @@
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
     background-color: var(--colorNeutralBackground1);
-    
+
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground);
@@ -411,9 +415,9 @@
     border: var(--rds-border-width-thin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusSmall);
     font-size: var(--fontSizeBase200);
-    --rds-local-200px: 200px;
-    min-width: var(--rds-local-200px);
-    
+
+    min-width: var(--rds-grid-min-width-1);
+
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground);
@@ -429,33 +433,33 @@
     font-size: var(--fontSizeBase200);
     cursor: pointer;
     transition: var(--rds-transition-base);
-    
+
     &:hover:not(:disabled) {
       background-color: var(--colorNeutralBackground1Hover);
       border-color: var(--colorNeutralStroke1Hover);
     }
-    
+
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    
+
     &--primary {
       background-color: var(--colorBrandBackground);
       color: var(--colorNeutralForegroundOnBrand);
       border-color: var(--colorBrandBackground);
-      
+
       &:hover:not(:disabled) {
         background-color: var(--colorBrandBackgroundHover);
         border-color: var(--colorBrandBackgroundHover);
       }
     }
-    
+
     &--secondary {
       background-color: var(--colorNeutralBackground2);
       color: var(--colorNeutralForeground2);
     }
-    
+
     &--small {
       padding: var(--spacingVerticalXXS) var(--spacingHorizontalXS);
       font-size: var(--fontSizeBase100);
@@ -473,7 +477,7 @@
 
   &__header-text {
     font-size: var(--fontSizeBase200);
-    
+
     &--bold {
       font-weight: var(--fontWeightSemibold);
     }
@@ -509,7 +513,7 @@
     font-size: var(--fontSizeBase100);
     cursor: pointer;
     margin-right: var(--spacingHorizontalXXS);
-    
+
     &:hover {
       background-color: var(--colorNeutralBackground1Hover);
     }
@@ -529,10 +533,10 @@
     border-radius: var(--borderRadiusSmall);
     box-shadow: var(--shadow8);
     z-index: var(--rds-z-index-modal);
-    --rds-local-120px: 120px;
-    min-width: var(--rds-local-120px);
+
+    min-width: var(--rds-grid-min-width-3);
     display: none;
-    
+
     .rds-comp-grid__action-menu:hover & {
       display: block;
     }
@@ -548,7 +552,7 @@
     font-size: var(--fontSizeBase200);
     color: var(--colorNeutralForeground1);
     cursor: pointer;
-    
+
     &:hover {
       background-color: var(--colorNeutralBackground1Hover);
     }
@@ -669,8 +673,8 @@
   }
 
   &__search-box {
-    --rds-local-200px: 200px;
-    min-width: var(--rds-local-200px);
+
+    min-width: var(--rds-grid-min-width-1);
   }
 }
 
@@ -814,12 +818,13 @@
 }
 
 .rds-comp-grid-cell-html {
+  --rds-grid-transition-1: 0.3s;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  
+
   // Ensure HTML content respects cell boundaries
   * {
     max-width: 100%;
@@ -827,12 +832,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  
+
   // Allow specific elements to break lines if needed
   br {
     display: none;
   }
-  
+
   // Style common HTML elements
   img {
     max-width: var(--rds-size-lg);
@@ -841,7 +846,7 @@
     vertical-align: middle;
     margin-right: var(--rds-spacing-sm);
   }
-  
+
   .status-pill {
     display: inline-block;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
@@ -850,53 +855,53 @@
     font-weight: var(--rds-font-weight-medium);
     text-align: center;
     min-width: var(--rds-spacing-60);
-    
+
     &.status-qualified {
       background-color: var(--rds-success-light);
       color: var(--rds-success-dark);
     }
-    
+
     &.status-negotiation {
       background-color: var(--rds-warning-light);
       color: var(--rds-warning-dark);
     }
-    
+
     &.status-unqualified {
       background-color: var(--rds-error-light);
       color: var(--rds-error-dark);
     }
-    
+
     &.status-proposal {
       background-color: var(--rds-neutral-100);
       color: var(--rds-neutral-600);
     }
-    
+
     &.status-new {
       background-color: var(--rds-info-light);
       color: var(--rds-info-dark);
     }
-    
+
     &.status-renewal {
       background-color: var(--rds-primary-main);
       color: var(--rds-neutral-0);
     }
   }
-  
+
   .progress-bar {
     width: 100%;
     height: var(--rds-spacing-sm);
     background-color: var(--rds-neutral-100);
     border-radius: var(--rds-border-radius-sm);
     overflow: hidden;
-    
+
     .progress-fill {
       height: 100%;
       background-color: var(--rds-info-dark);
-      --rds-duration-local-0_3s: 0.3s;
-      transition: width var(--rds-duration-local-0_3s) ease;
+
+      transition: width var(--rds-grid-transition-1) ease;
     }
   }
-  
+
   .verification-icon {
     display: inline-flex;
     align-items: center;
@@ -909,7 +914,7 @@
       background-color: var(--rds-success-main);
       color: var(--rds-neutral-0);
     }
-    
+
     &.not-verified {
       background-color: var(--rds-error-main);
       color: var(--rds-neutral-0);
@@ -1006,21 +1011,21 @@
   border-collapse: separate;
   border-spacing: 0;
   border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
-  
+
   th, td {
     border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
     border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
-    
+
     &:last-child {
       border-right: none;
     }
   }
-  
+
   thead th {
     border-bottom: var(--rds-spacing-xxs) solid var(--rds-grid-border-alt);
     background-color: var(--rds-grid-bg-alt);
   }
-  
+
   tbody tr:last-child td {
     border-bottom: none;
   }
@@ -1028,13 +1033,15 @@
 
 // Filter popup styles
 .rds-comp-grid-filter-popup {
+  --rds-grid-width-2: 120px;
+  --rds-grid-max-height-1: 100px;
   position: absolute;
   top: 100%;
   right: 0;
-  --rds-local-120px: 120px;
-  width: var(--rds-local-120px);
-  --rds-local-100px: 100px;
-  max-height: var(--rds-local-100px);
+
+  width: var(--rds-grid-width-2);
+
+  max-height: var(--rds-grid-max-height-1);
   overflow: visible;
   padding: var(--rds-spacing-xs);
   background-color: var(--rds-grid-bg);
@@ -1101,13 +1108,14 @@
 }
 
 .rds-comp-grid-filter-operator {
+  --rds-grid-min-width-3: 120px;
   padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
   border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   font-size: var(--rds-font-size-md);
-  --rds-local-120px: 120px;
-  min-width: var(--rds-local-120px);
+
+  min-width: var(--rds-grid-min-width-3);
 
   &:focus {
     outline: none;
@@ -1151,9 +1159,10 @@
 }
 
 .rds-comp-grid-column-list {
+  --rds-grid-max-height-2: 150px;
   margin-top: var(--rds-spacing-xs);
-  --rds-local-150px: 150px;
-  max-height: var(--rds-local-150px);
+
+  max-height: var(--rds-grid-max-height-2);
   overflow-y: auto;
   border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
   border-radius: var(--rds-border-radius-sm);
@@ -1196,6 +1205,7 @@
 
 // Column accordion panel styles
 .rds-comp-grid-column-panel {
+  --rds-grid-transition-2: 0.2s;
   margin-top: 0;
   padding: var(--rds-spacing-xxs);
   border: var(--rds-border-width-thin) solid var(--rds-border-default);
@@ -1211,8 +1221,8 @@
     padding: 0 var(--rds-spacing-xxs);
     min-height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-xs);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background-color var(--rds-duration-local-0_2s);
+
+    transition: background-color var(--rds-grid-transition-2);
 
     &:hover {
       background-color: var(--rds-primary-light);

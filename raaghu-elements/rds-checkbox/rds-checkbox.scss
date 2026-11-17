@@ -1,9 +1,9 @@
 .rds-checkbox {
+  --rds-checkbox-size: 18px;
+  --rds-checkbox-border-width: 2px;
   display: inline-flex;
   align-items: center;
 
-  --rds-checkbox-size: 18px;
-  --rds-checkbox-border-width: 2px;
   --rds-checkbox-transition: var(--rds-transition-fast);
 
   .MuiFormControlLabel-root {

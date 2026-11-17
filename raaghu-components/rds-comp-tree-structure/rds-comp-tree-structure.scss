@@ -2,13 +2,14 @@
 
 // RDS Tree Structure Component Styles
 .rds-comp-tree-structure {
+  --rds-tree-structure-transition: 0.12s;
   // Base tree structure styles
-  
+
   // Tree node container
   &__node-container {
     position: relative;
   }
-  
+
   // Tree node
   &__node {
     display: flex;
@@ -18,7 +19,7 @@
     cursor: pointer;
     border-radius: var(--rds-border-radius-sm);
     transition: background-color var(--rds-transition-duration-short) ease;
-    
+
     // Node state modifiers
     &--hover {
       &:hover {
@@ -30,7 +31,7 @@
       background-color: var(--rds-primary-light);
     }
   }
-  
+
   // Node content
   &__node-content {
     display: flex;
@@ -39,12 +40,12 @@
     max-height: var(--rds-spacing-22);
     flex: 1;
   }
-  
+
   // Node children container
   &__node-children {
     margin-left: var(--rds-spacing-lg);
   }
-  
+
   // Chevron icon (plain arrow, no boxed border)
   &__chevron {
     display: inline-flex;
@@ -54,8 +55,8 @@
     height: auto;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     cursor: pointer;
-    --rds-duration-local-0_12s: 0.12s;
-    transition: transform var(--rds-transition-duration-short) ease, color var(--rds-duration-local-0_12s) ease;
+
+    transition: transform var(--rds-transition-duration-short) ease, color var(--rds-tree-structure-transition) ease;
     color: var(--rds-text-secondary);
     background: transparent;
     border: none;
@@ -78,7 +79,7 @@
       transform: rotate(90deg);
     }
   }
-  
+
   // Checkbox container to prevent event bubbling
   &__checkbox-container {
     display: flex;
@@ -86,7 +87,7 @@
     cursor: default;
     margin-bottom: var(--rds-spacing-xs);
   }
-  
+
   // Icons
   &__icon {
     margin-right: var(--rds-spacing-xs);
@@ -95,7 +96,7 @@
     align-items: center;
     justify-content: center;
     min-width: var(--rds-spacing-20-px);
-    
+
     &--folder {
       color: var(--rds-warning-main);
       margin-top: 0;
@@ -106,11 +107,11 @@
         color: inherit;
       }
     }
-    
+
     &--file {
       color: var(--rds-info-main);
     }
-    
+
     &--circle {
       display: inline-block;
       width: var(--rds-spacing-12-px);
@@ -120,19 +121,19 @@
       border-radius: var(--rds-border-radius-pill);
     }
   }
-  
+
   // Node text
   &__text {
     margin-left: var(--rds-spacing-xs);
     color: var(--rds-text-primary);
   }
-  
+
   // Action buttons
   &__actions {
     display: flex;
     margin-left: var(--rds-spacing-md);
   }
-  
+
   &__action-btn {
     display: inline-flex;
     align-items: center;

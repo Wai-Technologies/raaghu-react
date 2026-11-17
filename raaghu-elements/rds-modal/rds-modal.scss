@@ -1,10 +1,10 @@
 .rds-modal {
   --rds-modal-mobile-breakpoint: 600px;
-  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-neutral-1000) 30%, transparent);
   --rds-modal-image-width: 300px;
   --rds-modal-image-height: 150px;
   --rds-modal-image-width-mobile: 190px;
   --rds-modal-animation-delay: 0.1s;
+  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-neutral-1000) 30%, transparent);
   --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm));
   --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs));
   position: fixed;
@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- 
+
   &__backdrop {
     position: absolute;
     top: 0;
@@ -28,7 +28,7 @@
     opacity: 0;
     animation: rds-modal-fade-in var(--rds-transition-base)-out forwards;
   }
- 
+
   &__container {
     position: relative;
     background-color: var(--rds-background-paper);
@@ -41,7 +41,7 @@
     opacity: 0;
     animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
     animation-delay: var(--rds-modal-animation-delay);
- 
+
     @media (max-width: var(--rds-modal-mobile-breakpoint)) {
       max-width: 98vw;
       max-height: 98vh;
@@ -50,14 +50,14 @@
     overflow: hidden;
     }
   }
- 
+
   &__header {
     padding: var(--rds-spacing-sm) var(--rds-spacing-sm) 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
- 
+
   &__title {
     font-size: var(--rds-font-size-2xl);
     font-weight: var(--rds-font-weight-medium);
@@ -80,7 +80,7 @@
     flex-direction: column;
     align-items: center;
   }
- 
+
   &__close {
     background: none;
     border: none;
@@ -95,7 +95,7 @@
       top: var(--rds-spacing-sm);
       z-index: 1;
     }
-   
+
     &:hover {
       background-color: var(--rds-action-hover);
     }
@@ -116,7 +116,7 @@
       max-width: var(--rds-modal-image-width);
     }
   }
- 
+
   &__content {
     padding: var(--rds-spacing-sm);
     overflow-y: auto;
@@ -133,21 +133,21 @@
     display: flex;
     justify-content: center;
   }
- 
+
   &__actions {
     padding: 0 var(--rds-spacing-sm) var(--rds-spacing-sm);
     display: flex;
     gap: var(--rds-spacing-sm);
     justify-content: flex-end;
   }
- 
+
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--rds-color-icon);
   }
- 
+
   &__image {
     width: var(--rds-modal-image-width);
     height: var(--rds-modal-image-height);
@@ -164,17 +164,17 @@
     text-align: center;
   }
 }
- 
+
 @keyframes rds-modal-fade-in {
   to {
     opacity: 1;
   }
 }
- 
+
 @keyframes rds-modal-scale-in {
   to {
     transform: scale(1);
     opacity: 1;
   }
 }
- 
+

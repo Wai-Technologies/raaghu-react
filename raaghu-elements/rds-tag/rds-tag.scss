@@ -1,12 +1,13 @@
 .rds-tag {
+  --rds-tag-line-height: 1.43;
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
 
   .MuiChip-label {
     display: block;
-    --rds-line-height-local-1_43: 1.43;
-    line-height: var(--rds-line-height-local-1_43);
+
+    line-height: var(--rds-tag-line-height);
     padding-top: 0;
     padding-bottom: 0;
   }

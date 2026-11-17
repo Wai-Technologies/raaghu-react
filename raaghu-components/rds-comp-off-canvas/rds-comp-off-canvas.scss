@@ -1,7 +1,6 @@
 .offcanvas-header {
   background-color: var(--rds-offcanvas-header-bg, transparent);
 
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,11 +57,12 @@
 }
 
 .offcanvas-close-button {
+  --rds-off-canvas-transition: 0.2s;
   padding: var(--rds-spacing-sm);
   border: var(--rds-border-width-thin) solid transparent;
   border-radius: var(--rds-border-radius-sm);
-  --rds-duration-local-0_2s: 0.2s;
-  transition: all var(--rds-duration-local-0_2s) ease-in-out;
+
+  transition: all var(--rds-off-canvas-transition) ease-in-out;
 }
 .offcanvas-close-button:hover {
   background-color: var(--rds-overlay-hover);
@@ -91,7 +91,6 @@
 .primary-button-container {
   flex: 0 0 auto;
   min-width: fit-content;
-
 
   margin-left: var(--rds-spacing-sm);
 }
@@ -147,8 +146,9 @@
 }
 @media (max-width: 767px) {
   .MuiDrawer-paper {
-    --rds-local-375px: 375px;
-    width: min(var(--rds-local-375px), 100vw);
+    --rds-off-canvas-width-1: 375px;
+
+    width: min(var(--rds-off-canvas-width-1), 100vw);
   }
 }
 
@@ -158,11 +158,12 @@
 }
 
 .offcanvas-container .offcanvas-header .close {
+  --rds-off-canvas-transition: 0.2s;
   cursor: pointer;
   padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
   border: var(--rds-border-width-thin) solid transparent;
-  --rds-duration-local-0_2s: 0.2s;
-  transition: all var(--rds-duration-local-0_2s) ease-in-out;
+
+  transition: all var(--rds-off-canvas-transition) ease-in-out;
   border-radius: var(--rds-border-radius-sm);
 }
 
@@ -171,8 +172,9 @@
 }
 @media (max-width: 420px) {
   .offcanvas-drawer .MuiDrawer-paper {
-    --rds-local-320px: 320px;
-    width: min(var(--rds-local-320px), 100vw);
+    --rds-off-canvas-width-2: 320px;
+
+    width: min(var(--rds-off-canvas-width-2), 100vw);
   }
   .offcanvas-margin {
     display: flex;
@@ -219,12 +221,13 @@
 
   #offcanvas-btns .rds-button,
   #offcanvas-btns .MuiButton-root {
+    --rds-off-canvas-line-height: 1.15;
     width: auto;
     min-width: 0;
     max-width: 100%;
     height: auto;
-    --rds-line-height-local-1_15: 1.15;
-    line-height: var(--rds-line-height-local-1_15);
+
+    line-height: var(--rds-off-canvas-line-height);
     box-sizing: border-box;
     font-size: var(--rds-font-size-caption);
     padding: var(--rds-spacing-tight) var(--rds-spacing-7);
@@ -256,7 +259,7 @@
     width: var(--rds-icon-button-size);
     height: var(--rds-icon-button-size);
   }
-  
+
   #close-btn .rds-icon-button svg,
   #close-btn .MuiIconButton-root svg {
     width: var(--rds-icon-button-svg-size);
@@ -265,7 +268,8 @@
   }
 }
 @media (max-width: 896px) {
-  .offcanvas-drawer .MuiDrawer-paper { --rds-local-400px: 400px;  width: min(var(--rds-local-400px), 100vw); }
+  .offcanvas-drawer .MuiDrawer-paper {
+    --rds-off-canvas-width-3: 400px; width: min(var(--rds-off-canvas-width-3), 100vw); }
   #offcanvas-btns, .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;
@@ -304,6 +308,7 @@
 
   #offcanvas-btns .rds-button,
   #offcanvas-btns .MuiButton-root {
+    --rds-off-canvas-line-height: 1.15;
     width: auto;
     min-width: 0;
     max-width: 100%;
@@ -311,8 +316,8 @@
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
     white-space: nowrap;
     height: auto;
-    --rds-line-height-local-1_15: 1.15;
-    line-height: var(--rds-line-height-local-1_15);
+
+    line-height: var(--rds-off-canvas-line-height);
     box-sizing: border-box;
   }
 
@@ -331,7 +336,7 @@
     min-width: var(--rds-icon-button-lg-size); min-height: var(--rds-icon-button-lg-size);
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: var(--rds-icon-button-lg-svg-size); height: var(--rds-icon-button-lg-svg-size); 
+    width: var(--rds-icon-button-lg-svg-size); height: var(--rds-icon-button-lg-svg-size);
     margin-left: 0;
   }
 }

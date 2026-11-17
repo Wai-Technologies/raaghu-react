@@ -1,6 +1,6 @@
 .rds-comp-reviews {
-    
-    .card {
+  --rds-reviews-letter-spacing: 0.01em;
+  .card {
         margin-bottom: var(--rds-spacing-md);
         border: var(--rds-border-width-thin) solid var(--rds-border-default);
         overflow: hidden;
@@ -31,7 +31,7 @@
         font-size: var(--rds-font-size-lg);
         color: var(--rds-text-primary);
     }
-    
+
     .card-title {
         font-weight: var(--rds-font-weight-medium);
         font-size: var(--rds-font-size-md);
@@ -48,7 +48,7 @@
         font-weight: var(--rds-font-weight-regular);
         font-family: var(--rds-font-family-base);
     }
-    
+
     .card-text {
         font-size: var(--rds-font-size-sm);
         color: var(--rds-text-secondary);
@@ -64,14 +64,14 @@
         font-size: var(--rds-font-size-xs);
         font-weight: var(--rds-font-weight-regular);
         font-family: var(--rds-font-family-base);
-        --rds-letter-spacing-local-0_01em: 0.01em;
-        letter-spacing: var(--rds-letter-spacing-local-0_01em);
+
+        letter-spacing: var(--rds-reviews-letter-spacing);
     }
 
     .bi-hand-thumbs-up, .bi-hand-thumbs-down, .fa-thumbs-up, .fa-thumbs-down {
         font-size: var(--rds-font-size-sm);
     }
-    
+
     :root[data-theme='dark'] &,
     [data-theme='dark'] & {
         .card {
@@ -80,92 +80,92 @@
             box-shadow: var(--rds-elevation-3);
             border-radius: var(--rds-border-radius-sm);
         }
-        
+
         .card-title,
         &__title {
             color: var(--rds-text-primary);
         }
-        
+
         .card-text,
         &__text {
             color: var(--rds-text-secondary);
         }
-        
+
         .text-muted {
             color: var(--rds-text-tertiary);
         }
-        
+
         .review-footer {
             border-top-color: color-mix(in srgb, var(--rds-neutral-0) 8%, transparent);
         }
-        
+
         .btn-outline-primary {
             border-color: var(--rds-color-primary, var(--rds-primary-main));
             color: var(--rds-color-primary, var(--rds-primary-main));
         }
-        
+
         .btn-outline-danger {
             border-color: var(--rds-color-danger);
             color: var(--rds-color-danger);
         }
-        
+
         .btn-outline-success {
             border-color: var(--rds-color-success);
             color: var(--rds-color-success);
         }
-        
+
         .btn-outline-warning {
             border-color: var(--rds-color-warning);
             color: var(--rds-color-warning);
         }
-        
+
         .btn-outline-info {
             border-color: var(--rds-color-info);
             color: var(--rds-color-info);
         }
-        
+
         .btn-outline-secondary {
             border-color: var(--rds-color-secondary);
             color: var(--rds-color-secondary);
         }
-        
+
         &__avatar,
         .rounded-circle {
             box-shadow: var(--rds-elevation-2);
         }
-        
+
         .MuiSvgIcon-colorPrimary,
         svg.MuiSvgIcon-colorPrimary {
             color: var(--rds-color-primary);
         }
-        
+
         .MuiSvgIcon-colorError,
         svg.MuiSvgIcon-colorError {
             color: var(--rds-color-danger);
         }
-        
+
         .MuiIconButton-root,
         .MuiButton-root,
         button {
             .MuiSvgIcon-colorPrimary {
                 color: var(--rds-color-primary);
             }
-            
+
             .MuiSvgIcon-colorError {
                 color: var(--rds-color-danger);
             }
-            
+
             .fa-thumbs-up,
             .bi-hand-thumbs-up {
                 color: var(--rds-color-primary);
             }
-            
+
             .fa-thumbs-down,
             .bi-hand-thumbs-down {
                 color: var(--rds-color-danger);
             }
         }
-        
+
         .MuiTypography-root,
         .MuiTypography-body2 {
             color: var(--rds-text-primary);
@@ -181,33 +181,33 @@
         span.MuiRating-icon.MuiRating-iconEmpty,
         label.MuiRating-label .MuiRating-iconEmpty {
             color: color-mix(in srgb, var(--rds-neutral-0) 15%, transparent);
-            
+
             svg {
                 color: color-mix(in srgb, var(--rds-neutral-0) 15%, transparent);
             }
         }
-        
+
         .MuiRating-iconFilled,
         .MuiRating-root .MuiRating-iconFilled,
         span.MuiRating-icon.MuiRating-iconFilled,
         label.MuiRating-label .MuiRating-iconFilled,
         .MuiRating-decimal .MuiRating-iconFilled {
             color: var(--rds-primary-main);
-            
+
             svg {
                 color: var(--rds-primary-main);
                 fill: var(--rds-primary-main);
             }
         }
-        
+
         .MuiRating-root {
             color: var(--rds-primary-main);
-            
+
             svg {
                 color: inherit;
             }
         }
-        
+
         .rds-rating--color-primary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -216,7 +216,7 @@
             }
             .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main)); }
         }
-        
+
         .rds-rating--color-success {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -225,7 +225,7 @@
             }
             .MuiRating-root { color: var(--rds-color-success); }
         }
-        
+
         .rds-rating--color-danger {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -234,7 +234,7 @@
             }
             .MuiRating-root { color: var(--rds-color-danger); }
         }
-        
+
         .rds-rating--color-warning {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -243,7 +243,7 @@
             }
             .MuiRating-root { color: var(--rds-color-warning); }
         }
-        
+
         .rds-rating--color-info {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -252,7 +252,7 @@
             }
             .MuiRating-root { color: var(--rds-color-info); }
         }
-        
+
         .rds-rating--color-secondary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -261,7 +261,7 @@
             }
             .MuiRating-root { color: var(--rds-color-secondary); }
         }
-        
+
         .rds-rating--color-dark {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -270,7 +270,7 @@
             }
             .MuiRating-root { color: var(--rds-color-on-surface); }
         }
-        
+
         .rds-rating--color-light {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
@@ -283,7 +283,7 @@
     .rating-value {
         font-weight: var(--rds-font-weight-bold);
     }
-    
+
 }
     .css-gmzbdb {
         margin: 0;
@@ -292,4 +292,4 @@
     .css-j0azdm {
         margin: 0;
     }
- 
+

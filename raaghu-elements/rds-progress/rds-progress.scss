@@ -1,9 +1,9 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-progress {
-  display: block;
-  position: relative;
-  width: 100%;
+  --rds-progress-animation: 1.5s;
+  --rds-progress-height: 35px;
+  --rds-progress-width: 58px;
   --rds-progress-dash-width: 50px;
   --rds-progress-dash-height: 5px;
   --rds-progress-block-width: 80px;
@@ -13,6 +13,9 @@
   --rds-progress-connector-width: 60px;
   --rds-progress-connector-width-mobile: 35px;
   --rds-progress-inner-dot-size: 20px;
+  display: block;
+  position: relative;
+  width: 100%;
   --rds-progress-transition: var(--rds-transition-base);
 
   &__bar {
@@ -76,8 +79,8 @@
   }
 
   &--indeterminate {
-    --rds-duration-local-1_5s: 1.5s;
-    animation: rds-progress-indeterminate var(--rds-duration-local-1_5s) infinite linear;
+
+    animation: rds-progress-indeterminate var(--rds-progress-animation) infinite linear;
   }
 
   &__dash {
@@ -113,18 +116,18 @@
   @include bp.between(420, 834) {
     &__block {
       width: var(--rds-spacing-75);
-      --rds-local-35px: 35px;
-      height: var(--rds-local-35px);
+
+      height: var(--rds-progress-height);
       font-size: var(--rds-font-size-md);
     }
   }
 
   @include bp.between(mobile-sm, mobile-lg) {
     &__block {
-      --rds-local-58px: 58px;
-      width: var(--rds-local-58px);
-      --rds-local-35px: 35px;
-      height: var(--rds-local-35px);
+
+      width: var(--rds-progress-width);
+
+      height: var(--rds-progress-height);
       font-size: var(--rds-font-size-sm);
     }
   }

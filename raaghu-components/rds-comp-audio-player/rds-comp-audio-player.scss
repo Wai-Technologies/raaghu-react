@@ -1,6 +1,14 @@
 .rds-comp-audio-player {
+  --rds-audio-player-min-width-1: 900px;
+  --rds-audio-player-min-height: 70px;
+  --rds-audio-player-transition: 0.2s;
+  --rds-audio-player-animation: 0.2s;
+  --rds-audio-player-min-width-2: 320px;
+  --rds-audio-player-max-width: 1200px;
+  --rds-audio-player-min-width-3: 120px;
+  --rds-audio-player-min-width-4: 35px;
   display: block;
-  
+
   &__collapsed-container {
     display: flex;
     align-items: center;
@@ -23,7 +31,7 @@
     background-color: var(--rds-color-secondary-container);
     color: var(--rds-color-on-secondary-container);
     transition: all var(--rds-transition-base);
-    
+
     &--purple {
       background-color: var(--rds-color-secondary-container);
     }
@@ -54,8 +62,8 @@
     padding: var(--rds-spacing-sm);
     background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius);
-    --rds-local-900px: 900px;
-    position: relative;    min-width: min(var(--rds-local-900px), 100%);
+
+    position: relative;    min-width: min(var(--rds-audio-player-min-width-1), 100%);
     min-height: calc(4.375 * var(--rds-spacing-md));
     box-sizing: border-box;
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
@@ -63,8 +71,8 @@
     &--image-layout {
       justify-content: flex-start;
       gap: 0;
-      --rds-local-70px: 70px;
-      min-height: var(--rds-local-70px);
+
+      min-height: var(--rds-audio-player-min-height);
       width: 100%;
       box-sizing: border-box;
     }
@@ -85,14 +93,14 @@
     margin-right: var(--rds-spacing-md);
     position: relative;
     z-index: var(--rds-z-index-layer-2);
-    
+
     > svg {
       display: flex;
       align-items: center;
       justify-content: center;
       vertical-align: middle;
     }
-    
+
     button {
       background-color: none;
       border: none;
@@ -100,18 +108,18 @@
       font-size: var(--rds-font-size-md);
       padding: var(--rds-spacing-xs);
       border-radius: var(--rds-border-radius-sm);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: all var(--rds-duration-local-0_2s) ease;
+
+      transition: all var(--rds-audio-player-transition) ease;
       color: var(--rds-color-on-surface-variant);
       display: flex;
       align-items: center;
       justify-content: center;
-      
+
       &:hover {
         background-color: var(--rds-color-surface-variant);
         color: var(--rds-color-primary);
       }
-      
+
       &:focus-visible {
         outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
         outline-offset: 2px;
@@ -132,8 +140,8 @@
     font-size: var(--rds-font-size-lg);
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     color: var(--rds-color-on-surface-variant);
     display: flex;
     align-items: center;
@@ -163,12 +171,12 @@
     border-radius: var(--rds-border-radius-sm);
     cursor: pointer;
     font-size: var(--rds-font-size-lg);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     &:hover {
       background-color: var(--rds-color-primary-hover);
       box-shadow: var(--rds-elevation-2);
@@ -213,8 +221,8 @@
     font-size: var(--rds-font-size-md);
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     color: var(--rds-color-on-surface-variant);
 
     &:hover {
@@ -228,7 +236,6 @@
     }
   }
 
-
   &__volume-slider-container {
     position: absolute;
     top: 85%;
@@ -239,8 +246,8 @@
     padding: var(--rds-spacing-lg) var(--rds-spacing-md);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
     box-shadow: var(--rds-elevation-3);
-    --rds-duration-local-0_2s: 0.2s;
-    animation: rds-comp-audio-player-slide-down var(--rds-duration-local-0_2s) ease-out;
+
+    animation: rds-comp-audio-player-slide-down var(--rds-audio-player-animation) ease-out;
   }
 
   &__volume-slider {
@@ -266,11 +273,11 @@
     border-radius: var(--rds-border-radius);
     padding: var(--rds-spacing-xl);
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
-    --rds-local-320px: 320px;
-    min-width: var(--rds-local-320px);
+
+    min-width: var(--rds-audio-player-min-width-2);
     box-shadow: var(--rds-elevation-3);
-    --rds-duration-local-0_2s: 0.2s;
-    animation: rds-comp-audio-player-slide-down var(--rds-duration-local-0_2s) ease-out;
+
+    animation: rds-comp-audio-player-slide-down var(--rds-audio-player-animation) ease-out;
   }
 
   &__settings-header {
@@ -297,7 +304,7 @@
     font-size: var(--rds-font-size-label-small);
     color: var(--rds-color-on-surface-variant);
     margin-bottom: var(--rds-spacing-sm);
-    
+
     span {
       min-width: var(--rds-spacing-30);
       text-align: center;
@@ -306,7 +313,7 @@
 
   &__speed-slider-container {
     padding: 0 var(--rds-spacing-sm);
-    
+
     .MuiSlider-root {
       padding: var(--rds-spacing-15) 0;
     }
@@ -330,8 +337,8 @@
     cursor: pointer;
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     color: var(--rds-color-on-surface-variant);
 
     &:hover {
@@ -354,8 +361,8 @@
     flex-direction: column;
     gap: 0;
     width: 100%;
-    --rds-local-1200px: 1200px;
-    max-width: var(--rds-local-1200px);
+
+    max-width: var(--rds-audio-player-max-width);
     margin: 0 auto;
     border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
   }
@@ -374,8 +381,8 @@
     cursor: pointer;
     font-size: var(--rds-font-size-body-medium);
     font-weight: var(--rds-font-weight-medium);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     font-family: var(--rds-font-family-base);
 
     &:focus-visible {
@@ -410,8 +417,8 @@
     overflow: hidden;
     user-select: none;
     cursor: default;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
 
     &--dragging {
       cursor: col-resize;
@@ -439,8 +446,8 @@
     border: var(--rds-border-width-thin) solid var(--rds-color-primary-outline);
     z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
   }
 
   &__waveform-disabled-overlay {
@@ -450,15 +457,15 @@
     background-color: var(--rds-color-surface-disabled);
     z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
-    
+
+    transition: all var(--rds-audio-player-transition) ease;
+
     &--left {
       left: 0;
       width: var(--left-overlay-width, 10%);
       border-radius: var(--rds-border-radius-xs) 0 0 var(--rds-border-radius-xs);
     }
-    
+
     &--right {
       left: var(--right-trim-position, 90%);
       width: var(--right-overlay-width, 10%);
@@ -474,10 +481,10 @@
     background-color: var(--rds-color-primary);
     z-index: var(--rds-z-index-layer-2);
     cursor: col-resize;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: background-color var(--rds-duration-local-0_2s) ease;
+
+    transition: background-color var(--rds-audio-player-transition) ease;
     outline: none;
-    
+
     &:hover {
       background-color: var(--rds-color-primary-hover);
 
@@ -489,15 +496,15 @@
         }
       }
     }
-    
+
     &:focus-visible {
       background-color: var(--rds-color-primary-hover);
       box-shadow: 0 0 0 2px var(--rds-color-primary-container);
     }
-    
+
     &--active {
       background-color: var(--rds-color-primary-pressed);
-      
+
       .rds-comp-audio-player__waveform-bar-handle {
         box-shadow: var(--rds-elevation-2);
         transform: translate(-50%, -50%) scale(1.1);
@@ -511,7 +518,7 @@
         transform: translateX(-100%);
       }
     }
-    
+
     &--left {
       left: var(--left-trim-position, 10%);
       border-radius: var(--rds-border-radius-xs) 0 0 var(--rds-border-radius-xs);
@@ -521,7 +528,7 @@
         transform: translateX(0);
       }
     }
-    
+
     &--right {
       left: var(--right-trim-position, 90%);
       border-radius: 0 var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0;
@@ -545,8 +552,8 @@
     box-shadow: var(--rds-elevation-1);
     z-index: var(--rds-z-index-layer-3);
     pointer-events: none;
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
 
     &::before {
       content: '';
@@ -558,8 +565,8 @@
       height: var(--rds-spacing-20-px);
       background-color: var(--rds-color-primary);
       border-radius: var(--rds-spacing-hairline);
-      --rds-duration-local-0_2s: 0.2s;
-      transition: all var(--rds-duration-local-0_2s) ease;
+
+      transition: all var(--rds-audio-player-transition) ease;
     }
   }
 
@@ -611,24 +618,24 @@
     cursor: pointer;
     font-size: var(--rds-font-size-body-medium);
     color: var(--rds-color-on-surface-variant);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: all var(--rds-duration-local-0_2s) ease;
+
+    transition: all var(--rds-audio-player-transition) ease;
     font-family: var(--rds-font-family-base);
-    
+
     &:hover {
       background-color: var(--rds-color-surface-variant);
       color: var(--rds-color-on-surface);
     }
-    
+
     &:focus-visible {
       outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
     }
-    
+
     &--active {
       background-color: var(--rds-color-primary-container);
       color: var(--rds-color-primary);
-      
+
       .rds-comp-audio-player__btn-icon {
         color: var(--rds-color-primary);
       }
@@ -643,15 +650,15 @@
   &__btn-icon {
     width: var(--rds-size-md);
     height: var(--rds-size-md);
-    --rds-duration-local-0_2s: 0.2s;
-    transition: color var(--rds-duration-local-0_2s) ease;
+
+    transition: color var(--rds-audio-player-transition) ease;
   }
 
   &__edition-zoom {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md);
-    
+
     button {
       background-color: var(--rds-color-surface-variant);
       border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
@@ -661,21 +668,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      --rds-duration-local-0_2s: 0.2s;
-      transition: all var(--rds-duration-local-0_2s) ease;
+
+      transition: all var(--rds-audio-player-transition) ease;
       color: var(--rds-color-on-surface-variant);
-      
+
       &:hover:not(:disabled) {
         background-color: var(--rds-color-primary-container);
         border-color: var(--rds-color-primary);
         color: var(--rds-color-primary);
       }
-      
+
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
-      
+
       &:focus-visible {
         outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
         outline-offset: 2px;
@@ -688,16 +695,16 @@
     flex-direction: column;
     align-items: center;
     gap: var(--rds-spacing-sm);
-    --rds-local-120px: 120px;
-    min-width: var(--rds-local-120px);
+
+    min-width: var(--rds-audio-player-min-width-3);
   }
 
   &__zoom-label {
     font-size: var(--rds-font-size-label-small);
     color: var(--rds-color-on-surface-variant);
     font-weight: var(--rds-font-weight-medium);
-    --rds-local-35px: 35px;
-    min-width: var(--rds-local-35px);
+
+    min-width: var(--rds-audio-player-min-width-4);
     text-align: center;
     background-color: var(--rds-color-surface-variant);
     padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
@@ -849,7 +856,7 @@
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       font-size: var(--rds-font-size-body-small);
       min-width: fit-content;
-      
+
       .rds-comp-audio-player__btn-icon {
         width: var(--rds-spacing-14);
         height: var(--rds-spacing-14);
@@ -859,10 +866,10 @@
     &__edition-zoom {
       justify-content: center;
       gap: var(--rds-spacing-sm);
-      
+
       button {
         padding: var(--rds-spacing-xs);
-        
+
         .rds-comp-audio-player__btn-icon {
           width: var(--rds-spacing-14);
           height: var(--rds-spacing-14);
@@ -901,7 +908,7 @@
     &__edition-btn {
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
       font-size: var(--rds-font-size-caption);
-      
+
       .rds-comp-audio-player__btn-icon {
         width: var(--rds-spacing-12-px);
         height: var(--rds-spacing-12-px);
@@ -910,10 +917,10 @@
 
     &__edition-zoom {
       gap: var(--rds-spacing-xs);
-      
+
       button {
         padding: var(--rds-spacing-xs);
-        
+
         .rds-comp-audio-player__btn-icon {
           width: var(--rds-spacing-12-px);
           height: var(--rds-spacing-12-px);
@@ -956,12 +963,12 @@
   .rds-comp-audio-player__edition-btn--active {
     background-color: var(--rds-color-primary-overlay);
     color: var(--rds-color-primary-light);
-    
+
     &:hover {
       background-color: var(--rds-color-primary-overlay-strong);
       color: var(--rds-color-primary-lighter);
     }
-    
+
     .rds-comp-audio-player__btn-icon {
       color: var(--rds-color-primary-light);
     }
@@ -972,7 +979,7 @@
       background-color: var(--rds-color-surface-overlay);
       border-color: var(--rds-color-border-overlay);
       color: var(--rds-color-on-surface-overlay);
-      
+
       &:hover:not(:disabled) {
         background-color: var(--rds-color-primary-overlay-soft);
         border-color: var(--rds-color-primary-light);
