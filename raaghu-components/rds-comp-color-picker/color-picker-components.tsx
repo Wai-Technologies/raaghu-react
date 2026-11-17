@@ -10,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-const SLIDER_TRACK_HEIGHT = "12px";
+const SLIDER_TRACK_HEIGHT = "var(--rds-spacing-12-px)";
 const SLIDER_POINTER_SIZE = 12;
 
 const SliderPointer = ({ direction }: { direction?: string }) => {
@@ -22,9 +22,9 @@ const SliderPointer = ({ direction }: { direction?: string }) => {
           width: SLIDER_POINTER_SIZE,
           height: SLIDER_POINTER_SIZE,
           borderRadius: "50%",
-          transform: `translate(-3px, -${SLIDER_POINTER_SIZE / 2}px)`,
+          transform: `translate(-var(--rds-spacing-micro), -${SLIDER_POINTER_SIZE / 2}px)`,
           backgroundColor: "var(--rds-neutral-0)",
-          boxShadow: "0 0 2px var(--rds-placeholder-color-light)",
+          boxShadow: "0 0 var(--rds-spacing-xxs) var(--rds-placeholder-color-light)",
         }}
       />
     );
@@ -38,7 +38,7 @@ const SliderPointer = ({ direction }: { direction?: string }) => {
         height: SLIDER_POINTER_SIZE,
         borderRadius: "50%",
         backgroundColor: "var(--rds-neutral-0)",
-        boxShadow: "0 0 2px var(--rds-placeholder-color-light)",
+        boxShadow: "0 0 var(--rds-spacing-xxs) var(--rds-placeholder-color-light)",
       }}
     />
   );

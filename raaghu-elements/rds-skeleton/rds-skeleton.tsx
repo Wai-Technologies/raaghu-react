@@ -33,7 +33,7 @@ const RdsSkeleton = ({
         sx={{
           display: 'flex',
           flexDirection: isText ? 'column' : 'row',
-          gap: 'var(--rds-spacing-md, 12px)',
+          gap: 'var(--rds-spacing-md, var(--rds-spacing-12-px))',
           alignItems: isText ? 'flex-start' : 'center',
         }}
       >

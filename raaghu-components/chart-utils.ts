@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
+import { typographyTokens } from '../raaghu-react-themes/tokens/design-tokens';
 import { resolveSemanticPalette } from '../raaghu-react-themes/tokens/semantic-palette';
 
 function chartSemantic() {
@@ -127,7 +128,7 @@ export function chartFont(
   };
 
   const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
-  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
+  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', typographyTokens.fontSize.sm);
   const family = getCSSVar('--rds-font-family-base', 'Poppins');
 
   return `${weightVal} ${sizeVal} ${family}`;

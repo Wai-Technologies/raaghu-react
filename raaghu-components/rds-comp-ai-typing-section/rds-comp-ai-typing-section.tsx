@@ -120,11 +120,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
                 colorVariant="primary"
-                height="24px"
+                height="var(--rds-spacing-lg)"
                 isCursorPointer
                 name="enhance"
                 stroke
-                width="24px"
+                width="var(--rds-spacing-lg)"
               />
             </span>
           )}

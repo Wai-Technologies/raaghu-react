@@ -257,17 +257,17 @@ const RdsButton = ({
         ...textCaseStyles,
         '& .MuiButton-startIcon': { margin: 0 },
         '& .MuiButton-endIcon': { margin: 0 },
-        ...(hasIcons ? { padding: '6px' } : {}),
+        ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
         ...(style === 'outlined' && paletteMain ? {
           ...(state === 'hover' ? {
             ...outlinedHoverStyles,
-            transform: 'translateY(-1px)',
+            transform: 'translateY(var(--rds-spacing-neg-1))',
             boxShadow: 'var(--rds-elevation-2)',
           } : {}),
           ...(state === 'selected' ? outlinedSelectedStyles : {}),
           '&:hover': {
             ...outlinedHoverStyles,
-            transform: 'translateY(-1px)',
+            transform: 'translateY(var(--rds-spacing-neg-1))',
             boxShadow: 'var(--rds-elevation-2)',
           },
         } : {}),

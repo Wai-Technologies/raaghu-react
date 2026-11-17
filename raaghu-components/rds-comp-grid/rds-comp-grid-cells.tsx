@@ -112,14 +112,14 @@ export const EditableCell: React.FC<{
         helperText={validationError}
         sx={{
           '& .MuiInputBase-input': {
-            padding: '4px 8px',
-            fontSize: '14px',
+            padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)',
+            fontSize: 'var(--rds-spacing-14)',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
           },
-          '& .MuiOutlinedInput-notchedOutline': { borderWidth: '1px' },
-          '& .MuiOutlinedInput-root': { height: '32px' },
+          '& .MuiOutlinedInput-notchedOutline': { borderWidth: 'var(--rds-spacing-hairline)' },
+          '& .MuiOutlinedInput-root': { height: 'var(--rds-spacing-xl)' },
         }}
       />
     );
@@ -137,19 +137,19 @@ export const EditableCell: React.FC<{
       onClick={onStartEdit}
       sx={{
         cursor: 'pointer',
-        padding: '4px 8px',
-        minHeight: '32px',
+        padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)',
+        minHeight: 'var(--rds-spacing-xl)',
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        border: '1px solid transparent',
+        border: 'var(--rds-spacing-hairline) solid transparent',
         borderRadius: 'var(--rds-border-radius-sm)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         '&:hover': {
           backgroundColor: 'action.hover',
-          border: '1px solid',
+          border: 'var(--rds-spacing-hairline) solid',
           borderColor: 'divider',
         },
       }}
@@ -215,7 +215,7 @@ export const ActionMenu: React.FC<{
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
-          sx: { minWidth: 120, '& .MuiMenuItem-root': { fontSize: '14px' } },
+          sx: { minWidth: 120, '& .MuiMenuItem-root': { fontSize: 'var(--rds-spacing-14)' } },
         }}
       >
         {actions.map((action) => (
@@ -224,7 +224,7 @@ export const ActionMenu: React.FC<{
             onClick={() => handleActionClick(action.id)}
             sx={{ '&:hover': { backgroundColor: 'action.hover' } }}
           >
-            <ListItemIcon sx={{ minWidth: 32 }}>{getActionIcon(action.id)}</ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 'var(--rds-size-xl)' }}>{getActionIcon(action.id)}</ListItemIcon>
             <ListItemText primary={action.displayName} />
           </MenuItem>
         ))}
@@ -290,7 +290,7 @@ export const GridBodyCell: React.FC<GridBodyCellProps> = ({
     width: cellWidth,
     minWidth: header.minWidth || 50,
     maxWidth: header.maxWidth || 800,
-    borderRight: '1px solid var(--rds-border-default)',
+    borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

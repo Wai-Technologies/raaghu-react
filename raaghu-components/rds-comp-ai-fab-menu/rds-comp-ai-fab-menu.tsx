@@ -102,8 +102,8 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     name={props.menuIcon || "list"}  
                     fill={false}
                     stroke={true}
-                    height="24px"
-                    width="24px"
+                    height="var(--rds-spacing-lg)"
+                    width="var(--rds-spacing-lg)"
                     colorVariant={props.colorVariant === 'dark' || props.colorVariant === 'primary' || props.colorVariant === 'danger' ? 'light' : 'dark'}
                 />
             </button>

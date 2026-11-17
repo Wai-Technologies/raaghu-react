@@ -51,9 +51,9 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     const getSizeDimensions = () => {
         switch (size) {
             case SpinnerSize.Default:
-                return { width: "30px", height: "30px" };
+                return { width: "var(--rds-spacing-30)", height: "var(--rds-spacing-30)" };
             case SpinnerSize.Small:
-                return { width: "15px", height: "15px" };
+                return { width: "var(--rds-spacing-15)", height: "var(--rds-spacing-15)" };
             case SpinnerSize.Medium:
                 return { width: "35px", height: "35px" };
             case SpinnerSize.Large:

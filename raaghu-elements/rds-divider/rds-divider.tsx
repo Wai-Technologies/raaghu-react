@@ -81,22 +81,22 @@ const RdsDivider= ({
     switch (size) {
       case 'small':
         return {
-          borderWidth: 'var(--rds-divider-border-width-sm, 1px)',
+          borderWidth: 'var(--rds-divider-border-width-sm, var(--rds-spacing-hairline))',
           marginY: 2,
         };
       case 'medium':
         return {
-          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
+          borderWidth: 'var(--rds-divider-border-width-md, var(--rds-spacing-xxs))',
           marginY: 2,
         };
       case 'large':
         return {
-          borderWidth: 'var(--rds-divider-border-width-lg, 3px)',
+          borderWidth: 'var(--rds-divider-border-width-lg, var(--rds-spacing-micro))',
           marginY: 2,
         };
       default:
         return {
-          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
+          borderWidth: 'var(--rds-divider-border-width-md, var(--rds-spacing-xxs))',
           marginY: 2,
         };
     }
@@ -121,8 +121,8 @@ const RdsDivider= ({
     {iconShow && (
       <Box
         sx={{
-          width: 'var(--rds-divider-icon-box-size, 28px)',
-          height: 'var(--rds-divider-icon-box-size, 28px)',
+          width: 'var(--rds-divider-icon-box-size, var(--rds-spacing-28-px))',
+          height: 'var(--rds-divider-icon-box-size, var(--rds-spacing-28-px))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

@@ -70,7 +70,7 @@
     "build:lib": "tsc -b && vite build && npm run build:types",
     "build:types": "node scripts/emit-declarations.js",
     "check:hex": "node scripts/check-no-hex.mjs",
-    "check:styles": "node scripts/check-no-hex.mjs && node scripts/check-spacing-in-scss.mjs && node scripts/check-raw-px-in-scss.mjs && node scripts/check-no-important-in-scss.mjs && node scripts/check-no-rgba-in-scss.mjs && node scripts/check-typography-motion-in-scss.mjs && node scripts/check-local-dim-px-in-scss.mjs",
+    "check:styles": "node scripts/check-no-hex.mjs && node scripts/check-spacing-in-scss.mjs && node scripts/check-raw-px-in-scss.mjs && node scripts/check-no-important-in-scss.mjs && node scripts/check-no-rgba-in-scss.mjs && node scripts/check-typography-motion-in-scss.mjs && node scripts/check-local-dim-px-in-scss.mjs && node scripts/check-raw-values-in-ts.mjs",
     "preview": "vite preview",
     "test": "jest",
     "test:visual": "storybook test-runner",

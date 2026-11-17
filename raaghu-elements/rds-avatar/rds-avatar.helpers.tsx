@@ -2,19 +2,19 @@ import React from 'react';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
 export const sizeStyles = {
-  smallest: { width: 24, height: 24, fontSize: '0.5625rem' },
-  small: { width: 32, height: 32, fontSize: '0.6875rem' },
-  medium: { width: 40, height: 40, fontSize: '0.875rem' },
-  large: { width: 48, height: 48, fontSize: '1.125rem' },
-  largest: { width: 64, height: 64, fontSize: '1.3125rem' },
+  smallest: { width: 'var(--rds-size-lg)', height: 'var(--rds-size-lg)', fontSize: 'var(--rds-spacing-9-px)' },
+  small: { width: 'var(--rds-size-xl)', height: 'var(--rds-size-xl)', fontSize: 'var(--rds-spacing-11-px)' },
+  medium: { width: 'var(--rds-spacing-40-px)', height: 'var(--rds-spacing-40-px)', fontSize: 'var(--rds-font-size-sm)' },
+  large: { width: 'var(--rds-spacing-2xl)', height: 'var(--rds-spacing-2xl)', fontSize: 'var(--rds-font-size-lg)' },
+  largest: { width: 'var(--rds-size-3xl)', height: 'var(--rds-size-3xl)', fontSize: '1.3125rem' },
 };
 
 export const overflowFontSize: Record<string, string> = {
-  smallest: '0.5rem',
-  small: '0.6875rem',
-  medium: '0.875rem',
-  large: '1rem',
-  largest: '1.125rem',
+  smallest: 'var(--rds-spacing-sm)',
+  small: 'var(--rds-spacing-11-px)',
+  medium: 'var(--rds-font-size-sm)',
+  large: 'var(--rds-font-size-md)',
+  largest: 'var(--rds-font-size-lg)',
 };
 
 const overlapOffsets: Record<string, number> = {
@@ -146,7 +146,7 @@ export function StackingAvatarsView({
           style={{
             marginLeft: `${overlapOffset}px`,
             zIndex: maxVisibleAvatars + 1,
-            fontSize: overflowFontSize[size] ?? '0.875rem',
+            fontSize: overflowFontSize[size] ?? 'var(--rds-font-size-sm)',
           }}
         >
           +{remainingCount}

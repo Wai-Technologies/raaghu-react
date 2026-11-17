@@ -86,8 +86,8 @@ export function resolveIconComponent(
 
 export function buildIconStyle(props: RdsCompAiIconProps) {
   return {
-    height: props.height ? props.height : "22px",
-    width: props.width ? props.width : "22px",
+    height: props.height ? props.height : "var(--rds-spacing-22)",
+    width: props.width ? props.width : "var(--rds-spacing-22)",
     '--rds-ai-icon-size': 'var(--rds-ai-icon-size)',
     strokeWidth: props.strokeWidth ? props.strokeWidth : "inherit",
     ...(props.position === "center" && { margin: "auto" }),

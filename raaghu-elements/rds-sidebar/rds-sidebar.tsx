@@ -238,7 +238,7 @@ const RdsSidebar = ({
                 className={navButtonClasses}
                 aria-expanded={!!openMap[index]}
                 sx={{
-                  minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
+                  minHeight: 'var(--rds-sidebar-nav-min-height, var(--rds-spacing-2xl))',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
@@ -281,7 +281,7 @@ const RdsSidebar = ({
                             selected={child.active}
                             className={navButtonClasses}
                             sx={{
-                                minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
+                                minHeight: 'var(--rds-sidebar-child-nav-min-height, var(--rds-spacing-40-px))',
                               justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}

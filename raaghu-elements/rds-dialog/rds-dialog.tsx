@@ -59,7 +59,7 @@ const RdsDialog = ({
           <DialogTitle
             className="rds-dialog__title"
             sx={{
-              paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 48px)' : undefined,
+              paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, var(--rds-spacing-2xl))' : undefined,
             }}
           >
             <div className="rds-dialog__title-inner">
@@ -113,7 +113,7 @@ const RdsDialog = ({
           className="rds-dialog__title"
           sx={{
             position: 'relative',
-            paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 48px)' : undefined,
+            paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, var(--rds-spacing-2xl))' : undefined,
           }}
         >
           {showTitle ? (

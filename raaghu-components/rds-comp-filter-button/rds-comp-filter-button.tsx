@@ -42,8 +42,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
-  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
+  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, var(--rds-spacing-md))' }} />,
+  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, var(--rds-spacing-md))' }} />,
   filters = [],
   onFiltersChange,
   onApply,
@@ -180,14 +180,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             overflowY: 'auto',
             minHeight: 0,
             '&::-webkit-scrollbar': {
-              width: '6px',
+              width: 'var(--rds-spacing-compact)',
             },
             '&::-webkit-scrollbar-track': {
               background: 'var(--rds-background-default)',
             },
             '&::-webkit-scrollbar-thumb': {
               background: 'var(--rds-neutral-400)',
-              borderRadius: '3px',
+              borderRadius: 'var(--rds-spacing-micro)',
             },
             '&::-webkit-scrollbar-thumb:hover': {
               background: 'var(--rds-neutral-500)',
@@ -212,7 +212,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                 <AccordionSummary
                   expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)' }} />}
                   sx={{
-                    minHeight: '48px',
+                    minHeight: 'var(--rds-spacing-2xl)',
                     px: 2,
                     py: 1,
                     position: 'relative',
@@ -227,9 +227,9 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       content: '""',
                       position: 'absolute',
                       bottom: 0,
-                      left: 'var(--rds-spacing-md, 16px)',
-                      right: 'var(--rds-spacing-md, 16px)',
-                      height: '1px',
+                      left: 'var()',
+                      right: 'var()',
+                      height: 'var(--rds-spacing-hairline)',
                       backgroundColor: 'var(--rds-border-default)',
                       display: index === filteredFilters.length - 1 ? 'none' : 'block',
                     }
@@ -245,7 +245,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     ) : null}
 
                     <Typography sx={{ 
-                      fontSize: 'var(--rds-font-size-md, 14px)', 
+                      fontSize: 'var(--rds-font-size-md, var(--rds-spacing-14))', 
                       fontWeight: 'var(--rds-font-weight-medium, 500)',
                       color: 'var(--rds-text-primary)'
                     }}>

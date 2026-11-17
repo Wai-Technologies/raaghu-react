@@ -174,15 +174,15 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
-                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 {(isShowUser) && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', p: 'var(--rds-spacing-xxs)', flexShrink: 0 }}>
                     {userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (
-                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as T).label || String(option)}</span>
               </Box>

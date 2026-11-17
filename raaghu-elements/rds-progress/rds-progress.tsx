@@ -117,7 +117,7 @@ const RdsProgress = ({
                 {index < totalSteps - 1 && (
                   <Box
                     className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
-                      sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
+                      sx={{ width: 'var(--rds-progress-connector-width)', height: 'var(--rds-spacing-xxs)' }}
                   />
                 )}
               </React.Fragment>

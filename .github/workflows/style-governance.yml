@@ -23,12 +23,16 @@ on:
       - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/check-typography-motion-in-scss.mjs'
       - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/check-raw-values-in-ts.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/important-baseline.txt'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/typography-motion-baseline.txt'
       - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/ts-raw-values-baseline.txt'
+      - 'raaghu-pages/**/*.ts'
+      - 'raaghu-pages/**/*.tsx'
   pull_request:
     branches: [main, development, production, development-react-v18, production-react-v18]
     paths:
@@ -51,12 +55,16 @@ on:
       - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/check-typography-motion-in-scss.mjs'
       - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/check-raw-values-in-ts.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/important-baseline.txt'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/typography-motion-baseline.txt'
       - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/ts-raw-values-baseline.txt'
+      - 'raaghu-pages/**/*.ts'
+      - 'raaghu-pages/**/*.tsx'
   workflow_dispatch:
 
 permissions:
@@ -93,6 +101,9 @@ jobs:
 
       - name: Check local custom-property lengths in SCSS
         run: node scripts/check-local-dim-px-in-scss.mjs
+
+      - name: Check raw style values in TypeScript
+        run: node scripts/check-raw-values-in-ts.mjs
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

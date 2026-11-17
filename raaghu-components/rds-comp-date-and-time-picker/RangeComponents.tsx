@@ -138,7 +138,7 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
         {...dayProps}
         onClick={() => handleSelect(day)}
         sx={{
-          borderRadius: '4px !important',
+          borderRadius: 'var(--rds-spacing-xs) !important',
           ...(inRange && {
             backgroundColor: 'var(--rds-color-primary-hover) !important',
             color: 'var(--rds-color-primary) !important',

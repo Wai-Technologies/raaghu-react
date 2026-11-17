@@ -97,17 +97,17 @@ const RdsCompEmptyState = ({
             data-testid="labelElement"
             style={{
               color: isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)",
-              fontSize: "20px",
+              fontSize: "var(--rds-spacing-20-px)",
               fontWeight: 600,
-              marginBottom: "8px",
-              marginTop: "24px",
+              marginBottom: "var(--rds-spacing-sm)",
+              marginTop: "var(--rds-spacing-lg)",
             }}
             sx={{
-              fontSize: "20px",
+              fontSize: "var(--rds-spacing-20-px)",
               fontWeight: 600,
               color: titleColor,
-              marginBottom: "8px",
-              marginTop: "24px",
+              marginBottom: "var(--rds-spacing-sm)",
+              marginTop: "var(--rds-spacing-lg)",
             }}
           >
             {label}

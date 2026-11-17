@@ -192,18 +192,18 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
   };
 
   const exportMenuItems = [
-    { icon: 'users', iconHeight: '24px', iconWidth: '24px', key: 'new', some: 'value', value: 'Share Link' },
-    { icon: 'refresh', iconHeight: '24px', iconWidth: '24px', key: 'refresh', some: 'value', value: 'Export Audio' },
-    { icon: 'export', iconHeight: '24px', iconWidth: '24px', key: 'export', some: 'value', value: 'Export Transcript' },
-    { icon: 'delete', iconHeight: '24px', iconWidth: '24px', key: 'delete', some: 'value', value: 'Export Summary' },
-    { icon: 'download', iconHeight: '24px', iconWidth: '24px', key: 'download', some: 'value', value: 'Export Mind Map' }
+    { icon: 'users', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'new', some: 'value', value: 'Share Link' },
+    { icon: 'refresh', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'refresh', some: 'value', value: 'Export Audio' },
+    { icon: 'export', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'export', some: 'value', value: 'Export Transcript' },
+    { icon: 'delete', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'delete', some: 'value', value: 'Export Summary' },
+    { icon: 'download', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'download', some: 'value', value: 'Export Mind Map' }
   ];
 
   const moreOptionsMenuItems = [
-    { icon: 'users', iconHeight: '24px', iconWidth: '24px', key: 'new', some: 'value', value: 'Move to folder' },
-    { icon: 'refresh', iconHeight: '24px', iconWidth: '24px', key: 'refresh', some: 'value', value: 'Find & Replace' },
-    { icon: 'export', iconHeight: '24px', iconWidth: '24px', key: 'export', some: 'value', value: 'Re-Transcribe' },
-    { icon: 'delete', iconHeight: '24px', iconWidth: '24px', key: 'delete', some: 'value', value: 'Re-Summarize' }
+    { icon: 'users', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'new', some: 'value', value: 'Move to folder' },
+    { icon: 'refresh', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'refresh', some: 'value', value: 'Find & Replace' },
+    { icon: 'export', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'export', some: 'value', value: 'Re-Transcribe' },
+    { icon: 'delete', iconHeight: 'var(--rds-spacing-lg)', iconWidth: 'var(--rds-spacing-lg)', key: 'delete', some: 'value', value: 'Re-Summarize' }
   ];
 
   return (

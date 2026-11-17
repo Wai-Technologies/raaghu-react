@@ -43,10 +43,10 @@ const RdsBadge= ({
       badgeInner = <Notifications fontSize="small" sx={{ marginRight: 0 }} />;
       break;
     case 'icon-text':
-      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: '6px' }} />{content?.toString()}</>;
+      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: 'var(--rds-spacing-compact)' }} />{content?.toString()}</>;
       break;
     case 'text-icon':
-      badgeInner = <>{content?.toString()}<Notifications fontSize="small" sx={{ marginLeft: '6px' }} /></>;
+      badgeInner = <>{content?.toString()}<Notifications fontSize="small" sx={{ marginLeft: 'var(--rds-spacing-compact)' }} /></>;
       break;
     case 'text':
     default:
