@@ -1,5 +1,5 @@
 import React from "react";
-import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import "./rds-comp-spinner.scss";
 
@@ -32,6 +32,9 @@ export interface RdsCompSpinnerProps {
     labelText?: string;
     size?: SpinnerSize;
     layout?: SpinnerLayout;
+    /** Spinner color. `'danger'` is deprecated; use `'error'`. */
+    color?: string;
+    /** @deprecated Use `color`. */
     colorVariant?: string;
     level?: SpinnerLevel;
 }
@@ -44,13 +47,15 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     labelText,
     size,
     layout,
+    color,
     colorVariant,
     level
 }) => {
-    if (colorVariant === "danger") {
-        warnDeprecatedProp("RdsCompSpinner", 'colorVariant="danger"', '`colorVariant: "error"`');
+    const paletteColor = resolveDeprecatedProp(color, colorVariant, "RdsCompSpinner", "colorVariant", "`color`");
+    if (paletteColor === "danger" || color === "danger" || colorVariant === "danger") {
+        warnDeprecatedProp("RdsCompSpinner", 'color="danger"', '`color: "error"`');
     }
-    const resolvedColorVariant = normalizePaletteColor(colorVariant);
+    const resolvedColorVariant = normalizePaletteColor(paletteColor);
     const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
     const colorClass = resolvedColorVariant ? `text-${resolvedColorVariant}` : "";
 

@@ -1,6 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import "./rds-comp-navtabs.scss";
-import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge"; 
+import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
+
+type NavtabColor = "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
 
 export interface RdsCompNavtabsProps {
   children?: ReactNode;
@@ -12,9 +16,11 @@ export interface RdsCompNavtabsProps {
     subText?: string;
     disabled?: boolean;
     id: string | number;
-    count?: number; 
-    /** `'danger'` is deprecated; use `'error'`. */
-    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";  
+    count?: number;
+    /** Accent color for the tab badge/count. `'danger'` is deprecated; use `'error'`. */
+    color?: NavtabColor;
+    /** @deprecated Use `color`. */
+    colorVariant?: NavtabColor;
   }[];
   type: "default" | "tabs";
   fill?: boolean;
@@ -208,12 +214,26 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
               )}
               {navtabsItem.count && navtabsItem.count > 0 && (
                 <span className="rds-comp-navtabs__badge">
-                  <RdsBadge 
-                    shape="pill" 
-                    size="small" 
-                    colorVariant={navtabsItem.colorVariant}
-                    className="" 
-                  />
+                  {(() => {
+                    const paletteColor = resolveDeprecatedProp(
+                      navtabsItem.color,
+                      navtabsItem.colorVariant,
+                      "RdsCompNavtabs",
+                      "colorVariant",
+                      "`color`",
+                    );
+                    if (paletteColor === "danger" || navtabsItem.color === "danger" || navtabsItem.colorVariant === "danger") {
+                      warnDeprecatedProp("RdsCompNavtabs", 'color="danger"', '`color: "error"`');
+                    }
+                    return (
+                      <RdsBadge
+                        shape="pill"
+                        size="small"
+                        color={normalizePaletteColor(paletteColor) ?? "primary"}
+                        className=""
+                      />
+                    );
+                  })()}
                 </span>
               )}
             </a>

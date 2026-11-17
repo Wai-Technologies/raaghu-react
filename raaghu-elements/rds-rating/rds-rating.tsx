@@ -9,19 +9,23 @@ import {
   snapToAllowed,
 } from './rds-rating.helpers';
 import { StarRatingView, SliderRatingView } from './rds-rating.views';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends RatingProps {
+type RatingColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+
+export interface RdsRatingProps extends Omit<RatingProps, 'color'> {
   label?: string;
   showValue?: boolean;
   maxStars?: number;
   type?: 'star' | 'slider';
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
   styles?: 'default' | 'filled' | 'outlined';
-  /** `'danger'` is deprecated; use `'error'`. */
-  colorVariant?: 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  /** Color of the rating. `'danger'` is deprecated; use `'error'`. */
+  color?: RatingColor;
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: RatingColor;
 }
 
 const RdsRating = ({
@@ -33,15 +37,17 @@ const RdsRating = ({
   type = 'star',
   styles = 'default',
   level,
+  color,
   colorVariant,
   onChange,
   precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
-  if (colorVariant === 'danger') {
-    warnDeprecatedProp('RdsRating', 'colorVariant="danger"', '`colorVariant: "error"`');
+  const paletteColor = resolveDeprecatedProp(color, colorVariant, 'RdsRating', 'colorVariant', '`color`');
+  if (paletteColor === 'danger' || color === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsRating', 'color="danger"', '`color: "error"`');
   }
-  const resolvedColorVariant = normalizePaletteColor(colorVariant);
+  const resolvedColorVariant = normalizePaletteColor(paletteColor);
 
   const maxRating = max || maxStars;
   const [internalValue, setInternalValue] = useState<number | null>(() =>

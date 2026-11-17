@@ -1,11 +1,14 @@
 import React from 'react';
 import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
+type BadgePaletteColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
+const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
+
+export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'color'> {
   children?: React.ReactNode;
   showZero?: boolean;
   max?: number;
@@ -14,8 +17,13 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
   styleType?: 'primary' | 'outline' | 'transparent';
   state?: 'default' | 'disabled';
-  /** `'danger'` is deprecated; use `'error'`. */
-  colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
+  /**
+   * Palette used for standalone / BEM styling, or MUI badge color.
+   * Prefer this over `colorVariant`. `'danger'` is deprecated; use `'error'`.
+   */
+  color?: BadgeProps['color'] | BadgePaletteColor;
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: BadgePaletteColor;
 }
 
 
@@ -25,18 +33,28 @@ const RdsBadge= ({
   max = 99,
   badgeContent,
   size = 'medium',
-  color = 'primary',
+  color: colorProp,
   shape = 'pill',
   layout = 'text',
   styleType = 'primary',
   state = 'default',
-  colorVariant = 'primary',
+  colorVariant,
   ...props
 }:RdsBadgeProps) => {
-  if (colorVariant === 'danger') {
-    warnDeprecatedProp('RdsBadge', 'colorVariant="danger"', '`colorVariant: "error"`');
+  if (colorProp === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsBadge', 'color="danger"', '`color: "error"`');
   }
-  const resolvedColorVariant = normalizePaletteColor(colorVariant) ?? 'primary';
+  const paletteFromColor =
+    colorProp !== undefined && typeof colorProp === 'string' && PALETTE_COLORS.includes(colorProp)
+      ? (colorProp as BadgePaletteColor)
+      : undefined;
+  const resolvedColorVariant = normalizePaletteColor(
+    resolveDeprecatedProp(paletteFromColor, colorVariant, 'RdsBadge', 'colorVariant', '`color`') ?? 'primary',
+  );
+  const muiColor =
+    colorProp === 'danger' || colorVariant === 'danger'
+      ? 'error'
+      : ((colorProp ?? 'primary') as BadgeProps['color']);
   const content = badgeContent;
   
   const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${resolvedColorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
@@ -82,7 +100,7 @@ const RdsBadge= ({
       badgeContent={content}
       showZero={showZero}
       max={max}
-      color={color}
+      color={muiColor}
       {...props}
       className={bemClass}
     >

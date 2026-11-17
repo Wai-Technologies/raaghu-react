@@ -6,7 +6,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
-import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 
 // register icons once at module load to avoid repeated registrations on render
@@ -26,9 +26,13 @@ export interface RdsCompAiFabMenuItem {
     onClick?: () => void;
 }
 
+type FabMenuColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'error' | 'dark' | 'light';
+
 export interface RdsCompAiFabMenuProps {
-    /** `'danger'` is deprecated; use `'error'`. */
-    colorVariant?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'error' | 'dark' | 'light';
+    /** Button color. `'danger'` is deprecated; use `'error'`. */
+    color?: FabMenuColor;
+    /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
+    colorVariant?: FabMenuColor;
     size?: 'small' | 'medium' | 'large';
     menuIcon?: string;
     menuiconWidth?: string;
@@ -48,10 +52,11 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
-    if (props.colorVariant === 'danger') {
-        warnDeprecatedProp('RdsCompAiFabMenu', 'colorVariant="danger"', '`colorVariant: "error"`');
+    const paletteColor = resolveDeprecatedProp(props.color, props.colorVariant, 'RdsCompAiFabMenu', 'colorVariant', '`color`') ?? 'primary';
+    if (paletteColor === 'danger' || props.color === 'danger' || props.colorVariant === 'danger') {
+        warnDeprecatedProp('RdsCompAiFabMenu', 'color="danger"', '`color: "error"`');
     }
-    const resolvedColorVariant = normalizePaletteColor(props.colorVariant) ?? 'primary';
+    const resolvedColorVariant = normalizePaletteColor(paletteColor) ?? 'primary';
     
     const getBackgroundType = () => {
         if (props.backgroundType) {

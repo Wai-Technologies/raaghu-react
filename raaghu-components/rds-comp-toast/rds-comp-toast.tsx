@@ -3,10 +3,12 @@ import { useCallback } from "react";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import {
         type RdsCompToastProps,
         ToastLayout,
         ToastLeadingIcon,
+        ToastState,
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,
@@ -101,7 +103,12 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const showDismiss = props.chrome?.dismiss ? props.chrome.dismiss === 'visible' : (legacyShowDismiss ?? false);
     const showSubText = props.chrome?.subText ? props.chrome.subText === 'visible' : (legacyShowSubText ?? false);
 
-    const _stateClass = getStateClass(props.state);
+    if (props.severity !== undefined) warnDeprecatedProp('RdsCompToast', 'severity', '`color`');
+    const resolvedState =
+      resolveDeprecatedProp(props.color, props.severity, 'RdsCompToast', 'severity', '`color`')
+      ?? props.state
+      ?? ToastState.Basic;
+    const _stateClass = getStateClass(resolvedState);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { showState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay);
@@ -115,7 +122,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                 aria-atomic="true"
                 className={clsx(
                   "rds-comp-toast",
-                  `rds-comp-toast--${getStateClass(props.state)}`,
+                  `rds-comp-toast--${getStateClass(resolvedState)}`,
                   `rds-comp-toast--${getLayoutClass(props.layout)}`,
                   borderColor,
                   showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"
