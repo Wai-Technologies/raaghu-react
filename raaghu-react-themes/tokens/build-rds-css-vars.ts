@@ -930,8 +930,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-font-size-subheading': typographyTokens.fontSize.sm,
     '--rds-font-size-label-small': typographyTokens.fontSize.xs,
     // ── Font weight aliases ───────────────────────────────────────────────────
-    '--rds-font-weight-black': String(typographyTokens.fontWeight.black),
-    '--rds-font-weight-extrabold': String(typographyTokens.fontWeight.extrabold),
     '--rds-font-weight-semi-bold': String(typographyTokens.fontWeight.semibold),
     '--rds-typography-bold': String(typographyTokens.fontWeight.bold),
     '--rds-typography-medium': String(typographyTokens.fontWeight.medium),
