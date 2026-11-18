@@ -4,10 +4,8 @@ import RdsCard, { RdsCardProps } from './rds-card';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-card.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   Card: ({ children, className, _sx, ...props }: any) => (
@@ -22,7 +20,6 @@ jest.mock('@mui/material', () => ({
   },
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Person: () => <span data-testid="icon-person">PersonIcon</span>,
   Home: () => <span data-testid="icon-home">HomeIcon</span>,
@@ -360,7 +357,6 @@ describe('RdsCard', () => {
       render(
         <RdsCard {...defaultProps} padding="20px" />
       );
-      // Verify card renders with padding prop
       expect(screen.getByTestId('card-root')).toBeInTheDocument();
     });
 

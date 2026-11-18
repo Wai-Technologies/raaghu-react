@@ -4,7 +4,6 @@ import RdsBadge, { RdsBadgeProps } from './rds-badge';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-badge.scss', () => ({}));
 
 describe('RdsBadge', () => {

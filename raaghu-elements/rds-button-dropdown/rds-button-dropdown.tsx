@@ -29,7 +29,13 @@ export interface RdsButtonDropdownProps {
     rightIcon?: 'visible' | 'hidden';
   };
   onChange?: (selected: string[] | string) => void;
-  state?: 'default' | 'selected'; 
+  /** Disables the dropdown button so the menu cannot be opened. */
+  disabled?: boolean;
+  /** Shows the dropdown button in its selected (pressed) style. */
+  selected?: boolean;
+  /** @deprecated Use `selected`. `'selected'` also opened the menu on mount. */
+  state?: 'default' | 'selected';
+  /** @deprecated Use `disabled` and `selected`. */
   buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
@@ -41,12 +47,19 @@ export interface RdsButtonDropdownProps {
   [key: string]: unknown;
 }
 
+const SECONDARY_BUTTON_STYLE = {
+  backgroundColor: 'var(--rds-button-dropdown-secondary-bg)',
+  color: 'var(--rds-button-dropdown-selected-text)',
+} as const;
+
 const RdsButtonDropdown = ({
   buttonText = 'Button',
   options,
   multiSelect = false,
   ui,
   state = 'default',
+  disabled = false,
+  selected: selectedProp = false,
   rightIcon,
   leftIcon,
   size = 'medium',
@@ -70,8 +83,12 @@ const RdsButtonDropdown = ({
   const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : (legacyShowLeftIcon ?? true);
   const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : (legacyShowRightIcon ?? true);
 
+  const isDisabled = disabled || buttonState === 'disabled';
+  const isSelected = selectedProp || buttonState === 'selected';
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [forcedOpen, setForcedOpen] = useState(state === 'selected');
+  // Legacy: state="selected" opened the menu on mount.
+  const [forcedOpen, setForcedOpen] = useState(state === 'selected' && !isDisabled);
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<(string | number)[]>(() => {
     const initialSelected: (string | number)[] = [];
@@ -107,9 +124,10 @@ const RdsButtonDropdown = ({
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
 
-  const isDropdownOpen = Boolean(anchorEl) || forcedOpen;
+  const isDropdownOpen = !isDisabled && (Boolean(anchorEl) || forcedOpen);
 
   const handleDropdownButtonClick = (event: MouseEvent<HTMLElement>) => {
+    if (isDisabled) return;
     if (isDropdownOpen) {
       handleClose();
     } else {
@@ -130,12 +148,16 @@ const RdsButtonDropdown = ({
         layout={layout}
         shape={shape}
         color="primary"
-        state={buttonState}
-          style={
-            styleType === 'transparent' ? 'transparent' :
-            styleType === 'primary' ? 'filled' :
-            styleType === 'secondary' ? 'filled' : 'outlined'
-          }
+        disabled={isDisabled}
+        selected={isSelected}
+        state={buttonState === 'hover' ? 'hover' : undefined}
+        variant={
+          styleType === 'transparent' ? 'transparent' :
+          styleType === 'primary' || styleType === 'secondary' ? 'filled' : 'outlined'
+        }
+        // RdsButton paints filled buttons with an inline primary colour, which beat the
+        // secondary class; pass the secondary colour the same way (not when disabled).
+        style={styleType === 'secondary' && !isDisabled ? SECONDARY_BUTTON_STYLE : undefined}
           className={clsx(
             className,
             styleType === 'secondary' && 'rds-button-dropdown--secondary',

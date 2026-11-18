@@ -43,7 +43,10 @@ const RdsCarousel = ({
 }:RdsCarouselProps) => {
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    const initial = state ? parseInt(state, 10) - 1 : 0;
+    return initial >= 0 && initial < children.length ? initial : 0;
+  });
   const prevStateRef = useRef(state);
   if (state !== prevStateRef.current) {
     prevStateRef.current = state;
@@ -96,7 +99,7 @@ const RdsCarousel = ({
 
   const carouselClassName = clsx(
     'rds-carousel',
-    `rds-carousel--${style.replace(' ', '-')}`,
+    `rds-carousel--${style.replace(/ /g, '-')}`,
     className,
   );
 

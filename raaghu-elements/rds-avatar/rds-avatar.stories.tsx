@@ -10,11 +10,12 @@ const meta: Meta<typeof RdsAvatar> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    colorVariant: {
+    color: {
       control: 'select',
-      options: ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
-      description: 'Color variant for activity ring and dot',
+      options: ['primary', 'secondary', 'success', 'error', 'warning', 'light', 'dark'],
+      description: 'Color for activity ring and dot',
     },
+    colorVariant: { control: { disable: true }, table: { disable: true } },
     showName: {
       control: 'boolean',
       description: 'Show title below/next to avatar',
@@ -94,7 +95,7 @@ export const Default: Story = {
         'src'
       ]
     },
-  },
+  },
 };
 
 export const Fallback: Story = {
@@ -195,7 +196,7 @@ export const Stacking: Story = {
         'title',
         'showDesignation',
         'showName',
-        'colorVariant',
+        'color',
         'displayStyle',
         'avatars'
       ]
@@ -272,7 +273,7 @@ export const WithInitials: Story = {
     showDesignation: true,
     activityRing: true,
     activeDotTop: true,
-    colorVariant: 'primary',
+    color: 'primary',
   },
   parameters: {
     controls: {
