@@ -75,6 +75,7 @@ const RdsSelect = ({
           label={labelposition ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
+          {...(props.value === undefined && { defaultValue: props.multiple ? [] : '' })}
           {...(!labelposition && { displayEmpty: !!placeholder || !!inputPlaceholder })}
           renderValue={
             !labelposition

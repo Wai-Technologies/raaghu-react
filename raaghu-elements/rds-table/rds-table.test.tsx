@@ -845,3 +845,24 @@ describe('RdsTable', () => {
     });
   });
 });
+
+describe('RdsTable page props and select-all', () => {
+  const cols: RdsTableColumn[] = [{ id: 'name', label: 'Name' }];
+  const rows = Array.from({ length: 12 }, (_, i) => ({ id: String(i + 1), name: `Row${i + 1}` }));
+
+  it('honours page and pageSize props', () => {
+    renderWithTheme(<RdsTable columns={cols} rows={rows} pagination pageSize={5} page={1} />);
+    expect(screen.getByText('Row6')).toBeInTheDocument();
+    expect(screen.queryByText('Row1')).not.toBeInTheDocument();
+    expect(screen.queryByText('Row11')).not.toBeInTheDocument();
+  });
+
+  it('select-all selects only current page rows', () => {
+    const onRowSelect = jest.fn();
+    renderWithTheme(
+      <RdsTable columns={cols} rows={rows} pagination pageSize={5} selectable onRowSelect={onRowSelect} selectedRows={[]} />
+    );
+    fireEvent.click(screen.getAllByRole('checkbox')[0]);
+    expect(onRowSelect).toHaveBeenCalledWith(['1', '2', '3', '4', '5']);
+  });
+});

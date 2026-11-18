@@ -708,4 +708,18 @@ describe('RdsCompChat', () => {
       expect(results).toHaveNoViolations();
     });
   });
+
+  describe('Conversation list keyboard access', () => {
+    it('exposes list items as toggle buttons activated by Enter and Space', () => {
+      const { container } = render(<RdsCompChat {...defaultProps} />);
+      const items = Array.from(container.querySelectorAll('.rds-comp-chat__user-item')) as HTMLElement[];
+      expect(items[0]).toHaveAttribute('role', 'button');
+      expect(items[0]).toHaveAttribute('tabindex', '0');
+      expect(items[0]).toHaveAttribute('aria-pressed', 'false');
+      fireEvent.keyDown(items[0], { key: 'Enter' });
+      expect(items[0]).toHaveAttribute('aria-pressed', 'true');
+      fireEvent.keyDown(items[1], { key: ' ' });
+      expect(items[1]).toHaveAttribute('aria-pressed', 'true');
+    });
+  });
 });

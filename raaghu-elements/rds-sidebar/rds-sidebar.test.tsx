@@ -685,3 +685,32 @@ describe('RdsSidebar', () => {
     });
   });
 });
+describe('RdsSidebar search, user and props merge', () => {
+  const items: RdsSidebarItem[] = [
+    { label: 'Dashboard' },
+    { label: 'Settings', children: [{ label: 'Profile' }, { label: 'Security' }] },
+  ];
+
+  it('filters items by label and child label', () => {
+    renderWithTheme(<RdsSidebar items={items} isOpen />);
+    fireEvent.change(screen.getByTestId('rds-search'), { target: { value: 'secur' } });
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument();
+    expect(screen.getByText('Settings')).toBeInTheDocument();
+  });
+
+  it('supports controlled search value', () => {
+    renderWithTheme(<RdsSidebar items={items} isOpen searchValue="dash" />);
+    expect(screen.getByText('Dashboard')).toBeInTheDocument();
+    expect(screen.queryByText('Settings')).not.toBeInTheDocument();
+  });
+
+  it('renders user from props', () => {
+    renderWithTheme(<RdsSidebar items={items} isOpen user={{ name: 'John Roe' }} />);
+    expect(screen.getByText('John Roe')).toBeInTheDocument();
+  });
+
+  it('merges consumer className', () => {
+    const { baseElement } = renderWithTheme(<RdsSidebar items={items} isOpen className="custom" />);
+    expect(baseElement.querySelector('.rds-sidebar.custom')).toBeInTheDocument();
+  });
+});

@@ -246,8 +246,8 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
       expect(onTabChange).toHaveBeenCalled();
     });
   });
@@ -258,8 +258,8 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
       expect(onTabChange).toHaveBeenCalled();
     });
 
@@ -268,8 +268,8 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onChange={onChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
       expect(onChange).toHaveBeenCalled();
     });
 
@@ -279,8 +279,8 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} onChange={onChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
       expect(onTabChange).toHaveBeenCalled();
       expect(onChange).toHaveBeenCalled();
     });
@@ -444,9 +444,9 @@ describe('RdsTabs', () => {
       const { container } = renderWithTheme(
         <RdsTabs tabs={numericTabs} onTabChange={onTabChange} />
       );
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
-      expect(onTabChange).toHaveBeenCalledWith(1);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
+      expect(onTabChange).toHaveBeenCalledWith(2);
     });
   });
 
@@ -520,11 +520,10 @@ describe('RdsTabs', () => {
       );
       const tabs = container.querySelectorAll('[role="tab"]');
       
-      fireEvent.click(tabs[0]);
       fireEvent.click(tabs[1]);
       fireEvent.click(tabs[2]);
       
-      expect(onTabChange).toHaveBeenCalledTimes(3);
+      expect(onTabChange).toHaveBeenCalledTimes(2);
     });
 
     it('should work with different layouts and icons', () => {
@@ -563,8 +562,8 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={mockTabs} onTabChange={onTabChange} />
       );
       
-      const tab = container.querySelector('[role="tab"]');
-      fireEvent.click(tab!);
+      const tab = container.querySelectorAll('[role="tab"]')[1];
+      fireEvent.click(tab);
       expect(onTabChange).toHaveBeenCalled();
 
       rerender(
@@ -698,5 +697,17 @@ describe('RdsTabs — keyboard navigation', () => {
     screen.getByRole('tab', { name: /alpha/i }).focus();
     await userEvent.keyboard('{ArrowRight}');
     expect(screen.getByRole('tab', { name: /gamma/i })).toHaveFocus();
+  });
+
+  it('selects the first enabled tab when uncontrolled and updates on click', () => {
+    const items = [
+      { id: 'a', label: 'Alpha', disabled: true },
+      { id: 'b', label: 'Beta' },
+      { id: 'c', label: 'Gamma' },
+    ];
+    renderWithTheme(<RdsTabs tabs={items} />);
+    expect(screen.getByRole('tab', { name: /beta/i })).toHaveAttribute('aria-selected', 'true');
+    fireEvent.click(screen.getByRole('tab', { name: /gamma/i }));
+    expect(screen.getByRole('tab', { name: /gamma/i })).toHaveAttribute('aria-selected', 'true');
   });
 });

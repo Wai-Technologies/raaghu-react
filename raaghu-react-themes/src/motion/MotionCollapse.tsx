@@ -12,10 +12,12 @@ interface MotionCollapseProps {
 const MotionCollapse = React.forwardRef<HTMLDivElement, MotionCollapseProps>(
   ({ in: isIn, children, onExited }, ref) => {
     const prevIsInRef = React.useRef(Boolean(isIn));
-    if (prevIsInRef.current && !isIn) {
-      onExited?.();
-    }
-    prevIsInRef.current = Boolean(isIn);
+    React.useEffect(() => {
+      if (prevIsInRef.current && !isIn) {
+        onExited?.();
+      }
+      prevIsInRef.current = Boolean(isIn);
+    }, [isIn, onExited]);
 
     return (
       <div ref={ref} style={{ overflow: 'hidden', display: isIn ? undefined : 'none' }}>

@@ -75,7 +75,7 @@ describe('RdsCompAiIcon', () => {
     it('renders with default width and height of 22px', () => {
       const { container } = render(<RdsCompAiIcon name="person-outline" />);
       const icon = getIcon(container);
-      expect(icon).toHaveStyle({ width: '22px', height: '22px' });
+      expect(icon).toHaveStyle({ width: 'var(--rds-spacing-22)', height: 'var(--rds-spacing-22)' });
     });
 
     it('applies different width values', () => {

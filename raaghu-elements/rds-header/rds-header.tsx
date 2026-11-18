@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, type AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
-import { ProfileMenu } from './ProfileMenu';
+import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -23,6 +23,7 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
+  profileMenuItems?: ProfileMenuItem[];
   subHeader?: ReactNode;
   children?: ReactNode;
 }
@@ -43,6 +44,7 @@ const RdsHeader = ({
   userName,
   userShortName,
   userEmail,
+  profileMenuItems,
   ...props
 }: RdsHeaderProps) => {
   const colorClass =
@@ -105,9 +107,9 @@ const RdsHeader = ({
               name={userName}
               shortName={userShortName}
               email={userEmail}
-              menuItems={[
-               { label: 'My Profile', icon: <Person />, onClick: () => alert('Profile clicked!') },
-    { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'var(--rds-error-main)' } }
+              menuItems={profileMenuItems ?? [
+                { label: 'My Profile', icon: <Person /> },
+                { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
               ]}
             />
           </span>

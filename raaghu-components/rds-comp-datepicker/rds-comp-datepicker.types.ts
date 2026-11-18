@@ -19,6 +19,13 @@ export enum DatePickerState {
 export interface RdsCompDatepickerProps {
   selectedDate?: (date: Date | null) => void;
   dateForEdit?: string;
+  value?: Date | string | null;
+  defaultValue?: Date | string | null;
+  onChange?: (value: Date | null | [Date | null, Date | null]) => void;
+  minDate?: Date;
+  maxDate?: Date;
+  disabled?: boolean;
+  required?: boolean;
   titleText?: string;
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;

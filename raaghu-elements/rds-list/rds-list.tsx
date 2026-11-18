@@ -84,14 +84,12 @@ const RdsList = ({
   const handleCheckboxChange = (id: string | number) => () => {
     const isChecked = !effectiveCheckedItems.includes(id);
 
-    if (onCheckboxChange) {
-      onCheckboxChange(id, isChecked);
-    } else {
-      const newChecked = isChecked
+    if (!isControlledChecked) {
+      setInternalChecked(isChecked
         ? [...effectiveCheckedItems, id]
-        : effectiveCheckedItems.filter(item => item !== id);
-      setInternalChecked(newChecked);
+        : effectiveCheckedItems.filter(item => item !== id));
     }
+    onCheckboxChange?.(id, isChecked);
   };
 
   const handleToggle = (id: string | number) => {

@@ -1,4 +1,4 @@
-import { isValidElement, cloneElement, type ReactNode } from 'react';
+import { isValidElement, cloneElement, type ReactNode, type MouseEvent } from 'react';
 import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import clsx from 'clsx';
@@ -30,6 +30,12 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content' 
     secondary?: 'visible' | 'hidden';
     primary?: 'visible' | 'hidden';
   };
+  linkText?: string;
+  secondaryText?: string;
+  primaryText?: string;
+  onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   [key: string]: unknown;
 }
 
@@ -46,6 +52,12 @@ const RdsAlert= ({
   variantStyle = 'style1',
   actions,
   variant = 'standard',
+  linkText = 'Link',
+  secondaryText = 'Cancel',
+  primaryText = 'Okay',
+  onLinkClick,
+  onSecondaryClick,
+  onPrimaryClick,
   ...props
 }:RdsAlertProps) => {
   if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`color`');
@@ -158,7 +170,7 @@ const RdsAlert= ({
                 <div className="rds-alert__bottom-row">
                   <div className="rds-alert__left-actions">
                     {showLink && (
-                      <button type="button" className="rds-alert__link-button">Link</button>
+                      <button type="button" className="rds-alert__link-button" onClick={onLinkClick}>{linkText}</button>
                     )}
                   </div>
                   <div className="rds-alert__right-actions">
@@ -167,19 +179,20 @@ const RdsAlert= ({
                         className={resolvedSeverity === 'error' ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
                         style="transparent"
                         size="small"
-                        text="Cancel"
+                        text={secondaryText}
+                        onClick={onSecondaryClick}
                         textCase="capitalize"
                         color={resolvedSeverity === 'error' ? 'error' : 'info'}
                       />
                     )}
-                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text={primaryText} onClick={onPrimaryClick} color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
                   </div>
                 </div>
               </>
             ) : (
               <>
                 {showLink && (
-                      <button type="button" className="rds-alert__link-button">Link</button>
+                      <button type="button" className="rds-alert__link-button" onClick={onLinkClick}>{linkText}</button>
                 )}
                 {showSecondary && (
                   <RdsButton
@@ -187,12 +200,13 @@ const RdsAlert= ({
                     style="transparent"
                     size="small"
                     sx={{ mr: showPrimary ? 2 : 0 }}
-                    text="Cancel"
+                    text={secondaryText}
+                        onClick={onSecondaryClick}
                     textCase="capitalize"
                     color={resolvedSeverity === 'error' ? 'error' : 'info'}
                   />
                 )}
-                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text={primaryText} onClick={onPrimaryClick} color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
               </>
             )}
           </div>

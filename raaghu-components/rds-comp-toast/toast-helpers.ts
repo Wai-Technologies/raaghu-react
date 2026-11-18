@@ -5,6 +5,7 @@ export const getStateClass = (state: ToastState): string => {
     const stateClass: Record<ToastState, string> = {
         [ToastState.Info]: "info",
         [ToastState.Success]: "success",
+        [ToastState.Warning]: "warning",
         [ToastState.Error]: "error",
         [ToastState.Basic]: "basic",
     };
@@ -44,7 +45,11 @@ export const getPositionClasses = (position?: ToastPosition) => {
     return position ? positionClass[position] : positionClass[ToastPosition.TopLeft];
 };
 
-export const useToastTimer = (autohide?: boolean, delay?: number) => {
+export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
+    const onTimeoutRef = useRef(onTimeout);
+    useEffect(() => {
+        onTimeoutRef.current = onTimeout;
+    }, [onTimeout]);
     const [showState, setShowState] = useState("show");
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const remainingRef = useRef<number>(delay ?? 3000);
@@ -52,7 +57,10 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
 
     const startTimer = useCallback((duration: number) => {
         startTimeRef.current = Date.now();
-        timerRef.current = setTimeout(() => setShowState("hide"), duration);
+        timerRef.current = setTimeout(() => {
+            setShowState("hide");
+            onTimeoutRef.current?.();
+        }, duration);
     }, []);
 
     const pauseTimer = useCallback(() => {

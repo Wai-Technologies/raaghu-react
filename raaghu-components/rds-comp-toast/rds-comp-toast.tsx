@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useCallback } from "react";
+import { useCallback, type ReactNode, type SyntheticEvent } from "react";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
@@ -24,12 +24,14 @@ const ToastFooter = ({
     filename,
     placeholder,
     includeButtonClassName,
+    action,
 }: {
     layout: ToastLayout;
     progressWidth?: number;
     filename?: string;
     placeholder?: string;
     includeButtonClassName: boolean;
+    action?: ReactNode;
 }) => {
     const buttonClassName = includeButtonClassName ? "rds-comp-toast__action-btn" : undefined;
     if (layout === ToastLayout.Download) {
@@ -47,10 +49,12 @@ const ToastFooter = ({
                     />
                 </div>
                 <div className="rds-comp-toast__filename">{filename}</div>
-                <div className="rds-comp-toast__actions">
+                <div className="rds-comp-toast__actions">{action ?? (
+                        <>
                     <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
                     <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
-                </div>
+                        </>
+                    )}</div>
             </div>
         );
     }
@@ -65,20 +69,24 @@ const ToastFooter = ({
                         aria-label={placeholder || 'Toast reply input'}
                     />
                 </div>
-                <div className="rds-comp-toast__actions">
+                <div className="rds-comp-toast__actions">{action ?? (
+                        <>
                     <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Reply</RdsButton>
                     <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
-                </div>
+                        </>
+                    )}</div>
             </div>
         );
     }
     if (layout === ToastLayout.Request) {
         return (
             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
-                <div className="rds-comp-toast__actions">
+                <div className="rds-comp-toast__actions">{action ?? (
+                        <>
                     <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
                     <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Accept</RdsButton>
-                </div>
+                        </>
+                    )}</div>
             </div>
         );
     }
@@ -86,9 +94,10 @@ const ToastFooter = ({
 };
 
 const BORDER_TOKEN_MAP: Record<string, string> = {
-    basic: 'light',
-    info: 'dark',
-    success: 'primary',
+    basic: 'basic',
+    info: 'info',
+    success: 'success',
+    warning: 'warning',
     error: 'error',
 };
 
@@ -111,8 +120,14 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const _stateClass = getStateClass(resolvedState);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
-    const { showState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay);
-    const hideToast = useCallback(() => setShowState("hide"), [setShowState]);
+    const { onClose } = props;
+    const handleTimeout = useCallback(() => onClose?.(null, 'timeout'), [onClose]);
+    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay, handleTimeout);
+    const showState = props.open !== undefined ? (props.open ? "show" : "hide") : innerState;
+    const hideToast = useCallback((event: SyntheticEvent) => {
+        setShowState("hide");
+        onClose?.(event, 'closeClick');
+    }, [setShowState, onClose]);
 
     return (
         <div className={clsx("rds-comp-toast__container", getPositionClasses(props.position))}>
@@ -172,6 +187,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             filename={props.filename}
                             placeholder={props.placeholder}
                             includeButtonClassName={true}
+                            action={props.action}
                         />
                     </div>
                 )}
@@ -205,6 +221,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             filename={props.filename}
                             placeholder={props.placeholder}
                             includeButtonClassName={false}
+                            action={props.action}
                         />
                     </div>
                 )}

@@ -1,3 +1,5 @@
+import type { ReactNode, SyntheticEvent } from "react";
+
 export enum ToastLayout {
   Text = "text",
   Download = "download",
@@ -9,6 +11,7 @@ export enum ToastState {
   Basic = "basic",
   Info = "info",
   Success = "success",
+  Warning = "warning",
   Error = "error",
 }
 
@@ -54,5 +57,8 @@ export interface RdsCompToastProps {
   leadingIcon: ToastLeadingIcon;
   chatTime?: string;
   pauseOnHover?: boolean;
+  action?: ReactNode;
+  open?: boolean;
+  onClose?: (event: SyntheticEvent | null, reason: 'closeClick' | 'timeout') => void;
   [key: string]: unknown;
 }

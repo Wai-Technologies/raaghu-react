@@ -33,11 +33,13 @@ const RdsTooltip= ({
   className,
   tooltipStyle,
   arrow = false,
+  wrapper: _wrapper,
   ...props
 }:RdsTooltipProps) => {
+  const placement = typeof style === 'string' ? style : 'top';
   const tooltipClass = clsx(
     'rds-tooltip',
-    `rds-tooltip--${(style).replace(/-.*/, '')}`,
+    `rds-tooltip--${placement.replace(/-.*/, '')}`,
     className
   );
 
@@ -48,7 +50,7 @@ const RdsTooltip= ({
   return (
     <MuiTooltip
       title={title ?? label}
-      placement={style}
+      placement={placement}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}

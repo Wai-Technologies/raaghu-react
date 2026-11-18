@@ -983,3 +983,18 @@ describe('RdsRange', () => {
     });
   });
 });
+
+describe('RdsRange min/max and controlled value', () => {
+  it('honours min and max props', () => {
+    const { container } = render(<RdsRange min={10} max={50} type="two-way" />);
+    const inputs = container.querySelectorAll('input[type="range"]');
+    expect(inputs[0]).toHaveAttribute('min', '10');
+    expect(inputs[0]).toHaveAttribute('max', '50');
+  });
+
+  it('does not reset a controlled value when type changes', () => {
+    const { container, rerender } = render(<RdsRange value={30} type="one-way" />);
+    rerender(<RdsRange value={30} type="two-way" />);
+    expect(container.querySelector('input[type="range"]')).toHaveAttribute('aria-valuenow', '30');
+  });
+});

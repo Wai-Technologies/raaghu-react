@@ -15,6 +15,7 @@ jest.mock('./ProfileMenu', () => {
       <div data-testid="profile-menu-mock">
         <span>{props.name}</span>
         <span>{props.email}</span>
+        {(props.menuItems || []).map((i: any) => <button key={i.label} onClick={i.onClick}>{i.label}</button>)}
       </div>
     ),
   };
@@ -535,5 +536,25 @@ describe('RdsHeader', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsHeader profileMenuItems', () => {
+  it('uses provided profileMenuItems', () => {
+    const onClick = jest.fn();
+    renderWithTheme(
+      <RdsHeader userName="A B" userShortName="AB" userEmail="a@b.c" profileMenuItems={[{ label: 'Custom', onClick }]} />
+    );
+    fireEvent.click(screen.getByText('Custom'));
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('default items do not call alert', () => {
+    const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    renderWithTheme(<RdsHeader userName="A B" userShortName="AB" userEmail="a@b.c" />);
+    fireEvent.click(screen.getByText('My Profile'));
+    fireEvent.click(screen.getByText('Logout'));
+    expect(alertSpy).not.toHaveBeenCalled();
+    alertSpy.mockRestore();
   });
 });

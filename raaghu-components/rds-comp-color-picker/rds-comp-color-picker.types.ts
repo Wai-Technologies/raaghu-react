@@ -24,6 +24,7 @@ export enum StyleType {
 export interface RdsCompColorPickerProps {
   value: string;
   isDisabled?: boolean;
+  disabled?: boolean;
   label: string;
   type: ColorPickerType;
   showSwatches?: boolean;
@@ -31,5 +32,5 @@ export interface RdsCompColorPickerProps {
   showTabs?: boolean;
   colorMode?: ColorMode;
   style?: StyleType;
-  onChange?: (colorHex: string) => void;
+  onChange?: (colorHex: string, details?: { rgba: { r: number; g: number; b: number; a: number }; hex8: string }) => void;
 }

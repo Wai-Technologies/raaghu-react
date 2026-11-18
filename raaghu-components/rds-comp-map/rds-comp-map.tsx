@@ -26,8 +26,9 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const defaultStylingFunction = (context: WorldMapStylingContext) => {
         const range = context.maxValue - context.minValue;
-        const normalizedValue =
+        const rawNormalized =
             range > 0 ? (context.countryValue - context.minValue) / range : 0;
+        const normalizedValue = Number.isFinite(rawNormalized) ? rawNormalized : 0;
         const minOpacity = isDarkTheme ? 0.35 : 0.1;
         const opacityLevel = minOpacity + ((1 - minOpacity) * normalizedValue);
         const highlightFill = getCSSVar('--rds-info-main');
@@ -73,7 +74,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     }
 
     const heatMapStylingFunction = (context: WorldMapStylingContext) => {
-        const intensity = (context.countryValue - context.minValue) / (context.maxValue - context.minValue) || 0;
+        const rawIntensity = (context.countryValue - context.minValue) / (context.maxValue - context.minValue);
+        const intensity = Number.isFinite(rawIntensity) ? rawIntensity : 0;
         const color = interpolateColor(intensity);
         return {
             fill: color,

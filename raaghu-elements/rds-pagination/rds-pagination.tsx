@@ -45,6 +45,8 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
 }) => {
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
+  const [innerPage, setInnerPage] = useState(1);
+  const isPageControlled = page !== undefined || currentPage !== undefined;
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;
   
   const styleConfig = getStyleConfig(paginationStyle);
@@ -52,6 +54,9 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   const { totalPagesCalc, totalRecords } = calculateTotalPages(count, totalPages, pageSize);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    if (!isPageControlled) {
+      setInnerPage(value);
+    }
     if (onPageChange) {
       onPageChange(value);
     }
@@ -75,17 +80,12 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
     if (event.key === 'Enter') {
       const pageNumber = Number.parseInt(manualPageInput);
       if (pageNumber >= 1 && pageNumber <= totalPagesCalc) {
-        if (onPageChange) {
-          onPageChange(pageNumber);
-        }
-        if (onChange) {
-          onChange(event as any, pageNumber);
-        }
+        handleChange(event, pageNumber);
         setManualPageInput('');
       }
     }
   };
-  const currentPageNumber = page || currentPage || 1;
+  const currentPageNumber = isPageControlled ? (page ?? currentPage ?? 1) : innerPage;
   const legendTextGenerated = generateLegendText(legendText, currentPageNumber, pageSize, totalRecords, totalPagesCalc);
 
   const showFirstBtn = (styleConfig.showFirstControl !== false) && (showFirst || showFirstLast);
@@ -100,7 +100,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   return (
     <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
       {styleConfig.showPagination && (
-      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={page || currentPage}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  {...props}
+      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={currentPageNumber}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  {...props}
       />
       )}
       {styleConfig.showPrevNext && (

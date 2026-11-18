@@ -24,6 +24,22 @@
     padding: var(--rds-spacing-sm);
 
     width: var(--rds-color-picker-width-1);
+
+    &--disabled {
+      opacity: var(--rds-opacity-disabled);
+      cursor: not-allowed;
+
+      button,
+      input,
+      [role='button'] {
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .rds-comp-color-picker__slider-container {
+        pointer-events: none;
+      }
+    }
   }
 
   &__spectrum-type1 {

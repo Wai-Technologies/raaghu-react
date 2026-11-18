@@ -928,4 +928,11 @@ describe('RdsButtonDropdown', () => {
       expect(screen.getAllByRole('radio').length).toBe(3);
     });
   });
+
+  it('closes the menu when state is selected and the button is clicked', async () => {
+    render(<RdsButtonDropdown options={defaultOptions} state="selected" />);
+    expect(screen.getAllByRole('radio').length).toBe(3);
+    fireEvent.click(screen.getByText('Button'));
+    await waitFor(() => expect(screen.queryAllByRole('radio').length).toBe(0));
+  });
 });

@@ -133,7 +133,7 @@ const RdsCarousel = ({
 
           return (
             <Box
-              key={`${displayTitle}-${displaySubtitle}`}
+              key={`${displayTitle}-${displaySubtitle}-${index}`}
               className="rds-carousel__slide"
               sx={{
                 flex: '0 0 100%',

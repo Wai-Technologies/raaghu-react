@@ -61,8 +61,14 @@ const RdsTable = ({
 
   const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
   const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
-  const [internalPage, setInternalPage] = React.useState(0);
-  const [internalPageSize, setInternalPageSize] = React.useState(10);
+  const [internalPage, setInternalPage] = React.useState(page);
+  const [internalPageSize, setInternalPageSize] = React.useState(pageSize);
+  const [prevPaging, setPrevPaging] = React.useState({ page, pageSize });
+  if (page !== prevPaging.page || pageSize !== prevPaging.pageSize) {
+    if (page !== prevPaging.page) setInternalPage(page);
+    if (pageSize !== prevPaging.pageSize) setInternalPageSize(pageSize);
+    setPrevPaging({ page, pageSize });
+  }
 
   const [internalSortBy, setInternalSortBy] = React.useState<string | undefined>(defaultSortBy);
   const [internalSortDirection, setInternalSortDirection] = React.useState<'asc' | 'desc' | undefined>(
@@ -141,11 +147,16 @@ const RdsTable = ({
     onPageChange?.(0);
   };
 
+  const displayRows = pagination
+    ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize)
+    : sortedRows;
+  const displayRowIds = displayRows.map((row) => (row['id'] || row['key']) as string);
+
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      handleRowSelection(rows.map((row) => (row['id'] || row['key']) as string));
+      handleRowSelection([...currentSelectedRows, ...displayRowIds.filter((id) => !currentSelectedRows.includes(id))]);
     } else {
-      handleRowSelection([]);
+      handleRowSelection(currentSelectedRows.filter((id) => !displayRowIds.includes(id)));
     }
   };
 
@@ -156,11 +167,9 @@ const RdsTable = ({
     handleRowSelection(newSelected);
   };
 
-  const isAllSelected = selectable && currentSelectedRows.length === rows.length && rows.length > 0;
-  const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
-  const displayRows = pagination
-    ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize)
-    : sortedRows;
+  const selectedOnPage = displayRowIds.filter((id) => currentSelectedRows.includes(id)).length;
+  const isAllSelected = selectable && displayRowIds.length > 0 && selectedOnPage === displayRowIds.length;
+  const isIndeterminate = selectable && selectedOnPage > 0 && selectedOnPage < displayRowIds.length;
 
   return (
     <Paper className={`rds-table ${className}`}>

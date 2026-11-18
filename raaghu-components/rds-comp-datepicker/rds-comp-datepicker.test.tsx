@@ -729,3 +729,15 @@ describe('RdsDatepicker — keyboard navigation', () => {
     expect(input).toBeDisabled();
   });
 });
+
+describe('RdsDatepicker top-level props', () => {
+  it('disables the picker through the disabled prop', () => {
+    render(<RdsDatepicker disabled />);
+    expect(screen.getByTestId('date-picker-input')).toBeDisabled();
+  });
+
+  it('shows the required indicator through the required prop', () => {
+    const { container } = render(<RdsDatepicker required showTitle titleText="Start" />);
+    expect(container.querySelector('.rds-datepicker__mandatory-indicator')).toBeInTheDocument();
+  });
+});

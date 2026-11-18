@@ -77,13 +77,13 @@ describe('RdsCompSpinner', () => {
     it('should render Default size spinner (30x30)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Default} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '30px', height: '30px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-30)', height: 'var(--rds-spacing-30)' });
     });
 
     it('should render Small size spinner (15x15)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Small} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-15)', height: 'var(--rds-spacing-15)' });
     });
 
     it('should render Medium size spinner (35x35)', () => {
@@ -559,7 +559,7 @@ describe('RdsCompSpinner', () => {
       );
 
       let spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-15)', height: 'var(--rds-spacing-15)' });
       expect(spinner).toHaveClass('text-primary');
 
       rerender(

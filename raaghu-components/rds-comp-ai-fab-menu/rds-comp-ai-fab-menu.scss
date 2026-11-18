@@ -298,7 +298,8 @@
     cursor: pointer;
     transition: background-color var(--rds-transition-base);
     border: none;
-    background-color: none;
+    background-color: transparent;
+    font: inherit;
     width: 100%;
     text-align: left;
 

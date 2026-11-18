@@ -240,7 +240,7 @@ const RdsCompKanbanBoard = ({
           </>
         )}
         {boards.map((card, index) => (
-          <Box key={card.cardId}>
+          <Box key={`${card.cardId}-${index}`}>
             {showBoard && card.name && (
               <Box className={`kanban-board ${colorClass(card.colorType)}`}>
                 <Card className={clsx("kanban-board__card", card.subCards && card.subCards.length === 0 && "kanban-board__card--empty-board")}>
@@ -273,7 +273,7 @@ const RdsCompKanbanBoard = ({
                     <DroppableColumn boardIndex={index} subCardIds={card.subCards.map((sc) => sc.SubcardId)}>
                       {card.subCards.map((subCard, subCardIndex) => (
                         <SortableSubCard
-                          key={subCard.SubcardId}
+                          key={`${subCard.SubcardId}-${subCardIndex}`}
                           subCard={subCard}
                           subCardIndex={subCardIndex}
                           boardIndex={index}

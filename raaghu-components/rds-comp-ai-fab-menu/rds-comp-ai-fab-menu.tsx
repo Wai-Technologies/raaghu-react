@@ -45,6 +45,7 @@ export interface RdsCompAiFabMenuProps {
     backgroundType?: 'circular' | 'rectangular' | 'none';
     alignment?: 'left' | 'right';
     onClick?: () => void;
+    'aria-label'?: string;
 }
 
 const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
@@ -89,7 +90,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     }, []);
 
     const handleItemClick = (onClick?: () => void) => {
-        return (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             if (onClick) {
                 onClick();
@@ -98,17 +99,39 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
         };
     };
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (!isMenuOpen) return;
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            setIsMenuOpen(false);
+            buttonRef.current?.focus();
+            return;
+        }
+        const items = Array.from(menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? []);
+        if (!items.length) return;
+        const current = items.indexOf(document.activeElement as HTMLElement);
+        let next: number | undefined;
+        if (event.key === 'ArrowDown') next = current < 0 ? 0 : (current + 1) % items.length;
+        else if (event.key === 'ArrowUp') next = current < 0 ? items.length - 1 : (current - 1 + items.length) % items.length;
+        if (next !== undefined) {
+            event.preventDefault();
+            items[next].focus();
+        }
+    };
+
     const rootClass = `rds-fab-menu ${props.alignment === 'right' ? 'rds-fab-menu--right' : ''} ${isMenuOpen ? 'rds-fab-menu--open' : ''}`.trim();
     const dataAlignment = props.alignment || 'left';
 
     return (
-    <div className={rootClass} data-alignment={dataAlignment} data-open={isMenuOpen}>
+    <div className={rootClass} data-alignment={dataAlignment} data-open={isMenuOpen} onKeyDown={handleKeyDown}>
             <button
                 ref={buttonRef}
                 className={customClasses}
                 type="button"
                 onClick={toggleMenu}
+                aria-haspopup="menu"
                 aria-expanded={isMenuOpen ? "true" : "false"}
+                aria-label={props['aria-label'] ?? "Open menu"}
                 data-testid="fab-menu-btn"
             >
                 <RdsCompAiIcon
@@ -126,12 +149,12 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     role="menu"
                 >
                     {props.listItems.map((listItem) => (
-                        <a 
+                        <button
+                            type="button"
                             key={listItem.key} 
                             role="menuitem"
                             className={`rds-fab-menu__item ${props.id === "attachment-text" ? 'rds-fab-menu__item--compact' : ''}`}
                             onClick={handleItemClick(listItem.onClick)}
-                            tabIndex={0}
                         >
                             <RdsCompAiIcon 
                                 name={listItem.icon} 
@@ -142,7 +165,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                                 position="top-left"
                             />
                             <span className="rds-fab-menu__item-text">{listItem.value}</span>
-                        </a>
+                        </button>
                     ))}
                 </div>
             </div>

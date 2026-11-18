@@ -9,19 +9,19 @@ export interface RdsBoxProps extends BoxProps {
   children?: React.ReactNode;
 }
 
-const RdsBox = ({
+const RdsBox = React.forwardRef<HTMLDivElement, RdsBoxProps>(({
   children,
   className,
   ...props
-}:RdsBoxProps & { className?: string }) => {
+}, ref) => {
   const mergedClassName = ['rds-box', className].filter(Boolean).join(' ');
 
   return (
-    <MuiBox className={mergedClassName} {...props}>
+    <MuiBox ref={ref} className={mergedClassName} {...props}>
       {children}
     </MuiBox>
   );
-};
+});
 
 RdsBox.displayName = 'RdsBox';
 export default RdsBox;

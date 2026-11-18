@@ -641,4 +641,36 @@ describe('RdsCompAiFabMenu', () => {
       });
     });
   });
+
+  describe('Keyboard and ARIA', () => {
+    it('exposes menu semantics on the trigger and uses buttons for items', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const trigger = screen.getByTestId('fab-menu-btn');
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-label', 'Open menu');
+      screen.getAllByRole('menuitem', { hidden: true }).forEach((item) => expect(item.tagName).toBe('BUTTON'));
+    });
+
+    it('closes on Escape and returns focus to the trigger', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const trigger = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.keyDown(screen.getAllByRole('menuitem', { hidden: true })[0], { key: 'Escape' });
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(trigger).toHaveFocus();
+    });
+
+    it('moves focus with ArrowDown and ArrowUp', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      fireEvent.click(screen.getByTestId('fab-menu-btn'));
+      const items = screen.getAllByRole('menuitem', { hidden: true });
+      fireEvent.keyDown(items[0], { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+      fireEvent.keyDown(items[0], { key: 'ArrowDown' });
+      expect(items[1]).toHaveFocus();
+      fireEvent.keyDown(items[1], { key: 'ArrowUp' });
+      expect(items[0]).toHaveFocus();
+    });
+  });
 });

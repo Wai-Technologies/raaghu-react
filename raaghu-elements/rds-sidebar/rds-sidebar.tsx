@@ -10,6 +10,7 @@ import {
   Collapse,
   type DrawerProps,
   type SxProps,
+  type Theme,
 } from '@mui/material';
 import { 
   ExpandLess, 
@@ -75,6 +76,10 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   avatarCollapsedSrc?: string;
   showLogo?: boolean;
   container?: Element | (() => Element | null) | null;
+  searchValue?: string;
+  defaultSearchValue?: string;
+  onSearchChange?: (value: string) => void;
+  user?: { name?: string; subtitle?: string; avatarSrc?: string };
 }
 
 const RdsSidebar = ({
@@ -90,14 +95,42 @@ const RdsSidebar = ({
   avatarCollapsedSrc,
   showLogo,
   container,
+  searchValue,
+  defaultSearchValue,
+  onSearchChange,
+  user,
+  className,
+  sx: propsSx,
   ...props
 }:RdsSidebarProps) => {
-  const [searchValue, setSearchValue] = useState("");
+  const isSearchControlled = searchValue !== undefined;
+  const [innerSearch, setInnerSearch] = useState(defaultSearchValue ?? '');
+  const currentSearch = isSearchControlled ? searchValue : innerSearch;
+  const handleSearchChange = (value: string) => {
+    if (!isSearchControlled) setInnerSearch(value);
+    onSearchChange?.(value);
+  };
+  const userName = user?.name ?? 'Jane Doe';
+  const userSubtitle = user?.subtitle ?? 'Designation';
+  const resolvedAvatarSrc = user?.avatarSrc ?? avatarSrc;
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
 
-  const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
-                   platform === 'anz-list' ? ANZ_MENU_ITEMS : 
+  const baseMenuItems = platform === 'abp-list' ? ABP_MENU_ITEMS :
+                   platform === 'anz-list' ? ANZ_MENU_ITEMS :
                    items;
+
+  const searchQuery = currentSearch.trim().toLowerCase();
+  const menuItems = !searchQuery
+    ? baseMenuItems
+    : baseMenuItems
+        .map((item) => {
+          if (item.label.toLowerCase().includes(searchQuery)) return item;
+          const matchedChildren = item.children?.filter((child) =>
+            child.label.toLowerCase().includes(searchQuery)
+          );
+          return matchedChildren && matchedChildren.length > 0 ? { ...item, children: matchedChildren } : null;
+        })
+        .filter((item): item is RdsSidebarItem => item !== null);
 
   const toggleOpen = (idx: number) => {
     setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -119,7 +152,7 @@ const RdsSidebar = ({
     showSearchBox = showSearch && !shouldShowIconsOnly;
   }
 
-  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed');
+  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed', className);
   const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
   const contentClasses = 'rds-sidebar__content';
   const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
@@ -127,7 +160,7 @@ const RdsSidebar = ({
   const avatarContainerClasses = clsx('rds-sidebar__avatar-container', `rds-sidebar__avatar-container--${typeOf}`);
   const getLogoClass = () => clsx('rds-sidebar__logo', shouldShowIconsOnly ? 'rds-sidebar__logo--collapse' : 'rds-sidebar__logo--expanded');
 
-  const drawerSx: Record<string, unknown> = {
+  const drawerSx: SxProps<Theme> = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
     ['& .MuiDrawer-paper']: {
@@ -154,10 +187,10 @@ const RdsSidebar = ({
       open={isOpen}
       onClose={onClose}
       variant={variant}
-      sx={drawerSx}
-      className={sidebarClasses}
       container={container}
       {...props}
+      className={sidebarClasses}
+      sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
       <div className={contentClasses}>
         {showLogo && (
@@ -166,18 +199,18 @@ const RdsSidebar = ({
               shouldShowIconsOnly ? (
                 <RdsAvatar
                   activeDotBottom
-                  src={avatarSrc}
+                  src={resolvedAvatarSrc}
                 />
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  subText="Designation"
+                  subText={userSubtitle}
                   displayStyle="with-name"
-                  title="Jane Doe"
+                  title={userName}
                   showDesignation
                   showName
                   activeDotBottom
-                  src={avatarSrc}
+                  src={resolvedAvatarSrc}
                 />
               )
             ) : (
@@ -211,11 +244,11 @@ const RdsSidebar = ({
                   iconPosition="right"
                   label=""
                   labelPosition="top"
-                  onChange={value => setSearchValue(value)}
+                  onChange={handleSearchChange}
                   onSearch={() => {}}
                   placeholder="Search..."
                   size="small"
-                  value={searchValue}
+                  value={currentSearch}
                   sx={{ width: Math.min(width - 32, 205) }}
                 />
               )}
@@ -326,18 +359,18 @@ const RdsSidebar = ({
             {!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
-                subText="Designation"
+                subText={userSubtitle}
                 displayStyle="with-name"
-                title="Jane Doe"
+                title={userName}
                 showDesignation
                 showName
                 activeDotBottom
-                src={avatarSrc}
+                src={resolvedAvatarSrc}
               />
             ) : (
               <RdsAvatar
                 activeDotBottom
-                src={avatarSrc}
+                src={resolvedAvatarSrc}
               />
             )}
           </div>

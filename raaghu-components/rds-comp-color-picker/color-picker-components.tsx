@@ -75,6 +75,7 @@ interface SharedColorPickerProps {
   setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  disabled?: boolean;
 }
 
 interface ColorPickerInfoProps {
@@ -85,6 +86,7 @@ interface ColorPickerInfoProps {
   setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  disabled?: boolean;
 }
 
 export const ColorPickerGrid = memo(({
@@ -98,6 +100,7 @@ export const ColorPickerGrid = memo(({
   setShowColorModeDropdown,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: SharedColorPickerProps) => {
   return (
     <div>
@@ -137,6 +140,7 @@ export const ColorPickerGrid = memo(({
                     type="button"
                     key={`cell-${rowIndex}-${colIndex}`}
                     className="rds-comp-color-picker__color-cell"
+                    disabled={disabled}
                     style={{ backgroundColor: bgColor }}
                     onClick={() => handleChange({ hex: clickHex, rgb: clickRgb })}
                     aria-label={`Select color ${clickHex}`}
@@ -167,6 +171,7 @@ export const ColorPickerGrid = memo(({
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
     </div>
   );
@@ -186,6 +191,7 @@ export const ColorPickerSpectrum = memo(({
   showSwatches,
   styleType,
   onSelectColorMode,
+  disabled,
 }: SharedColorPickerProps & { selectedColorHex: string; showSwatches?: boolean; styleType?: string }) => {
   return (
     <div className="rds-comp-color-picker__spectrum-type1">    
@@ -193,6 +199,7 @@ export const ColorPickerSpectrum = memo(({
         <button
           type="button"
           className="rds-comp-color-picker__spectrum-area"
+          disabled={disabled}
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
             const result = handleSpectrumClick(
@@ -219,7 +226,8 @@ export const ColorPickerSpectrum = memo(({
         selectedColorMode={selectedColorMode}
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
-        onSelectColorMode={onSelectColorMode} 
+        onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
       
       {showSwatches && (
@@ -338,6 +346,7 @@ export const ColorPickerInfo = memo(({
   selectedColorState,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
@@ -349,6 +358,7 @@ export const ColorPickerInfo = memo(({
         <button
           type="button"
           className="rds-comp-color-picker__dropdown-button"
+          disabled={disabled}
           onClick={() => setShowColorModeDropdown(!showColorModeDropdown)}
           aria-label="Change color mode"
         >
@@ -358,7 +368,7 @@ export const ColorPickerInfo = memo(({
           <KeyboardArrowDownIcon/>
         </button>
         
-        {showColorModeDropdown && (
+        {showColorModeDropdown && !disabled && (
           <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label="Color format">
             {Object.values(ColorMode).map((mode) => (
               <button

@@ -107,8 +107,9 @@ export function StackingAvatarsView({
   const overlapOffset = overlapOffsets[size] ?? -22;
   const avatarSize = sizeStyles[size].width;
   const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);
-  const stackWidth =
-    itemCount > 0 ? avatarSize + Math.max(0, itemCount - 1) * (avatarSize + overlapOffset) : avatarSize;
+  const stackWidth = itemCount > 1
+    ? `calc(${avatarSize} + ${itemCount - 1} * (${avatarSize} + ${overlapOffset} * var(--rds-border-width-thin)))`
+    : avatarSize;
 
   return (
     <div
@@ -124,7 +125,7 @@ export function StackingAvatarsView({
     >
       {visibleAvatars.map((avatar, idx) => (
         <MuiAvatar
-          key={avatar.src ?? avatar.title ?? `avatar-${idx}`}
+          key={`${avatar.src ?? avatar.title ?? 'avatar'}-${idx}`}
           src={avatar.src}
           sx={{
             ...sizeStyles[size],
