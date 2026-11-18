@@ -14,6 +14,12 @@ export interface RdsMultiLevelMenuProps {
   type?: 'expandable' | 'selectable';
   size?: 'default' | 'large';
   onSelect?: (option: MenuOption) => void;
+  /** Shows the first option in its selected style. */
+  selected?: boolean;
+  /**
+   * @deprecated Use `selected` instead.
+   * `'hover'` only forces the hover look and is kept for backward compatibility.
+   */
   state?: 'default' | 'hover' | 'selected';
 }
 
@@ -21,9 +27,11 @@ export const RdsMultiLevelMenu = ({
   options,
   type = 'expandable',
   size = 'default',
-  state = 'default',
+  state: stateProp = 'default',
+  selected = false,
   onSelect,
 }: RdsMultiLevelMenuProps) => {
+  const state = selected ? 'selected' : stateProp;
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);

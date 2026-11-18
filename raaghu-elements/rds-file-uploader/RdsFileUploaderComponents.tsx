@@ -9,6 +9,7 @@ interface RdsDropZoneSideIconProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
+  dragAndDrop?: boolean;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -19,6 +20,7 @@ interface RdsDropZoneWithButtonProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
+  dragAndDrop?: boolean;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -29,6 +31,7 @@ interface RdsDropZoneDefaultProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
+  dragAndDrop?: boolean;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -167,6 +170,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
   mode,
   isDragOver,
   disabled,
+  dragAndDrop = true,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -189,7 +193,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
     >
       <Box className="rds-file-uploader__side-content">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--left" variant="h6" gutterBottom>
-          Drag and Drop files or <span className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>
+          {dragAndDrop && 'Drag and Drop files or '}<span className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>{!dragAndDrop && ' files'}
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
           (PNG, JPG, DOC, PDF, PPT)
@@ -206,6 +210,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
   mode,
   isDragOver,
   disabled,
+  dragAndDrop = true,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -240,11 +245,13 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       <Box className="rds-file-uploader__icon-box">
         <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       </Box>
-      <Box className="rds-file-uploader__title-box">
-        <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
-          Drag and Drop files<span className="rds-file-uploader__title-or">or</span>
-        </Typography>
-      </Box>
+      {dragAndDrop && (
+        <Box className="rds-file-uploader__title-box">
+          <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
+            Drag and Drop files<span className="rds-file-uploader__title-or">or</span>
+          </Typography>
+        </Box>
+      )}
       <RdsButton
         style="filled"
         text="Upload Files"
@@ -261,6 +268,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   mode,
   isDragOver,
   disabled,
+  dragAndDrop = true,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -284,7 +292,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
     >
       <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
-        Drag and Drop files or <span className="rds-file-uploader__browse-link" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>
+        {dragAndDrop && 'Drag and Drop files or '}<span className="rds-file-uploader__browse-link" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>{!dragAndDrop && ' files'}
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
         (PNG, JPG, DOC, PDF, PPT)

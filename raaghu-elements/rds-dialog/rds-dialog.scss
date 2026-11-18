@@ -246,7 +246,6 @@
       }
     }
 
-    // Responsive: fit inside small mobile screens (≤320px)
     @media (max-width: 360px) {
       width: calc(100vw - var(--rds-spacing-xl));
       min-width: unset;
@@ -384,7 +383,6 @@
   }
 }
 
-// Ensure the MUI Dialog paper doesn't overflow small mobile viewports
 @media (max-width: 360px) {
   .MuiDialog-paper {
     margin: var(--rds-spacing-md-px);

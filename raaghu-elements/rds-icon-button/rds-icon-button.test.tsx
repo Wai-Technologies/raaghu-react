@@ -6,7 +6,6 @@ import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mu
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-icon-button.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {

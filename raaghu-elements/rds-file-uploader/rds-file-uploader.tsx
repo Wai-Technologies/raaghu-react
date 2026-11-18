@@ -98,6 +98,7 @@ const RdsFileUploader = ({
       accept={accept}
       multiple={multiple}
       disabled={disabled}
+      dragAndDrop={dragAndDrop}
       isDragOver={uploader.isDragOver}
       isUploading={uploader.isUploading}
       showHint={showHint}

@@ -9,7 +9,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-modal.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -55,7 +54,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} />
       );
-      // Verify dialog content is rendered
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
@@ -63,7 +61,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} />
       );
-      // Verify modal title is rendered
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
@@ -81,7 +78,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} isOpen={false} />
       );
-      // When closed without keepMounted, dialog should not be in document
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
@@ -89,18 +85,15 @@ describe('RdsModal', () => {
       const { rerender } = renderWithTheme(
         <RdsModal {...defaultProps} isOpen={true} />
       );
-      // When open, dialog should be visible
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
       let dialog = screen.getByRole('dialog');
       expect(dialog).toBeInTheDocument();
 
-      // Rerender with closed state
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsModal {...defaultProps} isOpen={false} />
         </ThemeProvider>
       );
-      // MUI keeps hidden dialogs in DOM, verify modal still renders on reopening
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsModal {...defaultProps} isOpen={true} />
@@ -143,7 +136,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} showCloseButton={true} />
       );
-      // When close button is shown, verify it renders
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
   });
@@ -201,7 +193,6 @@ describe('RdsModal', () => {
           showIcon={true} 
         />
       );
-      // When icon is shown, verify it renders
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
   });
@@ -233,7 +224,6 @@ describe('RdsModal', () => {
           imageSrc="https://example.com/image.jpg" 
         />
       );
-      // When image is provided, verify it renders with correct src
       const image = screen.getByAltText('Modal') as HTMLImageElement;
       expect(image).toBeInTheDocument();
       expect(image.src).toContain('image.jpg');
@@ -291,7 +281,6 @@ describe('RdsModal', () => {
           <p>Modal content</p>
         </RdsModal>
       );
-      // Verify modal content renders
       expect(screen.getByText('Modal content')).toBeInTheDocument();
     });
   });
@@ -369,7 +358,6 @@ describe('RdsModal', () => {
           fullWidth={true}
         />
       );
-      // Verify modal renders with passed props
       expect(screen.getByRole('dialog')).toBeInTheDocument();
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
@@ -465,7 +453,6 @@ describe('RdsModal', () => {
         <RdsModal {...defaultProps} />,
         false
       );
-      // Verify light theme modal renders
       expect(screen.getByRole('dialog')).toBeInTheDocument();
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
@@ -512,7 +499,6 @@ describe('RdsModal', () => {
       renderWithTheme(
         <RdsModal {...defaultProps} isOpen={false} />
       );
-      // When closed, the modal text should not be queryable in normal DOM
       expect(screen.queryByText('Test Modal')).not.toBeInTheDocument();
     });
   });
@@ -557,7 +543,6 @@ describe('RdsModal', () => {
           <RdsModal {...defaultProps} onClose={onClose} isOpen={false} />
         </ThemeProvider>
       );
-      // Close handler should work
       expect(onClose).not.toHaveBeenCalled();
 
       rerender(

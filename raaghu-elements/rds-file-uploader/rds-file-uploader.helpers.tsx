@@ -25,6 +25,7 @@ export interface DefaultModeViewProps {
   accept?: string;
   multiple: boolean;
   disabled: boolean;
+  dragAndDrop?: boolean;
   isDragOver: boolean;
   isUploading: boolean;
   showHint: boolean;
@@ -52,6 +53,7 @@ export function DefaultModeView({
   accept,
   multiple,
   disabled,
+  dragAndDrop = true,
   isDragOver,
   isUploading,
   showHint,
@@ -66,13 +68,19 @@ export function DefaultModeView({
   removeFile,
   formatFileSize,
 }: DefaultModeViewProps) {
+  const canDrop = dragAndDrop && !disabled;
+  const blockDrop = (event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'none';
+  };
   const dropZoneProps = {
     mode: mode || 'default',
-    isDragOver,
+    isDragOver: canDrop && isDragOver,
     disabled,
-    onDragOver: handleDragOver,
-    onDragLeave: handleDragLeave,
-    onDrop: handleDrop,
+    dragAndDrop,
+    onDragOver: canDrop ? handleDragOver : blockDrop,
+    onDragLeave: canDrop ? handleDragLeave : blockDrop,
+    onDrop: canDrop ? handleDrop : blockDrop,
     openFileDialog,
   };
 

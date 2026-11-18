@@ -1,5 +1,5 @@
 .rds-form-control {
-  --rds-form-control-select-width: var(--rds-input-min-width, auto);
+  --rds-form-control-select-width: var(--rds-input-min-width, var(--rds-spacing-240));
 
   display: inline-flex;
   flex-direction: column;
@@ -7,7 +7,6 @@
 
   &.MuiFormControl-fullWidth {
     width: 100%;
-    margin-right: var(--rds-form-control-fullwidth-margin-right);
   }
   .MuiSelect-root {
     box-sizing: border-box;

@@ -7,7 +7,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-input.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -113,8 +112,6 @@ describe('RdsInput', () => {
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.type).toBe('password');
 
-      // Password toggle would be through an icon button in real implementation
-      // This test verifies the component renders without errors
       expect(input).toBeInTheDocument();
     });
 
@@ -512,7 +509,6 @@ describe('RdsInput', () => {
       
       fireEvent.change(input, { target: { value: '+1234567890' } });
       
-      // The component should not prevent this change
       expect(input).toBeInTheDocument();
     });
   });

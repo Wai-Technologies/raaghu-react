@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useArgs } from 'storybook/preview-api';
 import { ContentCut, ContentCopy, ContentPaste, Delete, KeyboardArrowDown, PersonAdd, Settings, Logout } from '@mui/icons-material';
 import RdsMenu from './rds-menu';
 import RdsButton from '../rds-button/rds-button';
@@ -14,7 +15,7 @@ const meta: Meta = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['component', 'slots', 'slotProps'],
+      include: ['size', 'placement'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -27,6 +28,19 @@ const meta: Meta = {
         defaultValue: { summary: 'small' },
       },
     },
+    placement: {
+      control: { type: 'select' },
+      options: ['bottom-start', 'bottom-end', 'top-start', 'top-end'],
+      description: 'Where the menu opens relative to the button',
+    },
+    open: {
+      control: 'boolean',
+      description: 'Opens or closes the menu',
+    },
+    items: {
+      control: 'object',
+      description: 'Menu items: label, icon, disabled, divider, header, shortcut, color',
+    },
   },
 } satisfies Meta<typeof RdsMenu>;
 
@@ -36,27 +50,31 @@ type Story = StoryObj<typeof RdsMenu>;
 export const Default: Story = {
   args: {
     size: 'small',
+    placement: 'bottom-start',
+    open: false,
     items: [
       { id: 1, label: 'Profile' },
       { id: 2, label: 'My account' },
       { id: 3, label: 'Logout' },
     ],
   },
-  render: (args) => {
+  render: function DefaultMenu(args) {
+    const [, updateArgs] = useArgs();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
+    const handleClick = () => {
+      updateArgs({ open: true });
     };
 
     const handleClose = () => {
-      setAnchorEl(null);
+      updateArgs({ open: false });
     };
 
     const items = (args.items || []).map(item => ({ ...item, onClick: handleClose }));
 
     return (
       <>
+        <span ref={setAnchorEl} style={{ display: 'inline-block' }}>
         <RdsButton text="User" changeLeftIcon="add"
           changeRightIcon="save"
           color="primary"
@@ -67,10 +85,11 @@ export const Default: Story = {
           state="default"
           style="outlined"
           textCase="uppercase" onClick={handleClick} />
+        </span>
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
+          open={Boolean(args.open && anchorEl)}
           onClose={handleClose}
           size={args.size ?? 'small'}
           items={items}
@@ -79,7 +98,7 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters = { controls: { include: ['open'] } };
+Default.parameters = { controls: { include: ['open', 'size', 'placement', 'items'] } };
 
 export const WithIcon: Story = {
   args: {
@@ -129,6 +148,7 @@ export const WithIcon: Story = {
           onClose={handleClose}
           items={items}
           size={args.size ?? 'small'}
+          placement={args.placement}
         />
       </>
     );
@@ -185,10 +205,11 @@ export const WithCustomColor: Story = {
   argTypes: {
     color: {
       control: { type: 'select' },
-      options: ['primary', 'success', 'danger', 'info', 'warning'],
+      options: ['primary', 'success', 'error', 'warning'],
       description: 'Color theme for all menu items',
     },
   },
+  parameters: { controls: { include: ['size', 'placement', 'color'] } },
   render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -219,6 +240,7 @@ export const WithCustomColor: Story = {
 };
 
 export const WithDisabled: Story = {
+  parameters: { controls: { include: ['size', 'placement', 'items'] } },
   args: {
     size: 'small',
     items: [
@@ -311,6 +333,7 @@ export const CustomizedMenu: Story = {
           onClose={handleClose}
           items={items}
           size={args.size ?? 'small'}
+          placement={args.placement}
         />
       </div>
     );

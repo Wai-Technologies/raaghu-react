@@ -87,16 +87,17 @@ const RdsDialog = ({
         slotProps={{ ...slotProps, paper: mergePaperSlotProps({ className: paperClassName }, slotProps?.paper) }}
       >
         {((title && showTitle) || ShowDissmiss) && (
-          <DialogTitle
-            className="rds-dialog__title"
-            sx={{
-              paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, var(--rds-spacing-2xl))' : undefined,
-            }}
-          >
+          <DialogTitle className="rds-dialog__title">
             <div className="rds-dialog__title-inner">
               <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
               {ShowDissmiss && (
-                <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium" >
+                <IconButton
+                  aria-label="close"
+                  className="rds-dialog__close-button"
+                  onClick={onClose}
+                  size="medium"
+                  sx={{ position: 'static', flexShrink: 0, marginRight: 'calc(var(--rds-spacing-xs) * -1)' }}
+                >
                   <CloseIcon />
                 </IconButton>
               )}
@@ -143,29 +144,31 @@ const RdsDialog = ({
         <DialogTitle
           className="rds-dialog__title"
           sx={{
-            position: 'relative',
-            paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, var(--rds-spacing-2xl))' : undefined,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--rds-spacing-xs)',
           }}
         >
-          {showTitle ? (
-            <Box
-              component="span"
-              sx={{
-                display: 'block',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {title}
-            </Box>
-          ) : null}
+          <Box
+            component="span"
+            sx={{
+              display: 'block',
+              flex: 1,
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {showTitle ? title : null}
+          </Box>
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
               className="rds-dialog__close-button"
               onClick={onClose}
               size="medium"
+              sx={{ position: 'static', flexShrink: 0, marginRight: 'calc(var(--rds-spacing-xs) * -1)' }}
             >
               <CloseIcon />
             </IconButton>

@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import RdsDialog from './rds-dialog';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-dialog.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, text, style, ...props }: any) {
     return (
@@ -18,7 +16,6 @@ jest.mock('../rds-button/rds-button', () => {
   };
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
@@ -50,7 +47,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Close', () => {
   return function MockCloseIcon() {
     return <span data-testid="close-icon">CloseIcon</span>;
@@ -289,8 +285,6 @@ describe('RdsDialog', () => {
 
     it('should not render dialog actions element when no actions provided', () => {
       render(<RdsDialog {...defaultProps} />);
-      // In default variant, actions element is only shown if actions prop is provided
-      // So we check if our test action button exists
       expect(screen.queryByText('Test Action')).not.toBeInTheDocument();
     });
 

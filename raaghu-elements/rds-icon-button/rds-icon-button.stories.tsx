@@ -46,7 +46,7 @@ const meta: Meta<typeof RdsIconButton> = {
     },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: ['default', 'primary', 'secondary', 'error', 'success', 'warning'],
       description: 'Color of the icon button',
     },
     disabled: {
@@ -60,10 +60,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {
+    variant: 'filled',
+  },
   render: (args) => (
-    <RdsIconButton {...args}>
-      <Favorite />
-    </RdsIconButton>
+    <RdsIconButton
+      {...args}
+      iconOutlined={<FavoriteBorder />}
+      iconFilled={<Favorite />}
+    />
   ),
 };
 
