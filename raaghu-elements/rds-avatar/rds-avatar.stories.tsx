@@ -15,7 +15,6 @@ const meta: Meta<typeof RdsAvatar> = {
       options: ['primary', 'secondary', 'success', 'error', 'warning', 'light', 'dark'],
       description: 'Color for activity ring and dot',
     },
-    // Deprecated alias of `color`; hidden so only one color control is shown.
     colorVariant: { control: { disable: true }, table: { disable: true } },
     showName: {
       control: 'boolean',

@@ -4,10 +4,8 @@ import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-app-bar.scss', () => ({}));
 
-// Mock ProfileMenu component
 jest.mock('./ProfileMenu', () => {
   return {
     ProfileMenu: ({ name, email, menuItems }: any) => (
@@ -20,7 +18,6 @@ jest.mock('./ProfileMenu', () => {
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Clear', () => {
   return function GetAppIcon() {
     return <span data-testid="clear-icon">ClearIcon</span>;
@@ -457,7 +454,6 @@ describe('RdsAppBar', () => {
         { label: 'About' },
         { label: 'Contact' },
       ];
-      // Only test simple string tabs due to Tab component requirements
       render(
         <RdsAppBar
           {...defaultProps}

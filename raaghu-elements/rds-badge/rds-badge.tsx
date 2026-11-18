@@ -52,9 +52,6 @@ const RdsBadge= ({
   const resolvedColorVariant = normalizePaletteColor(
     resolveDeprecatedProp(paletteFromColor, colorVariant, 'RdsBadge', 'colorVariant', '`color`') ?? 'primary',
   );
-  // Derive the MUI color from the same resolved value used for styling, so `color`
-  // and the deprecated `colorVariant` render identically. RDS-only palettes
-  // (tertiary, light) are not MUI colors; their look comes from the BEM classes.
   const muiCandidate = paletteFromColor || colorProp === undefined ? resolvedColorVariant : colorProp;
   const muiColor: BadgeProps['color'] = MUI_BADGE_COLORS.includes(muiCandidate as string)
     ? (muiCandidate as BadgeProps['color'])

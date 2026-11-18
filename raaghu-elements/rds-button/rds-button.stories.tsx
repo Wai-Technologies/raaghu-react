@@ -53,7 +53,6 @@ const meta: Meta<typeof RdsButton> = {
       control: 'boolean',
       description: 'Whether the button is shown as selected (pressed)',
     },
-    // Deprecated: replaced by `disabled` and `selected`.
     state: { control: { disable: true }, table: { disable: true } },
     layout: {
       control: 'select',

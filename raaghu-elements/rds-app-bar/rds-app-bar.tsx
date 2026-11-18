@@ -94,8 +94,6 @@ const RdsAppBar = ({
       const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
       const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
       const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      // dashboardwithlang's icon row + title don't fit on one line below 600px,
-      // so it switches to the bottom bar earlier than the default 420px.
       let threshold = 420;
       if (needsTabletBottomNav) threshold = 840;
       else if (variantLower === 'dashboardwithlang') threshold = 599;

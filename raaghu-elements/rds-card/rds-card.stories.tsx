@@ -38,7 +38,6 @@ const meta: Meta<typeof RdsCard> = {
       control: 'boolean',
       description: 'Show the card as disabled (muted, not interactive).',
     },
-    // Deprecated: replaced by `selected` and `disabled`.
     state: { control: { disable: true }, table: { disable: true } },
     showIndicator: {
       control: 'boolean',

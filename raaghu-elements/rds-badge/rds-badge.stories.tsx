@@ -50,7 +50,6 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge color',
       defaultValue: 'primary',
     },
-    // Deprecated alias of `color`; hidden so only one color control is shown.
     colorVariant: { control: { disable: true }, table: { disable: true } },
   component: { control: { disable: true }, table: { disable: true } },
   slots: { control: { disable: true }, table: { disable: true } },

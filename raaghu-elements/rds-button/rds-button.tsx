@@ -75,7 +75,6 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
   ...props
 }, ref) => {
   const theme = useTheme();
-  // `disabled` / `selected` are the supported API; the deprecated `state` prop still maps onto them.
   const isButtonDisabled = Boolean(disabled) || stateProp === 'disabled' || isLoading;
   let state: 'default' | 'hover' | 'disabled' | 'selected' = 'default';
   if (disabled || stateProp === 'disabled') state = 'disabled';

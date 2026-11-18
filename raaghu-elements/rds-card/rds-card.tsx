@@ -56,7 +56,6 @@ const RdsCard = ({
   description,
   ...props
 }:RdsCardProps) => {
-  // `disabled` / `selected` are the supported API; the deprecated `state` prop still maps onto them.
   let state: CardState = 'default';
   if (disabled || stateProp === 'disabled') state = 'disabled';
   else if (selected || stateProp === 'selected') state = 'selected';

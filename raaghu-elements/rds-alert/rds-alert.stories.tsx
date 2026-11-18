@@ -26,7 +26,6 @@ const meta: Meta<typeof RdsAlert> = {
       options: ['error', 'warning', 'info', 'success'],
       description: 'Semantic color of the alert',
     },
-    // Deprecated aliases of `color`; hidden so only one color control is shown.
     type: { control: { disable: true }, table: { disable: true } },
     severity: { control: { disable: true }, table: { disable: true } },
     variant: {

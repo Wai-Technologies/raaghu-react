@@ -4,7 +4,6 @@ import RdsAvatar, { RdsAvatarProps } from './rds-avatar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-avatar.scss', () => ({}));
 
 describe('RdsAvatar', () => {
@@ -609,7 +608,6 @@ describe('RdsAvatar', () => {
       const { container } = render(
         <RdsAvatar displayStyle="stacking" avatars={[]} />
       );
-      // When avatars array is empty, component may not render the stacking container
       expect(container.querySelector('.MuiAvatar-root')).toBeInTheDocument();
     });
 
