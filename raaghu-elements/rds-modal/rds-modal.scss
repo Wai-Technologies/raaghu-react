@@ -5,7 +5,7 @@
   --rds-modal-image-width-mobile: 190px;
   --rds-modal-animation-delay: 0.1s;
   --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-neutral-1000) 30%, transparent);
-  --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm));
+  --rds-modal-title-close-padding-right: calc(7 * var(--rds-spacing-sm));
   --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs));
   position: fixed;
   top: 0;
@@ -74,6 +74,10 @@
       padding-inline: var(--rds-spacing-sm);
       padding-top: var(--rds-spacing-sm);
     }
+
+    &--with-close:not(.rds-modal__title--with-image) {
+      padding-inline: var(--rds-modal-title-close-padding-right);
+    }
   }
 
   .MuiDialogTitle-root.rds-modal__title {
@@ -89,7 +93,7 @@
     border-radius: var(--rds-spacing-xs);
     color: var(--rds-neutral-500);
 
-    &--absolute {
+    &.rds-modal__close--absolute {
       position: absolute;
       right: var(--rds-spacing-sm);
       top: var(--rds-spacing-sm);

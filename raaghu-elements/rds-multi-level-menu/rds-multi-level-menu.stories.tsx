@@ -23,11 +23,11 @@ const meta = {
       options: ['default', 'large'],
       description: 'Sets the size of the menu items',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'hover', 'selected'],
-      description: 'Sets the visual state of the menu items',
+    selected: {
+      control: 'boolean',
+      description: 'Shows the first option in its selected style',
     },
+    state: { control: { disable: true }, table: { disable: true } },
   },
 } satisfies Meta<typeof RdsMultiLevelMenu>;
 
@@ -79,6 +79,6 @@ export const Default:Story ={
       options: options,
       type: 'expandable',
       size: 'default',
-      state: 'default',
+      selected: false,
    }
 }
