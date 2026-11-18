@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent, type FocusEvent } from 'react';
 import { Box, IconButton, InputBase, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -26,6 +26,20 @@ export interface RdsCounterProps {
   state?: 'default' | 'selected' | 'disabled';
 }
 
+const canReachRange = (n: number, min: number, max: number): boolean => {
+  if (n >= min && n <= max) return true;
+  const positive = n >= 0;
+  if (positive ? max === Infinity : min === -Infinity) return true;
+  for (let k = 1; k <= 15; k++) {
+    const scale = 10 ** k;
+    const lo = positive ? n * scale : n * scale - (scale - 1);
+    const hi = positive ? n * scale + (scale - 1) : n * scale;
+    if (hi >= min && lo <= max) return true;
+    if (positive ? lo > max : hi < min) return false;
+  }
+  return false;
+};
+
 const RdsCounter = ({
   value,
   onChange,
@@ -50,8 +64,8 @@ const RdsCounter = ({
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );
+  const [draft, setDraft] = useState<string | null>(null);
   const currentValue = isControlled ? value : internalValue;
-
 
   const updateValue = (newValue: number | undefined) => {
     if (isControlled) {
@@ -62,12 +76,14 @@ const RdsCounter = ({
   };
 
   const handleIncrement = () => {
+    setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.min(base + step, max);
     updateValue(newValue);
   };
 
   const handleDecrement = () => {
+    setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.max(base - step, min);
     updateValue(newValue);
@@ -76,11 +92,27 @@ const RdsCounter = ({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const raw = event.target.value.trim();
     if (raw === '') {
+      setDraft(null);
       updateValue(undefined);
       return;
     }
+    if (!/^-?\d+$/.test(raw)) return;
     const newValue = parseInt(raw, 10);
-    if (!isNaN(newValue) && newValue >= min && newValue <= max) updateValue(newValue);
+    if (newValue >= min && newValue <= max) {
+      setDraft(null);
+      updateValue(newValue);
+    } else if (canReachRange(newValue, min, max)) {
+      setDraft(String(newValue));
+    }
+  };
+
+  const handleInputBlur = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (draft === null) return;
+    setDraft(null);
+    const parsed = parseInt(draft, 10);
+    if (isNaN(parsed)) return;
+    const clamped = Math.min(Math.max(parsed, min), max);
+    if (clamped !== currentValue) updateValue(clamped);
   };
 
   const demoSelected = state === 'selected' || selected;
@@ -99,8 +131,9 @@ const RdsCounter = ({
   const buildValue = (valueVariant: 'compact' | 'default') => (
     showInput ? (
       <InputBase
-        value={typeof currentValue === 'number' ? currentValue : ''}
+        value={draft ?? (typeof currentValue === 'number' ? currentValue : '')}
         onChange={handleInputChange}
+        onBlur={handleInputBlur}
         disabled={effectiveDisabled}
         className={clsx(
           'rds-counter__input',

@@ -133,7 +133,7 @@ describe('RdsSpeedDial', () => {
 
   describe('State Management', () => {
     it('should manage internal state when no open prop is provided', async () => {
-      const { container } = render(<RdsSpeedDial {...defaultProps} open={false} />);
+      const { container } = render(<RdsSpeedDial {...defaultProps} />);
       const fab = container.querySelector('.MuiSpeedDial-fab');
       
       expect(fab).toBeInTheDocument();
@@ -608,5 +608,29 @@ describe('RdsSpeedDial', () => {
 
       expect(container.querySelector('.MuiSpeedDial-root')).toBeInTheDocument();
     });
+  });
+});
+
+describe('RdsSpeedDial controlled open', () => {
+  it('calls onClose and stays open when open is true', () => {
+    const onClose = jest.fn();
+    const { container } = render(
+      <RdsSpeedDial ariaLabel="sd" open={true} onClose={onClose} actions={[{ icon: <Share />, name: 'Share' }]} />
+    );
+    const fab = container.querySelector('.MuiSpeedDial-fab') as HTMLElement;
+    fireEvent.click(fab);
+    expect(onClose).toHaveBeenCalled();
+    expect(fab.getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('treats open={false} as controlled and calls onOpen', () => {
+    const onOpen = jest.fn();
+    const { container } = render(
+      <RdsSpeedDial ariaLabel="sd" open={false} onOpen={onOpen} actions={[{ icon: <Share />, name: 'Share' }]} />
+    );
+    const fab = container.querySelector('.MuiSpeedDial-fab') as HTMLElement;
+    fireEvent.click(fab);
+    expect(onOpen).toHaveBeenCalled();
+    expect(fab.getAttribute('aria-expanded')).toBe('false');
   });
 });

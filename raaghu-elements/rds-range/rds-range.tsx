@@ -31,8 +31,8 @@ const RdsRange= ({
   showTooltip = false,
   type = 'one-way',
   level = '1',
-  leftLabel = 0,
-  rightLabel = 100,
+  leftLabel,
+  rightLabel,
   ...props
 }:RdsRangeProps) => {
   const min = leftLabel ?? props.min ?? 0;
@@ -62,7 +62,13 @@ const RdsRange= ({
     }
   }, [value]);
 
+  const isFirstRender = React.useRef(true);
   React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (value !== undefined && value !== null) return;
     if (type === 'one-way') {
       setInternalValue(calculateLevelValue(level));
     } else if (type === 'two-way') {
@@ -173,10 +179,10 @@ const RdsRange= ({
         valueLabelDisplay={showTooltip ? "on" : "off"}
         slots={showTooltip ? { valueLabel: ValueLabelComponent } : undefined}
         marks={marks}
+        {...props}
         min={min}
         max={max}
         step={props.step}
-        {...props}
       />
       {showLabel && (
         <Box className="rds-range__footer" sx={{ display: 'flex', justifyContent: 'space-between' }}>

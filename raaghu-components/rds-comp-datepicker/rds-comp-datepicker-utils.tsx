@@ -97,6 +97,9 @@ const buildDatePickerProps = ({
     customInput,
     wrapperClassName: "rds-datepicker__wrapper",
     disabled: props.isDisabled,
+    minDate: props.minDate,
+    maxDate: props.maxDate,
+    ariaRequired: props.isMandatory ? "true" : undefined,
     placeholderText: props.placeholderText || "Select date",
     showMonthYearPicker: props.layout === "Month Picker",
     showYearPicker: props.layout === "Year Picker",
@@ -312,6 +315,9 @@ export const renderDatePickerTypeView = (
                             popperContainer={({ children }: { children: React.ReactNode }) => <div>{children}</div>}
                             popperClassName="rds-datepicker__popper"
                             disabled={props.isDisabled}
+                            minDate={props.minDate}
+                            maxDate={props.maxDate}
+                            ariaRequired={props.isMandatory ? "true" : undefined}
                             placeholderText={props.placeholderText || "Select date"}
                             showMonthYearPicker={props.layout === "Month Picker"}
                             showYearPicker={props.layout === "Year Picker"}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
@@ -72,7 +72,7 @@ jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
-      <button data-testid={`rds-button-${props.text}`} className={`rds-button rds-button--${props.color}`}>
+      <button data-testid={`rds-button-${props.text}`} onClick={props.onClick} className={`rds-button rds-button--${props.color}`}>
         {props.text}
       </button>
     );
@@ -635,6 +635,40 @@ describe('RdsCompAudioPlayer', () => {
       );
       expect(container.querySelector('.rds-comp-audio-player__edition-waveform')).toBeInTheDocument();
       expect(container.querySelector('.rds-comp-audio-player__waveform-background')).toBeInTheDocument();
+    });
+  });
+
+  describe('Play state and editor actions', () => {
+    it('syncs aria-pressed with audio play and pause events', () => {
+      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
+      const audio = container.querySelector('audio') as HTMLAudioElement;
+      const btn = screen.getByLabelText('Play or pause');
+      expect(btn).toHaveAttribute('aria-pressed', 'false');
+      act(() => { audio.dispatchEvent(new Event('play')); });
+      expect(btn).toHaveAttribute('aria-pressed', 'true');
+      act(() => { audio.dispatchEvent(new Event('ended')); });
+      expect(btn).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    it('resets state when audio.play() rejects', async () => {
+      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
+      const audio = container.querySelector('audio') as HTMLAudioElement;
+      Object.defineProperty(audio, 'paused', { value: true, configurable: true });
+      audio.play = jest.fn().mockRejectedValue(new Error('blocked'));
+      const btn = screen.getByLabelText('Play or pause');
+      await act(async () => { fireEvent.click(btn); });
+      expect(btn).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    it('calls onSave and onCancel and closes the editor on cancel', () => {
+      const onSave = jest.fn();
+      const onCancel = jest.fn();
+      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" onSave={onSave} onCancel={onCancel} />);
+      fireEvent.click(screen.getByTestId('rds-button-Save'));
+      expect(onSave).toHaveBeenCalledTimes(1);
+      fireEvent.click(screen.getByTestId('rds-button-Cancel'));
+      expect(onCancel).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('.rds-comp-audio-player__edition-container')).not.toBeInTheDocument();
     });
   });
 });

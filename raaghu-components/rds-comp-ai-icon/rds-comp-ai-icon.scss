@@ -58,9 +58,10 @@
     .rds-comp-ai-icon__svg { color: var(--rds-color-success); }
   }
 
+  &--error,
   &--danger {
-    color: var(--rds-color-danger);
-    .rds-comp-ai-icon__svg { color: var(--rds-color-danger); }
+    color: var(--rds-color-error, var(--rds-color-danger));
+    .rds-comp-ai-icon__svg { color: var(--rds-color-error, var(--rds-color-danger)); }
   }
 
   &--warning {

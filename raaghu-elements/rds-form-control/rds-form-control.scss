@@ -1,11 +1,49 @@
 .rds-form-control {
-  display: block;
+  --rds-form-control-select-width: var(--rds-input-min-width, auto);
+
+  display: inline-flex;
+  flex-direction: column;
   position: relative;
-  
+
   &.MuiFormControl-fullWidth {
     width: 100%;
     margin-right: var(--rds-form-control-fullwidth-margin-right);
   }
+  .MuiSelect-root {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    position: relative;
+    width: 100%;
+  }
+
+  &:not(.MuiFormControl-fullWidth) .MuiSelect-root {
+    width: var(--rds-form-control-select-width);
+  }
+
+  .MuiSelect-select.MuiInputBase-input {
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-right: var(--rds-spacing-xl);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .MuiSelect-icon {
+    color: var(--rds-text-secondary);
+    display: inline-block;
+    flex-shrink: 0;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    right: var(--rds-spacing-7);
+    visibility: visible;
+    z-index: 2;
+  }
+
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,

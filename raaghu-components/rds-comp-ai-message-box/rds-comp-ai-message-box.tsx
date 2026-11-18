@@ -8,12 +8,8 @@ export interface RdsCompAiMessageBoxProps {
   src?: string;
   avtar?: string;
   avatar?: string;
+  name?: string;
 }
-
-const DEFAULT_AVATAR =
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
-const DEFAULT_IMAGE =
-  "https://via.placeholder.com/480x320.png?text=Image+placeholder";
 
 const RdsCompAiMessageBox = memo(({
   isImage,
@@ -21,9 +17,10 @@ const RdsCompAiMessageBox = memo(({
   src,
   avtar,
   avatar,
+  name = "Jane Doe",
 }: RdsCompAiMessageBoxProps) => {
-  const avatarSrc = useMemo(() => avatar ?? avtar ?? DEFAULT_AVATAR, [avatar, avtar]);
-  const imageSrc = useMemo(() => src ?? DEFAULT_IMAGE, [src]);
+  const avatarSrc = useMemo(() => avatar ?? avtar, [avatar, avtar]);
+  const imageSrc = src;
 
   return (
     <div className="rds-comp-ai-message-box">
@@ -36,10 +33,10 @@ const RdsCompAiMessageBox = memo(({
             showName={false}
             src={avatarSrc}
             subText={message}
-            title="Jane Doe"
+            title={name}
           />
         </div>
-        {isImage && (
+        {isImage && imageSrc && (
           <div className="rds-comp-ai-message-box__image-wrapper">
             <img src={imageSrc} alt="message image" className="rds-comp-ai-message-box__image" />
           </div>

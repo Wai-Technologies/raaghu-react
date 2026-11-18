@@ -1,4 +1,4 @@
-import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { forwardRef, useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import clsx from 'clsx';
 import './rds-input.scss';
@@ -31,7 +31,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   icon?: ReactNode; // Custom icon component provided by the user
 }
 
-const RdsInput = ({
+const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
   label,
   placeholder,
   hintText,
@@ -53,7 +53,7 @@ const RdsInput = ({
   onFocus,
   onBlur,
   ...props
-}: RdsInputProps) => {
+}, ref) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [internalValue, setInternalValue] = useState('');
@@ -226,6 +226,7 @@ const RdsInput = ({
         </label>
       )}
       <MuiTextField
+        ref={ref}
         label={titlePosition === 'inline-title' ? label : ''}
         placeholder={computedPlaceholder}
         helperText={errorMessage || hintText}
@@ -257,6 +258,6 @@ const RdsInput = ({
       />
     </div>
   );
-};
+});
 RdsInput.displayName = 'RdsInput';
 export default RdsInput;

@@ -96,21 +96,21 @@ describe('RdsCompToast', () => {
       render(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--info');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
 
     it('should apply success state class', () => {
       render(<RdsCompToast {...defaultProps} state={ToastState.Success} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--success');
-      expect(alert).toHaveClass('rds-comp-toast--border-primary');
+      expect(alert).toHaveClass('rds-comp-toast--border-success');
     });
 
     it('should apply error state class', () => {
       render(<RdsCompToast {...defaultProps} state={ToastState.Error} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should apply correct border color for each state', () => {
@@ -118,11 +118,11 @@ describe('RdsCompToast', () => {
         <RdsCompToast {...defaultProps} state={ToastState.Basic} />
       );
       let alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-light');
+      expect(alert).toHaveClass('rds-comp-toast--border-basic');
 
       rerender(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
       alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
   });
 
@@ -724,7 +724,7 @@ describe('RdsCompToast', () => {
 
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should render info toast with chat layout', () => {
@@ -912,5 +912,38 @@ describe('RdsCompToast', () => {
         unmount();
       }
     }, 120000);
+  });
+});
+
+describe('RdsCompToast action and onClose', () => {
+  const base = {
+    subText: 'Body',
+    layout: ToastLayout.Request,
+    leadingIcon: ToastLeadingIcon.Circle,
+    showSubText: true,
+    showDismiss: true,
+  } as RdsCompToastProps;
+
+  it('renders custom action instead of the default buttons', () => {
+    render(<RdsCompToast {...base} action={<button>Undo</button>} />);
+    expect(screen.getByText('Undo')).toBeInTheDocument();
+    expect(screen.queryByText('Accept')).not.toBeInTheDocument();
+  });
+
+  it('keeps default buttons without action', () => {
+    render(<RdsCompToast {...base} />);
+    expect(screen.getByText('Accept')).toBeInTheDocument();
+  });
+
+  it('calls onClose with closeClick on dismiss', () => {
+    const onClose = jest.fn();
+    render(<RdsCompToast {...base} onClose={onClose} />);
+    fireEvent.click(screen.getByLabelText('Close'));
+    expect(onClose).toHaveBeenCalledWith(expect.anything(), 'closeClick');
+  });
+
+  it('honours controlled open', () => {
+    render(<RdsCompToast {...base} open={false} />);
+    expect(screen.getByRole('alert', { hidden: true })).toHaveClass('rds-comp-toast--hidden');
   });
 });

@@ -1,11 +1,16 @@
 import React from "react";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 
 type IconComponentType = React.ElementType;
 export interface RdsCompAiIconProps {
   width?: string;
   height?: string;
+  /** Icon color. `'danger'` is deprecated; use `'error'`. */
+  color?: string;
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
   colorVariant?: string;
   name?: string;
   fill?: boolean;
@@ -98,11 +103,16 @@ export function buildIconStyle(props: RdsCompAiIconProps) {
 }
 
 export function buildIconClassName(props: RdsCompAiIconProps) {
+  const paletteColor = resolveDeprecatedProp(props.color, props.colorVariant, "RdsCompAiIcon", "colorVariant", "`color`");
+  if (paletteColor === "danger" || props.color === "danger" || props.colorVariant === "danger") {
+    warnDeprecatedProp("RdsCompAiIcon", 'color="danger"', '`color: "error"`');
+  }
+  const resolvedColorVariant = normalizePaletteColor(paletteColor);
   const rootClass = "rds-comp-ai-icon";
   const modifierClasses = [
     props.classes,
     props.isCursorPointer ? `${rootClass}--cursor` : undefined,
-    props.colorVariant ? `${rootClass}--${props.colorVariant}` : undefined,
+    resolvedColorVariant ? `${rootClass}--${resolvedColorVariant}` : undefined,
   ]
     .filter(Boolean)
     .join(" ");

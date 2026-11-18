@@ -735,3 +735,18 @@ describe('RdsStack', () => {
     });
   });
 });
+
+
+describe('RdsStack divider defaults and spacing', () => {
+  it('uses a horizontal divider for the default column stack', () => {
+    const { container } = render(<RdsStack divider><span>a</span><span>b</span></RdsStack>);
+    expect(container.querySelector('.rds-stack__divider')).toHaveClass('MuiDivider-fullWidth');
+    expect(container.querySelector('.rds-stack__divider')).not.toHaveClass('MuiDivider-vertical');
+  });
+
+  it('keeps spacing 0 instead of falling back to gap', () => {
+    const { container } = render(<RdsStack spacing={0} gap={4}><span>a</span><span>b</span></RdsStack>);
+    expect(container.firstChild).not.toHaveStyle({ margin: '32px' });
+    expect(container.querySelector('.MuiStack-root')).toBeInTheDocument();
+  });
+});

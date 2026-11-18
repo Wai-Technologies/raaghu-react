@@ -725,4 +725,10 @@ describe('RdsAccordion — keyboard navigation', () => {
     const summary = screen.getByRole('button', { name: /accordion title/i });
     expect(summary).toBeDisabled();
   });
+
+  it('keeps rds classes when a className is passed', () => {
+    render(<RdsAccordion {...defaultProps} className="consumer" />);
+    const root = document.querySelector('.MuiAccordion-root');
+    expect(root).toHaveClass('rds-accordion', 'consumer');
+  });
 });

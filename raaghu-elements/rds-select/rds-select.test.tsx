@@ -876,4 +876,11 @@ describe('RdsSelect — keyboard navigation', () => {
     await userEvent.keyboard(' ');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
+
+  it('does not warn about an out-of-range value when uncontrolled', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    renderWithTheme(<RdsSelect options={mockOptions} />);
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
 });

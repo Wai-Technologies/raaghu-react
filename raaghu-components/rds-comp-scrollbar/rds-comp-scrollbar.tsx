@@ -17,6 +17,7 @@ export interface RdsScrollBarProps {
   showButtons?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
@@ -24,7 +25,8 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
   position = ScrollPosition.Start,
   showButtons = true,
   startIcon,
-  endIcon
+  endIcon,
+  children
 }) => {
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +68,7 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
         </div>
       )}
       <div className="rds-scrollbar__content" ref={scrollContentRef}>
-        <div className="rds-scrollbar__inner-content"></div>
+        {children ?? <div className="rds-scrollbar__inner-content"></div>}
       </div>
     </div>
   );

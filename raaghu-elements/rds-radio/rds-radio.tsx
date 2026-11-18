@@ -92,7 +92,7 @@ const RdsRadio= ({
                 justifyContent: 'center',
                 alignItems: 'center',
                 margin: 0,
-                padding: 'var()'
+                padding: 'var(--rds-spacing-xs)'
               }}
             />
             {option.text && (
@@ -103,7 +103,7 @@ const RdsRadio= ({
                   pointerEvents: finalDisabled ? 'none' : 'auto',
                   opacity: finalDisabled ? 0.6 : 1,
                   color: finalDisabled ? 'var(--rds-text-disabled)' : 'inherit',
-                  marginTop: 'var()',
+                  marginTop: 'var(--rds-spacing-xxs)',
                   textAlign: 'center'
                 }}
               >
@@ -134,7 +134,7 @@ const RdsRadio= ({
     >
       {label && <FormLabel component="legend" className="rds-radio__label">{label}</FormLabel>}
       {layout === 'icon with bottom label' ? (
-        <Box className="rds-radio__group" sx={{ display: 'flex', flexDirection: direction, gap: 'var()' }}>
+        <Box className="rds-radio__group" sx={{ display: 'flex', flexDirection: direction, gap: 'var(--rds-spacing-md)' }}>
           {options.map(renderOption)}
         </Box>
       ) : (

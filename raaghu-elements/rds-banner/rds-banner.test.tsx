@@ -13,6 +13,7 @@ jest.mock('../rds-button/rds-button', () => {
     return (
       <button
         data-testid="rds-button"
+        onClick={props.onClick}
         data-style={props.style}
         data-size={props.size}
         className={props.className}
@@ -617,6 +618,36 @@ describe('RdsBanner', () => {
       const { container } = render(<RdsBanner {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('Action handlers and className', () => {
+    it('calls link, secondary and primary handlers and honours labels', () => {
+      const onLinkClick = jest.fn();
+      const onSecondaryClick = jest.fn();
+      const onPrimaryClick = jest.fn();
+      render(
+        <RdsBanner
+          {...defaultProps}
+          linkText="More"
+          secondaryText="No"
+          primaryText="Yes"
+          onLinkClick={onLinkClick}
+          onSecondaryClick={onSecondaryClick}
+          onPrimaryClick={onPrimaryClick}
+        />
+      );
+      fireEvent.click(screen.getByText('More'));
+      fireEvent.click(screen.getByText('No'));
+      fireEvent.click(screen.getByText('Yes'));
+      expect(onLinkClick).toHaveBeenCalledTimes(1);
+      expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+      expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('keeps rds-banner classes when className is passed', () => {
+      const { container } = render(<RdsBanner {...defaultProps} className="custom-class" />);
+      expect(container.querySelector('.rds-banner.custom-class')).toBeInTheDocument();
     });
   });
 });

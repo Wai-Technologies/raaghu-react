@@ -63,6 +63,7 @@ const RdsTabs = ({
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
+    setInternalValue(newValue);
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -82,10 +83,13 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
   // Determine provided value: prefer explicit `value`, then `activeTab`.
   // If neither is provided, do not pass `value` to keep Tabs uncontrolled.
   const providedValue = (value ?? activeTab);
+  const firstEnabledId = tabs.find((tab) => !tab.disabled)?.id;
+  const [internalValue, setInternalValue] = React.useState<string | number | undefined>(undefined);
+  const resolvedValue = providedValue ?? internalValue ?? firstEnabledId;
 
   return (
     <MuiTabs
-      {...(providedValue !== undefined ? { value: providedValue } : {})}
+      value={resolvedValue ?? false}
       onChange={handleChange}
       orientation={type}
       className={`rds-tabs ${layoutClass}`}

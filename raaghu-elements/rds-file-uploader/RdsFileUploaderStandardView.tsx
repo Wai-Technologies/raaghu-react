@@ -108,14 +108,14 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
               onFilesChange?.([]);
             }}
             disabled={disabled}
-            sx={{ ml: 'var()' }}
+            sx={{ ml: 'var(--rds-spacing-xs)' }}
           >
             {children}
           </IconButton>
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var()', minHeight: 'var(--rds-file-uploader-hint-row-height, var(--rds-spacing-20-px))', marginLeft: 'var(--rds-file-uploader-hint-padding-right, var(--rds-spacing-cozy))' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs)', minHeight: 'var(--rds-file-uploader-hint-row-height, var(--rds-spacing-20-px))', marginLeft: 'var(--rds-file-uploader-hint-padding-right, var(--rds-spacing-cozy))' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"

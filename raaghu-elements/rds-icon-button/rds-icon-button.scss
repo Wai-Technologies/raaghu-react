@@ -1,16 +1,23 @@
 .rds-icon-button--outlined {
-  border: var(--rds-icon-button-outlined-border-width) solid currentColor;
+  --rds-icon-button-outlined-border-width: calc(var(--rds-border-width-thin) * 1.5);
+  --rds-icon-button-outlined-radius: var(--rds-spacing-compact);
+  --rds-icon-button-outlined-padding: var(--rds-spacing-compact);
 
+  border: var(--rds-icon-button-outlined-border-width) solid currentColor;
   border-radius: var(--rds-icon-button-outlined-radius);
   padding: var(--rds-icon-button-outlined-padding);
 }
 
 .rds-icon-button {
+  --rds-icon-button-size-small: var(--rds-spacing-18);
+  --rds-icon-button-size-medium: var(--rds-font-size-icon-lg);
+  --rds-icon-button-size-large: var(--rds-size-lg);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 0;
-  }
+}
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeSmall svg {

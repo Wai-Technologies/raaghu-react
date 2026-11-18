@@ -483,3 +483,17 @@ describe('RdsCounter', () => {
     });
   });
 });
+
+describe('RdsCounter typing with min > 0', () => {
+  it('allows typing a multi-digit number and clamps on blur', () => {
+    render(<RdsCounter min={10} max={99} defaultValue={20} />);
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: '1' } });
+    expect(input.value).toBe('1');
+    fireEvent.change(input, { target: { value: '15' } });
+    expect(input.value).toBe('15');
+    fireEvent.change(input, { target: { value: '5' } });
+    fireEvent.blur(input);
+    expect(input.value).toBe('10');
+  });
+});

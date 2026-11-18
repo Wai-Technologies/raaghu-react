@@ -92,4 +92,16 @@ describe('RdsButton — keyboard navigation', () => {
     await userEvent.tab();
     expect(screen.getByRole('button')).not.toHaveFocus();
   });
+
+  it('keeps rds classes when a className is passed', () => {
+    render(<RdsButton text="Merge" className="consumer" />);
+    expect(screen.getByRole('button')).toHaveClass('rds-button', 'consumer');
+  });
+
+  it('maps variant and object style', () => {
+    render(<RdsButton text="V" variant="outlined" style={{ margin: '3px' }} />);
+    const btn = screen.getByRole('button');
+    expect(btn).toHaveClass('rds-button__secondary');
+    expect(btn).toHaveStyle({ margin: '3px' });
+  });
 });

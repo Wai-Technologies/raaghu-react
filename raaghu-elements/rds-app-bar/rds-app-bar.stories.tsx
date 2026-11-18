@@ -915,7 +915,7 @@ const DynamicTemplate = (args: any) => {
       };
   }
 
-  const { __wrapTransparent, ...finalConfig } = config;
+  const { __wrapTransparent, leftActions: _leftActions, userShortName: _userShortName, ...finalConfig } = config;
   
   finalConfig.onMenuClick = () => {
   };

@@ -173,7 +173,7 @@ describe('RdsAvatar', () => {
       const { container } = render(
         <RdsAvatar {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-avatar--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--error')).toBeInTheDocument();
     });
 
     it('should apply warning color variant', () => {
@@ -661,10 +661,11 @@ describe('RdsAvatar', () => {
     });
 
     it('should accept valid colorVariant prop values', () => {
-      const colors: Array<'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
+      const colors: Array<'primary' | 'success' | 'danger' | 'error' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
         'primary',
         'success',
         'danger',
+        'error',
         'warning',
         'light',
         'info',
@@ -675,7 +676,8 @@ describe('RdsAvatar', () => {
         const { container } = render(
           <RdsAvatar title="Test" colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-avatar--${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color;
+        expect(container.querySelector(`.rds-avatar--${expected}`)).toBeInTheDocument();
       });
     });
 

@@ -10,6 +10,11 @@ export interface RdsCompNotificationProps {
     description?: string;
     layout?: NotificationLayout;
     style?: NotificationStyle;
+    /** Semantic color of the notification. @default NotificationType.Info */
+    color?: NotificationType;
+    /** @deprecated Use `color`. */
+    severity?: NotificationType;
+    /** @deprecated Use `color`. */
     type?: NotificationType;
     showButton?: boolean;
     showPrimaryButton?: boolean;

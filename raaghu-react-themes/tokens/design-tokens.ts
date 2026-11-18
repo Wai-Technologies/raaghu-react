@@ -25,6 +25,7 @@ export const colorTokens = {
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
+    150: '#C8CCFA', // Light blue step (avoids pink s[100] on checked/hover surfaces)
     200: '#2534E9', // Dark theme normal
     250: '#4666FF', // Dark theme hover
     300: '#f06292',

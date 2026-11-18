@@ -45,9 +45,18 @@
     border-left: var(--rds-spacing-xs) solid var(--rds-toast-accent-error, var(--rds-color-error));
   }
 
+  &--warning {
+    border-left: var(--rds-spacing-xs) solid var(--rds-toast-accent-warning, var(--rds-color-warning));
+  }
+
+  &--border-basic,
+  &--border-info,
+  &--border-success,
+  &--border-warning,
   &--border-light,
   &--border-dark,
   &--border-primary,
+  &--border-error,
   &--border-danger {
     border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
     border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
@@ -459,9 +468,14 @@ body.dark-theme .rds-comp-toast {
   border-right-color: var(--rds-color-border-overlay);
   border-bottom-color: var(--rds-color-border-overlay);
 
+  &.rds-comp-toast--border-basic,
+  &.rds-comp-toast--border-info,
+  &.rds-comp-toast--border-success,
+  &.rds-comp-toast--border-warning,
   &.rds-comp-toast--border-light,
   &.rds-comp-toast--border-dark,
   &.rds-comp-toast--border-primary,
+  &.rds-comp-toast--border-error,
   &.rds-comp-toast--border-danger {
     border-top-color: var(--rds-color-border-overlay);
     border-right-color: var(--rds-color-border-overlay);

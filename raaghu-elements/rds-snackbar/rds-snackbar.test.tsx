@@ -662,3 +662,26 @@ describe('RdsSnackbar', () => {
     });
   });
 });
+
+describe('RdsSnackbar children and prop leakage', () => {
+  it('renders children inside an Alert', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <RdsSnackbar open><span>child content</span></RdsSnackbar>
+      </ThemeProvider>
+    );
+    expect(screen.getByRole('alert')).toHaveTextContent('child content');
+  });
+
+  it('does not leak severity or hideCloseButton to the DOM', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    render(
+      <ThemeProvider theme={theme}>
+        <RdsSnackbar open message="hi" severity="error" hideCloseButton />
+      </ThemeProvider>
+    );
+    expect(spy).not.toHaveBeenCalled();
+    expect(screen.queryByLabelText('Close')).not.toBeInTheDocument();
+    spy.mockRestore();
+  });
+});

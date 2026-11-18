@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAlert, { RdsAlertProps } from './rds-alert';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -14,6 +14,7 @@ jest.mock('../rds-button/rds-button', () => {
       <button
         className={props.className}
         data-testid="rds-button"
+        onClick={props.onClick}
         data-text={props.text}
         data-style={props.style}
         data-size={props.size}
@@ -801,6 +802,31 @@ describe('RdsAlert', () => {
       const { container } = render(<RdsAlert description="Test alert message" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('Action handlers', () => {
+    it('calls link, secondary and primary handlers and honours labels', () => {
+      const onLinkClick = jest.fn();
+      const onSecondaryClick = jest.fn();
+      const onPrimaryClick = jest.fn();
+      render(
+        <RdsAlert
+          {...defaultProps}
+          linkText="More"
+          secondaryText="No"
+          primaryText="Yes"
+          onLinkClick={onLinkClick}
+          onSecondaryClick={onSecondaryClick}
+          onPrimaryClick={onPrimaryClick}
+        />
+      );
+      fireEvent.click(screen.getByText('More'));
+      fireEvent.click(screen.getByText('No'));
+      fireEvent.click(screen.getByText('Yes'));
+      expect(onLinkClick).toHaveBeenCalledTimes(1);
+      expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+      expect(onPrimaryClick).toHaveBeenCalledTimes(1);
     });
   });
 });

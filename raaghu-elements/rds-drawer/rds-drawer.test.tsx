@@ -427,7 +427,7 @@ describe('RdsDrawer', () => {
       render(
         <RdsDrawer {...defaultProps} showTrigger={true} defaultOpen={false} />
       );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      expect(screen.queryByText('Drawer Content')).not.toBeInTheDocument();
     });
 
     it('should work as controlled component when open prop is provided', () => {

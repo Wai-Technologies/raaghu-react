@@ -71,6 +71,7 @@ const RdsButtonDropdown = ({
   const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : (legacyShowRightIcon ?? true);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [forcedOpen, setForcedOpen] = useState(state === 'selected');
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<(string | number)[]>(() => {
     const initialSelected: (string | number)[] = [];
@@ -82,7 +83,10 @@ const RdsButtonDropdown = ({
     return initialSelected;
   });
 
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+    setForcedOpen(false);
+  };
 
   const handleOptionChange = (id: string | number) => {
     if (multiSelect) {
@@ -95,7 +99,7 @@ const RdsButtonDropdown = ({
     } else {
       setSelected([id]);
       onChange?.(id.toString());
-      setAnchorEl(null);
+      handleClose();
     }
   };
 
@@ -103,11 +107,11 @@ const RdsButtonDropdown = ({
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
 
-  const isDropdownOpen = state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
+  const isDropdownOpen = Boolean(anchorEl) || forcedOpen;
 
   const handleDropdownButtonClick = (event: MouseEvent<HTMLElement>) => {
     if (isDropdownOpen) {
-      setAnchorEl(null);
+      handleClose();
     } else {
       setAnchorEl(event.currentTarget);
     }

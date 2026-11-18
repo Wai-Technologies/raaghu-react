@@ -73,13 +73,10 @@ describe('RdsCompAiMessageBox', () => {
       expect(avatar).toHaveAttribute('data-subtext', 'Hello World');
     });
 
-    it('passes default avatar URL when no avatar prop provided', () => {
+    it('passes no avatar URL when no avatar prop provided', () => {
       render(<RdsCompAiMessageBox {...defaultProps} />);
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute(
-        'data-src',
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-      );
+      expect(avatar).not.toHaveAttribute('data-src');
     });
 
     it('uses avatar prop when provided', () => {
@@ -166,27 +163,21 @@ describe('RdsCompAiMessageBox', () => {
     });
 
     it('renders image when isImage is true', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       const imageWrapper = container.querySelector('.rds-comp-ai-message-box__image-wrapper');
       expect(imageWrapper).toBeInTheDocument();
     });
 
     it('renders image element with correct class when isImage is true', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       const image = container.querySelector('.rds-comp-ai-message-box__image');
       expect(image).toBeInTheDocument();
       expect(image).toHaveClass('rds-comp-ai-message-box__image');
     });
 
-    it('uses default image URL when src not provided and isImage is true', () => {
+    it('renders no image when src not provided and isImage is true', () => {
       const { container } = render(<RdsCompAiMessageBox isImage={true} />);
-      const image = container.querySelector(
-        '.rds-comp-ai-message-box__image'
-      ) as HTMLImageElement;
-      expect(image).toHaveAttribute(
-        'src',
-        'https://via.placeholder.com/480x320.png?text=Image+placeholder'
-      );
+      expect(container.querySelector('.rds-comp-ai-message-box__image')).not.toBeInTheDocument();
     });
 
     it('uses custom src when provided and isImage is true', () => {
@@ -201,7 +192,7 @@ describe('RdsCompAiMessageBox', () => {
     });
 
     it('renders image with alt text', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       const image = container.querySelector(
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
@@ -242,7 +233,7 @@ describe('RdsCompAiMessageBox', () => {
       let imageWrapper = container.querySelector('.rds-comp-ai-message-box__image-wrapper');
       expect(imageWrapper).not.toBeInTheDocument();
 
-      rerender(<RdsCompAiMessageBox isImage={true} message="Second message" />);
+      rerender(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" message="Second message" />);
       imageWrapper = container.querySelector('.rds-comp-ai-message-box__image-wrapper');
       expect(imageWrapper).toBeInTheDocument();
     });
@@ -286,7 +277,7 @@ describe('RdsCompAiMessageBox', () => {
     });
 
     it('renders image wrapper inside container', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       const mainContainer = container.querySelector('.rds-comp-ai-message-box');
       const innerContainer = mainContainer?.querySelector('.rds-comp-ai-message-box__container');
       const imageWrapper = innerContainer?.querySelector(
@@ -319,7 +310,7 @@ describe('RdsCompAiMessageBox', () => {
       render(
         <div>
           <RdsCompAiMessageBox message="First message" isImage={false} />
-          <RdsCompAiMessageBox message="Second message" isImage={true} />
+          <RdsCompAiMessageBox message="Second message" isImage={true} src="https://example.com/img.png" />
         </div>
       );
       const avatars = screen.getAllByTestId('rds-avatar');
@@ -351,11 +342,7 @@ describe('RdsCompAiMessageBox', () => {
       const { container } = render(
         <RdsCompAiMessageBox isImage={true} src="" />
       );
-      const image = container.querySelector(
-        '.rds-comp-ai-message-box__image'
-      ) as HTMLImageElement;
-      expect(image).toBeInTheDocument();
-      expect(image?.getAttribute('src') ?? '').toBe('');
+      expect(container.querySelector('.rds-comp-ai-message-box__image')).not.toBeInTheDocument();
     });
 
     it('handles very long avatar URL', () => {
@@ -409,7 +396,7 @@ describe('RdsCompAiMessageBox', () => {
       let imageWrapper = container.querySelector('.rds-comp-ai-message-box__image-wrapper');
       expect(imageWrapper).not.toBeInTheDocument();
 
-      rerender(<RdsCompAiMessageBox isImage={true} />);
+      rerender(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       imageWrapper = container.querySelector('.rds-comp-ai-message-box__image-wrapper');
       expect(imageWrapper).toBeInTheDocument();
 
@@ -445,7 +432,7 @@ describe('RdsCompAiMessageBox', () => {
 
   describe('Accessibility', () => {
     it('renders image with descriptive alt text', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" />);
       const image = container.querySelector('.rds-comp-ai-message-box__image') as HTMLImageElement;
       expect(image.alt).toBe('message image');
     });
@@ -463,7 +450,7 @@ describe('RdsCompAiMessageBox', () => {
     });
 
     it('maintains semantic HTML structure', () => {
-      const { container } = render(<RdsCompAiMessageBox isImage={true} message="Test" />);
+      const { container } = render(<RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" message="Test" />);
       const divs = container.querySelectorAll('div');
       expect(divs.length).toBeGreaterThan(0);
     });
@@ -472,7 +459,7 @@ describe('RdsCompAiMessageBox', () => {
   describe('CSS Classes', () => {
     it('applies all required CSS classes', () => {
       const { container } = render(
-        <RdsCompAiMessageBox isImage={true} message="Test" />
+        <RdsCompAiMessageBox isImage={true} src="https://example.com/img.png" message="Test" />
       );
       expect(container.querySelector('.rds-comp-ai-message-box')).toBeInTheDocument();
       expect(container.querySelector('.rds-comp-ai-message-box__container')).toBeInTheDocument();

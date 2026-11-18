@@ -1,12 +1,15 @@
 import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-menu.scss'
 
 function getColor(color: string): string {
   switch (color) {
     case 'primary': return 'var(--rds-primary-main)';
     case 'success': return 'var(--rds-success-main)';
+    case 'error':
     case 'danger':  return 'var(--rds-error-main)';
     case 'info':    return 'var(--rds-info-main)';
     case 'warning': return 'var(--rds-warning-main)';
@@ -79,7 +82,8 @@ export interface RdsMenuItem {
   divider?: boolean;
   shortcut?: string;
   header?: string;
-  color?: 'primary' | 'success' | 'danger' | 'info' | 'warning' | string;
+  /** `'danger'` is deprecated; prefer `'error'`. */
+  color?: 'primary' | 'success' | 'error' | 'danger' | 'info' | 'warning' | string;
 }
 
 export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> {
@@ -120,6 +124,12 @@ const RdsMenu = ({
           if (item.divider) {
             return <Divider key={item.id} className="rds-menu__divider" />;
           }
+          if (item.color === 'danger') {
+            warnDeprecatedProp('RdsMenu', 'item.color="danger"', '`item.color: "error"`');
+          }
+          const resolvedColor = item.color
+            ? (normalizePaletteColor(item.color) as string)
+            : undefined;
           return (
             <MuiMenuItem
               key={item.id}
@@ -129,31 +139,31 @@ const RdsMenu = ({
               component="li"
               dense={dense}
               style={{
-                ...(item.color ? { 
-                  color: getColor(item.color),
-                  '--rds-menu-icon-color': getColor(item.color)
+                ...(resolvedColor ? { 
+                  color: getColor(resolvedColor),
+                  '--rds-menu-icon-color': getColor(resolvedColor)
                 } as CSSProperties : {})
               }}
               className={clsx(
                 'rds-menu__item',
-                item.color && `rds-menu__item--${item.color}`,
+                resolvedColor && `rds-menu__item--${resolvedColor}`,
                 item.disabled && 'rds-menu__item--disabled',
               )}
             >
               {item.icon && (
                 <ListItemIcon
-                  className={clsx('rds-menu__item__icon', item.color && `rds-menu__item__icon--${item.color}`)}
-                  style={item.color ? { 
-                    color: getColor(item.color)
+                  className={clsx('rds-menu__item__icon', resolvedColor && `rds-menu__item__icon--${resolvedColor}`)}
+                  style={resolvedColor ? { 
+                    color: getColor(resolvedColor)
                   } : {}}
                 >
-                  {normalizeMenuIcon(item.icon, size ?? 'small', item.color)}
+                  {normalizeMenuIcon(item.icon, size ?? 'small', resolvedColor)}
                 </ListItemIcon>
               )}
               <ListItemText
                 primary={item.label}
                 secondary={item.shortcut}
-                primaryTypographyProps={{ className: 'rds-menu__item__text', style: item.color ? { color: getColor(item.color) } : undefined }}
+                primaryTypographyProps={{ className: 'rds-menu__item__text', style: resolvedColor ? { color: getColor(resolvedColor) } : undefined }}
                 secondaryTypographyProps={{
                   variant: 'body2',
                   color: 'text.secondary',

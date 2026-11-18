@@ -36,6 +36,7 @@ const RdsAccordion = ({
   state = 'default',
   accordionStyle = 'border',
   animationDuration = 300,
+  className,
   ...props
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -55,6 +56,7 @@ const RdsAccordion = ({
     !isDisabled && state === 'selected' && 'rds-accordion--selected',
     !isDisabled && state === 'hover' && isHovered && 'rds-accordion--hover',
     isDisabled && 'rds-accordion--disabled',
+    className,
   );
 
   const accordionProps: Omit<AccordionProps, 'children'> = {
