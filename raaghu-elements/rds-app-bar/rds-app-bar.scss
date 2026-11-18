@@ -1644,6 +1644,12 @@ $rds-app-bar-breakpoint-xs: 320px;
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
+// MUI's IconButton class has the same specificity as the rule above and is
+// injected later, so the hidden overflow button still rendered as an empty box
+// that pushed right actions away from the edge. Variant rules further down that
+// intentionally show the button keep winning on source order.
+.rds-header .rds-appbar-overflow-button { display: none; }
+
 @media (max-width: 420px) {
   .rds-appbar-overflow-button {
     display: none;
@@ -2877,3 +2883,35 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+
+// ── DashboardWithLang layout ────────────────────────────────────────────────
+.rds-dashboard-top-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-spacing-sm);
+}
+
+.rds-header--variant-dashboardwithlang {
+  .rds-dashboard-title { white-space: nowrap; }
+
+  @media (min-width: 421px) {
+    // Right actions end on the toolbar padding, mirroring the logo on the left.
+    .rds-header__right-actions { margin-right: 0; }
+  }
+
+  @media (max-width: 767px) {
+    // Not enough room for the name/email block on tablets: show the avatar only.
+    .rds-admin-profile__button .MuiBox-root,
+    .rds-admin-profile__button .MuiTypography-root,
+    .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none;
+    }
+  }
+
+  @media (max-width: 599px) {
+    // Theme / chat / language move to the bottom bar (see the 599px threshold in
+    // rds-app-bar.tsx); keep only the profile avatar in the header so the title
+    // is not clipped.
+    .rds-dashboard-top-icons { display: none; }
+  }
+}

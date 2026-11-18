@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsBadge> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
+      exclude: ['component', 'slots', 'slotProps', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -44,12 +44,14 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge state',
       defaultValue: 'default',
     },
-    colorVariant: {
+    color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'light', 'success'],
-      description: 'Badge color variant',
+      options: ['primary', 'secondary', 'tertiary', 'error', 'warning', 'light', 'success'],
+      description: 'Badge color',
       defaultValue: 'primary',
     },
+    // Deprecated alias of `color`; hidden so only one color control is shown.
+    colorVariant: { control: { disable: true }, table: { disable: true } },
   component: { control: { disable: true }, table: { disable: true } },
   slots: { control: { disable: true }, table: { disable: true } },
   slotProps: { control: { disable: true }, table: { disable: true } },
@@ -63,7 +65,7 @@ export const Default: Story = {
   args: {
     badgeContent: 4,
     children: <Mail />,
-  },
+  },
 };
 Default.parameters = {
   controls: { exclude: ['shape', 'layout'] },

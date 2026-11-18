@@ -26,11 +26,9 @@ const meta: Meta<typeof RdsAlert> = {
       options: ['error', 'warning', 'info', 'success'],
       description: 'Semantic color of the alert',
     },
-    type: {
-      control: 'select',
-      options: ['error', 'warning', 'info', 'success'],
-      description: 'Deprecated: use color',
-    },
+    // Deprecated aliases of `color`; hidden so only one color control is shown.
+    type: { control: { disable: true }, table: { disable: true } },
+    severity: { control: { disable: true }, table: { disable: true } },
     variant: {
       control: 'select',
       options: ['filled', 'outlined', 'standard'],
@@ -116,7 +114,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'info',
+    color: 'info',
     showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -129,7 +127,7 @@ export const Default: Story = {
 export const Error: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'error',
+    color: 'error',
     showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -139,7 +137,7 @@ export const Error: Story = {
 export const Filled: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'success',
+    color: 'success',
     variant: 'filled',
     showIcon: true,
     showTitle: true,
@@ -150,7 +148,7 @@ export const Filled: Story = {
 export const Outlined: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'warning',
+    color: 'warning',
     variant: 'outlined',
     showIcon: true,
     showTitle: true,
@@ -161,7 +159,7 @@ export const Outlined: Story = {
 export const Success: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'success',
+    color: 'success',
     showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -171,7 +169,7 @@ export const Success: Story = {
 export const Warning: Story = {
   args: {
     description: 'This is the description of the message bar.',
-    type: 'warning',
+    color: 'warning',
     showIcon: true,
     showTitle: true,
     title: 'Heading Title.',

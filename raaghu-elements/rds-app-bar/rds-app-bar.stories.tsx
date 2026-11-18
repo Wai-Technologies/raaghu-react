@@ -872,7 +872,7 @@ const DynamicTemplate = (args: any) => {
         rightActions: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div className="rds-dashboard-top-icons" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div className="rds-dashboard-top-icons">
                 <ThemeMenuIcon showDropdown={false} />
                 <div className="rds-appbar-separator" />
                 <ChatBubbleIconSmall />
@@ -886,13 +886,13 @@ const DynamicTemplate = (args: any) => {
         ),
         overflowContent: (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', width: '100%', padding: '4px 0' }}>
-            <div style={{ transform: 'scale(0.8)' }}>
+            <div>
               <ThemeMenuIcon showDropdown={false} />
             </div>
-            <div style={{ transform: 'scale(0.8)' }}>
+            <div>
               <ChatBubbleIconSmall />
             </div>
-            <div style={{ transform: 'scale(0.8)' }}>
+            <div>
               <LanguageMenu />
             </div>
           </div>
