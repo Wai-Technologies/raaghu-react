@@ -8,10 +8,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-list.scss', () => ({}));
 
-// Mock RdsCheckbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function DummyCheckbox(props: any) {
     return (
@@ -205,7 +203,6 @@ describe('RdsList', () => {
         <RdsList items={defaultItems} withDividers={true} />
       );
       const dividers = container.querySelectorAll('.MuiDivider-root');
-      // Should be items.length - 1 for simple lists
       expect(dividers.length).toBeGreaterThanOrEqual(1);
     });
   });
@@ -407,7 +404,6 @@ describe('RdsList', () => {
       const parentButton = screen.getByText('Parent Item').closest('button');
       if (parentButton) {
         fireEvent.click(parentButton);
-        // The nested list should now be visible
         expect(screen.getByText('Child Item')).toBeInTheDocument();
       }
     });

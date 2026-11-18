@@ -6,10 +6,8 @@ import RdsPagination from './rds-pagination';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-pagination.scss', () => ({}));
 
-// Mock helper functions
 jest.mock('./rds-pagination.helpers', () => ({
   getStyleConfig: (style: string) => ({
     styleClass: `style-${style}`,
@@ -74,7 +72,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} />
       );
-      // MUI Pagination creates nav element
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -98,7 +95,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={5} />
       );
-      // Check that the pagination component is rendered with correct page count
       const nav = screen.getByRole('navigation');
       expect(nav).toBeInTheDocument();
     });
@@ -107,7 +103,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} currentPage={1} />
       );
-      // Check that navigation exists with buttons
       const nav = screen.getByRole('navigation');
       const buttons = within(nav).getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
@@ -117,7 +112,6 @@ describe('RdsPagination', () => {
       renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} currentPage={5} />
       );
-      // Check if pagination renders with current page tracking
       expect(screen.getByRole('navigation')).toBeInTheDocument();
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
@@ -244,7 +238,6 @@ describe('RdsPagination', () => {
           legendText="{current} of {total} items"
         />
       );
-      // Legend should contain the current page number
       const legend = screen.getByText(/5 of/);
       expect(legend).toBeInTheDocument();
     });
@@ -337,7 +330,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onPageChange={onPageChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -353,7 +345,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onChange={onChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -375,7 +366,6 @@ describe('RdsPagination', () => {
         />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -392,7 +382,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} onChange={onChange} totalPages={10} />
       );
       
-      // Find a page button that is not disabled
       const buttons = screen.getAllByRole('button');
       const clickableButton = buttons.find(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page'));
       
@@ -501,8 +490,6 @@ describe('RdsPagination', () => {
       const { container } = renderWithTheme(
         <RdsPagination {...defaultProps} totalPages={10} />
       );
-      // Prev/Next buttons depend on style configuration
-      // This test verifies the component structure
       expect(container.querySelector('.rds-pagination-wrapper')).toBeInTheDocument();
     });
 
@@ -539,7 +526,6 @@ describe('RdsPagination', () => {
         <RdsPagination totalPages={10} page={5} />
       );
       
-      // Verify pagination renders with the page prop
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -548,7 +534,6 @@ describe('RdsPagination', () => {
         <RdsPagination totalPages={10} page={5} currentPage={2} />
       );
       
-      // Verify pagination renders correctly when both page and currentPage are provided
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
@@ -619,7 +604,6 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} totalPages={10} currentPage={3} />
       );
       
-      // Verify pagination renders with current page tracking
       const nav = screen.getByRole('navigation');
       expect(nav).toBeInTheDocument();
       const buttons = within(nav).getAllByRole('button');
@@ -676,7 +660,6 @@ describe('RdsPagination', () => {
         />
       );
       
-      // Find clickable page buttons
       const buttons = screen.getAllByRole('button');
       const clickableButtons = buttons.filter(btn => !btn.hasAttribute('disabled') && btn.getAttribute('aria-label')?.includes('page')).slice(0, 3);
       

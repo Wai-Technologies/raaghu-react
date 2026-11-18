@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCheckbox, { RdsCheckboxProps } from './rds-checkbox';
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
 jest.mock('./rds-checkbox.scss', () => ({}));
 
 const theme = createTheme();
