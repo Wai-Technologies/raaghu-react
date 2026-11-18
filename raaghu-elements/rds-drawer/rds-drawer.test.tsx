@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDrawer, { RdsDrawerProps } from './rds-drawer';
 
-// Mock SCSS
 jest.mock('./rds-drawer.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return jest.fn((props: any) => {
     const { text, children, onClick, style: _style, shape: _shape, size: _size, state: _state, layout: _layout, color: _color, textCase: _textCase, isLoading: _isLoading, changeLeftIcon: _changeLeftIcon, changeRightIcon: _changeRightIcon, showLeftIcon: _showLeftIcon, showRightIcon: _showRightIcon, ...rest } = props;
@@ -44,7 +41,6 @@ describe('RdsDrawer', () => {
 
     it('should render MuiDrawer component', () => {
       render(<RdsDrawer {...defaultProps} />);
-      // Drawer renders in portal, so check document
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -63,7 +59,6 @@ describe('RdsDrawer', () => {
   describe('Drawer Opening and Closing', () => {
     it('should be closed by default', () => {
       render(<RdsDrawer {...defaultProps} open={false} />);
-      // When closed, MUI drawer doesn't render to DOM
       const drawer = document.querySelector('.MuiDrawer-root');
       expect(drawer).not.toBeInTheDocument();
     });
@@ -81,7 +76,6 @@ describe('RdsDrawer', () => {
       const button = screen.getByText('Open Drawer');
       fireEvent.click(button);
       
-      // Drawer should be in the document after click
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -96,7 +90,6 @@ describe('RdsDrawer', () => {
       const { rerender } = render(
         <RdsDrawer {...defaultProps} open={false} showTrigger={false} />
       );
-      // When closed, drawer is not in DOM
       expect(document.querySelector('.MuiDrawer-root')).not.toBeInTheDocument();
 
       rerender(<RdsDrawer {...defaultProps} open={true} showTrigger={false} />);
@@ -187,7 +180,6 @@ describe('RdsDrawer', () => {
           closeButtonProps={{ color: 'error' }}
         />
       );
-      // Verify RdsButton was called with color prop for close button
       const calls = MockRdsButton.mock.calls;
       const closeButtonCall = calls.find(call => call[0]?.text === 'Close Drawer');
       expect(closeButtonCall).toBeDefined();
@@ -202,7 +194,6 @@ describe('RdsDrawer', () => {
           open={true}
         />
       );
-      // Close button is in drawer portal, check it exists
       expect(screen.getByText('Close Drawer')).toBeInTheDocument();
     });
   });
@@ -437,7 +428,6 @@ describe('RdsDrawer', () => {
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
 
       rerender(<RdsDrawer {...defaultProps} open={false} showTrigger={false} />);
-      // Drawer should still be renderable after rerender with open={false}
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -453,7 +443,6 @@ describe('RdsDrawer', () => {
       const button = screen.getByText('Open Drawer');
       fireEvent.click(button);
       
-      // Drawer should still be visible (controlled by prop)
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
     });
   });

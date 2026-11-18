@@ -1,4 +1,3 @@
-import React from "react"
 import RdsButtonDropdown from "./rds-button-dropdown"
 import figma from "@figma/code-connect"
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';

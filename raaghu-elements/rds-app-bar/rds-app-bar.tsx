@@ -103,14 +103,6 @@ const RdsAppBar = ({
 
     return () => window.removeEventListener('resize', checkScreenSize);
   }, [variantStyle]);
-  const colorClass =
-    props.color === 'primary'
-      ? ' rds-header--primary'
-      : props.color === 'secondary'
-        ? ' rds-header--secondary'
-        : props.color === 'transparent'
-          ? ' rds-header--transparent'
-          : '';
  
   const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (

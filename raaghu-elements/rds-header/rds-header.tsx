@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, type AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab, Box, MenuItem } from '@mui/material';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';

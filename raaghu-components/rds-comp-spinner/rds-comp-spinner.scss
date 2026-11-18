@@ -8,7 +8,6 @@
   --rds-spinner-info-color: var(--rds-info-dark);
   --rds-spinner-light-color: var(--rds-surface-subtle);
   --rds-spinner-dark-color: var(--rds-text-primary);
-
   }
 
 .spinner-border {
@@ -36,7 +35,6 @@
   height: var(--rds-spacing-30);
 }
 
-/* Default and size modifier classes for consistent sizing */
 .spinner-border,
 
 .spinner-border.spinner--small,

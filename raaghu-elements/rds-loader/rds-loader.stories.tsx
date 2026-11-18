@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box, Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
 const hideAllControls = {
   variant: { table: { disable: true } },

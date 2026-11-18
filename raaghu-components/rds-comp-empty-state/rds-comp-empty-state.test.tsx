@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
 import { axe } from 'jest-axe';
 
-// Mock Lottie
 jest.mock('lottie-react', () => {
   return (props: any) => {
     return (
@@ -17,16 +16,13 @@ jest.mock('lottie-react', () => {
   };
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-empty-state.scss', () => ({}));
 
-// Mock images
 jest.mock('./empty-state.png', () => 'empty-state.png');
 jest.mock('./empty-state-dark.png', () => 'empty-state-dark.png');
 jest.mock('./illustration-light.json', () => ({ default: {} }));
 jest.mock('./illustration-dark.json', () => ({ default: {} }));
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -212,14 +208,12 @@ describe('RdsCompEmptyState', () => {
       renderComponent({ label: 'No Data', mode: 'Dark NRA' });
       const label = screen.getByTestId('labelElement');
       expect(label).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
 
     it('should have correct styling for subLabel in Dark NRA mode', () => {
       renderComponent({ subLabel: 'Add data', mode: 'Dark NRA' });
       const subLabel = screen.getByTestId('sublabelElement');
       expect(subLabel).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
   });
 

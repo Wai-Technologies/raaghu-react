@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsEmojiGenerator, { EmojiGeneratorType, EmojiCategory } from './rds-comp-emoji-generator';
 
-// Mock SCSS
 jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
     <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={onClick ? (e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } } : undefined}>
@@ -70,7 +68,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock icons
 jest.mock('@mui/icons-material', () => ({
   Search: () => <span data-testid="search-icon">Search</span>,
   Add: () => <span data-testid="add-icon">Add</span>,
@@ -84,7 +81,6 @@ jest.mock('@mui/icons-material', () => ({
   Flag: () => <span data-testid="flag-icon">Flag</span>,
 }));
 
-// Mock emoji data
 jest.mock('./rds-comp-emoji-data', () => ({
   EmojiGeneratorType: {
     Default: 'Default',
@@ -300,7 +296,6 @@ describe('RdsEmojiGenerator', () => {
       if (skinToneButton) {
         fireEvent.click(skinToneButton);
       }
-      // Popover should be rendered
       expect(container).toBeInTheDocument();
     });
 

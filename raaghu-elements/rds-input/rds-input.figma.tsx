@@ -1,4 +1,3 @@
-import React from "react"
 import RdsInput from "./rds-input"
 import figma from "@figma/code-connect"
 import { Info } from "@mui/icons-material"

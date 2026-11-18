@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsProgress  from "./rds-progress"
 import figma from "@figma/code-connect"
 

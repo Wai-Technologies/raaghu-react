@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompToast from './rds-comp-toast';
 import {
@@ -11,10 +10,8 @@ import {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toast.scss', () => ({}));
 
-// Mock RdsProgress component
 jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   return function MockRdsProgress(props: any) {
     return (
@@ -25,7 +22,6 @@ jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   };
 });
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -892,7 +888,6 @@ describe('RdsCompToast', () => {
   });
 
   describe('Accessibility', () => {
-    // jest-axe hangs (>2 min) on this component's role="alert"/aria-live tree under jsdom; manual a11y attrs covered by other tests.
     it.skip('has no axe accessibility violations', async () => {
       const { container, unmount } = render(
         <div>

@@ -4,10 +4,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCollapse, { RdsCollapseProps } from './rds-collapse';
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
 jest.mock('./rds-collapse.scss', () => ({}));
 
-// Mock MUI ExpandMore icon
 jest.mock('@mui/icons-material/ExpandMore', () => {
   return function MockExpandMoreIcon() {
     return <span data-testid="ExpandMoreIcon">ExpandMoreIcon</span>;
@@ -91,7 +89,6 @@ describe('RdsCollapse', () => {
     it('should be collapsed by default', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
       const _collapse = container.querySelector('.MuiCollapse-entered');
-      // When collapsed, MuiCollapse doesn't have entered class
       expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
 
@@ -132,17 +129,14 @@ describe('RdsCollapse', () => {
       renderWithTheme(<RdsCollapse {...defaultProps} expanded={false} />);
       const toggleButton = screen.getByRole('button');
       
-      // Expand
       fireEvent.click(toggleButton);
       await waitFor(() => {
         expect(screen.getByText('Content')).toBeInTheDocument();
       });
       
-      // Collapse
       fireEvent.click(toggleButton);
       await waitFor(() => {
         const _collapse = document.querySelector('.MuiCollapse-hidden');
-        // Just verify button exists
         expect(toggleButton).toBeInTheDocument();
       });
     });
@@ -186,7 +180,6 @@ describe('RdsCollapse', () => {
       
       await waitFor(() => {
         const btnElement = toggleButton;
-        // Button should have transform rotate when expanded
         expect(btnElement).toBeInTheDocument();
       });
     });
@@ -205,7 +198,6 @@ describe('RdsCollapse', () => {
       renderWithTheme(<RdsCollapse title="Section" children="Content" />);
       const title = screen.getByText('Section');
       expect(title).toBeInTheDocument();
-      // Title is rendered as DIV within Typography component
       expect(title.tagName).toBe('DIV');
     });
 
@@ -335,7 +327,6 @@ describe('RdsCollapse', () => {
         fireEvent.click(header);
       }
       
-      // onToggle should be called when clicking on the header area
       expect(onToggle).toHaveBeenCalled();
     });
   });
@@ -352,7 +343,6 @@ describe('RdsCollapse', () => {
         </ThemeProvider>
       );
       
-      // Should show content when expanded
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -381,7 +371,6 @@ describe('RdsCollapse', () => {
           unmountOnExit={true}
         />
       );
-      // Verify the component renders with MuiCollapse props
       const buttonElement = screen.getByRole('button');
       expect(buttonElement).toBeInTheDocument();
     });
@@ -677,7 +666,6 @@ describe('RdsCollapse', () => {
         <RdsCollapse {...defaultProps} />
       );
       const toggleButton = screen.getByRole('button');
-      // Should not throw when clicking
       fireEvent.click(toggleButton);
       expect(toggleButton).toBeInTheDocument();
     });

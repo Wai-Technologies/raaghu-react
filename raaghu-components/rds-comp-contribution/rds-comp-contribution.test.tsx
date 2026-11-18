@@ -5,10 +5,8 @@ import { axe } from 'jest-axe';
 import RdsCompContribution from './rds-comp-contribution';
 import dayjs from 'dayjs';
 
-// Mock the SCSS file
 jest.mock('./rds-comp-contribution.scss', () => ({}));
 
-// Mock react-measure
 jest.mock('react-measure', () => {
   return function MockMeasure({ children, onResize }: { children: (args: unknown) => React.ReactNode; onResize?: (size: unknown) => void }) {
     if (onResize) {
@@ -21,7 +19,6 @@ jest.mock('react-measure', () => {
   };
 });
 
-// Mock MUI SvgIcon
 jest.mock('@mui/material/SvgIcon', () => {
   return function MockSvgIcon({ children, className, viewBox, _sx, ...props }: any) {
     return (

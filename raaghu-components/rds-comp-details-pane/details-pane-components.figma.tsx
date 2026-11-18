@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompDetailsPane from "./rds-comp-details-pane"
 import figma from "@figma/code-connect"
 

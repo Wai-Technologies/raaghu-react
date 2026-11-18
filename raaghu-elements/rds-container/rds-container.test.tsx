@@ -4,9 +4,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsContainer, { RdsContainerProps } from './rds-container';
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
-jest.mock('./rds-container.scss', () => ({}));
-
 const theme = createTheme();
 
 const renderWithTheme = (component: React.ReactElement) => {
@@ -565,7 +562,6 @@ describe('RdsContainer', () => {
       );
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
       const style = muiContainer.getAttribute('style') || '';
-      // Number 0 is falsy in JS, so padding is not applied (same as when not provided)
       expect(style).not.toContain('padding');
     });
 

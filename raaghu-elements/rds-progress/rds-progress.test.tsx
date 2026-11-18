@@ -5,7 +5,6 @@ import RdsProgress from './rds-progress';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-progress.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -240,7 +239,7 @@ describe('RdsProgress', () => {
         />
       );
       const connectors = container.querySelectorAll('.rds-progress__stepper-connector');
-      expect(connectors.length).toBe(4); // 5 steps = 4 connectors
+      expect(connectors.length).toBe(4);
     });
 
     it('should handle different totalSteps values', () => {
@@ -554,7 +553,6 @@ describe('RdsProgress', () => {
           </ThemeProvider>
         );
       }
-      // Verify progress component renders
       const progress = container.querySelector('.rds-progress--line');
       expect(progress).toBeInTheDocument();
     });

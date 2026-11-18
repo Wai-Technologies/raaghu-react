@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsBox, { RdsBoxProps } from './rds-box';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-box.scss', () => ({}));
 
 describe('RdsBox', () => {

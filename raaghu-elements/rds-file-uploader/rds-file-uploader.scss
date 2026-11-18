@@ -342,7 +342,6 @@ color: var(--rds-color-primary);
   }
 }
 
-// Small mobile: 320px - 414px
 @include bp.between(420, 834) {
   .rds-file-uploader {
     width: 100%;

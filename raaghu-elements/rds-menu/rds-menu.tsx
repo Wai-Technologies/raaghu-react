@@ -1,5 +1,5 @@
 import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
-import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, type MenuProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { normalizePaletteColor } from '../shared/utils/palette-color';

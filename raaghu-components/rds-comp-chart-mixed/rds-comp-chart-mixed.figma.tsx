@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompMixedChart from "./rds-comp-chart-mixed"
 import figma from "@figma/code-connect"
 

@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompToolbar, { ToolbarLayout, ToolbarType }  from "./rds-comp-toolbar"
 import figma from "@figma/code-connect"
 

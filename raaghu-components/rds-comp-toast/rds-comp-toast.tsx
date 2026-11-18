@@ -7,7 +7,6 @@ import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements
 import {
         type RdsCompToastProps,
         ToastLayout,
-        ToastLeadingIcon,
         ToastState,
 } from "./rds-comp-toast.types";
 import {

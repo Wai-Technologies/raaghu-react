@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
 
-// Mock SCSS
 jest.mock('./rds-comp-audio-player.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/Forward10Outlined', () => {
   return function MockForward10Icon() {
     return <span>Forward10</span>;
@@ -50,7 +47,6 @@ jest.mock('@mui/icons-material/SettingsSuggestSharp', () => {
   };
 });
 
-// Mock RdsSlider
 jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
   return function MockRdsSlider(props: any) {
     return (
@@ -68,7 +64,6 @@ jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
   };
 });
 
-// Mock RdsButton
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -79,7 +74,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 
-// Mock RdsCompAiFabMenu
 jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
   return function MockRdsCompAiFabMenu(props: any) {
     return (
@@ -90,7 +84,6 @@ jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', (
   };
 });
 
-// Mock audio-player-components
 jest.mock('./audio-player-components', () => ({
   VolumeSliderComponent: ({ showTranscriptSlider, volumeSliderRef, volumeLevel, handleVolumeChange }: any) => (
     <div ref={volumeSliderRef} data-testid="volume-slider" style={{ display: showTranscriptSlider ? 'block' : 'none' }}>
@@ -112,7 +105,6 @@ jest.mock('./audio-player-components', () => ({
   ),
 }));
 
-// Mock registerMaterialIcons function
 jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => ({
   registerMaterialIcons: jest.fn(),
 }));
@@ -299,7 +291,6 @@ describe('RdsCompAudioPlayer', () => {
         <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={true} />
       );
       const _transcriptBtn = container.querySelector('button[class*="transcript"]');
-      // The transcript button is rendered but doesn't have a specific class
       expect(container.querySelector('.rds-comp-audio-player__extra-controls')).toBeInTheDocument();
     });
 
@@ -308,7 +299,6 @@ describe('RdsCompAudioPlayer', () => {
         <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={false} />
       );
       const volumeSlider = screen.getByTestId('volume-slider');
-      // Volume slider shouldn't be visible if transcript is not shown
       expect(volumeSlider).toHaveStyle({ display: 'none' });
     });
   });
@@ -428,11 +418,9 @@ describe('RdsCompAudioPlayer', () => {
       const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
       const _initialTimeMarks = container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length;
       
-      // Simulate window resize to mobile
       global.innerWidth = 500;
       fireEvent.resize(window);
       
-      // Component should still render
       expect(container.querySelector('.rds-comp-audio-player__edition-container')).toBeInTheDocument();
     });
   });
@@ -528,7 +516,6 @@ describe('RdsCompAudioPlayer', () => {
           showMoreOptions={false}
         />
       );
-      // Component should still render without errors
       expect(screen.getByTestId('volume-slider')).toBeInTheDocument();
     });
   });

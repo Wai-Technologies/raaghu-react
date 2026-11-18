@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompBooleanChart  from "./rds-comp-chart-boolean"
 import figma from "@figma/code-connect"
 

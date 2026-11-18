@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiIcon, { RdsCompAiIconProps } from './rds-comp-ai-icon';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-icon.scss', () => ({}));
 
-// Mock Material UI Icons - properly render all SVG props passed to them
 jest.mock('@mui/icons-material/PersonOutline', () => {
   return React.forwardRef((props: any, ref: any) => (
     <svg
@@ -28,14 +26,12 @@ jest.mock('@mui/icons-material/GroupOutlined', () => {
   ));
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiIconProps = {
   name: 'person-outline',
   width: '24px',
   height: '24px',
 };
 
-// Helper to get the main icon SVG element
 const getIcon = (container: HTMLElement) => {
   return container.querySelector('.rds-comp-ai-icon');
 };

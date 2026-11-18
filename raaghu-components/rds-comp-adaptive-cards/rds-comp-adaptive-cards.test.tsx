@@ -1,15 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 import { AdaptiveCardProps } from './rds-comp-adaptive-cards-helpers';
 
-
 jest.mock('./rds-comp-adaptive-cards.scss', () => ({}));
 
-// Mock child components with proper implementations 
 jest.mock('../../raaghu-elements', () => ({
   RdsBox: ({ children, className, ...props }: any) => (
     <div className={className} data-testid="rds-box" {...props}>{children}</div>
@@ -1026,7 +1024,6 @@ describe('RdsCompAdaptiveCards', () => {
           showHeader={true}
         />
       );
-      // Special characters should be rendered in the heading
       expect(screen.getByRole('heading')).toBeInTheDocument();
     });
 

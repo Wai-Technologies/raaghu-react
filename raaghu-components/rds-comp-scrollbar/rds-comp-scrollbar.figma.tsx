@@ -1,7 +1,5 @@
-import React from "react"
 import RdsCompScrollBar, { ScrollBarType, ScrollPosition } from "./rds-comp-scrollbar"
 import figma from "@figma/code-connect"
-import { positions } from "@mui/system"
 import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material"
 
 /**

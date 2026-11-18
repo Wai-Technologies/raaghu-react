@@ -89,30 +89,8 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
     </IconButton>
 );
 
-const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
-    <Box className={clsx("rds-comp-product-tour__arrows", `rds-comp-product-tour__arrows--${variant}`)}>
-        {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
-    </Box>
-);
 
-const renderDirectionalButtons = (
-    showSecondaryButton: boolean,
-    showPrimaryButton: boolean,
-    goPrev: () => void,
-    goNext: () => void,
-    prevClassName: string,
-    nextClassName: string
-) => (
-    <>
-        {showSecondaryButton && <button type="button" onClick={goPrev} className={prevClassName}>{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className={nextClassName}>{arrowSvg(true)}</button>}
-    </>
-);
 
-const renderSkipButton = (showTertiaryButton: boolean, className: string) => showTertiaryButton && (
-    <Typography className={className}>Skip</Typography>
-);
 
 export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string) => (
     <Box className="rds-comp-product-tour__navigation-row">
@@ -209,12 +187,6 @@ export const renderFormInputs = () => (
     </>
 );
 
-const renderCarouselArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
-    <Box className="rds-comp-product-tour__carousel-arrows">
-        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
-    </Box>
-);
 
 export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
     <Box className="rds-comp-product-tour__carousel-nav-row">

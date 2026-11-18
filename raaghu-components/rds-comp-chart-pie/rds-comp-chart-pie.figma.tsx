@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompPieChart from "./rds-comp-chart-pie";
 import figma from "@figma/code-connect";
 

@@ -6,7 +6,6 @@ import RdsStack from './rds-stack';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-stack.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -735,7 +734,6 @@ describe('RdsStack', () => {
     });
   });
 });
-
 
 describe('RdsStack divider defaults and spacing', () => {
   it('uses a horizontal divider for the default column stack', () => {

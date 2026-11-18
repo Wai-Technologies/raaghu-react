@@ -28,7 +28,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  icon?: ReactNode; // Custom icon component provided by the user
+  icon?: ReactNode;
 }
 
 const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
@@ -67,9 +67,6 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
     }
   }
   
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

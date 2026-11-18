@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsTooltip  from "./rds-tooltip"
 import figma from "@figma/code-connect"
 

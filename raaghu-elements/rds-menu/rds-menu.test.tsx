@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import userEvent from '@testing-library/user-event';
 import RdsMenu from './rds-menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -9,7 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-menu.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -48,7 +46,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Verify menu items are rendered
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
 
@@ -56,7 +53,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Verify menu items are rendered
       expect(screen.getByText('Profile')).toBeInTheDocument();
       expect(screen.getByText('Settings')).toBeInTheDocument();
     });
@@ -88,7 +84,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={[]} open={true} anchorEl={document.body} />
       );
-      // Empty menu should render without errors
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
     });
 
@@ -119,7 +114,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
-      // Just verify the item renders
       expect(screen.getByText('Item without icon')).toBeInTheDocument();
     });
 
@@ -209,7 +203,6 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
-      // Divider renders in the menu
       expect(screen.getByRole('menu')).toBeInTheDocument();
     });
   });
@@ -449,7 +442,6 @@ describe('RdsMenu', () => {
           {customChild}
         </RdsMenu>
       );
-      // Items should not be rendered when children are provided
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
       expect(screen.getByText('Custom')).toBeInTheDocument();
     });
@@ -556,17 +548,14 @@ describe('RdsMenu', () => {
         <RdsMenu items={defaultItems} open={false} anchorEl={document.body} />
       );
 
-      // When closed, items should not be visible
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
 
-      // Rerender with open={true}
       rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
         </ThemeProvider>
       );
 
-      // When open, items should be visible
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
 
@@ -612,9 +601,7 @@ describe('RdsMenu', () => {
       renderWithTheme(
         <RdsMenu items={defaultItems} open={true} anchorEl={document.body} />
       );
-      // Menu items should render with proper structure
       expect(screen.getByText('Profile')).toBeInTheDocument();
-      // Verify at least one menu item exists
       const menuItems = screen.getAllByRole('menuitem');
       expect(menuItems.length).toBeGreaterThan(0);
   

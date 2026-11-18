@@ -1,21 +1,16 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiAttachement, { RdsCompAiAttachementProps, UserData, Comment } from './rds-comp-ai-attachement';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-attachement.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/Attachment', () => {
   return function MockAttachmentIcon() {
     return <span data-testid="attachment-icon">Attachment</span>;
   };
 });
 
-// Mock child components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
     return (
@@ -184,10 +179,6 @@ describe('RdsCompAiAttachement', () => {
     });
   });
 
-
-
-
-
   describe('File Upload', () => {
     it('renders hidden file input', () => {
       const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
@@ -217,10 +208,8 @@ describe('RdsCompAiAttachement', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a mock image file
       const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
 
-      // Mock FileReader
       const mockRead = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockRead;
@@ -252,12 +241,10 @@ describe('RdsCompAiAttachement', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a non-image file
       const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
 
       fireEvent.change(fileInput, { target: { files: [file] } });
 
-      // Should not call handleAddComment for non-image files
       expect(handleAddComment).not.toHaveBeenCalled();
     });
 
@@ -265,7 +252,6 @@ describe('RdsCompAiAttachement', () => {
       const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Mock FileReader
       const mockReadAsDataURL = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockReadAsDataURL;
@@ -370,8 +356,6 @@ describe('RdsCompAiAttachement', () => {
       expect(screen.getByTestId('rds-fab-menu')).toBeInTheDocument();
     });
   });
-
-
 
   describe('Accessibility', () => {
     it('buttons have proper roles', async () => {

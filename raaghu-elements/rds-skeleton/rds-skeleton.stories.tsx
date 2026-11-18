@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsSkeleton> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],
+      include: ['shape', 'frames', 'animation', 'width', 'height'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -23,8 +23,8 @@ const meta: Meta<typeof RdsSkeleton> = {
       description: 'Number of skeleton frames to render',
     },
     animated: {
-      control: 'boolean',
-      description: 'Show Animated: Yes/No. Enable this option to add animation to the skeleton, providing a more dynamic loading effect, or turn it off for a static placeholder.',
+      control: false,
+      table: { disable: true },
     },
     animation: {
       control: 'select',
@@ -50,8 +50,8 @@ export const Text: Story = {
     shape: 'text',
     frames: 3,
     width: '100%',
-    animated: true,
-  },
+    animation: 'pulse',
+  },
 };
 
 export const Rectangular: Story = {
@@ -60,7 +60,7 @@ export const Rectangular: Story = {
     frames: 3,
     width: "210px",
     height: "118px",
-    animated: true,
+    animation: 'pulse',
   },
 };
 
@@ -70,7 +70,7 @@ export const Circular: Story = {
     frames: 3,
     width: "40px",
     height: "40px",
-    animated: true,
+    animation: 'pulse',
   },
 };
 
@@ -80,7 +80,7 @@ export const Rounded: Story = {
     frames: 3,
     width: "210px",
     height: "60px",
-    animated: true,
+    animation: 'pulse',
   },
 };
 
@@ -91,7 +91,6 @@ export const WaveAnimation: Story = {
     width: "210px",
     height: "118px",
     animation: 'wave',
-    animated: true,
   },
 };
 
@@ -103,11 +102,6 @@ export const NoAnimation: Story = {
     height: "118px",
     animation: false,
   },
-  parameters: {
-    controls: {
-      exclude: ['animated'],
-    },
-  },
 };
 
 export const CardSkeleton: Story = {
@@ -117,25 +111,23 @@ export const CardSkeleton: Story = {
   argTypes: {
     shape: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    // lines: { table: { disable: true }, control: false }, // removed: not in RdsSkeletonProps
     component: { table: { disable: true }, control: false },
   },
   args: {
     width: "100%",
     height: "140px",
-    animated: true,
+    animation: 'pulse',
   },
   render: (args) => (
     <Card sx={{ maxWidth: 345 }}>
-      <RdsSkeleton shape="rectangular" width={args.width} height={args.height} frames={1} animated={args.animated} animation={args.animation} />
+      <RdsSkeleton shape="rectangular" width={args.width} height={args.height} frames={1} animation={args.animation} />
       <CardContent>
-        <RdsSkeleton shape="text" sx={{ fontSize: '1.2rem' }} frames={1} animated={args.animated} animation={args.animation} />
-        <RdsSkeleton shape="text" frames={1} animated={args.animated} animation={args.animation} />
-        <RdsSkeleton shape="text" width="60%" frames={1} animated={args.animated} animation={args.animation} />
+        <RdsSkeleton shape="text" sx={{ fontSize: '1.2rem' }} frames={1} animation={args.animation} />
+        <RdsSkeleton shape="text" frames={1} animation={args.animation} />
+        <RdsSkeleton shape="text" width="60%" frames={1} animation={args.animation} />
       </CardContent>
     </Card>
   ),
 };
 
 export const Default: Story = { ...Text };
-

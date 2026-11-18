@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography, LinearProgress, CircularProgress } from '@mui/material';
 import './rds-loader.scss';
 export interface RdsLoaderProps {

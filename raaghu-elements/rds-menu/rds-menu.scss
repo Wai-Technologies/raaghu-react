@@ -124,7 +124,6 @@
       padding: var(--rds-spacing-xs) 0;
     }
     .rds-menu__item {
-
       font-size: var(--rds-menu-font-size-1);
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
@@ -162,7 +161,6 @@
       max-width: var(--rds-menu-max-width-3);
     }
     .rds-menu__item {
-
       font-size: var(--rds-menu-font-size-2);
       min-height: var(--rds-menu-item-min-height-large);
       padding: calc(var(--rds-spacing-md) + var(--rds-spacing-xs) / 2) var(--rds-spacing-xl);
@@ -210,7 +208,6 @@
 
     transition: opacity var(--rds-menu-transition-2), transform var(--rds-menu-transition-2);
   }
-
 }
 
 [data-theme="dark"] {
@@ -247,19 +244,16 @@
     fill: var(--rds-neutral-0);
   }
 
-  /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--error):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
     color: var(--rds-neutral-0);
   }
 
-  /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--error):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--error):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
     color: var(--rds-neutral-0);
     fill: var(--rds-neutral-0);
   }
 
-  /* MuiPaper that wraps the dropdown */
   .rds-menu .MuiPaper-root {
     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
   }

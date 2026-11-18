@@ -5,7 +5,6 @@ import RdsGrid from './rds-grid';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-grid.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {

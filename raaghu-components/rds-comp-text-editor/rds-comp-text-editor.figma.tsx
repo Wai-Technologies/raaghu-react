@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompTextEditor from "./rds-comp-text-editor"
 import figma from "@figma/code-connect"
 

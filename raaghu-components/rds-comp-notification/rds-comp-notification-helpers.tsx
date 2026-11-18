@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
@@ -8,7 +8,6 @@ import {
   NotificationStyle,
   NotificationType,
   NotificationItem,
-  RdsCompNotificationProps,
 } from "./rds-comp-notification-types";
 
 const NOTIFICATION_DEFAULT_IMAGES = {

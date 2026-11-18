@@ -79,7 +79,6 @@
   }
 
   &--indeterminate {
-
     animation: rds-progress-indeterminate var(--rds-progress-animation) infinite linear;
   }
 
@@ -124,7 +123,6 @@
 
   @include bp.between(mobile-sm, mobile-lg) {
     &__block {
-
       width: var(--rds-progress-width);
 
       height: var(--rds-progress-height);
@@ -278,8 +276,6 @@
       }
     }
   }
-
-  // Stepper upcoming steps use token-based colors that respond to dark mode automatically
 }
 
 @keyframes rds-progress-indeterminate {

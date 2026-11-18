@@ -1,10 +1,10 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-/* use centralized breakpoint tokens where possible */
-
 .rds-range {
   --rds-range-max-width-sm: 370px;
   --rds-range-max-width-xs: 275px;
+  --rds-range-slider-width-mobile: 288px;
+  --rds-range-slider-width-tablet: 382px;
   --rds-range-disabled-opacity: 0.6;
   display: block;
   position: relative;
@@ -30,20 +30,18 @@
   }
 
   &--disabled {
-    opacity: var(--rds-range-disabled-opacity);
+    opacity: var(--rds-range-disabled-opacity, 0.6);
     pointer-events: none;
   }
 }
 
 @include bp.between(mobile-sm, 568) {
-  .css-3k03ww, .css-1fm6jzk {
-    --rds-range-slider-width-mobile: 288px;
+  .rds-range .MuiSlider-root {
     width: var(--rds-range-slider-width-mobile);
   }
 }
 @include bp.between(mobile-lg, 896) {
-  .css-3k03ww, .css-1fm6jzk {
-    --rds-range-slider-width-tablet: 382px;
+  .rds-range .MuiSlider-root {
     width: var(--rds-range-slider-width-tablet);
   }
 }

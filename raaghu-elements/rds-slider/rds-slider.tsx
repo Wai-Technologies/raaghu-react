@@ -56,7 +56,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       return;
     }
 
-    if (level && typeof level === 'number' && level >= 1 && level <= 5) {
+    if (!props.disabled && level && typeof level === 'number' && level >= 1 && level <= 5) {
       setSliderValue(getLevelBasedSliderValue(level, isRangeSlider, min, safeMax));
       return;
     }
@@ -65,7 +65,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     if (normalized !== null) {
       setSliderValue(normalized);
     }
-  }, [level, value, min, max, controlType, isRangeSlider, safeMax]);
+  }, [level, value, min, max, controlType, isRangeSlider, safeMax, props.disabled]);
 
   const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
     setSliderValue(newValue);

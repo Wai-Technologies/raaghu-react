@@ -11,11 +11,8 @@
         width: auto;
     }
 
-    // Tablet view - full screen
     @include bp.between(md, lg) {
-
         canvas {
-
             height: var(--rds-chart-stacked-height);
         }
     }

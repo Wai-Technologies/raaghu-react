@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsDatepicker from "./rds-comp-datepicker"
 import { DatePickerLayout, DatePickerState, DatePickerStyleType } from "./rds-comp-datepicker.types"
 import figma from "@figma/code-connect"

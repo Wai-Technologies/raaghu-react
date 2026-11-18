@@ -1,18 +1,14 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompTimePicker, { RdsTimePickerProps } from './rds-comp-time-picker';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-time-picker.scss', () => ({}));
 
-// Mock MUI Icon
 jest.mock('@mui/icons-material/AccessTime', () => {
   return () => <span data-testid="access-time-icon">AccessTimeIcon</span>;
 });
 
-// Mock time-picker modes
 jest.mock('./time-picker-modes', () => ({
   CompactTimePicker: ({ tempHour, tempMinute, tempPeriod }: any) => (
     <div data-testid="compact-time-picker">
@@ -30,7 +26,6 @@ jest.mock('./time-picker-modes', () => ({
   ),
 }));
 
-// Mock time-picker-utils
 jest.mock('./time-picker-utils', () => ({
   getButtonClasses: (colorVariant: string) => ({
     cancel: `cancel-btn ${colorVariant || 'default'}`,
@@ -377,7 +372,6 @@ describe('RdsCompTimePicker', () => {
       render(<RdsCompTimePicker {...defaultProps} value="3:30 PM" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
-      // Check that time display shows the formatted time
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
@@ -574,19 +568,15 @@ describe('RdsCompTimePicker', () => {
         />
       );
 
-      // Open picker
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
 
-      // Click Set Time
       const setTimeBtn = screen.getByRole('button', { name: /set time/i });
       fireEvent.click(setTimeBtn);
 
-      // Verify onChange was called
       expect(onChange).toHaveBeenCalled();
 
-      // Verify picker closed
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
     });
 

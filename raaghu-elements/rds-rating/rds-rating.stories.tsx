@@ -1,55 +1,38 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Star, StarBorder } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
 import RdsRating from './rds-rating';
 
-const levelControl = {
-  control: { type: 'select' as const },
-  options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
-  mapping: {
-    Left: 0,
-    Mid: 2.5,
-    Right: 5,
-  },
+const levelToNumber = (level: unknown): number | undefined => {
+  if (level === 'Left') return 0;
+  if (level === 'Mid') return 2.5;
+  if (level === 'Right') return 5;
+  return typeof level === 'number' ? level : undefined;
 };
-
-const precisionControl = {
-  control: { type: 'select' as const },
-  options: [1, 0.5, 0.25, 0.1],
-};
-
-const hiddenControls = [
-  'level',
-  'precision',
-  'max',
-  'icon',
-  'emptyIcon',
-  'onChange',
-  'ref',
-  'component',
-  'slots',
-  'slotProps',
-];
 
 const meta: Meta<typeof RdsRating> = {
   title: 'Elements/Rating',
   component: RdsRating,
   parameters: {
-    status: { type: 'stable' },
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
-      exclude: hiddenControls,
+      exclude: ['component', 'slots', 'slotProps', 'ref', 'onChange', 'icon', 'emptyIcon'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',
+      description: 'Optional label displayed next to the rating',
     },
     showValue: {
       control: 'boolean',
+      description: 'Whether to display the numeric rating value',
     },
-    maxStars: {
-      control: 'number',
+    max: {
+      control: { type: 'number', min: 1, max: 10, step: 1 },
+      description: 'Maximum number of stars',
     },
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
@@ -66,11 +49,24 @@ const meta: Meta<typeof RdsRating> = {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
     },
-    precision: precisionControl,
-    level: levelControl,
-    colorVariant: {
+    precision: {
+      control: { type: 'number', min: 0.1, max: 1, step: 0.1 },
+      description:
+        'Minimum increment for star selection. Values that do not divide 1 evenly (e.g. 0.3, 0.4) are normalized so the rating renders safely.',
+    },
+    level: {
       control: { type: 'select' },
-      options: ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
+      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
+      mapping: {
+        'Left': 0,
+        'Mid': 2.5,
+        'Right': 5,
+      },
+    },
+    color: {
+      control: { type: 'select' },
+      options: ['primary','success','error','warning','light','secondary','dark'],
+      description: 'Rating palette color',
     },
     readOnly: {
       control: { type: 'boolean' },
@@ -78,45 +74,77 @@ const meta: Meta<typeof RdsRating> = {
     disabled: {
       control: { type: 'boolean' },
     },
-    icon: { control: { disable: true }, table: { disable: true } },
-    emptyIcon: { control: { disable: true }, table: { disable: true } },
-    onChange: { control: { disable: true }, table: { disable: true } },
-    ref: { control: { disable: true }, table: { disable: true } },
-    component: { control: { disable: true }, table: { disable: true } },
-    slots: { control: { disable: true }, table: { disable: true } },
-    slotProps: { control: { disable: true }, table: { disable: true } },
-    max: { control: { disable: true }, table: { disable: true } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const basicRatingControls = [
+  'value',
+  'type',
+  'styles',
+  'size',
+  'readOnly',
+  'disabled',
+  'precision',
+] as const;
+
 export const Default: Story = {
   args: {
-    value: 3,
     type: 'star',
+    level: 3,
   },
-  parameters: {
-    controls: {
-      exclude: hiddenControls.filter((key) => key !== 'level'),
+  render: (args) => {
+    const fromLevel = levelToNumber(args.level);
+    const [value, setValue] = useState<number | null>(fromLevel ?? 3);
+    useEffect(() => {
+      if (fromLevel !== undefined) setValue(fromLevel);
+    }, [fromLevel]);
+    return (
+      <RdsRating
+        {...args}
+        level={undefined}
+        value={value}
+        onChange={(_, next) => setValue(next)}
+      />
+    );
+  },
+  argTypes: {
+    type: {
+      control: { type: 'select' },
+      options: ['star', 'slider'],
     },
-    docs: {
-      description: {
-        story:
-          'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
+    styles: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+    },
+    value: { control: false },
+    showValue: { control: false },
+    label: { control: false },
+    max: { control: false },
+    size: { control: false },
+    precision: { control: false },
+    readOnly: { control: false },
+    disabled: { control: false },
+    color: { control: false },
+    level: {
+      control: { type: 'select' },
+      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
+      mapping: {
+        'Left': 0,
+        'Mid': 2.5,
+        'Right': 5,
       },
     },
   },
-  argTypes: {
-    value: { table: { disable: true } },
-    showValue: { table: { disable: true } },
-    label: { table: { disable: true } },
-    maxStars: { table: { disable: true } },
-    size: { table: { disable: true } },
-    precision: { table: { disable: true } },
-    readOnly: { table: { disable: true } },
-    disabled: { table: { disable: true } },
+  parameters: {
+    controls: { include: ['type', 'styles', 'level'] },
+    docs: {
+      description: {
+        story: 'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
+      },
+    },
   },
 };
 
@@ -124,8 +152,11 @@ export const WithColor: Story = {
   args: {
     value: 4,
     type: 'star',
-    colorVariant: 'primary',
+    color: 'primary',
     styles: 'filled',
+  },
+  parameters: {
+    controls: { include: ['value', 'type', 'color', 'styles', 'size', 'readOnly', 'disabled'] },
   },
 };
 
@@ -134,6 +165,7 @@ export const Disabled: Story = {
     value: 2,
     disabled: true,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const HalfStar: Story = {
@@ -141,11 +173,7 @@ export const HalfStar: Story = {
     value: 3.5,
     precision: 0.5,
   },
-  parameters: {
-    controls: {
-      exclude: hiddenControls.filter((key) => key !== 'precision'),
-    },
-  },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const HighPrecision: Story = {
@@ -153,11 +181,7 @@ export const HighPrecision: Story = {
     value: 3.7,
     precision: 0.1,
   },
-  parameters: {
-    controls: {
-      exclude: hiddenControls.filter((key) => key !== 'precision'),
-    },
-  },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const Large: Story = {
@@ -165,12 +189,14 @@ export const Large: Story = {
     value: 5,
     size: 'large',
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const NoValue: Story = {
   args: {
     value: 0,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const ReadOnly: Story = {
@@ -178,6 +204,7 @@ export const ReadOnly: Story = {
     value: 4,
     readOnly: true,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const Small: Story = {
@@ -185,6 +212,7 @@ export const Small: Story = {
     value: 4,
     size: 'small',
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const WithCustomIcon: Story = {
@@ -193,4 +221,5 @@ export const WithCustomIcon: Story = {
     icon: <Star fontSize="inherit" />,
     emptyIcon: <StarBorder fontSize="inherit" />,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };

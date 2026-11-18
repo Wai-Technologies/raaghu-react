@@ -1,6 +1,0 @@
-// RDS Layout — MUI Box + Container wrapper
-// Ensures layout participates in theme color transitions
-.rds-layout {
-  transition: color var(--rds-transition-base),
-              background-color var(--rds-transition-base);
-}

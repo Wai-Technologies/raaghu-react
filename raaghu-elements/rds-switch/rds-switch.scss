@@ -1,6 +1,11 @@
 .rds-switch {
   --rds-switch-focus-ring-width: 2px;
   --rds-switch-disabled-opacity: 0.6;
+  --rds-switch-thumb-size: var(--rds-spacing-20-px);
+  --rds-switch-thumb-padding: calc(var(--rds-border-width-thin) * 2);
+  --rds-switch-root-width: calc(var(--rds-switch-thumb-size) * 2 + var(--rds-switch-thumb-padding) * 2);
+  --rds-switch-root-height: var(--rds-size-lg);
+  --rds-switch-thumb-translate-x: calc(var(--rds-switch-root-width) - var(--rds-switch-thumb-size) - var(--rds-switch-thumb-padding) * 2);
   --rds-switch-style4-track-height: var(--rds-spacing-sm);
   &__track {
     display: block;
@@ -71,8 +76,6 @@
 
 .rds-switch.MuiSwitch-root,
 .rds-switch .MuiSwitch-root {
-  --rds-switch-root-width: 40px;
-  --rds-switch-root-height: 20px;
   width: var(--rds-switch-root-width);
   height: var(--rds-switch-root-height);
   padding: 0;
@@ -81,7 +84,6 @@
 }
 
 .rds-switch .MuiSwitch-switchBase {
-  --rds-switch-thumb-padding: 0px;
   left: 0;
   right: auto;
   top: 0;
@@ -91,12 +93,10 @@
 }
 
 .rds-switch .MuiSwitch-switchBase.Mui-checked {
-  --rds-switch-thumb-translate-x: 28px;
   transform: translateX(var(--rds-switch-thumb-translate-x));
 }
 
 .rds-switch .MuiSwitch-thumb {
-  --rds-switch-thumb-size: 16px;
   width: var(--rds-switch-thumb-size);
   height: var(--rds-switch-thumb-size);
   box-sizing: border-box;
@@ -197,7 +197,8 @@
 
 .rds-switch--style5,
 .rds-switch--style6 {
-  }
+  --rds-switch-root-width: calc(var(--rds-switch-thumb-size) * 2 + var(--rds-switch-thumb-padding) * 2 + var(--rds-spacing-sm-px));
+}
 
 .rds-switch--style4.MuiSwitch-root,
 .rds-switch--style4 .MuiSwitch-root {

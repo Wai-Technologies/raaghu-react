@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompStackedChart from "./rds-comp-chart-stacked"
 import figma from "@figma/code-connect"
 

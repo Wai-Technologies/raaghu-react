@@ -4,8 +4,6 @@ import * as FileType from './fileTypeIcons';
 import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
   TreeLevel,
-  NodeState,
-  IconType,
   type RdsCompTreeStructureProps,
 } from './tree-structure-types';
 import { type TreeNode } from './tree-structure-types';

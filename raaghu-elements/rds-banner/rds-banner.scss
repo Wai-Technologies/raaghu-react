@@ -6,7 +6,6 @@
   --rds-banner-font-size-2: 1.1rem;
   --rds-banner-font-size-3: 1.2rem;
   --rds-banner-line-height: 1.4;
-  // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
@@ -138,7 +137,6 @@
   }
 
   :global(.MuiAlert-action .MuiButton-root) {
-
     height: var(--rds-banner-height);
     border-radius: var(--rds-spacing-xs);
     text-transform: none;

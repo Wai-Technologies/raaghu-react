@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBottomNavigation, { RdsBottomNavigationProps, RdsBottomNavigationItem } from './rds-bottom-navigation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-bottom-navigation.scss', () => ({}));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Home', () => {
   return function HomeIcon() {
     return <span data-testid="home-icon">HomeIcon</span>;
@@ -122,7 +119,6 @@ describe('RdsBottomNavigation', () => {
 
     it('should not show labels when showLabels is false', () => {
       render(<RdsBottomNavigation {...defaultProps} showLabels={false} />);
-      // Labels should not be visible
       const container = render(<RdsBottomNavigation {...defaultProps} showLabels={false} />).container;
       expect(container.querySelectorAll('.MuiBottomNavigationAction-root').length).toBeGreaterThan(0);
     });
@@ -260,14 +256,12 @@ describe('RdsBottomNavigation', () => {
         <RdsBottomNavigation items={itemsWithDisabled} />
       );
       const buttons = container.querySelectorAll('.MuiBottomNavigationAction-root');
-      // MUI BottomNavigationAction renders disabled items, verify structure
       expect(buttons.length).toBe(3);
     });
 
     it('should not disable item by default', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);
       const buttons = container.querySelectorAll('.MuiBottomNavigationAction-root');
-      // By default items should be rendered
       expect(buttons.length).toBe(defaultItems.length);
     });
 
@@ -282,7 +276,6 @@ describe('RdsBottomNavigation', () => {
       );
       const buttons = container.querySelectorAll('.MuiBottomNavigationAction-root');
       fireEvent.click(buttons[1]);
-      // Disabled items may still trigger events, but the component should handle it
       expect(container.querySelector('.MuiBottomNavigation-root')).toBeInTheDocument();
     });
 
@@ -295,7 +288,6 @@ describe('RdsBottomNavigation', () => {
         <RdsBottomNavigation items={itemsAllDisabled} />
       );
       const buttons = container.querySelectorAll('.MuiBottomNavigationAction-root');
-      // All disabled items should still render
       expect(buttons.length).toBe(2);
     });
   });
@@ -350,7 +342,6 @@ describe('RdsBottomNavigation', () => {
     it('should not have items disabled by default', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);
       const buttons = container.querySelectorAll('.MuiBottomNavigationAction-root');
-      // Items should be rendered and interactive by default
       expect(buttons.length).toBeGreaterThan(0);
     });
   });

@@ -3,9 +3,7 @@
  * These tokens define the foundation of the design system
  */
 
-// Color Tokens
 export const colorTokens = {
-  // Primary Colors
   primary: {
     50: '#e3f2fd',
     100: '#bbdefb',
@@ -21,7 +19,6 @@ export const colorTokens = {
     900: '#0d47a1',
   },
   
-  // Secondary Colors
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
@@ -38,7 +35,6 @@ export const colorTokens = {
     900: '#880e4f',
   },
   
-  // Semantic Colors
   success: {
     50: '#e8f5e8',
     100: '#c8e6c8',
@@ -84,7 +80,6 @@ export const colorTokens = {
     900: '#b71c1c',
   },
   
-  // Neutral Colors
   neutral: {
     0: '#ffffff',
     50: '#fafafa',
@@ -130,8 +125,6 @@ export const colorTokens = {
     900: '#0B3D91',
   },
 };
-
-// (component-specific blocks for detailsPane and eSignature relocated below)
 
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
@@ -179,7 +172,6 @@ export const extendedBreakpointTokens = {
   '1600': '1600px',
 } as const;
 
-// Typography Tokens
 export const typographyTokens = {
   fontFamily: {
     primary: '"Poppins", sans-serif',
@@ -225,8 +217,11 @@ export const typographyTokens = {
   
   lineHeight: {
     none: 1,
+    compact: 1.2,
     tight: 1.25,
+    dense: 1.3,
     snug: 1.375,
+    comfortable: 1.4,
     normal: 1.5,
     relaxed: 1.625,
     loose: 2,
@@ -238,12 +233,10 @@ export const typographyTokens = {
     normal: '0em',
     wide: '0.025em',
     wider: '0.05em',
-      // Secondary Colors (blue/indigo brand palette)
     widest: '0.1em',
   }
 };
 
-// Spacing Tokens
 export const spacingTokens = {
   0: '0px',
   1: '0.25rem',   // 4px
@@ -267,7 +260,6 @@ export const spacingTokens = {
   64: '16rem',    // 256px
 };
 
-// Exact pixel aliases for spacing (useful for CSS var injection when exact px needed)
 export const spacingExact = {
   hairline: '1px',
   xxs: '2px',
@@ -278,12 +270,10 @@ export const spacingExact = {
   xl: '32px',
   '2xl': '48px',
   '3xl': '64px',
-  // Sub-token fills (gaps between named sizes, present in legacy SCSS)
   micro: '3px',
   tight: '5px',
   compact: '6px',
   cozy: '10px',
-  // Exact oddball values (legacy SCSS only — avoid in new components)
   '7': '7px',
   '13': '13px',
   '14': '14px',
@@ -291,7 +281,6 @@ export const spacingExact = {
   '18': '18px',
   '22': '22px',
   '52': '52px',
-  // Additional component-specific values (legacy SCSS — not for new code)
   '25': '25px',
   '27': '27px',
   '29': '29px',
@@ -318,7 +307,6 @@ export const spacingExact = {
   '170': '170px',
   '235': '235px',
   '240': '240px',
-  // Negative offsets (layout adjustments in legacy components — not for new code)
   'neg-1': '-1px',
   'neg-2': '-2px',
   'neg-4': '-4px',
@@ -334,7 +322,6 @@ export const spacingExact = {
   'neg-80': '-80px',
 } as const;
 
-// Border Radius Tokens
 export const radiusTokens = {
   none: '0px',
   sm: '0.125rem',    // 2px
@@ -347,7 +334,6 @@ export const radiusTokens = {
   full: '9999px',
 };
 
-// Shadow Tokens
 export const shadowTokens = {
   none: 'none',
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -359,7 +345,6 @@ export const shadowTokens = {
   inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
 };
 
-// Animation Tokens
 export const animationTokens = {
   duration: {
     fast: '150ms',
@@ -375,7 +360,6 @@ export const animationTokens = {
   },
 };
 
-// Motion tokens — canonical alias for animationTokens used by the design system pipeline
 export const motionTokens = {
   duration: animationTokens.duration,
   easing: animationTokens.easing,
@@ -387,7 +371,6 @@ export const motionTokens = {
   },
 };
 
-// Z-Index Tokens
 export const zIndexTokens = {
   hide: -1,
   auto: 'auto',
@@ -405,7 +388,6 @@ export const zIndexTokens = {
   tooltip: 1800,
 };
 
-// Breakpoint Tokens
 export const breakpointTokens = {
   xs: '320px',
   sm: '600px',
@@ -414,8 +396,6 @@ export const breakpointTokens = {
   xl: '1536px',
 };
 
-// Component Tokens
-// The `& Record<string, any>` allows dynamic property assignment after declaration
  
 const _componentTokensBase = {
   button: {
@@ -512,14 +492,11 @@ const _componentTokensBase = {
   },
   chart: {
     bar: {
-      // Heights for various presets used by the component
       barchart1Height: '65vh',
       histogramSize: '50px',
       defaultHeight: '76vh',
       tabletHeight: '600px',
-      // Pie chart height token (used by pie component)
       pieHeight: '335px',
-      // Dataset default colors (source of truth for component examples)
       dataset: {
         ds1Bg: '#4BC0C0', // rgba(75,192,192,1)
         ds1Border: '#4BC0C0',
@@ -605,22 +582,18 @@ const _componentTokensBase = {
     headerMarginBottom: '2px',
     focusRing: '2px',
     letterSpacing: '0.5px',
-    /* Multi-level menu specific tokens */
     mlmMinWidth: '220px',
     mlmRootOffset: '43px',
   }
   ,
-  // Avatar tokens used across components
   avatar: {
     size: {
       small: '28px',
       medium: '32px',
       large: '40px',
     },
-    // fallback font-size for avatar initials
     initialsFontSize: '0.875rem',
   },
-  // Chat component size tokens
   chat: {
     height: '600px',
     maxHeight: '80vh',
@@ -628,9 +601,7 @@ const _componentTokensBase = {
     messageMaxWidth: '280px',
   }
   ,
-  // Kanban board component tokens
   kanban: {
-    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
     headerBgDark: '#1f5fb9',
     subcardBgDark: '#9fbce6',
     subcardBorderDark: '#81a7d9',
@@ -653,7 +624,6 @@ const _componentTokensBase = {
     addItemMargin: '6px 0px',
     subcardsContainerPadding: '0px 8px 8px 8px',
   },
-  // Map component tokens (heatmap palette)
   map: {
     heatmapPalette: [
       '#FFAF00',
@@ -674,14 +644,12 @@ const _componentTokensBase = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const componentTokens: typeof _componentTokensBase & Record<string, any> = _componentTokensBase as any;
 
-  // Toolbar component tokens (used by rds-comp-toolbar)
   componentTokens.toolbar = {
     height: '40px',
     heightMobile: '32px',
     spacingXxs: spacingExact.xxs, // 2px
   };
 
-// Component-specific tokens for details pane + e-signature (relocated)
 componentTokens.detailsPane = {
   width: '338.098px',
   height: '671px',
@@ -731,7 +699,6 @@ componentTokens.eSignature = {
   colorButtonSize: '32px',
 };
 
-// Pagination component tokens
 componentTokens.pagination = {
   itemSize: {
     xs: '18px',
@@ -752,7 +719,6 @@ componentTokens.pagination = {
   }
 };
 
-// Progress component tokens
 componentTokens.progress = {
   dashWidth: '50px',
   dashHeight: '5px',
@@ -766,7 +732,6 @@ componentTokens.progress = {
   transition: '0.2s ease-in-out',
 };
 
-// Range component tokens (used by rds-range)
 componentTokens.range = {
   maxWidthSm: '370px',
   maxWidthXs: '275px',
@@ -775,7 +740,6 @@ componentTokens.range = {
   disabledOpacity: '0.6',
 };
 
-// Component tokens for emoji generator and empty state (used by components)
 componentTokens.emojiGenerator = {
   width: '360px',
   height: '420px',
@@ -791,7 +755,6 @@ componentTokens.emptyState = {
   buttonPadding: '6px 15px',
 };
 
-// Table component tokens
 componentTokens.table = {
   stickyMaxHeight: '440px',
   actionsWidth: '120px',
@@ -822,8 +785,6 @@ export const surfaceTokens = {
   /** Light code-block foreground */
   codeColor: '#e6eef6',
 
-  // ── Light-theme surface neutrals ──────────────────────────────────────────
-  // Adaptive Cards component tokens (component-scoped defaults)
   adaptiveCards: {
     thumbWidth: '20px',
     minThumbWidth: '32px',
@@ -859,7 +820,6 @@ export const surfaceTokens = {
   /** Medium neutral surface (light theme) */
   neutralMedium: '#CDCDCD',
 
-  // ── Dark-mode UI chrome ───────────────────────────────────────────────────
   /** Standard dark surface (cards, panels) */
   darkBase: '#424242',
   /** Hovered dark surface */
@@ -891,7 +851,6 @@ export const surfaceTokens = {
  * These represent specific design decisions for interactive states.
  */
 export const interactiveTokens = {
-  // ── Light-theme secondary button ──────────────────────────────────────────
   /** Secondary button hover background */
   secondaryBgHover: '#EBDCFF',
   /** Secondary button active background */
@@ -906,7 +865,6 @@ export const interactiveTokens = {
   /** Dark-theme variant text background for text-buttons hover */
   variantTextBgDark: 'rgba(60, 152, 255, 0.12)',
 
-  // ── Alert backgrounds ─────────────────────────────────────────────────────
   /** Alert success border (uses primary purple brand) */
   alertSuccessBorder: '#7825E9',
   /** Alert error background */
@@ -938,7 +896,6 @@ export const utilityColorTokens = {
  * Alpha / overlay tokens — semi-transparent values used for overlays, actions, borders.
  */
 export const alphaTokens = {
-  // ── Overlays ──────────────────────────────────────────────────────────────
   /** Standard modal/overlay scrim */
   overlayDark: 'rgba(0, 0, 0, 0.5)',
   /** Heavy overlay scrim */
@@ -946,7 +903,6 @@ export const alphaTokens = {
   /** Semi-transparent grey overlay */
   overlaySemi: 'rgba(128, 128, 128, 0.4)',
 
-  // ── Light-theme action states ─────────────────────────────────────────────
   /** Hover state background (light) */
   actionHoverLight: 'rgba(0, 0, 0, 0.04)',
   /** Active state (light) */
@@ -958,7 +914,6 @@ export const alphaTokens = {
   /** Disabled control background (light) */
   actionDisabledBgLight: 'rgba(0, 0, 0, 0.12)',
 
-  // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
   actionHoverDark: 'rgba(255, 255, 255, 0.08)',
   /** Active state (dark) */
@@ -970,29 +925,24 @@ export const alphaTokens = {
   /** Disabled control background (dark) */
   actionDisabledBgDark: 'rgba(255, 255, 255, 0.12)',
 
-  // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
   borderOpacityLight: 'rgba(0, 0, 0, 0.12)',
   /** Dark-theme border with opacity */
   borderOpacityDark: 'rgba(255, 255, 255, 0.12)',
 
-  // ── Placeholder colors ────────────────────────────────────────────────────
   /** Placeholder text (light theme) */
   placeholderLight: 'rgba(0, 0, 0, 0.6)',
   /** Placeholder text (dark theme) */
   placeholderDark: 'rgba(255, 255, 255, 0.65)',
 
-  // ── Modal backdrop ────────────────────────────────────────────────────────
   /** Modal backdrop scrim */
   modalBackdrop: 'rgba(0, 0, 0, 0.5)',
 
-  // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
   /** Toggle group border (dark) */
   toggleGroupBorderDark: 'rgba(255, 255, 255, 0.23)',
   /** Toggle group disabled border (dark) */
   toggleGroupBorderDisabledDark: 'rgba(100, 100, 100, 0.5)',
 
-  // ── Dark-theme elevation shadows ──────────────────────────────────────────
   /** Elevation shadow level 2 (dark) */
   elevation2Dark: '0 4px 8px rgba(0, 0, 0, 0.6)',
   /** Focus ring elevation (dark) */
@@ -1284,7 +1234,6 @@ export const fileTypeIconColors = {
   darkSteel: '#41535B',  // Git / Stencil
 };
 
-// Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
   typography: typographyTokens,

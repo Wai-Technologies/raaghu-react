@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompToolbar, {
   ToolbarLayout,
@@ -9,10 +8,8 @@ import RdsCompToolbar, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
 
-// Mock the toolbar config and ToolbarButton component
 jest.mock('./rds-comp-toolbar-config', () => ({
   getToolbarConfig: jest.fn(() => ({
     sections: [
@@ -85,7 +82,6 @@ jest.mock('./rds-comp-toolbar-config', () => ({
   ),
 }));
 
-// Mock MUI Icons (not fully needed since we're mocking ToolbarButton)
 jest.mock('@mui/icons-material', () => ({
   FormatBold: () => <span>Bold</span>,
   FormatItalic: () => <span>Italic</span>,
@@ -117,7 +113,6 @@ jest.mock('@mui/icons-material', () => ({
   Highlight: () => <span>Highlight</span>,
 }));
 
-// Mock emoji generator
 jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   return function MockEmojiGenerator() {
     return <div data-testid="emoji-generator">Emoji Generator</div>;
@@ -438,7 +433,6 @@ describe('RdsCompToolbar', () => {
 
       fireEvent.click(boldButton);
 
-      // OnAction is still called even for disabled, it just doesn't toggle format
       expect(onAction).not.toHaveBeenCalled();
     });
   });
@@ -528,7 +522,6 @@ describe('RdsCompToolbar', () => {
       const sections = container.querySelectorAll('.rds-comp-toolbar__section');
       const dividers = container.querySelectorAll('.rds-comp-toolbar__divider');
       
-      // Number of dividers should be sections - 1 for primary layout
       if (sections.length > 1) {
         expect(dividers.length).toBe(sections.length - 1);
       }

@@ -1,7 +1,6 @@
 .rds-comp-ai-typing-section {
   display: block;
 
-  /* Use global --rds-* tokens (falls back to component defaults) */
   --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height);
   --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width);
   --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width);
@@ -86,7 +85,6 @@
     align-items: center;
     transition: color var(--rds-transition-base);
 
-    // Icon color uses --rds-primary-main which responds to dark mode automatically
     .rds-comp-ai-icon--primary,
     .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
       color: var(--rds-primary-main);

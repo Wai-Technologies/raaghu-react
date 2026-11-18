@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsRating  from "./rds-rating"
 import figma from "@figma/code-connect"
 

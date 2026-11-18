@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./rds-comp-code-snippet.scss";
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { CopyButton, SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
+import { SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
 
 const darkStyle = {
   ...atomOneLight as any,

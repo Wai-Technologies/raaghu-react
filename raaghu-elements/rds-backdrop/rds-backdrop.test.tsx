@@ -1,11 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsBackdrop, { RdsBackdropProps } from './rds-backdrop';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-
-// Mock SCSS
-jest.mock('./rds-backdrop.scss', () => ({}));
 
 describe('RdsBackdrop', () => {
   const defaultProps: RdsBackdropProps = {

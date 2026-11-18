@@ -121,7 +121,6 @@ export const ColorPickerGrid = memo(({
                   const hue = colIndex * (360 / 11);
                   const lightness = 12 + rowIndex * 8;
                   bgColor = `hsl(${hue}, 100%, ${lightness}%)`;
-                  // Convert HSL to RGB for hex color
                   const l = lightness / 100;
                   const a = 1 * Math.min(l, 1 - l);
                   const f = (n: number) => {

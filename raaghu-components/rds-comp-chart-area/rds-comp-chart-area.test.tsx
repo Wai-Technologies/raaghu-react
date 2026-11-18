@@ -1,13 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAreaChart from './rds-comp-chart-area';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-area.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
     static register = jest.fn();
@@ -22,7 +19,6 @@ jest.mock('chart.js/auto', () => {
       this.config = config;
       this.data = config.data;
       this.options = config.options;
-      // Create a mock canvas with style properties
       if (ctx) {
         this.canvas = {
           ...ctx.canvas,
@@ -126,7 +122,6 @@ describe('RdsCompAreaChart', () => {
   describe('Props Handling', () => {
     it('passes labels to chart', () => {
       render(<RdsCompAreaChart {...defaultProps} />);
-      // Chart should be created with labels
       expect(RdsCompAreaChart).toBeDefined();
     });
 
@@ -241,7 +236,6 @@ describe('RdsCompAreaChart', () => {
       const { container } = render(<RdsCompAreaChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
       expect(canvas).toBeInTheDocument();
-      // Height would be set by Chart.js instance
     });
 
     it('sets canvas width style', () => {
@@ -333,7 +327,6 @@ describe('RdsCompAreaChart', () => {
   describe('Chart Configuration', () => {
     it('creates chart with type line', () => {
       render(<RdsCompAreaChart {...defaultProps} />);
-      // Chart is created with type "line" for area chart
       expect(RdsCompAreaChart).toBeDefined();
     });
 

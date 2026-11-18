@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompTruncateText, { TruncateTextState }  from "./rds-comp-truncate-text"
 import figma from "@figma/code-connect"
 

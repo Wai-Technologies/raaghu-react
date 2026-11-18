@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompAdaptiveCards from "./rds-comp-adaptive-cards";
 import figma from "@figma/code-connect";
 

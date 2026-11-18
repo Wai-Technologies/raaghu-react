@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompDetailsPane, { RdsCompDetailsPaneProps } from './rds-comp-details-pane';
+import RdsCompDetailsPane from './rds-comp-details-pane';
 
-// Mock SCSS
 jest.mock('./rds-comp-details-pane.scss', () => ({}));
 
-// Mock sub-components
 jest.mock('./details-pane-components', () => ({
   HistoryFavoritesTabs: ({ activeTab, setActiveTab, historyTabLabel, favouritesTabLabel }: any) => (
     <div data-testid="history-favorites-tabs">

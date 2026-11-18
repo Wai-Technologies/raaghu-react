@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsBreadcrumbs, { BreadcrumbSeparator }  from "./rds-breadcrumbs"
 import figma from "@figma/code-connect"
 

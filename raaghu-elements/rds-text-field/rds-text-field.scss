@@ -46,6 +46,21 @@
     pointer-events: none;
   }
 
+  .MuiFormHelperText-root.rds-text-field__helper-text {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .MuiInputLabel-standard {
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .MuiInput-root .MuiInputBase-inputSizeSmall {
+    padding-top: var(--rds-spacing-xs);
+    padding-bottom: var(--rds-spacing-xs);
+  }
+
   .MuiFormLabel-asterisk {
     color: var(--rds-error-main);
   }

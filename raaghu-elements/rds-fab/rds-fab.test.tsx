@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsFab, { RdsFabProps } from './rds-fab';
 
-// Mock SCSS
 jest.mock('./rds-fab.scss', () => ({}));
 
 describe('RdsFab', () => {
@@ -66,7 +64,6 @@ describe('RdsFab', () => {
         />
       );
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      // Label should not be visible in regular variant
       expect(screen.queryByText('Action')).not.toBeInTheDocument();
     });
 
@@ -189,7 +186,6 @@ describe('RdsFab', () => {
         </RdsFab>
       );
       expect(screen.getByTestId('child')).toBeInTheDocument();
-      // Icon should not be rendered if children is provided
       expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
     });
 
@@ -680,7 +676,6 @@ describe('RdsFab', () => {
       );
       const fab = document.querySelector('.MuiFab-root');
       fireEvent.click(fab);
-      // Click on disabled button may or may not trigger depending on implementation
       expect(fab).toHaveAttribute('disabled');
     });
 

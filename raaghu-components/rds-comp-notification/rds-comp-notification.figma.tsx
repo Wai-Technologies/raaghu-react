@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompNotification, { NotificationLayout, NotificationStyle, NotificationType }  from "./rds-comp-notification"
 import figma from "@figma/code-connect"
 

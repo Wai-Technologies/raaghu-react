@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsBadge  from "./rds-badge"
 import figma from "@figma/code-connect"
 

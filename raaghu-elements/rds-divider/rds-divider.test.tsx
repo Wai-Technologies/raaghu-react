@@ -5,10 +5,6 @@ import RdsDivider, { RdsDividerProps } from './rds-divider';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
-jest.mock('./rds-divider.scss', () => ({}));
-
-// Mock MUI Icons
 jest.mock('@mui/icons-material/InfoOutlined', () => {
   return function DummyIcon(props: any) {
     return <span data-testid="info-icon" {...props} />;
@@ -82,7 +78,6 @@ describe('RdsDivider', () => {
     it('should not render message Typography when dividerMessage is undefined', () => {
       const { container } = renderWithTheme(<RdsDivider dividerMessage={undefined} />);
       const _typography = container.querySelector('.MuiTypography-body2');
-      // Should exist but be empty when no message and no icon
       expect(container).toBeInTheDocument();
     });
 
@@ -99,7 +94,6 @@ describe('RdsDivider', () => {
         <RdsDivider dividerMessage="Bold Text" />
       );
       const typography = screen.getByText('Bold Text');
-      // Verify Typography component is rendered
       expect(typography).toBeInTheDocument();
       expect(typography).toHaveClass('MuiTypography-body2');
     });
@@ -111,7 +105,6 @@ describe('RdsDivider', () => {
         <RdsDivider dividerMessage="Center" />
       );
       const dividers = container.querySelectorAll('.MuiDivider-root');
-      // Center alignment should have dividers on both sides
       expect(dividers.length).toBeGreaterThan(1);
     });
 
@@ -244,7 +237,6 @@ describe('RdsDivider', () => {
         <RdsDivider iconShow={true} dividerMessage="Icon Container" />
       );
       const icons = container.querySelectorAll('[data-testid*="icon"]');
-      // Icon should be rendered
       expect(icons.length).toBeGreaterThan(0);
     });
 
@@ -392,7 +384,6 @@ describe('RdsDivider', () => {
       const { container } = renderWithTheme(
         <RdsDivider dividerMessage="Test" iconShow={true} />
       );
-      // Content should be wrapped in Box with display flex
       expect(container.querySelector('[role="img"]') || screen.getByText('Test')).toBeInTheDocument();
     });
 
@@ -423,7 +414,6 @@ describe('RdsDivider', () => {
       const { container } = renderWithTheme(
         <RdsDivider dividerMessage="Spaced" iconShow={true} />
       );
-      // Box with gap styling should exist
       expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
     });
   });
@@ -440,7 +430,6 @@ describe('RdsDivider', () => {
       renderWithTheme(
         <RdsDivider dividerMessage="Test" iconName={null as any} />
       );
-      // Should fallback to default icon
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
 
@@ -448,7 +437,6 @@ describe('RdsDivider', () => {
       const { container } = renderWithTheme(
         <RdsDivider dividerMessage="Test" layout={undefined as any} />
       );
-      // Should default to horizontal
       expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 

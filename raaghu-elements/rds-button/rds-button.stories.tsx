@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import React from 'react';
 import RdsButton from './rds-button';
 
 const meta: Meta<typeof RdsButton> = {

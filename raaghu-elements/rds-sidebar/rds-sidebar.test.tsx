@@ -1,14 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
-import { axe, configureAxe } from 'jest-axe';
+import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-sidebar.scss');
 
-// Mock child components
 jest.mock('../rds-avatar/rds-avatar', () => {
   return function MockAvatar(props: any) {
     return <div data-testid="rds-avatar" className="rds-avatar">{props.title}</div>;
@@ -35,7 +33,6 @@ jest.mock('../rds-tooltip/rds-tooltip', () => {
   };
 });
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -129,9 +126,7 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={false} />
       );
-      // When closed, sidebar should not be visible (or might not render in modal mode)
       const sidebar = document.querySelector('.rds-sidebar');
-      // Just verify it doesn't crash
       expect(sidebar).toBeNull();
     });
 
@@ -223,11 +218,9 @@ describe('RdsSidebar', () => {
       );
       
       const settingsButton = screen.getByText('Settings');
-      // Expand
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
       
-      // Collapse
       await user.click(settingsButton);
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
     });
@@ -259,11 +252,9 @@ describe('RdsSidebar', () => {
         <RdsSidebar items={items} isOpen={true} />
       );
       
-      // Expand parent
       const parentButton = screen.getByText('Parent');
       await user.click(parentButton);
       
-      // Click child
       const childButton = screen.getByText('Child');
       await user.click(childButton);
       expect(childOnClick).toHaveBeenCalled();
@@ -326,7 +317,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} width={150} />
       );
-      // Should have narrow-collapsed class when width < 200
       const sidebar = document.querySelector('.rds-sidebar');
       const hasNarrowClass = sidebar?.className.includes('rds-sidebar--narrow-collapsed');
       expect(hasNarrowClass).toBe(true);
@@ -450,7 +440,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} showLogo={true} layout="raaghu" avatarCollapsedSrc="/collapsed-logo.png" typeOf="collapse" />
       );
-      // Sidebar should render in collapsed mode
       expect(document.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
     });
   });
@@ -464,15 +453,12 @@ describe('RdsSidebar', () => {
       
       const settingsButton = screen.getByText('Settings');
       
-      // Expand
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
       
-      // Collapse
       await user.click(settingsButton);
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
       
-      // Expand again
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
@@ -488,7 +474,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} width={150} />
       );
-      // Sidebar should render with updated width
       expect(document.querySelector('.rds-sidebar')).toBeInTheDocument();
     });
 

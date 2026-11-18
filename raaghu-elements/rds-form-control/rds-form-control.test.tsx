@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsFormControl, { RdsFormControlProps } from './rds-form-control';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-form-control.scss', () => ({}));
 
 describe('RdsFormControl', () => {
@@ -311,7 +309,6 @@ describe('RdsFormControl', () => {
         <RdsFormControl {...defaultProps} size="small" />
       );
       const formControl = container.querySelector('.MuiFormControl-root');
-      // Size prop is forwarded but may not result in a specific class
       expect(formControl).toBeInTheDocument();
     });
 
@@ -320,7 +317,6 @@ describe('RdsFormControl', () => {
         <RdsFormControl {...defaultProps} size="medium" />
       );
       const formControl = container.querySelector('.MuiFormControl-root');
-      // Size prop is forwarded but may not result in a specific class
       expect(formControl).toBeInTheDocument();
     });
   });

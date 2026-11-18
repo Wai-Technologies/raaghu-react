@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompChat from "./rds-comp-chat";
 import figma from "@figma/code-connect";
 

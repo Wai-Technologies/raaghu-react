@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompCodeSnippet from "./rds-comp-code-snippet"
 import figma from "@figma/code-connect"
 

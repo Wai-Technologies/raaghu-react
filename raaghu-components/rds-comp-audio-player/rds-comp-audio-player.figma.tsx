@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompAudioPlayer  from "./rds-comp-audio-player"
 import figma from "@figma/code-connect"
 

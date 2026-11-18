@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsLoader  from "./rds-loader"
 import figma from "@figma/code-connect"
 

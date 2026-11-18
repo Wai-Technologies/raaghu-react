@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCarousel, { RdsCarouselProps } from './rds-carousel';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-carousel.scss', () => ({}));
 
 describe('RdsCarousel', () => {
@@ -86,7 +85,6 @@ describe('RdsCarousel', () => {
       const nextButton = screen.getAllByRole('button')[1];
       fireEvent.click(nextButton);
       
-      // After clicking next, second slide should be visible
       expect(screen.getByTestId('slide-2')).toBeInTheDocument();
     });
 
@@ -95,7 +93,6 @@ describe('RdsCarousel', () => {
       const prevButton = screen.getAllByRole('button')[0];
       fireEvent.click(prevButton);
       
-      // After clicking prev from slide 2, should go to slide 1
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
     });
 
@@ -104,7 +101,6 @@ describe('RdsCarousel', () => {
       const prevButton = screen.getAllByRole('button')[0];
       fireEvent.click(prevButton);
       
-      // Should wrap to last slide
       expect(screen.getByTestId('slide-3')).toBeInTheDocument();
     });
 
@@ -113,7 +109,6 @@ describe('RdsCarousel', () => {
       const nextButton = screen.getAllByRole('button')[1];
       fireEvent.click(nextButton);
       
-      // Should wrap to first slide
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
     });
 
@@ -130,8 +125,8 @@ describe('RdsCarousel', () => {
       renderWithTheme(<RdsCarousel {...defaultProps} />);
       const nextButton = screen.getAllByRole('button')[1];
       
-      fireEvent.click(nextButton); // -> slide 2
-      fireEvent.click(nextButton); // -> slide 3
+      fireEvent.click(nextButton);
+      fireEvent.click(nextButton);
       expect(screen.getByTestId('slide-3')).toBeInTheDocument();
     });
   });
@@ -176,7 +171,7 @@ describe('RdsCarousel', () => {
         <RdsCarousel {...defaultProps} />
       );
       const dots = container.querySelectorAll('.rds-carousel__indicator');
-      fireEvent.click(dots[2]); // Click third dot
+      fireEvent.click(dots[2]);
       
       expect(screen.getByTestId('slide-3')).toBeInTheDocument();
     });
@@ -247,13 +242,13 @@ describe('RdsCarousel', () => {
         <RdsCarousel {...defaultProps} autoPlay={true} autoPlayInterval={1000} />
       );
       
-      jest.advanceTimersByTime(1500); // Slide 2
+      jest.advanceTimersByTime(1500);
       expect(screen.getByTestId('slide-2')).toBeInTheDocument();
       
-      jest.advanceTimersByTime(1000); // Slide 3
+      jest.advanceTimersByTime(1000);
       expect(screen.getByTestId('slide-3')).toBeInTheDocument();
       
-      jest.advanceTimersByTime(1000); // Back to Slide 1
+      jest.advanceTimersByTime(1000);
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
     });
 

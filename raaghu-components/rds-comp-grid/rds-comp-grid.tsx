@@ -29,7 +29,6 @@ import {
   Paper,
   Chip,
   IconButton,
-  Menu,
   MenuItem,
   Select,
   FormControl,
@@ -37,7 +36,6 @@ import {
   Pagination,
   Stack,
   Card,
-  Tooltip,
   Popover,
   List,
   ListItem,
@@ -68,7 +66,6 @@ import { CSS } from '@dnd-kit/utilities';
 
 export type GridRow = Record<string, unknown>;
 
-// Types and Enums
 export enum ActionPosition {
   Right = "right",
   Left = "left",
@@ -254,7 +251,6 @@ export interface RdsCompGridProps {
   onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
   onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
-  // Styling
   classes?: string;
   fontWeight?: string;
   illustration?: boolean;
@@ -262,72 +258,8 @@ export interface RdsCompGridProps {
   noDataHeaderTitle?: string;
   
   
-  // Loading
   isLoading?: boolean;
 }
-const SortableRow: React.FC<{
-  id: string;
-  children: React.ReactNode;
-  isEnabled: boolean;
-}> = ({ id, children, isEnabled }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id, disabled: !isEnabled });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
-  return (
-    <TableRow
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...(isEnabled ? listeners : {})}
-    >
-      {children}
-    </TableRow>
-  );
-};
-
-const SortableHeaderCell: React.FC<{
-  id: string;
-  children: React.ReactNode;
-  isEnabled: boolean;
-}> = ({ id, children, isEnabled }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id, disabled: !isEnabled });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
-  return (
-    <TableCell
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...(isEnabled ? listeners : {})}
-    >
-      {children}
-    </TableCell>
-  );
-};
 
 const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   tableHeaders,
@@ -1149,7 +1081,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       onFilterChange?.(newFilterState);
     },
 
-    // Sorting
     getSortState: () => ({ column: sortColumn, direction: sortDirection }),
     setSort: (column: string, direction: 'asc' | 'desc') => {
       setSortColumn(column);
@@ -1200,13 +1131,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setColumnWidths(initialWidths);
     },
 
-    // Grid State
     isCollapsed: () => isCollapsed,
     toggleCollapse: () => setIsCollapsed(!isCollapsed),
     expand: () => setIsCollapsed(false),
     collapse: () => setIsCollapsed(true),
 
-    // Editing
     startEdit: (rowId: string, columnKey?: string) => {
       if (enableInlineEdit) {
         if (inlineEditMode === 'row') {
@@ -1849,7 +1778,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         </TableContainer>
       )}
 
-      {/* Filter and Column Visibility Popup */}
       <Popover
         open={isFilterPopupOpen}
         anchorEl={filterAnchorEl}
@@ -2063,42 +1991,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 <Stack spacing={1}>
                   {renderAdvancedFilterControls()}
 
-                  {/* Logical Operator */}
-                  {/* <FormControl size="small" sx={{ minWidth: 120 }}>
-                    <Select
-                      value={logicalOperator}
-                      onChange={(e) => setLogicalOperator(e.target.value)}
-                    >
-                      <MenuItem value="and">And</MenuItem>
-                      <MenuItem value="or">Or</MenuItem>
-                    </Select>
-                  </FormControl> */}
-
-                  {/* Second Condition */}
-                  {/* <Box>
-                    <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
-                      <Select
-                        value={filterConditions[1].operator}
-                        onChange={(e) => handleFilterConditionChange(2, 'operator', e.target.value)}
-                      >
-                        <MenuItem value="contains">Contains</MenuItem>
-                        <MenuItem value="equals">Equals</MenuItem>
-                        <MenuItem value="startsWith">Starts With</MenuItem>
-                        <MenuItem value="endsWith">Ends With</MenuItem>
-                        <MenuItem value="greaterThan">Greater Than</MenuItem>
-                        <MenuItem value="lessThan">Less Than</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <TextField
-                      placeholder="Enter value..."
-                      value={filterConditions[1].value}
-                      onChange={(e) => handleFilterConditionChange(2, 'value', e.target.value)}
-                      size="small"
-                      fullWidth
-                    />
-                  </Box> */}
-
-                  {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
                     <RdsButton
                       style="filled"
@@ -2154,7 +2046,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     />
                   </Stack>
                   
-                  {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
                     <RdsButton
                       style="transparent"

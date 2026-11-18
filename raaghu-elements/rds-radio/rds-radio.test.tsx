@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRadio, { RdsRadioOption } from './rds-radio';
 import { axe } from 'jest-axe';
 
-// Mock SCSS import
 jest.mock('./rds-radio.scss', () => ({}));
 
 const defaultOptions: RdsRadioOption[] = [
@@ -421,10 +420,8 @@ describe('RdsRadio', () => {
       );
       
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
-      // Disabled inputs don't call onChange on click
       fireEvent.click(radio2);
       
-      // Verify radio is disabled
       expect(radio2).toHaveAttribute('disabled');
     });
 
@@ -446,7 +443,6 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       fireEvent.click(radio2);
       
-      // Verify the radio is disabled
       expect(radio2).toHaveAttribute('disabled');
     });
 
@@ -481,7 +477,6 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       radio2.focus();
       
-      // Space should select the focused radio
       expect(radio2.checked).toBe(true);
     });
 
@@ -498,7 +493,6 @@ describe('RdsRadio', () => {
       const radio3 = container.querySelector('input[type="radio"][value="option3"]') as HTMLInputElement;
       radio3.focus();
       
-      // Enter should keep the radio selected
       expect(radio3.checked).toBe(true);
     });
   });
@@ -560,7 +554,6 @@ describe('RdsRadio', () => {
       const radio2 = container.querySelector('input[type="radio"][value="option2"]') as HTMLInputElement;
       fireEvent.click(radio2);
       
-      // Verify radio is clickable and can be checked
       expect(radio2).toBeInTheDocument();
     });
 
@@ -920,7 +913,6 @@ describe('RdsRadio', () => {
       
       const allRadios = container.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
       const anyChecked = Array.from(allRadios).some(radio => radio.checked);
-      // No radio should be checked if value doesn't match
       expect(anyChecked).toBe(false);
     });
 

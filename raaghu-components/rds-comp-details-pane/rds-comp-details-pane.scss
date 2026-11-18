@@ -38,7 +38,6 @@
   }
   &__footer-fixed button {
     margin-left: var(--rds-spacing-md);
-
   }
 
   &__header-container {
@@ -597,7 +596,6 @@
     accent-color: var(--rds-color-primary);
     margin-right: var(--rds-spacing-xs);
 
-    /* Ensure RdsCheckbox internal padding doesn't overlap text */
     .rds-checkbox {
       margin: 0;
       padding: 0;
@@ -767,13 +765,9 @@
     min-width: 0;
   }
 .rds-counter__controls--medium {
-
     height: var(--rds-details-pane-height-1);
 }
   &__toolbar-pane-container {
-    // padding-left: var(--rds-spacing-lg);
-    // padding-right: var(--rds-spacing-lg);
-    // padding-bottom: 25px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -994,7 +988,6 @@
     flex-direction: column;
     gap: var(--rds-spacing-xs);
     margin-top: var(--rds-spacing-7);
-
   }
 
   &__row {
@@ -1303,7 +1296,6 @@
   }
 
   &__icon-edit {
-
     width: var(--rds-details-pane-width-1);
 
     height: var(--rds-details-pane-height-2);
@@ -1311,7 +1303,6 @@
   }
 
   &__icon-star {
-
     width: var(--rds-details-pane-width-2);
     height: var(--rds-spacing-13);
   }
@@ -1349,7 +1340,6 @@
   }
   &__history-icon svg,
   &__icon-history { color: var(--rds-color-text-secondary); font-size: var(--rds-font-size-xl); }
-
 }
 
 @media screen and (max-width: 640px) {
@@ -1374,7 +1364,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     &__header {
-
       margin-left: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-sm);
       padding: var(--rds-spacing-sm) 0;
@@ -1593,7 +1582,6 @@
     }
 
     &__toolbar-content {
-
       max-height: calc(100% - var(--rds-details-pane-max-height-6));
     }
 
@@ -1676,7 +1664,6 @@
     }
 
     .rds-counter__controls--medium {
-
       height: var(--rds-details-pane-height-3);
     }
 
@@ -1735,7 +1722,6 @@
     }
 
     &__accordion-list-container {
-
       max-height: calc(100vh - var(--rds-details-pane-max-height-8));
     }
 
@@ -1773,7 +1759,6 @@
     width: 0;
     height: 0;
   }
-
 }
 @media screen and (min-width: 768px) {
   .rds-comp-details-pane {

@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsFileUploader from './rds-file-uploader';
 
-// Mock SCSS
 jest.mock('./rds-file-uploader.scss', () => ({}));
 
-// Mock sub-components
 jest.mock('./RdsFileUploaderStandardView', () => {
   return function MockStandardView(props: any) {
     return (
@@ -322,7 +320,7 @@ describe('RdsFileUploader', () => {
       const { container } = render(
         <RdsFileUploader
           {...defaultProps}
-          maxSize={5 * 1024 * 1024} // 5MB
+          maxSize={5 * 1024 * 1024}
         />
       );
       expect(container).toBeInTheDocument();
@@ -362,8 +360,6 @@ describe('RdsFileUploader', () => {
           showPreview={true}
         />
       );
-      // File list is only shown when there are files
-      // Verify the component renders in default mode with showPreview enabled
       expect(container.querySelector('.rds-file-uploader')).toBeInTheDocument();
     });
 
@@ -375,9 +371,7 @@ describe('RdsFileUploader', () => {
           showPreview={false}
         />
       );
-      // File list should not render when showPreview is false and no files
       const fileListElement = screen.queryByTestId('file-list');
-      // When there are no files, file-list might not be rendered
       expect(fileListElement === null || fileListElement.children.length === 0).toBeTruthy();
     });
   });
@@ -438,7 +432,6 @@ describe('RdsFileUploader', () => {
           <div data-testid="custom-child">Custom Content</div>
         </RdsFileUploader>
       );
-      // Note: Children may be passed to standard view
       expect(screen.getByTestId('standard-view')).toBeInTheDocument();
     });
 
@@ -448,7 +441,6 @@ describe('RdsFileUploader', () => {
           <span>Custom upload area</span>
         </RdsFileUploader>
       );
-      // In standard mode, children are rendered in the standard view
       expect(screen.getByTestId('standard-view')).toBeInTheDocument();
     });
   });
@@ -531,7 +523,7 @@ describe('RdsFileUploader', () => {
       const { container } = render(
         <RdsFileUploader
           {...defaultProps}
-          maxSize={1024 * 1024 * 1024} // 1GB
+          maxSize={1024 * 1024 * 1024}
         />
       );
       expect(container).toBeInTheDocument();

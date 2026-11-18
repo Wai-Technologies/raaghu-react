@@ -5,7 +5,6 @@ import RdsTextField from './rds-text-field';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-text-field.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -218,7 +217,6 @@ describe('RdsTextField', () => {
       const { container } = renderWithTheme(
         <RdsTextField label="Username" />
       );
-      // Use getByRole to target the label element specifically
       const label = container.querySelector('label[class*="MuiInputLabel"]');
       expect(label).toHaveTextContent('Username');
     });

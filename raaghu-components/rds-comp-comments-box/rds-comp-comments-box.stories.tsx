@@ -63,7 +63,6 @@ function getPropsForState(args: any) {
   }
 }
 
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCommentBox from './rds-comp-comments-box';
 

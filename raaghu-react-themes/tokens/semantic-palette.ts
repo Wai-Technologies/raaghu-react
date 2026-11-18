@@ -63,9 +63,7 @@ function lightSemanticPalette(): SemanticPalette {
     },
     secondary: {
       main: s[700],
-      // Light blue to match the blue `main`; s[100] is a pink step and made checked tracks/hovers pink.
       light: s[150],
-      // Dark blue to match the blue `main`; s[600] is a pink step and made hovers turn red.
       dark: s[750],
       contrastText: white,
     },

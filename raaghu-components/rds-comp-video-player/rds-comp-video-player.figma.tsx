@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompVideoPlayer, { VideoPlayerType }  from "./rds-comp-video-player"
 import figma from "@figma/code-connect"
 
