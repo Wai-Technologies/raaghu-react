@@ -12,6 +12,14 @@ export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
 export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
   padding?: number | string;
+  /** Shows the card in its selected style. */
+  selected?: boolean;
+  /** Shows the card as disabled (muted, not interactive). */
+  disabled?: boolean;
+  /**
+   * @deprecated Use `selected` and `disabled` instead.
+   * `'hover'` only forces the hover look and is kept for backward compatibility.
+   */
   state?: CardState;
   showIndicator?: boolean;
   style?: CardStyle;
@@ -31,7 +39,9 @@ const RdsCard = ({
   padding,
   children,
   sx,
-  state = 'default',
+  state: stateProp = 'default',
+  selected = false,
+  disabled = false,
   className,
   showIndicator = true,
   style: cardStyleProp = 'default',
@@ -46,6 +56,12 @@ const RdsCard = ({
   description,
   ...props
 }:RdsCardProps) => {
+  // `disabled` / `selected` are the supported API; the deprecated `state` prop still maps onto them.
+  let state: CardState = 'default';
+  if (disabled || stateProp === 'disabled') state = 'disabled';
+  else if (selected || stateProp === 'selected') state = 'selected';
+  else if (stateProp === 'hover') state = 'hover';
+
   const getCardClassName = () => {
     const baseClass = 'rds-card';
     const stateClass = `rds-card--${state}`;
@@ -164,6 +180,8 @@ const RdsCard = ({
         cardInlineStyle,
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
+      aria-disabled={state === 'disabled' || undefined}
+      aria-selected={state === 'selected' || undefined}
       {...props}
     >
       {showIndicator && (

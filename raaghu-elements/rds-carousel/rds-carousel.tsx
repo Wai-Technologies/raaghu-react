@@ -43,7 +43,11 @@ const RdsCarousel = ({
 }:RdsCarouselProps) => {
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Honour `state` (1-based starting slide) on first render too, not only when it changes.
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    const initial = state ? parseInt(state, 10) - 1 : 0;
+    return initial >= 0 && initial < children.length ? initial : 0;
+  });
   const prevStateRef = useRef(state);
   if (state !== prevStateRef.current) {
     prevStateRef.current = state;
@@ -96,7 +100,9 @@ const RdsCarousel = ({
 
   const carouselClassName = clsx(
     'rds-carousel',
-    `rds-carousel--${style.replace(' ', '-')}`,
+    // Replace every space: 'full width image' -> 'rds-carousel--full-width-image'.
+    // (A single replace produced 'full-width image', so those styles never applied.)
+    `rds-carousel--${style.replace(/ /g, '-')}`,
     className,
   );
 

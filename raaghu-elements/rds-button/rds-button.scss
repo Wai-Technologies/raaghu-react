@@ -106,6 +106,21 @@
     border-color: var(--rds-border-light);
   }
 
+  // The rule above uses filled-button colours for every variant and outranks the
+  // __state-disabled variant rules, so outlined/transparent need their own here.
+  &.MuiButton-outlined:disabled:not(.rds-button__loading) {
+    background-color: var(--rds-button-secondary-bg-disabled);
+    border-color: var(--rds-button-secondary-border-disabled);
+    // Same muted primary text as filled/transparent disabled buttons (the
+    // secondary-text-disabled token is a purple in light mode).
+    color: var(--rds-button-primary-text-disabled);
+  }
+
+  &.MuiButton-text:disabled:not(.rds-button__loading) {
+    background-color: transparent;
+    color: var(--rds-button-text-color-disabled);
+  }
+
   &__loading {
     pointer-events: none;
 
