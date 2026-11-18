@@ -316,8 +316,8 @@ describe('RdsCarousel', () => {
         <RdsCarousel {...defaultProps} style="full width image" />
       );
       const carousel = container.querySelector('.rds-carousel');
-      expect(carousel).toHaveClass('rds-carousel--full-width');
-      expect(carousel).toHaveClass('image');
+      expect(carousel).toHaveClass('rds-carousel--full-width-image');
+      expect(carousel).not.toHaveClass('image');
     });
 
     it('should render title with with-title style', () => {

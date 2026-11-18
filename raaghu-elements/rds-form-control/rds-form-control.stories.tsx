@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsFormControl> = {
   component: RdsFormControl,
   parameters: {
     status: { type: 'stable' },
-    layout: 'centered',
+    layout: 'padded',
     controls: {
       include: [
         'label',
@@ -110,7 +110,7 @@ const meta: Meta<typeof RdsFormControl> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const WithTextField: Story = {
+export const Default: Story = {
   play: async ({ canvasElement }) => {
     const el = canvasElement.querySelector('input, select, textarea') || canvasElement.firstElementChild;
     expect(el).toBeTruthy();
@@ -128,6 +128,8 @@ export const WithTextField: Story = {
     </RdsFormControl>
   ),
 };
+
+export const WithTextField: Story = { ...Default };
 
 export const WithSelect: Story = {
   args: {
@@ -256,5 +258,3 @@ export const Small: Story = {
     </RdsFormControl>
   ),
 };
-
-export const Default: Story = { ...WithTextField };

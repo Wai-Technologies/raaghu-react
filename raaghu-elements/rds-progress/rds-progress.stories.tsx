@@ -48,7 +48,7 @@ const meta: Meta<typeof RdsProgress> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Circular: Story = {
+export const Default: Story = {
   args: {
     style: 'circular',
     variant: 'determinate',
@@ -58,7 +58,9 @@ export const Circular: Story = {
     stepperType: 'circle',
   },
 };
-Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+Default.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+
+export const Circular: Story = { ...Default };
 
 export const ColorVariants: Story = {
   args: {
@@ -90,7 +92,5 @@ export const Linear: Story = {
   ],
 };
 Linear.parameters = { controls: { include: ['variant', 'value'] } };
-
-export const Default: Story = { ...Circular };
 
 

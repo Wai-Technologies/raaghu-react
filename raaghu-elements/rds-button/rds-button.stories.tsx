@@ -22,7 +22,7 @@ const meta: Meta<typeof RdsButton> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: ['primary', 'secondary', 'error', 'warning', 'success'],
       description: 'The color of the button',
     },
     size: {
@@ -48,11 +48,11 @@ const meta: Meta<typeof RdsButton> = {
       options: ["uppercase", "lowercase", "capitalize", "unset"],
       description: 'The text case of the button',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled', 'selected'],
-      description: 'The state of the button',
+    selected: {
+      control: 'boolean',
+      description: 'Whether the button is shown as selected (pressed)',
     },
+    state: { control: { disable: true }, table: { disable: true } },
     layout: {
       control: 'select',
       options: ["icon+text", "icon-only", "text-only"],
@@ -90,7 +90,7 @@ export const Default: Story = {
     isLoading: false,
     shape: 'rectangle',
     textCase: 'uppercase',
-    state: 'default',
+    selected: false,
     layout: 'text-only',
     showLeftIcon: true,
     showRightIcon: false,
@@ -102,7 +102,18 @@ export const Default: Story = {
 export const Disabled: Story = {
   args: {
     text: 'Disabled Button',
+    style: 'filled',
+    color: 'primary',
     disabled: true,
+  },
+};
+
+export const Selected: Story = {
+  args: {
+    text: 'Selected Button',
+    style: 'filled',
+    color: 'primary',
+    selected: true,
   },
 };
 

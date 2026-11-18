@@ -7,6 +7,7 @@ import './rds-badge.scss';
 
 type BadgePaletteColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
 const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
+const MUI_BADGE_COLORS: readonly string[] = ['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning'];
 
 export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'color'> {
   children?: React.ReactNode;
@@ -51,10 +52,10 @@ const RdsBadge= ({
   const resolvedColorVariant = normalizePaletteColor(
     resolveDeprecatedProp(paletteFromColor, colorVariant, 'RdsBadge', 'colorVariant', '`color`') ?? 'primary',
   );
-  const muiColor =
-    colorProp === 'danger' || colorVariant === 'danger'
-      ? 'error'
-      : ((colorProp ?? 'primary') as BadgeProps['color']);
+  const muiCandidate = paletteFromColor || colorProp === undefined ? resolvedColorVariant : colorProp;
+  const muiColor: BadgeProps['color'] = MUI_BADGE_COLORS.includes(muiCandidate as string)
+    ? (muiCandidate as BadgeProps['color'])
+    : 'default';
   const content = badgeContent;
   
   const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${resolvedColorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;

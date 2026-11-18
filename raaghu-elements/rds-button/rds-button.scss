@@ -100,6 +100,17 @@
     border-color: var(--rds-border-light);
   }
 
+  &.MuiButton-outlined:disabled:not(.rds-button__loading) {
+    background-color: var(--rds-button-secondary-bg-disabled);
+    border-color: var(--rds-button-secondary-border-disabled);
+    color: var(--rds-button-primary-text-disabled);
+  }
+
+  &.MuiButton-text:disabled:not(.rds-button__loading) {
+    background-color: transparent;
+    color: var(--rds-button-text-color-disabled);
+  }
+
   &__loading {
     pointer-events: none;
 

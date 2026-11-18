@@ -35,6 +35,12 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   text?: string;
   isLoading?: boolean;
   shape?: 'pill' | 'rectangle';
+  /** Shows the button in its selected (pressed) style. */
+  selected?: boolean;
+  /**
+   * @deprecated Use `disabled` and `selected` instead.
+   * `'hover'` only forces the hover look and is kept for backward compatibility.
+   */
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   variant?: 'filled' | 'outlined' | 'transparent';
@@ -62,12 +68,18 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
   showRightIcon = false,
   changeLeftIcon = 'add',
   changeRightIcon = 'save',
-  state = 'default',
+  state: stateProp = 'default',
+  selected = false,
   textCase = 'uppercase',
   className,
   ...props
 }, ref) => {
   const theme = useTheme();
+  const isButtonDisabled = Boolean(disabled) || stateProp === 'disabled' || isLoading;
+  let state: 'default' | 'hover' | 'disabled' | 'selected' = 'default';
+  if (disabled || stateProp === 'disabled') state = 'disabled';
+  else if (selected || stateProp === 'selected') state = 'selected';
+  else if (stateProp === 'hover') state = 'hover';
   const style = variant ?? (typeof styleProp === 'string' ? styleProp : undefined);
   const inlineStyle = typeof styleProp === 'object' ? styleProp : undefined;
   let normalizedLayout = layout;
@@ -240,7 +252,6 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
     };
   };
 
-  const isButtonDisabled = disabled || state === 'disabled' || isLoading;
   const shapeStyles = getShapeStyles();
   const textCaseStyles = getTextCaseStyles();
   const outlinedHoverStyles = getOutlinedHoverStyles();
@@ -257,6 +268,7 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color}
+      aria-pressed={selected ? true : undefined}
       className={clsx('rds-button', layoutClass, hasIconClass, styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading', className)}
       sx={{
         ...shapeStyles,
@@ -264,7 +276,7 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
         '& .MuiButton-startIcon': { margin: 0 },
         '& .MuiButton-endIcon': { margin: 0 },
         ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
-        ...(style === 'outlined' && paletteMain ? {
+        ...(style === 'outlined' && paletteMain && state !== 'disabled' ? {
           ...(state === 'hover' ? {
             ...outlinedHoverStyles,
             transform: 'translateY(var(--rds-spacing-neg-1))',
@@ -284,8 +296,8 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
       style={{
         ...shapeStyles as CSSProperties,
         ...textCaseStyles as CSSProperties,
-        ...(style === 'filled' && paletteMain && state !== 'selected' ? { backgroundColor: paletteMain } : {}),
-        ...(style === 'filled' && paletteContrast && state !== 'selected' ? { color: paletteContrast } : {}),
+        ...(style === 'filled' && paletteMain && state !== 'selected' && state !== 'disabled' ? { backgroundColor: paletteMain } : {}),
+        ...(style === 'filled' && paletteContrast && state !== 'selected' && state !== 'disabled' ? { color: paletteContrast } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
         ...inlineStyle,

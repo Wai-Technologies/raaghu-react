@@ -134,7 +134,7 @@ const meta: Meta<typeof RdsList> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const AlignItems: Story = {
+export const Default: Story = {
   args: {
     withDividers: true,
     alignItems: 'flex-start',
@@ -161,6 +161,8 @@ export const AlignItems: Story = {
     ]
   },
 };
+
+export const AlignItems: Story = { ...Default };
 const firebaseOverviewItems = [
   {
     id: 'overview',
@@ -542,6 +544,4 @@ export const WithSwitch: Story = {
     ]
   }
 };
-
-export const Default: Story = { ...AlignItems };
 

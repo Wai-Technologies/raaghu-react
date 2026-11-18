@@ -4,8 +4,15 @@ import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
   labeltext?: string;
+  /** Disables the checkbox. */
+  disabled?: boolean;
+  /** @deprecated Use `disabled`. */
   isDisabled?: boolean;
   style?: 'square' | 'circular';
+  /**
+   * @deprecated Use `disabled` instead.
+   * `'hover'` only forces the hover look and is kept for backward compatibility.
+   */
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   showText?: boolean;

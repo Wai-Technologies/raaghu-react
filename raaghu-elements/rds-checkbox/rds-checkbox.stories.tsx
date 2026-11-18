@@ -20,20 +20,17 @@ const meta: Meta<typeof RdsCheckbox> = {
       options: ['checked', 'unchecked', 'indeterminate'],
       description: 'Status control for the checkbox',
     },
-    isDisabled: {
+    disabled: {
       control: 'boolean',
       description: 'Whether the checkbox is disabled',
     },
+    isDisabled: { control: { disable: true }, table: { disable: true } },
     style: {
       control: 'select',
       options: ['square', 'circular'],
       description: 'Visual style variant of the checkbox',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'disabled', 'hover'],
-      description: 'State of the checkbox (default, disabled, hover)',
-    },
+    state: { control: { disable: true }, table: { disable: true } },
     showText: {
       control: 'boolean',
       description: 'Whether to show the label text',
@@ -57,6 +54,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     labeltext: 'Default Checkbox',
+    disabled: false,
   },
 };
 
@@ -70,7 +68,7 @@ export const Checked: Story = {
 export const Disabled: Story = {
   args: {
     labeltext: 'Disabled Checkbox',
-    isDisabled: true,
+    disabled: true,
   },
 };
 
@@ -78,7 +76,7 @@ export const DisabledChecked: Story = {
   args: {
     labeltext: 'Disabled Checked',
     status: 'checked',
-    isDisabled: true,
+    disabled: true,
   },
 };
 

@@ -86,9 +86,30 @@ export interface RdsMenuItem {
   color?: 'primary' | 'success' | 'error' | 'danger' | 'info' | 'warning' | string;
 }
 
+const MENU_PLACEMENTS = {
+  'bottom-start': {
+    anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+    transformOrigin: { vertical: 'top', horizontal: 'left' },
+  },
+  'bottom-end': {
+    anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+    transformOrigin: { vertical: 'top', horizontal: 'right' },
+  },
+  'top-start': {
+    anchorOrigin: { vertical: 'top', horizontal: 'left' },
+    transformOrigin: { vertical: 'bottom', horizontal: 'left' },
+  },
+  'top-end': {
+    anchorOrigin: { vertical: 'top', horizontal: 'right' },
+    transformOrigin: { vertical: 'bottom', horizontal: 'right' },
+  },
+} as const;
+
 export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> {
   items: RdsMenuItem[];
   size?: 'small' | 'medium' | 'large';
+  /** Where the menu opens relative to its anchor. `anchorOrigin` / `transformOrigin` override it. */
+  placement?: keyof typeof MENU_PLACEMENTS;
   children?: ReactNode;
 }
 
@@ -96,6 +117,7 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> 
 const RdsMenu = ({
   items,
   size = 'small',
+  placement,
   children,
   ...props
 }: RdsMenuProps) => {
@@ -104,6 +126,7 @@ const RdsMenu = ({
   const menuListClassName = 'rds-menu__list';
   return (
       <MuiMenu
+        {...(placement ? MENU_PLACEMENTS[placement] : {})}
         {...props}
         MenuListProps={{
           ...props.MenuListProps,

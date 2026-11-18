@@ -448,10 +448,15 @@ describe('RdsAppBar', () => {
     });
 
     it('should render tabs with object labels', () => {
+      const tabsWithObjects = [
+        { label: 'Home' },
+        { label: 'About' },
+        { label: 'Contact' },
+      ];
       render(
         <RdsAppBar
           {...defaultProps}
-          tabs={['Home', 'About', 'Contact']}
+          tabs={tabsWithObjects}
           tabValue={0}
           onTabChange={jest.fn()}
         />

@@ -5,6 +5,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import HomeIcon from '@mui/icons-material/Home';
 
+const iconOptions = ['none', 'search', 'person', 'email', 'home'];
+const iconMapping = {
+  none: undefined,
+  search: <SearchIcon />,
+  person: <PersonIcon />,
+  email: <EmailIcon />,
+  home: <HomeIcon />,
+};
+
 const meta: Meta<typeof RdsInput> = {
   title: 'Elements/Input',
   component: RdsInput,
@@ -26,30 +35,32 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
     },
-    state: {
-      control: "select",
-      options: ['default', 'active', 'selected', 'error', 'disabled'],
-    },
-    showIcon: {
+    selected: {
       control: 'boolean',
-      description: 'Show icon in the input field',
+      description: 'Show the input in its selected style',
     },
-    iconPosition: {
+    disabled: {
+      control: 'boolean',
+    },
+    error: {
+      control: 'boolean',
+    },
+    startIcon: {
       control: 'select',
-      options: ['start', 'end'],
-      description: 'Position of the icon',
+      options: iconOptions,
+      mapping: iconMapping,
+      description: 'Icon shown at the start of the input field',
     },
-    icon: {
+    endIcon: {
       control: 'select',
-      options: ['search', 'person', 'email', 'home'],
-      mapping: {
-        search: <SearchIcon />,
-        person: <PersonIcon />,
-        email: <EmailIcon />,
-        home: <HomeIcon />,
-      },
-      description: 'Custom icon to display',
+      options: iconOptions,
+      mapping: iconMapping,
+      description: 'Icon shown at the end of the input field',
     },
+    state: { control: { disable: true }, table: { disable: true } },
+    showIcon: { control: { disable: true }, table: { disable: true } },
+    iconPosition: { control: { disable: true }, table: { disable: true } },
+    icon: { control: { disable: true }, table: { disable: true } },
     titlePosition: {
       control: 'select',
       options: ['inline-title', 'title-above'],
@@ -66,7 +77,7 @@ export const Default: Story = {
     size: 'small',
     layout: 'text',
     style: 'default',
-    state: 'default',
+    selected: false,
     label: 'Input Label',
     hintText: 'This is a hint text',
     isMandatory: false,
@@ -75,7 +86,7 @@ export const Default: Story = {
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'selected', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled', 'startIcon', 'endIcon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
@@ -83,10 +94,10 @@ export const Disabled: Story = {
     size: 'small',
     titlePosition: 'inline-title',
     layout: 'text',
-    state: 'disabled',
+    disabled: true,
   },
 };
-Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'titlePosition', 'layout', 'state'] } };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'titlePosition', 'layout', 'disabled'] } };
 
 export const Required: Story = {
   args: {
@@ -119,7 +130,20 @@ export const WithError: Story = {
     size: 'small',
     layout: 'text',
     titlePosition: 'inline-title',
-    state: 'error',
+    error: true,
   },
 };
-WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'error'] } };
+
+export const WithIcons: Story = {
+  args: {
+    label: 'Search',
+    placeholder: 'Search people',
+    size: 'small',
+    layout: 'text',
+    titlePosition: 'inline-title',
+    startIcon: 'search',
+    endIcon: 'person',
+  },
+};
+WithIcons.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition', 'startIcon', 'endIcon', 'selected', 'disabled', 'error'] } };

@@ -3,8 +3,11 @@ import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material
 import './rds-icon-button.scss';
 
 export interface RdsIconButtonProps extends IconButtonProps {
+  /** Icon shown when `variant` is `'outlined'`. */
   iconOutlined?: React.ReactNode;
+  /** Icon shown when `variant` is `'filled'`. */
   iconFilled?: React.ReactNode;
+  /** `'outlined'` draws a border around the button and uses `iconOutlined`; `'filled'` uses `iconFilled`. */
   variant?: 'outlined' | 'filled';
   tooltip?: string;
   icon?: React.ReactNode;
@@ -24,6 +27,7 @@ const RdsIconButton = ({
   children,
   size,
   onClick,
+  className: classNameProp,
   ...props
 }:RdsIconButtonComponentProps) => {
 
@@ -46,6 +50,8 @@ const RdsIconButton = ({
     buttonContent = getSizedIcon(iconOutlined);
   } else if (variant === 'filled' && iconFilled) {
     buttonContent = getSizedIcon(iconFilled);
+  } else if (iconFilled || iconOutlined) {
+    buttonContent = getSizedIcon(iconFilled ?? iconOutlined);
   } else if (icon) {
     buttonContent = getSizedIcon(icon);
   } else if (children) {
@@ -54,8 +60,8 @@ const RdsIconButton = ({
 
   const className = [
     'rds-icon-button',
-    variant === 'outlined' ? 'rds-icon-button--outlined' : null,
-    props.className || null,
+    variant === 'outlined' ? 'rds-icon-button--outlined' : 'rds-icon-button--filled',
+    classNameProp || null,
   ].filter(Boolean).join(' ');
 
   return (

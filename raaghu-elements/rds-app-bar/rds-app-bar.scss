@@ -1607,6 +1607,8 @@ $rds-app-bar-breakpoint-xs: 320px;
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
+.rds-header .rds-appbar-overflow-button { display: none; }
+
 @media (max-width: 420px) {
   .rds-appbar-overflow-button {
     display: none;
@@ -2834,3 +2836,29 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+
+.rds-dashboard-top-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-spacing-sm);
+}
+
+.rds-header--variant-dashboardwithlang {
+  .rds-dashboard-title { white-space: nowrap; }
+
+  @media (min-width: 421px) {
+    .rds-header__right-actions { margin-right: 0; }
+  }
+
+  @media (max-width: 767px) {
+    .rds-admin-profile__button .MuiBox-root,
+    .rds-admin-profile__button .MuiTypography-root,
+    .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .rds-dashboard-top-icons { display: none; }
+  }
+}

@@ -94,7 +94,9 @@ const RdsAppBar = ({
       const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
       const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
       const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      const threshold = needsTabletBottomNav ? 840 : 420;
+      let threshold = 420;
+      if (needsTabletBottomNav) threshold = 840;
+      else if (variantLower === 'dashboardwithlang') threshold = 599;
       setIsSmallScreen(window.innerWidth <= threshold);
     };
 
