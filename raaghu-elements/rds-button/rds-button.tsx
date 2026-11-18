@@ -1,4 +1,4 @@
-import { type ReactNode, type CSSProperties } from 'react';
+import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -37,7 +37,8 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
-  style?: 'filled' | 'outlined' | 'transparent';
+  variant?: 'filled' | 'outlined' | 'transparent';
+  style?: 'filled' | 'outlined' | 'transparent' | CSSProperties;
   color?: ButtonProps['color'];
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
@@ -46,14 +47,15 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
-const RdsButton = ({
+const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
   text,
   children,
   isLoading = false,
   disabled,
   shape = 'rectangle',
   sx,
-  style,
+  style: styleProp,
+  variant,
   color = 'primary',
   layout = 'icon+text',
   showLeftIcon = false,
@@ -62,9 +64,12 @@ const RdsButton = ({
   changeRightIcon = 'save',
   state = 'default',
   textCase = 'uppercase',
+  className,
   ...props
-}:RdsButtonProps) => {
+}, ref) => {
   const theme = useTheme();
+  const style = variant ?? (typeof styleProp === 'string' ? styleProp : undefined);
+  const inlineStyle = typeof styleProp === 'object' ? styleProp : undefined;
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
     switch (layout.trim().toLowerCase()) {
@@ -174,7 +179,7 @@ const RdsButton = ({
   const paletteMain = getPaletteColor('main');
   const paletteDark = getPaletteColor('dark');
   const paletteLight = getPaletteColor('light');
-  const paletteContrast = getPaletteColor('contrastText') ?? '#ffffff';
+  const paletteContrast = getPaletteColor('contrastText') ?? 'var(--rds-neutral-0)';
 
   const getOutlinedHoverStyles = () => {
     if (!paletteMain) return {};
@@ -248,26 +253,27 @@ const RdsButton = ({
 
   return (
     <MuiButton
+      ref={ref}
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color}
-      className={clsx('rds-button', layoutClass, hasIconClass, styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading')}
+      className={clsx('rds-button', layoutClass, hasIconClass, styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading', className)}
       sx={{
         ...shapeStyles,
         ...textCaseStyles,
         '& .MuiButton-startIcon': { margin: 0 },
         '& .MuiButton-endIcon': { margin: 0 },
-        ...(hasIcons ? { padding: '6px' } : {}),
+        ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
         ...(style === 'outlined' && paletteMain ? {
           ...(state === 'hover' ? {
             ...outlinedHoverStyles,
-            transform: 'translateY(-1px)',
+            transform: 'translateY(var(--rds-spacing-neg-1))',
             boxShadow: 'var(--rds-elevation-2)',
           } : {}),
           ...(state === 'selected' ? outlinedSelectedStyles : {}),
           '&:hover': {
             ...outlinedHoverStyles,
-            transform: 'translateY(-1px)',
+            transform: 'translateY(var(--rds-spacing-neg-1))',
             boxShadow: 'var(--rds-elevation-2)',
           },
         } : {}),
@@ -282,6 +288,7 @@ const RdsButton = ({
         ...(style === 'filled' && paletteContrast && state !== 'selected' ? { color: paletteContrast } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
+        ...inlineStyle,
       }}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}
@@ -290,7 +297,7 @@ const RdsButton = ({
       {contentElement}
     </MuiButton>
   );
-};
+});
 
 RdsButton.displayName = 'RdsButton';
 export default RdsButton;

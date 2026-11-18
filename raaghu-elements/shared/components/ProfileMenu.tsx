@@ -64,7 +64,7 @@ const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
   {
     label: 'Logout',
     icon: <LogoutIcon fontSize="small" />,
-    sx: { borderRadius: '0 0 var(--rds-border-radius-lg, 8px) var(--rds-border-radius-lg, 8px)' },
+    sx: { borderRadius: '0 0 var(--rds-border-radius-lg, var(--rds-spacing-sm)) var(--rds-border-radius-lg, var(--rds-spacing-sm))' },
   },
 ];
 

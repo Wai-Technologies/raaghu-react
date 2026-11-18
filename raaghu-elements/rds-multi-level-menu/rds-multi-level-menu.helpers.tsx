@@ -158,7 +158,7 @@ export function MultiLevelMenuPanel({
       PaperProps={{
         sx:
           level === 0
-            ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
+            ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, var(--rds-spacing-43))', sm: 0 } }
             : menuPaperStyle,
         className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`,
       }}

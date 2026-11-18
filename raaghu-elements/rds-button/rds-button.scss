@@ -58,7 +58,7 @@
   &__secondary {
     background-color: var(--rds-button-secondary-bg);
     color: var(--rds-button-secondary-text);
-    border: 1px solid var(--rds-button-secondary-border);
+    border: var(--rds-border-width-thin) solid var(--rds-button-secondary-border);
 
     &:active {
       background-color: var(--rds-button-secondary-bg-active);
@@ -100,51 +100,51 @@
 
   &:disabled:not(.rds-button__loading),
   &__disabled {
-    background-color: var(--rds-button-primary-bg-disabled) !important;
-    color: var(--rds-button-primary-text-disabled) !important;
+    background-color: var(--rds-button-primary-bg-disabled);
+    color: var(--rds-button-primary-text-disabled);
     cursor: not-allowed;
-    border-color: var(--rds-border-light) !important;
+    border-color: var(--rds-border-light);
   }
 
   &__loading {
     pointer-events: none;
 
     &.Mui-disabled {
-      opacity: 1 !important;
+      opacity: 1;
     }
   }
 
   &__state-hover:not(.rds-button__secondary):not(.MuiButton-outlined) {
     &:hover {
-      background-color: var(--rds-button-primary-bg-hover) !important;
-      color: var(--rds-button-primary-text) !important;
+      background-color: var(--rds-button-primary-bg-hover);
+      color: var(--rds-button-primary-text);
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
     }
   }
 
   &__state-disabled {
-    background-color: var(--rds-button-primary-bg-disabled) !important;
-    color: var(--rds-button-primary-text-disabled) !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    border-color: var(--rds-border-light) !important;
+    background-color: var(--rds-button-primary-bg-disabled);
+    color: var(--rds-button-primary-text-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+    border-color: var(--rds-border-light);
     
     &:hover {
-      background-color: var(--rds-button-primary-bg-disabled) !important;
-      transform: none !important;
-      box-shadow: var(--rds-elevation-0) !important;
+      background-color: var(--rds-button-primary-bg-disabled);
+      transform: none;
+      box-shadow: var(--rds-elevation-0);
     }
 
     &.MuiButton-outlined {
-      background-color: var(--rds-button-secondary-bg-disabled) !important;
-      border-color: var(--rds-button-secondary-border-disabled) !important;
-      color: var(--rds-button-secondary-text-disabled) !important;
+      background-color: var(--rds-button-secondary-bg-disabled);
+      border-color: var(--rds-button-secondary-border-disabled);
+      color: var(--rds-button-secondary-text-disabled);
     }
 
     &.MuiButton-text {
-      background-color: transparent !important;
-      color: var(--rds-button-text-color-disabled) !important;
+      background-color: transparent;
+      color: var(--rds-button-text-color-disabled);
     }
   }
 
@@ -198,6 +198,6 @@
 [data-theme="dark"] {
   .rds-button.MuiButton-contained,
   .rds-button.rds-button__primary {
-    color: var(--rds-neutral-0) !important;
+    color: var(--rds-neutral-0);
   }
 }

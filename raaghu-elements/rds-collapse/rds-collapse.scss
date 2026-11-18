@@ -24,16 +24,16 @@
 
 [data-theme=dark] {
   .rds-collapse__story-box {
-    background-color: var(--rds-background-surface) !important;
-    color: var(--rds-color-on-surface-dark) !important;
+    background-color: var(--rds-background-surface);
+    color: var(--rds-color-on-surface-dark);
   }
 
   .rds-collapse__story-box--warning {
-    background-color: var(--rds-warning-light) !important;
-    color: var(--rds-text-primary-light) !important;
+    background-color: var(--rds-warning-light);
+    color: var(--rds-text-primary-light);
 
     .MuiTypography-root {
-      color: var(--rds-text-primary-light) !important;
+      color: var(--rds-text-primary-light);
     }
   }
 }

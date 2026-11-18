@@ -552,3 +552,12 @@ describe('RdsCompColorPicker', () => {
     });
   });
 });
+describe('RdsCompColorPicker disabled prop', () => {
+  it('applies the disabled container class and disables tabs', () => {
+    const { container } = render(
+      <RdsCompColorPicker value="#112233" label="c" type={ColorPickerType.Default} showTabs disabled />
+    );
+    expect(container.querySelector('.rds-comp-color-picker__container--disabled')).toBeInTheDocument();
+    container.querySelectorAll('.rds-comp-color-picker__tab').forEach((tab) => expect(tab).toBeDisabled());
+  });
+});

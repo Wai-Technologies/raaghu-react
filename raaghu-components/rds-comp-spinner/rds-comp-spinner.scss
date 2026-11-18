@@ -3,15 +3,16 @@
   --rds-spinner-secondary-color: var(--rds-text-secondary);
   --rds-spinner-success-color: var(--rds-semantic-success-main);
   --rds-spinner-danger-color: var(--rds-semantic-error-main);
+  --rds-spinner-error-color: var(--rds-semantic-error-main);
   --rds-spinner-warning-color: var(--rds-semantic-warning-main);
   --rds-spinner-info-color: var(--rds-info-dark);
   --rds-spinner-light-color: var(--rds-surface-subtle);
   --rds-spinner-dark-color: var(--rds-text-primary);
-  
-  --rds-spinner-animation-duration: 0.75s;
-}
+
+  }
 
 .spinner-border {
+  --rds-spinner-animation-duration: 0.75s;
   display: inline-block;
   vertical-align: middle;
   border: 0.25em solid currentColor;
@@ -22,6 +23,7 @@
 }
 
 .spinner-grow {
+  --rds-spinner-animation-duration: 0.75s;
   display: inline-block;
   vertical-align: middle;
   background-color: currentColor;
@@ -30,9 +32,8 @@
   animation: spinner-grow var(--rds-spinner-animation-duration) linear infinite;
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));
 
-
-  width: 30px;
-  height: 30px;
+  width: var(--rds-spacing-30);
+  height: var(--rds-spacing-30);
 }
 
 /* Default and size modifier classes for consistent sizing */
@@ -40,61 +41,71 @@
 
 .spinner-border.spinner--small,
 .spinner-grow.spinner--small {
-  width: 15px;
-  height: 15px;
+  width: var(--rds-spacing-15);
+  height: var(--rds-spacing-15);
 }
 
 .spinner-border.spinner--default,
 .spinner-grow.spinner--default {
-  width: 30px;
-  height: 30px;
+  width: var(--rds-spacing-30);
+  height: var(--rds-spacing-30);
 }
 
 .spinner-border.spinner--medium,
 .spinner-grow.spinner--medium {
-  width: 35px;
-  height: 35px;
+  --rds-spinner-width-1: 35px;
+  --rds-spinner-height-1: 35px;
+  width: var(--rds-spinner-width-1);
+
+  height: var(--rds-spinner-height-1);
 }
 
 .spinner-border.spinner--large,
 .spinner-grow.spinner--large {
-  width: 45px;
-  height: 45px;
+  --rds-spinner-width-2: 45px;
+  --rds-spinner-height-2: 45px;
+  width: var(--rds-spinner-width-2);
+
+  height: var(--rds-spinner-height-2);
 }
 
 .text-primary {
-  color: var(--rds-primary-main, var(--rds-spinner-primary-color)) !important;
+  color: var(--rds-primary-main, var(--rds-spinner-primary-color));
 }
 
 .text-secondary {
-  color: var(--rds-secondary-main, var(--rds-spinner-secondary-color)) !important;
+  color: var(--rds-secondary-main, var(--rds-spinner-secondary-color));
 }
 
 .text-success {
-  color: var(--rds-success-main, var(--rds-spinner-success-color)) !important;
+  color: var(--rds-success-main, var(--rds-spinner-success-color));
 }
 
+.text-error,
 .text-danger {
-  color: var(--rds-error-main, var(--rds-spinner-danger-color)) !important;
+  color: var(--rds-error-main, var(--rds-spinner-error-color, var(--rds-spinner-danger-color)));
 }
 
 .text-warning {
-  color: var(--rds-warning-main, var(--rds-spinner-warning-color)) !important;
+  color: var(--rds-warning-main, var(--rds-spinner-warning-color));
 }
 
 .text-info {
-  color: var(--rds-info-main, var(--rds-spinner-info-color)) !important;
+  color: var(--rds-info-main, var(--rds-spinner-info-color));
 }
 
 .text-light {
-  color: var(--rds-grey-300, var(--rds-spinner-light-color)) !important;
+  color: var(--rds-grey-300, var(--rds-spinner-light-color));
 }
 
 .text-dark {
-  color: var(--rds-grey-900, var(--rds-spinner-dark-color)) !important;
+  color: var(--rds-grey-900, var(--rds-spinner-dark-color));
 }
 
 .spinner-container {
+  --rds-spinner-line-height-1: 1.2;
+  --rds-spinner-line-height-2: 1.4;
+  --rds-spinner-line-height-3: 1.6;
   &--default {
     display: flex;
     align-items: center;
@@ -123,29 +134,32 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   .spinner-label {
     margin-bottom: 0;
     transition: font-size var(--rds-transition-base);
-    
+
     &--small {
-      font-size: 0.75rem;
-      line-height: 1.2;
+      font-size: var(--rds-font-size-xs);
+
+      line-height: var(--rds-spinner-line-height-1);
     }
-    
+
     &--default {
-      font-size: 0.875rem;
-      line-height: 1.4;
+      font-size: var(--rds-font-size-sm);
+
+      line-height: var(--rds-spinner-line-height-2);
     }
-    
+
     &--medium {
-      font-size: 1rem;
-      line-height: 1.5;
+      font-size: var(--rds-font-size-md);
+      line-height: var(--rds-line-height-normal);
     }
-    
+
     &--large {
-      font-size: 1.125rem;
-      line-height: 1.6;
+      font-size: var(--rds-font-size-lg);
+
+      line-height: var(--rds-spinner-line-height-3);
     }
   }
 }

@@ -10,14 +10,14 @@
 		align-items: center;
 	}
 	canvas {
-		width: 100% !important;
-		height: var(--rds-comp-chart-pie-height) !important;
+		width: 100%;
+		height: var(--rds-comp-chart-pie-height);
 		max-width: 100%;
 		@include bp.down(600) {
-			height: var(--rds-comp-chart-pie-height) !important;
+			height: var(--rds-comp-chart-pie-height);
 		}
 		@include bp.down(400) {
-			height: var(--rds-comp-chart-pie-height) !important;
+			height: var(--rds-comp-chart-pie-height);
 		}
 	}
 }

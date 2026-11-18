@@ -50,20 +50,20 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
             height: 120,
             color: 'var(--rds-primary-main)',
             '& .MuiSlider-thumb': {
-              width: 16,
-              height: 16,
+              width: 'var(--rds-size-md)',
+              height: 'var(--rds-size-md)',
               backgroundColor: 'var(--rds-primary-main)',
               '&:hover': {
-                boxShadow: '0 0 0 8px var(--rds-primary-focus-ring, rgba(25, 118, 210, 0.16))',
+                boxShadow: '0 0 0 var(--rds-spacing-sm) var(--rds-primary-focus-ring)',
               },
             },
             '& .MuiSlider-track': {
-              width: 4,
+              width: 'var(--rds-spacing-xs)',
               backgroundColor: 'var(--rds-primary-main)',
             },
             '& .MuiSlider-rail': {
-              width: 4,
-              backgroundColor: 'var(--rds-neutral-300, #e0e0e0)',
+              width: 'var(--rds-spacing-xs)',
+              backgroundColor: 'var(--rds-neutral-300)',
             },
           }}
         />
@@ -103,28 +103,28 @@ export const SettingsModalComponent: React.FC<SettingsModalProps> = ({
             ]}
             sx={{
               color: 'var(--rds-primary-main)',
-              height: 8,
+              height: 'var(--rds-spacing-sm)',
               '& .MuiSlider-thumb': {
-                width: 20,
-                height: 20,
+                width: 'var(--rds-spacing-20-px)',
+                height: 'var(--rds-spacing-20-px)',
                 backgroundColor: 'var(--rds-primary-main)',
                 '&:hover': {
-                  boxShadow: '0 0 0 8px var(--rds-action-hover)',
+                  boxShadow: '0 0 0 var(--rds-spacing-sm) var(--rds-action-hover)',
                 },
               },
               '& .MuiSlider-track': {
-                height: 8,
+                height: 'var(--rds-spacing-sm)',
                 backgroundColor: 'var(--rds-primary-main)',
                 border: 'none',
               },
               '& .MuiSlider-rail': {
-                height: 8,
+                height: 'var(--rds-spacing-sm)',
                 backgroundColor: 'var(--rds-neutral-300)',
               },
               '& .MuiSlider-mark': {
                 backgroundColor: 'var(--rds-primary-main)',
-                height: 5,
-                width: 5,
+                height: 'var(--rds-spacing-tight)',
+                width: 'var(--rds-spacing-tight)',
                 borderRadius: 'var(--rds-border-radius-pill)',
                 '&.MuiSlider-markActive': {
                   backgroundColor: 'var(--rds-neutral-0)',
@@ -190,14 +190,14 @@ export const AudioEditionControls: React.FC<AudioEditionControlsProps> = ({
               width: '100px',
               color: 'var(--rds-primary-main)',
               '& .MuiSlider-thumb': {
-                width: 16,
-                height: 16,
+                width: 'var(--rds-size-md)',
+                height: 'var(--rds-size-md)',
               },
               '& .MuiSlider-track': {
-                height: 4,
+                height: 'var(--rds-spacing-xs)',
               },
               '& .MuiSlider-rail': {
-                height: 4,
+                height: 'var(--rds-spacing-xs)',
                 opacity: 0.3,
               },
             }}

@@ -1,12 +1,12 @@
 .rds-modal {
   --rds-modal-mobile-breakpoint: 600px;
-  --rds-modal-container-shadow: 0 var(--rds-spacing-sm, 8px) var(--rds-spacing-xl, 32px) rgba(0, 0, 0, 0.3);
   --rds-modal-image-width: 300px;
   --rds-modal-image-height: 150px;
   --rds-modal-image-width-mobile: 190px;
   --rds-modal-animation-delay: 0.1s;
-  --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm, 8px));
-  --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs, 4px));
+  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) color-mix(in srgb, var(--rds-neutral-1000) 30%, transparent);
+  --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm));
+  --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs));
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- 
+
   &__backdrop {
     position: absolute;
     top: 0;
@@ -28,36 +28,36 @@
     opacity: 0;
     animation: rds-modal-fade-in var(--rds-transition-base)-out forwards;
   }
- 
+
   &__container {
     position: relative;
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-spacing-sm);
-    box-shadow: var(--rds-modal-container-shadow, 0 var(--rds-spacing-sm, 8px) var(--rds-spacing-xl, 32px) rgba(0, 0, 0, 0.3));
+    box-shadow: var(--rds-modal-container-shadow);
     max-width: 90vw;
     max-height: 90vh;
     overflow: hidden;
     transform: scale(0.9);
     opacity: 0;
     animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
-    animation-delay: var(--rds-modal-animation-delay, 0.1s);
- 
-    @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
+    animation-delay: var(--rds-modal-animation-delay);
+
+    @media (max-width: var(--rds-modal-mobile-breakpoint)) {
       max-width: 98vw;
       max-height: 98vh;
       border-radius: var(--rds-spacing-xs);
       margin: 0 var(--rds-spacing-xs);
-    overflow: hidden !important;
+    overflow: hidden;
     }
   }
- 
+
   &__header {
     padding: var(--rds-spacing-sm) var(--rds-spacing-sm) 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
- 
+
   &__title {
     font-size: var(--rds-font-size-2xl);
     font-weight: var(--rds-font-weight-medium);
@@ -71,8 +71,8 @@
     padding-inline: var(--rds-spacing-sm);
 
     &--with-close {
-      padding-inline: var(--rds-spacing-sm) !important;
-      padding-top: var(--rds-spacing-sm, 8px);
+      padding-inline: var(--rds-spacing-sm);
+      padding-top: var(--rds-spacing-sm);
     }
   }
 
@@ -80,7 +80,7 @@
     flex-direction: column;
     align-items: center;
   }
- 
+
   &__close {
     background: none;
     border: none;
@@ -90,14 +90,14 @@
     color: var(--rds-neutral-500);
 
     &--absolute {
-      position: absolute !important;
-      right: var(--rds-spacing-sm, 8px);
-      top: var(--rds-spacing-sm, 8px);
+      position: absolute;
+      right: var(--rds-spacing-sm);
+      top: var(--rds-spacing-sm);
       z-index: 1;
     }
-   
+
     &:hover {
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.08));
+      background-color: var(--rds-action-hover);
     }
   }
 
@@ -113,18 +113,18 @@
 
     .rds-modal__image {
       width: 100%;
-      max-width: var(--rds-modal-image-width, 300px);
+      max-width: var(--rds-modal-image-width);
     }
   }
- 
+
   &__content {
     padding: var(--rds-spacing-sm);
     overflow-y: auto;
     width: 100%;
     display: flex;
     justify-content: center;
-      @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
-        overflow: hidden !important;
+      @media (max-width: var(--rds-modal-mobile-breakpoint)) {
+        overflow: hidden;
       }
   }
 
@@ -133,30 +133,30 @@
     display: flex;
     justify-content: center;
   }
- 
+
   &__actions {
     padding: 0 var(--rds-spacing-sm) var(--rds-spacing-sm);
     display: flex;
     gap: var(--rds-spacing-sm);
     justify-content: flex-end;
   }
- 
+
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--rds-color-icon);
   }
- 
+
   &__image {
-    width: var(--rds-modal-image-width, 300px);
-    height: var(--rds-modal-image-height, 150px);
+    width: var(--rds-modal-image-width);
+    height: var(--rds-modal-image-height);
     border-radius: var(--rds-border-radius-sm);
     display: inline-block;
-    @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
-      width: var(--rds-modal-image-width-mobile, 190px);
-      height: var(--rds-modal-image-height, 150px);
-      margin-right: var(--rds-modal-image-mobile-margin-right, calc(1.5 * var(--rds-spacing-xs, 4px)));
+    @media (max-width: var(--rds-modal-mobile-breakpoint)) {
+      width: var(--rds-modal-image-width-mobile);
+      height: var(--rds-modal-image-height);
+      margin-right: var(--rds-modal-image-mobile-margin-right, calc(1.5 * var(--rds-spacing-xs)));
     }
   }
   &__content
@@ -164,17 +164,17 @@
     text-align: center;
   }
 }
- 
+
 @keyframes rds-modal-fade-in {
   to {
     opacity: 1;
   }
 }
- 
+
 @keyframes rds-modal-scale-in {
   to {
     transform: scale(1);
     opacity: 1;
   }
 }
- 
+

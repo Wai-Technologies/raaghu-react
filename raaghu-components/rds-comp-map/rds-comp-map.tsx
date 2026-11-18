@@ -22,15 +22,13 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     const { mapType = 'default' } = props;
     const themeMode = useChartThemeMode();
     const isDarkTheme = themeMode === 'dark';
-    const mapBackgroundColor = getCSSVar(
-        '--rds-background-surface',
-        isDarkTheme ? '#424242' : '#ffffff',
-    );
+    const mapBackgroundColor = getCSSVar('--rds-background-surface');
 
     const defaultStylingFunction = (context: WorldMapStylingContext) => {
         const range = context.maxValue - context.minValue;
-        const normalizedValue =
+        const rawNormalized =
             range > 0 ? (context.countryValue - context.minValue) / range : 0;
+        const normalizedValue = Number.isFinite(rawNormalized) ? rawNormalized : 0;
         const minOpacity = isDarkTheme ? 0.35 : 0.1;
         const opacityLevel = minOpacity + ((1 - minOpacity) * normalizedValue);
         const highlightFill = getCSSVar('--rds-info-main');
@@ -76,12 +74,13 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     }
 
     const heatMapStylingFunction = (context: WorldMapStylingContext) => {
-        const intensity = (context.countryValue - context.minValue) / (context.maxValue - context.minValue) || 0;
+        const rawIntensity = (context.countryValue - context.minValue) / (context.maxValue - context.minValue);
+        const intensity = Number.isFinite(rawIntensity) ? rawIntensity : 0;
         const color = interpolateColor(intensity);
         return {
             fill: color,
             fillOpacity: 0.7 + (0.3 * intensity),
-            stroke: getCSSVar('--rds-border-default', isDarkTheme ? 'rgba(255,255,255,0.24)' : 'rgba(0,0,0,0.12)'),
+            stroke: getCSSVar('--rds-border-default'),
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
             cursor: 'pointer'

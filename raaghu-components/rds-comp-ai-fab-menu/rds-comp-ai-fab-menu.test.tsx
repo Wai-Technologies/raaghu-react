@@ -259,12 +259,13 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('renders with different color variants', () => {
-      const variants = ['primary', 'danger', 'secondary'];
+      const variants = ['primary', 'danger', 'secondary'] as const;
       variants.forEach((variant) => {
         const { container, unmount } = render(
-          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant as 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light'} />
+          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant} />
         );
-        const button = container.querySelector(`.rds-fab-menu__button--${variant}`);
+        const expected = variant === 'danger' ? 'error' : variant;
+        const button = container.querySelector(`.rds-fab-menu__button--${expected}`);
         expect(button).toBeInTheDocument();
         unmount();
       });
@@ -593,7 +594,7 @@ describe('RdsCompAiFabMenu', () => {
       rerender(
         <RdsCompAiFabMenu {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-fab-menu__button--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--error')).toBeInTheDocument();
     });
 
     it('maintains open state across re-renders with same props', async () => {
@@ -638,6 +639,38 @@ describe('RdsCompAiFabMenu', () => {
         expect(buttonIcon).toBeInTheDocument();
         unmount();
       });
+    });
+  });
+
+  describe('Keyboard and ARIA', () => {
+    it('exposes menu semantics on the trigger and uses buttons for items', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const trigger = screen.getByTestId('fab-menu-btn');
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-label', 'Open menu');
+      screen.getAllByRole('menuitem', { hidden: true }).forEach((item) => expect(item.tagName).toBe('BUTTON'));
+    });
+
+    it('closes on Escape and returns focus to the trigger', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const trigger = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.keyDown(screen.getAllByRole('menuitem', { hidden: true })[0], { key: 'Escape' });
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(trigger).toHaveFocus();
+    });
+
+    it('moves focus with ArrowDown and ArrowUp', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      fireEvent.click(screen.getByTestId('fab-menu-btn'));
+      const items = screen.getAllByRole('menuitem', { hidden: true });
+      fireEvent.keyDown(items[0], { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+      fireEvent.keyDown(items[0], { key: 'ArrowDown' });
+      expect(items[1]).toHaveFocus();
+      fireEvent.keyDown(items[1], { key: 'ArrowUp' });
+      expect(items[0]).toHaveFocus();
     });
   });
 });

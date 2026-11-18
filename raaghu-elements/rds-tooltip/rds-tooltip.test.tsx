@@ -983,3 +983,16 @@ describe('RdsTooltip — keyboard navigation', () => {
   });
 });
 
+
+
+describe('RdsTooltip prop hygiene', () => {
+  it('does not crash on a non-string style and does not leak wrapper', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const { container } = render(
+      <RdsTooltip title="tip" wrapper style={{ color: 'red' } as any}><button>x</button></RdsTooltip>
+    );
+    expect(container.querySelector('[wrapper]')).toBeNull();
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
+});

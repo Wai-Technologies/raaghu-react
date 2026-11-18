@@ -132,7 +132,7 @@ export function NotificationCard({
                 notification.avatar ||
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
               }
-              sx={{ width: 40, height: 40, marginRight: 2 }}
+              sx={{ width: 'var(--rds-spacing-40-px)', height: 'var(--rds-spacing-40-px)', marginRight: 2 }}
             />
           )}
           {style === NotificationStyle.Icon && (

@@ -131,14 +131,11 @@ export function TableHeaderRow({
                   />
                 </div>
               ) : (
-                <button
-                  type="button"
+                <div
                   className="rds-table__header-content"
                   onClick={() => handleSort(column)}
                   style={{
-                    cursor: column.sortable ? 'pointer' : undefined,
-                    background: 'none',
-                    border: 'none',
+                    cursor: column.sortable ? 'pointer' : 'default',
                     padding: 0,
                     font: 'inherit',
                     textAlign: 'inherit',
@@ -162,7 +159,7 @@ export function TableHeaderRow({
                       />
                     </IconButton>
                   )}
-                </button>
+                </div>
               )}
             </MuiTableCell>
           );

@@ -25,9 +25,12 @@ const RdsStack: React.FC<RdsStackProps> = ({
 
   if (typeof divider === 'boolean') {
     if (divider) {
-      const dir = (props.direction && typeof props.direction === 'string')
-        ? props.direction
-        : 'row';
+      const rawDirection = props.direction;
+      const dir = typeof rawDirection === 'string'
+        ? rawDirection
+        : rawDirection && typeof rawDirection === 'object'
+          ? (Object.values(rawDirection).find((v) => typeof v === 'string') as string | undefined) ?? 'column'
+          : 'column';
       const orientation = dir.includes('row') ? 'vertical' : 'horizontal';
       stackDivider = (
         <Divider
@@ -50,7 +53,7 @@ const RdsStack: React.FC<RdsStackProps> = ({
 
   return (
     <MuiStack
-      spacing={spacing || gap}
+      spacing={spacing ?? gap}
       {...restProps}
       className={rootClassName}
       style={mergedStyle}

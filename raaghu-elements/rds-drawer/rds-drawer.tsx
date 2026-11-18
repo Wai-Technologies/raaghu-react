@@ -87,6 +87,7 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   
   const drawerElement = (
     <MuiDrawer
+      {...props}
       anchor={drawerAnchor}
       open={actualOpen}
       onClose={handleClose}
@@ -99,7 +100,6 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
         },
         ...sx,
       }}
-      {...props}
     >
       {renderDrawerContent()}
     </MuiDrawer>

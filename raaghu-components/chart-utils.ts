@@ -1,5 +1,11 @@
 import { useSyncExternalStore } from 'react';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
+import { typographyTokens } from '../raaghu-react-themes/tokens/design-tokens';
+import { resolveSemanticPalette } from '../raaghu-react-themes/tokens/semantic-palette';
+
+function chartSemantic() {
+  return resolveSemanticPalette(isDarkMode() ? 'dark' : 'light');
+}
 
 function getChartThemeMode(): string {
   if (typeof document === 'undefined') return 'light';
@@ -71,11 +77,11 @@ export function getCSSVar(property: string, fallback = ''): string {
 }
 
 export function chartTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  return getCSSVar('--rds-text-primary', chartSemantic().text.primary);
 }
 
 export function chartMutedColor(): string {
-  return getCSSVar('--rds-text-secondary', isDarkMode() ? '#9e9e9e' : '#757575');
+  return getCSSVar('--rds-text-secondary', chartSemantic().text.secondary);
 }
 
 /**
@@ -92,14 +98,14 @@ function chartGridColor(): string {
  * Returns the current theme's tooltip background color.
  */
 function chartTooltipBg(): string {
-  return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
+  return getCSSVar('--rds-background-paper', chartSemantic().background.paper);
 }
 
 /**
  * Returns the current theme's tooltip text color.
  */
 function chartTooltipTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  return getCSSVar('--rds-text-primary', chartSemantic().text.primary);
 }
 
 export function chartFont(
@@ -122,7 +128,7 @@ export function chartFont(
   };
 
   const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
-  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
+  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', typographyTokens.fontSize.sm);
   const family = getCSSVar('--rds-font-family-base', 'Poppins');
 
   return `${weightVal} ${sizeVal} ${family}`;

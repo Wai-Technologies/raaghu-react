@@ -63,18 +63,14 @@ const RdsCarousel = ({
     if (style === 'full width image') {
       return tokens.cssVar('neutral-0');
     }
-    return isDarkMode
-      ? 'rgba(255, 255, 255, 0.55)'
-      : tokens.cssVar('carousel-indicator-bg');
+    return tokens.cssVar('carousel-indicator-bg');
   };
 
   const getInactiveIndicatorHoverColor = () => {
     if (style === 'full width image') {
       return tokens.cssVar('neutral-0');
     }
-    return isDarkMode
-      ? 'rgba(255, 255, 255, 0.75)'
-      : tokens.cssVar('neutral-500');
+    return tokens.cssVar('carousel-indicator-bg-hover');
   };
 
   useEffect(() => {
@@ -137,7 +133,7 @@ const RdsCarousel = ({
 
           return (
             <Box
-              key={`${displayTitle}-${displaySubtitle}`}
+              key={`${displayTitle}-${displaySubtitle}-${index}`}
               className="rds-carousel__slide"
               sx={{
                 flex: '0 0 100%',
@@ -291,9 +287,9 @@ const RdsCarousel = ({
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
-                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
+                    ? `var(--rds-spacing-hairline) solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
                     : isDarkMode && currentIndex !== index
-                      ? '1px solid rgba(255, 255, 255, 0.25)'
+                      ? `var(--rds-spacing-hairline) solid ${tokens.cssVar('carousel-indicator-border')}`
                       : 'none',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s, opacity 0.2s',

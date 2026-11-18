@@ -8,42 +8,42 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
   left: 0;
   right: 0;
   width: 100%;
-  z-index: var(--rds-bottom-navigation-z-index, 1000);
+  z-index: var(--rds-bottom-navigation-z-index);
 
   &:hover {
   }
 
   &:focus-visible {
-    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-bottom-navigation-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-bottom-navigation-disabled-opacity, 0.6);
+    opacity: var(--rds-bottom-navigation-disabled-opacity);
     pointer-events: none;
   }
 
   @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
     .MuiBottomNavigation-root {
       .MuiBottomNavigationAction-root {
-        min-width: var(--rds-bottom-navigation-action-min-width, 72px) !important;
-        max-width: none !important;
-        padding: var(--rds-bottom-navigation-action-padding-y, 6px) var(--rds-bottom-navigation-action-padding-x, 8px) !important;
-        flex: 1 !important;
+        min-width: var(--rds-bottom-navigation-action-min-width);
+        max-width: none;
+        padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-bottom-navigation-action-padding-x);
+        flex: 1;
         
         .MuiBottomNavigationAction-label {
-          font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
-          margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
-          line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
-          white-space: nowrap !important;
-          overflow: hidden !important;
-          text-overflow: ellipsis !important;
-          max-width: 100% !important;
+          font-size: var(--rds-bottom-navigation-label-font-size);
+          margin-top: var(--rds-bottom-navigation-label-margin-top);
+          line-height: var(--rds-bottom-navigation-label-line-height);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
         
         .MuiSvgIcon-root {
-          font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
+          font-size: var(--rds-bottom-navigation-icon-size);
         }
       }
     }

@@ -4,8 +4,8 @@ import { designSystemComponentOverrides } from './overrides';
 import { lightMuiPalette } from './palette';
 
 /**
- * Light MUI theme — palette uses resolved hex from design-tokens.ts (required for MUI color math).
- * Palette uses runtime CSS vars injected by injectTokens() — see tokens/build-rds-css-vars.ts
+ * Light MUI theme. Palette slots come from resolveSemanticPalette('light'),
+ * the same map injectTokens() writes onto --rds-* variables.
  */
 export const lightTheme = createTheme({
   breakpoints: {

@@ -1,7 +1,8 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .stack-chart-container {
-    display: flex;
+  --rds-chart-stacked-height: 600px;
+  display: flex;
     justify-content: center;
     align-items: center;
 
@@ -12,9 +13,10 @@
 
     // Tablet view - full screen
     @include bp.between(md, lg) {
-        
+
         canvas {
-            height: 600px !important;
+
+            height: var(--rds-chart-stacked-height);
         }
     }
 }

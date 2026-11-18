@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# Superseded by scripts/check-no-hex.mjs (strict: no hex, including var() fallbacks).
+# Kept so older local commands still run; CI uses check-no-hex.mjs.
 # check-hex-in-scss.sh
-# Governance script: counts hardcoded hex color values in SCSS source files.
+# Governance script: counts naked hex colors in SCSS source files.
+# Hex inside var(--token, #fallback) is ignored.
 # Fails if the count exceeds the recorded baseline, preventing new style debt.
 #
 # Usage: bash scripts/check-hex-in-scss.sh
@@ -54,7 +57,11 @@ for dir in "${SCAN_DIRS[@]}"; do
       continue
     fi
 
-    count=$(grep -oE "$HEX_PATTERN" "$scss_file" 2>/dev/null | wc -l | tr -d '[:space:]') || count=0
+    # Count naked hex only. Hex inside var(--token, #fallback) is a missing-token
+    # guard, not a hardcoded color, so it does not count toward the ratchet.
+    count=$(sed -E 's/var\([^()]*\)//g' "$scss_file" 2>/dev/null \
+      | grep -oE "$HEX_PATTERN" \
+      | wc -l | tr -d '[:space:]') || count=0
     if [[ "$count" -gt 0 ]]; then
       TOTAL=$((TOTAL + count))
       OFFENDING_FILES+=("$count	$scss_file")

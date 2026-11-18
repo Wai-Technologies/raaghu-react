@@ -282,7 +282,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply multiple style variants together', () => {
@@ -317,7 +317,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply warning color variant', () => {

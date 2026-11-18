@@ -4,8 +4,8 @@ import { designSystemComponentOverrides } from './overrides';
 import { darkMuiPalette } from './palette';
 
 /**
- * Dark MUI theme — palette uses resolved hex from design-tokens.ts (required for MUI color math).
- * Runtime --rds-* CSS vars are injected separately for RDS SCSS via injectTokens().
+ * Dark MUI theme. Palette slots come from resolveSemanticPalette('dark'),
+ * the same map injectTokens() writes onto --rds-* variables.
  */
 export const darkTheme = createTheme({
   breakpoints: {

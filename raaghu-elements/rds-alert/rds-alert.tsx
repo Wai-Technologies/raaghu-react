@@ -1,13 +1,19 @@
-import { isValidElement, cloneElement, type ReactNode } from 'react';
+import { isValidElement, cloneElement, type ReactNode, type MouseEvent } from 'react';
 import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-alert.scss';
 
-export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'> {
+export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content' | 'color'> {
   description?: string;
+  /** Semantic color of the alert. @default 'info' */
+  color?: AlertColor;
+  /** @deprecated Use `color`. */
   type?: AlertColor;
+  /** @deprecated Use `color`. */
+  severity?: AlertColor;
   changeIconName?: ReactNode;
   title?: string;
   content?: {
@@ -24,13 +30,20 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
     secondary?: 'visible' | 'hidden';
     primary?: 'visible' | 'hidden';
   };
+  linkText?: string;
+  secondaryText?: string;
+  primaryText?: string;
+  onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   [key: string]: unknown;
 }
 
 const RdsAlert= ({
   description,
   children,
-  type = 'info',
+  color,
+  type,
   severity,
   changeIconName,
   title = 'Heading Title.',
@@ -39,8 +52,16 @@ const RdsAlert= ({
   variantStyle = 'style1',
   actions,
   variant = 'standard',
+  linkText = 'Link',
+  secondaryText = 'Cancel',
+  primaryText = 'Okay',
+  onLinkClick,
+  onSecondaryClick,
+  onPrimaryClick,
   ...props
 }:RdsAlertProps) => {
+  if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`color`');
+  if (severity !== undefined) warnDeprecatedProp('RdsAlert', 'severity', '`color`');
   const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
   const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
   const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
@@ -82,7 +103,7 @@ const RdsAlert= ({
 
   const hasElementChildren = isValidElement(children);
   const mainText = description ?? (!hasElementChildren ? children : undefined);
-  const resolvedSeverity = severity || type;
+  const resolvedSeverity: AlertColor = color ?? severity ?? type ?? 'info';
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
   const severityClass = `rds-alert--${resolvedSeverity}`;
@@ -149,7 +170,7 @@ const RdsAlert= ({
                 <div className="rds-alert__bottom-row">
                   <div className="rds-alert__left-actions">
                     {showLink && (
-                      <button type="button" className="rds-alert__link-button">Link</button>
+                      <button type="button" className="rds-alert__link-button" onClick={onLinkClick}>{linkText}</button>
                     )}
                   </div>
                   <div className="rds-alert__right-actions">
@@ -158,19 +179,20 @@ const RdsAlert= ({
                         className={resolvedSeverity === 'error' ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
                         style="transparent"
                         size="small"
-                        text="Cancel"
+                        text={secondaryText}
+                        onClick={onSecondaryClick}
                         textCase="capitalize"
                         color={resolvedSeverity === 'error' ? 'error' : 'info'}
                       />
                     )}
-                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text={primaryText} onClick={onPrimaryClick} color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
                   </div>
                 </div>
               </>
             ) : (
               <>
                 {showLink && (
-                      <button type="button" className="rds-alert__link-button">Link</button>
+                      <button type="button" className="rds-alert__link-button" onClick={onLinkClick}>{linkText}</button>
                 )}
                 {showSecondary && (
                   <RdsButton
@@ -178,12 +200,13 @@ const RdsAlert= ({
                     style="transparent"
                     size="small"
                     sx={{ mr: showPrimary ? 2 : 0 }}
-                    text="Cancel"
+                    text={secondaryText}
+                        onClick={onSecondaryClick}
                     textCase="capitalize"
                     color={resolvedSeverity === 'error' ? 'error' : 'info'}
                   />
                 )}
-                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text={primaryText} onClick={onPrimaryClick} color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
               </>
             )}
           </div>

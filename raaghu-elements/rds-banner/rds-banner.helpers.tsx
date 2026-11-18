@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type MouseEvent } from 'react';
 import type { AlertProps, AlertColor } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 
@@ -78,17 +78,33 @@ export interface BannerActionButtonsProps {
   showLink: boolean;
   showSecondary: boolean;
   showPrimary: boolean;
+  linkText?: string;
+  secondaryText?: string;
+  primaryText?: string;
+  onLinkClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSecondaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onPrimaryClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function BannerActionButtons({ showLink, showSecondary, showPrimary }: BannerActionButtonsProps) {
+export function BannerActionButtons({
+  showLink,
+  showSecondary,
+  showPrimary,
+  linkText = 'Link',
+  secondaryText = 'Cancel',
+  primaryText = 'Okay',
+  onLinkClick,
+  onSecondaryClick,
+  onPrimaryClick,
+}: BannerActionButtonsProps) {
   if (!showLink && !showSecondary && !showPrimary) return null;
 
   return (
     <div className="rds-banner__actions">
-      {showLink && <RdsButton size="small" className="rds-banner__link-button" text="Link" />}
-      {showSecondary && <RdsButton size="small" className="rds-banner__secondary-button" text="Cancel" />}
+      {showLink && <RdsButton size="small" className="rds-banner__link-button" text={linkText} onClick={onLinkClick} />}
+      {showSecondary && <RdsButton size="small" className="rds-banner__secondary-button" text={secondaryText} onClick={onSecondaryClick} />}
       {showPrimary && (
-        <RdsButton style="filled" size="small" className="rds-banner__primary-button" text="Okay" />
+        <RdsButton style="filled" size="small" className="rds-banner__primary-button" text={primaryText} onClick={onPrimaryClick} />
       )}
     </div>
   );

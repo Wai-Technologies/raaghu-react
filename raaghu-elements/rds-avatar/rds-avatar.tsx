@@ -7,9 +7,16 @@ import {
   NamedAvatarView,
   SingleAvatarView,
 } from './rds-avatar.helpers';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 
-export interface RdsAvatarProps extends AvatarProps {
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+type AvatarColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+
+export interface RdsAvatarProps extends Omit<AvatarProps, 'color'> {
+  /** Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. */
+  color?: AvatarColor;
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
+  colorVariant?: AvatarColor;
   title?: string;
   subText?: string;
   size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
@@ -30,7 +37,8 @@ export interface RdsAvatarProps extends AvatarProps {
 }
 
 const RdsAvatar = ({
-  colorVariant = 'primary',
+  color,
+  colorVariant,
   title,
   subText,
   size = 'medium',
@@ -47,6 +55,12 @@ const RdsAvatar = ({
   showRemainingCount = true,
   ...props
 }: RdsAvatarProps) => {
+  const paletteColor = resolveDeprecatedProp(color, colorVariant, 'RdsAvatar', 'colorVariant', '`color`') ?? 'primary';
+  if (paletteColor === 'danger' || color === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsAvatar', 'color="danger"', '`color: "error"`');
+  }
+  const resolvedColorVariant = normalizePaletteColor(paletteColor) ?? 'primary';
+
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     return (
       <StackingAvatarsView
@@ -64,7 +78,7 @@ const RdsAvatar = ({
     activityRing,
     activeDotTop,
     activeDotBottom,
-    colorVariant,
+    resolvedColorVariant,
     displayStyle === 'with-name' || displayStyle === 'name-bottom' ? displayStyle : undefined
   );
 
@@ -110,7 +124,7 @@ const RdsAvatar = ({
 
   return (
     <SingleAvatarView
-      className={getAvatarModifierClasses(size, activityRing, activeDotTop, activeDotBottom, colorVariant)}
+      className={getAvatarModifierClasses(size, activityRing, activeDotTop, activeDotBottom, resolvedColorVariant)}
       size={size}
       sx={sx}
       activityRing={activityRing}

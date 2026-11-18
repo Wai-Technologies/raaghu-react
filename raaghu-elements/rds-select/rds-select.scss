@@ -4,7 +4,7 @@
   display: block;
   position: relative;
   .MuiFormLabel-asterisk {
-    color: var(--rds-alert-error-border) !important;
+    color: var(--rds-alert-error-border);
   }
 
   &__form-control {
@@ -46,7 +46,7 @@
     }
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-primary-main);
-      border-width: var(--rds-select-focus-border-width, 2px);
+      border-width: var(--rds-select-focus-border-width);
     }
     &.Mui-error .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-alert-error-border);
@@ -60,7 +60,7 @@
     }
     .MuiSelect-icon {
       color: var(--rds-text-disabled);
-      font-size: var(--rds-select-icon-size, 18px);
+      font-size: var(--rds-select-icon-size);
       right: var(--rds-spacing-sm);
       transition: transform var(--rds-transition-base);
     }
@@ -95,7 +95,7 @@
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
     margin-top: var(--rds-spacing-xs);
-    margin-left: var(--rds-select-helper-margin-left, 0px) !important;
+    margin-left: var(--rds-select-helper-margin-left);
     &.Mui-error {
       color: var(--rds-alert-error-border);
     }
@@ -110,14 +110,14 @@
   &.rds-select--small {
     .rds-select__field .MuiSelect-select {
       font-size: var(--rds-font-size-sm);
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     }
   }
 
   &.rds-select--medium {
     .rds-select__field .MuiSelect-select {
       font-size: var(--rds-font-size-md);
-      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     }
   }
 
@@ -130,8 +130,8 @@
 
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--rds-spacing-hairline);
+  height: var(--rds-spacing-hairline);
   padding: 0;
   margin: var(--rds-spacing-neg-1);
   overflow: hidden;

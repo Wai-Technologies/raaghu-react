@@ -16,10 +16,15 @@ const meta: Meta<typeof RdsSnackbar> = {
       control: 'text',
       description: 'Message to display',
     },
+    color: {
+      control: 'select',
+      options: ['error', 'warning', 'info', 'success'],
+      description: 'Semantic color of the snackbar',
+    },
     type: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
-      description: 'Type of snackbar',
+      description: 'Deprecated: use color',
     },
     open: {
       control: 'boolean',

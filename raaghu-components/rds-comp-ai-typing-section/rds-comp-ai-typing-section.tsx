@@ -3,8 +3,16 @@ import './rds-comp-ai-typing-section.scss';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import Send from '@mui/icons-material/Send';
 import RdsCompAiAttachement, { Comment as AttachmentComment } from '../../raaghu-components/rds-comp-ai-attachement/rds-comp-ai-attachement';
 import RdsCompAiIcon, { registerMaterialIcons } from '../rds-comp-ai-icon/rds-comp-ai-icon';
+
+export interface RdsCompAiTypingSectionOption {
+  label: string;
+  value?: string | number;
+}
+
+const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [{ label: 'Raaghu', value: 1 }];
 
 export interface RdsCompAiTypingSectionProps {
   colorVariant?: string;
@@ -15,6 +23,9 @@ export interface RdsCompAiTypingSectionProps {
   previewImage?: string;
   type?: string;
   autoCompleteMaxWidth?: string; 
+  onNewProjectClick?: () => void;
+  onImportFromFigmaClick?: () => void;
+  autocompleteOptions?: RdsCompAiTypingSectionOption[];
 }
 declare global {
   interface SpeechRecognitionEvent extends Event {
@@ -41,7 +52,10 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   previewImage,
   type,
   onAddComment,
-  autoCompleteMaxWidth
+  autoCompleteMaxWidth,
+  onNewProjectClick,
+  onImportFromFigmaClick,
+  autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS
 }) => {
   const [inputText, setInputText] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -120,11 +134,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
                 colorVariant="primary"
-                height="24px"
+                height="var(--rds-spacing-lg)"
                 isCursorPointer
                 name="enhance"
                 stroke
-                width="24px"
+                width="var(--rds-spacing-lg)"
               />
             </span>
           )}
@@ -152,11 +166,12 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             <div className="rds-comp-ai-typing-section__send">
               <RdsButton
                 color="primary"
-                changeLeftIcon="add"
+                changeLeftIcon={<Send />}
                 showLeftIcon
                 style="filled"
                 layout="icon-only"
                 onClick={handleSent}
+                aria-label="Send"
               />
             </div>
           </div>
@@ -172,6 +187,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
               text="New Project"
               style="filled"
               size={isMobile ? "small" : "medium"}
+              onClick={onNewProjectClick}
             />
           </div>
           <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--figma">
@@ -182,6 +198,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
               text="Import From Figma"
               style="outlined"
               size={isMobile ? "small" : "medium"}
+              onClick={onImportFromFigmaClick}
             />
           </div>
         </div>
@@ -194,7 +211,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             helperText="Select one of the available options"
             isMandatory
             label=""
-            options={[{ label: "Raaghu", value: 1 }]}
+            options={autocompleteOptions}
             placeholder="Select Frontend"
           />
         </div>

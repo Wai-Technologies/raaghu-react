@@ -117,7 +117,7 @@ export function resolveSliderMarksAndStep(
   safeMax: number
 ): { sliderStep: number | undefined; sliderMarks: SliderMarks | undefined } {
   let sliderStep = step ?? undefined;
-  let sliderMarks = marks;
+  const sliderMarks = marks;
 
   if (shouldDisableMarks(sliderMarks, min, safeMax)) {
     return { sliderStep, sliderMarks: false };

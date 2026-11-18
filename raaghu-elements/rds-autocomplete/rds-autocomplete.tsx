@@ -47,15 +47,28 @@ const RdsAutocomplete = <T extends { label?: string },>({
   popupIcon,
   openOnFocus = false,
   allowMultiple = false,
+  value: valueProp,
+  defaultValue,
+  onChange,
+  open: openProp,
+  onOpen,
+  onClose,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  const [selected, setSelected] = React.useState<T | T[] | null>(
-    allowMultiple
+  const [selected, setSelected] = React.useState<T | T[] | null>(() => {
+    if (defaultValue !== undefined) return defaultValue as T | T[] | null;
+    return allowMultiple
       ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
-      : (state === 'selected' && props.options ? (props.options[0] as T) : null)
-  );
+      : (state === 'selected' && props.options ? (props.options[0] as T) : null);
+  });
+  const isFirstRender = React.useRef(true);
+  const isValueControlled = valueProp !== undefined;
 
   React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (state === 'selected' && props.options) {
       setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
     } else if (state !== 'selected') {
@@ -86,7 +99,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
               component="span"
               className="rds-autocomplete__asterisk"
               sx={{ color: 'var(--rds-error-main)', ml: 'var(--rds-spacing-micro)', fontSize: 'inherit', fontWeight: 700 }}
-            />
+            >
+              *
+            </Typography>
           )}
         </label>
       )}
@@ -137,20 +152,27 @@ const RdsAutocomplete = <T extends { label?: string },>({
           }
         }
       }}
-      open={open}
-      onOpen={() => {
+      open={openProp ?? open}
+      onOpen={(event) => {
         if (state !== 'expanded') {
           setOpen(true);
         }
+        onOpen?.(event);
       }}
       onClose={(event, reason) => {
         if (state !== 'expanded') {
           setOpen(false);
         }
+        onClose?.(event, reason);
       }}
       disabled={props.disabled || state === 'disabled'}
-  value={selected}
-  onChange={(_, value) => setSelected(value)}
+      value={(isValueControlled ? valueProp : selected) as typeof valueProp}
+      onChange={(event, value, reason, details) => {
+        if (!isValueControlled) {
+          setSelected(value as T | T[] | null);
+        }
+        onChange?.(event, value, reason, details);
+      }}
         renderOption={(optionProps, option, { selected: checked }) => {
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
@@ -174,15 +196,15 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
-                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 {(isShowUser) && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', p: 'var(--rds-spacing-xxs)', flexShrink: 0 }}>
                     {userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (
-                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
+                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />
                 )}
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as T).label || String(option)}</span>
               </Box>

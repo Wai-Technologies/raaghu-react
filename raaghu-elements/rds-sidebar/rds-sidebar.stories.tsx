@@ -139,13 +139,13 @@ const abpMenuItems = [
   { label: 'Requests', icon: <Assignment />, onClick: () => {} },
 ];
 
-const SidebarTemplate = (args: any) => {
+const SidebarTemplate = ({ hideMainParagraph, hideToggleButton, ...args }: any) => {
   const [open, setOpen] = useState(args.isOpen || false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <Box sx={{ display: 'flex' }} ref={containerRef}>
-      {!args.hideToggleButton && (
+      {!hideToggleButton && (
         <Button 
           variant="contained" 
           onClick={() => setOpen(!open)}
@@ -161,7 +161,7 @@ const SidebarTemplate = (args: any) => {
         container={containerRef.current}
       />
       <Box sx={{ flexGrow: 1, p: 3 }}>
-        {!args.hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
+        {!hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
       </Box>
     </Box>
   );

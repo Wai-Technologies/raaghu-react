@@ -229,9 +229,9 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        minHeight: 'var(--rds-file-uploader-dropzone-min-height, 60px)',
-        px: 'var(--rds-file-uploader-dropzone-padding-x, 24px)',
-        py: 'var(--rds-file-uploader-dropzone-padding-y, 32px)',
+        minHeight: 'var(--rds-file-uploader-dropzone-min-height, var(--rds-spacing-60))',
+        px: 'var(--rds-file-uploader-dropzone-padding-x, var(--rds-spacing-lg))',
+        py: 'var(--rds-file-uploader-dropzone-padding-y, var(--rds-spacing-xl))',
         border: 'var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary)',
         background: tokens.color.surface,
         cursor: disabled ? 'not-allowed' : 'pointer'
@@ -251,7 +251,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, var(--rds-spacing-14))', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
       />
     </Paper>
   );
@@ -321,14 +321,14 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             width: { xs: '100%', sm: '100%', md: 'var(--rds-spacing-3xl, 500px)' },
             minWidth: { xs: 0, sm: 0, md: 'var(--rds-spacing-2xl, 400px)' },
             maxWidth: { xs: '98vw', sm: '98vw', md: 'var(--rds-spacing-3xl, 500px)' },
-            height: 'var(--rds-spacing-xl, 36px)',
+            height: 'var(--rds-spacing-xl, var(--rds-spacing-36-px))',
             background: tokens.color.surface,
             borderRadius: tokens.radius.sm,
-            border: `1px solid ${tokens.color.textMuted}`,
+            border: `var(--rds-spacing-hairline) solid ${tokens.color.textMuted}`,
             px: tokens.space(0.5),
             py: 0,
             mb: tokens.space(0.5),
-            fontSize: { xs: 'var(--rds-font-size-sm, 13px)', sm: 'var(--rds-font-size-md, 14px)', md: 'var(--rds-font-size-md, 15px)' },
+            fontSize: { xs: 'var(--rds-font-size-sm, var(--rds-spacing-13))', sm: 'var(--rds-font-size-md, var(--rds-spacing-14))', md: 'var(--rds-font-size-md, var(--rds-spacing-15))' },
           }}
         >
           <Typography
@@ -348,7 +348,7 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             sx={{
               color: tokens.color.textMuted,
               fontWeight: 400,
-              fontSize: 'var(--rds-font-size-md, 14px)',
+              fontSize: 'var(--rds-font-size-md, var(--rds-spacing-14))',
               ml: tokens.space(2),
               minWidth: 'var(--rds-spacing-xl, 70px)',
               textAlign: 'right',

@@ -259,7 +259,7 @@ const RdsAppBar = ({
                     sx={{
                       minWidth: 'auto',
                       fontWeight: 500,
-                      fontSize: 'var(--rds-font-size-sm, 12px)',
+                      fontSize: 'var(--rds-font-size-sm, var(--rds-spacing-12-px))',
                       boxShadow: 'none',
                       padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
                     }}
@@ -281,7 +281,7 @@ const RdsAppBar = ({
                     justifyContent: 'space-around',
                     alignItems: 'center',
                     zIndex: tokens.zIndex.dropdown,
-                    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+                    borderTop: `var(--rds-spacing-hairline) solid ${tokens.cssVar('border-default')}`,
                     boxShadow: tokens.cssVar('elevation-2'),
                   }}
                 >
@@ -317,7 +317,7 @@ const RdsAppBar = ({
                       justifyContent: 'space-around',
                       alignItems: 'center',
                       zIndex: tokens.zIndex.dropdown,
-                      borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+                      borderTop: `var(--rds-spacing-hairline) solid ${tokens.cssVar('border-default')}`,
                       boxShadow: tokens.cssVar('elevation-2'),
                     }}
                   >

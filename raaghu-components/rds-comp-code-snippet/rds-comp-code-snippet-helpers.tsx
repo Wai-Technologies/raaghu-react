@@ -116,8 +116,8 @@ export function MultiLineSnippet({
                 buttonText={selectedLanguage || languageLabel}
                 options={languageOptions as any}
                 showSearch={false}
-                leftIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
-                rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
+                leftIcon={<CodeOffIcon style={{ fontSize: 'var(--rds-font-size-md)' }} />}
+                rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 'var(--rds-font-size-lg)' }} />}
                 onChange={onLanguageChange}
                 showUserAvatar={false}
                 showRadio={false}

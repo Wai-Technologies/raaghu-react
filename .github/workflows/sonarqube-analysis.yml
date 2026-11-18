@@ -10,7 +10,7 @@ jobs:
   sonarqube:
     name: SonarQube Scan
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - name: Checkout source
@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run unit tests with coverage
+        run: npx jest --ci --coverage --coverageReporters=lcov --coverageThreshold='{"global":{"branches":0,"functions":0,"lines":0,"statements":0}}'
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
@@ -36,3 +39,4 @@ jobs:
             -Dsonar.projectName="Raaghu React"
             -Dsonar.sources=.
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,**/*.test.js,**/*.test.jsx,**/*.spec.js,**/*.spec.jsx
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info

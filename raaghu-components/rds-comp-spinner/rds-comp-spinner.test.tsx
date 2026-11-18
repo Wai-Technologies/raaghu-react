@@ -77,13 +77,13 @@ describe('RdsCompSpinner', () => {
     it('should render Default size spinner (30x30)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Default} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '30px', height: '30px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-30)', height: 'var(--rds-spacing-30)' });
     });
 
     it('should render Small size spinner (15x15)', () => {
       render(<RdsCompSpinner {...defaultProps} size={SpinnerSize.Small} />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-15)', height: 'var(--rds-spacing-15)' });
     });
 
     it('should render Medium size spinner (35x35)', () => {
@@ -309,7 +309,7 @@ describe('RdsCompSpinner', () => {
     it('should apply danger color variant', () => {
       render(<RdsCompSpinner {...defaultProps} colorVariant="danger" />);
       const spinner = screen.getByRole('status');
-      expect(spinner).toHaveClass('text-danger');
+      expect(spinner).toHaveClass('text-error');
     });
 
     it('should apply warning color variant', () => {
@@ -480,7 +480,7 @@ describe('RdsCompSpinner', () => {
 
     it('should handle all spinner types with all colors', () => {
       const types = ['border', 'grow'];
-      const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info'];
+      const colors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'];
 
       types.forEach(type => {
         colors.forEach(color => {
@@ -559,7 +559,7 @@ describe('RdsCompSpinner', () => {
       );
 
       let spinner = screen.getByRole('status');
-      expect(spinner).toHaveStyle({ width: '15px', height: '15px' });
+      expect(spinner).toHaveStyle({ width: 'var(--rds-spacing-15)', height: 'var(--rds-spacing-15)' });
       expect(spinner).toHaveClass('text-primary');
 
       rerender(
@@ -568,7 +568,7 @@ describe('RdsCompSpinner', () => {
 
       spinner = screen.getByRole('status');
       expect(spinner).toHaveStyle({ width: '45px', height: '45px' });
-      expect(spinner).toHaveClass('text-danger');
+      expect(spinner).toHaveClass('text-error');
     });
   });
 });

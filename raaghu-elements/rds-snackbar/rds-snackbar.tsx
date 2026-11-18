@@ -1,24 +1,41 @@
 import React from 'react';
 import { Snackbar as MuiSnackbar, Alert, SnackbarProps } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-export interface RdsSnackbarProps extends SnackbarProps {
+type SnackbarColor = 'success' | 'error' | 'warning' | 'info';
+
+export interface RdsSnackbarProps extends Omit<SnackbarProps, 'color'> {
   message?: string;
-  type?: 'success' | 'error' | 'warning' | 'info';
+  /** Semantic color of the snackbar alert. @default 'info' */
+  color?: SnackbarColor;
+  /** @deprecated Use `color`. */
+  type?: SnackbarColor;
   showCloseButton?: boolean;
+  /** Hides the close button of the alert. */
+  hideCloseButton?: boolean;
+  /** @deprecated Use `color`. */
+  severity?: SnackbarColor;
   onClose?: () => void;
   duration?: number;
 }
 
 const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   message,
-  type = 'info',
-  showCloseButton = true,
+  color,
+  type,
+  showCloseButton,
+  hideCloseButton,
+  severity,
   onClose,
   duration = 6000,
   autoHideDuration,
   children,
   ...props
 }) => {
+  if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`color`');
+  const resolvedColor: SnackbarColor = color ?? severity ?? type ?? 'info';
+  const showClose = hideCloseButton === undefined ? showCloseButton ?? true : !hideCloseButton;
+
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -29,7 +46,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   };
 
   const content = message || children;
-  const alertTextColor = type ? `var(--rds-alert-${type}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
+  const alertTextColor = `var(--rds-alert-${resolvedColor}-text, var(--rds-text-primary))`;
 
   return (
     <MuiSnackbar
@@ -38,10 +55,10 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       onClose={handleClose}
       {...props}
     >
-      {type && message ? (
+      {content ? (
         <Alert
-          onClose={showCloseButton ? handleClose : undefined}
-          severity={type}
+          onClose={showClose ? handleClose : undefined}
+          severity={resolvedColor}
           sx={{
             width: '100%',
             '& .MuiAlert-message': {

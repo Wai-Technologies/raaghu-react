@@ -34,19 +34,18 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   
-  const isForceOpen = open === true;
-  const useInternalState = open !== true; 
-  const finalOpenState = isForceOpen ? true : internalOpen;
+  const isControlled = open !== undefined;
+  const finalOpenState = isControlled ? open : internalOpen;
   
   const handleOpen = (event: React.SyntheticEvent<{}, Event>, reason: OpenReason) => {
-    if (useInternalState) {
+    if (!isControlled) {
       setInternalOpen(true);
     }
     onOpen?.(event, reason);
   };
   
   const handleClose = (event: React.SyntheticEvent<{}, Event>, reason: CloseReason) => {
-    if (useInternalState) {
+    if (!isControlled) {
       setInternalOpen(false);
     }
     onClose?.(event, reason);

@@ -1372,7 +1372,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           <Typography
             variant="caption"
             sx={{
-              fontSize: '12px',
+              fontSize: 'var(--rds-spacing-12-px)',
               fontWeight: '500',
               color: 'text.primary',
               mb: 0.5,
@@ -1385,8 +1385,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             value={filterConditions[0].operator}
             onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
             sx={{
-              fontSize: '12px',
-              height: '32px',
+              fontSize: 'var(--rds-spacing-12-px)',
+              height: 'var(--rds-spacing-xl)',
               color: 'text.primary',
               backgroundColor: 'background.paper',
               '& .MuiOutlinedInput-notchedOutline': { borderWidth: 1, borderColor: 'divider' },
@@ -1399,7 +1399,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 key={op.value}
                 value={op.value}
                 sx={{
-                  fontSize: '12px',
+                  fontSize: 'var(--rds-spacing-12-px)',
                   color: 'text.primary',
                   '&.Mui-selected': { backgroundColor: 'action.selected' },
                   '&:hover': { backgroundColor: 'action.hover' },
@@ -1425,9 +1425,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx: {
                       backgroundColor: 'background.paper',
                       '& .MuiInputBase-input': {
-                        fontSize: '10px',
-                        height: '24px',
-                        padding: '4px 8px',
+                        fontSize: 'var(--rds-spacing-cozy)',
+                        height: 'var(--rds-spacing-lg)',
+                        padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)',
                         color: 'text.primary',
                       },
                       '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
@@ -1440,7 +1440,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           </Box>
         ) : inputType === 'number' ? (
           <Box>
-            <Typography variant="caption" sx={{ fontSize: '12px', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
+            <Typography variant="caption" sx={{ fontSize: 'var(--rds-spacing-12-px)', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
               Value
             </Typography>
             <TextField
@@ -1452,8 +1452,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               fullWidth
               sx={{
                 backgroundColor: 'background.paper',
-                '& .MuiInputBase-input': { fontSize: '12px', height: '20px', padding: '6px 8px', color: 'text.primary' },
-                '& .MuiOutlinedInput-root': { height: '32px' },
+                '& .MuiInputBase-input': { fontSize: 'var(--rds-spacing-12-px)', height: 'var(--rds-spacing-20-px)', padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm)', color: 'text.primary' },
+                '& .MuiOutlinedInput-root': { height: 'var(--rds-spacing-xl)' },
                 '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
                 '& .MuiInputLabel-root': { color: 'text.primary' },
                 '&::placeholder': { color: 'text.secondary' },
@@ -1462,7 +1462,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           </Box>
         ) : (
           <Box>
-            <Typography variant="caption" sx={{ fontSize: '12px', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
+            <Typography variant="caption" sx={{ fontSize: 'var(--rds-spacing-12-px)', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
               Value
             </Typography>
             <TextField
@@ -1474,8 +1474,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               fullWidth
               sx={{
                 backgroundColor: 'background.paper',
-                '& .MuiInputBase-input': { fontSize: '12px', height: '20px', padding: '6px 8px', color: 'text.primary' },
-                '& .MuiOutlinedInput-root': { height: '32px' },
+                '& .MuiInputBase-input': { fontSize: 'var(--rds-spacing-12-px)', height: 'var(--rds-spacing-20-px)', padding: 'var(--rds-spacing-compact) var(--rds-spacing-sm)', color: 'text.primary' },
+                '& .MuiOutlinedInput-root': { height: 'var(--rds-spacing-xl)' },
                 '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
                 '& .MuiInputLabel-root': { color: 'text.primary' },
                 '&::placeholder': { color: 'text.secondary' },
@@ -1510,7 +1510,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     return (
       <Card sx={{ p: 2 }}>
         {showHeader && (
-          <Box p={2} borderBottom="1px solid" borderColor="divider">
+          <Box p={2} borderBottom="var(--rds-spacing-hairline) solid" borderColor="divider">
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
               <TextField
                 placeholder="Search..."
@@ -1581,7 +1581,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         visibility: 'visible !important',
         opacity: '0.5 !important',
         backgroundColor: 'action.hover',
-        border: '2px dashed',
+        border: 'var(--rds-spacing-xxs) dashed',
         borderColor: 'var(--rds-primary-main)',
       },
     }}>
@@ -1595,7 +1595,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             '&::-webkit-scrollbar': { height: 0 }, 
           }}
         >
-          <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          <Box p={2} borderBottom="var(--rds-spacing-hairline) solid" borderColor="divider" sx={{
             bgcolor: 'background.paper'
           }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
@@ -1636,7 +1636,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
 
       {showFilters && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+        <Box p={2} borderBottom="var(--rds-spacing-hairline) solid" borderColor="divider" sx={{
           bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
@@ -1679,9 +1679,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 color="secondary"
                 text="Clear All"
                 sx={{
-                  fontSize: '11px',
+                  fontSize: 'var(--rds-spacing-11-px)',
                   fontWeight: 600,
-                  height: '32px',
+                  height: 'var(--rds-spacing-xl)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
                   borderRadius: 'var(--rds-border-radius-sm)',
@@ -1700,7 +1700,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
 
       {showSubHeader && (
-        <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
+        <Box p={1.5} borderBottom="var(--rds-spacing-hairline) solid" borderColor="divider" sx={{ 
           bgcolor: 'action.selected'
         }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -1744,9 +1744,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {enableRowSwapping && (
                   <TableCell 
                     sx={{ 
-                      width: '60px',
+                      width: 'var(--rds-spacing-60)',
                       padding: 'var(--rds-spacing-sm-px)',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -1758,7 +1758,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -1775,7 +1775,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -1882,7 +1882,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               borderColor: 'divider',
             },
             '&::-webkit-scrollbar': {
-              width: '6px',
+              width: 'var(--rds-spacing-compact)',
             },
               scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
@@ -1890,7 +1890,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             },
             '&::-webkit-scrollbar-thumb': {
               backgroundColor: 'var(--rds-action-disabled)',
-              borderRadius: '3px',
+              borderRadius: 'var(--rds-spacing-micro)',
             },
             '&::-webkit-scrollbar-thumb:hover': {
               backgroundColor: 'var(--rds-action-disabled)',
@@ -1900,14 +1900,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       >
         <Box p={1}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: '12px' }}>
+            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: 'var(--rds-spacing-12-px)' }}>
               {selectedColumnForFilter ? 
                 `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
                 'Controls'
               }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: '20px', height: '20px' }}>
-              <ClearIcon sx={{ fontSize: '14px' }} />
+            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: 'var(--rds-spacing-20-px)', height: 'var(--rds-spacing-20-px)' }}>
+              <ClearIcon sx={{ fontSize: 'var(--rds-spacing-14)' }} />
             </IconButton>
           </Stack>
           
@@ -1921,7 +1921,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 cursor: 'pointer',
                 p: 1,
                 borderRadius: 0.5,
-                border: '1px solid',
+                border: 'var(--rds-spacing-hairline) solid',
                 borderColor: 'divider',
                 width: '100%',
                 '&:hover': { backgroundColor: 'action.hover' }
@@ -1933,15 +1933,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '12px',
+                  fontSize: 'var(--rds-spacing-12-px)',
                   color: 'text.primary',
                 }}
               >
                 Columns
               </Typography>
               {isColumnPanelExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
+                <ArrowUpIcon sx={{ fontSize: 'var(--rds-spacing-12-px)', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: 'var(--rds-spacing-12-px)', color: 'text.primary' }} />
               }
             </Box>
             
@@ -1950,13 +1950,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   mt: 0,
                   p: 0.25,
-                  border: '1px solid',
+                  border: 'var(--rds-spacing-hairline) solid',
                   borderColor: 'divider',
                   borderTop: 'none',
-                  borderRadius: '0 0 4px 4px',
+                  borderRadius: '0 0 var(--rds-spacing-xs) var(--rds-spacing-xs)',
                   backgroundColor: 'action.hover',
                   width: '100%',
-                  maxHeight: '80px',
+                  maxHeight: 'var(--rds-spacing-80-px)',
                   overflowY: 'auto',
                   scrollbarWidth: 'thin !important',
                 }}
@@ -1968,7 +1968,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       sx={{ 
                         py: 0.5,
                         px: 1,
-                        minHeight: 24,
+                        minHeight: 'var(--rds-size-lg)',
                         cursor: 'pointer',
                         '&:hover': { backgroundColor: 'action.hover' }
                       }}
@@ -1977,7 +1977,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         handleColumnVisibilityChange(header.key, !isCurrentlyVisible);
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: 20 }}>
+                      <ListItemIcon sx={{ minWidth: 'var(--rds-spacing-20-px)' }}>
                         <Checkbox
                           checked={visibleColumns.includes(header.key)}
                           onChange={(e) => {
@@ -1986,10 +1986,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           }}
                           size="small"
                           sx={{ 
-                            padding: '2px',
+                            padding: 'var(--rds-spacing-xxs)',
                             color: 'text.primary',
                             '& .MuiSvgIcon-root': {
-                              fontSize: 14,
+                              fontSize: 'var(--rds-font-size-sm)',
                               color: 'text.primary',
                             }
                           }}
@@ -2000,7 +2000,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         primaryTypographyProps={{ 
                           variant: 'caption', 
                           sx: { 
-                            fontSize: '12px',
+                            fontSize: 'var(--rds-spacing-12-px)',
                             fontWeight: '400',
                             color: 'text.primary' 
                           }
@@ -2024,7 +2024,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 cursor: 'pointer',
                 p: 1,
                 borderRadius: 0.5,
-                border: '1px solid',
+                border: 'var(--rds-spacing-hairline) solid',
                 borderColor: 'divider',
                 width: '100%',
                 mb: 0.5,
@@ -2037,15 +2037,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '12px',
+                  fontSize: 'var(--rds-spacing-12-px)',
                   color: 'text.primary'
                 }}
               >
                 Filter
               </Typography>
               {isFilterExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
+                <ArrowUpIcon sx={{ fontSize: 'var(--rds-spacing-12-px)', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: 'var(--rds-spacing-12-px)', color: 'text.primary' }} />
               }
             </Box>
             
@@ -2053,9 +2053,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <Box 
                 sx={{ 
                   p: 0.5,
-                  border: '1px solid',
+                  border: 'var(--rds-spacing-hairline) solid',
                   borderColor: 'divider',
-                  borderRadius: '0 0 4px 4px',
+                  borderRadius: '0 0 var(--rds-spacing-xs) var(--rds-spacing-xs)',
                   backgroundColor: 'action.hover',
                   width: '100%'
                 }}
@@ -2108,10 +2108,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       text="Filter"
                       sx={{
                         flexGrow: 1,
-                        fontSize: '11px',
+                        fontSize: 'var(--rds-spacing-11-px)',
                         fontWeight: 600,
-                        height: '28px',
-                        minWidth: '60px',
+                        height: 'var(--rds-spacing-28-px)',
+                        minWidth: 'var(--rds-spacing-60)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
                         backgroundColor: 'primary.main',
@@ -2133,10 +2133,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       text="Clear"
                       sx={{
                         flexGrow: 1,
-                        fontSize: '11px',
+                        fontSize: 'var(--rds-spacing-11-px)',
                         fontWeight: 600,
-                        height: '28px',
-                        minWidth: '60px',
+                        height: 'var(--rds-spacing-28-px)',
+                        minWidth: 'var(--rds-spacing-60)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
                         borderColor: 'divider',
@@ -2169,9 +2169,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       text="Clear All Filters"
                       sx={{
                         width: '100%',
-                        fontSize: '10px',
+                        fontSize: 'var(--rds-spacing-cozy)',
                         fontWeight: 500,
-                        height: '24px',
+                        height: 'var(--rds-spacing-lg)',
                         mt: 1,
                         textTransform: 'uppercase',
                         letterSpacing: '0.3px',

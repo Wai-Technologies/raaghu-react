@@ -574,4 +574,44 @@ describe('RdsDialog', () => {
       expect(screen.queryByText('Not Visible')).not.toBeInTheDocument();
     });
   });
+
+  describe('Standard variant handlers', () => {
+    it('uses onPrimaryClick/onSecondaryClick and labels when provided', () => {
+      const onClose = jest.fn();
+      const onPrimaryClick = jest.fn();
+      const onSecondaryClick = jest.fn();
+      render(
+        <RdsDialog
+          open
+          variant="standard"
+          ShowPrimary
+          ShowSecondary
+          primaryText="Yes"
+          secondaryText="No"
+          onClose={onClose}
+          onPrimaryClick={onPrimaryClick}
+          onSecondaryClick={onSecondaryClick}
+        >
+          Body
+        </RdsDialog>
+      );
+      fireEvent.click(screen.getByText('Yes'));
+      fireEvent.click(screen.getByText('No'));
+      expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+      expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('falls back to onClose when handlers are not provided', () => {
+      const onClose = jest.fn();
+      render(
+        <RdsDialog open variant="standard" ShowPrimary ShowSecondary onClose={onClose}>
+          Body
+        </RdsDialog>
+      );
+      fireEvent.click(screen.getByText('Okay'));
+      fireEvent.click(screen.getByText('Cancel'));
+      expect(onClose).toHaveBeenCalledTimes(2);
+    });
+  });
 });

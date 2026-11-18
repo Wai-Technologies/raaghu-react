@@ -1,4 +1,5 @@
 import { type MouseEvent } from 'react';
+import { colorTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 export const rgbToHsb = (rgb: { r: number; g: number; b: number }) => {
   const r = rgb.r / 255;
   const g = rgb.g / 255;
@@ -108,7 +109,7 @@ export const resolveColorToHex = (color: string) => {
     return { hex, rgb: { ...rgb, a: 1 } };
   }
 
-  return { hex: "#000000", rgb: { r: 0, g: 0, b: 0, a: 1 } };
+  return { hex: colorTokens.neutral[1000], rgb: { r: 0, g: 0, b: 0, a: 1 } };
 };
 
 export const hsvToRgb = (h: number, s: number, v: number) => {

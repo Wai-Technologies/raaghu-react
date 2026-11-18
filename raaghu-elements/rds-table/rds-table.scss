@@ -1,21 +1,22 @@
 .rds-table {
+  --rds-table-letter-spacing: 0.5px;
+  --rds-table-checkbox-disabled-opacity: 0.6;
   width: 100%;
   position: relative;
-  
+
   &__container {
     background-color: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius, 8px);
+    border-radius: var(--rds-border-radius);
     overflow-x: auto;
     overflow-y: visible;
     box-shadow: var(--rds-elevation-1);
     max-width: 100%;
-    
+
     &--sticky {
       overflow-y: auto;
-      max-height: var(--rds-table-sticky-max-height, 440px);
+      max-height: var(--rds-table-sticky-max-height);
     }
   }
-  
 
   &__table {
     width: 100%;
@@ -24,329 +25,329 @@
     border-spacing: 0;
     table-layout: auto;
   }
-  
+
   &__head {
     background-color: var(--rds-color-surface-variant);
   }
-  
+
   &__header-row {
     background-color: var(--rds-color-surface-variant);
   }
-  
+
   &__header {
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
     text-align: left;
-    font-weight: var(--rds-font-weight-semibold, 600);
+    font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
-    border-bottom: 1px solid var(--rds-color-outline);
-    font-size: var(--rds-font-size-sm, 14px);
-    letter-spacing: 0.5px;
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline);
+    font-size: var(--rds-font-size-sm);
+
+    letter-spacing: var(--rds-table-letter-spacing);
     white-space: nowrap;
-    
+
     &--sortable {
       cursor: pointer;
       user-select: none;
-      transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
-      
+      transition: background-color var(--rds-transition-duration) ease-in-out;
+
       &:hover {
         background-color: var(--rds-color-surface-hover);
       }
     }
-    
+
     &--checkbox {
-      width: var(--rds-spacing-2xl, 48px);
-      padding: var(--rds-spacing-md, 16px);
+      width: var(--rds-spacing-2xl);
+      padding: var(--rds-spacing-md);
     }
   }  &__header-content {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
-  
+
   &__header-label {
     flex: 0 0 auto;
   }
-  
+
   &__sort-icon {
     opacity: 0.6;
-    transition: opacity var(--rds-transition-duration, 0.15s) ease-in-out;
+    transition: opacity var(--rds-transition-duration) ease-in-out;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-md, 16px) !important;
+    font-size: var(--rds-font-size-md);
     flex: 0 0 auto;
-    
+
     .rds-table__header:hover & {
       opacity: 1;
       color: var(--rds-color-on-surface);
     }
   }
-  
+
   &__sort-button {
-    padding: var(--rds-spacing-xs, 2px) !important;
-    margin-left: var(--rds-spacing-xs, 4px);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
-    
+    padding: var(--rds-spacing-xs);
+    margin-left: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
+    transition: background-color var(--rds-transition-duration) ease-in-out;
+
     &:hover {
       background-color: var(--rds-color-surface-hover);
     }
-    
+
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary);
+      outline: var(--rds-spacing-xxs) solid var(--rds-color-primary);
       outline-offset: 2px;
     }
   }
-  
+
   &__body {
     background-color: var(--rds-color-surface);
-    z-index: var(--rds-z-index-base, 1);
+    z-index: var(--rds-z-index-base);
   }
   &__row {
-    border-bottom: 1px solid var(--rds-color-outline-variant);
-    transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
-    
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
+    transition: background-color var(--rds-transition-duration) ease-in-out;
+
     &:hover {
       background-color: var(--rds-color-surface-hover);
     }
-    
+
     &--selected {
       background-color: var(--rds-color-primary-container);
-      
+
       &:hover {
         background-color: var(--rds-color-primary-container-hover);
-        z-index: var(--rds-z-index-above, 2);
+        z-index: var(--rds-z-index-above);
       }
     }
-    
+
     &:last-child {
       border-bottom: none;
     }
   }
-  
+
   &__cell {
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
-    border-bottom: 1px solid var(--rds-color-outline-variant);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
     vertical-align: middle;
-    font-size: var(--rds-font-size-body, 14px);
+    font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
     white-space: nowrap;
-    
+
     &--checkbox {
-      width: var(--rds-spacing-2xl, 48px);
-      padding: var(--rds-spacing-md, 16px);
+      width: var(--rds-spacing-2xl);
+      padding: var(--rds-spacing-md);
     }
-    
+
     &--radio {
-      width: 48px;
-      padding: var(--rds-spacing-md, 16px);
+      width: var(--rds-spacing-2xl);
+      padding: var(--rds-spacing-md);
       text-align: center;
     }
-    
+
     &--avatar {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 24px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-lg);
     }
-    
+
     &--badge {
       text-align: center;
     }
-    
+
     &--actions {
-      width: var(--rds-table-actions-width, 120px);
+      width: var(--rds-table-actions-width);
       text-align: right;
     }
-    
+
     &--numeric {
       text-align: right;
     }
   }  &__avatar-cell {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
-  
+
   &__avatar-info {
     display: flex;
     flex-direction: column;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
-  
+
   &__avatar-name {
-    font-weight: var(--rds-font-weight-medium, 500);
+    font-weight: var(--rds-font-weight-medium);
     color: var(--rds-color-on-surface);
-    font-size: var(--rds-font-size-body, 14px);
+    font-size: var(--rds-font-size-body);
   }
-  
+
   &__avatar-subtitle {
-    font-size: var(--rds-font-size-sm, 12px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
-  
+
   &__badge {
-    font-size: var(--rds-font-size-xs, 12px);
-    font-weight: var(--rds-font-weight-medium, 500);
+    font-size: var(--rds-font-size-xs);
+    font-weight: var(--rds-font-weight-medium);
     text-transform: capitalize;
-    letter-spacing: 0.5px;
-    border-radius: var(--rds-border-radius-full, 16px);
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 12px);
-    
+
+    letter-spacing: var(--rds-table-letter-spacing);
+    border-radius: var(--rds-border-radius-full);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+
     &--badge {
       background-color: var(--rds-color-info-container);
       color: var(--rds-color-on-info-container);
     }
-    
+
     &--image {
       background-color: var(--rds-color-info-container);
       color: var(--rds-color-on-info-container);
     }
-    
+
     &--active {
       background-color: var(--rds-color-success-container);
       color: var(--rds-color-on-success-container);
     }
-    
+
     &--inactive {
       background-color: var(--rds-color-error-container);
       color: var(--rds-color-on-error-container);
     }
   }
-  
+
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
     justify-content: flex-end;
   }
-  
+
   &__action {
-    padding: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs);
     color: var(--rds-color-on-surface-variant);
-    transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
-    
+    transition: color var(--rds-transition-duration) ease-in-out;
+
     &:hover {
       color: var(--rds-color-primary);
     }
-    
+
     &--edit {
       color: var(--rds-color-info);
       background-color: var(--rds-color-info-container);
-      border-radius: var(--rds-border-radius-sm, 4px);
-      
+      border-radius: var(--rds-border-radius-sm);
+
       &:hover {
         background-color: var(--rds-color-info);
         color: var(--rds-color-on-info);
       }
     }
-    
+
     &--delete {
       color: var(--rds-color-error);
       background-color: transparent;
-      border-radius: var(--rds-border-radius-sm, 4px);
-      
+      border-radius: var(--rds-border-radius-sm);
+
       &:hover {
         background-color: var(--rds-color-error-container);
         color: var(--rds-color-error);
       }
     }
   }
-  
+
   &__multiline-text {
     white-space: pre-line;
   }
-  
+
   &__multiline-text-primary {
-    font-size: var(--rds-font-size-body, 14px);
+    font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
   }
-  
+
   &__multiline-text-secondary {
-    font-size: var(--rds-font-size-sm, 12px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
-  
+
   &__link-text {
     color: var(--rds-color-primary);
     cursor: pointer;
     text-decoration: none;
-    transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
-    font-size: var(--rds-font-size-body, 14px);
-    
+    transition: color var(--rds-transition-duration) ease-in-out;
+    font-size: var(--rds-font-size-body);
+
     &:hover {
       color: var(--rds-color-primary-dark);
     }
   }
-  
+
   &__progress-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
-  
+
   &__progress-text {
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
     color: var(--rds-color-on-surface-variant);
     text-align: center;
-    margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-top: calc(var(--rds-spacing-xs) / 2);
   }
-  
+
   &__content-row {
     display: flex;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
     align-items: center;
     flex-direction: row;
   }
-  
+
   &__content-text {
-    font-size: var(--rds-font-size-body, 14px);
+    font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
   }
 
   &--dense {
     .rds-table__header,
     .rds-table__cell {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     }
-    
+
     .rds-table__cell--checkbox,
     .rds-table__header--checkbox {
-      padding: var(--rds-spacing-xs, 4px);
+      padding: var(--rds-spacing-xs);
     }
   }
-  
+
   &__empty {
-    padding: var(--rds-spacing-xl, 32px);
+    padding: var(--rds-spacing-xl);
     text-align: center;
     color: var(--rds-color-on-surface-variant);
   }
-  
+
   &--loading {
     pointer-events: none;
     opacity: 0.7;
   }
 
   &__checkbox {
-    --checkbox-size: var(--rds-spacing-md, 16px);
+    --checkbox-size: var(--rds-spacing-md);
     --checkbox-border-width: 2px;
     --checkbox-transition: var(--rds-transition-fast);
-    --rds-table-checkbox-check-width: var(--rds-table-checkbox-check-width, 6px);
-    --rds-table-checkbox-check-height: var(--rds-table-checkbox-check-height, 10px);
-    --rds-table-checkbox-indeterminate-width: var(--rds-table-checkbox-indeterminate-width, 8px);
-    --rds-table-checkbox-indeterminate-height: var(--rds-table-checkbox-indeterminate-height, 2px);
-    --rds-table-checkbox-hover-ring-size: var(--rds-table-checkbox-hover-ring-size, 4px);
-    --rds-table-checkbox-focus-ring-size: var(--rds-table-checkbox-focus-ring-size, 2px);
-    --rds-table-checkbox-disabled-opacity: 0.6;
-    
+    --rds-table-checkbox-check-width: var(--rds-table-checkbox-check-width);
+    --rds-table-checkbox-check-height: var(--rds-table-checkbox-check-height);
+    --rds-table-checkbox-indeterminate-width: var(--rds-table-checkbox-indeterminate-width);
+    --rds-table-checkbox-indeterminate-height: var(--rds-table-checkbox-indeterminate-height);
+    --rds-table-checkbox-hover-ring-size: var(--rds-table-checkbox-hover-ring-size);
+    --rds-table-checkbox-focus-ring-size: var(--rds-table-checkbox-focus-ring-size);
     .MuiCheckbox-root {
-      padding: var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-sm);
       color: var(--rds-border-default);
       transition: var(--checkbox-transition);
       position: relative;
-      
+
       .MuiSvgIcon-root {
         opacity: 0;
         pointer-events: none;
       }
-      
+
       &::before {
         content: '';
         position: absolute;
@@ -355,88 +356,88 @@
         width: var(--checkbox-size);
         height: var(--checkbox-size);
         border: var(--checkbox-border-width) solid var(--rds-border-default);
-        border-radius: var(--rds-border-radius-sm, 4px);
-        background-color: transparent; 
+        border-radius: var(--rds-border-radius-sm);
+        background-color: transparent;
         transform: translate(-50%, -50%);
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 1);
       }
-      
+
       &::after {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        width: var(--rds-table-checkbox-check-width, 6px);
-        height: var(--rds-table-checkbox-check-height, 10px);
+        width: var(--rds-table-checkbox-check-width);
+        height: var(--rds-table-checkbox-check-height);
         border: solid var(--rds-primary-contrast-text);
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 2);
         opacity: 0;
       }
-      
+
       &:hover {
         background-color: var(--rds-button-text-bg-hover);
-        
+
         &:not(.Mui-disabled)::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 var(--rds-table-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-table-checkbox-hover-ring-size) var(--rds-primary-alpha-10);
         }
       }
-      
+
       &:focus-visible {
         outline: none;
-        
+
         &::before {
-          box-shadow: 0 0 0 var(--rds-table-checkbox-focus-ring-size, 2px) var(--rds-primary-main);
+          box-shadow: 0 0 0 var(--rds-table-checkbox-focus-ring-size) var(--rds-primary-main);
         }
       }
-      
+
       &.Mui-checked {
         color: var(--rds-primary-main);
-        
+
         &::before {
           background-color: var(--rds-primary-main);
           border-color: var(--rds-primary-main);
         }
-        
+
         &::after {
           transform: translate(-60%, -70%) rotate(45deg) scale(1);
           opacity: 1;
         }
       }
-      
+
       &.MuiCheckbox-indeterminate {
         color: var(--rds-primary-main);
-        
+
         &::before {
           background-color: var(--rds-primary-main);
           border-color: var(--rds-primary-main);
         }
-        
+
         &::after {
           content: '';
-          width: var(--rds-table-checkbox-indeterminate-width, 8px);
-          height: var(--rds-table-checkbox-indeterminate-height, 2px);
+          width: var(--rds-table-checkbox-indeterminate-width);
+          height: var(--rds-table-checkbox-indeterminate-height);
           border: none;
           background-color: var(--rds-primary-contrast-text);
-          border-radius: 1px;
+          border-radius: var(--rds-spacing-hairline);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }
       }
-      
+
       &.Mui-disabled {
         color: var(--rds-text-disabled);
-        opacity: var(--rds-table-checkbox-disabled-opacity, 0.6);
+        opacity: var(--rds-table-checkbox-disabled-opacity);
         cursor: not-allowed;
-        
+
         &::before {
           background-color: var(--rds-background-disabled);
           border-color: var(--rds-border-disabled);
         }
-        
+
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {
           background-color: var(--rds-text-disabled);
@@ -448,44 +449,44 @@
 
   &.MuiPaper-root {
     background-color: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius, 8px);
+    border-radius: var(--rds-border-radius);
     overflow: visible;
     box-shadow: var(--rds-elevation-1);
   }
-  
+
   .MuiTableContainer-root {
-    background-color: var(--rds-color-surface) !important;
-    overflow-x: auto !important;
-    overflow-y: visible !important;
-    max-width: 100% !important;
+    background-color: var(--rds-color-surface);
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 100%;
   }
-  
+
   .MuiTable-root {
-    background-color: var(--rds-color-surface) !important;
-    width: 100% !important;
-    min-width: max-content !important;
-    table-layout: auto !important;
+    background-color: var(--rds-color-surface);
+    width: 100%;
+    min-width: max-content;
+    table-layout: auto;
   }
-  
+
   .MuiTableHead-root {
-    background-color: var(--rds-color-surface-variant) !important;
+    background-color: var(--rds-color-surface-variant);
   }
-  
+
   .MuiTableCell-head {
-    background-color: var(--rds-color-surface-variant) !important;
-    color: var(--rds-color-on-surface) !important;
-    font-weight: var(--rds-font-weight-semibold, 600) !important;
-    border-bottom: 1px solid var(--rds-color-outline) !important;
-    white-space: nowrap !important;
+    background-color: var(--rds-color-surface-variant);
+    color: var(--rds-color-on-surface);
+    font-weight: var(--rds-font-weight-semibold);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline);
+    white-space: nowrap;
   }
-  
+
   .MuiTableCell-body {
-    color: var(--rds-color-on-surface) !important;
-    border-bottom: 1px solid var(--rds-color-outline-variant) !important;
-    white-space: nowrap !important;
+    color: var(--rds-color-on-surface);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-outline-variant);
+    white-space: nowrap;
   }
-  
+
   .MuiTableRow-root:hover {
-    background-color: var(--rds-color-surface-hover) !important;
+    background-color: var(--rds-color-surface-hover);
   }
 }

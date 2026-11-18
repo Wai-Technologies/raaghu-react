@@ -9,10 +9,14 @@ import {
   BannerTextContent,
   BannerActionButtons,
 } from './rds-banner.helpers';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-banner.scss';
 
-export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
+export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose' | 'color'> {
   description?: string;
+  /** Semantic color of the banner. @default 'info' */
+  color?: AlertProps['severity'];
+  /** @deprecated Use `color`. */
   type?: AlertProps['severity'];
   Icon?: boolean;
   title?: string;
@@ -30,12 +34,19 @@ export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'>
   fullWidth?: boolean;
   actions?: React.ReactNode;
   showOutline?: boolean;
+  linkText?: string;
+  secondaryText?: string;
+  primaryText?: string;
+  onLinkClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onSecondaryClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onPrimaryClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const RdsBanner: React.FC<RdsBannerProps> = ({
   description,
   children,
-  type = 'info',
+  color,
+  type,
   Icon = true,
   title = 'Heading Title.',
   showTitle = false,
@@ -52,8 +63,17 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   fullWidth = true,
   actions,
   showOutline = false,
+  linkText,
+  secondaryText,
+  primaryText,
+  onLinkClick,
+  onSecondaryClick,
+  onPrimaryClick,
+  className,
   ...props
 }) => {
+  if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`color`');
+  const resolvedColor = color ?? type ?? 'info';
   const [isVisible, setIsVisible] = React.useState(true);
 
   const handleClose = () => {
@@ -73,10 +93,9 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
 
   return (
     <MuiAlert
-      severity={type}
+      severity={resolvedColor}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-      className={resolveBannerClasses(size, variantStyle, type!, fullWidth, showOutline, props.className)}
       action={
         <div className="rds-banner__action-container">
           {actions}
@@ -94,6 +113,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
         </div>
       }
       {...props}
+      className={resolveBannerClasses(size, variantStyle, resolvedColor!, fullWidth, showOutline, className)}
     >
       <div className="rds-banner__content-wrapper">
         <BannerTextContent
@@ -108,6 +128,12 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
           showLink={showLink}
           showSecondary={showSecondary}
           showPrimary={showPrimary}
+          linkText={linkText}
+          secondaryText={secondaryText}
+          primaryText={primaryText}
+          onLinkClick={onLinkClick}
+          onSecondaryClick={onSecondaryClick}
+          onPrimaryClick={onPrimaryClick}
         />
       </div>
     </MuiAlert>

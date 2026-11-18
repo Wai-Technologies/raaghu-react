@@ -1,13 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-layout-wrapper_basic {
+  --rds-layout-transition: 0.3s;
   min-height: 83vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  transition: box-shadow 0.3s;
+
+  transition: box-shadow var(--rds-layout-transition);
 }
 
 .rds-comp-layout-inner-wrapper_basic {
@@ -15,29 +17,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--rds-spacing-sm, 8px);
+  padding: var(--rds-spacing-sm);
 }
 
-
-
 .rds-comp-layout__card_basic {
+  --rds-layout-transition: 0.3s;
+  --rds-layout-min-height-1: 200px;
   position: relative;
-  padding: var(--rds-spacing-lg); 
-  border: 1px solid var(--rds-border-light);
+  padding: var(--rds-spacing-lg);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background-color: var(--rds-background-default);
-  min-height: 200px;
+
+  min-height: var(--rds-layout-min-height-1);
   height: 83vh;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  transition: box-shadow 0.3s, border 0.3s;
+
+  transition: box-shadow var(--rds-layout-transition), border var(--rds-layout-transition);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07)) !important
+  box-shadow: var(--rds-box-shadow-card)
 }
-
-
 
 .rds-comp-layout-wrapper {
   width: 100%;
@@ -45,165 +47,201 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 .rds-comp-layout-inner-wrapper {
-  min-height: 100px;
+  --rds-layout-min-height-2: 100px;
+  min-height: var(--rds-layout-min-height-2);
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-
 .rds-comp-layout__paper {
-  border: 1px solid var(--rds-border-light);
-  border-radius: var(--rds-border-radius-sm) !important;
+  --rds-layout-min-height-2: 100px;
+  --rds-layout-min-height-3: 120px;
+  --rds-layout-min-height-4: 180px;
+  --rds-layout-min-height-5: 360px;
+  --rds-layout-min-height-6: 400px;
+  --rds-layout-min-height-7: 500px;
+  --rds-layout-min-height-8: 600px;
+  --rds-layout-min-height-9: 300px;
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-background-default);
-  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
-  
+  box-shadow: var(--rds-box-shadow-card);
+
   &--height-xs {
-    min-height: 80px;
-    
+    min-height: var(--rds-spacing-80-px);
+
     @include bp.up(600) {
-      min-height: 100px;
+
+      min-height: var(--rds-layout-min-height-2);
     }
-    
+
     @include bp.up(md) {
-      min-height: 100px;
+
+      min-height: var(--rds-layout-min-height-2);
     }
   }
-  
+
   &--height-sm {
-    min-height: 80px;
-    
+    min-height: var(--rds-spacing-80-px);
+
     @include bp.up(600) {
-      min-height: 120px;
+
+      min-height: var(--rds-layout-min-height-3);
     }
-    
+
     @include bp.up(md) {
-      min-height: 120px;
+
+      min-height: var(--rds-layout-min-height-3);
     }
   }
-  
+
   &--height-md {
-    min-height: 120px;
-    
+
+    min-height: var(--rds-layout-min-height-3);
+
     @include bp.up(600) {
-      min-height: 180px;
+
+      min-height: var(--rds-layout-min-height-4);
     }
-    
+
     @include bp.up(md) {
-      min-height: 180px;
+
+      min-height: var(--rds-layout-min-height-4);
     }
   }
-  
+
   &--height-lg {
-    min-height: 180px;
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
-    
+
     @include bp.up(md) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
   }
-  
+
   &--height-xl {
-    min-height: 240px;
-    
+    min-height: var(--rds-spacing-240);
+
     @include bp.up(600) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
   }
-  
+
   &--height-xxl {
-    min-height: 240px;
-    
+    min-height: var(--rds-spacing-240);
+
     @include bp.up(600) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      min-height: 400px;
+
+      min-height: var(--rds-layout-min-height-6);
     }
   }
-  
+
   &--height-full {
-    min-height: 240px;
-    
+    min-height: var(--rds-spacing-240);
+
     @include bp.up(600) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      min-height: 500px;
+
+      min-height: var(--rds-layout-min-height-7);
     }
   }
-  
+
   &--height-tall {
-    min-height: 400px;
-    
+
+    min-height: var(--rds-layout-min-height-6);
+
     @include bp.up(600) {
-      min-height: 600px;
+
+      min-height: var(--rds-layout-min-height-8);
     }
-    
+
     @include bp.up(md) {
-      min-height: 600px;
+
+      min-height: var(--rds-layout-min-height-8);
     }
   }
-  
+
   &--height-spotlight {
-    min-height: 120px;
-    
+
+    min-height: var(--rds-layout-min-height-3);
+
     @include bp.up(600) {
-      min-height: 180px;
+
+      min-height: var(--rds-layout-min-height-4);
     }
-    
+
     @include bp.up(md) {
-      min-height: 400px;
+
+      min-height: var(--rds-layout-min-height-6);
     }
   }
-  
+
   &--height-stacks {
-    min-height: 180px;
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-spacing-240);
     }
-    
+
     @include bp.up(md) {
-      min-height: 300px;
+
+      min-height: var(--rds-layout-min-height-9);
     }
   }
-  
+
   &--height-relaxed-left {
-    min-height: 180px;
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      min-height: 600px;
+
+      min-height: var(--rds-layout-min-height-8);
     }
-    
+
     @include bp.up(md) {
-      min-height: 600px;
+
+      min-height: var(--rds-layout-min-height-8);
     }
   }
-  
+
   &--height-relaxed-big {
-    min-height: 180px;
-    
+
+    min-height: var(--rds-layout-min-height-4);
+
     @include bp.up(600) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
-    
+
     @include bp.up(md) {
-      min-height: 360px;
+
+      min-height: var(--rds-layout-min-height-5);
     }
   }
 }
@@ -241,10 +279,10 @@
   .rds-layout.row {
     flex-direction: column;
   }
-  
+
   .rds-layout-item {
-    flex: none !important;
-    width: 100% !important;
+    flex: none;
+    width: 100%;
   }
 }
 

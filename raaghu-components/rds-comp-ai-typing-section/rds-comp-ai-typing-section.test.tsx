@@ -21,6 +21,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
     return (
       <button
         data-testid={`btn-${props.text || 'icon-only'}`}
+        aria-label={props['aria-label']}
         onClick={props.onClick}
         data-color={props.color}
         data-style={props.style}
@@ -41,6 +42,7 @@ jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
         data-testid="rds-autocomplete"
         data-placeholder={props.placeholder}
         data-label={props.label}
+        data-options={(props.options || []).map((o: any) => o.label).join(',')}
         data-helper-text={props.helperText}
       >
         Autocomplete
@@ -616,6 +618,28 @@ it('handles emoji input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toHaveClass('rds-comp-ai-typing-section__input-box--muted-placeholder');
+    });
+  });
+
+  describe('Project actions', () => {
+    it('calls onNewProjectClick and onImportFromFigmaClick', () => {
+      const onNew = jest.fn();
+      const onFigma = jest.fn();
+      render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={onNew} onImportFromFigmaClick={onFigma} />);
+      fireEvent.click(screen.getByTestId('btn-New Project'));
+      fireEvent.click(screen.getByTestId('btn-Import From Figma'));
+      expect(onNew).toHaveBeenCalledTimes(1);
+      expect(onFigma).toHaveBeenCalledTimes(1);
+    });
+
+    it('passes autocompleteOptions to the autocomplete', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} autocompleteOptions={[{ label: 'React' }]} />);
+      expect(screen.getByTestId('rds-autocomplete')).toHaveAttribute('data-options', 'React');
+    });
+
+    it('gives the send button an accessible name', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.getByTestId('btn-icon-only')).toHaveAttribute('aria-label', 'Send');
     });
   });
 });

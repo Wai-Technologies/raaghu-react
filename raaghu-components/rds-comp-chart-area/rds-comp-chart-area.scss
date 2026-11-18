@@ -9,7 +9,7 @@
     @include bp.between(md, lg) {
        
         canvas {
-            height: 76vh !important;
+            height: 76vh;
         }
     }
 }

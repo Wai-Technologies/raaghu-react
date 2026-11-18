@@ -156,7 +156,7 @@ export const GridHeaderCell: React.FC<GridHeaderCellProps> = ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
-        borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+        borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
         bgcolor: 'action.hover !important',
         transition: isDragging ? 'none' : 'all 0.2s ease',
         '&:last-child': { borderRight: 'none' },
@@ -245,16 +245,16 @@ export const GridHeaderCell: React.FC<GridHeaderCellProps> = ({
             right: 0,
             top: 0,
             bottom: 0,
-            width: '6px',
+            width: 'var(--rds-spacing-compact)',
             cursor: 'col-resize',
             backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
             zIndex: 'var(--rds-z-index-raised)',
             transition: 'all 0.2s ease',
-            '&:hover': { backgroundColor: 'primary.main', opacity: 0.8, width: '3px' },
+            '&:hover': { backgroundColor: 'primary.main', opacity: 0.8, width: 'var(--rds-spacing-micro)' },
             '&:focus': {
-              outline: '2px solid',
+              outline: 'var(--rds-spacing-xxs) solid',
               outlineColor: 'primary.main',
-              outlineOffset: '1px',
+              outlineOffset: 'var(--rds-spacing-hairline)',
             },
           }}
         />
@@ -354,9 +354,9 @@ export const GridDataRow: React.FC<GridDataRowProps> = ({
         {enableRowSwapping && (
           <TableCell
             sx={{
-              width: '60px',
+              width: 'var(--rds-spacing-60)',
               padding: 'var(--rds-spacing-sm-px)',
-              borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+              borderRight: 'var(--rds-spacing-hairline) solid var(--rds-border-default)',
               textAlign: 'center',
               verticalAlign: 'middle',
             }}
@@ -384,13 +384,13 @@ export const GridDataRow: React.FC<GridDataRowProps> = ({
         )}
 
         {enableCheckboxSelection && (
-          <TableCell padding="checkbox" sx={{ borderRight: () => `1px solid ${'var(--rds-border-default)'}` }}>
+          <TableCell padding="checkbox" sx={{ borderRight: () => `var(--rds-spacing-hairline) solid ${'var(--rds-border-default)'}` }}>
             <Checkbox checked={isSelected} onChange={() => onRowSelect(rowId, row)} />
           </TableCell>
         )}
 
         {enableRadioButtonSelection && (
-          <TableCell padding="checkbox" sx={{ borderRight: () => `1px solid ${'var(--rds-border-default)'}` }}>
+          <TableCell padding="checkbox" sx={{ borderRight: () => `var(--rds-spacing-hairline) solid ${'var(--rds-border-default)'}` }}>
             <Radio checked={isSelected} onChange={() => onRowSelect(rowId, row)} name="rowSelection" />
           </TableCell>
         )}

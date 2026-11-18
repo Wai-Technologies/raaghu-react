@@ -10,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-const SLIDER_TRACK_HEIGHT = "12px";
+const SLIDER_TRACK_HEIGHT = "var(--rds-spacing-12-px)";
 const SLIDER_POINTER_SIZE = 12;
 
 const SliderPointer = ({ direction }: { direction?: string }) => {
@@ -22,9 +22,9 @@ const SliderPointer = ({ direction }: { direction?: string }) => {
           width: SLIDER_POINTER_SIZE,
           height: SLIDER_POINTER_SIZE,
           borderRadius: "50%",
-          transform: `translate(-3px, -${SLIDER_POINTER_SIZE / 2}px)`,
-          backgroundColor: "#ffffff",
-          boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
+          transform: `translate(-var(--rds-spacing-micro), -${SLIDER_POINTER_SIZE / 2}px)`,
+          backgroundColor: "var(--rds-neutral-0)",
+          boxShadow: "0 0 var(--rds-spacing-xxs) var(--rds-placeholder-color-light)",
         }}
       />
     );
@@ -37,8 +37,8 @@ const SliderPointer = ({ direction }: { direction?: string }) => {
         width: SLIDER_POINTER_SIZE,
         height: SLIDER_POINTER_SIZE,
         borderRadius: "50%",
-        backgroundColor: "#ffffff",
-        boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
+        backgroundColor: "var(--rds-neutral-0)",
+        boxShadow: "0 0 var(--rds-spacing-xxs) var(--rds-placeholder-color-light)",
       }}
     />
   );
@@ -46,8 +46,8 @@ const SliderPointer = ({ direction }: { direction?: string }) => {
 
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
-const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"];
-const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #00D1B2)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #9B59B6)","var(--rds-neutral-400, #BDBDBD)"];
+const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main)", "var(--rds-semantic-error-main)", "var(--rds-info-main)", "var(--rds-primary-main)", "var(--rds-info-light)"];
+const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
 
 const getSwatchHexDisplay = (swatchValue: string) => {
   const hexMatch = swatchValue.match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
@@ -75,6 +75,7 @@ interface SharedColorPickerProps {
   setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  disabled?: boolean;
 }
 
 interface ColorPickerInfoProps {
@@ -85,6 +86,7 @@ interface ColorPickerInfoProps {
   setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  disabled?: boolean;
 }
 
 export const ColorPickerGrid = memo(({
@@ -98,6 +100,7 @@ export const ColorPickerGrid = memo(({
   setShowColorModeDropdown,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: SharedColorPickerProps) => {
   return (
     <div>
@@ -137,6 +140,7 @@ export const ColorPickerGrid = memo(({
                     type="button"
                     key={`cell-${rowIndex}-${colIndex}`}
                     className="rds-comp-color-picker__color-cell"
+                    disabled={disabled}
                     style={{ backgroundColor: bgColor }}
                     onClick={() => handleChange({ hex: clickHex, rgb: clickRgb })}
                     aria-label={`Select color ${clickHex}`}
@@ -167,6 +171,7 @@ export const ColorPickerGrid = memo(({
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
     </div>
   );
@@ -186,6 +191,7 @@ export const ColorPickerSpectrum = memo(({
   showSwatches,
   styleType,
   onSelectColorMode,
+  disabled,
 }: SharedColorPickerProps & { selectedColorHex: string; showSwatches?: boolean; styleType?: string }) => {
   return (
     <div className="rds-comp-color-picker__spectrum-type1">    
@@ -193,6 +199,7 @@ export const ColorPickerSpectrum = memo(({
         <button
           type="button"
           className="rds-comp-color-picker__spectrum-area"
+          disabled={disabled}
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
             const result = handleSpectrumClick(
@@ -219,7 +226,8 @@ export const ColorPickerSpectrum = memo(({
         selectedColorMode={selectedColorMode}
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
-        onSelectColorMode={onSelectColorMode} 
+        onSelectColorMode={onSelectColorMode}
+        disabled={disabled}
       />
       
       {showSwatches && (
@@ -338,6 +346,7 @@ export const ColorPickerInfo = memo(({
   selectedColorState,
   getColorDisplay,
   onSelectColorMode,
+  disabled,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
@@ -349,6 +358,7 @@ export const ColorPickerInfo = memo(({
         <button
           type="button"
           className="rds-comp-color-picker__dropdown-button"
+          disabled={disabled}
           onClick={() => setShowColorModeDropdown(!showColorModeDropdown)}
           aria-label="Change color mode"
         >
@@ -358,7 +368,7 @@ export const ColorPickerInfo = memo(({
           <KeyboardArrowDownIcon/>
         </button>
         
-        {showColorModeDropdown && (
+        {showColorModeDropdown && !disabled && (
           <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label="Color format">
             {Object.values(ColorMode).map((mode) => (
               <button

@@ -1,4 +1,8 @@
 .rds-dialog {
+  --rds-dialog-max-width: 248px;
+  --rds-dialog-line-height-1: 20px;
+  --rds-dialog-line-height-2: 1.45;
+  --rds-dialog-line-height-3: 16px;
   --rds-dialog-focus-ring-width: 2px;
   --rds-dialog-disabled-opacity: 0.6;
   --rds-dialog-icon-paper-width: 310px;
@@ -7,43 +11,43 @@
   --rds-dialog-action-button-width: 248px;
   --rds-dialog-action-button-height: 36px;
   --rds-dialog-icon-paper-max-width: 400px;
-  --rds-dialog-title-padding-right: var(--rds-spacing-2xl, 48px);
-  --rds-dialog-title-padding-left: var(--rds-spacing-sm, 14px);
+  --rds-dialog-title-padding-right: var(--rds-spacing-2xl);
+  --rds-dialog-title-padding-left: var(--rds-spacing-sm);
   display: block;
   position: relative;
 
   &__content {
     display: block;
-    padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
+    padding: var(--rds-spacing-2xl) var(--rds-spacing-xl);
     text-align: center;
-    font-size: var(--rds-font-size-md, 16px);
+    font-size: var(--rds-font-size-md);
     color: var(--rds-text-primary);
   }
 
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: var(--rds-spacing-md, 12px);
-    padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xl, 24px) var(--rds-spacing-2xl, 24px) var(--rds-spacing-xl, 24px);
+    gap: var(--rds-spacing-md);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-xl) var(--rds-spacing-2xl) var(--rds-spacing-xl);
     background: transparent;
   }
 
   &__paper {
-    max-width: var(--rds-dialog-max-width, 600px);
+    max-width: var(--rds-dialog-max-width);
     width: 100%;
-    border-radius: var(--rds-border-radius-lg, 12px);
+    border-radius: var(--rds-border-radius-lg);
     box-shadow: var(--rds-elevation-2);
     background: var(--rds-background-paper);
-    margin: var(--rds-spacing-2xl, 32px) auto;
+    margin: var(--rds-spacing-2xl) auto;
   }
 
   &__paper.MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
-  width: var(--rds-dialog-icon-paper-width, 310px);
-  min-width: var(--rds-dialog-icon-paper-width, 310px);
-  max-width: var(--rds-dialog-icon-paper-max-width, 400px);
-  min-height: var(--rds-dialog-icon-paper-min-height, 294px);
+  width: var(--rds-dialog-icon-paper-width);
+  min-width: var(--rds-dialog-icon-paper-width);
+  max-width: var(--rds-dialog-icon-paper-max-width);
+  min-height: var(--rds-dialog-icon-paper-min-height);
   box-sizing: border-box;
-  padding: var(--rds-spacing-lg, 16px);
+  padding: var(--rds-spacing-lg);
   border-radius: var(--rds-border-radius-md);
   overflow: hidden;
 
@@ -51,10 +55,11 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: var(--rds-spacing-sm) var(--rds-dialog-title-padding-right, 48px) var(--rds-spacing-xs, 8px) var(--rds-dialog-title-padding-left, 14px);
+      padding: var(--rds-spacing-sm) var(--rds-dialog-title-padding-right) var(--rds-spacing-xs) var(--rds-dialog-title-padding-left);
       font-size: var(--rds-font-size-xl);
-      font-weight: var(--rds-font-weight-medium, 500);
-      line-height: 20px;
+      font-weight: var(--rds-font-weight-medium);
+
+      line-height: var(--rds-dialog-line-height-1);
       color: var(--rds-text-primary);
     }
 
@@ -75,16 +80,18 @@
     .rds-dialog__content svg {
       display: block;
       margin: var(--rds-spacing-3) auto 0 auto;
-      width: var(--rds-dialog-icon-size, 56px);
-      height: var(--rds-dialog-icon-size, 56px);
+      width: var(--rds-dialog-icon-size);
+      height: var(--rds-dialog-icon-size);
     }
 
     .rds-dialog__content p,
     .rds-dialog__content .MuiTypography-root {
-      max-width: 248px;
+
+      max-width: var(--rds-dialog-max-width);
       margin: 0 auto;
       font-size: var(--rds-font-size-md);
-      line-height: 1.45;
+
+      line-height: var(--rds-dialog-line-height-2);
       color: var(--rds-text-secondary);
     }
 
@@ -106,7 +113,7 @@
         width: 100%;
 
         > * {
-          margin: 0 !important;
+          margin: 0;
           flex: 0 0 auto;
           align-self: center;
         }
@@ -115,15 +122,15 @@
 
     .rds-dialog__button.rds-dialog__button__dismiss,
     .rds-dialog__button.rds-dialog__button__primary {
-      width: var(--rds-dialog-action-button-width, 248px) !important;
-      min-width: unset !important;
-      max-width: var(--rds-dialog-action-button-width, 248px) !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      width: var(--rds-dialog-action-button-width);
+      min-width: unset;
+      max-width: var(--rds-dialog-action-button-width);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .rds-dialog__button.rds-dialog__button__dismiss {
-      height: var(--rds-dialog-action-button-height, 36px);
+      height: var(--rds-dialog-action-button-height);
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -131,13 +138,14 @@
       background: transparent;
       color: var(--rds-primary-main, var(--rds-color-primary));
       border-radius: var(--rds-border-radius-md);
-      border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
+      border: var(--rds-border-width-thin) solid var(--rds-primary-main, var(--rds-color-primary));
       box-shadow: none;
       box-sizing: border-box;
       font-family: var(--rds-font-family-base);
-      font-weight: var(--rds-font-weight-regular, 400);
-      font-size: var(--rds-font-size-xs, 13px);
-      line-height: 16px;
+      font-weight: var(--rds-font-weight-regular);
+      font-size: var(--rds-font-size-xs);
+
+      line-height: var(--rds-dialog-line-height-3);
       text-align: center;
       vertical-align: middle;
       text-transform: none;
@@ -156,21 +164,22 @@
     }
 
     .rds-dialog__button.rds-dialog__button__primary {
-      height: var(--rds-dialog-action-button-height, 36px);
+      height: var(--rds-dialog-action-button-height);
       display: inline-flex;
       justify-content: center;
       align-items: center;
       padding: 0 var(--rds-spacing-3);
       background: var(--rds-primary-main, var(--rds-color-primary));
       color: var(--rds-primary-contrast-text);
-      border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
+      border: var(--rds-border-width-thin) solid var(--rds-primary-main, var(--rds-color-primary));
       border-radius: var(--rds-border-radius-md);
       box-shadow: none;
       box-sizing: border-box;
       font-family: var(--rds-font-family-base);
-      font-weight: var(--rds-font-weight-regular, 400);
-      font-size: var(--rds-font-size-xs, 13px);
-      line-height: 16px;
+      font-weight: var(--rds-font-weight-regular);
+      font-size: var(--rds-font-size-xs);
+
+      line-height: var(--rds-dialog-line-height-3);
       text-align: center;
       vertical-align: middle;
       text-transform: none;
@@ -187,8 +196,8 @@
     }
 
     .rds-dialog__button.rds-dialog__button__primary-link {
-      width: var(--rds-dialog-action-button-width, 248px);
-      height: var(--rds-dialog-action-button-height, 36px);
+      width: var(--rds-dialog-action-button-width);
+      height: var(--rds-dialog-action-button-height);
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -201,15 +210,15 @@
       text-transform: none;
       margin-top: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-md);
-      line-height: var(--rds-dialog-action-button-height, 36px);
-      font-weight: var(--rds-font-weight-regular, 400) !important;
-      font-size: var(--rds-font-size-xs, 14px) !important;
+      line-height: var(--rds-dialog-action-button-height);
+      font-weight: var(--rds-font-weight-regular);
+      font-size: var(--rds-font-size-xs);
       margin-left: 0;
     }
 
     &.rds-dialog--extra-small {
       .rds-dialog__actions {
-        max-width: var(--rds-dialog-action-button-width, 248px);
+        max-width: var(--rds-dialog-action-button-width);
         margin-left: auto;
         margin-right: auto;
         padding-left: 0;
@@ -218,31 +227,31 @@
 
       .rds-dialog__button.rds-dialog__button__dismiss,
       .rds-dialog__button.rds-dialog__button__primary {
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 100%;
+        max-width: 100%;
       }
     }
 
     .rds-dialog__close-button {
       position: absolute;
-      right: var(--rds-spacing-sm, 12px);
-      top: var(--rds-spacing-sm, 12px);
+      right: var(--rds-spacing-sm);
+      top: var(--rds-spacing-sm);
       color: var(--rds-text-secondary);
-      z-index: var(--rds-z-index-above, 3);
+      z-index: var(--rds-z-index-above);
       border-radius: 50%;
 
       &:hover {
         color: var(--rds-text-primary, var(--rds-color-text-primary));
-        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-action-hover);
       }
     }
 
     // Responsive: fit inside small mobile screens (≤320px)
     @media (max-width: 360px) {
-      width: calc(100vw - 32px) !important;
-      min-width: unset !important;
-      max-width: calc(100vw - 32px) !important;
-      padding: var(--rds-spacing-md, 12px);
+      width: calc(100vw - var(--rds-spacing-xl));
+      min-width: unset;
+      max-width: calc(100vw - var(--rds-spacing-xl));
+      padding: var(--rds-spacing-md);
 
       .rds-dialog__content p,
       .rds-dialog__content .MuiTypography-root {
@@ -272,52 +281,52 @@
 
   &__close-button {
     position: absolute;
-    right: var(--rds-spacing-sm, 12px);
-    top: var(--rds-spacing-sm, 12px);
+    right: var(--rds-spacing-sm);
+    top: var(--rds-spacing-sm);
     color: var(--rds-text-secondary);
     border-radius: 50%;
 
     &:hover {
       color: var(--rds-text-primary, var(--rds-color-text-primary));
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-action-hover);
     }
   }
 
   &__button {
-    min-width: var(--rds-spacing-xl, 80px);
-    font-size: var(--rds-font-size-md, 16px);
-    border-radius: var(--rds-border-radius, 6px);
+    min-width: var(--rds-spacing-xl);
+    font-size: var(--rds-font-size-md);
+    border-radius: var(--rds-border-radius);
     background: var(--rds-background-paper);
     color: var(--rds-primary-main, var(--rds-color-primary));
-    border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
+    border: var(--rds-border-width-thin) solid var(--rds-primary-main, var(--rds-color-primary));
     box-shadow: none;
 
     &.rds-button.rds-button__secondary {
-      background: transparent !important;
-      color: var(--rds-primary-main, var(--rds-color-primary)) !important;
-      border: 1px solid var(--rds-primary-main, var(--rds-color-primary)) !important;
+      background: transparent;
+      color: var(--rds-primary-main, var(--rds-color-primary));
+      border: var(--rds-border-width-thin) solid var(--rds-primary-main, var(--rds-color-primary));
 
       &:hover,
       &:active {
-        background: var(--rds-color-primary-hover-bg) !important;
-        color: var(--rds-primary-main, var(--rds-color-primary)) !important;
-        border-color: var(--rds-primary-main, var(--rds-color-primary)) !important;
+        background: var(--rds-color-primary-hover-bg);
+        color: var(--rds-primary-main, var(--rds-color-primary));
+        border-color: var(--rds-primary-main, var(--rds-color-primary));
       }
     }
 
     &.rds-button.rds-button__primary {
-      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
-      color: var(--rds-primary-contrast-text) !important;
-      border: 1px solid var(--rds-primary-main, var(--rds-color-primary)) !important;
+      background: var(--rds-primary-main, var(--rds-color-primary));
+      color: var(--rds-primary-contrast-text);
+      border: var(--rds-border-width-thin) solid var(--rds-primary-main, var(--rds-color-primary));
 
       &:hover {
-        background: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
-        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
       }
 
       &:active {
-        background: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
-        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
       }
     }
 
@@ -326,7 +335,7 @@
     }
 
     &__primary {
-      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      background: var(--rds-primary-main, var(--rds-color-primary));
       color: var(--rds-primary-contrast-text);
       box-shadow: none;
 
@@ -337,7 +346,7 @@
 
     &__secondary {
       color: var(--rds-color-primary, var(--rds-primary-main));
-      border: 1px solid var(--rds-color-primary, var(--rds-primary-main));
+      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main));
       background: var(--rds-background-paper);
 
       &:hover {
@@ -348,7 +357,7 @@
     &__dismiss {
       color: var(--rds-color-primary, var(--rds-primary-main));
       background: transparent;
-      border: 1px solid var(--rds-color-primary, var(--rds-primary-main));
+      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main));
 
       &:hover,
       &:active {
@@ -359,19 +368,18 @@
     }
   }
 
-
   &:focus {
     outline: none;
   }
 
   &:focus-visible {
-    outline: var(--rds-dialog-focus-ring-width, 2px) solid var(--rds-primary-main, var(--rds-color-primary));
+    outline: var(--rds-dialog-focus-ring-width) solid var(--rds-primary-main, var(--rds-color-primary));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-dialog-disabled-opacity, 0.6);
+    opacity: var(--rds-dialog-disabled-opacity);
     pointer-events: none;
   }
 }
@@ -379,19 +387,14 @@
 // Ensure the MUI Dialog paper doesn't overflow small mobile viewports
 @media (max-width: 360px) {
   .MuiDialog-paper {
-    margin: 16px !important;
-    max-height: calc(100% - 32px) !important;
+    margin: var(--rds-spacing-md-px);
+    max-height: calc(100% - var(--rds-spacing-xl));
   }
 
   .MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
-    width: calc(100vw - 32px) !important;
-    min-width: unset !important;
-    max-width: calc(100vw - 32px) !important;
+    width: calc(100vw - var(--rds-spacing-xl));
+    min-width: unset;
+    max-width: calc(100vw - var(--rds-spacing-xl));
   }
 }
-
-
-
-
-
 
