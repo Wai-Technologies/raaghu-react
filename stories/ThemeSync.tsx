@@ -1,35 +1,17 @@
 import { useEffect } from 'react';
+import { reapplyStorybookTheme } from '../.storybook/storybook-theme-sync';
 
-function getMode(): 'light' | 'dark' {
-  const params = new URLSearchParams(globalThis.location.search);
-  const g = decodeURIComponent(params.get('globals') || '');
-  return g.includes('theme:dark') ? 'dark' : 'light';
-}
-
-function applyMode(mode: 'light' | 'dark') {
-  const dark = mode === 'dark';
-  document.documentElement.setAttribute('data-theme', mode);
-  document.documentElement.classList.toggle('rds-theme--dark', dark);
-  document.documentElement.classList.toggle('theme-dark', dark);
-  document.documentElement.classList.toggle('theme-light', !dark);
-  document.body?.classList.toggle('dark-theme', dark);
-  document.body?.classList.toggle('theme-dark', dark);
-}
-
+/**
+ * Keeps docs pages (e.g. Introduction) in sync with the Storybook theme toolbar.
+ *
+ * Theme resolution (light / dark / system → OS preference) is owned by
+ * `.storybook/storybook-theme-sync.ts`. This component only asks it to
+ * re-apply the selected theme once the docs page has mounted, instead of
+ * guessing from the iframe URL (which ignores 'system' and toolbar changes).
+ */
 export default function ThemeSync() {
   useEffect(() => {
-    let last = getMode();
-    applyMode(last);
-
-    const id = setInterval(() => {
-      const current = getMode();
-      if (current !== last) {
-        last = current;
-        applyMode(current);
-      }
-    }, 300);
-
-    return () => clearInterval(id);
+    reapplyStorybookTheme();
   }, []);
 
   return null;

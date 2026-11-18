@@ -31,20 +31,39 @@ function getThemeModeFromUrl(): RaaghuThemeMode {
 let currentMode: RaaghuThemeMode = 'system';
 let lastEffectiveMode: 'light' | 'dark' | null = null;
 
+/** True when the DOM already reflects the given effective mode. */
+function domMatches(effective: 'light' | 'dark'): boolean {
+  return document.documentElement.getAttribute('data-theme') === effective;
+}
+
 function syncThemeIfChanged(mode: RaaghuThemeMode): void {
   const effective = resolveEffectiveMode(mode);
-  if (mode === currentMode && effective === lastEffectiveMode) {
+  // Also check the DOM: docs pages / head scripts may have overwritten
+  // data-theme, so a cached match alone is not enough.
+  if (mode === currentMode && effective === lastEffectiveMode && domMatches(effective)) {
     return;
   }
 
   currentMode = mode;
   lastEffectiveMode = effective;
   applyRaaghuTheme(mode, undefined, STORYBOOK_THEME_OPTIONS);
+  // Tell the early preview-head.html script not to overwrite this on DOMContentLoaded.
+  (window as Window & { __rdsThemeSynced?: boolean }).__rdsThemeSynced = true;
 }
 
 function onGlobalsUpdated(event: { globals?: Record<string, unknown> }): void {
   const mode = parseThemeMode(event.globals?.theme) ?? 'system';
   syncThemeIfChanged(mode);
+}
+
+/**
+ * Re-applies the currently selected Storybook theme to the DOM.
+ * Docs/MDX pages (e.g. Introduction) call this on mount, since they do not
+ * run story decorators and must not guess the theme from the iframe URL.
+ */
+export function reapplyStorybookTheme(): void {
+  if (typeof window === 'undefined') return;
+  syncThemeIfChanged(currentMode);
 }
 
 export function setupStorybookThemeSync(): void {
@@ -63,11 +82,10 @@ export function setupStorybookThemeSync(): void {
     }
   });
 
-  // Iframe previews can miss OS theme events; poll while following system mode.
+  // Iframe previews can miss OS theme events, and docs pages can overwrite
+  // data-theme; poll so the DOM always matches the selected theme.
   window.setInterval(() => {
-    if (currentMode === 'system') {
-      syncThemeIfChanged('system');
-    }
+    syncThemeIfChanged(currentMode);
   }, 500);
 
   // Re-check during the first seconds after load when matchMedia can be stale.

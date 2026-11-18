@@ -1,10 +1,33 @@
 <script>
   (function () {
+    function prefersDark(win) {
+      try {
+        return !!(win.matchMedia && win.matchMedia('(prefers-color-scheme: dark)').matches);
+      } catch (e) {
+        return false;
+      }
+    }
     function syncFromUrl() {
       try {
+        // Once the preview theme sync has applied a theme, it owns the DOM.
+        if (window.__rdsThemeSynced) return;
         var params = new URLSearchParams(window.location.search);
         var globalsRaw = decodeURIComponent(params.get('globals') || '');
-        var isDark = globalsRaw.indexOf('theme:dark') !== -1;
+        var isDark;
+        if (globalsRaw.indexOf('theme:dark') !== -1) {
+          isDark = true;
+        } else if (globalsRaw.indexOf('theme:light') !== -1) {
+          isDark = false;
+        } else {
+          // 'system' (default): follow the OS preference, checking the parent
+          // Storybook window too since iframes can report it late.
+          isDark = prefersDark(window);
+          try {
+            if (!isDark && window.parent && window.parent !== window) {
+              isDark = prefersDark(window.parent);
+            }
+          } catch (e) {}
+        }
         var mode = isDark ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', mode);
         document.documentElement.classList.toggle('rds-theme--dark', isDark);
