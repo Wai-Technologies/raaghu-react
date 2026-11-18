@@ -43,6 +43,11 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   title
 }) => {
   const [internalDragOver, setInternalDragOver] = React.useState(false);
+  const canDrop = dragAndDrop && !disabled;
+  const blockDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'none';
+  };
 
   return (
     <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
@@ -55,16 +60,16 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
       )}
 
       <Box
-        className={`rds-file-uploader__input-row${isDragOver && dragAndDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}`}
+        className={`rds-file-uploader__input-row${(isDragOver || internalDragOver) && canDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}`}
         sx={{
           display: 'flex',
           width: '100%',
           pointerEvents: disabled ? 'none' : 'auto',
           opacity: disabled ? 0.6 : 1,
         }}
-        onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
-        onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles as unknown as FileList } } as unknown as React.ChangeEvent<HTMLInputElement>); } : undefined}
+        onDragOver={canDrop ? (e) => { e.preventDefault(); setInternalDragOver(true); } : blockDrop}
+        onDragLeave={canDrop ? (e) => { e.preventDefault(); setInternalDragOver(false); } : blockDrop}
+        onDrop={canDrop ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles as unknown as FileList } } as unknown as React.ChangeEvent<HTMLInputElement>); } : blockDrop}
       >
         <RdsButton
           style="filled"

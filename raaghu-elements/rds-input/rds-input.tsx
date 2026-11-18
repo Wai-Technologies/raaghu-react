@@ -25,10 +25,23 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   titlePosition?: string;
   style?: 'default' | 'pill' | 'bottom outline';
+  /** Icon shown at the start (left) of the input field. */
+  startIcon?: ReactNode;
+  /** Icon shown at the end (right) of the input field. */
+  endIcon?: ReactNode;
+  /** Shows the input in its selected style. */
+  selected?: boolean;
+  /**
+   * @deprecated Use `disabled`, `error` and `selected` instead.
+   * `'active'` only forces the focused look and is kept for backward compatibility.
+   */
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
+  /** @deprecated Use `startIcon` / `endIcon`. Set to `false` to hide `icon`. */
   showIcon?: boolean;
+  /** @deprecated Use `startIcon` / `endIcon`. */
   iconPosition?: 'start' | 'end';
-  icon?: ReactNode; // Custom icon component provided by the user
+  /** @deprecated Use `startIcon` / `endIcon`. */
+  icon?: ReactNode;
 }
 
 const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
@@ -43,9 +56,13 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
   titlePosition,
   style = 'default',
   state = 'default',
-  showIcon = false,
+  startIcon,
+  endIcon,
+  selected = false,
+  showIcon,
   iconPosition = 'end',
   icon,
+  InputProps: InputPropsProp,
   error,
   disabled,
   value,
@@ -93,7 +110,7 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
     stateClass = 'rds-input--error';
   } else if (state === 'disabled' || disabled) {
     stateClass = 'rds-input--disabled';
-  } else if (state === 'selected' || isFocusedDefault) {
+  } else if (selected || state === 'selected' || isFocusedDefault) {
     stateClass = 'rds-input--selected';
   } else if (state === 'active') {
     stateClass = 'rds-input--active';
@@ -115,20 +132,15 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
       inputType = 'text';
   }
   
-  const renderIcon = () => {
-    if (!showIcon) return null;
-    
-    if (icon) {
-      return (
-        <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-          {icon}
-        </InputAdornment>
-      );
-    }
-    
+  const legacyIcon = icon && showIcon !== false ? icon : undefined;
+  const resolvedStartIcon = startIcon ?? (iconPosition === 'start' ? legacyIcon : undefined);
+  const resolvedEndIcon = endIcon ?? (iconPosition === 'end' ? legacyIcon : undefined);
+
+  const renderIcon = (node: ReactNode, position: 'start' | 'end') => {
+    if (node === undefined || node === null || node === false) return null;
     return (
-      <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-        {icon}
+      <InputAdornment position={position} className={`rds-input__icon rds-input__icon--${position}`}>
+        {node}
       </InputAdornment>
     );
   };
@@ -248,11 +260,10 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
             root: active ? 'Mui-focused' : '',
             focused: active ? 'Mui-focused' : '',
           },
-          startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
-          endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
+          startAdornment: renderIcon(resolvedStartIcon, 'start'),
+          endAdornment: renderIcon(resolvedEndIcon, 'end'),
           inputProps: numericInputProps,
-          ...(props.InputProps || {}),
-          
+          ...(InputPropsProp || {}),
         }}
         {...props}
       />

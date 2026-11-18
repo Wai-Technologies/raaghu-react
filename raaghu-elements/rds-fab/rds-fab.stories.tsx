@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsFab> = {
   argTypes: {
     color: {
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: ['default', 'primary', 'secondary', 'error', 'success', 'warning'],
     },
     size: {
       control: { type: 'select' },
