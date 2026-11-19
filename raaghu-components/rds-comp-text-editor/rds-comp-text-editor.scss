@@ -200,7 +200,6 @@
 
     .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
       color: var(--rds-neutral-900);
-
     }
 
     .rds-comp-text-editor--disabled & {
@@ -254,7 +253,6 @@
   color: var(--rds-color-on-surface);
 
   transition: color var(--rds-text-editor-transition) ease;
-
 }
 
 .form-control-feedback {
@@ -270,7 +268,6 @@
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
 }
 
-/* Global modal field defaults */
 .rdw-image-modal-url-input,
 .rdw-image-modal-size-input,
 .rdw-image-modal-alt-input {

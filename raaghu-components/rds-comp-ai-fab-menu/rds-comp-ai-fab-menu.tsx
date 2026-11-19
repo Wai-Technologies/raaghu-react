@@ -9,7 +9,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 
-// register icons once at module load to avoid repeated registrations on render
 registerMaterialIcons({
     'list': ListIcon,
     'refresh': RefreshIcon,

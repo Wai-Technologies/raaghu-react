@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsSidebar  from "./rds-sidebar"
 import figma from "@figma/code-connect"
 import HomeIcon from '@mui/icons-material/Home';

@@ -1,4 +1,3 @@
-import React from "react";
 import "./rds-comp-reviews.scss";
 import { renderReviewStyle } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
@@ -39,9 +38,9 @@ export enum RevieweStyle {
 }
 
 export interface RdsCompReviewsProps {
-  itemList: Item[]; // List of items to be displayed
-  style?: RevieweStyle; // Style of the component
-  variantType?: VariantType; // Variant type of the component
+  itemList: Item[];
+  style?: RevieweStyle;
+  variantType?: VariantType;
 }
 
 const RdsCompReviews = (props: RdsCompReviewsProps) => {

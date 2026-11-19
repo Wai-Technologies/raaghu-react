@@ -76,22 +76,6 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             });
         }, []);
 
-    const handleMicClick = () => {
-    if (!('webkitSpeechRecognition' in window)) {
-      return;
-    }
-
-        const recognition = new globalThis.webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = "en-US";
-        
-        recognition.onresult = (event: SpeechRecognitionEvent) => {
-            const transcript = event.results[0][0].transcript;
-            setInputText(transcript);
-        };
-        recognition.start();
-    };
 
     const handleSent = () => {
         onSend && onSend(inputText, enhancedImage || previewImage);

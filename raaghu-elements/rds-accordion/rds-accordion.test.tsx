@@ -1,11 +1,9 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RdsAccordion from './rds-accordion';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-accordion.scss', () => ({}));
 
 describe('RdsAccordion', () => {
@@ -519,22 +517,18 @@ describe('RdsAccordion', () => {
     });
 
     it('should handle rapid expansion toggling with controlled expanded', async () => {
-      // Test that controlled expanded prop works correctly
       const { container, rerender } = render(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
 
-      // Initially expanded
       const summary = container.querySelector('[aria-expanded]');
       expect(summary).toHaveAttribute('aria-expanded', 'true');
 
-      // Toggle to collapsed
       rerender(
         <RdsAccordion {...defaultProps} expanded={false} />
       );
       expect(summary).toHaveAttribute('aria-expanded', 'false');
 
-      // Toggle back to expanded
       rerender(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
@@ -569,7 +563,6 @@ describe('RdsAccordion', () => {
       expect(icon).toBeInTheDocument();
       expect(title).toBeInTheDocument();
 
-      // Icon should come before title
       const iconIndex = Array.from(header?.children || []).indexOf(icon as any);
       const titleIndex = Array.from(header?.children || []).indexOf(title as any);
       expect(iconIndex).toBeLessThan(titleIndex);

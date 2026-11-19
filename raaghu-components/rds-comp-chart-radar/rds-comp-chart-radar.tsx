@@ -95,7 +95,6 @@ const RdsCompRadarChart = ({
               boxHeight: 8,
               padding: 20,
               ...passedLabels,
-              // ensure pointStyleWidth is not set (causes oval distortion)
               pointStyleWidth: undefined,
               font: {
                 size: getFontSizeFromVar("--rds-font-size-md", 12),

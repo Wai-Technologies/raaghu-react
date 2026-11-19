@@ -1,14 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-chat-bot.scss', () => ({}));
 
-// Mock child components
 jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
   const ChatHeaderSize = { Small: 'small', Medium: 'medium', Large: 'large' } as const;
   function MockRdsCompAiChatHeader({ logoUrl, title, ...props }: any) {
@@ -97,7 +93,6 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiChatBotProps = {
   aiLogoUrl: 'https://example.com/ai-logo.jpg',
   userAvatarUrl: 'https://example.com/user-avatar.jpg',

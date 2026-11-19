@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompOffcanvas, {
   RdsOffcanvasPlacement,
@@ -8,10 +7,8 @@ import RdsCompOffcanvas, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-off-canvas.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Drawer: ({ children, anchor, open, _onClose, _onBackdropClick, className, id, ...props }: any) => (
     open ? (
@@ -35,12 +32,10 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
 }));
 
-// Mock RDS elements
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ text, onClick, className, style, size, ...props }: any) {
     return (
@@ -782,7 +777,6 @@ describe('RdsCompOffcanvas', () => {
         />
       );
 
-      // Open
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
       fireEvent.click(openButton);
 
@@ -791,7 +785,6 @@ describe('RdsCompOffcanvas', () => {
         expect(onShow).toHaveBeenCalled();
       });
 
-      // Close with button
       const saveButton = screen.getByTestId('rds-button-save');
       fireEvent.click(saveButton);
 

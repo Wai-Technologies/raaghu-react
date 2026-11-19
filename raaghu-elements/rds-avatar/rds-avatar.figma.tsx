@@ -1,7 +1,5 @@
-import React from "react"
 import  RdsAvatar  from "./rds-avatar"
 import figma from "@figma/code-connect"
-import { display } from "@mui/system"
 
 figma.connect(
   RdsAvatar,

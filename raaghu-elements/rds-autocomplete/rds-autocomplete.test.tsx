@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAutocomplete, { RdsAutocompleteProps } from './rds-autocomplete';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-autocomplete.scss', () => ({}));
 
-// Mock checkbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function MockRdsCheckbox(props: any) {
     return <input type="checkbox" data-testid="rds-checkbox" checked={props.status === 'checked'} {...props} />;

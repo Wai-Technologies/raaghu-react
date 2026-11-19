@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiMessageBox, { RdsCompAiMessageBoxProps } from './rds-comp-ai-message-box';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-message-box.scss', () => ({}));
 
-// Mock RdsAvatar component
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar(props: any) {
     return (
@@ -25,7 +22,6 @@ jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiMessageBoxProps = {
   message: 'Test message',
   isImage: false,

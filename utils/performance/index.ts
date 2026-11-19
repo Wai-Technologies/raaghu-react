@@ -2,7 +2,6 @@
  * Performance monitoring and optimization utilities for Raaghu Design System
  */
 
-// Performance Metrics Interface
 export interface PerformanceMetrics {
   componentName: string;
   renderTime: number;
@@ -10,7 +9,6 @@ export interface PerformanceMetrics {
   timestamp: number;
 }
 
-// Performance Monitor Class
 export class PerformanceMonitor {
   private static metrics: PerformanceMetrics[] = [];
   private static isEnabled = true;
@@ -35,7 +33,6 @@ export class PerformanceMonitor {
 
     this.metrics.push(metric);
 
-    // Log slow renders (> 16ms)
     if (duration > 16) {
       console.warn(`Slow render detected: ${componentName} took ${duration}ms`);
     }
@@ -70,11 +67,9 @@ export class PerformanceMonitor {
   }
 }
 
-// Bundle Size Analyzer
 export class BundleSizeAnalyzer {
   static async analyzeComponent(_componentName: string): Promise<number> {
-    // Mock implementation - in real scenario, this would analyze actual bundle sizes
-    const mockSize = 25000; // fixed mock size for bundle analysis placeholder
+    const mockSize = 25000;
     return new Promise((resolve) => {
       setTimeout(() => resolve(mockSize), 100);
     });
@@ -95,7 +90,6 @@ export class BundleSizeAnalyzer {
   }
 }
 
-// Memory Leak Detector
 export class MemoryLeakDetector {
   private static observers: Set<MutationObserver> = new Set();
   private static eventListeners: Set<() => void> = new Set();
@@ -114,15 +108,12 @@ export class MemoryLeakDetector {
   }
 
   static cleanup(): void {
-    // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers.clear();
 
-    // Remove event listeners
     this.eventListeners.forEach(cleanup => cleanup());
     this.eventListeners.clear();
 
-    // Clear timers
     this.timers.forEach(timer => clearTimeout(timer));
     this.timers.clear();
   }
@@ -132,7 +123,6 @@ export class MemoryLeakDetector {
   }
 }
 
-// Performance Timing Utilities
 export class PerformanceTimingUtils {
   private static timers: Map<string, number> = new Map();
 
@@ -155,7 +145,6 @@ export class PerformanceTimingUtils {
   }
 }
 
-// Export performance utilities
 export default {
   PerformanceMonitor,
   BundleSizeAnalyzer,

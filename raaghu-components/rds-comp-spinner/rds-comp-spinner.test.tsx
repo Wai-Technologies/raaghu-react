@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsCompSpinner, {
   SpinnerSize,
@@ -9,7 +8,6 @@ import RdsCompSpinner, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-spinner.scss', () => ({}));
 
 describe('RdsCompSpinner', () => {

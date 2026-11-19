@@ -1,4 +1,3 @@
-import React from "react"
 import figma from "@figma/code-connect"
 import RdsCompTreeStructure, { IconType, NodeState, TreeLevel } from '../../raaghu-components/rds-comp-tree-structure/rds-comp-tree-structure'
 

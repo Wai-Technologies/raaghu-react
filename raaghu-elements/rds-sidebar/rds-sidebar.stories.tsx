@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
+import { useColorScheme } from '@mui/material/styles';
 import { Button, Box } from '@mui/material';
 import { 
   Home, 
@@ -12,15 +14,21 @@ import {
   Star,
   Send,
   Drafts,
-  Business,
-  AdminPanelSettings,
-  Widgets,
-  Receipt,
-  ConfirmationNumber,
-  Chat,
-  Campaign,
-  Assignment
 } from '@mui/icons-material';
+
+const RAAGHU_LOGO_LIGHT_URL = 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
+const RAAGHU_LOGO_DARK_URL = 'https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png';
+
+const useRaaghuLogoSrc = (): string => {
+  const { mode, systemMode } = useColorScheme();
+  let isDark = false;
+  if (mode === 'dark') isDark = true;
+  else if (mode === 'system') isDark = systemMode === 'dark';
+  else if (mode !== 'light' && typeof document !== 'undefined') {
+    isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+  return isDark ? RAAGHU_LOGO_DARK_URL : RAAGHU_LOGO_LIGHT_URL;
+};
 
 const meta: Meta<typeof RdsSidebar> = {
   title: 'Elements/Sidebar',
@@ -30,7 +38,7 @@ const meta: Meta<typeof RdsSidebar> = {
     layout: 'padded',
     docs: {
       story: {
-        height: '450px'
+        height: '450px',
       },
       description: {
         component: `
@@ -44,17 +52,27 @@ When a platform is specified, the component automatically displays the appropria
       }
     },
     controls: {
-    exclude: ['component', 'slots', 'slotProps', 'onClose'],
+      include: [
+        'open',
+        'width',
+        'variant',
+        'anchor',
+        'layout',
+        'typeOf',
+        'showLogo',
+        'showSearch',
+        'user',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    isOpen: {
+    open: {
       control: 'boolean',
-      description: 'Whether the sidebar is open',
+      description: 'Whether the sidebar is open. Has no effect when `variant` is `permanent`.',
     },
     width: {
-      control: 'number',
+      control: { type: 'number', min: 64, max: 400, step: 8 },
       description: 'Width of the sidebar in pixels',
     },
     variant: {
@@ -70,20 +88,35 @@ When a platform is specified, the component automatically displays the appropria
     layout: {
       control: 'select',
       options: ['raaghu', 'list', 'toolbar'],
+      description: 'Sidebar layout style',
     },
     typeOf: {
       control: 'select',
       options: ['collapse', 'expanded', 'fixed'],
-    },
-    platform: {
-      control: 'select',
-      options: ['abp-list', 'anz-list'],
-      description: 'Platform type for the sidebar',
+      description: 'Collapse / expand behavior',
     },
     showSearch: {
       control: 'boolean',
       description: 'Toggle whether the search box is shown in the sidebar',
     },
+    showLogo: {
+      control: 'boolean',
+      description: 'Show the default logo in the sidebar header',
+    },
+    user: {
+      control: 'object',
+      description: 'User shown in the avatar area (`name`, `subtitle`, `avatarSrc`)',
+    },
+  },
+  args: {
+    open: true,
+    width: 240,
+    variant: 'permanent',
+    anchor: 'left',
+    layout: 'raaghu',
+    typeOf: 'expanded',
+    showLogo: true,
+    showSearch: true,
   },
 };
 
@@ -95,7 +128,7 @@ const basicItems = [
   {
     label: 'Dashboard',
     icon: <Dashboard />,
-    active: true,
+    selected: true,
     children: [
       { label: 'Overview', icon: <Star />, onClick: () => {} },
       { label: 'Stats', icon: <Inbox />, onClick: () => {} },
@@ -105,7 +138,7 @@ const basicItems = [
   { label: 'Profile', icon: <Person />, onClick: () => {} },
   { label: 'Settings', icon: <Settings />, onClick: () => {} },
   { label: 'Requests', icon: <Drafts />,
-    active: true,
+    selected: true,
     children: [
       { label: 'New Requests', icon: <Star />, onClick: () => {} },
       { label: 'Pending', icon: <Drafts />, onClick: () => {} },
@@ -122,59 +155,102 @@ const mailItems = [
   { label: 'Drafts', icon: <Drafts />, onClick: () => {} },
 ];
 
-const anzMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
-  { label: 'Saas', icon: <Business />, onClick: () => {} },
-  { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => {} },
-  { label: 'Demo UI Components', icon: <Widgets />, onClick: () => {} },
-];
+const SidebarTemplate = (args: any) => {
+  const logoSrc = useRaaghuLogoSrc();
+  const [open, setOpen] = useState(!!args.open);
+  const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
+  const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
+  const sidebarWidth = sidebarArgs.width ?? 240;
+  const variant = sidebarArgs.variant ?? 'permanent';
+  const isPermanent = variant === 'permanent';
+  const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
 
-const abpMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
-  { label: 'Saas', icon: <Business />, onClick: () => {} },
-  { label: 'Invoices', icon: <Receipt />, onClick: () => {} },
-  { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => {} },
-  { label: 'Communication', icon: <Chat />, onClick: () => {} },
-  { label: 'Advertisements', icon: <Campaign />, onClick: () => {} },
-  { label: 'Requests', icon: <Assignment />, onClick: () => {} },
-];
-
-const SidebarTemplate = ({ hideMainParagraph, hideToggleButton, ...args }: any) => {
-  const [open, setOpen] = useState(args.isOpen || false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setOpen(!!args.open);
+  }, [args.open]);
 
   return (
-    <Box sx={{ display: 'flex' }} ref={containerRef}>
-      {!hideToggleButton && (
-        <Button 
-          variant="contained" 
-          onClick={() => setOpen(!open)}
-          sx={{ mb: 2 }}
-        >
-          {open ? 'Close' : 'Open'} Sidebar
-        </Button>
-      )}
-      <RdsSidebar
-        {...args}
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        container={containerRef.current}
-      />
-      <Box sx={{ flexGrow: 1, p: 3 }}>
-        {!hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        position: 'relative',
+        minHeight: 400,
+        bgcolor: 'background.default',
+        overflow: 'hidden',
+        borderRadius: 1,
+        color: 'text.primary',
+      }}
+    >
+      <Box
+        ref={setDrawerContainer}
+        sx={{
+          position: 'relative',
+          flexShrink: 0,
+          width: reserveSidebarColumn ? (isPermanent ? 'auto' : sidebarWidth) : 0,
+          minWidth: isPermanent && open ? sidebarWidth : undefined,
+          minHeight: 400,
+          overflow: 'hidden',
+        }}
+      >
+        <RdsSidebar
+          {...sidebarArgs}
+          avatarCollapsedSrc={logoSrc}
+          open={open}
+          onClose={() => setOpen(false)}
+          container={drawerContainer}
+        />
+      </Box>
+      <Box
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          minWidth: 0,
+          alignSelf: 'flex-start',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          gap: 2,
+          flexWrap: 'wrap',
+        }}
+      >
+        {!hideToggleButton && (
+          <Button
+            variant="contained"
+            onClick={() => setOpen((prev: boolean) => !prev)}
+            sx={{ flexShrink: 0, whiteSpace: 'nowrap' }}
+          >
+            {open ? 'Close' : 'Open'} Sidebar
+          </Button>
+        )}
+        {!hideMainParagraph && (
+          <Box
+            component="p"
+            sx={{
+              m: 0,
+              flex: '1 1 14rem',
+              minWidth: 0,
+            }}
+          >
+            Main content area. The sidebar will slide over this content.
+          </Box>
+        )}
       </Box>
     </Box>
   );
 };
 
 export const Default = {
-  render: SidebarTemplate,
+  render: SidebarTemplate,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const nav = canvasElement.querySelector('.MuiDrawer-root, [role="navigation"], nav') || canvasElement.firstElementChild;
+    expect(nav).toBeTruthy();
+  },
   args: {
     items: basicItems,
-    isOpen: true,
-    variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    open: true,
+    variant: 'persistent',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -187,9 +263,13 @@ export const MailApp = {
   args: {
     items: mailItems,
     width: 280,
+    open: true,
+    variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+    showSearch: true,
+    hideMainParagraph: false,
+    hideToggleButton: false,
   },
 };
 
@@ -198,11 +278,10 @@ export const NarrowSidebar = {
   args: {
     items: basicItems,
     width: 200, 
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     hideToggleButton: true,
   },
   parameters: {
@@ -215,12 +294,15 @@ export const NarrowSidebar = {
 };
 
 export const Permanent: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: basicItems,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
   },
 };
@@ -231,8 +313,7 @@ export const WideSidebar = {
     items: basicItems,
     width: 250,
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
@@ -241,29 +322,31 @@ export const WithDisabledItems = {
   args: {
     items: [
       { label: 'Home', icon: <Home />, onClick: () => {} },
-      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, active: true },
+      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, selected: true },
       { label: 'Profile', icon: <Person />, disabled: true },
       { label: 'Settings', icon: <Settings />, onClick: () => {} },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
 export const WithoutIcons: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: [
       { label: 'Home', onClick: () => {} },
-      { label: 'About', onClick: () => {}, active: true },
+      { label: 'About', onClick: () => {}, selected: true },
       { label: 'Services', onClick: () => {} },
       { label: 'Contact', onClick: () => {} },
     ],
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
-};
+};

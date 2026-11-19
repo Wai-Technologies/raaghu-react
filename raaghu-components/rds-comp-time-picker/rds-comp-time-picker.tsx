@@ -5,7 +5,6 @@ import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
 import { 
   getButtonClasses, 
   getInputBorderClass, 
-  getIconColor, 
   parseTimeFromValue,
   getCurrentTime, 
   formatTime 

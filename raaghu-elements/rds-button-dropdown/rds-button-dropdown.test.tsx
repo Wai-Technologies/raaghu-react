@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } from './rds-button-dropdown';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-button-dropdown.scss', () => ({}));
 
-// Mock child components
 jest.mock('../rds-button/rds-button', () => {
   return function MockButton({ text, onClick, style, ...props }: any) {
     return <button onClick={onClick} {...props}>{text}</button>;
@@ -131,7 +128,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
       
-      // Click on menu to trigger onClose
       fireEvent.click(screen.getByTestId('rds-menu'));
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
@@ -163,7 +159,6 @@ describe('RdsButtonDropdown', () => {
       const button = screen.getByText('Button');
       fireEvent.click(button);
       
-      // Simulate radio selection - look for radio inputs
       const radios = screen.getAllByRole('radio');
       fireEvent.click(radios[0]);
       
@@ -177,7 +172,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
       
-      // Simulate selecting by clicking menu to close
       fireEvent.click(screen.getByTestId('rds-menu'));
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
@@ -227,7 +221,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(checkboxes[0]);
       fireEvent.click(checkboxes[1]);
       
-      // onChange may only be called once if mock prevents multiple updates
       expect(onChange).toHaveBeenCalled();
     });
 
@@ -238,11 +231,9 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.queryByTestId('rds-menu')).toBeInTheDocument();
       
-      // Select option - dropdown should remain open in multi-select
       const checkboxes = screen.getAllByRole('checkbox');
       fireEvent.click(checkboxes[0]);
       
-      // In mock, dropdown behavior may vary
       expect(button).toBeInTheDocument();
     });
 
@@ -281,9 +272,7 @@ describe('RdsButtonDropdown', () => {
       const callCount1 = onChange.mock.calls.length;
       
       fireEvent.click(checkboxes[0]);
-      const callCount2 = onChange.mock.calls.length;
       
-      // Verify at least one call was made for selection
       expect(callCount1).toBeGreaterThanOrEqual(1);
     });
   });
@@ -637,7 +626,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       
       const radios = screen.getAllByRole('radio');
-      // Verify second radio is marked as disabled
       expect(radios[1]).toHaveAttribute('disabled');
       expect(radios[0]).not.toHaveAttribute('disabled');
     });

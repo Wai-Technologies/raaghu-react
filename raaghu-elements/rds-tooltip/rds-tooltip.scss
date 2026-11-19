@@ -95,9 +95,6 @@
     margin-left: calc(-1 * var(--rds-tooltip-arrow-offset));
   }
 
-  /* Hover color change intentionally removed to keep tooltip appearance
-     consistent and avoid the bright highlight on parent hover. */
-
   &:focus-visible .MuiTooltip-tooltip {
     outline: var(--rds-tooltip-focus-ring-width) solid var(--rds-primary-main);
     outline-offset: var(--rds-focus-ring-offset);

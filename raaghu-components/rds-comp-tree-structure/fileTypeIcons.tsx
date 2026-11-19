@@ -1,9 +1,4 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { type ReactNode, type MouseEvent, type ChangeEvent } from 'react';
-import clsx from 'clsx';
-// Import all necessary Material-UI icons
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import FolderIcon from '@mui/icons-material/Folder';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -34,7 +29,6 @@ export const getAllNodeIds = (nodes: TreeNode[]): number[] => {
   return ids;
 };
 
-// Proper file type icons with correct Material-UI components
 export const fileTypeIcons = {
   CSS: (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,12 +142,10 @@ export const fileTypeIcons = {
   )
 };
 
-// Function to get file icon
 export const getFileIcon = (fileType: string) => {
   return fileTypeIcons[fileType as keyof typeof fileTypeIcons] || fileTypeIcons.Default;
 };
 
-// TreeNodeRow component
 export { TreeNodeRow } from './TreeNodeRow';
 
 export default fileTypeIcons;

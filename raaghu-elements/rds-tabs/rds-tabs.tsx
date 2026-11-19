@@ -80,8 +80,6 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
   }));
 
-  // Determine provided value: prefer explicit `value`, then `activeTab`.
-  // If neither is provided, do not pass `value` to keep Tabs uncontrolled.
   const providedValue = (value ?? activeTab);
   const firstEnabledId = tabs.find((tab) => !tab.disabled)?.id;
   const [internalValue, setInternalValue] = React.useState<string | number | undefined>(undefined);

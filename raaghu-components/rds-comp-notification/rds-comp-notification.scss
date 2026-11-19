@@ -57,7 +57,6 @@
     }
 
     .rds-comp-notification__image-container img {
-
       width: var(--rds-notification-width-1);
 
       height: var(--rds-notification-height-1);
@@ -238,7 +237,6 @@
     }
   }
 
-  // Adjust dismiss button position for avatar and icon styles
   &--style-avatar,
   &--style-icon {
     .rds-comp-notification__dismiss {

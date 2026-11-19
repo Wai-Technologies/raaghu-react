@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompGrid, { RdsCompGridColumn } from './rds-comp-grid';
 
-jest.mock('./rds-comp-grid.scss', () => ({}));
 jest.mock('@hello-pangea/dnd', () => ({
   DragDropContext: ({ children }: any) => <>{children}</>,
   Droppable: ({ children }: any) => children({ innerRef: jest.fn(), droppableProps: {}, placeholder: null }, {}),

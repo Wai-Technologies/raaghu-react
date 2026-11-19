@@ -1,14 +1,11 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPieChart from './rds-comp-chart-pie';
 import Chart from 'chart.js/auto';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -27,7 +24,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock Chart.getChart
 (Chart as any).getChart = jest.fn(() => null);
 
 const defaultProps = {

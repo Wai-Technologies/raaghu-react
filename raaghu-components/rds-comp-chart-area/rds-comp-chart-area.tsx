@@ -38,7 +38,6 @@ const RdsCompAreaChart = (props: lineprops) => {
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
         
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
         const chartData = {
             labels: props.labels,
             datasets: props.dataSets.map(dataset =>

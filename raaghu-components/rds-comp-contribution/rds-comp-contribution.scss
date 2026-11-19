@@ -80,7 +80,7 @@
 @include bp.down(mobile-sm) {
   .rds-comp-contribution {
     &__container {
-      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) 0; // reduce side padding
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) 0;
       width: calc(100% - var(--rds-spacing-12-px));
       max-width: none;
       margin: 0 auto;

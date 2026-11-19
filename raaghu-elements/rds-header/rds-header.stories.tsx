@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
-import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
+import { Button, IconButton, Avatar, Badge } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsHeader> = {

@@ -63,10 +63,3 @@ const RdsTooltip= ({
 RdsTooltip.displayName = 'RdsTooltip';
 export default RdsTooltip;
 
-/* Summary of Removed Items:
- * ❌ Unused props - None found
- * ❌ Unused imports - None found
- * ❌ Commented code - None found
- * ❌ Empty callbacks - None found
- * ✅ Formatting cleanup - Code is clean and production-ready
- */

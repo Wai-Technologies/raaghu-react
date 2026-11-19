@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBanner, { RdsBannerProps } from './rds-banner';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-banner.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (

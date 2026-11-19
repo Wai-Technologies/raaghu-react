@@ -1,14 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
 import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Card: ({ children, ...props }: any) => <div data-testid="card" {...props}>{children}</div>,
   CardContent: ({ children, ...props }: any) => <div data-testid="card-content" {...props}>{children}</div>,
@@ -45,7 +42,6 @@ jest.mock('@mui/material', () => ({
   Paper: ({ children, ...props }: any) => <div data-testid="paper" {...props}>{children}</div>,
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   MoreVert: () => <span data-testid="more-vert-icon">⋮</span>,
   Close: () => <span data-testid="close-icon">✕</span>,
@@ -55,7 +51,6 @@ jest.mock('@mui/icons-material', () => ({
   DeleteIcon: () => <span data-testid="delete-icon">🗑</span>,
 }));
 
-// Mock @dnd-kit
 jest.mock('@dnd-kit/core', () => ({
   DndContext: ({ children }: any) => <div data-testid="dnd-context">{children}</div>,
   closestCenter: jest.fn(),
@@ -89,7 +84,6 @@ jest.mock('@dnd-kit/utilities', () => ({
   CSS: { Transform: { toString: () => '' } },
 }));
 
-// Mock Raaghu components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, ...props }: any) {
     return <span data-testid="rds-badge" {...props}>{badgeContent}</span>;
@@ -416,7 +410,6 @@ describe('RdsCompKanbanBoard', () => {
     it('should call onCardOption callback when menu item is clicked', () => {
       const onCardOption = jest.fn();
       renderComponent({ onCardOption });
-      // Menu interaction handled by component state
       expect(onCardOption).toBeDefined();
     });
 
@@ -448,14 +441,12 @@ describe('RdsCompKanbanBoard', () => {
     it('should render sub card dropdown button', () => {
       renderComponent();
       const iconButtons = screen.getAllByTestId('icon-button');
-      // First icon button is for board menu, others for sub cards
       expect(iconButtons.length).toBeGreaterThan(1);
     });
 
     it('should render sub card menu on dropdown click', async () => {
       renderComponent();
       const iconButtons = screen.getAllByTestId('icon-button');
-      // Click a sub card dropdown button (not the first one which is board menu)
       if (iconButtons[1]) {
         fireEvent.click(iconButtons[1]);
         await waitFor(() => {

@@ -1,4 +1,3 @@
-import React from "react"
 import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area"
 import figma from "@figma/code-connect"
 

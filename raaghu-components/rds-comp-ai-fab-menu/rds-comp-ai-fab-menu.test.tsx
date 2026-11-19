@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-fab-menu.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/List', () => {
   return function MockListIcon() {
     return <span data-testid="list-icon">List</span>;
@@ -38,7 +35,6 @@ jest.mock('@mui/icons-material/Download', () => {
   };
 });
 
-// Mock RdsCompAiIcon
 jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
@@ -53,7 +49,6 @@ jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Default props for testing
 const defaultListItems = [
   { key: 'item1', value: 'Item 1', icon: 'list', onClick: jest.fn() },
   { key: 'item2', value: 'Item 2', icon: 'refresh', onClick: jest.fn() },
@@ -242,7 +237,6 @@ describe('RdsCompAiFabMenu', () => {
       const { container } = render(<RdsCompAiFabMenu listItems={itemsWithDimensions} />);
       const icons = container.querySelectorAll('[data-testid="icon-list"]');
       expect(icons.length).toBeGreaterThan(0);
-      // Target the item icon, not the button icon
       const itemIcon = Array.from(icons).find((icon) => icon.dataset.height === '20px');
       expect(itemIcon).toHaveAttribute('data-height', '20px');
       expect(itemIcon).toHaveAttribute('data-width', '20px');
@@ -548,10 +542,8 @@ describe('RdsCompAiFabMenu', () => {
       const button = container.querySelector('button');
       const dropdownContainer = container.querySelector('.rds-fab-menu__dropdown-container');
       if (button && dropdownContainer) {
-        // Check if button is in the DOM and appears before dropdown
         expect(button).toBeInTheDocument();
         expect(dropdownContainer).toBeInTheDocument();
-        // Both elements should exist in the same container
         const fabMenu = container.querySelector('.rds-fab-menu');
         expect(fabMenu?.contains(button)).toBe(true);
         expect(fabMenu?.contains(dropdownContainer)).toBe(true);

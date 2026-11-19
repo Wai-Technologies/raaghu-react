@@ -5,7 +5,6 @@ import RdsTimeline, { RdsTimelineItem } from './rds-timeline';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-timeline.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -167,7 +166,6 @@ describe('RdsTimeline', () => {
       );
       const timeline = container.querySelector('[class*="MuiTimeline"]');
       expect(timeline).toBeInTheDocument();
-      // Default position is 'right' when alternating is false
       const items = container.querySelectorAll('[class*="MuiTimelineItem"]');
       expect(items.length).toBe(mockItems.length);
     });
@@ -178,7 +176,6 @@ describe('RdsTimeline', () => {
       );
       const timeline = container.querySelector('[class*="MuiTimeline"]');
       expect(timeline).toBeInTheDocument();
-      // Verify timeline renders with multiple items (alternating will position them differently)
       const items = container.querySelectorAll('[class*="MuiTimelineItem"]');
       expect(items.length).toBe(mockItems.length);
     });
@@ -189,7 +186,6 @@ describe('RdsTimeline', () => {
       );
       const timeline = container.querySelector('[class*="MuiTimeline"]');
       expect(timeline).toBeInTheDocument();
-      // When position is 'left', items should still render correctly
       const items = container.querySelectorAll('[class*="MuiTimelineItem"]');
       expect(items.length).toBe(mockItems.length);
     });
@@ -200,7 +196,6 @@ describe('RdsTimeline', () => {
       );
       const timeline = container.querySelector('[class*="MuiTimeline"]');
       expect(timeline).toBeInTheDocument();
-      // Position prop should take precedence over alternating
       const items = container.querySelectorAll('[class*="MuiTimelineItem"]');
       expect(items.length).toBe(mockItems.length);
     });
@@ -262,7 +257,6 @@ describe('RdsTimeline', () => {
         <RdsTimeline items={itemsWithPrimary} />
       );
       const dot = container.querySelector('[class*="MuiTimelineDot"]');
-      // MUI applies filledPrimary class for filled variant
       expect(dot).toHaveClass('MuiTimelineDot-filledPrimary');
     });
 
@@ -278,7 +272,6 @@ describe('RdsTimeline', () => {
         <RdsTimeline items={itemsWithSecondary} />
       );
       const dot = container.querySelector('[class*="MuiTimelineDot"]');
-      // MUI applies filledSecondary class for filled variant
       expect(dot).toHaveClass('MuiTimelineDot-filledSecondary');
     });
 
@@ -294,7 +287,6 @@ describe('RdsTimeline', () => {
         <RdsTimeline items={itemsWithSuccess} />
       );
       const dot = container.querySelector('[class*="MuiTimelineDot"]');
-      // MUI applies filledSuccess class for filled variant
       expect(dot).toHaveClass('MuiTimelineDot-filledSuccess');
     });
 
@@ -310,7 +302,6 @@ describe('RdsTimeline', () => {
         <RdsTimeline items={itemsWithError} />
       );
       const dot = container.querySelector('[class*="MuiTimelineDot"]');
-      // MUI applies filledError class for filled variant
       expect(dot).toHaveClass('MuiTimelineDot-filledError');
     });
 
@@ -326,7 +317,6 @@ describe('RdsTimeline', () => {
         <RdsTimeline items={itemsWithWarning} />
       );
       const dot = container.querySelector('[class*="MuiTimelineDot"]');
-      // MUI applies filledWarning class for filled variant
       expect(dot).toHaveClass('MuiTimelineDot-filledWarning');
     });
   });
@@ -582,26 +572,20 @@ describe('RdsTimeline', () => {
         />
       );
 
-      // Verify timeline is rendered
       expect(container.querySelector('.complete-timeline')).toBeInTheDocument();
 
-      // Verify all items are present
       expect(screen.getByText('Project Started')).toBeInTheDocument();
       expect(screen.getByText('Development Phase')).toBeInTheDocument();
       expect(screen.getByText('Testing')).toBeInTheDocument();
 
-      // Verify descriptions
       expect(screen.getByText('Initial setup and planning')).toBeInTheDocument();
 
-      // Verify times
       expect(screen.getByText('09:00 AM')).toBeInTheDocument();
 
-      // Verify icons
       expect(screen.getByTestId('icon-1')).toBeInTheDocument();
       expect(screen.getByTestId('icon-2')).toBeInTheDocument();
       expect(screen.getByTestId('icon-3')).toBeInTheDocument();
 
-      // Verify structure
       const dots = container.querySelectorAll('[class*="MuiTimelineDot"]');
       expect(dots.length).toBe(3);
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import './rds-avatar.scss';
 import { type AvatarProps } from '@mui/material';
 import {

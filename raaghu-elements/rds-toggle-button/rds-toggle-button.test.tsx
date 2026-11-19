@@ -5,7 +5,6 @@ import RdsToggleButton, { RdsToggleButtonOption } from './rds-toggle-button';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-toggle-button.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -108,10 +107,8 @@ describe('RdsToggleButton', () => {
     it('should use exclusive mode by default', () => {
       const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const _toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
-      // In single mode, verify only one button can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
-      // Verify first button is not selected by default
       expect(buttons[0]).toHaveAttribute('aria-pressed', 'false');
     });
 
@@ -173,10 +170,8 @@ describe('RdsToggleButton', () => {
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
       const _toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
-      // In multiple mode, verify multiple buttons can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
-      // Verify buttons have aria-pressed attributes (multiple mode)
       buttons.forEach(button => {
         expect(button).toHaveAttribute('aria-pressed');
       });
@@ -282,7 +277,6 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} orientation="vertical" />
       );
-      // Verify vertical orientation class is applied
       const toggleButton = container.querySelector('.rds-toggle-button');
       expect(toggleButton).toHaveClass('rds-toggle-button--vertical');
     });
@@ -360,8 +354,6 @@ describe('RdsToggleButton', () => {
       const disabledButton = screen.getByText('Option 1').closest('button');
       fireEvent.click(disabledButton!);
       
-      // onChange may or may not be called, depending on MUI behavior
-      // The button should remain unselected
       await waitFor(() => {
         expect(disabledButton).toHaveAttribute('aria-pressed', 'false');
       });
@@ -499,10 +491,8 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} color="primary" />
       );
-      // Verify that buttons are rendered (color is passed through to MUI)
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBeGreaterThan(0);
-      // MUI applies color-specific classes when buttons are selected
       const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       expect(toggleGroup).toBeInTheDocument();
     });
@@ -511,7 +501,6 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} color="secondary" />
       );
-      // Verify that buttons are rendered with secondary color (color is passed through to MUI)
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBeGreaterThan(0);
       const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
@@ -717,7 +706,6 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      // In single mode, verify button selection
       const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       

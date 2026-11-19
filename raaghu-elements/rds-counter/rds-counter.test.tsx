@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCounter, { RdsCounterProps } from './rds-counter';
+import RdsCounter from './rds-counter';
 
-// Mock SCSS imports
 jest.mock('./rds-counter.scss', () => ({}));
 
 describe('RdsCounter', () => {

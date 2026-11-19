@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement }  from "./rds-comp-off-canvas"
 import figma from "@figma/code-connect"
 

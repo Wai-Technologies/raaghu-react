@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompLineChart from "./rds-comp-chart-line";
 import figma from "@figma/code-connect";
 

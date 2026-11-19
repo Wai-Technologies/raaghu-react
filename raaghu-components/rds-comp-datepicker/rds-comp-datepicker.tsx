@@ -16,9 +16,7 @@ import {
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
 import {
-    DatePickerLayout,
     DatePickerState,
-    DatePickerStyleType,
     type RdsCompDatepickerProps,
 } from './rds-comp-datepicker.types';
 

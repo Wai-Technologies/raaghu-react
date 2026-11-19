@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews"
 import figma from "@figma/code-connect"
 

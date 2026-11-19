@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCard from "./rds-card"
 import RdsButton from "../rds-button/rds-button"
 import figma from "@figma/code-connect"

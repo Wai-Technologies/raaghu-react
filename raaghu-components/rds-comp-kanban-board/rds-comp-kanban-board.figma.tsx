@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompKanbanBoard from "./rds-comp-kanban-board";
 import figma from "@figma/code-connect";
 

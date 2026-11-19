@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
 import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-select.scss');
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -597,7 +595,6 @@ describe('RdsSelect', () => {
         />
       );
       
-      // Verify initial option exists
       const selects = container.querySelectorAll('.rds-select__field');
       expect(selects.length).toBeGreaterThan(0);
       
@@ -610,7 +607,6 @@ describe('RdsSelect', () => {
         </ThemeProvider>
       );
       
-      // Open dropdown and verify new options are available
       const selectCombobox = screen.getByRole('combobox');
       fireEvent.mouseDown(selectCombobox);
       

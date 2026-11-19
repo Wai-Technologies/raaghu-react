@@ -13,10 +13,6 @@ import {
   Person,
   Settings,
   Help,
-  Inbox,
-  Star,
-  Send,
-  Drafts,
   CalendarToday as CalendarIcon,
   Folder as ProjectsIcon,
   People as DirectoryIcon,
@@ -492,7 +488,6 @@ const AppShellStory = (args: any) => {
             />
           )}
           
-          {/* Add bottom navigation for DoubleNav and TriPane */}
           {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
             <div className="rds-footer-navigation MuiBottomNavigation-root">
               <div style={{ 

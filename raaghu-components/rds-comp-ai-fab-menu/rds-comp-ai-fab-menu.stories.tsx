@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompAiFabMenu from "./rds-comp-ai-fab-menu";
 import { Meta, StoryObj } from "@storybook/react-vite";
 const meta: Meta = {

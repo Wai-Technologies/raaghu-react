@@ -5,17 +5,14 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiTypingSection, { RdsCompAiTypingSectionProps } from './rds-comp-ai-typing-section';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-typing-section.scss', () => ({}));
 
-// Mock Material UI Icon
 jest.mock('@mui/icons-material/AutoAwesomeOutlined', () => {
   return React.forwardRef((props: any, ref: any) => (
     <svg ref={ref} data-icon-name="auto-awesome" {...props} />
   ));
 });
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -34,7 +31,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 
-// Mock RdsAutocomplete component
 jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
   return function MockRdsAutocomplete(props: any) {
     return (
@@ -51,13 +47,11 @@ jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => {
   };
 });
 
-// Mock RdsCompAiIcon component
 jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
     default: function MockRdsCompAiIcon(props: any) {
       const { _colorVariant, _isCursorPointer, name, ...svgProps } = props;
-      // Filter out non-standard SVG attributes
       Object.keys(svgProps).forEach(key => {
         if (key.startsWith('is') || key.startsWith('show') || key.startsWith('backgroundType') || key.startsWith('styleType')) {
           delete svgProps[key];
@@ -75,7 +69,6 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Mock RdsCompAiAttachement component
 jest.mock('../rds-comp-ai-attachement/rds-comp-ai-attachement', () => {
   return function MockRdsCompAiAttachement(props: any) {
     return (
@@ -91,7 +84,6 @@ jest.mock('../rds-comp-ai-attachement/rds-comp-ai-attachement', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiTypingSectionProps = {
   iconName: 'enhance',
   placeholderText: 'Type your message...',
@@ -145,7 +137,6 @@ describe('RdsCompAiTypingSection', () => {
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Type your message...');
 
-      // Simulate file upload by rendering with mock state
       rerender(<RdsCompAiTypingSection {...defaultProps} previewImage="https://example.com/image.jpg" />);
     });
   });
@@ -196,7 +187,6 @@ describe('RdsCompAiTypingSection', () => {
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const longText = 'a'.repeat(1000);
       
-      // Use fireEvent to set value directly to avoid userEvent timeout
       fireEvent.change(textarea, { target: { value: longText } });
       expect(textarea.value).toBe(longText);
     }, 10000);
@@ -224,7 +214,6 @@ it('hides enhance icon when input has text', () => {
 
       fireEvent.change(textarea, { target: { value: 'Some text' } });
       const iconSpan = container.querySelector('.rds-comp-ai-typing-section__input-icon');
-      // Icon should have no visible content when input has text
       expect(!iconSpan?.textContent || iconSpan?.textContent === '').toBe(true);
     });
 
@@ -298,7 +287,6 @@ it('hides enhance icon when input has text', () => {
       
       fireEvent.click(attachment);
       
-      // Since we're mocking file selection, verify the component handles it
       expect(attachment).toBeInTheDocument();
     });
 
@@ -366,7 +354,6 @@ it('hides enhance icon when input has text', () => {
 
   describe('Mobile Responsiveness', () => {
     it('applies mobile class on mobile viewport', () => {
-      // Mock window.innerWidth for mobile
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
@@ -380,7 +367,6 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('does not apply mobile class on desktop viewport', () => {
-      // Mock window.innerWidth for desktop
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
@@ -402,7 +388,6 @@ it('hides enhance icon when input has text', () => {
 
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       
-      // Trigger resize event
       Object.defineProperty(window, 'innerWidth', { value: 375 });
       fireEvent.resize(window);
 
@@ -524,7 +509,6 @@ it('hides enhance icon when input has text', () => {
       render(<RdsCompAiTypingSection {...defaultProps} />);
       const sendButton = screen.getByTestId('btn-icon-only');
       
-      // Should not throw even without callbacks
       expect(() => fireEvent.click(sendButton)).not.toThrow();
     });
 

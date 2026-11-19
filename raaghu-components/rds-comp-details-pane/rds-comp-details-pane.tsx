@@ -5,9 +5,7 @@ import {
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent,
-  FigmaUIKitButton
-} from "./details-pane-components";
+  ThumbnailViewContent} from "./details-pane-components";
 
 
 export interface RdsCompDetailsPaneProps {

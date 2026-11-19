@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import RdsCompAiChatBot from "./rds-comp-ai-chat-bot";
 import { Message } from "./rds-comp-ai-chat-bot";
 import { StoryObj, Meta } from "@storybook/react-vite";

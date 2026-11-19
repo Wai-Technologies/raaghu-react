@@ -62,7 +62,6 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
         const ctx = canvasElm?.getContext("2d");
 
         if (ctx) {
-            // Resolve SVG and encode for this theme
             const svg = ChartIcons[props.centerIconName || ""];
             const resolvedSvg = resolveSvgCssVariables(svg);
             const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));

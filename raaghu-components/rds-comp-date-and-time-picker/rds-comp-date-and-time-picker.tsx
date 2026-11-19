@@ -32,8 +32,8 @@ export interface RdsCompDatePickerProps {
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
-  showSeconds?: boolean; // New prop to control seconds display
-  isRequired?: boolean; // New prop to show required indicator
+  showSeconds?: boolean;
+  isRequired?: boolean;
 }
 
 export default function RdsCompDatePicker({
@@ -59,7 +59,6 @@ export default function RdsCompDatePicker({
   showSeconds = true,
   isRequired = false,
 }: RdsCompDatePickerProps) {
-  // State management
   const [dateValue, setDateValue] = React.useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
   );
@@ -72,7 +71,6 @@ export default function RdsCompDatePicker({
   const inputContainerRef = React.useRef<HTMLDivElement>(null);
   const datetimeRef = React.useRef<HTMLDivElement>(null);
 
-  // Handle preset selection
   const handlePresetSelect = (preset: DateRangePreset) => {
     setSelectedPreset(preset.key);
     if (preset.key !== 'custom') {
@@ -82,7 +80,6 @@ export default function RdsCompDatePicker({
     }
   };
 
-  // Event handlers
   const handleDateChange = (newValue: Dayjs | null) => {
     setDateValue(newValue);
     onChange?.(newValue);
@@ -93,7 +90,6 @@ export default function RdsCompDatePicker({
     onChange?.(newValue);
   };
 
-  // Format label with required indicator
   const formattedLabel = React.useMemo(() => {
     if (!label) return undefined;
     return isRequired ? (
@@ -104,7 +100,6 @@ export default function RdsCompDatePicker({
     ) : label;
   }, [label, isRequired]);
 
-  // Common props for all pickers
   const baseProps = {
     disabled,
     readOnly,
@@ -153,7 +148,6 @@ export default function RdsCompDatePicker({
     },
   };
 
-  // Props specific to single value pickers
    
   const singlePickerProps: Record<string, unknown> = {
     ...baseProps,
@@ -259,7 +253,6 @@ export default function RdsCompDatePicker({
     }
   };
 
-  // Handle different layouts for date picker
   const getDatePickerByLayout = () => {
     switch (layout) {
       case 'Year Picker':
@@ -353,7 +346,6 @@ export default function RdsCompDatePicker({
   );
 }
 
-// Demo component showing all variants
 export function DatePickerDemo() {
   const [values, setValues] = React.useState({
     date: dayjs(),
@@ -385,7 +377,6 @@ export function DatePickerDemo() {
     { label: 'Date Time Range Picker (with seconds)', variant: 'datetimerange', valueKey: 'datetimerange', showSeconds: true },
   ];
 
-  // Define a default minDate for demo purposes
   const minDate = dayjs().subtract(1, 'year');
 
   return (

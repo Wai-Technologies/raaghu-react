@@ -274,23 +274,5 @@ export const WithList: Story = {
 };
 WithList.parameters = { controls: { include: [] } };
 
-const OpenPopoverStory = (args) => {
-    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-    return (
-      <Box>
-        <Button variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)}>
-          Open Popover
-        </Button>
-        <RdsPopover
-          {...args}
-          isOpen={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
-          anchorEl={anchorEl}
-        >
-          <Typography>Popover content</Typography>
-        </RdsPopover>
-      </Box>
-    );
-  };
 
 

@@ -292,7 +292,6 @@ $rds-app-bar-breakpoint-xs: 320px;
 
       .MuiButton-root,
       .rds-button {
-
         font-size: var(--rds-app-bar-font-size-1);
         padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
         min-width: auto;
@@ -328,7 +327,6 @@ $rds-app-bar-breakpoint-xs: 320px;
 
       .MuiButton-root,
       .rds-button {
-
         font-size: var(--rds-app-bar-font-size-2);
         padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
         min-height: var(--rds-spacing-22);
@@ -378,7 +376,6 @@ $rds-app-bar-breakpoint-xs: 320px;
   padding: 0;
 
   @media (max-width: 600px) {
-
     min-width: var(--rds-app-bar-min-width-2);
     flex: 1;
 
@@ -386,7 +383,6 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   @media (max-width: 320px) {
-
     min-width: var(--rds-app-bar-min-width-3);
     max-width: var(--rds-spacing-160);
   }
@@ -775,7 +771,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     flex-shrink: 1;
 
     @media (max-width: 834px) {
-
       min-width: var(--rds-app-bar-min-width-4);
       font-size: var(--rds-font-size-base);
     }
@@ -786,7 +781,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     @media (max-width: 420px) {
-
       min-width: var(--rds-app-bar-min-width-5);
       font-size: var(--rds-font-size-sm);
     }
@@ -837,7 +831,6 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-language-menu-paper {
-
     width: var(--rds-app-bar-width-1);
 
     max-width: var(--rds-app-bar-max-width-2);
@@ -847,13 +840,11 @@ $rds-app-bar-breakpoint-xs: 320px;
     box-sizing: border-box;
 
     @media (max-width: 834px) {
-
       width: var(--rds-app-bar-width-2);
       max-width: var(--rds-spacing-240);
     }
 
     @media (max-width: 420px) {
-
       width: var(--rds-app-bar-width-3);
 
       max-width: var(--rds-app-bar-max-width-1);
@@ -871,24 +862,20 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-language-menu-list {
-
     max-height: var(--rds-app-bar-max-height-1);
     overflow-y: auto;
     box-sizing: border-box;
 
     @media (max-width: 420px) {
-
       max-height: var(--rds-app-bar-max-height-2);
     }
 
     @media (max-width: 320px) {
-
       max-height: var(--rds-app-bar-max-height-3);
     }
   }
 
   &__search {
-
     min-width: var(--rds-app-bar-min-width-6);
     color: var(--rds-color-on-surface);
     background: var(--rds-color-surface-alt);
@@ -906,14 +893,12 @@ $rds-app-bar-breakpoint-xs: 320px;
     flex-shrink: 1;
 
     @media (max-width: 834px) {
-
       min-width: var(--rds-app-bar-min-width-1);
       font-size: var(--rds-font-size-sm);
       height: var(--rds-spacing-34);
     }
 
     @media (max-width: 600px) {
-
       min-width: var(--rds-app-bar-min-width-2);
       padding: 0 var(--rds-spacing-xs);
       font-size: var(--rds-font-size-sm);
@@ -921,7 +906,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     @media (max-width: 420px) {
-
       min-width: var(--rds-app-bar-min-width-3);
       padding: 0 var(--rds-spacing-xs);
       font-size: var(--rds-font-size-sm);
@@ -929,7 +913,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     @media (max-width: 320px) {
-
       min-width: var(--rds-app-bar-min-width-7);
       padding: 0 var(--rds-spacing-xs);
       font-size: var(--rds-font-size-xs);
@@ -1178,7 +1161,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     min-width: 0;
 
     @media (max-width: 834px) {
-
       width: var(--rds-app-bar-width-3);
       min-width: var(--rds-spacing-160);
 
@@ -1195,13 +1177,11 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     @media (max-width: 420px) {
-
       min-width: var(--rds-app-bar-min-width-3);
       max-width: var(--rds-spacing-160);
     }
 
     @media (max-width: 320px) {
-
       min-width: var(--rds-app-bar-min-width-7);
 
       max-width: var(--rds-app-bar-max-width-4);
@@ -1391,7 +1371,6 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-header--transparent {
     background: var(--rds-color-surface);
   }
-
 }
 
 .css-16b6n56-MuiButtonBase-root-MuiButton-root,
@@ -1402,7 +1381,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
 
     @media (max-width: 834px) {
-
       min-width: var(--rds-app-bar-min-width-9);
       padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
       font-size: var(--rds-font-size-md);
@@ -1429,17 +1407,14 @@ $rds-app-bar-breakpoint-xs: 320px;
   min-width: var(--rds-spacing-60);
 
     @media (max-width: 834px) {
-
       min-width: var(--rds-app-bar-min-width-10);
     }
 
     @media (max-width: 420px) {
-
       min-width: var(--rds-app-bar-min-width-5);
     }
 
     @media (max-width: 320px) {
-
       min-width: var(--rds-app-bar-min-width-11);
     }
 }
@@ -1743,7 +1718,6 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding-right: 0.25rem;
     min-width: auto;
   }
-
 }
 
 @media (min-width: 421px) and (max-width: 840px) {
@@ -2021,7 +1995,6 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   .rds-header__search-wrapper,
   .rds-header__search {
-
     max-width: var(--rds-app-bar-max-width-6);
     min-width: var(--rds-spacing-80-px);
     flex: 0 1 120px;
@@ -2843,7 +2816,6 @@ $rds-app-bar-breakpoint-xs: 320px;
 @media (max-width: 320px) {
   .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
     .rds-header__title {
-
       max-width: calc(100% - var(--rds-app-bar-max-width-9));
       font-size: var(--rds-font-size-sm);
       margin: 0 var(--rds-spacing-xxs);

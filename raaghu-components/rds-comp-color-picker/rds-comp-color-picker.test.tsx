@@ -1,12 +1,9 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompColorPicker from './rds-comp-color-picker';
 import { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker.types';
 
-// Mock dependencies
 jest.mock('./rds-comp-color-picker.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
@@ -67,7 +64,6 @@ jest.mock('./color-utils', () => {
   };
 });
 
-// Mock navigator.clipboard
 Object.assign(navigator, {
   clipboard: {
     writeText: jest.fn(() => Promise.resolve()),
@@ -145,14 +141,11 @@ describe('RdsCompColorPicker', () => {
       render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
       const button = screen.getByTestId('rds-button');
       
-      // Initially hidden
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
       
-      // Click to show
       fireEvent.click(button);
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to hide
       fireEvent.click(button);
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
     });
@@ -368,7 +361,6 @@ describe('RdsCompColorPicker', () => {
     it('shows swatches when showSwatches is true', () => {
       const { rerender } = render(<RdsCompColorPicker {...defaultProps} showSwatches={false} />);
       rerender(<RdsCompColorPicker {...defaultProps} showSwatches={true} showTabs={true} pickerType={PickerType.Spectrum} />);
-      // Component renders with showSwatches prop passed through
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
@@ -422,14 +414,11 @@ describe('RdsCompColorPicker', () => {
     it('renders both Grid and Spectrum pickers when tabs are shown', () => {
       const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
       
-      // Initially Grid is shown
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to Spectrum tab
       const tabs = container.querySelectorAll('.rds-comp-color-picker__tab');
       fireEvent.click(tabs[1]);
       
-      // Now Spectrum is shown
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
@@ -445,11 +434,9 @@ describe('RdsCompColorPicker', () => {
       const button = screen.getByTestId('rds-button');
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to hide
       fireEvent.click(button);
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
       
-      // Click to show again
       fireEvent.click(button);
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
     });
@@ -482,7 +469,6 @@ describe('RdsCompColorPicker', () => {
       render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
       const button = screen.getByTestId('rds-button');
       
-      // Start hidden, click 1 (show), click 2 (hide), click 3 (show)
       fireEvent.click(button);
       fireEvent.click(button);
       fireEvent.click(button);

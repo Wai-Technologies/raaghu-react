@@ -28,13 +28,6 @@ export { default as RdsCompMap } from './rds-comp-map/rds-comp-map';
 export {default as RdsCompNotification} from './rds-comp-notification/rds-comp-notification';
 export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-time-picker';
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
-// export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure'; // INTERNAL: tree view — complex peer deps, not part of public API
-// export { default as RdsCompAdaptiveCards } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards'; // INTERNAL: adaptive cards — pending design review, not part of public API
-// export { default as RdsCompChat } from './rds-comp-chat/rds-comp-chat'; // INTERNAL: AI chat UI — pending public release, not part of public API
-// export { default as RdsCompCodeSnippet } from './rds-comp-code-snippet/rds-comp-code-snippet'; // INTERNAL: requires external syntax-highlighter, not part of public API
-// export { default as RdsCommentBox } from './rds-comp-comments-box/rds-comp-comments-box'; // INTERNAL: comments feature — pending design review, not part of public API
-// export { default as RdsCompDetailsPane } from './rds-comp-details-pane/rds-comp-details-pane'; // INTERNAL: details pane — pending design review, not part of public API
-// export { default as RdsCompNavtabs } from './rds-comp-navtabs/rds-comp-navtabs'; // INTERNAL: navtabs — pending accessibility audit, not part of public API
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
 export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
@@ -42,7 +35,6 @@ export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-c
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
 
-// export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid'; // INTERNAL: paid enterprise component — not part of public API
 export { default as RdsCompAiAttachement } from './rds-comp-ai-attachement/rds-comp-ai-attachement';
 export { default as RdsCompAiTypingSection } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
 export { default as RdsCompAiFabMenu } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';
@@ -50,4 +42,3 @@ export { default as RdsCompAiIcon } from './rds-comp-ai-icon/rds-comp-ai-icon';
 export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient-text-with-icon/rds-comp-ai-gradient-text-with-icon';
 export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
 export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
-// export { default as RdsCompDatePicker } from './rds-comp-date-and-time-picker/rds-comp-date-and-time-picker'; // INTERNAL: incomplete implementation — not part of public API

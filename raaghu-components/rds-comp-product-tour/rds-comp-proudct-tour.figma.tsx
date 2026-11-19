@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompProductTour  from "./rds-comp-product-tour"
 import figma from "@figma/code-connect"
 

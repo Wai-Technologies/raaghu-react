@@ -1,14 +1,11 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, sx, ...props }: any) => {
     const style = sx ? Object.keys(sx).reduce((acc: any, key: string) => {
@@ -37,14 +34,12 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
   InfoOutlined: () => <span data-testid="info-icon">ⓘ</span>,
   ExpandMore: () => <span data-testid="expand-icon">▼</span>,
 }));
 
-// Mock Raaghu elements
 jest.mock('../../raaghu-elements', () => ({
   RdsCarousel: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
     <div
@@ -283,7 +278,6 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={false} />
       );
-        // When visual placeholder is disabled, the GIF element should not be rendered
         const gif = container.querySelector('.rds-comp-product-tour__gif');
         expect(gif).not.toBeInTheDocument();
     });
@@ -501,9 +495,6 @@ describe('RdsCompProductTour', () => {
 
       const currentImg = container.querySelector('.rds-comp-product-tour__image') as HTMLImageElement;
       expect(currentImg.src).toContain('/image1.jpg');
-
-      // Navigation would change the slide via button click
-      // This depends on button text/structure
     });
 
     it('should display steps indicator', () => {

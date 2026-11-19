@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsAccordion  from "./rds-accordion"
 import RdsTypography from "../rds-typography/rds-typography"
 import figma from "@figma/code-connect"

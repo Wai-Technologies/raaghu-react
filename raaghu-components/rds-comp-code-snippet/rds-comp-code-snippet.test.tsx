@@ -1,10 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
-// Mock dependencies
 jest.mock('./rds-comp-code-snippet.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, text, style: _style, showLeftIcon: _showLeftIcon, textCase: _textCase, changeLeftIcon: _changeLeftIcon, size: _size, ...props }: any) {
@@ -44,7 +42,6 @@ jest.mock('@mui/icons-material/KeyboardArrowDown', () => {
   };
 });
 
-// Mock SyntaxHighlighter
 jest.mock('react-syntax-highlighter/dist/esm/default-highlight', () => {
   return function MockHighlighter({ children, language, showLineNumbers, _style, _wrapLongLines, _PreTag, className, ...props }: any) {
     return (
@@ -55,7 +52,6 @@ jest.mock('react-syntax-highlighter/dist/esm/default-highlight', () => {
   };
 });
 
-// Mock the styles
 jest.mock('react-syntax-highlighter/dist/esm/styles/hljs', () => ({
   atomOneLight: {
     hljs: {
@@ -65,7 +61,6 @@ jest.mock('react-syntax-highlighter/dist/esm/styles/hljs', () => ({
   },
 }));
 
-// Mock navigator.clipboard
 Object.assign(navigator, {
   clipboard: {
     writeText: jest.fn(() => Promise.resolve()),
@@ -269,10 +264,8 @@ describe('RdsCompCodeSnippet', () => {
         />
       );
       
-      // Verify initial state
       expect(screen.getByTestId('syntax-highlighter')).toHaveAttribute('data-language', 'html');
       
-      // Re-render with different language
       rerender(
         <RdsCompCodeSnippet
           language="css"
@@ -282,7 +275,6 @@ describe('RdsCompCodeSnippet', () => {
         />
       );
       
-      // Verify language changed
       await waitFor(() => {
         expect(screen.getByTestId('syntax-highlighter')).toHaveAttribute('data-language', 'css');
       });
@@ -551,7 +543,6 @@ describe('RdsCompCodeSnippet', () => {
     it('renders show more button in multiLine mode', () => {
       render(<RdsCompCodeSnippet {...defaultProps} type="multiLine" />);
       const buttons = screen.getAllByTestId('rds-button');
-      // One for copy, one for show more
       expect(buttons.length).toBeGreaterThanOrEqual(2);
     });
   });
@@ -612,7 +603,7 @@ describe('RdsCompCodeSnippet', () => {
         />
       );
       const highlighter = screen.getByTestId('syntax-highlighter');
-      expect(highlighter.textContent?.length).toBeLessThanOrEqual(103); // 100 + '...'
+      expect(highlighter.textContent?.length).toBeLessThanOrEqual(103);
     });
 
     it('does not truncate code shorter than 100 characters in single line', () => {
@@ -737,7 +728,6 @@ describe('RdsCompCodeSnippet', () => {
         expect(copyButton).toHaveTextContent('Copied!');
       });
 
-      // Wait for timeout to reset copied state (2 seconds in component + buffer)
       await waitFor(() => {
         expect(screen.getAllByTestId('rds-button')[0]).toHaveTextContent('Copy Code');
       }, { timeout: 3000 });

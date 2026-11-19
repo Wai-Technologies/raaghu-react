@@ -20,12 +20,10 @@ export const getDayClassName = (date: Date, startDate: Date | null) => {
     const isPrevMonth = selectedYear < referenceYear || (selectedYear === referenceYear && selectedMonth < referenceMonth);
     const isNextMonth = selectedYear > referenceYear || (selectedYear === referenceYear && selectedMonth > referenceMonth);
 
-    // Highlight selected day
     if (startDate && date.getFullYear() === startDate.getFullYear() && date.getMonth() === startDate.getMonth() && date.getDate() === startDate.getDate()) {
         return 'rds-datepicker__day--selected';
     }
 
-    // Dim days that belong to previous/next month
     if (isPrevMonth || isNextMonth) {
         return 'rds-datepicker__day--outside';
     }

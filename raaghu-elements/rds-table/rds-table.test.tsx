@@ -5,7 +5,6 @@ import RdsTable, { RdsTableColumn } from './rds-table';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-table.scss', () => ({}));
 jest.mock('@mui/icons-material/SwapVert', () => {
   return function MockSwapVertIcon() {

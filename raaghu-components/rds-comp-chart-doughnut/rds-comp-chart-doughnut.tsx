@@ -46,7 +46,6 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
                 const { ctx: c, chartArea: { top, width, height } } = chart;
                 const centerY = top + height / 2;
 
-                // Read colors from CSS vars at draw time — responds to theme changes
                 const primaryColor = chartTextColor();
                 const mutedColor   = chartMutedColor();
 
@@ -70,7 +69,6 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
         
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
             chartOptions.data = chartData;

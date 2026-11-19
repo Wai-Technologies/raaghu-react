@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAlert, { RdsAlertProps } from './rds-alert';
 import '@testing-library/jest-dom';

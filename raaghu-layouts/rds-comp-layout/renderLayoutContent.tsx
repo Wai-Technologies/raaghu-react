@@ -1,8 +1,6 @@
-import React from 'react';
 import { Paper, Box } from '@mui/material';
 
 const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
-
   if (displayType === 'Basic') {
     return (
       <Box className="rds-comp-layout-wrapper_basic" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', }} >
@@ -19,13 +17,10 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
 
   return (
 
-
     <Box className="rds-comp-layout-wrapper" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', p: { xs: 2, sm: 2 } }}>
       <Box className="rds-comp-layout-inner-wrapper" sx={{ gap: 3 }}>
         {(() => {
-
           switch (displayType) {
-
             case 'Board':
               return (
                 <>
@@ -72,7 +67,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
 
               );
-
 
             case 'Cardify':
               return (
@@ -136,12 +130,10 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                     ))}
                   </Box>
                   <Box sx={{ ...commonGridSx, gridTemplateColumns: { xs: '1fr', sm: '1fr', md: '1fr 1fr 1fr' } }}>
-                    <Paper key="gridify-row2-col0" elevation={3} className="rds-comp-layout__card_basic" sx={{ gridColumn: { xs: 'auto', sm: 'auto', md: '1 / span 3' } }}>{/* Blank card for layout showcase */}</Paper>
+                    <Paper key="gridify-row2-col0" elevation={3} className="rds-comp-layout__card_basic" sx={{ gridColumn: { xs: 'auto', sm: 'auto', md: '1 / span 3' } }}></Paper>
                   </Box>
                 </>
               );
-
-
 
             case 'Highlight':
               return (
@@ -158,7 +150,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                   </Box>
                 </>
               );
-
 
             case 'Matrix':
               return (
@@ -178,8 +169,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                   </Box>
                 </>
               );
-
-
 
             case 'Mosaic':
               return (
@@ -201,7 +190,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                   </Box>
                 </>
               );
-
 
             case 'Nexus':
               return (
@@ -240,7 +228,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
               );
 
-
             case 'Sections':
               return (
                 <>
@@ -270,7 +257,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
               );
 
-
             case 'Snapshots':
               return (
                 <>
@@ -294,7 +280,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                   </Box>
                 </>
               );
-
 
             case 'Splitz':
               return (
@@ -322,7 +307,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                   </Box>
                 </>
               );
-
 
             case 'Stacks':
               return (
@@ -360,8 +344,6 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
               );
 
-
-
             case 'Relaxed':
               return (
                 <>
@@ -381,23 +363,14 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
               )
 
-
             default:
               return null;
           }
-
-
         })()}
       </Box>
     </Box>
   );
-
-
-
 }
 
 export default renderLayoutContent;
-
-
-
 

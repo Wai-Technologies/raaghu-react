@@ -1,4 +1,3 @@
-import React from "react";
 import RdsPopover from "./rds-popover";
 import RdsButton from "../rds-button/rds-button";
 import RdsTypography from "../rds-typography/rds-typography";

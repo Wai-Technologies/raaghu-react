@@ -88,7 +88,6 @@ export function chartMutedColor(): string {
  * Returns the current theme's grid line color for chart axes.
  */
 function chartGridColor(): string {
-  // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
     ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
     : getCSSVar('--rds-comp-chart-grid-color-light', 'rgba(0,0,0,0.12)');
@@ -182,7 +181,6 @@ export function applyChartThemeColors(
   const tooltipBg   = chartTooltipBg();
   const tooltipText = chartTooltipTextColor();
 
-  // ── Scales ──────────────────────────────────────────────────────────────────
   if (axes.length > 0) {
     if (!chartOptions.scales) chartOptions.scales = {};
     const scales = chartOptions.scales;
@@ -200,8 +198,6 @@ export function applyChartThemeColors(
     });
   }
 
-  // ── Datasets ─────────────────────────────────────────────────────────────────
-  // Resolve CSS variables in dataset colors
   if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
     chartOptions.data.datasets.forEach((dataset) => {
       if (dataset.backgroundColor) {
@@ -213,19 +209,15 @@ export function applyChartThemeColors(
     });
   }
 
-  // ── Plugins ─────────────────────────────────────────────────────────────────
   if (!chartOptions.plugins) chartOptions.plugins = {};
 
-  // Legend
   if (!chartOptions.plugins.legend)        chartOptions.plugins.legend        = {};
   if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
   chartOptions.plugins.legend.labels.color = textColor;
 
-  // Title
   if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
   chartOptions.plugins.title.color = textColor;
 
-  // Tooltip
   if (chartOptions.plugins.tooltip) {
     chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
     chartOptions.plugins.tooltip.titleColor      = tooltipText;
@@ -250,7 +242,6 @@ function resolveColorValue(colorValue: string | string[]): string | string[] {
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {
-    // Extract CSS variable name from "var(--rds-..., fallback)"
     const varMatch = colorValue.match(/var\(([^,)]+)(?:,\s*([^)]+))?\)/);
     if (varMatch) {
       const varName = varMatch[1].trim();

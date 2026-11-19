@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompScatterChart from "./rds-comp-chart-scatter";
 import figma from "@figma/code-connect";
 

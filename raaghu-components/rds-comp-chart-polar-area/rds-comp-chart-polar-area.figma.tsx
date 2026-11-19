@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompPolarAreaChart from "./rds-comp-chart-polar-area";
 import figma from "@figma/code-connect";
 

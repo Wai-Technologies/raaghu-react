@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
 import RdsTabs from './rds-tabs';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -198,21 +197,5 @@ export const Vertical: Story = {
 };
 
 
-const SwitchTabStory = () => {
-    const [activeTab, setActiveTab] = useState(0);
-    const tabs = [
-      { id: 0, label: 'Tab One' },
-      { id: 1, label: 'Tab Two' },
-      { id: 2, label: 'Tab Three' },
-    ];
-    return (
-      <RdsTabs
-        tabs={tabs}
-        activeTab={activeTab}
-        layout="filled"
-        onChange={(_: React.SyntheticEvent, value: number) => setActiveTab(value)}
-      />
-    );
-  };
 
 

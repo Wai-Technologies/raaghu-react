@@ -3,10 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-filter-button.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return React.forwardRef((props: any, ref: any) => {
     const { 
@@ -23,7 +21,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       ...rest 
     } = props;
     
-    // Filter out MUI-specific props that shouldn't go on a button element
     const cleanProps = Object.fromEntries(
       Object.entries(rest).filter(([key]) => 
         !['sx', 'variant', 'color', 'fullWidth', 'state', 'style', 'textCase', 'changeLeftIcon', 'changeRightIcon', 'showLeftIcon', 'showRightIcon', 'isLoading', 'children', 'shape', 'size', 'layout'].includes(key)
@@ -47,7 +44,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   });
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -202,7 +198,7 @@ describe('RdsCompFilterButton', () => {
     it('should hide left icon when showLeftIcon is false', () => {
       renderComponent({ showLeftIcon: false });
       const icons = screen.queryAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeLessThanOrEqual(1); // Only right icon if shown
+      expect(icons.length).toBeLessThanOrEqual(1);
     });
 
     it('should show right icon by default', () => {
@@ -671,17 +667,14 @@ describe('RdsCompFilterButton', () => {
       
       renderComponent({ onFiltersChange, onApply, onClear });
       
-      // Open popover
       fireEvent.click(screen.getByTestId('filter-trigger-button'));
       expect(screen.getByTestId('popover')).toBeInTheDocument();
       
-      // Select filters
       const checkboxes = screen.getAllByTestId('filter-checkbox');
       fireEvent.click(checkboxes[0]);
       fireEvent.click(checkboxes[1]);
       expect(onFiltersChange).toHaveBeenCalled();
       
-      // Apply filters
       const applyButton = screen.getAllByRole('button').find(b => b.textContent === 'Apply');
       fireEvent.click(applyButton!);
       expect(onApply).toHaveBeenCalled();
@@ -794,7 +787,6 @@ describe('RdsCompFilterButton', () => {
       const searchInput = screen.getByTestId('search-input');
       fireEvent.change(searchInput, { target: { value: 'xyz123notfound' } });
       
-      // Component should still render without errors
       expect(screen.getByTestId('popover')).toBeInTheDocument();
     });
   });

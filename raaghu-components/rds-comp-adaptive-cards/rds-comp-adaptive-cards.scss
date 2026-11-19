@@ -552,7 +552,6 @@
       }
   }
 
-  /* Ensure logos match dark-mode surface and scores are visible (white) */
   .rds-adaptive-cards--football-scorecard[data-theme="dark"] & {
     &__football-logo,
     &__football-logo.rds-adaptive-cards__football-logo--home,
@@ -971,7 +970,6 @@
     -webkit-text-fill-color: var(--rds-neutral-0);
   }
 
-  /* Keep InputForm fields on a dark surface in dark mode */
   .rds-adaptive-cards__action-btn--input-form {
     background: var(--rds-color-surface-dark, var(--rds-neutral-900));
     border-color: var(--rds-border-default);
@@ -985,7 +983,6 @@
     -webkit-text-fill-color: var(--rds-text-secondary);
   }
 
-  /* For MUI filled/outlined inputs ensure label and helper text contrast if needed */
   .MuiInputLabel-root,
   .MuiFormHelperText-root {
     color: var(--rds-text-secondary);
@@ -1435,7 +1432,6 @@
   }
 
   &__title-text {
-
   font-size: var(--rds-adaptive-cards-font-size-1);
   font-weight: var(--rds-font-weight-bold);
   margin-right: 0;

@@ -1,6 +1,3 @@
-// RDS Date Picker Component Styles
-// Following BEM methodology with rds- prefix
-// Uses design tokens for consistency across themes
 
 .rds-date-picker {
   --rds-date-and-time-picker-min-width-1: 200px;
@@ -22,106 +19,90 @@
   --rds-date-and-time-picker-border: 1.5px;
   width: auto;
 
-  min-width: var(--rds-date-and-time-picker-min-width-1); // Base minimum width
+  min-width: var(--rds-date-and-time-picker-min-width-1);
 
-  max-width: var(--rds-date-and-time-picker-max-width-1); // Allow for wider range pickers
-  // Global input styles for all variants
+  max-width: var(--rds-date-and-time-picker-max-width-1);
   .MuiInputBase-input {
     font-family: inherit;
     font-weight: var(--rds-font-weight-regular);
     font-size: var(--rds-font-size-md);
   }
 
-  // Specific width adjustments based on content and variant
   &--datetimerange {
-
     min-width: var(--rds-date-and-time-picker-min-width-2);
 
     max-width: var(--rds-date-and-time-picker-max-width-2);
 
     .MuiFormControl-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-2);
 
       max-width: var(--rds-date-and-time-picker-max-width-2);
     }
 
     .MuiInputBase-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-2);
 
       .MuiInputBase-input {
-
-        min-width: var(--rds-date-and-time-picker-min-width-3); // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-min-width-3);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
 
   &--timerange {
-
     min-width: var(--rds-date-and-time-picker-min-width-4);
 
     max-width: var(--rds-date-and-time-picker-max-width-3);
 
     .MuiFormControl-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-4);
 
       max-width: var(--rds-date-and-time-picker-max-width-3);
     }
 
     .MuiInputBase-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-4);
 
       .MuiInputBase-input {
-
-        min-width: var(--rds-date-and-time-picker-min-width-4); // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-min-width-4);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
 
   &--daterange,
   &--multi-month {
-
     min-width: var(--rds-date-and-time-picker-min-width-5);
 
     max-width: var(--rds-date-and-time-picker-max-width-4);
 
     .MuiFormControl-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-5);
 
       max-width: var(--rds-date-and-time-picker-max-width-4);
     }
 
     .MuiInputBase-root {
-
       min-width: var(--rds-date-and-time-picker-min-width-5);
 
       .MuiInputBase-input {
-
-        min-width: var(--rds-date-and-time-picker-min-width-6); // Leave space for icon
-        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
+        min-width: var(--rds-date-and-time-picker-min-width-6);
+        padding-right: var(--rds-spacing-2xl-px);
       }
     }
   }
 
-  // For daterange variant, show the calendar icon on the left side of the input
   &--daterange {
     .MuiOutlinedInput-root {
       .MuiInputAdornment-positionEnd {
         position: absolute;
-        right: 8px; /* distance from input left edge */
+        right: 8px;
         top: 50%;
         transform: translateY(-50%);
       }
     }
   }
 
-  // Size variants
   &--small {
     .MuiInputBase-root,
     .MuiTextField-root .MuiInputBase-root {
@@ -133,7 +114,6 @@
       }
     }
 
-    // Specific adjustments for TextField component used in daterange variant
     .MuiTextField-root {
       .MuiInputBase-root {
         min-height: var(--rds-spacing-40-px);
@@ -171,7 +151,6 @@
     }
   }
 
-  // State variants
   &--error {
     .MuiOutlinedInput-root {
       .MuiOutlinedInput-notchedOutline {
@@ -181,7 +160,6 @@
     }
   }
 
-  // Global override for all picker day elements to use square backgrounds
   .MuiPickersDay-root,
   .MuiDateRangePickerDay-root,
   .MuiPickersYear-root,
@@ -212,7 +190,6 @@
     }
   }
 
-  // Custom Date Range Picker with Presets
   &__custom-layout {
     display: flex;
 
@@ -226,7 +203,6 @@
   }
 
   &__preset-panel {
-
     width: var(--rds-date-and-time-picker-width-1);
     border-right: var(--rds-border-width-thin) solid var(--rds-color-border);
     background-color: var(--rds-color-surface-variant);
@@ -290,8 +266,6 @@
   &__range-input-container {
     display: inline-block;
 
-    // Show beginning of text with ellipsis — prevents Chrome scrolling
-    // to cursor-end in controlled readonly inputs
     .MuiInputBase-input {
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -299,7 +273,6 @@
     }
   }
 
-  // Open state for range/multi-month input (popover is open)
   &__input--open {
     .MuiOutlinedInput-root {
       .MuiOutlinedInput-notchedOutline {
@@ -309,7 +282,6 @@
     }
   }
 
-  // Input element styling
   &__input {
     cursor: pointer;
 
@@ -323,7 +295,6 @@
 
     &--required {
       .MuiInputLabel-root {
-        // Hide Material-UI's default required asterisk since we're using custom one
         &::after {
           content: none;
           display: none;
@@ -337,7 +308,6 @@
         }
       }
 
-      // Hide any MUI required indicator elements
       .MuiInputLabel-asterisk,
       .MuiFormLabel-asterisk {
         display: none;
@@ -345,7 +315,6 @@
     }
   }
 
-  // Label with required indicator
   &__label {
     display: inline-flex;
     align-items: center;
@@ -359,15 +328,12 @@
     line-height: var(--rds-line-height-none);
     margin-left: var(--rds-spacing-xs);
 
-    // Ensure the asterisk is properly positioned
     display: inline-block;
     vertical-align: top;
   }
 
-  // Required state styling
   &--required {
     .MuiInputLabel-root {
-      // Add visual indication that field is required
       &.Mui-focused {
         color: var(--rds-color-primary);
       }
@@ -379,7 +345,6 @@
       }
     }
 
-    // Hide ALL Material-UI required indicators since we use custom ones
     .MuiInputLabel-root {
       &::after {
         content: "";
@@ -404,25 +369,21 @@
       }
     }
 
-    // Target any span that might contain just an asterisk
     .MuiFormLabel-root span {
       &[aria-hidden="true"] {
         display: none;
       }
     }
 
-    // Hide MUI's built-in required asterisk
     .MuiFormLabel-root .MuiFormLabel-asterisk {
       display: none;
     }
   }
 
-  // Day element styling
   &__day {
     border-radius: var(--rds-border-radius);
   }
 
-  // Demo component styling
   &__demo-title {
     margin: 0 0 var(--rds-spacing-md) 0;
     font-size: var(--rds-font-size-h6);
@@ -446,16 +407,15 @@
     word-break: break-word;
   }
 
-  // Custom styling for Material-UI date picker components
   .MuiInputBase-root {
     border-radius: var(--rds-border-radius-lg);
 
     transition: all var(--rds-date-and-time-picker-transition-2) ease;
     cursor: pointer;
-    min-height: var(--rds-spacing-56-px); // Ensure consistent height
+    min-height: var(--rds-spacing-56-px);
     display: flex;
     align-items: center;
-    width: 100%; // Take full width of container
+    width: 100%;
 
     &:hover {
       box-shadow: var(--rds-elevation-1);
@@ -464,10 +424,10 @@
     .MuiInputBase-input {
       cursor: pointer;
       padding: var(--rds-spacing-md) var(--rds-spacing-sm);
-      line-height: 1.4375em; // Material-UI default line height
+      line-height: 1.4375em;
       font-size: var(--rds-font-size-body1);
-      flex: 1; // Take available space
-      min-width: 0; // Allow shrinking
+      flex: 1;
+      min-width: 0;
 
       &::placeholder {
         color: var(--rds-color-text-secondary);
@@ -475,16 +435,15 @@
         font-style: normal;
 
         transition: opacity var(--rds-date-and-time-picker-transition-1) ease;
-        white-space: nowrap; // Prevent wrapping
-        overflow: visible; // Show full placeholder
-        text-overflow: clip; // Don't truncate placeholder
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
       }
 
       &:placeholder-shown {
         color: var(--rds-color-text-secondary);
       }
 
-      // When label is present and field is empty, hide placeholder
       &:placeholder-shown + .MuiInputLabel-root:not(.MuiInputLabel-shrink) + .MuiInputBase-input {
         &::placeholder {
           opacity: 0;
@@ -492,12 +451,10 @@
       }
     }
 
-    // Ensure adequate space for end adornment (calendar icon)
     .MuiInputAdornment-positionEnd {
-      margin-left: var(--rds-spacing-xs); // Space between text and icon
+      margin-left: var(--rds-spacing-xs);
 
       .MuiSvgIcon-root {
-
         font-size: var(--rds-date-and-time-picker-font-size-1);
       }
     }
@@ -509,7 +466,6 @@
       }
     }
 
-    // When focused or has value, ensure label shrinks
     &.Mui-focused,
     &:has(.MuiInputBase-input:not([value=""])) {
       .MuiInputLabel-root {
@@ -537,7 +493,7 @@
 
     .MuiInputAdornment-root {
       cursor: pointer;
-      margin-left: var(--rds-spacing-xs); // Ensure space between text and icon
+      margin-left: var(--rds-spacing-xs);
 
       &.MuiInputAdornment-positionEnd {
         margin-left: var(--rds-spacing-xs);
@@ -546,7 +502,7 @@
 
       .MuiIconButton-root {
         padding: var(--rds-spacing-xs);
-        margin-right: var(--rds-spacing-neg-8); // Adjust for proper alignment
+        margin-right: var(--rds-spacing-neg-8);
       }
     }
 
@@ -560,15 +516,11 @@
   .MuiFormControl-root {
     width: fit-content;
 
-    min-width: var(--rds-date-and-time-picker-min-width-1); // Base minimum width for usability
+    min-width: var(--rds-date-and-time-picker-min-width-1);
 
-    max-width: var(--rds-date-and-time-picker-max-width-4); // Increased to accommodate range pickers
+    max-width: var(--rds-date-and-time-picker-max-width-4);
 
-    // Ensure proper label positioning relative to the input
     .MuiInputLabel-root {
-      // Calculate vertical center based on input height
-      // Default input height is 56px (16.5px top + 1.4375em line-height + 16.5px bottom)
-      // Center the label within this space
       &:not(.MuiInputLabel-shrink) {
         top: 50%;
         transform: translate(14px, -50%) scale(1);
@@ -581,7 +533,6 @@
       }
     }
 
-    // For different input sizes
     &.MuiFormControl-fullWidth {
       .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
         transform: translate(14px, -50%) scale(1);
@@ -594,7 +545,7 @@
     transform-origin: top left;
 
     transition: all var(--rds-date-and-time-picker-transition-1) ease-in-out;
-    pointer-events: none; // Prevent label from blocking clicks
+    pointer-events: none;
     position: absolute;
     z-index: var(--rds-z-index-layer-1);
 
@@ -607,13 +558,11 @@
       color: var(--rds-color-error);
     }
 
-    // Ensure label moves to top when input has value or is focused
     &.MuiInputLabel-shrink {
       top: 0;
       transform: translate(14px, -9px) scale(0.75);
     }
 
-    // Position label correctly when not shrunk - center it vertically within the input
     &:not(.MuiInputLabel-shrink) {
       top: 50%;
       transform: translate(14px, -50%) scale(1);
@@ -630,7 +579,6 @@
     }
   }
 
-  // Date picker popup/popper styles
   .MuiPickersPopper-root {
     z-index: var(--rds-z-index-modal);
 
@@ -698,7 +646,6 @@
     }
   }
 
-  // Disabled state
   &--disabled {
     .MuiInputBase-root {
       background-color: var(--rds-color-surface-disabled);
@@ -715,7 +662,6 @@
     }
   }
 
-  // Read-only state
   &--readonly {
     .MuiInputBase-root {
       background-color: var(--rds-color-surface-readonly);
@@ -732,7 +678,6 @@
   }
 }
 
-// Dark theme support
 @media (prefers-color-scheme: dark) {
   .rds-date-picker {
     .MuiDateCalendar-root {
@@ -749,8 +694,6 @@
     }
   }
 }
-
-// Utility layout classes
 
 .rds-date-picker__range-calendar-row {
   display: flex;
@@ -797,9 +740,6 @@
   width: 100%;
 }
 
-// Responsive design
-
-// Large mobile (up to 767px)
 @media (max-width: 767px) {
   .rds-date-picker {
     width: 100%;
@@ -843,7 +783,6 @@
       font-size: var(--rds-font-size-sm);
     }
 
-    // Ensure input font size remains consistent on mobile
     .MuiInputBase-root {
       .MuiInputBase-input {
         font-size: var(--rds-font-size-body1);
@@ -882,13 +821,11 @@
     }
   }
 
-  // Outer Popover paper — constrain to viewport width on mobile
   .rds-date-picker__popover-paper-gap {
     max-width: calc(100vw - var(--rds-spacing-md));
     overflow: hidden;
   }
 
-  // Popover paper adapts to viewport
   .rds-date-picker__range-paper {
     max-width: 100%;
     overflow-x: hidden;
@@ -898,14 +835,12 @@
     box-sizing: border-box;
     align-items: stretch;
 
-    // Force DateCalendar to fit the available width inside the paper
     .MuiDateCalendar-root {
       width: 100%;
       max-width: 100%;
     }
   }
 
-  // Range datetime stacks vertically on mobile
   .rds-date-picker__range-datetime {
     flex-direction: column;
     width: 100%;
@@ -923,7 +858,6 @@
     }
   }
 
-  // Calendar row stacks vertically on mobile
   .rds-date-picker__range-calendar-row {
     flex-direction: column;
     width: 100%;
@@ -934,7 +868,6 @@
     }
   }
 
-  // Time range stacks vertically on mobile
   .rds-date-picker__time-range-stack {
     flex-direction: column;
     width: 100%;
@@ -945,7 +878,6 @@
     width: 100%;
   }
 
-  // Custom date range layout becomes vertical on mobile
   .rds-date-picker__custom-layout {
     flex-direction: column;
     min-width: 0;
@@ -967,14 +899,12 @@
   }
 }
 
-// Small mobile (up to 480px)
 @media (max-width: 480px) {
   .rds-date-picker {
     &__custom-layout {
       width: calc(100vw - var(--rds-spacing-md));
     }
 
-    // Ensure input font size remains consistent on small mobile
     .MuiInputBase-root {
       .MuiInputBase-input {
         font-size: var(--rds-font-size-body1);
@@ -1009,20 +939,17 @@
     max-height: calc(100dvh - var(--rds-spacing-3xl));
     align-items: stretch;
 
-    // Force calendar to use full available width
     .MuiDateCalendar-root {
       width: 100%;
       max-width: 100%;
       min-width: 0;
     }
 
-    // Hide week-number column to recover horizontal space on tiny screens
     .MuiDayCalendar-weekNumberLabel,
     .MuiDayCalendar-weekNumber {
       display: none;
     }
 
-    // Tighten day cells so 7 columns fit within ~280px content area
     .MuiDayCalendar-header,
     .MuiDayCalendar-weekContainer {
       justify-content: space-between;
@@ -1041,7 +968,6 @@
       font-size: var(--rds-font-size-xs);
     }
 
-    // Scale calendar header navigation
     .MuiPickersCalendarHeader-root {
       padding-left: var(--rds-spacing-sm);
       padding-right: var(--rds-spacing-xs);
@@ -1056,7 +982,6 @@
   }
 }
 
-// Animation for picker opening
 @keyframes rds-date-picker-fade-in {
   from {
     opacity: 0;
@@ -1073,14 +998,12 @@
   animation: rds-date-picker-fade-in var(--rds-date-and-time-picker-animation) ease-out;
 }
 
-// Base picker paper (DatePicker, TimePicker, DateTimePicker dropdowns)
 .rds-date-picker__picker-paper {
   box-shadow: none;
   border: var(--rds-spacing-xxs) solid var(--rds-primary-500);
   border-radius: var(--rds-border-radius-sm);
 }
 
-// Year picker paper - adjusts internal calendar heights
 .rds-date-picker__year-picker-paper {
   --rds-date-and-time-picker-max-height-1: 280px;
   .MuiDateCalendar-root {
@@ -1099,7 +1022,6 @@
   }
 }
 
-// Month picker paper - adjusts internal calendar heights
 .rds-date-picker__month-picker-paper {
   .MuiDateCalendar-root {
     height: auto;
@@ -1114,7 +1036,6 @@
   }
 }
 
-// Range picker Popover paper
 .rds-date-picker__range-paper {
   --rds-date-and-time-picker-max-height-2: 100px;
   padding: var(--rds-spacing-md-px);
@@ -1124,24 +1045,19 @@
   border: var(--rds-spacing-xxs) solid var(--rds-primary-500);
   border-radius: var(--rds-border-radius-sm);
   box-shadow: none;
-  // Allow scrolling when content exceeds viewport height (datetime range on small screens)
 
   max-height: calc(100dvh - var(--rds-date-and-time-picker-max-height-2));
   overflow-y: auto;
   overflow-x: hidden;
-  // Take full width of parent popover paper to match input width
   width: 100%;
   box-sizing: border-box;
 }
 
-// Top margin gap between input and popover
 .rds-date-picker__popover-paper-gap {
   margin-top: var(--rds-spacing-xs);
-  // Ensures popover respects inline width style set by component
   box-sizing: border-box;
 }
 
-// Custom range day state classes (applied via className in renderDaySlot)
 .rds-date-picker__day--in-range {
   background-color: var(--rds-color-primary-hover);
   color: var(--rds-color-primary);
@@ -1152,7 +1068,6 @@
   color: var(--rds-color-on-primary);
 }
 
-// RangeDateTime layout classes
 .rds-date-picker__range-datetime {
   display: flex;
   align-items: flex-start;
@@ -1181,7 +1096,6 @@
   text-align: center;
 }
 
-// Global override to ensure all date picker elements use square borders
 .MuiPickersPopper-root,
 .MuiPickersLayout-root,
 .MuiDateCalendar-root,
@@ -1234,23 +1148,19 @@
   }
 }
 
-// Time picker dropdown font size reduction
 .MuiMultiSectionDigitalClock-root {
   --rds-date-and-time-picker-font-size-2: 0.8rem;
   .MuiMultiSectionDigitalClockSection-root {
     .MuiMenuItem-root {
-
-      font-size: var(--rds-date-and-time-picker-font-size-2); // Reduced font size
-      min-height: var(--rds-size-xl); // Reduced height
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm); // Reduced padding
+      font-size: var(--rds-date-and-time-picker-font-size-2);
+      min-height: var(--rds-size-xl);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     }
   }
 }
 
-// Specific styles for time range picker component
 .rds-date-picker--timerange {
   --rds-date-and-time-picker-line-height: 1.2;
-  // Layout for the two side-by-side time inputs
   .rds-date-picker__time-range-stack {
     width: 100%;
   }
@@ -1264,12 +1174,10 @@
     }
   }
 
-  // Ensure proper spacing and layout for time range inputs
   .MuiFormControl-root {
     margin-bottom: 0;
   }
 
-  // Reduce font size in digital clock dropdowns
   .MuiPickersPopper-root {
     .MuiMultiSectionDigitalClock-root {
       .MuiMultiSectionDigitalClockSection-root {
@@ -1292,13 +1200,11 @@
   }
 }
 
-// Global styles for all time pickers
 .MuiPickersPopper-root {
   --rds-date-and-time-picker-font-size-2: 0.8rem;
   .MuiMultiSectionDigitalClock-root {
     .MuiMultiSectionDigitalClockSection-root {
       .MuiMenuItem-root {
-
         font-size: var(--rds-date-and-time-picker-font-size-2);
         min-height: var(--rds-spacing-30);
         padding: calc(var(--rds-spacing-xs) * 0.75) calc(var(--rds-spacing-sm) - var(--rds-spacing-hairline));
@@ -1322,7 +1228,6 @@
   }
 }
 
-// Action bar button styling for all pickers
 .MuiPickersLayout-actionBar {
   padding: var(--rds-spacing-sm-px) var(--rds-spacing-md-px);
 
@@ -1332,14 +1237,12 @@
     border-radius: var(--rds-radius-md);
   }
 
-  // Cancel button — plain text
   .MuiButton-root:first-of-type {
     color: var(--rds-placeholder-color-light);
     background: transparent;
     box-shadow: none;
   }
 
-  // OK button — filled blue
   .MuiButton-root:last-of-type {
     background-color: var(--rds-primary-500);
     color: var(--rds-neutral-0);

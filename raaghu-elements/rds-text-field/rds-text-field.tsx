@@ -15,8 +15,20 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
   defaultValue,
   className,
   FormHelperTextProps: formHelperTextProps,
+  InputLabelProps: inputLabelProps,
+  multiline,
+  rows,
+  minRows,
+  maxRows,
   ...props
 }) => {
+  const isPassword = props.type === 'password';
+  const multilineProps = isPassword ? {} : { multiline, rows, minRows, maxRows };
+  const mergedLabelProps = {
+    ...inputLabelProps,
+    shrink: inputLabelProps?.shrink ?? (props.placeholder ? true : undefined),
+  };
+
   const rootClassName = [
     'rds-text-field',
     className,
@@ -30,8 +42,6 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
     ].filter(Boolean).join(' '),
   };
   
-  // Handle defaultValue - only pass it if explicitly provided and no value prop is present
-  // to prevent React warnings about controlled/uncontrolled components
   const fieldProps = defaultValue !== undefined && props.value === undefined
     ? { defaultValue } 
     : {};
@@ -42,6 +52,8 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
       helperText={errorMessage || helperText}
       required={isRequired}
       FormHelperTextProps={mergedHelperTextProps}
+      InputLabelProps={mergedLabelProps}
+      {...multilineProps}
       {...fieldProps}
       {...props}
       className={rootClassName}

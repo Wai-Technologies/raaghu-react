@@ -40,11 +40,6 @@ import {
   FlashOn as FlashIcon,
 } from '@mui/icons-material';
 
-// ─── Static data ────────────────────────────────────────────────────────────
-// Page-local status colors. Same hexes as before. Not bound to syntax tokens
-// (--rds-syntax-tag/property/selector/value): those share these light-mode
-// hexes but resolve to different colors in dark mode.
-
 const DASHBOARD_COLORS = {
   indigo: '#4F46E5',
   green: '#059669',
@@ -151,8 +146,6 @@ const NAV_ITEMS = [
   { id: 'help',      label: 'Help',      icon: <HelpIcon />      },
 ];
 
-// ─── Component ───────────────────────────────────────────────────────────────
-
 export default function DashboardPage() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const { toggleMode, isDark } = useRaaghuTheme();
@@ -161,7 +154,6 @@ export default function DashboardPage() {
     ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png'
     : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
 
-  // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = (
     <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
       <RdsAppBar
@@ -225,9 +217,6 @@ export default function DashboardPage() {
     </div>
   );
 
-  // ── Sidebar ─────────────────────────────────────────────────────────────
-  // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
-  // We add a matching var(--rds-spacing-3xl) header manually so the sidebar aligns with the AppBar.
   const sidebar = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box
@@ -260,13 +249,10 @@ export default function DashboardPage() {
     </Box>
   );
 
-  // ── Main content ─────────────────────────────────────────────────────────
   const content = (
     <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'var(--rds-background-default)' }}>
-      {/* Spacer so content clears the fixed AppBar */}
       <Toolbar />
 
-      {/* Page header */}
       <Box sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
         <Box>
           <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.3px' }}>
@@ -291,7 +277,6 @@ export default function DashboardPage() {
         />
       </Box>
 
-      {/* KPI cards — 4 cols desktop, 2 cols tablet, 1 col mobile */}
       <Box
         sx={{
           display: 'grid',
@@ -317,7 +302,6 @@ export default function DashboardPage() {
               },
             }}
           >
-            {/* Icon + label row */}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                 {kpi.label}
@@ -338,12 +322,10 @@ export default function DashboardPage() {
               </Box>
             </Box>
 
-            {/* Value */}
             <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: '-0.5px', lineHeight: 1 }}>
               {kpi.value}
             </Typography>
 
-            {/* Trend */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
               {kpi.trendUp
                 ? <TrendingUp sx={{ fontSize: 'var(--rds-spacing-15)', color: DASHBOARD_COLORS.green }} />
@@ -362,7 +344,6 @@ export default function DashboardPage() {
               </Typography>
             </Box>
 
-            {/* Progress bar */}
             <LinearProgress
               variant="determinate"
               value={kpi.progress}
@@ -380,7 +361,6 @@ export default function DashboardPage() {
         ))}
       </Box>
 
-      {/* Two-column row: Activity + Quick Stats */}
       <Box
         sx={{
           display: 'grid',
@@ -388,7 +368,6 @@ export default function DashboardPage() {
           gap: 2.5,
         }}
       >
-        {/* Recent activity */}
         <Box
           sx={{
             bgcolor: 'var(--rds-background-paper)',
@@ -398,7 +377,6 @@ export default function DashboardPage() {
             boxShadow: '0 var(--rds-spacing-hairline) var(--rds-spacing-xs) rgba(0,0,0,0.06)',
           }}
         >
-          {/* Section header */}
           <Box
             sx={{
               px: 3,
@@ -435,7 +413,6 @@ export default function DashboardPage() {
             </Typography>
           </Box>
 
-          {/* Activity list */}
           <List disablePadding>
             {ACTIVITY.map((item, i) => (
               <React.Fragment key={`${item.user}-${i}`}>
@@ -500,9 +477,7 @@ export default function DashboardPage() {
           </List>
         </Box>
 
-        {/* Quick Stats sidebar panel */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-          {/* System health */}
           <Box
             sx={{
               bgcolor: 'var(--rds-background-paper)',
@@ -549,7 +524,6 @@ export default function DashboardPage() {
             </Box>
           </Box>
 
-          {/* Goal card */}
           <Box
             sx={{
               p: 2.5,

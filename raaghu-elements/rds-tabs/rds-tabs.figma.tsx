@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsTabs  from "./rds-tabs"
 import figma from "@figma/code-connect"
 

@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsRange  from "./rds-range"
 import figma from "@figma/code-connect"
 

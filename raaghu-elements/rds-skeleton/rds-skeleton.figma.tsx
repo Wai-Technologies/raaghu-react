@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsSkeleton  from "./rds-skeleton"
 import figma from "@figma/code-connect"
 

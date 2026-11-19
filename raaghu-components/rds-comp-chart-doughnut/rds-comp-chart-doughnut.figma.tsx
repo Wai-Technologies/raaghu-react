@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompDoughnutChart from "./rds-comp-chart-doughnut";
 import figma from "@figma/code-connect";
 

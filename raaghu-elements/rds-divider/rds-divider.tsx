@@ -74,7 +74,6 @@ const RdsDivider= ({
   const styleColors = getStyleColors();
   const dividerLineColor = styleColors.dividerColor;
   const textColor = styleColors.textColor;
-  const iconBorderColor = styleColors.iconBorderColor;
   const iconColor = styleColors.iconColor;
 
   const getSizeStyles = () => {
