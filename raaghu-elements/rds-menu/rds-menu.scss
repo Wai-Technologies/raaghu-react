@@ -172,7 +172,7 @@
   }
 
   &__header {
-    font-weight: var(--rds-menu-header-font-weight);
+    font-weight: var(--rds-menu-header-font-weight, 600);
     font-size: 0.98em;
     color: var(--rds-text-secondary);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);

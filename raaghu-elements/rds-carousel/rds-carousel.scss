@@ -298,7 +298,7 @@
     &__title-overlay {
       padding: var(--rds-spacing-sm);
 
-      min-height: var(--rds-carousel-min-height-2);
+      min-height: var(--rds-carousel-min-height-2, 70px);
     }
 
     &__title-text {
@@ -334,7 +334,7 @@
 @include bp.down(sm) {
   .rds-carousel--with-title .rds-carousel__slide-content {
 
-    height: calc(100% - var(--rds-carousel-height-1));
+    height: calc(100% - var(--rds-carousel-height-1, 90px));
   }
 }
 
@@ -392,13 +392,13 @@
     &__title-content {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
 
-      min-height: var(--rds-carousel-min-height-2);
+      min-height: var(--rds-carousel-min-height-2, 70px);
     }
 
     &__title-overlay {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
 
-      min-height: var(--rds-carousel-min-height-2);
+      min-height: var(--rds-carousel-min-height-2, 70px);
       backdrop-filter: blur(calc(4 * var(--rds-backdrop-blur)));
     }
 
@@ -417,7 +417,7 @@
 
     &__title-subtitle {
 
-      font-size: var(--rds-carousel-font-size-1);
+      font-size: var(--rds-carousel-font-size-1, 0.85rem);
 
       line-height: var(--rds-carousel-line-height-2);
       display: -webkit-box;
@@ -481,16 +481,16 @@
 
     &__title-subtitle {
 
-      font-size: var(--rds-carousel-font-size-2);
+      font-size: var(--rds-carousel-font-size-2, 0.8rem);
     }
 
     &--default,
     &--with-title {
 
-      height: min(var(--rds-carousel-height-2), calc(100vh - var(--rds-spacing-lg)));
+      height: min(var(--rds-carousel-height-2, 390px), calc(100vh - var(--rds-spacing-lg)));
       .rds-carousel__slide-content {
 
-        height: calc(100% - var(--rds-carousel-height-3));
+        height: calc(100% - var(--rds-carousel-height-3, 35px));
       }
     }
 
@@ -528,14 +528,14 @@
 @include bp.between(mobile-lg, md) {
   .rds-carousel__slide-content {
 
-        height: var(--rds-carousel-height-4);
+        height: var(--rds-carousel-height-4, 360px);
   }
   .rds-carousel--default .rds-carousel__indicators{
     bottom: 12px;
   }
   .rds-carousel--auto-play .rds-carousel__slide-content {
 
-    height: var(--rds-carousel-height-5);
+    height: var(--rds-carousel-height-5, 360px);
   }
 
   .rds-carousel--with-title .rds-carousel__navigation {
@@ -556,7 +556,7 @@
 
     .rds-carousel__slide-content {
 
-      height: calc(100% - var(--rds-carousel-height-1));
+      height: calc(100% - var(--rds-carousel-height-1, 90px));
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
@@ -572,7 +572,7 @@
 
     .rds-carousel__title-content--bottom {
 
-      min-height: var(--rds-carousel-min-height-2);
+      min-height: var(--rds-carousel-min-height-2, 70px);
     }
   }
 }
@@ -608,14 +608,14 @@
 @include bp.between(tablet-lg, lg) {
   .rds-carousel__slide-content {
 
-        height: var(--rds-carousel-height-6);
+        height: var(--rds-carousel-height-6, 359px);
   }
   .rds-carousel--default .rds-carousel__indicators {
     bottom: 13px;
   }
   .rds-carousel--auto-play .rds-carousel__slide-content {
 
-    height: var(--rds-carousel-height-5);
+    height: var(--rds-carousel-height-5, 360px);
   }
 }
 
@@ -639,13 +639,13 @@
 
     .rds-carousel__title-content {
       background-color: var(--rds-carousel-title-bg-dark);
-      border: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark);
+      border: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark, color-mix(in srgb, var(--rds-neutral-0) 4%, transparent));
       color: var(--rds-color-on-surface, var(--rds-color-text-primary));
     }
 
     .rds-carousel__title-content--bottom {
       background-color: var(--rds-carousel-title-bg-dark);
-      border-top: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark);
+      border-top: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark, color-mix(in srgb, var(--rds-neutral-0) 6%, transparent));
       color: var(--rds-color-on-surface, var(--rds-color-text-primary));
     }
 

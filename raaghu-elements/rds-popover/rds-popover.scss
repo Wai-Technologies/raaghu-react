@@ -245,7 +245,7 @@
     min-width: var(--rds-popover-list-mobile-min-width);
     padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm));
 
-    font-size: var(--rds-popover-font-size);
+    font-size: var(--rds-popover-font-size, 0.95rem);
   }
   .with-list-popover .MuiListItem-root {
     padding-top: var(--rds-spacing-xxs);
@@ -256,20 +256,20 @@
 @include bp.between(mobile-sm, sm) {
   .rds-popover__container {
 
-    max-width: var(--rds-popover-max-width-1);
+    max-width: var(--rds-popover-max-width-1, 285px);
   }
 }
 @include bp.between(mobile-lg, md) {
   .rds-popover__container {
 
-    max-width: var(--rds-popover-max-width-2);
+    max-width: var(--rds-popover-max-width-2, 285px);
   }
 }
 
 @include bp.between(tablet-md, lg) {
     .rds-popover__container {
 
-        max-width: var(--rds-popover-max-width-3);
+        max-width: var(--rds-popover-max-width-3, 285px);
     }
 }
 

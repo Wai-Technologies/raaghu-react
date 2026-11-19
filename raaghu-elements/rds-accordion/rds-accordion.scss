@@ -374,7 +374,7 @@
   &--small {
     .rds-accordion__summary {
       min-height: var(--rds-accordion-summary-height-sm);
-      padding: 0 var(--rds-accordion-summary-padding-sm);
+      padding: 0 var(--rds-accordion-summary-padding-sm, 8px);
 
       .MuiAccordionSummary-content {
         margin: var(--rds-accordion-summary-content-margin-sm) 0;

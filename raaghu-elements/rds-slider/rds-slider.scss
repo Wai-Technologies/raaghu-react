@@ -59,7 +59,7 @@
 }
 
 .rds-slider__story-wrapper {
-  width: var(--rds-slider-story-width);
+  width: var(--rds-slider-story-width, 300px);
   margin: var(--rds-slider-story-margin, var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md) 0px);
   box-sizing: border-box;
 }

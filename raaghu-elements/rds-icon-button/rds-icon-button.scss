@@ -21,9 +21,9 @@
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeSmall svg {
-  font-size: var(--rds-icon-button-size-small);
-  width: var(--rds-icon-button-size-small);
-  height: var(--rds-icon-button-size-small);
+  font-size: var(--rds-icon-button-size-small, 18px);
+  width: var(--rds-icon-button-size-small, 18px);
+  height: var(--rds-icon-button-size-small, 18px);
 }
 
 .rds-icon-button.MuiIconButton-sizeMedium .MuiSvgIcon-root,
