@@ -62,9 +62,16 @@ export function NotificationCard({
     onDismiss(event, notification, index);
   };
 
+  const typeBackgroundByType: Record<NotificationType, string> = {
+    [NotificationType.Error]: "var(--rds-alert-error-bg)",
+    [NotificationType.Info]: "var(--rds-background-paper)",
+    [NotificationType.Success]: "var(--rds-alert-success-bg)",
+    [NotificationType.Warning]: "var(--rds-alert-warning-bg)",
+  };
+
   return (
     <Card
-      className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
+      className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}${showDismiss ? " rds-comp-notification--dismissible" : ""}`}
       sx={{
         padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2,
         marginBottom: 2,
@@ -72,6 +79,8 @@ export function NotificationCard({
         position: "relative",
         display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",
         overflow: "hidden",
+        backgroundColor: typeBackgroundByType[type] ?? "var(--rds-background-paper)",
+        backgroundImage: "none",
       }}
     >
       {layout === NotificationLayout.Horizontal && style === NotificationStyle.Image && (
@@ -88,11 +97,13 @@ export function NotificationCard({
         </Box>
       )}
 
-      <Box sx={{
-        flex: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 1 : "none",
-        padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 2 : 0,
-        position: "relative",
-      }}
+      <Box
+        className="rds-comp-notification__content"
+        sx={{
+          flex: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 1 : "none",
+          padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 2 : 0,
+          position: "relative",
+        }}
       >
         {showDismiss && (
           <RdsIconButton iconFilled={<Close />} size="small" aria-label="Dismiss notification" onClick={(e) => onDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />
