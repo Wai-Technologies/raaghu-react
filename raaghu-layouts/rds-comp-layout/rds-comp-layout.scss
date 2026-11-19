@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--rds-box-shadow-card)
+  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px color-mix(in srgb, var(--rds-color-black) 7%, transparent))
 }
 
 .rds-comp-layout-wrapper {
@@ -71,7 +71,7 @@
   border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-background-default);
-  box-shadow: var(--rds-box-shadow-card);
+  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px color-mix(in srgb, var(--rds-color-black) 7%, transparent));
 
   &--height-xs {
     min-height: var(--rds-spacing-80-px);

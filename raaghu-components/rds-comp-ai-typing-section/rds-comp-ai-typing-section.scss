@@ -5,7 +5,7 @@
   --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width);
   --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width);
   --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width);
-  --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height);
+  --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height, 40px);
   --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset);
   --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right);
   
