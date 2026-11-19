@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import "./rds-comp-spinner.scss";
@@ -55,6 +55,8 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     if (paletteColor === "danger" || color === "danger" || colorVariant === "danger") {
         warnDeprecatedProp("RdsCompSpinner", 'color="danger"', '`color: "error"`');
     }
+    const labelId = useId();
+    const hasLabel = showLabel && !!labelText;
     const resolvedColorVariant = normalizePaletteColor(paletteColor);
     const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
     const colorClass = resolvedColorVariant ? `text-${resolvedColorVariant}` : "";
@@ -140,12 +142,14 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     return (
         <div className={`spinner-container ${getLayoutClass()}`}>
             {showLabel && (
-                <label className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
+                <label id={labelId} className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
             )}
             <div
                 className={combinedClasses}
                 style={{ width: dimensions.width, height: dimensions.height, opacity: getOpacity() }}
                 role="status"
+                aria-labelledby={hasLabel ? labelId : undefined}
+                aria-label={hasLabel ? undefined : "Loading"}
             >
             </div>
         </div>

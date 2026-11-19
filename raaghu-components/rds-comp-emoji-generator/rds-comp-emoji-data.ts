@@ -56,17 +56,24 @@ const skinToneModifiers = [
   '\u{1F3FF}',
 ];
 
+const emojiByChar = new Map<string, Emoji>();
+const stripVariation = (emoji: string): string => emoji.replace(/️/g, '').replace(/︎/g, '');
+for (const e of allEmojis) {
+  if (!emojiByChar.has(e.emoji)) emojiByChar.set(e.emoji, e);
+  const stripped = stripVariation(e.emoji);
+  if (!emojiByChar.has(stripped)) emojiByChar.set(stripped, e);
+}
+
+const matchesTone = (tone: number | number[] | undefined, skinTone: number): boolean =>
+  Array.isArray(tone) ? tone.length > 0 && tone.every(t => t === skinTone) : tone === skinTone;
+
 export const applySkinTone = (emoji: string, skinTone: number): string => {
   if (skinTone === 0 || !skinToneModifiers[skinTone]) {
     return emoji;
   }
-  
-  const emojiData = allEmojis.find(e => e.emoji === emoji);
-  if (emojiData && emojiData.skins && emojiData.skins.length > skinTone) {
-    return emojiData.skins[skinTone].emoji;
-  }
-  
-  return emoji;
+
+  const skin = (emojiByChar.get(emoji) ?? emojiByChar.get(stripVariation(emoji)))?.skins?.find(s => matchesTone(s.tone, skinTone));
+  return skin ? skin.emoji : emoji;
 };
 
 export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 0): string[] => {

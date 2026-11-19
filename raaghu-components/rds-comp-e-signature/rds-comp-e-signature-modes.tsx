@@ -15,6 +15,7 @@ export interface RdsESignatureUploadProps {
   disabled: boolean;
   disabledFooterMessage?: string;
   width?: number;
+  title?: string;
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
@@ -25,6 +26,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   disabled,
   disabledFooterMessage,
   width,
+  title,
   onSignatureChange,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +38,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_BYTES) {
-        setUploadError('File too large. Max size is 2MB'); 
+        setUploadError('File too large. Max size is 5MB'); 
         setSelectedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
         onSignatureChange?.(null);
@@ -58,7 +60,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   return (
     <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
       <Typography variant="h6" className="rds-e-signature__title">
-        {type === 'initials' ? 'Upload Initial' : 'Upload Signature'}
+        {title ?? (type === 'initials' ? 'Upload Initial' : 'Upload Signature')}
         <span className="rds-e-signature__required">*</span>
       </Typography>
       <Box
@@ -124,6 +126,7 @@ export interface RdsESignatureChooseProps {
   type: 'fullname' | 'initials';
   disabled: boolean;
   predefinedSignatures: PredefinedSignatureItem[];
+  title?: string;
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
@@ -131,6 +134,7 @@ export const RdsESignatureChoose: React.FC<RdsESignatureChooseProps> = ({
   type,
   disabled,
   predefinedSignatures,
+  title,
   onSignatureChange,
 }) => {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
@@ -162,7 +166,7 @@ export const RdsESignatureChoose: React.FC<RdsESignatureChooseProps> = ({
   return (
     <Box className="rds-e-signature__choose-container">
       <Typography variant="h6" className="rds-e-signature__title">
-        Choose Signature
+        {title ?? 'Choose Signature'}
         <span className="rds-e-signature__required">*</span>
       </Typography>
       <Box className={`rds-e-signature__choose-panel ${multipleChooseError ? 'rds-e-signature__choose-panel--error' : ''}`}>

@@ -646,4 +646,25 @@ describe('RdsCompTimePicker', () => {
       expect(results).toHaveNoViolations();
     });
   });
+  describe('Closing and keyboard', () => {
+    it('closes the picker on Escape', () => {
+      render(<RdsCompTimePicker {...defaultProps} />);
+      fireEvent.click(screen.getByPlaceholderText('12:00 AM'));
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
+    });
+
+    it('closes the picker on outside click', () => {
+      render(<div><button type="button">outside</button><RdsCompTimePicker {...defaultProps} /></div>);
+      fireEvent.click(screen.getByPlaceholderText('12:00 AM'));
+      fireEvent.mouseDown(screen.getByText('outside'));
+      expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
+    });
+
+    it('opens the picker with Enter', () => {
+      render(<RdsCompTimePicker {...defaultProps} />);
+      fireEvent.keyDown(screen.getByPlaceholderText('12:00 AM'), { key: 'Enter' });
+      expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
+    });
+  });
 });

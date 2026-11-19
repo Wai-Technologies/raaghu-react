@@ -15,8 +15,18 @@ export const formatDate = (date?: Date) => {
   });
 };
 
+const useSyncedState = <T,>(value: T) => {
+  const [state, setState] = useState(value);
+  const [prevValue, setPrevValue] = useState(value);
+  if (value !== prevValue) {
+    setPrevValue(value);
+    setState(value);
+  }
+  return [state, setState] as const;
+};
+
 const Style1 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -29,7 +39,7 @@ const Style1 = ({ item }: { item: Item }) => {
       <CardContent sx={{ textAlign: 'center' }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize' } }}>
           <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+            src={item.imageUrl || undefined}
             title={item.name}
             size="medium"
             displayStyle="name-bottom"
@@ -56,7 +66,7 @@ const Style1 = ({ item }: { item: Item }) => {
 };
 
 const Style2 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -85,7 +95,7 @@ const Style2 = ({ item }: { item: Item }) => {
 };
 
 const Style3 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -97,7 +107,7 @@ const Style3 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize'  } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
-          src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+          src={item.imageUrl || undefined}
           title={item.name}
           subText={formatDate(item.date)}
           size="medium"
@@ -121,7 +131,7 @@ const Style3 = ({ item }: { item: Item }) => {
 };
 
 const Style4 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -158,7 +168,7 @@ const Style4 = ({ item }: { item: Item }) => {
 };
 
 const Style5 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -170,7 +180,7 @@ const Style5 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RdsAvatar
-           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+           src={item.imageUrl || undefined}
           title={item.name}
           size="medium"
           showDesignation={false}
@@ -202,7 +212,7 @@ const Style5 = ({ item }: { item: Item }) => {
 };
 
 const Style6 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -239,9 +249,9 @@ const Style6 = ({ item }: { item: Item }) => {
 };
 
 const Style7 = ({ item }: { item: Item }) => {
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [likes, setLikes] = useSyncedState(item.likes ?? 0);
+  const [dislikes, setDislikes] = useSyncedState(item.dislikes ?? 0);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   const isXs = useMediaQuery('(max-width: 600px)');
   
   const handleLike = () => {
@@ -279,7 +289,7 @@ const Style7 = ({ item }: { item: Item }) => {
           }}
         >
           <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+            src={item.imageUrl || undefined}
             title={item.name}
             size={isXs ? 'small' : 'medium'}
             showDesignation={false}
@@ -361,7 +371,7 @@ const Style7 = ({ item }: { item: Item }) => {
 };
 
 const Style8 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
@@ -396,9 +406,9 @@ const Style8 = ({ item }: { item: Item }) => {
 };
 
 const Style9 = ({ item }: { item: Item }) => {
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [likes, setLikes] = useSyncedState(item.likes ?? 0);
+  const [dislikes, setDislikes] = useSyncedState(item.dislikes ?? 0);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleLike = () => {
     setLikes(prev => prev + 1);
@@ -418,7 +428,7 @@ const Style9 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RdsAvatar
-           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+           src={item.imageUrl || undefined}
           title={item.name}
           size="medium"
           showDesignation={false}
@@ -491,9 +501,9 @@ const Style9 = ({ item }: { item: Item }) => {
 };
 
 const Style10 = ({ item }: { item: Item }) => {
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
+  const [likes, setLikes] = useSyncedState(item.likes ?? 0);
+  const [dislikes, setDislikes] = useSyncedState(item.dislikes ?? 0);
+  const [rating, setRating] = useSyncedState(item.rating ?? 0);
   
   const handleLike = () => {
     setLikes(prev => prev + 1);
@@ -592,7 +602,7 @@ const Style11 = ({ item }: { item: Item }) => {
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
           <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+            src={item.imageUrl || undefined}
             title={item.name}
             alt={item.name}
             showName={false}
