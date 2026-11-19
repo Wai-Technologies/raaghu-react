@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -95,15 +95,35 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     _endDate: any,
     _handlerDateChange: any,
     _onRangeChange: any,
-    props: any = {}
+    props: any = {},
+    isDropdownOpen: boolean = false,
+    toggleDropdown: () => void = () => {},
+    _display: any,
+    _ref: any,
+    activeList: string = '',
+    todayHandler: () => void = () => {},
+    _y: any,
+    _l7: any,
+    _l14: any,
+    _dayClass: any,
+    _a: any,
+    _b: any,
+    _c: any,
+    onCustomActivate?: () => void,
+    customDropdownRef?: React.Ref<HTMLDivElement>
   ) => (
-    <div data-testid="type-view">
+    <div data-testid="type-view" ref={customDropdownRef}>
       <input
         data-testid="date-picker-input"
         type="text"
         aria-label="Date picker"
         disabled={props?.isDisabled || props?.disabled}
       />
+      <button data-testid="toggle-menu" onClick={toggleDropdown}>toggle</button>
+      <button data-testid="preset-today" onClick={todayHandler}>today</button>
+      <button data-testid="preset-custom" onClick={onCustomActivate}>custom</button>
+      <span data-testid="menu-state">{isDropdownOpen ? 'open' : 'closed'}</span>
+      <span data-testid="active-list">{activeList}</span>
     </div>
   ),
 }));
@@ -729,5 +749,57 @@ describe('RdsDatepicker top-level props', () => {
   it('shows the required indicator through the required prop', () => {
     const { container } = render(<RdsDatepicker required showTitle titleText="Start" />);
     expect(container.querySelector('.rds-datepicker__mandatory-indicator')).toBeInTheDocument();
+  });
+});
+
+describe('RdsDatepicker preset menu', () => {
+  it('makes Custom the active preset after a preset was selected', () => {
+    render(<RdsDatepicker />);
+    fireEvent.click(screen.getByTestId('preset-today'));
+    expect(screen.getByTestId('active-list')).toHaveTextContent('today');
+    fireEvent.click(screen.getByTestId('preset-custom'));
+    expect(screen.getByTestId('active-list')).toHaveTextContent('custom');
+  });
+
+  it('closes the menu on outside pointerdown and Escape, not on inside pointerdown', () => {
+    render(<RdsDatepicker />);
+    fireEvent.click(screen.getByTestId('toggle-menu'));
+    expect(screen.getByTestId('menu-state')).toHaveTextContent('open');
+    fireEvent.pointerDown(screen.getByTestId('type-view'));
+    expect(screen.getByTestId('menu-state')).toHaveTextContent('open');
+    fireEvent.pointerDown(document.body);
+    expect(screen.getByTestId('menu-state')).toHaveTextContent('closed');
+    fireEvent.click(screen.getByTestId('toggle-menu'));
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.getByTestId('menu-state')).toHaveTextContent('closed');
+  });
+});
+
+describe('renderCustomHeader year list', () => {
+  const { renderCustomHeader, createRenderCustomHeader } = jest.requireActual('./renderCustomHeader');
+  const base = {
+    date: new Date(2024, 5, 1),
+    monthDate: new Date(2024, 5, 1),
+    changeYear: jest.fn(),
+    changeMonth: jest.fn(),
+    decreaseMonth: jest.fn(),
+    increaseMonth: jest.fn(),
+    prevMonthButtonDisabled: false,
+    nextMonthButtonDisabled: false,
+  };
+  const yearsOf = (node: React.ReactElement) => {
+    const { container } = render(node);
+    return Array.from(container.querySelectorAll('.rds-datepicker__header-select--year option')).map((o) => Number((o as HTMLOptionElement).value));
+  };
+
+  it('builds the list from minDate and maxDate', () => {
+    const years = yearsOf(renderCustomHeader({ ...base, minDate: new Date(2020, 0, 1), maxDate: new Date(2026, 0, 1) }));
+    expect(years[0]).toBe(2020);
+    expect(years[years.length - 1]).toBe(2026);
+  });
+
+  it('always includes the displayed year', () => {
+    const years = yearsOf(createRenderCustomHeader(new Date(2020, 0, 1), new Date(2022, 0, 1))(base));
+    expect(years).toContain(2024);
   });
 });

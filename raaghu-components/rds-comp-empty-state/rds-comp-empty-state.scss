@@ -134,7 +134,7 @@ body.dark .rds-comp-empty-state__subtitle {
     }
 
     &:focus-visible {
-      outline: var(--rds-spacing-xxs) solid var(--rds-focus-ring);
+      outline: var(--rds-focus-ring, var(--rds-spacing-xxs) solid var(--rds-primary-main));
       outline-offset: 2px;
     }
   }

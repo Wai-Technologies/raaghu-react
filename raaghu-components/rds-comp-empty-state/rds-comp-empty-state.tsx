@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useMemo } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { Box, Typography } from "@mui/material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import Lottie from "lottie-react";
@@ -29,6 +29,15 @@ const isDarkThemeActive = (): boolean =>
   document.documentElement.getAttribute("data-theme") === "dark" ||
   document.body.classList.contains("dark");
 
+const subscribeToTheme = (onChange: () => void) => {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+};
+
+const getServerThemeSnapshot = () => false;
+
 const RdsCompEmptyState = ({
   mode,
   label,
@@ -47,17 +56,13 @@ const RdsCompEmptyState = ({
     return { width: toCss(rawW), height: toCss(rawH) };
   }, [iconHeight, iconWidth]);
 
-  const useDarkVariant = useMemo(
-    () => mode === "Dark NRA" || (!mode && isDarkThemeActive()),
-    [mode]
-  );
+  const pageIsDark = useSyncExternalStore(subscribeToTheme, isDarkThemeActive, getServerThemeSnapshot);
+  const useDarkVariant = mode === "Dark NRA" || (!mode && pageIsDark);
 
   const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
   const resolvedAnimation = useDarkVariant ? illustrationDark : illustrationLight;
   const imageSrc = iconPath || resolvedImage;
-  const isDarkMode = mode === "Dark NRA";
-
-  const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
+  const textColor = useDarkVariant ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)";
 
   return (
     <Box className={clsx("rds-comp-empty-state", className)}>
@@ -96,7 +101,7 @@ const RdsCompEmptyState = ({
             className="rds-comp-empty-state__title"
             data-testid="labelElement"
             style={{
-              color: isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)",
+              color: textColor,
               fontSize: "var(--rds-spacing-20-px)",
               fontWeight: 600,
               marginBottom: "var(--rds-spacing-sm)",
@@ -105,7 +110,6 @@ const RdsCompEmptyState = ({
             sx={{
               fontSize: "var(--rds-spacing-20-px)",
               fontWeight: 600,
-              color: titleColor,
               marginBottom: "var(--rds-spacing-sm)",
               marginTop: "var(--rds-spacing-lg)",
             }}
@@ -121,11 +125,10 @@ const RdsCompEmptyState = ({
             data-testid="sublabelElement"
             style={{
               textAlign: "center",
-              color: isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)",
+              color: textColor,
             }}
             sx={{
               textAlign: "center",
-              color: titleColor,
             }}
           >
             {subLabel}

@@ -445,11 +445,16 @@ const SELECTION_AGENTS = [
 ];
 
 export const SelectionContent = ({
+  headerText = "Bayshore Transportation System",
   headerSubText = "Agent Information"
 }: SelectionContentProps) => {
   const agents = SELECTION_AGENTS;
 
   const [searchValue, setSearchValue] = useState<string>("");
+  const query = searchValue.trim().toLowerCase();
+  const visibleAgents = query
+    ? agents.filter((agent) => agent.name.toLowerCase().includes(query) || String(agent.id).includes(query))
+    : agents;
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
@@ -464,7 +469,7 @@ export const SelectionContent = ({
     <div className="custom-content-wrapper" id="detail-pane-container-2">
       <div className="detail-pane-container rds-comp-details-pane__selection-container" id="detail-pain-lable">
         <div className="rds-comp-details-pane__header-container">
-          <h3 className="rds-comp-details-pane__title"> Bayshore Transportation System </h3>
+          <h3 className="rds-comp-details-pane__title">{headerText}</h3>
           <p className="rds-comp-details-pane__subtitle">{headerSubText}</p>
         </div>
         
@@ -485,7 +490,7 @@ export const SelectionContent = ({
         </div>
         
         <div>
-          {agents.map((agent) => (
+          {visibleAgents.map((agent) => (
             <button
               type="button"
               key={agent.id}

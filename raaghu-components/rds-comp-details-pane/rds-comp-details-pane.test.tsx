@@ -656,4 +656,27 @@ describe('RdsCompDetailsPane', () => {
       expect(results).toHaveNoViolations();
     });
   });
+
+
+  describe('SelectionContent', () => {
+    const { SelectionContent } = jest.requireActual('./details-pane-components');
+
+    it('uses headerText for the title and defaults when omitted', () => {
+      const { rerender } = render(<SelectionContent headerText="Custom Title" />);
+      expect(screen.getByRole('heading', { name: 'Custom Title' })).toBeInTheDocument();
+      rerender(<SelectionContent />);
+      expect(screen.getByRole('heading', { name: 'Bayshore Transportation System' })).toBeInTheDocument();
+    });
+
+    it('filters agents by the search value', () => {
+      render(<SelectionContent />);
+      expect(screen.getAllByText('Jane Doe')).toHaveLength(3);
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: 'zzz' } });
+      expect(screen.queryAllByText('Jane Doe')).toHaveLength(0);
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: '2' } });
+      expect(screen.getAllByText('Jane Doe')).toHaveLength(1);
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: 'jane' } });
+      expect(screen.getAllByText('Jane Doe')).toHaveLength(3);
+    });
+  });
 });

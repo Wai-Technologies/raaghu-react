@@ -174,36 +174,61 @@ const RdsDatepicker = ({
     }, [isDisabled, selectedDate, emitChange, customDate, updatePickerState]);
 
     const yesterdayClickHandler = useCallback(() => {
+        const today = new Date();
         updatePickerState({ activeList: "yesterday" });
         const newDate = getYesterdayDate(today);
         onRangeChange([newDate, newDate]);
         updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
-    }, [today, onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState]);
 
     const todayClickHandler = useCallback(() => {
+        const today = new Date();
         updatePickerState({ activeList: "today" });
         const { todayDate, newDate } = getTodayDate(today);
         onRangeChange([todayDate, newDate]); 
         updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
-    }, [today, onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState]);
 
     const lastSevenDaysClickHandler = useCallback(() => {
+        const today = new Date();
         updatePickerState({ activeList: "lastSeven" });
         const newDate = getLastSevenDaysDate(today);
         onRangeChange([newDate, today]);
         updatePickerState({ dropdownDisplayValue:
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
         });
-    }, [today, onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState]);
 
     const lastFourteenDaysClickHandler = useCallback(() => {
+        const today = new Date();
         updatePickerState({ activeList: "lastFourteen" });
         const newDate = getLastFourteenDaysDate(today);
         onRangeChange([newDate, today]);
         updatePickerState({ dropdownDisplayValue:
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
         });
-    }, [today, onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState]);
+
+    const customDropdownRef = useRef<HTMLDivElement>(null);
+    const activateCustom = useCallback(() => updatePickerState({ activeList: "custom" }), [updatePickerState]);
+    useEffect(() => {
+        if (!isDropdownOpen) return;
+        const onPointerDown = (event: PointerEvent) => {
+            const root = customDropdownRef.current;
+            if (root && event.target instanceof Node && !root.contains(event.target)) {
+                updatePickerState({ isDropdownOpen: false });
+            }
+        };
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") updatePickerState({ isDropdownOpen: false });
+        };
+        document.addEventListener("pointerdown", onPointerDown);
+        document.addEventListener("keydown", onKeyDown);
+        return () => {
+            document.removeEventListener("pointerdown", onPointerDown);
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, [isDropdownOpen, updatePickerState]);
 
     const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
 
@@ -292,7 +317,9 @@ const RdsDatepicker = ({
                 dayClassName,
                 CustomInputWithClear,
                 ExampleCustomInput,
-                CustomButtons
+                CustomButtons,
+                activateCustom,
+                customDropdownRef
             )}
         </>
     );

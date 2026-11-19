@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
 import { axe } from 'jest-axe';
 
@@ -384,6 +384,20 @@ describe('RdsCompEmptyState', () => {
       renderComponent({ isContinueAnimate: false, mode: 'Dark NRA' });
       const image = screen.getByTestId('emptyStateImage') as HTMLImageElement;
       expect(image.src).toContain('empty-state-dark.png');
+    });
+
+    it('should swap to the dark image when the theme toggles after mount', async () => {
+      renderComponent({ isContinueAnimate: false });
+      const image = screen.getByTestId('emptyStateImage') as HTMLImageElement;
+      expect(image.src).not.toContain('empty-state-dark.png');
+      act(() => {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      });
+      await waitFor(() => expect(image.src).toContain('empty-state-dark.png'));
+      act(() => {
+        document.documentElement.removeAttribute('data-theme');
+      });
+      await waitFor(() => expect(image.src).not.toContain('empty-state-dark.png'));
     });
 
     it('should override auto-detected dark theme with Light when mode is not Dark', () => {
