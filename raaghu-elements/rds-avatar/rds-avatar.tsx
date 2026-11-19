@@ -39,7 +39,7 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'color'> {
 const RdsAvatar = ({
   color,
   colorVariant,
-  title,
+  title: titleProp,
   subText,
   size = 'medium',
   displayStyle = 'with-name',
@@ -55,6 +55,7 @@ const RdsAvatar = ({
   showRemainingCount = true,
   ...props
 }: RdsAvatarProps) => {
+  const title = typeof titleProp === 'string' ? titleProp : undefined;
   const paletteColor = resolveDeprecatedProp(color, colorVariant, 'RdsAvatar', 'colorVariant', '`color`') ?? 'primary';
   if (paletteColor === 'danger' || color === 'danger' || colorVariant === 'danger') {
     warnDeprecatedProp('RdsAvatar', 'color="danger"', '`color: "error"`');

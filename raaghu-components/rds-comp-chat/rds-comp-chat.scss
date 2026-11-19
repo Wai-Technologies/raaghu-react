@@ -1353,3 +1353,24 @@
     }
   }
 }
+
+.rds-comp-chat .rds-comp-chat__window-header .rds-comp-chat__window-header-options {
+  align-items: center;
+  align-self: center;
+}
+
+.rds-comp-chat .rds-comp-chat__window-header .rds-comp-chat__window-header-options .nav-tabs {
+  align-self: center;
+  align-items: center;
+  height: auto;
+  margin-top: 0;
+  border-bottom: none;
+}
+
+.rds-comp-chat .rds-comp-chat__window-header .rds-comp-chat__window-header-options .nav-link.active {
+  margin-bottom: 0;
+}
+
+.rds-comp-chat .rds-comp-chat__window-header .rds-comp-chat__window-header-more {
+  margin-top: 0;
+}
