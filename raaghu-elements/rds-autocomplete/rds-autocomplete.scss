@@ -60,7 +60,7 @@
 
     .MuiInputBase-root {
       background-color: var(--rds-color-disabled-bg);
-      color: var(--rds-color-disabled-text);
+      color: var(--rds-color-disabled-text, var(--rds-text-disabled));
     }
   }
 

@@ -424,13 +424,13 @@
 
 .rds-alert__secondary-button.MuiButton-root {
   background-color: transparent;
-  color: var(--rds-alert-secondary-text);
+  color: var(--rds-alert-secondary-text, var(--rds-primary-main));
   border: none;
 
   &:hover,
   &:focus-visible {
-    background-color: var(--rds-alert-secondary-bg-hover);
-    color: var(--rds-alert-secondary-text);
+    background-color: var(--rds-alert-secondary-bg-hover, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
+    color: var(--rds-alert-secondary-text, var(--rds-primary-main));
   }
 }
 
@@ -441,7 +441,7 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--rds-alert-error-bg-hover);
+    background-color: var(--rds-alert-error-bg-hover, var(--rds-error-light));
     color: var(--rds-alert-error-text);
   }
 }

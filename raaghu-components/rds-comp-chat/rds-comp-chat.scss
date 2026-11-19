@@ -381,7 +381,7 @@
       transition: background-color var(--rds-transition-base);
 
       &:hover {
-        background-color: var(--rds-color-primary-dark);
+        background-color: var(--rds-color-primary-dark, var(--rds-primary-dark));
       }
     }
   }

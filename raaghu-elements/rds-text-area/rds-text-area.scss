@@ -77,8 +77,8 @@
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled);
-      border-color: var(--rds-border-disabled);
+      background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+      border-color: var(--rds-border-disabled, var(--rds-border-light));
       color: var(--rds-text-disabled);
       cursor: not-allowed;
       
@@ -87,8 +87,8 @@
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled);
-        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-border-disabled);
+        background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, var(--rds-border-light));
       }
     }
 
@@ -140,8 +140,8 @@
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled);
-      border-color: var(--rds-border-disabled);
+      background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+      border-color: var(--rds-border-disabled, var(--rds-border-light));
       color: var(--rds-text-disabled);
 
       &::placeholder {
@@ -149,8 +149,8 @@
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled);
-        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-border-disabled);
+        background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, var(--rds-border-light));
       }
     }
 

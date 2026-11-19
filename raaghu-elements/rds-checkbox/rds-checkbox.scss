@@ -26,7 +26,7 @@
     transition: var(--rds-checkbox-transition);
 
     &:hover {
-      background-color: var(--rds-primary-alpha-10);
+      background-color: var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent));
     }
 
     &.Mui-checked,
@@ -78,7 +78,7 @@
       }
 
       &:hover:not(.Mui-disabled) {
-        background-color: var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
+        background-color: var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent)));
       }
     }
   }
@@ -151,8 +151,8 @@
 
       &.Mui-disabled {
         &::before {
-          background-color: var(--rds-background-disabled);
-          border-color: var(--rds-border-disabled);
+          background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+          border-color: var(--rds-border-disabled, var(--rds-border-light));
         }
 
         &.Mui-checked::before,
@@ -164,7 +164,7 @@
 
       &:hover:not(.Mui-disabled)::before {
         border-color: var(--rds-primary-main);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent));
       }
     }
 
@@ -178,7 +178,7 @@
 
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
+          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent)));
         }
       }
     }
@@ -254,8 +254,8 @@
 
       &.Mui-disabled {
         &::before {
-          background-color: var(--rds-background-disabled);
-          border-color: var(--rds-border-disabled);
+          background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
+          border-color: var(--rds-border-disabled, var(--rds-border-light));
         }
 
         &.Mui-checked::before,
@@ -267,7 +267,7 @@
 
       &:hover:not(.Mui-disabled)::before {
         border-color: var(--rds-primary-main);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent));
       }
     }
 
@@ -281,7 +281,7 @@
 
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
+          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10, color-mix(in srgb, var(--rds-primary-main) 10%, transparent)));
         }
       }
     }

@@ -605,7 +605,7 @@
     font-size: var(--rds-font-size-md);
 
     &--active {
-      background-color: var(--rds-color-primary-container);
+      background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
       border-color: var(--rds-color-primary);
       color: var(--rds-color-primary);
     }

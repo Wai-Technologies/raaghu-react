@@ -80,7 +80,7 @@
     &--light {
       background-color: var(--rds-color-light);
       color: var(--rds-color-on-light);
-      border: var(--rds-border-width-thin) solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     }
 
     &--circular {
@@ -283,7 +283,7 @@
     }
 
     &--bordered {
-      border: var(--rds-border-width-thin) solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     }
   }
 
@@ -315,7 +315,7 @@
     }
 
     &:active {
-      background-color: var(--rds-color-primary-container);
+      background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
     }
 
     &:first-child {
@@ -358,11 +358,11 @@
     }
 
     &__dropdown {
-      border: var(--rds-spacing-xxs) solid var(--rds-color-border);
+      border: var(--rds-spacing-xxs) solid var(--rds-color-border, var(--rds-border-default));
     }
 
     &__item {
-      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
 
       &:last-child {
         border-bottom: none;

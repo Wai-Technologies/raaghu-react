@@ -178,7 +178,7 @@
   &__position-option {
     width: var(--rds-popover-position-option-size);
     height: var(--rds-popover-position-option-size);
-    border: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     border-radius: var(--rds-border-radius-sm);
     display: flex;
     align-items: center;
@@ -200,7 +200,7 @@
 
     &--disabled {
       background-color: var(--rds-color-surface-disabled);
-      border-color: var(--rds-color-border-disabled);
+      border-color: var(--rds-color-border-disabled, var(--rds-border-light));
       cursor: not-allowed;
       opacity: 0.6;
     }

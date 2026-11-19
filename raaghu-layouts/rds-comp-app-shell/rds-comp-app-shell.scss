@@ -45,7 +45,7 @@
 
   .MuiTab-root.Mui-focusVisible,
   .MuiBottomNavigationAction-root.Mui-focusVisible {
-    background-color: var(--rds-color-primary-container);
+    background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
   }
 }
 
@@ -55,7 +55,7 @@
 
     &:hover {
       color: var(--rds-color-primary);
-      background-color: var(--rds-color-primary-container);
+      background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
       opacity: 1;
     }
 

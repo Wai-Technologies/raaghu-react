@@ -79,7 +79,7 @@
       color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {
-        color: var(--rds-color-primary-dark);
+        color: var(--rds-color-primary-dark, var(--rds-primary-dark));
         text-decoration: underline;
       }
 
