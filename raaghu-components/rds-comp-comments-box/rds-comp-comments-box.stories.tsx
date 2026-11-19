@@ -20,6 +20,7 @@ function getPropsForState(args: any) {
         yourLogo: rest.yourLogo,
         editLabel: rest.editLabel,
         deleteLabel: rest.deleteLabel,
+        placeholderText: rest.placeholderText,
       };
     case 'comment Hover':
       return {
@@ -54,6 +55,7 @@ function getPropsForState(args: any) {
       return {
         state,
         avatarInitials: rest.avatarInitials,
+        placeholderText: rest.placeholderText,
       };
     default:
       return {
@@ -78,10 +80,16 @@ const meta: Meta<typeof RdsCommentBox> = {
     },
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    placeholderText: 'Placeholder',
+    typingPlaceholderText: 'Placeholder...',
+  },
   argTypes: {
     avatarInitials: { control: 'text', description: 'Initials for avatar' },
-    placeholderText: { control: 'text', description: 'Placeholder text for input' },
-    typingPlaceholderText: { control: 'text', description: 'Placeholder text for typing input' },
+    placeholderText: { control: 'text', description: 'Placeholder of the comment input (Default, Selected and Comment Thread reply box)' },
+    className: { control: 'text', description: 'Extra class name for the root element' },
+    sx: { control: 'object', description: 'MUI sx styles for the root element' },
+    typingPlaceholderText: { control: 'text', description: 'Placeholder of the message field in the Typing state' },
     attachmentLabels: { control: 'object', description: 'Labels for attachment dropdown' },
     mentionInviteLabel: { control: 'text', description: 'Label for mention invite button' },
     mentionSearchPlaceholder: { control: 'text', description: 'Placeholder for mention search' },
@@ -113,30 +121,29 @@ export default meta;
 export const Default: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'default',
-    placeholderText: 'Placeholder',
+    placeholderText: 'Add a comment',
     avatarInitials: 'RD',
   },
   parameters: {
     controls: {
-      include: [
-         'avatarInitials'
-      ],
+      include: ['avatarInitials', 'placeholderText', 'className', 'sx', 'typingPlaceholderText'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 export const Selected: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'selected',
     avatarInitials: 'RD',
+    placeholderText: 'Placeholder',
   },
   parameters: {
     controls: {
-      include: [ 'avatarInitials', ],
+      include: ['placeholderText', 'typingPlaceholderText', 'avatarInitials'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 export const Typing: StoryObj<typeof RdsCommentBox> = {
@@ -149,10 +156,10 @@ export const Typing: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['typingPlaceholderText', 'avatarInitials'],
+      include: ['placeholderText', 'typingPlaceholderText', 'avatarInitials'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
@@ -162,10 +169,10 @@ export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['avatarInitials'],
+      include: ['placeholderText', 'typingPlaceholderText', 'avatarInitials'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 export const CommentHover: StoryObj<typeof RdsCommentBox> = {
@@ -181,10 +188,10 @@ export const CommentHover: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
+      include: ['placeholderText', 'typingPlaceholderText', 'hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 export const CommentThread: StoryObj<typeof RdsCommentBox> = {
@@ -205,15 +212,14 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     deleteIcon: null,
     editLabel: 'Edit',
     deleteLabel: 'Delete',
+    placeholderText: 'Placeholder',
   },
   parameters: {
     controls: {
-      include: [
-        'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
-      ],
+      include: ['placeholderText', 'typingPlaceholderText', 'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'],
     },
   },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  render: (args) => <RdsCommentBox {...getPropsForState(args)} placeholderText={args.placeholderText} typingPlaceholderText={args.typingPlaceholderText} className={args.className} sx={args.sx} />,
 };
 
 

@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect, type ImgHTMLAttributes, type SVGProps, type ReactNode } from 'react';
+import clsx from 'clsx';
+import type { SxProps, Theme } from '@mui/material/styles';
 import RdsAvatar from '../../raaghu-elements/rds-avatar/rds-avatar';
 import RdsBox from '../../raaghu-elements/rds-box/rds-box';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
@@ -53,7 +55,13 @@ export interface RdsCommentBoxProps {
   translate?: string;
   avatarInitials?: string;
   yourLogo?: string;
+  /** Extra class name for the root element. */
+  className?: string;
+  /** MUI `sx` styles for the root element. */
+  sx?: SxProps<Theme>;
+  /** Placeholder of the comment input (default, selected and thread reply states). */
   placeholderText?: string;
+  /** Placeholder of the message field in the typing state. */
   typingPlaceholderText?: string;
   attachmentLabels?: { computer?: string; googleDrive?: string; oneDrive?: string };
   mentionInviteLabel?: string;
@@ -69,7 +77,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
   switch (state) {
     case 'selected':
       return (
-        <RdsBox className="rds-comments-box rds-comments-box--selected">
+        <RdsBox className={clsx("rds-comments-box rds-comments-box--selected", props.className)} sx={props.sx}>
           <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
           <TextField
             variant="outlined"
@@ -89,7 +97,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
       );
     case 'typing':
       return (
-        <RdsBox className="rds-comments-box rds-comments-box--typing relative">
+        <RdsBox className={clsx("rds-comments-box rds-comments-box--typing relative", props.className)} sx={props.sx}>
           <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
           <RdsBox className="rds-comments-box__typing-box">
             <RdsBox className="rds-comments-box__typing-header">
@@ -192,16 +200,16 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
       );
     case 'comment Posted':
       return (
-        <RdsBox className="rds-comments-box rds-comments-box--posted">
-          <RdsBox className="rds-comments-box__badge-container">
+        <RdsBox className={clsx("rds-comments-box rds-comments-box--posted", props.className)} sx={props.sx}>
+          <RdsBox className="rds-comments-box__pin rds-comments-box__badge-container">
             <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
-            <span className="rds-comments-box__dot" />
+            <span className="rds-comments-box__dot" aria-label="New comment" />
           </RdsBox>
         </RdsBox>
       );
     case 'comment Hover':
       return (
-        <RdsBox className="rds-comments-box rds-comments-box--hover relative">
+        <RdsBox className={clsx("rds-comments-box rds-comments-box--hover relative", props.className)} sx={props.sx}>
           <RdsBox className="rds-comments-box__comment-card">
             <RdsBox className="rds-comments-box__header relative">
               <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
@@ -247,7 +255,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
       );
     case 'comment Thread':
       return (
-        <RdsBox className="rds-comments-box rds-comments-box--thread">
+        <RdsBox className={clsx("rds-comments-box rds-comments-box--thread", props.className)} sx={props.sx}>
           <RdsBox className="rds-comments-box__thread-header">
             <RdsTypography className="rds-comments-box__thread-title">{props.threadTitle}</RdsTypography>
             <RdsBox className="rds-comments-box__thread-icons relative">

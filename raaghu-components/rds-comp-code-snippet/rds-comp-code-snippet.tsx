@@ -1,16 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./rds-comp-code-snippet.scss";
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
-import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { CopyButton, SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
+import { atomOneLight, atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
 
-const darkStyle = {
-  ...atomOneLight as any,
-  hljs: {
-    ...((atomOneLight as any).hljs || {}),
-    background: 'var(--rds-code-bg)',
-    color: 'var(--rds-code-color)',
-  },
+type HighlighterTheme = Record<string, React.CSSProperties>;
+
+const withBackground = (base: HighlighterTheme | undefined, background: string): HighlighterTheme => ({
+  ...(base ?? {}),
+  hljs: { ...(base?.hljs ?? {}), background, color: 'var(--rds-code-snippet-fg)', ...(background === 'transparent' ? { overflowX: 'hidden', padding: 0 } : {}) },
+});
+
+const LIGHT_STYLE = withBackground(atomOneLight as HighlighterTheme, 'var(--rds-code-snippet-code-bg)');
+const DARK_STYLE = withBackground(atomOneDark as HighlighterTheme, 'var(--rds-code-snippet-code-bg)');
+const LIGHT_INLINE_STYLE = withBackground(atomOneLight as HighlighterTheme, 'transparent');
+const DARK_INLINE_STYLE = withBackground(atomOneDark as HighlighterTheme, 'transparent');
+
+const readPageTheme = (): 'light' | 'dark' => {
+  if (typeof document === 'undefined') return 'light';
+  const attr = document.documentElement.getAttribute('data-theme');
+  if (attr === 'dark' || attr === 'light') return attr;
+  return typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+const usePageTheme = (enabled: boolean): 'light' | 'dark' => {
+  const [pageTheme, setPageTheme] = useState<'light' | 'dark'>(() => (enabled ? readPageTheme() : 'light'));
+  useEffect(() => {
+    if (!enabled || typeof document === 'undefined') return;
+    const update = () => setPageTheme(readPageTheme());
+    update();
+    const observer = typeof MutationObserver !== 'undefined' ? new MutationObserver(update) : undefined;
+    observer?.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const media = window.matchMedia?.('(prefers-color-scheme: dark)');
+    media?.addEventListener?.('change', update);
+    return () => {
+      observer?.disconnect();
+      media?.removeEventListener?.('change', update);
+    };
+  }, [enabled]);
+  return pageTheme;
 };
 
 const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<Record<string, unknown>>;
@@ -19,7 +47,8 @@ export interface RdsCompCodeSnippetProps {
   code?: string;
   language?: string | boolean;
   codeLines?: boolean;
-  theme?: "light" | "dark";
+  /** `'auto'` follows the app theme (`data-theme` on <html>, else the OS setting). */
+  theme?: "light" | "dark" | "auto";
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
   className?: string;
@@ -70,19 +99,22 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     }
   };
 
+  const pageTheme = usePageTheme(theme === 'auto');
+  const resolvedTheme = theme === 'auto' ? pageTheme : theme === 'dark' ? 'dark' : 'light';
   const showLanguage = !!language;
   const languageLabel = typeof language === 'string' ? language : 'html';
-  const highlighterStyle = theme === 'dark' ? (darkStyle as any) : (atomOneLight as any);
+  const highlighterStyle = resolvedTheme === 'dark' ? DARK_STYLE : LIGHT_STYLE;
+  const inlineHighlighterStyle = resolvedTheme === 'dark' ? DARK_INLINE_STYLE : LIGHT_INLINE_STYLE;
 
   return (
-    <div className={`rds-comp-code-snippet rds-comp-code-snippet--${theme} rds-comp-code-snippet--${type} ${className}`}>
+    <div className={`rds-comp-code-snippet rds-comp-code-snippet--${resolvedTheme} rds-comp-code-snippet--${type} ${className}`.trim()}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <SingleLineSnippet
             Highlighter={Highlighter}
             currentCode={currentCode}
             languageLabel={languageLabel}
-            highlighterStyle={highlighterStyle}
+            highlighterStyle={inlineHighlighterStyle}
             copied={copied}
             onCopy={handleCopy}
           />
