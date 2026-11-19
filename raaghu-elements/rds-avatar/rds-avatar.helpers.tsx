@@ -40,8 +40,8 @@ export function getAvatarModifierClasses(
 }
 
 export function getInitials(title?: string, children?: React.ReactNode): React.ReactNode {
-  if (title) {
-    return title.split(' ').map((n) => n[0]).join('').toUpperCase();
+  if (typeof title === 'string' && title.trim()) {
+    return title.trim().split(/\s+/).map((n) => n[0]).join('').toUpperCase();
   }
   return children;
 }

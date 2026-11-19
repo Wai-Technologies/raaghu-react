@@ -98,8 +98,8 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
     },
     theme: {
       control: { type: 'select' },
-      options: ['light', 'dark'],
-      description: 'Theme variant',
+      options: ['auto', 'light', 'dark'],
+      description: "Theme variant. 'auto' follows the app / system theme",
     },
     type: {
       control: { type: 'select' },
@@ -119,7 +119,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     language: true,
-    theme: "light",
+    theme: "auto",
     type: "multiLine",
     codeLines: false,
     sampleCodeSnippets,

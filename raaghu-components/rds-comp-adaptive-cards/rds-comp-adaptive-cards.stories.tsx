@@ -40,7 +40,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     tags: ['autodocs', 'stable'],
     argTypes: {
         showHeader: { control: 'boolean', description: 'Show header of the card' },
-        showDismiss: { control: 'boolean', description: 'Show circle button' },
+        showDismiss: { control: 'boolean', description: 'Show the close (X) button that dismisses the card' },
         cardTitle: { control: 'text', description: 'Title of the card' },
         showBtn1: { control: 'boolean', description: 'Show Button 1' },
         showBtn2: { control: 'boolean', description: 'Show Button 2' },
@@ -50,7 +50,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         btn2Label: { control: 'text', description: 'Label of Button 2' },
         smallText: { control: 'text', description: 'Small text below the title' },
         cardText: { control: 'text', description: 'Text for ActivityUpdateCard' },
-        closeIcon: { control: 'boolean', description: 'Show close icon' },
+        closeIcon: { control: { disable: true }, table: { disable: true } },
         label: { control: 'text', description: 'Label for InputFormCard' },
         nameLabel: { control: 'text', description: 'Label for Name field in InputFormCard' },
         namePlaceholder: { control: 'text', description: 'Placeholder for Name field in InputFormCard' },
@@ -97,11 +97,10 @@ export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn1Label: 'Cancel',
         btn2Label: 'Done',
         showDismiss: true,
-        closeIcon: false,
     },
     parameters: {
         controls: {
-            include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon'],
+            include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showDismiss'],
         },
     },
     render: (args) => <RdsCompAdaptiveCards {...args} />,
@@ -119,7 +118,6 @@ export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn1Label: 'Button',
         btn2Label: 'Click Here',
         showDismiss: false,
-        closeIcon: false,
         cardText:
             'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
         name: 'Jane Doe',
@@ -135,7 +133,7 @@ export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss',
                 'cardText', 'name', 'date', 'activityProps'
             ],
         },
@@ -157,7 +155,6 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
         smallText: '20:30 - 09:30',
         label: 'Conf Room 112/3377 (10)',
         showDismiss: false,
-        closeIcon: false,
         calendarReminderLabel: 'Snooze for',
         namePlaceholder: 'Select duration',
         sideOptions: [
@@ -172,7 +169,7 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'smallText', 'label', 'calendarReminderLabel', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
+                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'smallText', 'label', 'calendarReminderLabel', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss'
             ],
         },
     },
@@ -221,7 +218,6 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
         smallText: "Don't worry, we'll never share or sell your information.",
         label: 'We just need a few more details to get you booked for the trip of a lifetime!',
         showDismiss: false,
-        closeIcon: false,
         nameLabel: 'Name (Last, First)',
         namePlaceholder: 'Enter Name',
         emailLabel: 'Email',
@@ -233,7 +229,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'smallText', 'label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'smallText', 'label', 'showDismiss',
                 'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
             ],
         },
@@ -362,7 +358,6 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
         btn1Label: 'Place Order',
         block: true,
         showDismiss: false,
-        closeIcon: false,
         entreeLabel: 'Which entree would you like?',
         entreePlaceholder: 'Select an entree',
         entreeOptions: [
@@ -388,7 +383,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'showDismiss',
                 'entreeLabel', 'entreePlaceholder', 'entreeOptions',
                 'sideLabel', 'sidePlaceholder', 'sideOptions',
                 'drinkLabel', 'drinkPlaceholder', 'drinkOptions'
