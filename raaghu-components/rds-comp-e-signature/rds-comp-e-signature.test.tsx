@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompESignature from './rds-comp-e-signature';
 
-// Mock SCSS
 jest.mock('./rds-comp-e-signature.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, ...props }: any) => (
     <div className={className} {...props}>
@@ -34,7 +31,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock icons
 jest.mock('@mui/icons-material', () => ({
   Brush: () => <span data-testid="brush-icon">Brush</span>,
   Save: () => <span data-testid="save-icon">Save</span>,
@@ -42,7 +38,6 @@ jest.mock('@mui/icons-material', () => ({
   Undo: () => <span data-testid="undo-icon">Undo</span>,
 }));
 
-// Mock sub-components
 jest.mock('./rds-comp-e-signature-modes', () => ({
   RdsESignatureUpload: ({ type, disabled, onSignatureChange }: any) => (
     <div data-testid="e-signature-upload">
@@ -188,7 +183,6 @@ describe('RdsCompESignature', () => {
       const canvas = container.querySelector('canvas');
       if (canvas) {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-        // Component should mark hasDrawn as true internally
       }
       expect(canvas).toBeInTheDocument();
     });
@@ -200,7 +194,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         rerender(<RdsCompESignature mode="draw" />);
       }
-      // Canvas header should be hidden after drawing starts
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -234,8 +227,7 @@ describe('RdsCompESignature', () => {
     it('should change selected color when clicked', () => {
       const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
       const colorButtons = container.querySelectorAll('.rds-e-signature__color-button');
-      fireEvent.click(colorButtons[1]); // Click blue
-      // Color should be updated (blue #0066ff)
+      fireEvent.click(colorButtons[1]);
       expect(colorButtons).toHaveLength(3);
     });
 
@@ -344,7 +336,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         fireEvent.mouseMove(canvas, { clientX: 110, clientY: 110 });
       }
-      // Drawing should not trigger callback when disabled
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -366,7 +357,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseEnter(mainBox);
         fireEvent.mouseLeave(mainBox);
       }
-      // Hover class should be removed
       expect(mainBox).toBeInTheDocument();
     });
 
@@ -448,7 +438,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         fireEvent.mouseUp(canvas);
       }
-      // Callback should be triggered after drawing
       expect(canvas).toBeInTheDocument();
     });
 
@@ -492,7 +481,6 @@ describe('RdsCompESignature', () => {
           onSignatureChange={onSignatureChange}
         />
       );
-      // Clear action would be triggered by delete or undo button
       expect(screen.getByLabelText('delete')).toBeInTheDocument();
     });
 
@@ -513,19 +501,16 @@ describe('RdsCompESignature', () => {
       const { container } = render(
         <RdsCompESignature mode="draw" />
       );
-      // Error would show if signature doesn't meet requirements
-      // For now, just verify error element structure
       const errorDiv = container.querySelector('.rds-e-signature__error');
-      expect(errorDiv).not.toBeInTheDocument(); // Initially no error
+      expect(errorDiv).not.toBeInTheDocument();
     });
 
     it('should show error role alert', () => {
       const { container } = render(
         <RdsCompESignature mode="draw" />
       );
-      // Error message should have role="alert" when showing
       const errorMsg = container.querySelector('[role="alert"]');
-      expect(errorMsg).not.toBeInTheDocument(); // Initially no error
+      expect(errorMsg).not.toBeInTheDocument();
     });
   });
 
@@ -692,7 +677,6 @@ describe('RdsCompESignature', () => {
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
       
-      // Simulate window resize
       fireEvent.resize(window);
       expect(canvas).toBeInTheDocument();
     });

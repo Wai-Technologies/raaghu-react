@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
@@ -37,7 +37,6 @@ const meta: Meta<typeof RdsModal> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 const ModalTemplate = (args: any) => {
   const [open, setOpen] = useState(false);

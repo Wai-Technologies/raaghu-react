@@ -5,10 +5,8 @@ import RdsHeader, { RdsHeaderProps } from './rds-header';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-header.scss', () => ({}));
 
-// Mock ProfileMenu component
 jest.mock('./ProfileMenu', () => {
   return {
     ProfileMenu: (props: any) => (
@@ -21,7 +19,6 @@ jest.mock('./ProfileMenu', () => {
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Menu', () => {
   return function DummyIcon(props: any) {
     return <span data-testid="menu-icon" {...props} />;

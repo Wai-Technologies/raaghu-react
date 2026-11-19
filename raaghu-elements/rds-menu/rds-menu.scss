@@ -124,7 +124,6 @@
       padding: var(--rds-spacing-xs) 0;
     }
     .rds-menu__item {
-
       font-size: var(--rds-menu-font-size-1);
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
@@ -162,7 +161,6 @@
       max-width: var(--rds-menu-max-width-3);
     }
     .rds-menu__item {
-
       font-size: var(--rds-menu-font-size-2);
       min-height: var(--rds-menu-item-min-height-large);
       padding: calc(var(--rds-spacing-md) + var(--rds-spacing-xs) / 2) var(--rds-spacing-xl);
@@ -210,7 +208,6 @@
 
     transition: opacity var(--rds-menu-transition-2), transform var(--rds-menu-transition-2);
   }
-
 }
 
 [data-theme="dark"] {

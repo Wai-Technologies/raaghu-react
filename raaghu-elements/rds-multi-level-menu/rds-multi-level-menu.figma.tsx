@@ -1,4 +1,3 @@
-import React from "react"
 import RdsMultiLevelMenu from "./rds-multi-level-menu"
 import figma from "@figma/code-connect"
 

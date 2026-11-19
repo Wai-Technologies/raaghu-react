@@ -1,13 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBubbleChart from './rds-comp-chart-bubble';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-bubble.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -817,7 +814,6 @@ describe('RdsCompBubbleChart', () => {
         <RdsCompBubbleChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated - grid property should not be added
       expect((options.scales.x as any).grid).toBeUndefined();
     });
   });

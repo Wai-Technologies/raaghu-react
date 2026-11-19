@@ -472,7 +472,6 @@ describe('RdsSwitch', () => {
       );
       const input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       fireEvent.click(input);
-      // Note: onClick might still be called but onChange logic won't execute
       expect(input).toBeDisabled();
     });
   });

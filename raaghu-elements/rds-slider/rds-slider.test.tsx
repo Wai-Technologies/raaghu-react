@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import RdsSlider from './rds-slider';
 import { axe } from 'jest-axe';
 
-// Test helpers
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
@@ -46,7 +45,6 @@ describe('RdsSlider', () => {
     it('should initialize with default value when not controlled', () => {
       renderWithTheme(<RdsSlider min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      // Default should be min + (max - min) * 0.3 = 0 + (100 - 0) * 0.3 = 30
       expect(Number.parseInt(input.value)).toBe(30);
     });
 
@@ -91,9 +89,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider controlType="two way" min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = Number.parseInt(input.value);
-      // With range: midPoint = 0 + (100 - 0) * 0.5 = 50
-      // range = (100 - 0) * 0.2 = 20
-      // lower = 50 - 10 = 40, upper = 50 + 10 = 60
       expect(value).toBeGreaterThanOrEqual(0);
       expect(value).toBeLessThanOrEqual(100);
     });
@@ -239,7 +234,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={1} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = Number.parseInt(input.value);
-      // level 1 = 0% of range = min = 0
       expect(value).toBe(0);
     });
 
@@ -247,7 +241,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={3} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = Number.parseInt(input.value);
-      // level 3 = 50% of range = 0 + (100 - 0) * 0.5 = 50
       expect(value).toBe(50);
     });
 
@@ -255,7 +248,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={5} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = Number.parseInt(input.value);
-      // level 5 = 100% of range = max = 100
       expect(value).toBe(100);
     });
 

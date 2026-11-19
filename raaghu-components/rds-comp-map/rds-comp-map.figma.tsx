@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompMap  from "./rds-comp-map"
 import figma from "@figma/code-connect"
 

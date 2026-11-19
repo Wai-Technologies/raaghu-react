@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompFilterButton from "./rds-comp-filter-button"
 import figma from "@figma/code-connect"
 import { Circle } from "@mui/icons-material"

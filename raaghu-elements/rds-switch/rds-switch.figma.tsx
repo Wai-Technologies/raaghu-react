@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsSwitch  from "./rds-switch"
 import figma from "@figma/code-connect"
 

@@ -1,5 +1,5 @@
 import RdsCompDatepicker from "./rds-comp-datepicker";
-import { DatePickerLayout, DatePickerState, DatePickerStyleType, type RdsCompDatepickerProps } from "./rds-comp-datepicker.types";
+import { DatePickerLayout, DatePickerState, DatePickerStyleType } from "./rds-comp-datepicker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 const meta: Meta = {
     title: 'Components/Date Picker',

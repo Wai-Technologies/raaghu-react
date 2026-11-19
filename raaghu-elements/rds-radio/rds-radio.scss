@@ -1,8 +1,6 @@
 .rds-radio {
-  --rds-radio-line-height: 1.2;
   display: block;
   position: relative;
-  /* use centralized tokens */
 
   &__group {
     gap: var(--rds-spacing-sm);
@@ -10,7 +8,7 @@
   }
 
   &__label {
-    font-weight: var(--rds-font-weight-medium);
+    font-weight: var(--rds-font-weight-medium, 500);
     margin-bottom: var(--rds-spacing-sm);
     display: block;
   }
@@ -19,10 +17,10 @@
     color: var(--rds-text-primary, var(--rds-color-text-primary));
     display: flex;
     align-items: center;
-
+    
     .MuiFormControlLabel-label {
       font-size: var(--rds-font-size-body);
-      line-height: var(--rds-line-height-body);
+      line-height: var(--rds-line-height-body, 1.5);
       color: var(--rds-text-secondary);
     }
 
@@ -31,23 +29,21 @@
         display: none;
       }
     }
-
+    
     &--with-label {
       display: flex;
       align-items: center;
     }
 
-    &--hoverable {
+    .MuiRadio-root {
       &:hover {
-          .MuiRadio-root {
-          background-color: var(--rds-action-hover);
-        }
+        background-color: transparent;
       }
     }
 
     &.Mui-disabled {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
-
+      
       .MuiFormControlLabel-label {
         color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       }
@@ -58,11 +54,11 @@
     margin-top: var(--rds-spacing-xs);
     text-align: center;
     font-size: var(--rds-font-size-body);
-    line-height: var(--rds-line-height-body);
+    line-height: var(--rds-line-height-body, 1.5);
     color: var(--rds-text-primary, var(--rds-color-text-primary));
     user-select: none;
     cursor: pointer;
-
+    
     &--disabled {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       cursor: not-allowed;
@@ -83,25 +79,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
 
-    &:hover {
-        .MuiRadio-root {
-        background-color: var(--rds-action-hover);
+      &:hover {
+        background-color: transparent;
       }
     }
 
     &--disabled {
       cursor: not-allowed;
       opacity: 0.6;
-    }
-
-    &--hoverable {
-      &:hover {
-        .MuiRadio-root {
-          background-color: var(--rds-action-hover);
-        }
-      }
     }
   }
 
@@ -135,8 +121,7 @@
       cursor: pointer;
       display: block;
       width: 100%;
-
-      line-height: var(--rds-radio-line-height);
+      line-height: var(--rds-line-height-compact);
     }
   }
 
@@ -179,6 +164,19 @@
     color: var(--rds-primary-main);
   }
 
+  .MuiRadio-root:hover {
+    background-color: transparent;
+  }
+
+  .MuiRadio-root:active,
+  .MuiRadio-root.Mui-focusVisible {
+    background-color: transparent;
+  }
+
+  .MuiRadio-root .MuiTouchRipple-root {
+    display: none;
+  }
+
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
     color: var(--rds-text-disabled);
   }
@@ -188,17 +186,17 @@
 [data-theme="dark"] .rds-radio {
   .MuiFormControlLabel-label {
     font-size: var(--rds-font-size-body);
-    line-height: var(--rds-line-height-body);
+    line-height: var(--rds-line-height-body, 1.5);
     color: var(--rds-color-light);
   }
    .MuiFormLabel-root {
     color: var(--rds-color-light);
   }
-
+  
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
     color: var(--rds-primary-main);
-
+    
     svg {
       color: var(--rds-primary-main);
       fill: var(--rds-primary-main);

@@ -58,6 +58,7 @@ const meta: Meta<typeof RdsSlider> = {
     showValue: {
       control: 'boolean',
       description: 'Whether to show the current value above the slider',
+      if: { arg: 'disabled', truthy: false },
     },
     unit: {
       control: 'text',
@@ -77,6 +78,7 @@ const meta: Meta<typeof RdsSlider> = {
       control: { type: 'select' },
       options: [1, 2, 3, 4, 5],
       description: 'Slider level (1-5)',
+      if: { arg: 'disabled', truthy: false },
     },
   },
 };

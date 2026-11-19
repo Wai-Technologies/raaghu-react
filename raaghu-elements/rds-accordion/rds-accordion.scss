@@ -154,7 +154,6 @@
   --rds-accordion-details-margin-bottom: 20px;
   --rds-accordion-details-margin-left: 12px;
   --rds-accordion-details-min-height: 80px;
-  /* Component-local spacing vars (preserve existing layout but avoid raw px usage) */
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -174,7 +173,6 @@
   }
 
   &.rds-accordion--expanded {
-
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
       margin-top: 0;
       background-color: transparent;
@@ -257,7 +255,6 @@
 
  &__details {
     .rds-accordion__details-panel {
-
       border: var(--rds-accordion-border) solid var(--rds-border-default);
       background: var(--rds-color-surface);
       border-radius: var(--rds-border-radius-sm);
@@ -340,7 +337,6 @@
         .rds-accordion__summary::after {
           display: block;
           background: var(--rds-color-on-surface);
-          // height: 1px !important;
         }
 
         .rds-accordion__details-panel {

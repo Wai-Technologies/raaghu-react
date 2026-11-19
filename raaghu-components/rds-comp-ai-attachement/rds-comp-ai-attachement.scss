@@ -1,7 +1,6 @@
 .rds-comp-ai-attachement {
     display: block;
 
-    /* Component-scoped layout tokens (consumed from centralized design tokens) */
     --rds-ai-attachment-min-width: 273px;
     --rds-ai-attachment-fab-left-offset: -18px;
     --rds-ai-attachment-fab-bottom: 10px;
@@ -94,5 +93,4 @@
         font: inherit;
         padding: 0;
     }
-
 }

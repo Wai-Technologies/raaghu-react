@@ -1,13 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompLineChart from './rds-comp-chart-line';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-line.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {

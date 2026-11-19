@@ -114,11 +114,9 @@ export function applyRaaghuTheme(
 ): void {
   if (typeof document === 'undefined') return;
 
-  // Resolve 'system' → actual 'light' | 'dark' for DOM/token application
   const effectiveMode = resolveEffectiveMode(mode);
   const isDark = effectiveMode === 'dark';
 
-  // Apply effective mode to the DOM (components read this)
   document.documentElement.setAttribute('data-theme', effectiveMode);
   document.documentElement.classList.toggle('rds-theme--dark', isDark);
   document.documentElement.classList.toggle('theme-dark', isDark);
@@ -133,7 +131,6 @@ export function applyRaaghuTheme(
     ...(isDark ? RAAGHU_THEME_BODY_CLASSES.dark : RAAGHU_THEME_BODY_CLASSES.light),
   );
 
-  // Persist the user's intent ('system', 'light', or 'dark') — not the resolved value
   if (options?.persist !== false && typeof localStorage !== 'undefined') {
     localStorage.setItem(THEME_STORAGE_KEY, mode);
   }
@@ -163,7 +160,7 @@ export function initializeRaaghuTheme(): RaaghuThemeMode {
   const mode: RaaghuThemeMode =
     stored === 'dark' || stored === 'light' || stored === 'system'
       ? stored
-      : 'system'; // default: follow the OS when nothing is explicitly stored
+      : 'system';
 
   applyRaaghuTheme(mode);
   return mode;

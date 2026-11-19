@@ -4,10 +4,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsChip, { RdsChipProps } from './rds-chip';
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
-jest.mock('./rds-chip.scss', () => ({}));
-
-// Mock MUI icons
 jest.mock('@mui/icons-material/Close', () => {
   return function MockCloseIcon() {
     return <span data-testid="CloseIcon">CloseIcon</span>;
@@ -229,8 +225,6 @@ describe('RdsChip', () => {
       
       if (deleteButton) {
         fireEvent.click(deleteButton);
-        // onDelete may be called or may not depending on MUI implementation
-        // We just verify the button exists and is clickable
         expect(deleteButton).toBeInTheDocument();
       }
     });
@@ -247,7 +241,6 @@ describe('RdsChip', () => {
       const { container } = renderWithTheme(
         <RdsChip {...defaultProps} onDelete={onDelete} />
       );
-      // Verify delete functionality is available
       const chip = container.querySelector('.MuiChip-root');
       expect(chip).toBeInTheDocument();
     });
@@ -281,8 +274,6 @@ describe('RdsChip', () => {
     });
 
     it('should not render both avatar and icon together', () => {
-      // MUI Chip does not allow both avatar and icon at the same time
-      // This test verifies the component can be created with either one
       const { container: _container1 } = renderWithTheme(
         <RdsChip 
           {...defaultProps} 
@@ -324,7 +315,6 @@ describe('RdsChip', () => {
       );
       const chip = screen.getByRole('button');
       fireEvent.click(chip);
-      // Disabled chips may or may not call onClick depending on MUI version
       expect(chip).toBeInTheDocument();
     });
   });
@@ -359,7 +349,6 @@ describe('RdsChip', () => {
     it('should not call onClick when no callback provided', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
       const chip = container.querySelector('.MuiChip-root');
-      // Should not throw error
       if (chip) {
         fireEvent.click(chip);
       }
@@ -621,7 +610,6 @@ describe('RdsChip', () => {
         <RdsChip {...defaultProps} disabled={true} onClick={onClick} />
       );
       const chip = screen.getByRole('button');
-      // Disabled clickable chips still have button role
       expect(chip).toBeInTheDocument();
     });
 
@@ -769,7 +757,6 @@ describe('RdsChip', () => {
     it('should not have delete icon by default', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
       const _deleteIcon = container.querySelector('[role="button"]:last-child');
-      // May or may not have delete icon depending on onDelete prop
       expect(container.querySelector('.MuiChip-root')).toBeInTheDocument();
     });
 

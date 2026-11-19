@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from "./rds-comp-spinner"
 import figma from "@figma/code-connect"
 

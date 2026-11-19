@@ -47,7 +47,6 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
             beforeDraw(chart: Chart) {
                 const { ctx: c, chartArea: { top, width, height } } = chart;
 
-                // Read colors from CSS vars at draw time — responds to theme changes
                 const primaryColor = chartTextColor();
                 const mutedColor   = chartMutedColor();
 
@@ -69,7 +68,6 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
         
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
             chartOptions.data = chartData;

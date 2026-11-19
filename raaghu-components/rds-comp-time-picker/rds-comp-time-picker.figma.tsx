@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompTimePicker from "./rds-comp-time-picker"
 import figma from "@figma/code-connect"
 

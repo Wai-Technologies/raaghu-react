@@ -6,7 +6,6 @@ import RdsTooltip from './rds-tooltip';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tooltip.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -52,7 +51,6 @@ describe('RdsTooltip', () => {
           <button>Hover me</button>
         </RdsTooltip>
       );
-      // Tooltip popper is in portal, check for the wrapped element
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
     });
@@ -66,7 +64,6 @@ describe('RdsTooltip', () => {
       );
       const button = screen.getByRole('button');
       await user.hover(button);
-      // Tooltip popper is rendered in portal
       await waitFor(() => {
         const tooltip = document.querySelector('.rds-tooltip');
         expect(tooltip).toBeInTheDocument();
@@ -426,7 +423,6 @@ describe('RdsTooltip', () => {
           <button>Hover me</button>
         </RdsTooltip>
       );
-      // Verify component renders without crashing with multiple classes
       expect(screen.getByText('Hover me')).toBeInTheDocument();
     });
   });
@@ -966,9 +962,8 @@ describe('RdsTooltip — keyboard navigation', () => {
       </RdsTooltip>
     );
     const trigger = screen.getByRole('button', { name: 'Blur Me' });
-    // Focus to open, wait for open, then blur
     await act(async () => { trigger.focus(); });
-    await waitFor(() => {}, { timeout: 300 }); // let enter delay pass
+    await waitFor(() => {}, { timeout: 300 });
     await act(async () => { trigger.blur(); });
     await waitFor(() => expect(onClose).toHaveBeenCalled());
   });
@@ -982,8 +977,6 @@ describe('RdsTooltip — keyboard navigation', () => {
     expect(screen.getByRole('tooltip')).toBeInTheDocument();
   });
 });
-
-
 
 describe('RdsTooltip prop hygiene', () => {
   it('does not crash on a non-string style and does not leak wrapper', () => {

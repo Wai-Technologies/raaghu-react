@@ -1,13 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompGaugeChart from './rds-comp-chart-gauge';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-gauge.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -783,7 +780,6 @@ describe('RdsCompGaugeChart', () => {
         <RdsCompGaugeChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated
       expect((options.plugins.legend as any).labels).toBeUndefined();
     });
   });

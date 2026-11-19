@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsDialog  from "./rds-dialog"
 import figma from "@figma/code-connect"
 import { Typography } from "@mui/material"

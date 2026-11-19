@@ -84,9 +84,6 @@ const RdsInput = forwardRef<HTMLDivElement, RdsInputProps>(({
     }
   }
   
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

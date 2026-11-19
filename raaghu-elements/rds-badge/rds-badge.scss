@@ -181,7 +181,6 @@
     line-height: var(--rds-badge-line-height);
   }
   &--small .MuiBadge-badge {
-
     font-size: var(--rds-badge-font-size);
     min-width: var(--rds-size-md);
     height: var(--rds-size-md);
@@ -190,7 +189,6 @@
     line-height: var(--rds-line-height-none);
     display: grid;
     place-items: center;
-
   }
   &--small .MuiBadge-dot {
     width: var(--rds-spacing-cozy);

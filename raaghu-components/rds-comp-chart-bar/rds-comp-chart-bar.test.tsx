@@ -1,13 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBarChart from './rds-comp-chart-bar';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-bar.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
     constructor(ctx: any, config: any) {

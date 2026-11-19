@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsModal  from "./rds-modal"
 import figma from "@figma/code-connect"
 import RdsButton from "../rds-button/rds-button"

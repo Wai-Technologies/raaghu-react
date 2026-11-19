@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import RdsRange from './rds-range';
 
 const meta: Meta<typeof RdsRange> = {
@@ -15,13 +16,18 @@ const meta: Meta<typeof RdsRange> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    range: { table: { disable: true } },
+    showLabel: { table: { disable: true } },
+    leftLabel: { table: { disable: true } },
+    rightLabel: { table: { disable: true } },
+    'data-testid': { control: 'text' },
     label: {
       control: 'text',
     },
-    leftLabel: {
+    min: {
       control: 'number',
     },
-    rightLabel: {
+    max: {
       control: 'number',
     },
     step: {
@@ -41,7 +47,7 @@ const meta: Meta<typeof RdsRange> = {
     showValue: {
       control: 'boolean',
     },
-    showLabel: {
+    showMinMax: {
       control: 'boolean',
     },
     textLabel: {
@@ -65,12 +71,23 @@ const meta: Meta<typeof RdsRange> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const DefaultStory = (args) => {
+export const Default: Story = {
+  args: {
+    type: 'one-way',
+    level: '3',
+    min: 0,
+    max: 100,
+    showValue: false,
+    showMinMax: true,
+    textLabel: true,
+    showTooltip: true,
+  },
+  render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
     const [rangeValue, setRangeValue] = useState([20, 80]);    const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
           onChange={(value) => {
@@ -83,12 +100,12 @@ const DefaultStory = (args) => {
           label={args.label}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -97,23 +114,30 @@ const DefaultStory = (args) => {
         />
       </Box>
     );
-  };
+  },
+  play: async ({ canvas }) => {
+    const slider = await canvas.findByRole('slider');
+    await expect(slider).toBeInTheDocument();
+  },
+};
 
-export const Default: Story = {
+export const Colors: Story = {
   args: {
     type: 'one-way',
     level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: false,
-    showLabel: true,
-    textLabel: true,
-    showTooltip: true,
+    min: 0,
+    max: 100,
+    showValue: true,
+    showMinMax: false,
+    textLabel: false,
+    showTooltip: false,
   },
-  render: DefaultStory,
-};
-
-const ColorsStory = (args) => {
+  argTypes: {
+    color: { table: { disable: true } },
+    value: { control: false },
+    label: { table: { disable: true } },
+  },
+  render: (args) => {
     const [primarySingleValue, setPrimarySingleValue] = useState(40);
     const [secondarySingleValue, setSecondarySingleValue] = useState(60);
     const [primaryRangeValue, setPrimaryRangeValue] = useState<[number, number]>([20, 80]);
@@ -122,7 +146,7 @@ const ColorsStory = (args) => {
     const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ width: '100%', maxWidth: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? primarySingleValue : primaryRangeValue)}
           onChange={(value) => {
@@ -134,12 +158,12 @@ const ColorsStory = (args) => {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color="primary"
@@ -158,12 +182,12 @@ const ColorsStory = (args) => {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color="secondary"
@@ -173,31 +197,14 @@ const ColorsStory = (args) => {
         />
       </Box>
     );
-  };
-
-export const Colors: Story = {
-  args: {
-    type: 'one-way',
-    level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: true,
-    showLabel: false,
-    textLabel: false,
-    showTooltip: false,
   },
-  argTypes: {
-    color: { control: false },
-    value: { control: false },
-  },
-  render: ColorsStory,
 };
 
 export const Disabled: Story = {
   args: {
     value: 60,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     disabled: true,
     label: 'Disabled Slider',
     showValue: true,
@@ -205,7 +212,21 @@ export const Disabled: Story = {
   },
 };
 
-const InteractiveStory = (args) => {
+export const Interactive: Story = {
+  args: {
+    type: 'one-way',
+    level: '3',
+    min: 0,
+    max: 100,
+    showValue: true,
+    showMinMax: false,
+    textLabel: false,
+    showTooltip: false,
+  },
+  argTypes: {
+    label: { table: { disable: true } },
+  },
+  render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
     const [rangeValue, setRangeValue] = useState<[number, number]>([20, 80]);
     const [priceRange, setPriceRange] = useState<[number, number]>([100, 500]);
@@ -213,7 +234,7 @@ const InteractiveStory = (args) => {
     const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
           onChange={(value) => {
@@ -225,12 +246,12 @@ const InteractiveStory = (args) => {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -250,12 +271,12 @@ const InteractiveStory = (args) => {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -275,13 +296,13 @@ const InteractiveStory = (args) => {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel ?? 1000}
+          min={args.min}
+          max={args.max ?? 1000}
           step={args.step ?? 50}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           disabled={args.disabled}
           color={args.color}
           size={args.size}
@@ -290,28 +311,14 @@ const InteractiveStory = (args) => {
         />
       </Box>
     );
-  };
-
-export const Interactive: Story = {
-  args: {
-    type: 'one-way',
-    level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: true,
-    showLabel: false,
-    textLabel: false,
-    showTooltip: false,
-    
   },
-  render: InteractiveStory,
 };
 
 export const RangeSlider: Story = {
   args: {
     value: [20, 80],
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Price Range',
     showValue: true,
     textLabel: true,
@@ -321,8 +328,8 @@ export const RangeSlider: Story = {
 export const Steps: Story = {
   args: {
     value: 20,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     step: 10,
     marks: true,
     label: 'Progress (10% steps)',
@@ -334,8 +341,8 @@ export const Steps: Story = {
 export const WithCustomFormat: Story = {
   args: {
     value: 50,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Temperature',
     showValue: true,
     textLabel: true,
@@ -346,8 +353,8 @@ export const WithCustomFormat: Story = {
 export const WithValue: Story = {
   args: {
     value: 50,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Brightness',
     showValue: true,
     textLabel: true,

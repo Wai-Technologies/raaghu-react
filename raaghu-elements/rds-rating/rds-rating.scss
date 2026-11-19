@@ -3,7 +3,6 @@
   --rds-rating-focus-ring-width: 2px;
   --rds-rating-icon-size-small: 1.2rem;
   --rds-rating-icon-size-large: 2rem;
-  --rds-rating-empty-opacity: 0.6;
   --rds-rating-color-dark: var(--rds-text-primary);
   --rds-rating-color-light: var(--rds-border-default);
   align-items: center;
@@ -12,7 +11,7 @@
 
   &__label {
     font-size: var(--rds-font-size-body);
-    font-weight: var(--rds-font-weight-medium);
+    font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-on-surface);
     margin-right: var(--rds-spacing-xs);
   }
@@ -65,7 +64,8 @@
 
   &__star-icon {
     &--empty {
-      opacity: var(--rds-rating-empty-opacity);
+      --rds-rating-empty-opacity: 0.6;
+      opacity: var(--rds-rating-empty-opacity, 0.6);
       color: var(--rds-color-outline-variant);
     }
   }
@@ -165,7 +165,7 @@
   }
 
   &--disabled {
-    opacity: var(--rds-rating-disabled-opacity);
+    opacity: var(--rds-rating-disabled-opacity, 0.6);
     pointer-events: none;
 
     .MuiRating-icon,
@@ -192,7 +192,7 @@
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-rating-disabled-opacity);
+    opacity: var(--rds-rating-disabled-opacity, 0.6);
     pointer-events: none;
   }
 
@@ -290,14 +290,6 @@
   }
 }
 
-.rds-rating--color-info {
-  .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-info-main); } }
-  .rds-rating__slider {
-    color: var(--rds-info-main);
-    .MuiSlider-thumb { background-color: var(--rds-info-main); &:hover{ box-shadow: 0 0 0 var(--rds-spacing-sm) color-mix(in srgb, var(--rds-info-main) 16%, transparent); } }
-    .MuiSlider-track { background-color: var(--rds-info-main); }
-  }
-}
 
 .rds-rating--color-secondary {
   .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-secondary-main); } }

@@ -6,7 +6,6 @@ import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
 jest.mock('@mui/icons-material/Person', () => {
   return function MockPersonIcon() {
@@ -429,7 +428,6 @@ describe('RdsTabs', () => {
       );
       const tabs = container.querySelectorAll('[role="tab"]');
       tabs.forEach(tab => {
-        // Check that tab has disabled attribute or aria-disabled
         const isDisabled = tab.hasAttribute('disabled') || tab.getAttribute('aria-disabled') === 'true';
         expect(isDisabled).toBe(true);
       });
@@ -626,7 +624,6 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={disabledTabs} />
       );
       const tab = container.querySelector('[role="tab"]');
-      // Check that tab is actually disabled (either has disabled attribute or proper aria-disabled)
       const isDisabled = tab?.hasAttribute('disabled') || tab?.classList.contains('Mui-disabled');
       expect(isDisabled).toBe(true);
     });

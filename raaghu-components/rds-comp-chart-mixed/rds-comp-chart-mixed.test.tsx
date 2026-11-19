@@ -1,13 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompMixedChart from './rds-comp-chart-mixed';
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-mixed.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -769,7 +766,6 @@ describe('RdsCompMixedChart', () => {
         <RdsCompMixedChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated
       expect((options.scales as any).x.grid).toBeUndefined();
     });
   });

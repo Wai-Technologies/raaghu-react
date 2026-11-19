@@ -5,9 +5,6 @@ import RdsPaper from './rds-paper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
-jest.mock('./rds-paper.scss', () => ({}));
-
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
     palette: {
@@ -111,7 +108,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // MUI converts padding numbers to theme spacing units
       expect(paper).toBeInTheDocument();
     });
 
@@ -213,7 +209,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16} sx={{ margin: '10px' }}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // Verify both padding and margin are applied
       expect(paper).toBeInTheDocument();
     });
 
@@ -234,7 +229,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16} sx={{ padding: '32px' }}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // sx should take precedence
       expect(paper).toBeInTheDocument();
     });
   });
@@ -448,7 +442,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={0}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // When padding is 0, it should be applied
       expect(paper).toBeInTheDocument();
     });
 
@@ -475,7 +468,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding="10px 20px 30px 40px">Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // Verify component rendered with custom padding
       expect(paper).toBeInTheDocument();
     });
   });

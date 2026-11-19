@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsCard, { RdsCardProps } from './rds-card';
 import '@testing-library/jest-dom';

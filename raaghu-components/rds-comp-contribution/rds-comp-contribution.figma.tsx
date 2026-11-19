@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompContribution from "./rds-comp-contribution";
 import figma from "@figma/code-connect";
 

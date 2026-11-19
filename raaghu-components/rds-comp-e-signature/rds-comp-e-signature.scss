@@ -131,12 +131,10 @@
     }
 
     .rds-e-signature__file-row {
-
       max-width: var(--rds-e-signature-max-width-1);
     }
 
     .rds-e-signature__file-hint-row {
-
       max-width: var(--rds-e-signature-max-width-1);
     }
 
@@ -400,7 +398,6 @@
   }
 
   &__file-input-container {
-
     max-width: var(--rds-e-signature-max-width-3);
   }
 
@@ -745,7 +742,6 @@
   }
 
   &--selected {
-
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-700, var(--rds-primary-main));
@@ -755,7 +751,6 @@
   }
 
   &--active {
-
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-900);
@@ -765,7 +760,6 @@
   }
 
   &--disabled {
-
     .rds-e-signature__actions button,
     .rds-e-signature__color-button,
     .rds-e-signature__file-button {
@@ -792,9 +786,7 @@
       color: var(--rds-color-neutral-500);
     }
   }
-
 }
-/* Dark theme overrides: use surface-dark variables so panels aren't white in dark mode */
 [data-theme="dark"] .rds-e-signature__upload-panel,
 :root[data-theme="dark"] .rds-e-signature__upload-panel,
 [data-theme="dark"] .rds-e-signature__choose-panel,
@@ -819,7 +811,6 @@
   background-color: var(--rds-color-surface-hover-dark);
 }
 
-/* Dark-mode text color fixes: ensure neutral-500 usages remain visible on dark backgrounds */
 [data-theme="dark"] .rds-e-signature__file-text--placeholder,
 :root[data-theme="dark"] .rds-e-signature__file-text--placeholder,
 [data-theme="dark"] .rds-e-signature__disabled-text,
@@ -833,7 +824,6 @@
   color: var(--rds-text-secondary);
 }
 
-/* file-text container should use dark surface and readable text in dark mode */
 [data-theme="dark"] .rds-e-signature__file-text,
 :root[data-theme="dark"] .rds-e-signature__file-text {
   background-color: var(--rds-color-surface-dark);

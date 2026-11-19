@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRange from './rds-range';
 import { axe } from 'jest-axe';
 
-// Mock SCSS and tooltip imports
 jest.mock('./rds-range.scss', () => ({}));
 jest.mock('../rds-tooltip/rds-tooltip', () => {
   return ({ children, title }: any) => <div data-testid="rds-tooltip" title={title}>{children}</div>;
@@ -370,9 +369,7 @@ describe('RdsRange', () => {
         />
       );
       
-      // Tooltip is rendered and contains the formatted value
-      const tooltip = screen.getByTestId('rds-tooltip');
-      expect(tooltip).toBeInTheDocument();
+      expect(document.querySelector('.MuiSlider-valueLabelLabel')).toHaveTextContent('75%');
     });
   });
 
@@ -538,7 +535,6 @@ describe('RdsRange', () => {
         />
       );
       
-      // Marks should be rendered by MUI slider
       expect(screen.getByText('0%')).toBeInTheDocument();
     });
 
@@ -683,7 +679,6 @@ describe('RdsRange', () => {
       const slider = container.querySelector('input[type="range"]') as HTMLInputElement;
       slider.focus();
       
-      // Arrow keys should adjust the slider value
       expect(document.activeElement).toBe(slider);
     });
 
@@ -772,7 +767,6 @@ describe('RdsRange', () => {
         />
       );
 
-      // Value should not be displayed when showValue is false
       let valueText = container.querySelector('.rds-range__value');
       expect(valueText).not.toBeInTheDocument();
 
@@ -782,7 +776,6 @@ describe('RdsRange', () => {
         </ThemeProvider>
       );
 
-      // Value should be displayed when showValue is true
       valueText = container.querySelector('.rds-range__value');
       expect(valueText).toBeInTheDocument();
     });

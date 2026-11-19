@@ -6,7 +6,6 @@ import { RdsStepperStep } from './rds-stepper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-stepper.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -245,7 +244,6 @@ describe('RdsStepper', () => {
       renderWithTheme(
         <RdsStepper steps={steps} showContent={true} direction="vertical" />
       );
-      // In vertical stepper, content for active step (0) will be shown
       expect(screen.getByText('Content for step 1')).toBeInTheDocument();
     });
 
@@ -481,7 +479,6 @@ describe('RdsStepper', () => {
       renderWithTheme(
         <RdsStepper steps={steps} direction="vertical" showContent={true} currentStep={2} />
       );
-      // In vertical stepper, only active step content is shown in the collapsed state
       expect(screen.getByText('Active content')).toBeInTheDocument();
     });
 

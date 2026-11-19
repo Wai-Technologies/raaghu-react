@@ -1,10 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompRadarChart from './rds-comp-chart-radar';
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -25,7 +23,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-radar.scss', () => ({}));
 
 const defaultProps = {
@@ -747,7 +744,6 @@ describe('RdsCompRadarChart', () => {
         <RdsCompRadarChart {...defaultProps} options={options} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
-      // Original options should not be mutated other than expected properties
       expect(options).toBeDefined();
     });
 

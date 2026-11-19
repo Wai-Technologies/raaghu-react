@@ -5,7 +5,6 @@ import RdsCardDetail, { RdsCardDetailProps } from './rds-card-detail';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-card-detail.scss', () => ({}));
 
 describe('RdsCardDetail', () => {
@@ -748,7 +747,6 @@ describe('RdsCardDetail', () => {
           subtitle="Secondary"
         />
       );
-      // MUI CardHeader renders title text content
       expect(screen.getByText('Main Title')).toBeInTheDocument();
       expect(container.querySelector('.MuiCardHeader-title')).toBeInTheDocument();
     });

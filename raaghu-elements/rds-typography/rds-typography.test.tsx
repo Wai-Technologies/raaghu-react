@@ -5,7 +5,6 @@ import RdsTypography from './rds-typography';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-typography.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -235,8 +234,7 @@ describe('RdsTypography', () => {
       );
       const typography = container.querySelector('.rds-typography');
       expect(typography).toBeInTheDocument();
-      // Verify the color prop is accepted and passed through
-      expect(typography?.getAttribute('color')).toBe(null); // MUI handles color internally
+      expect(typography?.getAttribute('color')).toBe(null);
     });
 
     it('should apply secondary color', () => {
@@ -285,8 +283,7 @@ describe('RdsTypography', () => {
       );
       const typography = container.querySelector('.rds-typography');
       expect(typography).toBeInTheDocument();
-      // Verify the color prop is accepted and passed through
-      expect((typography as HTMLElement).dataset.testid).toBeUndefined(); // Element renders normally
+      expect((typography as HTMLElement).dataset.testid).toBeUndefined();
     });
 
     it('should apply textSecondary color', () => {
@@ -444,7 +441,6 @@ describe('RdsTypography', () => {
         <RdsTypography text="Test" variant="body1" />
       );
       const element = container.querySelector('.rds-typography');
-      // body1 typically renders as div in MuiTypography
       expect(element?.tagName.toLowerCase()).toBeDefined();
     });
 

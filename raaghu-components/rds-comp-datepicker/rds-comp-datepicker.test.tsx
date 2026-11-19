@@ -1,15 +1,12 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDatepicker from './rds-comp-datepicker';
 import { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker.types';
 
-// Mock SCSS module
 jest.mock('./rds-comp-datepicker.scss', () => ({}));
 
-// Mock react-datepicker
 jest.mock('react-datepicker', () => {
   return {
     __esModule: true,
@@ -48,7 +45,6 @@ jest.mock('react-datepicker', () => {
   };
 });
 
-// Mock the utils
 jest.mock('./rds-comp-datepicker-utils', () => ({
   CustomButtons: ({ onClickYesterday, onClickToday, onClickLastSeven, onClickLastFourteen }: any) => (
     <div data-testid="custom-buttons">
@@ -171,7 +167,6 @@ describe('RdsDatepicker', () => {
           state={DatePickerState.Default}
         />
       );
-      // Component should render successfully with state prop
       expect(container).toBeInTheDocument();
     });
 
@@ -192,7 +187,6 @@ describe('RdsDatepicker', () => {
           isDefaultDate={true}
         />
       );
-      // Component should initialize with today's date
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
@@ -216,7 +210,6 @@ describe('RdsDatepicker', () => {
           selectedDate={mockCallback}
         />
       );
-      // The callback would be called through the utility component handlers
       expect(mockCallback).toBeDefined();
     });
 
@@ -407,17 +400,14 @@ describe('RdsDatepicker', () => {
           state={DatePickerState.Default}
         />
       );
-      // Initial render should contain the component
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
       
-      // Rerender with type prop instead
       rerender(
         <RdsDatepicker
           {...defaultProps}
           type="range"
         />
       );
-      // Should still render type-view  
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
   });

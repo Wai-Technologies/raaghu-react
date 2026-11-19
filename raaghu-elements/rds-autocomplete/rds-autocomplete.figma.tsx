@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsAutocomplete  from "./rds-autocomplete"
 import figma from "@figma/code-connect"
 import PersonIcon from '@mui/icons-material/Person';

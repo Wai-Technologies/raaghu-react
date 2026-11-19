@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompGaugeChart from "./rds-comp-chart-gauge";
 import figma from "@figma/code-connect";
 

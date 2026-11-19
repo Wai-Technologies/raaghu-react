@@ -3,8 +3,13 @@
   position: relative;
   --rds-search-row-gap: var(--rds-spacing-sm);
   --rds-search-label-font-size: var(--rds-font-size-md);
-  --rds-search-label-font-weight: var(--rds-font-weight-medium);
+  --rds-search-label-font-weight: var(--rds-font-weight-medium, 500);
   --rds-search-input-min-width: var(--rds-input-min-width);
+  --rds-search-icon-button-padding: var(--rds-spacing-xs);
+  --rds-search-icon-button-size: calc(var(--rds-size-lg) + var(--rds-size-xs));
+  --rds-search-icon-size: var(--rds-icon-button-size-small);
+  --rds-search-field-min-height-small: calc(var(--rds-spacing-xl) + var(--rds-spacing-xs));
+  --rds-search-field-min-height-medium: calc(var(--rds-spacing-2xl) + var(--rds-spacing-xs));
   
   &--column {
     flex-direction: column;
@@ -27,9 +32,9 @@
   }
   
   &__label {
-    font-weight: var(--rds-search-label-font-weight, var(--rds-font-weight-medium));
+    font-weight: var(--rds-search-label-font-weight, var(--rds-font-weight-medium, 500));
     font-size: var(--rds-search-label-font-size, var(--rds-font-size-md));
-    color: var(--rds-color-text-secondary);
+    color: var(--rds-color-text-secondary, color-mix(in srgb, var(--rds-color-black) 60%, transparent));
     
     &--top {
       margin-bottom: calc(var(--rds-spacing-xs) / 2);
@@ -53,28 +58,48 @@
   &--small {
     gap: calc(var(--rds-spacing-xs) / 2);
 
-    .rds-search__clear-button {
-      padding: calc(var(--rds-spacing-xs) / 2);
-
-      .MuiSvgIcon-root {
-        font-size: var(--rds-search-clear-icon-size-sm);
+    .rds-search__input {
+      .MuiInputBase-root {
+        min-height: var(--rds-search-field-min-height-small);
+        font-size: var(--rds-font-size-sm);
       }
-    }
 
-    .rds-search__icon-button .MuiSvgIcon-root {
-      font-size: var(--rds-search-icon-size-sm);
+      .MuiInputBase-input {
+        padding-top: var(--rds-input-mui-padding-small-y);
+        padding-bottom: var(--rds-input-mui-padding-small-y);
+        padding-left: var(--rds-input-mui-padding-small-x);
+        padding-right: var(--rds-input-mui-padding-small-x);
+      }
+
+      .MuiOutlinedInput-input,
+      .MuiFilledInput-input {
+        padding-top: var(--rds-input-mui-padding-small-y);
+        padding-bottom: var(--rds-input-mui-padding-small-y);
+      }
     }
   }
   
   &--medium {
     gap: var(--rds-spacing-xs);
 
-    .rds-search__clear-button .MuiSvgIcon-root {
-      font-size: var(--rds-search-clear-icon-size-md);
-    }
+    .rds-search__input {
+      .MuiInputBase-root {
+        min-height: var(--rds-search-field-min-height-medium);
+        font-size: var(--rds-font-size-md);
+      }
 
-    .rds-search__icon-button .MuiSvgIcon-root {
-      font-size: var(--rds-search-icon-size-md);
+      .MuiInputBase-input {
+        padding-top: var(--rds-input-mui-padding-medium-y);
+        padding-bottom: var(--rds-input-mui-padding-medium-y);
+        padding-left: var(--rds-input-mui-padding-medium-x);
+        padding-right: var(--rds-input-mui-padding-medium-x);
+      }
+
+      .MuiOutlinedInput-input,
+      .MuiFilledInput-input {
+        padding-top: var(--rds-input-mui-padding-medium-y);
+        padding-bottom: var(--rds-input-mui-padding-medium-y);
+      }
     }
   }
   
@@ -113,8 +138,7 @@
 
   &__input {
     &.MuiTextField-root {
-      .MuiInput-root {
-        
+      .MuiInputBase-root {
         align-items: center;
         
         .MuiInputAdornment-root {
@@ -133,11 +157,16 @@
           
           
           .MuiIconButton-root {
-            padding: var(--rds-spacing-xs);
+            padding: var(--rds-search-icon-button-padding);
             margin: 0;
+            width: var(--rds-search-icon-button-size);
+            height: var(--rds-search-icon-button-size);
+
+            .MuiSvgIcon-root {
+              font-size: var(--rds-search-icon-size);
+            }
           }
         }
-        
         
         .MuiInput-input {
           padding: var(--rds-spacing-xs) 0 var(--rds-spacing-xs);
@@ -153,31 +182,6 @@
         }
       }
       
-    }
-  }
-
-  &__icon-button,
-  &__clear-button {
-    background-color: transparent;
-    box-shadow: none;
-
-    &:hover,
-    &:focus,
-    &:focus-visible,
-    &.Mui-focusVisible,
-    &:active {
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    .MuiSvgIcon-root {
-      color: var(--rds-text-secondary);
-    }
-  }
-
-  &__clear-button {
-    .MuiSvgIcon-root {
-      font-size: var(--rds-search-clear-icon-size);
     }
   }
 }

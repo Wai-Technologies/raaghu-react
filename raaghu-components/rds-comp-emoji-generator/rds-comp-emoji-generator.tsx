@@ -35,7 +35,6 @@ export interface RdsCompEmojiGeneratorProps {
     sx?: Record<string, unknown>;
 }
 
-
 const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
@@ -267,7 +266,6 @@ export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
 
 function normalizeEmojiForTwemoji(emoji: string): string {
-    // Remove variation selectors Twemoji filenames omit (U+FE0F, U+FE0E).
     return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
 }
 

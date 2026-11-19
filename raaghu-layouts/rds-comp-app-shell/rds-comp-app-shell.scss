@@ -49,8 +49,6 @@
   }
 }
 
-// Keep the app-shell tab label, hover state and bottom indicator on the same
-// primary token so the text colour and border stay consistent.
 .topnav-layout .rds-header__tabs-inline {
   .MuiTab-root {
     color: var(--rds-color-on-surface);
@@ -261,7 +259,6 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     position: relative;
 
     .rds-appshell-add-layout-text {
-
       font-size: var(--rds-app-shell-font-size-1);
       font-weight: var(--rds-font-weight-bold);
       color: var(--rds-text-secondary);
@@ -536,7 +533,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-
     margin-top: var(--rds-app-shell-margin-top-3);
 
     margin-left: var(--rds-app-shell-margin-left);
@@ -544,7 +540,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
   .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper,
   .css-1movy1a .MuiDrawer-paper {
-
     margin-top: var(--rds-app-shell-margin-top-3);
     margin-left: var(--rds-spacing-12-px);
   }
@@ -589,7 +584,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
-
     margin-top: var(--rds-app-shell-margin-top-3);
     margin-left: var(--rds-spacing-md);
   }
@@ -694,7 +688,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
 
-  // Top Nav story specific mobile fix
   .rds-story-topnav-content {
     padding-bottom: var(--rds-spacing-3xl);
     overflow: hidden;
@@ -1092,7 +1085,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -1192,7 +1184,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -1282,7 +1273,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: 100%;
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -1402,7 +1392,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-layer-1);
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-1);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -1452,7 +1441,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     padding-bottom: var(--rds-spacing-44);
 
     .rds-appshell-add-layout-center {
-
       margin-top: var(--rds-app-shell-margin-top-4);
       display: flex;
       align-items: center;
@@ -1609,7 +1597,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -1760,8 +1747,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
 
-    // Higher-specificity rule to override .rds-footer-navigation:not(:first-of-type) { display: none }
-    // from the @media (max-width: 900px) block which has specificity (0,3,0).
     .topnav-layout .MuiBottomNavigation-root,
     .topnav-layout .rds-footer-navigation {
       display: flex;
@@ -1851,7 +1836,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -2094,7 +2078,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         border-radius: var(--rds-border-radius-md);
 
         .rds-appshell-add-layout-text {
-
           font-size: var(--rds-app-shell-font-size-2);
           font-weight: var(--rds-font-weight-bold);
           color: var(--rds-text-secondary);
@@ -2341,7 +2324,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
 
       .rds-appshell-add-layout-text {
-
         font-size: var(--rds-app-shell-font-size-1);
         font-weight: var(--rds-font-weight-bold);
         color: var(--rds-text-secondary);

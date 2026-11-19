@@ -1,7 +1,5 @@
-import React from "react"
 import  RdsCheckbox  from "./rds-checkbox"
 import figma from "@figma/code-connect"
-import { style } from "wavesurfer.js/src/util"
 
 figma.connect(
   RdsCheckbox,

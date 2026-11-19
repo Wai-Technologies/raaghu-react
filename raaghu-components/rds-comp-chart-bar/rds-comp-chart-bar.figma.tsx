@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompBarChart from "./rds-comp-chart-bar"
 import figma from "@figma/code-connect"
 

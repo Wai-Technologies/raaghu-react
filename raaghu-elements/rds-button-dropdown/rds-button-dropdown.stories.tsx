@@ -1,7 +1,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsButtonDropdown from './rds-button-dropdown';
-import { ArrowDropDown, Circle } from '@mui/icons-material';
+import { ArrowDropDown } from '@mui/icons-material';
 
 const options = [
   { id: 1, label: 'Option 1', avatarSrc: '', checked: false },

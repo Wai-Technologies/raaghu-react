@@ -38,8 +38,6 @@ function domMatches(effective: 'light' | 'dark'): boolean {
 
 function syncThemeIfChanged(mode: RaaghuThemeMode): void {
   const effective = resolveEffectiveMode(mode);
-  // Also check the DOM: docs pages / head scripts may have overwritten
-  // data-theme, so a cached match alone is not enough.
   if (mode === currentMode && effective === lastEffectiveMode && domMatches(effective)) {
     return;
   }
@@ -47,7 +45,6 @@ function syncThemeIfChanged(mode: RaaghuThemeMode): void {
   currentMode = mode;
   lastEffectiveMode = effective;
   applyRaaghuTheme(mode, undefined, STORYBOOK_THEME_OPTIONS);
-  // Tell the early preview-head.html script not to overwrite this on DOMContentLoaded.
   (window as Window & { __rdsThemeSynced?: boolean }).__rdsThemeSynced = true;
 }
 
@@ -82,13 +79,10 @@ export function setupStorybookThemeSync(): void {
     }
   });
 
-  // Iframe previews can miss OS theme events, and docs pages can overwrite
-  // data-theme; poll so the DOM always matches the selected theme.
   window.setInterval(() => {
     syncThemeIfChanged(currentMode);
   }, 500);
 
-  // Re-check during the first seconds after load when matchMedia can be stale.
   [50, 150, 300, 600, 1200].forEach((delay) => {
     window.setTimeout(() => syncThemeIfChanged(currentMode), delay);
   });

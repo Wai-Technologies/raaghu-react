@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsAvatar, { RdsAvatarProps } from './rds-avatar';
 import '@testing-library/jest-dom';

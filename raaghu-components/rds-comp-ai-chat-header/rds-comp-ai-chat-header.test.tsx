@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatHeader, { RdsCompAiChatHeaderProps, ChatHeaderSize } from './rds-comp-ai-chat-header';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-chat-header.scss', () => ({}));
 
-// Default props for testing
 const defaultProps: RdsCompAiChatHeaderProps = {
   logoUrl: 'https://example.com/logo.jpg',
   title: 'Chat Header',
@@ -435,7 +432,6 @@ describe('RdsCompAiChatHeader', () => {
           logoUrl=""
         />
       );
-      // Empty string is falsy, so logo should not render
       expect(screen.queryByAltText('Logo')).not.toBeInTheDocument();
     });
 
@@ -497,14 +493,12 @@ describe('RdsCompAiChatHeader', () => {
         />
       );
       const headerDiv = container.querySelector('.rds-comp-ai-chat-header');
-      // Should have only 1 child (h3) since logoUrl is not provided
       expect(headerDiv?.children.length).toBe(1);
     });
 
     it('renders both logo and text when logoUrl is provided', () => {
       const { container } = render(<RdsCompAiChatHeader {...defaultProps} />);
       const headerDiv = container.querySelector('.rds-comp-ai-chat-header');
-      // Should have 2 children (img and h3)
       expect(headerDiv?.children.length).toBe(2);
     });
   });

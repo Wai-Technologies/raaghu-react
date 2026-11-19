@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCounter  from "./rds-counter"
 import figma from "@figma/code-connect"
 

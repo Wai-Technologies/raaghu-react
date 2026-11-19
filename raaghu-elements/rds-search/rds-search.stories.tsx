@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box, useMediaQuery } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import RdsSearch from './rds-search';
 
-// Shared styles for search results box - uses theme palette instead of hardcoded colors
 const searchResultsBoxSx = {
   p: 1,
   backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
@@ -19,6 +18,9 @@ const meta: Meta<typeof RdsSearch> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    autoSearch: { table: { disable: true } },
+    searchDelay: { table: { disable: true } },
+    'data-testid': { control: 'text' },
     label: {
       control: 'text',
       description: 'Label above the search input',
@@ -34,7 +36,7 @@ const meta: Meta<typeof RdsSearch> = {
     },
     iconPosition: {
       control: 'select',
-      options: ['left', 'right'],
+      options: ['start', 'end'],
       description: 'Position of the search icon relative to the input',
     },
     variant: {
@@ -57,34 +59,70 @@ const meta: Meta<typeof RdsSearch> = {
     showSearchIcon: {
       control: 'boolean',
     },
-    autoSearch: {
-      control: 'boolean',
-    },
-    searchDelay: {
+    debounce: {
       control: 'number',
+      description: 'Calls onSearch automatically while typing, debounced by this many ms',
     },
-    value: { control: { disable: true }, table: { disable: true } },
-    onChange: { control: { disable: true }, table: { disable: true } },
-    onSearch: { control: { disable: true }, table: { disable: true } },
-    onClear: { control: { disable: true }, table: { disable: true } },
-    ref: { control: { disable: true }, table: { disable: true } },
-    component: { control: { disable: true }, table: { disable: true } },
-    slots: { control: { disable: true }, table: { disable: true } },
-    slotProps: { control: { disable: true }, table: { disable: true } },
-    InputProps: { control: { disable: true }, table: { disable: true } },
-    inputProps: { control: { disable: true }, table: { disable: true } },
+    ['component' as string]: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    InputProps: {
+      control: { disable: true },
+    },
+    inputProps: {
+      control: { disable: true },
+    },
+    InputLabelProps: {
+      control: { disable: true },
+    },
+    FormHelperTextProps: {
+      control: { disable: true },
+    },
+    onChange: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onSearch: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onClear: {
+      control: { disable: true },
+      table: { disable: true },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const DefaultStory = (args) => {
+export const Default: Story = {
+  args: {
+    placeholder: 'Search...',
+    label: 'Search',
+    labelPosition: 'top',
+    iconPosition: 'start',
+    fullWidth: false,
+  },
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
     const handleSearch = (value: string) => {
-      if (args.autoSearch) {
+      if (args.debounce !== undefined) {
         const mockResults = value 
           ? [`Result for "${value}"`]
           : [];
@@ -112,11 +150,11 @@ const DefaultStory = (args) => {
             />
           );
         })()}
-        {args.autoSearch && searchResults.length > 0 && (
+        {args.debounce !== undefined && searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -125,20 +163,14 @@ const DefaultStory = (args) => {
         )}
       </Box>
     );
-  };
-
-export const Default: Story = {
-  args: {
-    placeholder: 'Search...',
-    label: 'Search',
-    labelPosition: 'top',
-    iconPosition: 'left',
-    fullWidth: false,
   },
-  render: DefaultStory,
 };
 
-const AutoSearchStory = (args) => {
+export const AutoSearch: Story = {
+  args: {
+    debounce: 300,
+  },
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
     const isSmallScreen = useMediaQuery('(max-width:414px)');
@@ -168,8 +200,8 @@ const AutoSearchStory = (args) => {
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -178,17 +210,17 @@ const AutoSearchStory = (args) => {
         </Box>
       </Box>
     );
-  };
-
-export const AutoSearch: Story = {
-  args: {
-    autoSearch: true,
-    searchDelay: 300,
   },
-  render: AutoSearchStory,
 };
 
-const FullWidthStory = (args) => {
+export const FullWidth: Story = {
+  parameters: {
+    controls: { exclude: ['fullWidth'] },
+  },
+  args: {
+    fullWidth: true,
+  },
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
@@ -214,8 +246,8 @@ const FullWidthStory = (args) => {
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -224,19 +256,14 @@ const FullWidthStory = (args) => {
         )}
       </Box>
     );
-  };
-
-export const FullWidth: Story = {
-  parameters: {
-    controls: { exclude: ['fullWidth'] },
   },
-  args: {
-    fullWidth: true,
-  },
-  render: FullWidthStory,
 };
 
-const SizesStory = (args) => {
+export const Sizes: Story = {
+  parameters: {
+    controls: { exclude: ['size'] },
+  },
+  render: (args) => {
     const [small, setSmall] = useState('');
     const [medium, setMedium] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
@@ -274,8 +301,8 @@ const SizesStory = (args) => {
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -284,13 +311,14 @@ const SizesStory = (args) => {
         )}
       </Box>
     );
-  };
-
-export const Sizes: Story = {
-  render: SizesStory,
+  },
 };
 
-const VariantsStory = (args) => {
+export const Variants: Story = {
+  parameters: {
+    controls: { exclude: ['variant'] },
+  },
+  render: (args) => {
     const [outlined, setOutlined] = useState('');
     const [filled, setFilled] = useState('');
     const [standard, setStandard] = useState('');
@@ -337,8 +365,8 @@ const VariantsStory = (args) => {
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -347,13 +375,11 @@ const VariantsStory = (args) => {
         )}
       </Box>
     );
-  };
-
-export const Variants: Story = {
-  render: VariantsStory,
+  },
 };
 
-const WithoutIconsStory = (args) => {
+export const WithoutIcons: Story = {
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
@@ -381,8 +407,8 @@ const WithoutIconsStory = (args) => {
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -391,24 +417,8 @@ const WithoutIconsStory = (args) => {
         )}
       </Box>
     );
-  };
-
-export const WithoutIcons: Story = {
-  render: WithoutIconsStory,
+  },
   parameters: {
     controls: { exclude: ['iconPosition', 'showSearchIcon'] },
   },
 };
-
-const TypeSearchStory = (args) => {
-    const [searchValue, setSearchValue] = React.useState('');
-    return (
-      <RdsSearch
-        {...args}
-        value={searchValue}
-        onChange={setSearchValue}
-      />
-    );
-  };
-
-

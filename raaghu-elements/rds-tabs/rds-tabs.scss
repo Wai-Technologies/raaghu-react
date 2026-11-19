@@ -20,9 +20,9 @@
   border-bottom: var(--rds-spacing-micro) solid transparent;
   &.Mui-selected {
     border-bottom: var(--rds-spacing-micro) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent); // Use accent token
+    color: var(--rds-color-accent);
     border-radius: unset;
-    background-color: var(--rds-color-accent-bg); // Use accent bg token
+    background-color: var(--rds-color-accent-bg);
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
@@ -171,6 +171,11 @@
   border-right: var(--rds-tabs-flap-arrow-size) solid transparent;
   border-top: var(--rds-tabs-flap-arrow-size) solid var(--rds-color-accent);
   z-index: calc(var(--rds-z-index-base) + 1);
+}
+
+.rds-tabs .MuiTab-root:not(.Mui-selected):not(.Mui-disabled):hover {
+  background-color: var(--rds-color-hover-bg);
+  color: var(--rds-color-on-surface);
 }
 
 .rds-tabs.rds-tabs--filled .MuiTab-root.Mui-selected:not(.Mui-disabled),
@@ -428,7 +433,6 @@
     color: var(--rds-neutral-0);
   }
 
-  /* Selected tab text for all line-* layouts */
   .rds-tabs--line-bottom .MuiTab-root.Mui-selected,
   .rds-tabs--line-top .MuiTab-root.Mui-selected,
   .rds-tabs--line-left .MuiTab-root.Mui-selected,
@@ -436,7 +440,6 @@
     color: var(--rds-color-primary, var(--rds-primary-main));
   }
 
-  /* Solid line variants */
   .rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
@@ -445,19 +448,16 @@
     background-color: var(--rds-color-primary, var(--rds-primary-main));
   }
 
-  /* Filled / Flap / Pill */
   .rds-tabs--filled .MuiTab-root.Mui-selected,
   .rds-tabs--flap .MuiTab-root.Mui-selected,
   .rds-tabs--pill .MuiTab-root.Mui-selected {
     color: var(--rds-color-on-primary, var(--rds-neutral-0));
   }
 
-  /* Tab icons */
   .rds-tabs .rds-tabs__icon svg {
     fill: currentColor;
   }
 
-  /* Disabled state — all tabs muted; selected tab gets visible disabled surface */
   .rds-tabs.rds-state--disabled .MuiTab-root {
     color: var(--rds-color-disabled-text-dark);
     pointer-events: none;

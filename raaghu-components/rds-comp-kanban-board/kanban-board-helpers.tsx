@@ -75,11 +75,6 @@ export const colorClass = (colortype: string) => {
   return defaultClass;
 };
 
-const priorityList = [
-  { label: "High", val: "High" },
-  { label: "Moderate", val: "Moderate" },
-  { label: "Low", val: "Low" },
-];
 
 export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [boardName, setBoardName] = useState("");

@@ -3,10 +3,8 @@ import '@testing-library/jest-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import RdsCompDatePicker from './rds-comp-date-and-time-picker';
 
-// Mock SCSS module
 jest.mock('./rds-comp-date-and-time-picker.scss', () => ({}));
 
-// Mock RdsButton to avoid emotion/MUI styled-engine initialization issues
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   const React = jest.requireActual('react');
   const MockButton = React.forwardRef((props: any, ref: any) => (
@@ -24,7 +22,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return MockButton;
 });
 
-// Mock MUI DatePicker components
 jest.mock('@mui/x-date-pickers/DatePicker', () => {
   return {
     DatePicker: ({ value, onChange, slotProps, ...props }: any) => {
@@ -55,7 +52,6 @@ jest.mock('@mui/x-date-pickers/DatePicker', () => {
   };
 });
 
-// Mock MUI TimePicker components
 jest.mock('@mui/x-date-pickers/TimePicker', () => {
   return {
     TimePicker: ({ value, onChange, slotProps, ...props }: any) => {
@@ -86,7 +82,6 @@ jest.mock('@mui/x-date-pickers/TimePicker', () => {
   };
 });
 
-// Mock MUI DateTimePicker
 jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
   return {
     DateTimePicker: ({ value, onChange, slotProps, ...props }: any) => {
@@ -117,7 +112,6 @@ jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
   };
 });
 
-// Mock MUI DateCalendar
 jest.mock('@mui/x-date-pickers/DateCalendar', () => ({
   DateCalendar: ({ value, onChange, _slots, ..._props }: any) => (
     <div data-testid="date-calendar" data-value={value?.format('YYYY-MM-DD')}>
@@ -131,7 +125,6 @@ jest.mock('@mui/x-date-pickers/DateCalendar', () => ({
   ),
 }));
 
-// Mock MUI PickersDay
 jest.mock('@mui/x-date-pickers/PickersDay', () => ({
   PickersDay: ({ day, onClick, ...props }: any) => (
     <button
@@ -144,7 +137,6 @@ jest.mock('@mui/x-date-pickers/PickersDay', () => ({
   ),
 }));
 
-// Mock MUI TimeClock
 jest.mock('@mui/x-date-pickers/TimeClock', () => ({
   TimeClock: ({ value, onChange }: any) => (
     <div data-testid="time-clock">
@@ -171,7 +163,6 @@ jest.mock('@mui/x-date-pickers/MultiSectionDigitalClock', () => ({
   ),
 }));
 
-// Mock MUI components
 jest.mock('@mui/material/Popover', () => ({
   __esModule: true,
   default: ({ open, onClose, children }: any) => 
@@ -409,7 +400,6 @@ describe('RdsCompDatePicker', () => {
       render(<RdsCompDatePicker variant="daterange" onChange={handleChange} />);
       const input = screen.getByTestId('text-field-input');
       fireEvent.click(input);
-      // Range change would be triggered by calendar interaction
       expect(screen.getByTestId('popover')).toBeInTheDocument();
     });
 
@@ -629,10 +619,7 @@ describe('RdsCompDatePicker', () => {
       expect(input.value).toBe('01/01/2024');
 
       rerender(<RdsCompDatePicker value={dayjs('2024-12-31')} />);
-      // Re-query after rerender
       input = screen.getByTestId('text-field-input') as HTMLInputElement;
-      // Note: The value might not update in the mock due to how React handles controlled inputs
-      // This test validates the component renders, not necessarily the value update
       expect(input).toBeInTheDocument();
     });
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsPagination from './rds-pagination';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const meta: Meta<typeof RdsPagination> = {
   title: 'Elements/Pagination',
@@ -287,18 +287,5 @@ export const WithFirstLast: Story = {
 
 
 
-const NavigatePageStory = (args) => {
-    const [page, setPage] = useState(1);
-    return (
-      <RdsPagination
-        {...args}
-        page={page}
-        pageSize={10}
-        onChange={(_: React.ChangeEvent<unknown>, value: number) => setPage(value)}
-        onPageChange={setPage}
-        pageSizeOptions={[10, 25, 50]}
-      />
-    );
-  };
 
 

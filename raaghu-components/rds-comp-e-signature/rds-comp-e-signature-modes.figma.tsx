@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCompESignature from "./rds-comp-e-signature"
 import figma from "@figma/code-connect"
 

@@ -610,7 +610,6 @@
     align-items: center;
     vertical-align: middle;
 
-    // Suppress MUI focus ring on the rds-input wrapper in chat context
     .MuiOutlinedInput-notchedOutline {
       border: none;
       outline: none;
@@ -650,7 +649,6 @@
         box-shadow: none;
       }
 
-      // Suppress focus outline/border on the notchedOutline in all states
       &:hover .MuiOutlinedInput-notchedOutline,
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
         border: none;
@@ -743,7 +741,6 @@
 
   @include bp.down(mobile-sm) {
     &__send-icon {
-
       width: var(--rds-chat-width-2);
 
       height: var(--rds-chat-height-5);
@@ -819,7 +816,6 @@
     }
 
     .rds-button--state-default {
-
       min-width: var(--rds-chat-min-width-1);
     }
   }
@@ -1040,7 +1036,6 @@
 
       &--current-user {
         .rds-comp-chat__comment-content {
-
           max-width: var(--rds-chat-max-width-2);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
@@ -1050,7 +1045,6 @@
 
       &--other-user {
         .rds-comp-chat__comment-content {
-
           max-width: var(--rds-chat-max-width-2);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
@@ -1098,7 +1092,6 @@
     }
 
     &__footer-left {
-
       .rds-comp-chat__emoji-btn {
         width: var(--rds-spacing-36-px);
         height: var(--rds-spacing-36-px);
@@ -1151,7 +1144,6 @@
 
 @include bp.down(tablet-sm) {
   .EmojiPickerReact {
-
     height: var(--rds-chat-height-7);
 
     width: min(var(--rds-chat-width-3), 90vw);
@@ -1322,7 +1314,6 @@
     height: var(--rds-chat-height);
 
     &__screen {
-
       width: var(--rds-chat-width-4);
 
       min-width: var(--rds-chat-min-width-2);

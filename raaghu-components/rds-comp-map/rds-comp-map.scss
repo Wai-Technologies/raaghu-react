@@ -9,7 +9,6 @@
   --rds-map-width-2: 400px;
   --rds-map-max-width-3: 400px;
   --rds-map-min-width-2: 380px;
-  /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
   background-color: var(--rds-bg, transparent);
   border: none;
   box-shadow: none;
@@ -128,7 +127,6 @@
     }
 
     svg, &__heatmap-image {
-
       width: var(--rds-map-width-1);
 
       max-width: var(--rds-map-max-width-2);
@@ -143,7 +141,6 @@
     }
 
     & > div {
-
       width: var(--rds-map-width-1);
 
       max-width: var(--rds-map-max-width-2);
@@ -179,7 +176,6 @@
     }
 
     svg, &__heatmap-image {
-
       width: var(--rds-map-width-2);
 
       max-width: var(--rds-map-max-width-3);
@@ -194,7 +190,6 @@
     }
 
     & > div {
-
       width: var(--rds-map-width-2);
 
       max-width: var(--rds-map-max-width-3);
@@ -205,7 +200,6 @@
   }
 
   &--heatmap {
-    /* Heatmap colors are applied to country fills only; keep container on theme background */
     background-color: var(--rds-bg, transparent);
     background-image: none;
 
@@ -220,7 +214,6 @@
   }
 }
 
-/* Dark-theme background fixes for react-svg-worldmap figure wrapper */
 [data-theme="dark"],
 html.theme-dark,
 body.theme-dark,

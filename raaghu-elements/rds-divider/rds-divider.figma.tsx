@@ -1,7 +1,5 @@
-import React from "react"
 import  RdsDivider  from "./rds-divider"
 import figma from "@figma/code-connect"
-import { text } from "stream/consumers"
 
 figma.connect(
   RdsDivider,

@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiGradientTextWithIcon, { RdsCompAiGradientTextProps } from './rds-comp-ai-gradient-text-with-icon';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-gradient-text-with-icon.scss', () => ({}));
 
-// Default props for testing
 const defaultProps: RdsCompAiGradientTextProps = {
   logoUrl: 'https://example.com/logo.jpg',
   title: 'Gradient Text',
@@ -423,7 +420,6 @@ describe('RdsCompAiGradientTextWithIcon', () => {
 
     it('renders with only showImage provided', () => {
       render(<RdsCompAiGradientTextWithIcon showImage={true} />);
-      // showImage=true renders the image even without logoUrl
       expect(screen.getByRole('img')).toBeInTheDocument();
     });
 
@@ -587,7 +583,6 @@ describe('RdsCompAiGradientTextWithIcon', () => {
       );
       const image = screen.getByRole('img');
       expect(image).toBeInTheDocument();
-      // React may strip empty string src attribute; image element still renders
     });
 
     it('handles null logo prop', () => {

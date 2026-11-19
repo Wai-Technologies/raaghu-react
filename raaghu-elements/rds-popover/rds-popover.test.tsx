@@ -6,7 +6,6 @@ import RdsPopover from './rds-popover';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-popover.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -104,7 +103,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // When popover is open, content is visible
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -119,8 +117,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // MUI Popover handles Escape key internally
-      // Just verify that popover is open when rendering
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -147,8 +143,6 @@ describe('RdsPopover', () => {
           </RdsPopover>
         </ThemeProvider>
       );
-      // MUI Popover renders DOM but component handles visibility
-      // Just verify no errors occur during rerender
       expect(true).toBe(true);
     });
   });
@@ -178,7 +172,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // Only content should be provided when title is not provided
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -749,8 +742,6 @@ describe('RdsPopover', () => {
       document.body.removeChild(anchor1);
       document.body.removeChild(anchor2);
     });
-
-
 
     it('should maintain state across re-renders', async () => {
       const onClose = jest.fn();

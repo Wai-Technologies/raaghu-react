@@ -1,4 +1,3 @@
-import React from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {

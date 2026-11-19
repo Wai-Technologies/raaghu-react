@@ -36,7 +36,6 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
         
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
             chartOptions.data = chartData;
@@ -49,8 +48,6 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
             data: chartData,
             options: chartOptions,
         });
-
-        // Canvas sizing is controlled by CSS variables (theme tokens)
 
         return () => { mixedCanvas.destroy(); };
     }, [props, themeMode]);

@@ -1,4 +1,3 @@
-import React from "react"
 import  RdsCompEmptyState  from "./rds-comp-empty-state"
 import figma from "@figma/code-connect"
 

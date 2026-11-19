@@ -41,9 +41,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
         chartInstanceRef.current?.destroy();
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-        // Polar area uses 'r' axis — pass empty array; applyChartThemeColors handles plugins
         
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
             chartOptions.data = chartData;

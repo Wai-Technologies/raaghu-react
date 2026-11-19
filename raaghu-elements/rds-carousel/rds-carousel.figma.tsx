@@ -1,4 +1,3 @@
-import React from "react"
 import RdsCarousel from "./rds-carousel"
 import figma from "@figma/code-connect"
 import { Box } from "@mui/material";

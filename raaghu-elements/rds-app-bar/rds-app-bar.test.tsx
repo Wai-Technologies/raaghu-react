@@ -1,6 +1,5 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
+import RdsAppBar, { RdsAppBarProps } from './rds-app-bar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -457,7 +456,7 @@ describe('RdsAppBar', () => {
       render(
         <RdsAppBar
           {...defaultProps}
-          tabs={['Home', 'About', 'Contact']}
+          tabs={tabsWithObjects}
           tabValue={0}
           onTabChange={jest.fn()}
         />
