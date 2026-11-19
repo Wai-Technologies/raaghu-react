@@ -7,9 +7,6 @@ const meta: Meta = {
     parameters: {
             status: { type: 'stable' },
         layout: 'padded',
-    controls: {
-    exclude: ['onEmojiSelect'],
-    },
         docs: {
             description: {
                 component: 'A comprehensive emoji generator component with category tabs, search functionality, skin tone selector, and emoji grid. Perfect for chat applications, forms, and any interface requiring emoji selection.'
@@ -67,7 +64,7 @@ export const Default: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'The default emoji generator with clean interface including search functionality, category tabs, emoji grid, and footer text. This matches the main design shown in your image with a clean, simple layout.',
+                story: 'The default emoji generator with clean interface including search functionality, category tabs, emoji grid, and footer text. The footer mood input filters emojis across all categories.',
             },
         },
     },

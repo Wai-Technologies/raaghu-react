@@ -28,6 +28,9 @@ jest.mock('@mui/material', () => ({
       />
     );
   },
+  InputBase: ({ value, onChange, placeholder, className, slotProps }: any) => (
+    <input type="text" className={className} value={value || ''} onChange={onChange} placeholder={placeholder} {...(slotProps?.input || {})} />
+  ),
   InputAdornment: ({ children }: any) => <div data-testid="input-adornment">{children}</div>,
   Chip: ({ icon, label, onClick, variant, color, className, ...props }: any) => (
     <button
@@ -386,7 +389,28 @@ describe('RdsEmojiGenerator', () => {
           {...{ 'Show Footer': true }}
         />
       );
-      expect(screen.getByText("What's your mood?")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText("What's your mood?")).toBeInTheDocument();
+    });
+
+    it('should filter emojis across all categories when typing a mood and restore on clear', () => {
+      const onMoodChange = jest.fn();
+      render(
+        <RdsEmojiGenerator
+          Type={EmojiGeneratorType.Default}
+          Category={EmojiCategory.FoodAndDrink}
+          onMoodChange={onMoodChange}
+        />
+      );
+      const input = screen.getByPlaceholderText("What's your mood?");
+      expect(screen.getByText('🍕')).toBeInTheDocument();
+      fireEvent.change(input, { target: { value: 'dog' } });
+      expect(onMoodChange).toHaveBeenCalledWith('dog');
+      expect(screen.getByText('Search Results')).toBeInTheDocument();
+      expect(screen.getByText('🐶')).toBeInTheDocument();
+      expect(screen.queryByText('🍕')).not.toBeInTheDocument();
+      fireEvent.change(input, { target: { value: '' } });
+      expect(screen.getByText('🍕')).toBeInTheDocument();
+      expect(screen.queryByText('Search Results')).not.toBeInTheDocument();
     });
 
     it('should display footer emoji', () => {

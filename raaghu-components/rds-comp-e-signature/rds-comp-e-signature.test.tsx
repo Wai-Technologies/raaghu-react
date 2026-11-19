@@ -682,6 +682,85 @@ describe('RdsCompESignature', () => {
     });
   });
 
+  describe('Drawing behaviour', () => {
+    let ctx: Record<string, jest.Mock>;
+    const strokeAt = (canvas: HTMLElement, x: number, y: number) => {
+      fireEvent.pointerDown(canvas, { clientX: x, clientY: y, pointerId: 1 });
+      fireEvent.pointerMove(canvas, { clientX: x + 10, clientY: y + 10, pointerId: 1 });
+      fireEvent.pointerUp(canvas, { clientX: x + 10, clientY: y + 10, pointerId: 1 });
+    };
+
+    beforeEach(() => {
+      ctx = {
+        scale: jest.fn(),
+        beginPath: jest.fn(),
+        moveTo: jest.fn(),
+        lineTo: jest.fn(),
+        stroke: jest.fn(),
+        clearRect: jest.fn(),
+      };
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: jest.fn(() => ctx),
+      });
+    });
+
+    it('does not call onSignatureChange when the pointer leaves without drawing', () => {
+      const onSignatureChange = jest.fn();
+      const { container } = render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      fireEvent.pointerLeave(container.querySelector('canvas') as HTMLElement);
+      expect(onSignatureChange).not.toHaveBeenCalled();
+    });
+
+    it('reports the signature after a pointer stroke', () => {
+      const onSignatureChange = jest.fn();
+      const { container } = render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      strokeAt(container.querySelector('canvas') as HTMLElement, 10, 10);
+      expect(onSignatureChange).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+    });
+
+    it('undo removes only the last stroke and redraws', () => {
+      const onSignatureChange = jest.fn();
+      const { container } = render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      const canvas = container.querySelector('canvas') as HTMLElement;
+      strokeAt(canvas, 10, 10);
+      strokeAt(canvas, 50, 50);
+      onSignatureChange.mockClear();
+      ctx.moveTo.mockClear();
+      fireEvent.click(screen.getByLabelText('undo'));
+      expect(ctx.moveTo).toHaveBeenCalledTimes(1);
+      expect(onSignatureChange).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+      fireEvent.click(screen.getByLabelText('undo'));
+      expect(onSignatureChange).toHaveBeenLastCalledWith(null);
+    });
+
+    it('save calls onSave with the data URL and keeps the drawing', () => {
+      const onSave = jest.fn();
+      const { container } = render(<RdsCompESignature onSave={onSave} />);
+      strokeAt(container.querySelector('canvas') as HTMLElement, 10, 10);
+      ctx.clearRect.mockClear();
+      fireEvent.click(screen.getByLabelText('save'));
+      expect(onSave).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+      expect(ctx.clearRect).not.toHaveBeenCalled();
+    });
+
+    it('keeps strokes when the pen colour changes', () => {
+      const { container } = render(<RdsCompESignature />);
+      strokeAt(container.querySelector('canvas') as HTMLElement, 10, 10);
+      ctx.scale.mockClear();
+      fireEvent.click(container.querySelectorAll('.rds-e-signature__color-button')[1]);
+      expect(ctx.scale).not.toHaveBeenCalled();
+      expect(container.querySelector('.rds-e-signature__canvas-header')).not.toBeInTheDocument();
+    });
+
+    it('follows later penColor prop changes', () => {
+      const { container, rerender } = render(<RdsCompESignature penColor="#000000" />);
+      const blue = container.querySelectorAll('.rds-e-signature__color-button')[1].getAttribute('data-color') as string;
+      rerender(<RdsCompESignature penColor={blue} />);
+      expect(container.querySelector('.rds-e-signature__color-button--selected')).toHaveAttribute('data-color', blue);
+    });
+  });
+
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompESignature />);

@@ -12,6 +12,9 @@ export interface KanbanSubCard {
   ticketDate: string;
   SubcardId: number;
   actions: KanbanAction[];
+  displayId?: string;
+  badge?: string;
+  description?: string;
 }
 
 export interface boardInfo {
@@ -48,6 +51,7 @@ export interface RdsCompKanbanBoardProps {
   onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
   addQuestionData?: Record<string, unknown>;
   onSelectedTagsListChange?: (items: unknown) => void;
+  onBoardDataChange?: (data: boardInfo[]) => void;
 }
 
 const formatDate = (date: Date) => {
@@ -82,9 +86,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(props.allowAddingNewCard ? false : true);
   const [addButton, setAddButton] = useState(props.allowAddingNewSubCard ? true : false);
   const [showBoard, setShowBoard] = useState(true);
-  const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>(
-    props.boardData ? [...props.boardData.map(() => false)] : []
-  );
+  const [editingBoardId, setEditingBoardId] = useState<number | null>(null);
 
   const [boards, setBoards] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
   const [prevBoardData, setPrevBoardData] = useState(props.boardData);
@@ -92,6 +94,10 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
     setPrevBoardData(props.boardData);
     setBoards(props.boardData ? [...props.boardData] : []);
   }
+  const commitBoards = (next: boardInfo[]) => {
+    setBoards(next);
+    props.onBoardDataChange?.(next);
+  };
   const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
 
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>(
@@ -138,10 +144,11 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
     setAddButton,
     showBoard,
     setShowBoard,
-    isEditingBoardName,
-    setIsEditingBoardName,
+    editingBoardId,
+    setEditingBoardId,
     boards,
     setBoards,
+    commitBoards,
     totalRecords,
     setBoardsRecord,
     isBoardDropdownOpen,
@@ -194,12 +201,12 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     boardName,
     setBoardName,
     boards,
-    setBoards,
+    commitBoards,
     setShowAddBoardBtn,
     setAddButton,
     setShowBoard,
     setIsBoardDropdownOpen,
-    setIsEditingBoardName,
+    setEditingBoardId,
     setAnchorEl,
     setSubCardAnchorEl,
     setSelectedCard,
@@ -222,9 +229,11 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 
   const onAddButtonClick = () => {
+    const trimmedName = boardName.trim();
+    if (!trimmedName) return;
     const newBoard: boardInfo = {
       cardId: generateRandomId(),
-      name: boardName,
+      name: trimmedName,
       colorType: "primary",
       subCardIndex: boards.length,
       subCards: [],
@@ -232,17 +241,8 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
       key: "",
     };
 
-    setBoards((prevCards: boardInfo[]) => {
-      const updatedCards = [...prevCards];
-      if (updatedCards.length > 0) {
-        updatedCards.splice(-1, 0, newBoard);
-      } else {
-        updatedCards.push(newBoard);
-      }
-      return updatedCards;
-    });
+    commitBoards([...boards, newBoard]);
     setIsBoardDropdownOpen((prevState: boolean[]) => [...prevState, false]);
-    setIsEditingBoardName((prevState: boolean[]) => [...prevState, false]);
     setShowAddBoardBtn(false);
     setAddButton(true);
     setShowBoard(true);
@@ -280,22 +280,21 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 
   const editBoardName = (index: number) => {
-    setIsEditingBoardName((prevState: boolean[]) =>
-      prevState.map((s: boolean, i: number) => i === index ? true : false)
-    );
+    setEditingBoardId(boards[index].cardId ?? null);
     setBoardName(boards[index].name);
     handleClose();
   };
 
   const deleteCard = (index: number) => {
-    setBoards((prevCards: boardInfo[]) => prevCards.filter((_card: boardInfo, i: number) => i !== index));
+    commitBoards(boards.filter((_card: boardInfo, i: number) => i !== index));
+    setEditingBoardId(null);
     setIsBoardDropdownOpen((prevState: boolean[]) => prevState.filter((_s: boolean, i: number) => i !== index));
     handleClose();
   };
 
   const deleteSubCard = (index: number, subCardIndex: number) => {
-    setBoards((prevCards: boardInfo[]) =>
-      prevCards.map((card: boardInfo, i: number) =>
+    commitBoards(
+      boards.map((card: boardInfo, i: number) =>
         i === index
           ? {
               ...card,
@@ -343,12 +342,15 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 
   const onAddSubCardClick = (index: number) => {
+    const title = String(addQuestionData.title ?? '').trim();
+    if (!title) return;
     setTicketDateValue(formatDate(new Date()));
 
     const newSubcard: KanbanSubCard = {
       ticketId: String(addQuestionData.description ?? ''),
+      description: String(addQuestionData.description ?? '') || undefined,
       ticketPriority: "",
-      ticketQuestion: String(addQuestionData.title ?? ''),
+      ticketQuestion: title,
       ticketDate: formatDate(new Date()),
       SubcardId: generateRandomId(),
       actions: [
@@ -358,14 +360,12 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
       ],
     };
 
-    setBoards((prevCards: boardInfo[]) => {
-      const updatedCards = [...prevCards];
-      updatedCards[index] = {
-        ...updatedCards[index],
-        subCards: [...updatedCards[index].subCards, newSubcard]
-      };
-      return updatedCards;
-    });
+    const updatedCards = [...boards];
+    updatedCards[index] = {
+      ...updatedCards[index],
+      subCards: [...updatedCards[index].subCards, newSubcard],
+    };
+    commitBoards(updatedCards);
 
     setIsSubCardDropdownOpen((prevState: { [key: number]: boolean }) => ({
       ...prevState,
@@ -380,12 +380,14 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 
   const handleChange = (val: { value: string }, selectedCardId: number | undefined) => {
-    setBoards((prevCards: boardInfo[]) =>
-      prevCards.map((card: boardInfo) =>
-        card.cardId === selectedCardId ? { ...card, name: val.value } : card
+    const name = val.value.trim();
+    if (!name) return;
+    commitBoards(
+      boards.map((card: boardInfo) =>
+        card.cardId === selectedCardId ? { ...card, name } : card
       )
     );
-    setIsEditingBoardName((prevState: boolean[]) => prevState.map(() => false));
+    setEditingBoardId(null);
   };
 
   const handleAddQuestionDataChanges = (value: unknown, key: string) => {
@@ -418,7 +420,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 };
 
-export const createDragEndHandler = (boards: boardInfo[], setBoards: React.Dispatch<React.SetStateAction<boardInfo[]>>) => {
+export const createDragEndHandler = (boards: boardInfo[], setBoards: (next: boardInfo[]) => void) => {
   return (event: { active: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } }; over: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } } | null }) => {
     const { active, over } = event;
     if (!over) return;

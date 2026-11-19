@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { InputLabel as Label } from "@mui/material";
 import "./rds-comp-text-editor.scss";
+import { sanitizeEditorHtml } from "./sanitize-html";
 
 export interface RdsCompTextEditorProps {
     id?: string;
@@ -45,6 +46,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [editorState, setEditorState] = useState<DraftEditorStateInstance | null>(null);
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<unknown>(null);
+    const lastEmittedRef = useRef<string | undefined>(undefined);
 
     const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
     const lineHeightVar = 'var(--rds-line-height-body, 26px)';
@@ -65,32 +67,18 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
             const draftToHtml = ((draftToHtmlMod as Record<string, unknown>).default ?? draftToHtmlMod) as EditorDeps['draftToHtml'];
             const htmlToDraft = ((htmlToDraftMod as Record<string, unknown>).default ?? htmlToDraftMod) as EditorDeps['htmlToDraft'];
 
-            const loadedDeps: EditorDeps = { EditorState, convertToRaw, ContentState, Editor, draftToHtml, htmlToDraft };
-            setDeps(loadedDeps);
-
-            if (props.value) {
-                const contentBlock = htmlToDraft(props.value);
-                if (contentBlock) {
-                    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-                    setEditorState(EditorState.createWithContent(contentState));
-                    return;
-                }
-            }
-            setEditorState(EditorState.createEmpty());
+            setDeps({ EditorState, convertToRaw, ContentState, Editor, draftToHtml, htmlToDraft });
         });
     }, []);
 
     useEffect(() => {
         if (!deps) return;
+        if (props.value !== undefined && props.value === lastEmittedRef.current) return;
         const { EditorState, ContentState, htmlToDraft } = deps;
+        const contentBlock = props.value ? htmlToDraft(sanitizeEditorHtml(props.value)) : null;
 
-        if (props.value) {
-            const contentBlock = htmlToDraft(props.value);
-            if (contentBlock) {
-                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-                setEditorState(EditorState.createWithContent(contentState));
-                return;
-            }
+        if (contentBlock) {
+            setEditorState(EditorState.createWithContent(ContentState.createFromBlockArray(contentBlock.contentBlocks)));
         } else if (props.showTitle) {
             setEditorState(EditorState.createWithContent(ContentState.createFromText('')));
         } else {
@@ -104,7 +92,8 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         setIsTouch(true);
         if (props.onChange) {
             const { convertToRaw, draftToHtml } = deps;
-            const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
+            const htmlContent = sanitizeEditorHtml(draftToHtml(convertToRaw(state.getCurrentContent())));
+            lastEmittedRef.current = htmlContent;
             props.onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
         }
     };
@@ -163,7 +152,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                                     reader.readAsDataURL(file);
                                 }),
                                 previewImage: true,
-                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png',
                                 alt: { present: true, mandatory: false },
                             },
                         }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './rds-comp-time-picker.scss';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
@@ -29,6 +29,16 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const [tempHour, setTempHour] = useState<number>(12);
   const [tempMinute, setTempMinute] = useState<number>(0);
   const [tempPeriod, setTempPeriod] = useState<string>('AM');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const resetTime = () => {
+    setHours(12);
+    setMinutes(0);
+    setPeriod('AM');
+    setTempHour(12);
+    setTempMinute(0);
+    setTempPeriod('AM');
+  };
 
   const togglePicker = () => {
     if (!showPicker && props.style === 'compact') {
@@ -59,18 +69,51 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         setTempHour(parsedHours);
         setTempMinute(parsedMinutes);
         setTempPeriod(parsedPeriod);
+      } else {
+        resetTime();
       }
     } else if (props.state === 'expanded') {
       setShowPicker(true);
       setTime('');
     } else if (props.state === 'selected') {
       setShowPicker(false);
+      resetTime();
       setTime('12:00 AM');
     } else {
       setShowPicker(false);
       setTime('');
     }
   }, [props.state, props.value]);
+
+  useEffect(() => {
+    if (!showPicker) return;
+    const handlePointerDown = (e: MouseEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) setShowPicker(false);
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowPicker(false);
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showPicker]);
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.key === ' ' || (e.key === 'ArrowDown' && !showPicker)) {
+      e.preventDefault();
+      togglePicker();
+    }
+  };
+
+  const handleNowKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setCurrentTime();
+    }
+  };
 
   const handleSetTime = (e: React.MouseEvent) => {
     if (e) {
@@ -103,13 +146,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
   const handleCancel = () => {
     setTime('');
-    setHours(12);
-    setMinutes(0);
-    setPeriod('AM');
-    setTempHour(12);
-    setTempMinute(0);
-    setTempPeriod('AM');
-    
+    resetTime();
+
     if (props.onChange) {
       props.onChange('');
     }
@@ -140,7 +178,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const variantClass = `time-picker-variant-${props.colorVariant || 'primary'}`;
 
   return (
-    <div className={`time-picker-container ${variantClass}`}>
+    <div ref={containerRef} className={`time-picker-container ${variantClass}`}>
       <div
         className={`time-input-container ${props.disabled ? 'disabled' : ''}`}
         onClick={!props.disabled ? togglePicker : undefined}
@@ -152,6 +190,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           readOnly
           disabled={props.disabled}
           placeholder="12:00 AM"
+          aria-label="Select time"
+          onKeyDown={handleInputKeyDown}
         />
         <span className="time-icon">
           <AccessTimeIcon fontSize="small" />
@@ -159,7 +199,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       </div>
 
       {showPicker && (
-        <div className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass(props.colorVariant)}`}>
+        <div role="dialog" aria-label="Time picker" className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass(props.colorVariant)}`}>
           <div className="row d-flex align-items-center justify-content-between">
             <div className={`time-display ${props.style === 'compact' ? "time-display-compact" : "time-display"}`}>
               {props.style === 'compact' 
@@ -168,7 +208,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                   : (time || '12:00 AM'))
                 : (time || '12:00 AM')}
             </div>
-            <div className="now-button" onClick={setCurrentTime}>
+            <div className="now-button" role="button" tabIndex={0} onClick={setCurrentTime} onKeyDown={handleNowKeyDown}>
               NOW
             </div>
           </div>

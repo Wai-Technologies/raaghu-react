@@ -532,4 +532,15 @@ describe('RdsCompTextEditor', () => {
       expect(results).toHaveNoViolations();
     }, 15000);
   });
+  describe('Sanitization', () => {
+    it('strips scripts from value before loading it', async () => {
+      const htmlToDraft = jest.requireMock('html-to-draftjs') as jest.Mock;
+      htmlToDraft.mockClear();
+      await renderEditor({ ...defaultProps, value: '<p>Hi</p><script>alert(1)</script><img src="x" onerror="alert(1)">' });
+      const html = htmlToDraft.mock.calls.at(-1)[0] as string;
+      expect(html).toContain('<p>Hi</p>');
+      expect(html).not.toContain('<script');
+      expect(html).not.toContain('onerror');
+    });
+  });
 });
