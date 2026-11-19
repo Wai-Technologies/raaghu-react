@@ -1438,7 +1438,55 @@ font-weight: var(--rds-font-weight-bold);
 
 
 .rds-datepicker__input-container .rds-input .MuiInputBase-root.rds-input__field {
-  padding-right: calc(var(--rds-spacing-30) + var(--rds-spacing-sm));
+  padding-right: var(--rds-spacing-sm);
+}
+
+.rds-datepicker__input-container .rds-input__icon.rds-input__icon--end {
+  gap: var(--rds-spacing-xxs);
+  margin-left: var(--rds-spacing-xs);
+}
+
+.rds-datepicker__input-container .rds-input__icon .rds-datepicker__icon-container,
+.rds-datepicker__input-container .rds-input__icon .rds-datepicker__clear-button {
+  position: static;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rds-spacing-30);
+  height: var(--rds-spacing-30);
+  padding: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.rds-datepicker__input-container .rds-input__icon .rds-datepicker__clear-button {
+  background: transparent;
+  border: none;
+}
+
+.rds-datepicker__field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--rds-spacing-sm);
+  width: 100%;
+  max-width: calc(var(--rds-spacing-240) + var(--rds-spacing-xl));
+}
+
+.rds-datepicker__field > .rds-datepicker__label {
+  margin: 0;
+  font-size: var(--rds-font-size-sm);
+  text-align: left;
+}
+
+.rds-datepicker__field > .rds-datepicker__label.rds-datepicker__label--hidden {
+  display: none;
+}
+
+.rds-datepicker__field > .rds-datepicker__custom-dropdown,
+.rds-datepicker__field > .rds-datepicker__container {
+  margin-top: 0;
 }
 
 .rds-datepicker__input-container .rds-input input {
