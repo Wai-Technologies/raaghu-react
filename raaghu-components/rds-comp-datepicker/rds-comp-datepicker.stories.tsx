@@ -9,7 +9,7 @@ const meta: Meta = {
         layout: 'padded',
         docs :{
             story: {
-                height: '480px'
+                height: '378px'
             },
             description: {
         component:
