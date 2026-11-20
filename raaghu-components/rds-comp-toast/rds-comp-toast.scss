@@ -11,7 +11,7 @@
   --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
 
   background: var(--rds-color-surface);
-  border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border, var(--rds-border-default)));
   border-radius: var(--rds-border-radius);
   box-shadow: var(--rds-elevation-2);
 
@@ -58,9 +58,9 @@
   &--border-primary,
   &--border-error,
   &--border-danger {
-    border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
-    border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
-    border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-top-color: var(--rds-color-outline-variant, var(--rds-color-border, var(--rds-border-default)));
+    border-right-color: var(--rds-color-outline-variant, var(--rds-color-border, var(--rds-border-default)));
+    border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border, var(--rds-border-default)));
   }
 
   &--text {
@@ -356,7 +356,7 @@
   &__input {
     width: 100%;
     padding: var(--rds-spacing-md) var(--rds-spacing-md);
-    border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+    border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border, var(--rds-border-default)));
     border-radius: var(--rds-border-radius-sm);
     font-size: var(--rds-font-size-base);
     color: var(--rds-color-on-surface);

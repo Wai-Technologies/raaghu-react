@@ -20,7 +20,7 @@
   white-space: nowrap;
   
   &:focus-visible {
-    outline: var(--rds-focus-ring);
+    outline: var(--rds-focus-ring, var(--rds-spacing-xxs) solid var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
   

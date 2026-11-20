@@ -165,7 +165,7 @@
   }
 
   &:not(:last-child) {
-    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
   }
 
   &.Mui-expanded {

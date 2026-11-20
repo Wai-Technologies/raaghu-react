@@ -324,7 +324,7 @@
     font-size: var(--rds-font-size-body-medium);
     font-weight: var(--rds-font-weight-medium);
     color: var(--rds-color-primary);
-    background-color: var(--rds-color-primary-container);
+    background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
     padding: var(--rds-spacing-sm) var(--rds-spacing-lg);
     border-radius: var(--rds-border-radius-sm);
     border: var(--rds-border-width-thin) solid var(--rds-color-primary-outline);
@@ -408,7 +408,7 @@
   }
 
   &__edition-waveform {
-    background-color: var(--rds-color-primary-container);
+    background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
     border-radius: var(--rds-border-radius-xs);
     margin: 0;
     position: relative;
@@ -499,7 +499,7 @@
 
     &:focus-visible {
       background-color: var(--rds-color-primary-hover);
-      box-shadow: 0 0 0 2px var(--rds-color-primary-container);
+      box-shadow: 0 0 0 2px var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
     }
 
     &--active {
@@ -633,7 +633,7 @@
     }
 
     &--active {
-      background-color: var(--rds-color-primary-container);
+      background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
       color: var(--rds-color-primary);
 
       .rds-comp-audio-player__btn-icon {
@@ -673,7 +673,7 @@
       color: var(--rds-color-on-surface-variant);
 
       &:hover:not(:disabled) {
-        background-color: var(--rds-color-primary-container);
+        background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
         border-color: var(--rds-color-primary);
         color: var(--rds-color-primary);
       }

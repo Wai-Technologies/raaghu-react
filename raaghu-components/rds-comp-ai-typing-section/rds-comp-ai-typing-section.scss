@@ -11,7 +11,7 @@
   
   &__input-wrapper {
     border-radius: var(--rds-border-radius);
-    border: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2);
     padding: var(--rds-spacing-md);

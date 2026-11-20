@@ -6,7 +6,7 @@
   --rds-code-snippet-line-height: 1.55;
   --rds-code-snippet-max-height: 400px;
   border-radius: var(--rds-border-radius);
-  border: var(--rds-border-width-thin) solid var(--rds-color-border);
+  border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
   overflow: hidden;
   font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm);
@@ -34,7 +34,7 @@
       left: calc(-1 * var(--rds-spacing-md));
       right: calc(-1 * var(--rds-spacing-md));
       height: var(--rds-spacing-hairline);
-      background-color: var(--rds-color-border);
+      background-color: var(--rds-color-border, var(--rds-border-default));
     }
 
     &--single-line {

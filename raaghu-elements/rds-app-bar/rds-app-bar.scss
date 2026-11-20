@@ -676,7 +676,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   flex-direction: column;
   background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
-  border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
   box-shadow: var(--rds-elevation-1);
   position: relative;
   width: 100%;
@@ -882,7 +882,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding: 0 var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius);
     font-size: var(--rds-font-size-body);
-    border: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     box-shadow: none;
     height: var(--rds-spacing-36-px);
     display: flex;
@@ -1004,7 +1004,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   &__sub-header {
     background: var(--rds-color-surface-alt);
     padding: var(--rds-spacing-xs) var(--rds-spacing-xl);
-    border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border-top: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
     display: flex;
@@ -1040,7 +1040,7 @@ $rds-app-bar-breakpoint-xs: 320px;
         color: var(--rds-neutral-0);
 
         &:hover {
-          background-color: var(--rds-color-primary-dark);
+          background-color: var(--rds-color-primary-dark, var(--rds-primary-dark));
         }
 
         .MuiSvgIcon-root, .MuiButton-startIcon {
@@ -1236,7 +1236,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
       &:hover {
         color: var(--rds-color-primary);
-        background-color: var(--rds-color-primary-container);
+        background-color: var(--rds-color-primary-container, color-mix(in srgb, var(--rds-primary-main) 8%, transparent));
       }
 
       &.Mui-selected {
@@ -1843,7 +1843,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     right: 0;
     width: 100%;
     background: var(--rds-color-surface-alt);
-    border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
+    border-top: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
     padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     margin: 0;
     z-index: var(--rds-z-index-dropdown);
@@ -2531,7 +2531,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   padding: var(--rds-spacing-sm) var(--rds-spacing-12-px);
   align-items: center;
   z-index: var(--rds-z-index-dropdown);
-  border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
+  border-top: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
   box-shadow: 0 -4px 12px color-mix(in srgb, var(--rds-neutral-1000) 8%, transparent);
   box-sizing: border-box;
   min-height: var(--rds-spacing-56-px);

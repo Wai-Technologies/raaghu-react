@@ -168,14 +168,14 @@
   &--disabled {
     opacity: 0.6;
     background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300));
-    color: var(--rds-card-text-disabled, var(--rds-color-disabled-text));
+    color: var(--rds-card-text-disabled, var(--rds-color-disabled-text, var(--rds-text-disabled)));
     pointer-events: none;
     cursor: not-allowed;
 
     .MuiButton-root,
     .rds-button,
     button {
-      color: var(--rds-color-disabled-text);
+      color: var(--rds-color-disabled-text, var(--rds-text-disabled));
       pointer-events: none;
       cursor: not-allowed;
     }
