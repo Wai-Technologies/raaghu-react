@@ -613,20 +613,6 @@
   margin-top: var(--rds-spacing-xs);
 }
 
-.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--color-secondary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-secondary-card);
-  color: var(--rds-badge-text-on-dark);
-}
-.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--color-primary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-primary-card);
-  color: var(--rds-badge-text-on-dark);
-}
-
-.rds-card .rds-card__tags .rds-badge.rds-badge--primary.rds-badge--color-primary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-primary-card);
-  color: var(--rds-badge-text-on-dark);
-}
-
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
   --Paper-shadow: none;
   --rds-card-shadow: 0 8px 24px var(--rds-card-shadow-color, color-mix(in srgb, var(--rds-color-black) 8%, transparent));

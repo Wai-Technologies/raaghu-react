@@ -103,7 +103,8 @@ export const Default: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: FileUploaderStory,
+  render: FileUploaderStory,
+
 };
 
 export const SingleFile: Story = {
@@ -140,6 +141,7 @@ export const ImagesOnly: Story = {
     style:'Drop Area - Top Icon',
     showHint: true,
     hintText: 'Maximum 5MB',
+    state: "selected"
   },
   render: FileUploaderStory,
 };

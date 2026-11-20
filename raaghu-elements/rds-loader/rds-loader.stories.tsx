@@ -21,6 +21,13 @@ const meta: Meta<typeof RdsLoader> = {
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
+  decorators: [
+    (Story) => (
+      <Box sx={{ minWidth: 320, display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </Box>
+    ),
+  ],
   args: {
     overlay: false,
     value: 0,

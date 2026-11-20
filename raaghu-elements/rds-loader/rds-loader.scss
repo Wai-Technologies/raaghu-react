@@ -117,6 +117,14 @@
   transform: translate(-50%, -50%);
 }
 
+[class*='rds-loader__'].loader-small:not(.rds-loader__spinner-ring) {
+  zoom: 0.6;
+}
+
+[class*='rds-loader__'].loader-large:not(.rds-loader__spinner-ring) {
+  zoom: 1.5;
+}
+
 .rds-loader__label-wrap {
   margin-top: var(--rds-spacing-sm);
   text-align: center;
@@ -457,7 +465,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-color: inherit;
+  background: inherit;
   transform-origin: 50% 66%;
 
   animation: l27-1 var(--rds-loader-animation-5) infinite;
