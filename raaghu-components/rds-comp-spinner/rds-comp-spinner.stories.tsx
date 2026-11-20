@@ -39,7 +39,7 @@ const meta: Meta = {
             description: "Type of spinner",
         },
         color: {
-            options: ["primary", "secondary", "success", "error", "warning", "info", "dark"],
+            options: ["primary", "secondary", "success", "error", "warning", "dark"],
             control: { type: "select" },
             description: "Color variant of the spinner",
         },
