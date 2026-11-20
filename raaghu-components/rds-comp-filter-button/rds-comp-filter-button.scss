@@ -24,7 +24,7 @@
       left: var(--rds-spacing-md);
       right: var(--rds-spacing-md);
       height: var(--rds-spacing-hairline);
-      background-color: var(--rds-color-border);
+      background-color: var(--rds-color-border, var(--rds-border-default));
     }
   }
 
@@ -53,12 +53,12 @@
   }
 
     &__paper {
-    width: var(--rds-filter-popover-width);
-    max-height: var(--rds-filter-popover-max-height);
+    width: var(--rds-filter-popover-width, 380px);
+    max-height: var(--rds-filter-popover-max-height, 450px);
     border-radius: var(--rds-border-radius);
     box-shadow: var(--rds-elevation-3);
-    border: var(--rds-border-width-thin) solid var(--rds-color-border);
-    margin-top: var(--rds-filter-popover-gap);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
+    margin-top: var(--rds-filter-popover-gap, 3px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -78,21 +78,21 @@
 
 .rds-filter-button__popover .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-h4boo0-MuiPaper-root-MuiPopover-paper {
   position: absolute;
-  top: var(--rds-filter-popover-top);
+  top: var(--rds-filter-popover-top, 55px);
   left: 0;
   }
 
   .rds-filter-button__popover {
-    width: var(--rds-filter-popover-width);
-    max-height: var(--rds-filter-popover-max-height);
+    width: var(--rds-filter-popover-width, 380px);
+    max-height: var(--rds-filter-popover-max-height, 450px);
     border-radius: var(--rds-border-radius);
     box-shadow: var(--rds-elevation-3);
-    border: var(--rds-border-width-thin) solid var(--rds-color-border);
-    margin-top: var(--rds-filter-popover-gap);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-default));
+    margin-top: var(--rds-filter-popover-gap, 3px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    top: var(--rds-filter-popover-top);
+    top: var(--rds-filter-popover-top, 55px);
   }
 
   .rds-filter-button__content {
@@ -107,7 +107,7 @@
   .rds-filter-button__header {
     padding: var(--rds-spacing-md);
     border-bottom: none;
-    background-color: var(--rds-neutral-0);
+    background-color: var(--rds-color-surface, var(--rds-background-paper));
     flex-shrink: 0;
     position: relative;
   }

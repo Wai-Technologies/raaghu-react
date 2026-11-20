@@ -67,6 +67,6 @@ export const Default: Story = {
         layout: DatePickerLayout.Default,
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
+Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','isMandatory','placeholderText','datePickerStyleType','disabled','showClearDate','isDefaultDate'] } };
 
 

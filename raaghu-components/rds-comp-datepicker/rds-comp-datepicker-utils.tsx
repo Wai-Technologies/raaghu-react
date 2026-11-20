@@ -2,7 +2,7 @@ import type { RefObject, ReactNode } from "react";
 import { CustomButtons } from "./CustomButtons";
 import { ExampleCustomInput } from "./ExampleCustomInput";
 import { CustomInputWithClear } from "./CustomInputWithClear";
-import { renderCustomHeader } from "./renderCustomHeader";
+import { createRenderCustomHeader } from "./renderCustomHeader";
 import type { RdsCompDatepickerProps } from "./rds-comp-datepicker.types";
 
 type DatePickerComponentProps = RdsCompDatepickerProps & Record<string, any>;
@@ -111,7 +111,7 @@ const buildDatePickerProps = ({
     dropdownMode: "scroll",
     dayClassName,
     ref: datePickerRef,
-    renderCustomHeader: props.layout === "Multi Month" ? renderCustomHeader : undefined,
+    renderCustomHeader: props.layout === "Multi Month" ? createRenderCustomHeader(props.minDate, props.maxDate) : undefined,
     popperPlacement: "bottom-end",
     ...overrides,
 });
@@ -230,7 +230,9 @@ export const renderDatePickerTypeView = (
     dayClassName: (date: Date) => string,
     CustomInputWithClear: React.ElementType,
     ExampleCustomInput: React.ElementType,
-    CustomButtons: React.ElementType
+    CustomButtons: React.ElementType,
+    onCustomActivate?: () => void,
+    customDropdownRef?: RefObject<HTMLDivElement>
 ) => {
     const SafeDatePicker = props.SafeDatePicker;
 
@@ -277,7 +279,7 @@ export const renderDatePickerTypeView = (
             overrides: { open: false },
         });
         return (
-            <div className="rds-datepicker__custom-dropdown">
+            <div className="rds-datepicker__custom-dropdown" ref={customDropdownRef}>
                 <SafeDatePicker {...pickerProps} />
               
                 <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
@@ -301,7 +303,10 @@ export const renderDatePickerTypeView = (
                     <li id="custom" className={`rds-datepicker__dropdown-item ${activeList === "custom" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <SafeDatePicker
                             selected={startDate || null}
-                            onChange={onRangeChange}
+                            onChange={(dates: [Date | null, Date | null]) => {
+                                onCustomActivate?.();
+                                onRangeChange(dates);
+                            }}
                             startDate={startDate}
                             endDate={endDate}
                             selectsRange
@@ -323,7 +328,7 @@ export const renderDatePickerTypeView = (
                             showPreviousMonths
                             monthsShown={props.layout === "Multi Month" ? 3 : 1}
                             dayClassName={dayClassName}
-                            renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
+                            renderCustomHeader={props.layout === "Multi Month" ? createRenderCustomHeader(props.minDate, props.maxDate) : undefined}
                             customInput={<ExampleCustomInput changeIcon={props.changeIcon} />}
                         />
                     </li>
