@@ -189,7 +189,7 @@
   }
 
   &__content--with-max {
-    max-height: var(--rds-code-max-height);
+    max-height: var(--rds-code-max-height, 400px);
     overflow: auto;
   }
 

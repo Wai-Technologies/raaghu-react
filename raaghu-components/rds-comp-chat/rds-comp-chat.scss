@@ -363,7 +363,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--rds-backdrop-overlay);
+    background: var(--rds-backdrop-overlay, color-mix(in srgb, var(--rds-color-black) 80%, transparent));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -970,14 +970,14 @@
   .rds-comp-chat {
     flex-direction: row;
 
-    height: var(--rds-chat-height-6);
+    height: var(--rds-chat-height-6, 600px);
 
     &__screen {
       width: 30%;
 
-      min-width: var(--rds-chat-min-width-2);
+      min-width: var(--rds-chat-min-width-2, 280px);
 
-      max-width: var(--rds-chat-max-width-1);
+      max-width: var(--rds-chat-max-width-1, 350px);
       border-right: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       border-bottom: none;
       flex-shrink: 0;
@@ -1028,7 +1028,7 @@
     &__window-main {
       flex: 1;
 
-      min-height: calc(100vh - var(--rds-chat-min-height));
+      min-height: calc(100vh - var(--rds-chat-min-height, 140px));
     }
 
     &__message {
@@ -1036,7 +1036,7 @@
 
       &--current-user {
         .rds-comp-chat__comment-content {
-          max-width: var(--rds-chat-max-width-2);
+          max-width: var(--rds-chat-max-width-2, 260px);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           margin-right: var(--rds-spacing-sm);
@@ -1045,7 +1045,7 @@
 
       &--other-user {
         .rds-comp-chat__comment-content {
-          max-width: var(--rds-chat-max-width-2);
+          max-width: var(--rds-chat-max-width-2, 260px);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           margin-left: var(--rds-spacing-sm);
@@ -1057,7 +1057,7 @@
       &-image {
         max-width: 100%;
 
-        max-height: var(--rds-chat-max-height-6);
+        max-height: var(--rds-chat-max-height-6, 180px);
       }
 
       &-video {
@@ -1132,7 +1132,7 @@
       &-image {
         max-width: 100%;
 
-        max-height: var(--rds-chat-max-height-7);
+        max-height: var(--rds-chat-max-height-7, 150px);
       }
 
       &-video {
@@ -1144,9 +1144,9 @@
 
 @include bp.down(tablet-sm) {
   .EmojiPickerReact {
-    height: var(--rds-chat-height-7);
+    height: var(--rds-chat-height-7, 370px);
 
-    width: min(var(--rds-chat-width-3), 90vw);
+    width: min(var(--rds-chat-width-3, 300px), 90vw);
     right: var(--rds-spacing-md);
     top: auto;
     bottom: 80px;
@@ -1188,14 +1188,14 @@
     &__window-main {
       flex: 1;
 
-      height: calc(100vh - var(--rds-chat-height-8));
+      height: calc(100vh - var(--rds-chat-height-8, 120px));
     }
 
     &__comment {
       &-image {
         max-width: 100%;
 
-        max-height: var(--rds-chat-max-height-8);
+        max-height: var(--rds-chat-max-height-8, 120px);
       }
 
       &-video {
@@ -1314,11 +1314,11 @@
     height: var(--rds-chat-height);
 
     &__screen {
-      width: var(--rds-chat-width-4);
+      width: var(--rds-chat-width-4, 320px);
 
-      min-width: var(--rds-chat-min-width-2);
+      min-width: var(--rds-chat-min-width-2, 280px);
 
-      max-width: var(--rds-chat-max-width-3);
+      max-width: var(--rds-chat-max-width-3, 360px);
       flex: 0 0 320px;
       border-right: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       border-bottom: none;

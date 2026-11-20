@@ -4,7 +4,7 @@
   position: relative;
   display: block;
   width: 100%;
-  max-width: var(--rds-player-max-width);
+  max-width: var(--rds-player-max-width, 480px);
   
   &__wrapper {
     position: relative;
@@ -18,8 +18,8 @@
   &__player {
     width: 100%;
     height: 100%;
-    max-width: var(--rds-player-max-width);
-    min-height: var(--rds-player-min-height);
+    max-width: var(--rds-player-max-width, 480px);
+    min-height: var(--rds-player-min-height, 180px);
     aspect-ratio: 16 / 9;
     
     & > div {
@@ -39,7 +39,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: var(--rds-player-controls-height);
+    height: var(--rds-player-controls-height, 48px);
     pointer-events: none;
     background: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--rds-neutral-1000) 45%, transparent) 100%);
     border-bottom-left-radius: var(--rds-border-radius-sm);
@@ -79,13 +79,13 @@
   
   @include bp.down(md) {
     &__player {
-      min-height: var(--rds-player-min-height-sm);
+      min-height: var(--rds-player-min-height-sm, 150px);
     }
   }
   
   @include bp.down(sm) {
     &__player {
-      min-height: var(--rds-player-min-height-xs);
+      min-height: var(--rds-player-min-height-xs, 120px);
     }
     
     &__disabled-message {

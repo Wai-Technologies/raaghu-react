@@ -100,7 +100,7 @@
       font-size: var(--rds-font-size-caption);
       font-weight: var(--rds-font-weight-semibold);
 
-      letter-spacing: var(--rds-contribution-letter-spacing-2);
+      letter-spacing: var(--rds-contribution-letter-spacing-2, 0.02em);
     }
 
     &__text--week {
@@ -116,7 +116,7 @@
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) var(--rds-spacing-xs);
       width: 100%;
 
-      max-width: var(--rds-contribution-max-width-1);
+      max-width: var(--rds-contribution-max-width-1, 414px);
       margin: 0 auto;
     }
       padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
@@ -135,7 +135,7 @@
       font-size: var(--rds-font-size-caption);
       font-weight: var(--rds-font-weight-semibold);
 
-      letter-spacing: var(--rds-contribution-letter-spacing-2);
+      letter-spacing: var(--rds-contribution-letter-spacing-2, 0.02em);
     }
 
     &__text--week {
@@ -150,7 +150,7 @@
       padding: calc(var(--rds-spacing-md) - var(--rds-spacing-hairline)) var(--rds-spacing-sm);
       width: 100%;
 
-      max-width: var(--rds-contribution-max-width-2);
+      max-width: var(--rds-contribution-max-width-2, 834px);
       margin: 0 auto;
     }
 

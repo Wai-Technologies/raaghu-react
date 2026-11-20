@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   gap: var(--rds-spacing-xs);
-  max-width: var(--rds-comments-max-width);
+  max-width: var(--rds-comments-max-width, 450px);
   padding: var(--rds-spacing-lg) var(--rds-spacing-xxl) var(--rds-spacing-xxxl) var(--rds-spacing-xxl);
   background: transparent;
   font-family: var(--rds-font-family-base);
@@ -101,8 +101,8 @@
   }
 
   &--posted &__dot {
-    width: var(--rds-dot-size);
-    height: var(--rds-dot-size);
+    width: var(--rds-dot-size, 16px);
+    height: var(--rds-dot-size, 16px);
     background-color: var(--rds-error-dark);
     border-radius: var(--rds-border-radius-pill);
     position: absolute;
@@ -112,14 +112,14 @@
   }
 
   &--typing {
-    min-height: var(--rds-typing-min-height);
+    min-height: var(--rds-typing-min-height, 106px);
     border-radius: var(--rds-border-radius-lg);
     padding: var(--rds-spacing-18) var(--rds-spacing-5);
     align-items: flex-start;
 
     &__avatar {
-      width: var(--rds-avatar-size-md);
-      height: var(--rds-avatar-size-md);
+      width: var(--rds-avatar-size-md, 36px);
+      height: var(--rds-avatar-size-md, 36px);
       font-size: var(--rds-font-size-lg);
       border-width: var(--rds-spacing-xxs);
       align-self: center;
@@ -184,15 +184,15 @@
   }
 
   &__avatar {
-    width: var(--rds-avatar-size-md);
-    height: var(--rds-avatar-size-md);
+    width: var(--rds-avatar-size-md, 36px);
+    height: var(--rds-avatar-size-md, 36px);
     margin-right: var(--rds-spacing-xxs);
     background-color: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     font-weight: var(--rds-typography-semibold);
     font-size: var(--rds-font-size-xl);
     border-radius: var(--rds-border-radius-pill);
-    box-shadow: var(--rds-card-shadow);
+    box-shadow: var(--rds-card-shadow, 0 2px 8px color-mix(in srgb, var(--rds-primary-main) 10%, transparent));
     background-color: var(--rds-primary-main);
   }
   &__avatar--hover {
@@ -260,7 +260,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--rds-spacing-xs);
-    margin-top: var(--rds-vote-margin-top);
+    margin-top: var(--rds-vote-margin-top, 130px);
     .rds-comments-box__upvote-icon,
     .rds-comments-box__downvote-icon {
       color: var(--rds-primary-main);
@@ -284,8 +284,8 @@
       min-width: 0;
       max-width: 100%;
       .rds-comments-box__avatar {
-        width: var(--rds-avatar-size-md);
-        height: var(--rds-avatar-size-md);
+        width: var(--rds-avatar-size-md, 36px);
+        height: var(--rds-avatar-size-md, 36px);
         font-size: var(--rds-font-size-md);
         background-color: var(--rds-primary-main);
         color: var(--rds-primary-contrast-text);
@@ -321,7 +321,7 @@
       margin-left: var(--rds-spacing-xxl);
     }
     .rds-comments-box__preview {
-      max-width: var(--rds-preview-max-width);
+      max-width: var(--rds-preview-max-width, 230px);
       border-radius: var(--rds-border-radius-md);
       margin-bottom: var(--rds-spacing-xs);
       margin-left: var(--rds-spacing-xxl);
@@ -347,28 +347,28 @@
       flex: 1;
       border-radius: var(--rds-border-radius-xl);
       padding-left: var(--rds-spacing-xs);
-      min-width: var(--rds-reply-min-width);
-      max-width: var(--rds-reply-max-width);
+      min-width: var(--rds-reply-min-width, 0px);
+      max-width: var(--rds-reply-max-width, 600px);
       width: 100%;
-      height: var(--rds-reply-height);
-      min-height: var(--rds-reply-height);
-      max-height: var(--rds-reply-max-height);
+      height: var(--rds-reply-height, 32px);
+      min-height: var(--rds-reply-height, 32px);
+      max-height: var(--rds-reply-max-height, 36px);
       .MuiInputBase-root {
         padding: var(--rds-spacing-xs) var(--rds-spacing-md);
-        height: var(--rds-input-height);
-        min-height: var(--rds-input-height);
-        max-height: var(--rds-input-height);
+        height: var(--rds-input-height, 48px);
+        min-height: var(--rds-input-height, 48px);
+        max-height: var(--rds-input-height, 48px);
         border-radius: var(--rds-border-radius-lg);
       }
       .rds-comments-box__send {
         padding: var(--rds-spacing-xs);
         background-color: var(--rds-primary-main);
-        width: var(--rds-send-size);
-        height: var(--rds-send-size);
-        min-width: var(--rds-send-size);
-        min-height: var(--rds-send-size);
-        max-width: var(--rds-send-size);
-        max-height: var(--rds-send-size);
+        width: var(--rds-send-size, 36px);
+        height: var(--rds-send-size, 36px);
+        min-width: var(--rds-send-size, 36px);
+        min-height: var(--rds-send-size, 36px);
+        max-width: var(--rds-send-size, 36px);
+        max-height: var(--rds-send-size, 36px);
         border-radius: var(--rds-border-radius-md);
         display: flex;
         align-items: center;
@@ -380,8 +380,8 @@
       }
     }
     .rds-comments-box__avatar {
-      width: var(--rds-avatar-size-md);
-      height: var(--rds-avatar-size-md);
+      width: var(--rds-avatar-size-md, 36px);
+      height: var(--rds-avatar-size-md, 36px);
       background-color: var(--rds-primary-main);
       color: var(--rds-text-primary);
       font-size: var(--rds-font-size-md);
@@ -390,10 +390,10 @@
   }
 
   &__tools {
-    margin-left: var(--rds-tools-margin-left);
+    margin-left: var(--rds-tools-margin-left, 8rem);
   }
   &__hover-tools {
-    margin-left: var(--rds-tools-margin-left);
+    margin-left: var(--rds-tools-margin-left, 8rem);
   }
 
   &__header {
@@ -421,7 +421,7 @@
   }
   &__comment-dropdown-menu {
     position: absolute;
-    top: var(--rds-dropdown-top);
+    top: var(--rds-dropdown-top, 40px);
     right: 0;
     z-index: var(--rds-z-index-dropdown);
     background: var(--rds-background-paper);
@@ -471,15 +471,15 @@
 
   &__dropdown-menu {
     position: absolute;
-    top: var(--rds-dropdown-top);
+    top: var(--rds-dropdown-top, 36px);
     left: 0;
     border: var(--rds-spacing-xxs) solid var(--rds-neutral-400);
     border-radius: var(--rds-border-radius-md);
     box-shadow: var(--rds-elevation-1);
     padding: var(--rds-spacing-xs) 0;
     z-index: var(--rds-z-index-dropdown);
-    min-width: var(--rds-dropdown-min-width);
-    width: var(--rds-dropdown-width);
+    min-width: var(--rds-dropdown-min-width, 140px);
+    width: var(--rds-dropdown-width, 140px);
     background: var(--rds-background-paper);
   }
   &__dropdown-item {
@@ -512,11 +512,11 @@
 
   &__attachment-dropdown-menu {
     position: absolute;
-    top: var(--rds-dropdown-top);
+    top: var(--rds-dropdown-top, 36px);
     left: 0;
     border: none;
     border-radius: var(--rds-border-radius-md);
-    box-shadow: var(--rds-card-shadow);
+    box-shadow: var(--rds-card-shadow, 0 2px 8px color-mix(in srgb, var(--rds-color-black) 8%, transparent));
     padding: var(--rds-spacing-xxs) 0;
     z-index: var(--rds-z-index-dropdown);
     min-width: var(--rds-spacing-110);
@@ -557,7 +557,7 @@
   &__mention-dropdown {
     position: absolute;
     left: 0;
-    top: var(--rds-dropdown-top);
+    top: var(--rds-dropdown-top, 36px);
 
     width: var(--rds-comments-box-width-2);
     border: var(--rds-border-width-thin) solid var(--rds-neutral-300);
@@ -660,22 +660,22 @@
 
     border: var(--rds-comments-box-border) solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-lg);
-    min-height: var(--rds-typing-box-min-height);
+    min-height: var(--rds-typing-box-min-height, 60px);
     width: 100%;
-    max-width: var(--rds-typing-box-width);
+    max-width: var(--rds-typing-box-width, 380px);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);
     position: relative;
-    box-shadow: var(--rds-typing-box-shadow);
+    box-shadow: var(--rds-typing-box-shadow, 0);
   }
 
   &__typing-header {
     margin-bottom: var(--rds-spacing-md);
-    min-height: var(--rds-typing-header-min-height);
-    height: var(--rds-typing-header-height);
+    min-height: var(--rds-typing-header-min-height, 28px);
+    height: var(--rds-typing-header-height, 28px);
     display: flex;
     align-items: center;
     margin-top: var(--rds-spacing-neg-16);
@@ -685,8 +685,8 @@
     font-weight: var(--rds-typography-regular);
     color: var(--rds-text-primary);
     text-align: left;
-    min-height: var(--rds-typing-placeholder-min-height);
-    height: var(--rds-typing-placeholder-height);
+    min-height: var(--rds-typing-placeholder-min-height, 24px);
+    height: var(--rds-typing-placeholder-height, 24px);
     padding: var(--rds-spacing-xs) 0;
   }
   &__typing-toolbar {
@@ -706,10 +706,10 @@
     background: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     border-radius: var(--rds-border-radius-md);
-    width: var(--rds-send-btn-size);
-    height: var(--rds-send-btn-size);
-    min-width: var(--rds-send-btn-size);
-    min-height: var(--rds-send-btn-size);
+    width: var(--rds-send-btn-size, 28px);
+    height: var(--rds-send-btn-size, 28px);
+    min-width: var(--rds-send-btn-size, 28px);
+    min-height: var(--rds-send-btn-size, 28px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -729,8 +729,8 @@
   }
   &__emoji-btn, &__attach-btn, &__mention-btn, &__gif-btn {
     padding: var(--rds-spacing-xs);
-    min-width: var(--rds-send-btn-size);
-    height: var(--rds-send-btn-size);
+    min-width: var(--rds-send-btn-size, 28px);
+    height: var(--rds-send-btn-size, 28px);
     background: none;
     border: none;
     box-shadow: none;
@@ -745,7 +745,7 @@
 }
 
 .rds-comments-box__tools {
-  margin-left: var(--rds-tools-margin-left)
+  margin-left: var(--rds-tools-margin-left, 8rem)
 }
 .rds-comments-box__score-border {
   border: var(--rds-border-width-thin) solid var(--rds-border-default);
@@ -774,8 +774,8 @@
   max-width: var(--rds-comments-box-max-width-2);
 }
 .rds-comments-box__avatar {
-  width: var(--rds-avatar-size-md);
-  height: var(--rds-avatar-size-md);
+  width: var(--rds-avatar-size-md, 36px);
+  height: var(--rds-avatar-size-md, 36px);
   border-radius: var(--rds-border-radius-pill);
   object-fit: cover;
   background-color: var(--rds-primary-main);
@@ -904,7 +904,7 @@
   margin: var(--rds-spacing-lg) 0 0 0;
 }
 .mention-user-list {
-  max-height: var(--rds-mention-list-max-height);
+  max-height: var(--rds-mention-list-max-height, 200px);
   overflow-y: auto;
   margin: 0;
   padding: var(--rds-spacing-md) 0 0 0;
@@ -918,9 +918,9 @@
 }
 
 .mention-user-avatar {
-  max-width: var(--rds-mention-avatar-max-width);
+  max-width: var(--rds-mention-avatar-max-width, 260px);
   width: 100%;
-  height: var(--rds-avatar-size-sm);
+  height: var(--rds-avatar-size-sm, 32px);
   border-radius: var(--rds-border-radius-pill);
   background: var(--rds-background-surface);
   display: flex;
