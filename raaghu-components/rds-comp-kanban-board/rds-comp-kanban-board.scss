@@ -129,8 +129,8 @@
   .btn-sm svg {
     stroke-width: inherit;
     display: flex;
-    width: var(--rds-icon-size-sm);
-    height: var(--rds-icon-size-sm);
+    width: var(--rds-icon-size-sm, 16px);
+    height: var(--rds-icon-size-sm, 16px);
   }
 
   .btn-group {
@@ -139,7 +139,7 @@
 
   ul {
     min-width: var(--rds-kanban-dropdown-min-width);
-    padding: var(--rds-kanban-dropdown-padding-vertical) 0;
+    padding: var(--rds-kanban-dropdown-padding-vertical, 6px) 0;
     border-color: var(--rds-surface-primary-medium);
     background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
@@ -302,8 +302,8 @@
 
   &__menu-icon {
     margin-right: var(--rds-spacing-sm);
-    width: var(--rds-icon-size-sm);
-    height: var(--rds-icon-size-sm);
+    width: var(--rds-icon-size-sm, 16px);
+    height: var(--rds-icon-size-sm, 16px);
   }
 }
 
@@ -330,7 +330,7 @@
   }
 }
 
-.rds-kanban-board__input-field {
+.rds-kanban-board-container .rds-kanban-board__input-field {
   margin-bottom: var(--rds-spacing-md);
 
   .MuiOutlinedInput-root {
@@ -439,8 +439,16 @@
   }
 }
 
-.rds-kanban-board__add-item-form {
+.rds-kanban-board-container .rds-kanban-board__add-item-form {
   margin-top: var(--rds-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rds-spacing-md);
+
+  > *,
+  > .rds-kanban-board__button-container {
+    margin: 0;
+  }
 }
 
 .rds-kanban-board__add-item-simple {
@@ -511,8 +519,8 @@
     stroke-width: inherit;
     fill: none;
     display: flex;
-    width: var(--rds-icon-size-sm);
-    height: var(--rds-icon-size-sm);
+    width: var(--rds-icon-size-sm, 16px);
+    height: var(--rds-icon-size-sm, 16px);
   stroke: var(--rds-primary-main);
   }
 }

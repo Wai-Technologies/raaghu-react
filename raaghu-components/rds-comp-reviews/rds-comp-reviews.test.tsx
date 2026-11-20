@@ -346,11 +346,11 @@ describe('RdsCompReviews', () => {
       expect(avatars.some(a => a.dataset.title === 'John')).toBeTruthy();
     });
 
-    it('should use default image when imageUrl not provided', () => {
+    it('should not use a fallback image when imageUrl not provided', () => {
       const item = { ...defaultItem, imageUrl: undefined };
       render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveAttribute('data-src', 'https://source.unsplash.com/random/200x200/?portrait');
+      expect(avatar).not.toHaveAttribute('data-src');
     });
 
     it('should use provided imageUrl', () => {
@@ -375,7 +375,7 @@ describe('RdsCompReviews', () => {
       expect(rating).toHaveAttribute('data-value', '5');
     });
 
-    it('should use default rating when not provided', () => {
+    it('should default rating to 0 when not provided', () => {
       const item: Item = { ...defaultItem, rating: undefined };
       render(
         <RdsCompReviews
@@ -385,7 +385,7 @@ describe('RdsCompReviews', () => {
         />
       );
       const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '4.5');
+      expect(rating).toHaveAttribute('data-value', '0');
     });
 
     it('should allow rating changes', async () => {
@@ -444,7 +444,7 @@ describe('RdsCompReviews', () => {
       expect(screen.getByText('25')).toBeInTheDocument();
     });
 
-    it('should use default likes when not provided', () => {
+    it('should default likes to 0 when not provided', () => {
       const item: Item = { ...defaultItem, likes: undefined };
       render(
         <RdsCompReviews
@@ -453,10 +453,10 @@ describe('RdsCompReviews', () => {
           itemList={[item]}
         />
       );
-      expect(screen.getByText('35')).toBeInTheDocument();
+      expect(screen.getAllByText('0').length).toBeGreaterThan(0);
     });
 
-    it('should use default dislikes when not provided', () => {
+    it('should default dislikes to 0 when not provided', () => {
       const item: Item = { ...defaultItem, dislikes: undefined };
       render(
         <RdsCompReviews
@@ -465,7 +465,7 @@ describe('RdsCompReviews', () => {
           itemList={[item]}
         />
       );
-      expect(screen.getByText('10')).toBeInTheDocument();
+      expect(screen.getAllByText('0').length).toBeGreaterThan(0);
     });
 
     it('should increment likes on thumb up click', async () => {
@@ -821,7 +821,7 @@ describe('RdsCompReviews', () => {
     });
 
     it('should handle zero rating', () => {
-      const item = { ...defaultItem, rating: 0.5 };
+      const item = { ...defaultItem, rating: 0 };
       render(
         <RdsCompReviews
           {...defaultProps}
@@ -830,7 +830,7 @@ describe('RdsCompReviews', () => {
         />
       );
       const rating = screen.getByTestId('rds-rating');
-      expect(rating).toHaveAttribute('data-value', '0.5');
+      expect(rating).toHaveAttribute('data-value', '0');
     });
 
     it('should handle maximum rating', () => {

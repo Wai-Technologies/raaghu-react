@@ -112,6 +112,7 @@ const buildDatePickerProps = ({
     dayClassName,
     ref: datePickerRef,
     renderCustomHeader: props.layout === "Multi Month" ? createRenderCustomHeader(props.minDate, props.maxDate) : undefined,
+    popperPlacement: "bottom-end",
     ...overrides,
 });
 
@@ -284,7 +285,7 @@ export const renderDatePickerTypeView = (
                 <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
-                        <span className="rds-datepicker__dropdown-value">{dropdownDisplayValue}</span>
+                        {dropdownDisplayValue && <span className="rds-datepicker__dropdown-value">{dropdownDisplayValue}</span>}
                     </li>
 
                     <li id="today" className={`rds-datepicker__dropdown-item ${activeList === "today" ? "rds-datepicker__dropdown-item--active" : ""}`}>
@@ -309,12 +310,7 @@ export const renderDatePickerTypeView = (
                             startDate={startDate}
                             endDate={endDate}
                             selectsRange
-                            popperPlacement="right-start"
-                            popperModifiers={[
-                                { name: 'flip', options: { fallbackPlacements: ['left-start', 'bottom-start'] } },
-                                { name: 'preventOverflow', options: { boundary: 'viewport' } },
-                                { name: 'offset', options: { offset: [0, 8] } }
-                            ]}
+                            popperPlacement="bottom-end"
                             popperContainer={({ children }: { children: React.ReactNode }) => <div>{children}</div>}
                             popperClassName="rds-datepicker__popper"
                             disabled={props.isDisabled}

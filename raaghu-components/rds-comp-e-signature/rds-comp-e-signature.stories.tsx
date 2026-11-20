@@ -48,6 +48,10 @@ const meta: Meta<typeof RdsCompESignature> = {
       description: 'Message shown while disabled',
   table: { defaultValue: { summary: 'Draw option is currently disabled.\\nClear uploaded signature to enable drawing.' } },
     },
+    penColor: {
+      control: 'color',
+      description: 'Pen colour used for drawing',
+    },
     title: {
       control: 'text',
       description: 'Title for the component',

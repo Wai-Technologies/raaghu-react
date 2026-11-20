@@ -84,7 +84,7 @@
       }
 
       &:disabled {
-        background-color: var(--rds-background-disabled);
+        background-color: var(--rds-background-disabled, var(--rds-color-disabled-bg));
         cursor: not-allowed;
       }
 

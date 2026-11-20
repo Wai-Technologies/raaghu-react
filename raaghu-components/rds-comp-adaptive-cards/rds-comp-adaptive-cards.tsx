@@ -109,6 +109,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     activityProps = {} as Partial<ActivityProps>,
   } = merged;
 
+  const showClose = Boolean(showDismiss || closeIcon);
+
   const resolvedBtn1Style = getRdsButtonStyle(btn1style);
   const resolvedBtn2Style = getRdsButtonStyle(btn2style);
 
@@ -150,8 +152,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         smallText={smallText}
         images={images || []}
         showHeader={showHeader}
-        closeIcon={closeIcon}
-        showDismiss={showDismiss}
+        showDismiss={showClose}
+        onDismiss={handleDismiss}
       />
     );
   }
@@ -196,14 +198,13 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               spacing={1}
               className="custom-box__title-stack"
             >
-              {showDismiss && <RdsBox className="custom-box__circle" />}
               {showHeader && (
                 <RdsTypography variant="h5" className="custom-box__title-text">
                   {cardTitle}
                 </RdsTypography>
               )}
               <RdsBox sx={{ flex: 1 }} />
-              {closeIcon && (
+              {showClose && (
                 <IconButton
                   aria-label="Close"
                   size="small"
@@ -215,7 +216,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               )}
             </RdsStack>
             {smallText && (
-              <RdsTypography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+              <RdsTypography variant="body2" color="text.secondary">
                 {smallText}
               </RdsTypography>
             )}
@@ -264,7 +265,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     alignItems="center"
                     className="rds-adaptive-cards__header-title-row"
                   >
-                    {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
                     <RdsTypography
                       variant="h5"
                       className="rds-adaptive-cards__title"
@@ -276,7 +276,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 )
               }
               action={
-                closeIcon && (
+                showClose && (
                   <IconButton
                     aria-label="Close"
                     size="small"

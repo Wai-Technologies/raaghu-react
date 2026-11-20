@@ -55,7 +55,7 @@
         }
 
         &.Mui-focused {
-          border-color: var(--rds-border-focus);
+          border-color: var(--rds-border-focus, var(--rds-primary-main));
           background-color: var(--rds-background-paper);
         }
       }
@@ -81,14 +81,14 @@
     }
   }
 
-  &__skin-tone-button {
+  &__skin-tone-button.MuiIconButton-root {
     transition: all var(--rds-transition-base);
     flex-shrink: 0;
-    width: var(--rds-size-sm);
-    height: var(--rds-size-sm);
+    width: var(--rds-emoji-skin-tone-size, 32px);
+    height: var(--rds-emoji-skin-tone-size, 32px);
     border-radius: var(--rds-border-radius-sm);
     border: var(--rds-border-width-thin) solid var(--rds-border-default);
-    min-width: var(--rds-size-sm);
+    min-width: var(--rds-emoji-skin-tone-size, 32px);
     padding: 0;
     margin-left: var(--rds-spacing-sm);
 
@@ -114,20 +114,20 @@
     align-items: center;
 
     .MuiIconButton-root {
-      width: var(--rds-size-sm);
-      height: var(--rds-size-sm);
-      min-width: var(--rds-size-sm);
+      width: var(--rds-emoji-skin-tone-size, 32px);
+      height: var(--rds-emoji-skin-tone-size, 32px);
+      min-width: var(--rds-emoji-skin-tone-size, 32px);
       padding: var(--rds-spacing-xs);
     }
   }
 
-  &__skin-tone-popover {
+  &__skin-tone-popover.MuiPaper-root {
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-md);
     box-shadow: var(--rds-elevation-3);
     margin-top: var(--rds-spacing-xxs);
     min-width: auto;
-    width: var(--rds-size-sm);
+    width: var(--rds-emoji-skin-popover-width, 45px);
   }
 
   &__skin-tone-dropdown {
@@ -139,9 +139,9 @@
     .MuiIconButton-root {
       transition: all var(--rds-transition-base);
       display: block;
-        width: var(--rds-size-sm);
-        height: var(--rds-size-sm);
-        min-width: var(--rds-size-sm);
+        width: var(--rds-emoji-skin-tone-size, 32px);
+        height: var(--rds-emoji-skin-tone-size, 32px);
+        min-width: var(--rds-emoji-skin-tone-size, 32px);
       padding: 0;
 
       &:hover {
@@ -151,11 +151,11 @@
     }
   }
 
-  &__skin-tone-option {
-    width: var(--rds-size-sm);
-    height: var(--rds-size-sm);
+  &__skin-tone-option.MuiIconButton-root {
+    width: var(--rds-emoji-skin-tone-size, 32px);
+    height: var(--rds-emoji-skin-tone-size, 32px);
     border-radius: 0;
-    min-width: var(--rds-size-sm);
+    min-width: var(--rds-emoji-skin-tone-size, 32px);
     padding: 0;
     margin: var(--rds-spacing-xs) 0;
     display: block;
@@ -382,14 +382,18 @@
       line-height: var(--rds-line-height-none);
     }
 
-    &-text {
-      color: var(--rds-text-secondary);
+    &-input.MuiInputBase-root {
+      color: var(--rds-text-primary);
       font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal);
-
       line-height: var(--rds-emoji-generator-line-height-2);
       margin: 0;
       flex: 1;
+
+      .MuiInputBase-input::placeholder {
+        color: var(--rds-text-secondary);
+        opacity: 1;
+      }
     }
   }
 

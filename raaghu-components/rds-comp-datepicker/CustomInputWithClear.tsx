@@ -55,36 +55,40 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
           placeholder={placeholder}
           disabled={isDisabled}
           ref={ref}
+          endIcon={
+            <>
+              {showClearDate && value && (
+                <button
+                  type="button"
+                  className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!isDisabled) {
+                      clearDate?.();
+                    }
+                  }}
+                  title="Clear date"
+                >
+                  <CloseIcon className="rds-datepicker__close-icon" />
+                </button>
+              )}
+              <button
+                type="button"
+                className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
+                onClick={handleTriggerClick}
+                title="Open calendar"
+                disabled={isDisabled}
+                style={{ background: "transparent", border: "none" }}
+              >
+                {changeIcon === "dashboard_settings" ? (
+                  <SettingsIcon className="rds-datepicker__calendar-icon" />
+                ) : (
+                  <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
+                )}
+              </button>
+            </>
+          }
         />
-        {showClearDate && value && (
-          <button
-            type="button"
-            className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (!isDisabled) {
-                clearDate?.();
-              }
-            }}
-            title="Clear date"
-          >
-            <CloseIcon className="rds-datepicker__close-icon" />
-          </button>
-        )}
-        <button
-          type="button"
-          className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
-          onClick={handleTriggerClick}
-          title="Open calendar"
-          disabled={isDisabled}
-          style={{ background: "transparent", border: "none" }}
-        >
-          {changeIcon === "dashboard_settings" ? (
-            <SettingsIcon className="rds-datepicker__calendar-icon" />
-          ) : (
-            <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
-          )}
-        </button>
       </div>
     );
   }

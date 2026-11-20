@@ -72,7 +72,7 @@ const sampleItems: boardInfo[] = [
     {
         cardId: 1,
         status: "unassigned",
-        name: "Board 1",
+        name: "Board 2",
         subCardIndex: 0,
         colorType: "primary",
         actions: moreCardOptions,
@@ -81,6 +81,9 @@ const sampleItems: boardInfo[] = [
                 ticketId: "1",
                 ticketPriority: "High",
                 ticketQuestion: "Question 1",
+                displayId: "RDS110110",
+                badge: "Badge",
+                description: "This is a sample text",
                 ticketDate: "12th Jun 2023",
                 SubcardId: 0,
                 assignedToName: "abc",
@@ -91,6 +94,9 @@ const sampleItems: boardInfo[] = [
                 ticketId: "2",
                 ticketPriority: "Low",
                 ticketQuestion: "Question 2",
+                displayId: "RDS110110",
+                badge: "Badge",
+                description: "This is a sample text",
                 ticketDate: "12th Jun 2023",
                 SubcardId: 1,
                 actions: moreOptions

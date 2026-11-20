@@ -114,6 +114,7 @@ const mockBoardData: boardInfo[] = [
         SubcardId: 1,
         assignedToName: 'John Doe',
         assignedTo: 'john.doe',
+        badge: 'New',
         actions: [{ key: 'Edit', value: 'edit' }],
       },
       {
@@ -257,8 +258,18 @@ describe('RdsCompKanbanBoard', () => {
       expect(dateContent).toBeInTheDocument();
     });
 
-    it('should render sample text when ticketQuestion is default', () => {
-      const customBoardData: boardInfo[] = [
+    it('should render ticketQuestion and not hard-coded demo content', () => {
+      renderComponent();
+      const text = document.body.textContent ?? '';
+      expect(text).toContain('Sample Question 1');
+      expect(text).not.toContain('This is a sample text');
+      expect(text).not.toContain('RDS110110');
+      expect(screen.getAllByTestId('rds-badge')).toHaveLength(1);
+      expect(text).not.toContain('Badge');
+    });
+
+    it('should render displayId, badge and description when provided', () => {
+      const data: boardInfo[] = [
         {
           cardId: 1,
           name: 'Test Board',
@@ -269,18 +280,23 @@ describe('RdsCompKanbanBoard', () => {
           subCards: [
             {
               ticketId: '',
+              ticketPriority: '',
               ticketQuestion: 'Question 1',
               ticketDate: '15 Feb 2024',
               SubcardId: 1,
               actions: [],
+              displayId: 'RDS-9',
+              badge: 'Urgent',
+              description: 'Custom description',
             },
           ],
         },
       ];
-      renderComponent({ boardData: customBoardData });
-      const typographies = screen.getAllByTestId('typography');
-      const sampleText = typographies.find((el) => el.textContent?.includes('This is a sample text'));
-      expect(sampleText).toBeInTheDocument();
+      renderComponent({ boardData: data });
+      const text = document.body.textContent ?? '';
+      expect(text).toContain('RDS-9');
+      expect(text).toContain('Custom description');
+      expect(screen.getByTestId('rds-badge')).toHaveTextContent('Urgent');
     });
   });
 
@@ -911,6 +927,90 @@ describe('RdsCompKanbanBoard', () => {
       const { container } = renderComponent();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('Bug fixes', () => {
+    const openAddBoardForm = () => {
+      fireEvent.click(screen.getAllByTestId('button').find((btn) => btn.textContent?.includes('Add Board'))!);
+    };
+    const boardInput = () => screen.getAllByTestId('text-field').find((el) => el.getAttribute('placeholder') === 'Enter Board Title')!;
+    const addBoardBtn = () => screen.getAllByTestId('button').find((btn) => btn.textContent?.includes('Add Board')) as HTMLButtonElement;
+
+    it('should show the real board name instead of remapping Board 1', () => {
+      renderComponent();
+      const names = screen.getAllByTestId('typography').map((el) => el.textContent);
+      expect(names).toContain('Board 1');
+    });
+
+    it('should append a new board at the end and notify the parent', () => {
+      const onBoardDataChange = jest.fn();
+      renderComponent({ onBoardDataChange });
+      openAddBoardForm();
+      fireEvent.change(boardInput(), { target: { value: 'Last Board' } });
+      fireEvent.click(addBoardBtn());
+      expect(onBoardDataChange).toHaveBeenCalledTimes(1);
+      const next: boardInfo[] = onBoardDataChange.mock.calls[0][0];
+      expect(next.map((b) => b.name)).toEqual(['Board 1', 'Board 2', 'Last Board']);
+    });
+
+    it('should disable Add Board while the name is empty and ignore whitespace', () => {
+      const onBoardDataChange = jest.fn();
+      renderComponent({ onBoardDataChange });
+      openAddBoardForm();
+      expect(addBoardBtn()).toBeDisabled();
+      fireEvent.change(boardInput(), { target: { value: '   ' } });
+      expect(addBoardBtn()).toBeDisabled();
+      fireEvent.keyDown(boardInput(), { key: 'Enter' });
+      expect(onBoardDataChange).not.toHaveBeenCalled();
+    });
+
+    it('should add a board when Enter is pressed in the board title input', () => {
+      const onBoardDataChange = jest.fn();
+      renderComponent({ onBoardDataChange });
+      openAddBoardForm();
+      fireEvent.change(boardInput(), { target: { value: 'Via Enter' } });
+      fireEvent.keyDown(boardInput(), { key: 'Enter' });
+      expect(onBoardDataChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should disable Add Item without a title and add the item once titled', () => {
+      const onBoardDataChange = jest.fn();
+      renderComponent({ onBoardDataChange });
+      fireEvent.click(screen.getAllByTestId('button').find((btn) => btn.textContent?.includes('Add Item'))!);
+      const addItem = () => screen.getAllByTestId('button').find((btn) => btn.textContent?.includes('Add Item')) as HTMLButtonElement;
+      expect(addItem()).toBeDisabled();
+      const title = screen.getAllByTestId('text-field').find((el) => el.getAttribute('placeholder') === 'Enter Title')!;
+      fireEvent.change(title, { target: { value: 'My Item' } });
+      expect(addItem()).not.toBeDisabled();
+      fireEvent.click(addItem());
+      expect(onBoardDataChange).toHaveBeenCalledTimes(1);
+      const next: boardInfo[] = onBoardDataChange.mock.calls[0][0];
+      expect(next[0].subCards[next[0].subCards.length - 1].ticketQuestion).toBe('My Item');
+    });
+
+    it('should notify the parent when a board is deleted and keep editing state in sync', () => {
+      const onBoardDataChange = jest.fn();
+      renderComponent({ onBoardDataChange });
+      fireEvent.click(screen.getAllByLabelText('More options')[0]);
+      fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent?.includes('Delete Board'))!);
+      expect(onBoardDataChange).toHaveBeenCalledTimes(1);
+      expect((onBoardDataChange.mock.calls[0][0] as boardInfo[]).map((b) => b.cardId)).toEqual([2]);
+    });
+
+    it('should notify the parent when a sub card is deleted', () => {
+      const onBoardDataChange = jest.fn();
+      const data: boardInfo[] = [
+        {
+          ...mockBoardData[0],
+          subCards: [{ ...mockBoardData[0].subCards[0], actions: [{ key: 'Delete', value: 'delete' }] }],
+        },
+      ];
+      renderComponent({ boardData: data, onBoardDataChange });
+      const menuButtons = document.querySelectorAll('.rds-kanban-board__subcard-dropdown-button');
+      fireEvent.click(menuButtons[0]);
+      fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent === 'Delete')!);
+      expect((onBoardDataChange.mock.calls[0][0] as boardInfo[])[0].subCards).toHaveLength(0);
     });
   });
 });

@@ -277,7 +277,7 @@ const RdsDatepicker = ({
     );
 
     return (
-        <>
+        <div className="rds-datepicker__field">
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -321,7 +321,7 @@ const RdsDatepicker = ({
                 activateCustom,
                 customDropdownRef
             )}
-        </>
+        </div>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";
