@@ -4,6 +4,11 @@ import { RaaghuThemeProvider } from '../raaghu-react-themes/src/provider/RaaghuT
 import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
 import './storybook-theme-sync';
+import {
+  reactNodeArgTypesEnhancer,
+  sanitizeArrayArgs,
+  sanitizeReactNodeArgs,
+} from './sanitize-react-node-args';
 
 const preview: Preview = {
   initialGlobals: {
@@ -26,6 +31,7 @@ const preview: Preview = {
       },
     },
   },
+  argTypesEnhancers: [reactNodeArgTypesEnhancer],
   parameters: {
     controls: {
       exclude: ['component'],
@@ -112,6 +118,12 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const mode = (context.globals.theme || 'system') as 'light' | 'dark' | 'system';
+      const fallback = (context.initialArgs ?? {}) as Record<string, unknown>;
+      context.args = sanitizeArrayArgs(
+        sanitizeReactNodeArgs((context.args ?? {}) as Record<string, unknown>, context.argTypes, fallback),
+        context.argTypes,
+        fallback,
+      );
       return React.createElement(
         RaaghuThemeProvider,
         { mode, initializeOnMount: false },
