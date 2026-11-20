@@ -4,10 +4,10 @@
   --rds-search-row-gap: var(--rds-spacing-sm);
   --rds-search-label-font-size: var(--rds-font-size-md);
   --rds-search-label-font-weight: var(--rds-font-weight-medium, 500);
-  --rds-search-input-min-width: var(--rds-input-min-width);
+  --rds-search-input-min-width: var(--rds-input-min-width, 200px);
   --rds-search-icon-button-padding: var(--rds-spacing-xs);
   --rds-search-icon-button-size: calc(var(--rds-size-lg) + var(--rds-size-xs));
-  --rds-search-icon-size: var(--rds-icon-button-size-small);
+  --rds-search-icon-size: var(--rds-icon-button-size-small, 18px);
   --rds-search-field-min-height-small: calc(var(--rds-spacing-xl) + var(--rds-spacing-xs));
   --rds-search-field-min-height-medium: calc(var(--rds-spacing-2xl) + var(--rds-spacing-xs));
   

@@ -275,7 +275,7 @@
   width: var(--rds-loader-moving-width);
   height: var(--height-of-loader);
   border-radius: var(--rds-spacing-30);
-  background-color: var(--rds-loader-track-bg);
+  background-color: var(--rds-loader-track-bg, color-mix(in srgb, var(--rds-color-black) 20%, transparent));
   position: relative;
 }
 .rds-loader__moving::before {
