@@ -162,7 +162,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 {props.layout === ToastLayout.Chat && props.chatTime && (
                                     <span className="rds-comp-toast__chat-time">{props.chatTime}</span>
                                 )}
-                                {showDismiss && props.layout !== ToastLayout.Chat && (
+                                {showDismiss && (
                                     <button
                                         type="button"
                                         className="rds-comp-toast__close-btn"

@@ -488,7 +488,7 @@ describe('RdsCompToast', () => {
       });
     });
 
-    it('should not render dismiss button in chat layout', () => {
+    it('should render dismiss button in chat layout', () => {
       render(
         <RdsCompToast
           {...defaultProps}
@@ -498,7 +498,7 @@ describe('RdsCompToast', () => {
         />
       );
       const closeBtns = screen.queryAllByLabelText('Close');
-      expect(closeBtns.length).toBe(0);
+      expect(closeBtns.length).toBe(1);
     });
   });
 
