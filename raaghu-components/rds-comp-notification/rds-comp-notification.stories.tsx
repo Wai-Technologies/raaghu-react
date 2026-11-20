@@ -50,8 +50,15 @@ const meta: Meta = {
             control: { type: "select" },
         },
         type: {
-            options: ["error", "info", "success", "warning"],
+            options: Object.values(NotificationType),
             control: { type: "select" },
+            description: "Semantic notification type (error, info, success, warning)",
+        },
+        color: {
+            table: { disable: true },
+        },
+        severity: {
+            table: { disable: true },
         },
     }
 } satisfies Meta<typeof RdsCompNotification>;
@@ -79,7 +86,7 @@ export const Default: Story = {
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]
-    },
+    },
 }
 
 Default.parameters = {
