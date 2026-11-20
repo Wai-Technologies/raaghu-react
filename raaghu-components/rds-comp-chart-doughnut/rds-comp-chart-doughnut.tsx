@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
+import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-doughnut.scss";
 
 export interface RdsCompDoughnutProps {
@@ -67,7 +67,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
             }
         };
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
@@ -89,7 +89,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
         }
 
         return () => { doughnutCanvas.destroy(); };
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, props.titleText, props.subTitleText, themeMode]);
 
     return (
         <div className="rds-comp-chart-doughnut">

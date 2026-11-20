@@ -62,15 +62,14 @@ const RdsCompRadarChart = ({
     chartInstanceRef.current?.destroy();
 
     const chartOptions = cloneChartOptions(options);
+    const chartData = { labels, datasets: dataSets };
+    attachChartData(chartOptions as { data?: unknown }, chartData);
     applyChartThemeColors(chartOptions as any, ["r"]);
 
     if (!chartOptions.scales) chartOptions.scales = {};
     if (!chartOptions.scales.r) chartOptions.scales.r = {};
     if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};
     chartOptions.scales.r.pointLabels.color = chartTextColor();
-
-    const chartData = { labels, datasets: dataSets };
-    attachChartData(chartOptions as { data?: unknown }, chartData);
 
     const textColor = chartTextColor();
 

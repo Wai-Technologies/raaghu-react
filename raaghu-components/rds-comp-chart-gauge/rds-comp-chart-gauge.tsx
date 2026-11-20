@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
+import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeProps {
@@ -66,9 +66,13 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
             }
         };
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
-        const chartData = { labels: props.labels, datasets: props.dataSets };
+        const useValue = props.value !== undefined && !props.dataSets?.length;
+        const datasets = useValue
+            ? [{ data: [props.value as number, Math.max((props.maxValue ?? 100) - (props.value as number), 0)] }]
+            : props.dataSets;
+        const chartData = { labels: props.labels, datasets };
         if (!chartOptions.data) {
             chartOptions.data = chartData;
         }
@@ -88,14 +92,14 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
                 plugins: {
                     ...chartOptions?.plugins,
                     legend: {
-                        display: chartOptions?.plugins?.legend?.display !== false,
                         position: "top",
+                        ...chartOptions?.plugins?.legend,
+                        display: chartOptions?.plugins?.legend?.display !== false,
                         labels: {
                             usePointStyle: true,
                             pointStyle: 'circle',
                             ...chartOptions?.plugins?.legend?.labels,
                         },
-                        ...props.options?.plugins?.legend,
                     },
                 },
             },
@@ -107,7 +111,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
         }
 
         return () => { gaugeCanvas.destroy(); };
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, props.titleText, props.subTitleText, props.value, props.maxValue, themeMode]);
 
     return (
         <div className="rds-comp-chart-gauge">

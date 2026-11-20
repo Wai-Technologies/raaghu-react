@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-stacked.scss";
 
 export interface RdsCompStackedProps {
@@ -38,7 +38,7 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
 
         if (chartRef.current) chartRef.current.destroy();
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
@@ -56,26 +56,25 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
                 scales: {
                     ...(chartOptions?.scales || {}),
                     x: {
+                        stacked: true,
                         ...(chartOptions?.scales?.x || {}),
                         offset: true,
-                        categoryPercentage: 0.1,
-                        barPercentage: 0.1,
                         ticks: {
                             ...(chartOptions?.scales?.x?.ticks || {}),
                             padding: 20,
                             align: 'center',
                         },
                     },
+                    y: {
+                        stacked: true,
+                        ...(chartOptions?.scales?.y || {}),
+                    },
                 },
             },
         });
 
-        if (chartRef.current !== null) {
-          // noop
-        }
-
         return () => { chartRef.current?.destroy(); };
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, themeMode]);
 
     return (
         <div className="stack-chart-container">

@@ -31,10 +31,12 @@ const meta: Meta = {
         datePickerStyleType: {
             options: ["Dropdown", "Selector"],
             control: { type: "select" },
+            if: { arg: "type", eq: "Default" },
         },
         layout: {
             options: ["Default", "Month Picker", "Year Picker", "Multi Month"],
             control: { type: "select" },
+            if: { arg: "type", eq: "Default" },
         }, 
         state: {
             options: ["Default", "Expanded", "Selected"],

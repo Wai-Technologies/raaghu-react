@@ -63,13 +63,13 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
     };
   }, []);
 
-  const getTimeMarkConfig = () => {
-    if (isMobileView) {
-      return { interval: "00:30", count: 5 };
-    } else {
-      return { interval: "00:10", count: 13 };
-    }
-  };
+  const timeMarks = isMobileView ? { interval: 30, count: 5 } : { interval: 10, count: 13 };
+  const formatTimeMark = (seconds: number) =>
+    `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volumeLevel / 100;
+  }, [volumeLevel, type, src]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -125,7 +125,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
       document.removeEventListener('mouseup', handleDocumentMouseUp);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, showTranscriptSlider, showSettingsModal]);
+  }, [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, showTranscriptSlider, showSettingsModal, type, src]);
 
   const handleSeek = (_: Event, value: number | number[]) => {
     const time = Array.isArray(value) ? value[0] : value;
@@ -265,12 +265,13 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
       )}
       {type === "Audio Edition" && !editorClosed && (
         <div className="rds-comp-audio-player__edition-container">
+          <audio ref={audioRef} src={src} />
           <div className="rds-comp-audio-player__edition-buttons-top">
             <RdsButton color="primary" size="medium" text="Cancel" layout="text-only" shape="rectangle" state="default" style="transparent" onClick={handleCancel} />
             <RdsButton color="primary" size="medium" text="Save" layout="text-only" shape="rectangle" state="default"  style="filled" onClick={handleSave} />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {[...Array(getTimeMarkConfig().count)].map((_, i) => (<span key={`timemark-${getTimeMarkConfig().interval}-${i}`} className="rds-comp-audio-player__edition-timemark">{getTimeMarkConfig().interval}</span>))}
+            {[...Array(timeMarks.count)].map((_, i) => (<span key={`timemark-${timeMarks.interval}-${i}`} className="rds-comp-audio-player__edition-timemark">{formatTimeMark(i * timeMarks.interval)}</span>))}
           </div>
           <div 
             className={`rds-comp-audio-player__edition-waveform ${isDraggingLeft || isDraggingRight ? 'rds-comp-audio-player__edition-waveform--dragging' : ''}`}
