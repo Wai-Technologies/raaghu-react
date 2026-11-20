@@ -99,19 +99,35 @@ export const designSystemComponentOverrides: Components<Theme> = {
       }),
       standardSuccess: ({ theme }) => ({
         backgroundColor: theme.palette.success.light,
-        color: theme.palette.success.contrastText,
+        color: theme.palette.success.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-success-bg)',
+          color: 'var(--rds-alert-success-text)',
+        }),
       }),
       standardError: ({ theme }) => ({
         backgroundColor: theme.palette.error.light,
-        color: theme.palette.error.contrastText,
+        color: theme.palette.error.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-error-bg)',
+          color: 'var(--rds-alert-error-text)',
+        }),
       }),
       standardWarning: ({ theme }) => ({
         backgroundColor: theme.palette.warning.light,
-        color: theme.palette.warning.contrastText,
+        color: theme.palette.warning.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-warning-bg)',
+          color: 'var(--rds-alert-warning-text)',
+        }),
       }),
       standardInfo: ({ theme }) => ({
         backgroundColor: theme.palette.info.light,
-        color: theme.palette.info.contrastText,
+        color: theme.palette.info.dark,
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'var(--rds-alert-info-bg)',
+          color: 'var(--rds-alert-info-text)',
+        }),
       }),
     },
   },

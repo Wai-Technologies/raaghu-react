@@ -173,7 +173,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
         }
         onChange?.(event, value, reason, details);
       }}
-        renderOption={(optionProps, option, { selected: checked }) => {
+        renderOption={({ key: optionKey, ...optionProps }, option, { selected: checked }) => {
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
           const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
@@ -185,7 +185,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           })();
           if (showDefault) {
             return (
-              <li {...optionProps}>
+              <li key={optionKey} {...optionProps}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
                   <span>{(option as T).label || String(option)}</span>
                 </Box>
@@ -193,7 +193,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             );
           }
           return (
-            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
+            <li key={optionKey} {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
                   <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: 'var(--rds-spacing-xxs)', flexShrink: 0 }} />

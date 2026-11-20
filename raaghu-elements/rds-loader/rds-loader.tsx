@@ -60,6 +60,8 @@ const RdsLoader = (props: RdsLoaderProps) => {
     return undefined;
   };
 
+  const linearHeight = { small: 2, medium: 4, large: 8 }[size] ?? 4;
+
   const renderLoader = () => {
     if (variant === 'linear') {
       return (
@@ -73,6 +75,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
             variant={value !== undefined ? 'determinate' : 'indeterminate'}
             value={value}
             color={color}
+            sx={{ height: linearHeight, borderRadius: linearHeight / 2 }}
             aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
           />
           {value !== undefined && (
