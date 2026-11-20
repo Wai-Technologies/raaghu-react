@@ -16,19 +16,20 @@ const meta: Meta = {
     ],
     tags: ['autodocs', 'stable'],
     argTypes: {
-        colorVariant: {
+        color: {
             options: [
                 "primary",
                 "secondary",
                 "success",
-                "info",
                 "warning",
-                "danger",
+                "error",
                 "dark",
                 "light",
             ],
             control: { type: "select" },
+            description: "Button color",
         },
+        colorVariant: { control: { disable: true }, table: { disable: true } },
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
@@ -55,18 +56,18 @@ type Story = StoryObj<typeof RdsCompAiFabMenu>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "light",
+        color: "light",
         size: "medium",
         menuIcon: "list",
         alignment: "left",
         backgroundType: "circular",
         listItems: [
-            { value: "New Role", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Refresh", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Export to excel", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
+            { value: "New Role", key: "new", icon: "users" },
+            { value: "Refresh", key: "refresh", icon: "refresh" },
+            { value: "Export to excel", key: "export", icon: "export" },
+            { value: "Delete", key: "delete", icon: "delete" },
+            { value: "Download", key: "download", icon: "download" },
         ]
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['colorVariant', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };
+Default.parameters = { controls: { include: ['color', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };

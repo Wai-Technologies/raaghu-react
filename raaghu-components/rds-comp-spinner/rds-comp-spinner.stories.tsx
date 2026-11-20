@@ -21,7 +21,7 @@ const meta: Meta = {
     tags: ['autodocs', 'stable'],
     argTypes: {
         size: {
-            options: ["Default", "Small", "Large",],
+            options: ["Default", "Small", "Medium", "Large"],
             control: { type: "select" },
             description: "Size of the spinner",
         },
@@ -38,8 +38,8 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Type of spinner",
         },
-        colorVariant: {
-            options: ["primary", "secondary", "success", "danger", "warning", "info", "dark"],
+        color: {
+            options: ["primary", "secondary", "success", "error", "warning", "info", "dark"],
             control: { type: "select" },
             description: "Color variant of the spinner",
         },
@@ -63,9 +63,9 @@ export const Default: Story = {
         spinnerType: 'border',
         width: '50px',
         height: '50px',
-        colorVariant: 'primary',
+        color: 'primary',
         level: SpinnerLevel.Level04,
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };
+Default.parameters = { controls: { include: ['spinnerType','size','color', 'showLabel', 'layout',"labelText", 'level'] } };
 

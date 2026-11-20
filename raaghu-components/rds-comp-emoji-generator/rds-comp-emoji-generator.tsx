@@ -4,6 +4,7 @@ import {
     Box,
     TextField,
     InputAdornment,
+    InputBase,
     Chip,
     Typography,
     Popover,
@@ -31,6 +32,7 @@ export interface RdsCompEmojiGeneratorProps {
     State?: SkinToneState;
     Category?: EmojiCategory;
     onEmojiSelect?: (emoji: string) => void;
+    onMoodChange?: (mood: string) => void;
     maxEmojis?: number;
     sx?: Record<string, unknown>;
 }
@@ -42,6 +44,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     State = SkinToneState.Default,
     Category = EmojiCategory.SmileysAndPeople,
     onEmojiSelect,
+    onMoodChange,
     maxEmojis = 80,
 
     ...props
@@ -53,6 +56,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     }, [Category]);
     
     const [searchTerm, setSearchTerm] = useState("");
+    const [mood, setMood] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -111,9 +115,11 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
         );
     }
 
-    const filteredEmojis = searchTerm
-        ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
-        : getEmojisByCategory(selectedCategory, selectedSkinTone);
+    const filteredEmojis = mood.trim()
+        ? searchEmojis(mood, undefined, selectedSkinTone)
+        : searchTerm
+            ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
+            : getEmojisByCategory(selectedCategory, selectedSkinTone);
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
     return (
@@ -222,7 +228,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
             <Box className="rds-emoji-generator__grid">
                 <Box className="rds-emoji-generator__category-title">
                     <Typography variant="h6" className="rds-emoji-generator__category-title-text">
-                        {categoryTabs.find(t => t.id === selectedCategory)?.title || "Emojis"}
+                        {mood.trim() ? "Search Results" : categoryTabs.find(t => t.id === selectedCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container">
@@ -253,9 +259,17 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
             {showFooter && Type === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__footer">
                     <Typography className="rds-emoji-generator__footer-emoji">🙂</Typography>
-                    <Typography className="rds-emoji-generator__footer-text" variant="body2">
-                        What's your mood?
-                    </Typography>
+                    <InputBase
+                        className="rds-emoji-generator__footer-input"
+                        placeholder="What's your mood?"
+                        value={mood}
+                        onChange={(e) => {
+                            setMood(e.target.value);
+                            onMoodChange?.(e.target.value);
+                        }}
+                        fullWidth
+                        slotProps={{ input: { 'aria-label': "What's your mood?" } }}
+                    />
                 </Box>
             )}
         </Box>

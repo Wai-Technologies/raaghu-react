@@ -38,6 +38,10 @@ const meta: Meta = {
       defaultValue: "default",
       description: "State of the time picker",
     },
+    disabled: {
+      control: { type: "boolean" },
+      description: "Disables the time picker",
+    },
   },
 } satisfies Meta<typeof RdsCompTimePicker>;
 
@@ -49,5 +53,6 @@ export const Default: Story = {
     colorVariant: "primary",
     style: "default",
     state: "default",
+    disabled: false,
   },
 };

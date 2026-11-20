@@ -29,6 +29,52 @@ type Story = StoryObj<typeof RdsCompBarChart>;
 
 
 
+export const Default: Story = {
+    args: {
+        id: "bar-chart-default",
+        dataSets: [
+            {
+                label: "Dataset 1",
+                data: [80, 50, 75, 70, 80, 90, 100],
+                backgroundColor: "rgba(75, 192, 192, 1)",
+                borderColor: "rgba(75, 192, 192, 1)"
+            },
+            {
+                label: "Dataset 2",
+                data: [40, 67, 55, 100, 45, 70, 76],
+                backgroundColor: "rgba(54, 162, 235, 1)",
+            },
+            {
+                label: "Dataset 3",
+                data: [100, 92, 30, 70, 68, 50, 100],
+                backgroundColor: "rgba(255, 159, 64, 1)",
+            }
+        ],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+                title: {
+                    display: true,
+                    text: "Bar Chart"
+                }
+            }
+        }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'height',
+            ],
+        },
+     },
+} satisfies Story;
+
 export const BorderRadius: Story = {
     args: {
         id: "bar-chart-border-radius",

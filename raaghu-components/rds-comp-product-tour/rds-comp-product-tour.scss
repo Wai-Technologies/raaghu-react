@@ -1,6 +1,6 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-.rds-comp-product-tour {
+.rds-comp-product-tour__container {
   --rds-product-tour-max-width-1: 700px;
   --rds-product-tour-min-height: 137.74px;
   --rds-product-tour-border: 0.5px;
@@ -12,13 +12,16 @@
   --rds-product-tour-min-width: 90px;
   --rds-product-tour-width-2: 90px;
   --rds-product-tour-height-1: 38px;
+}
+
+.rds-comp-product-tour {
   &__container {
     background: var(--rds-background-paper);
-    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow);
+    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, color-mix(in srgb, var(--rds-tertiary-main) 18%, transparent));
     border-radius: var(--rds-border-radius-xl);
     margin: var(--rds-spacing-xl) auto;
     width: 100%;
-    max-width: var(--rds-product-tour-max-width);
+    max-width: var(--rds-product-tour-max-width, 550px);
     position: relative;
     overflow: visible;
     padding: 0;
@@ -32,7 +35,7 @@
     &--carousel {
   width: 100%;
   width: 100%;
-  max-width: var(--rds-carousel-max-width);
+  max-width: var(--rds-carousel-max-width, 520px);
   height: auto;
   margin: var(--rds-spacing-lg) auto;
   padding: calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) var(--rds-spacing-lg) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs));
@@ -67,7 +70,7 @@
     height: var(--rds-spacing-md);
     background: var(--rds-primary-main);
     border-radius: var(--rds-border-radius-pill);
-    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow);
+    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow, color-mix(in srgb, var(--rds-tertiary-main) 15%, transparent));
     z-index: var(--rds-z-index-local-50);
 
     &--top-left {
@@ -113,7 +116,7 @@
 
   &__image-section {
     width: 100%;
-    height: var(--rds-product-tour-image-height);
+    height: var(--rds-product-tour-image-height, 260px);
     margin: 0;
     border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) 0 0;
     overflow: hidden;
@@ -250,7 +253,7 @@
 
   &__carousel-wrapper {
     width: 100%;
-      height: var(--rds-carousel-height);
+      height: var(--rds-carousel-height, 300px);
     border-radius: var(--rds-border-radius-md);
     overflow: hidden;
     margin-bottom: 0;
@@ -283,7 +286,7 @@
     width: var(--rds-spacing-sm);
     height: var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-pill);
-    background-color: var(--rds-carousel-dot-bg);
+    background-color: var(--rds-carousel-dot-bg, color-mix(in srgb, var(--rds-tertiary-main) 30%, transparent));
 
     transition: background-color var(--rds-product-tour-transition-1) ease;
 
@@ -887,8 +890,8 @@
     padding: 0;
 
     svg {
-      width: var(--rds-icon-button-lg-svg-size);
-      height: var(--rds-icon-button-lg-svg-size);
+      width: var(--rds-icon-button-lg-svg-size, 18px);
+      height: var(--rds-icon-button-lg-svg-size, 18px);
       fill: none;
       display: block;
       margin: auto;
@@ -962,12 +965,12 @@
     .rds-comp-product-tour__carousel-desc {
       font-size: var(--rds-font-size-md);
 
-      line-height: var(--rds-product-tour-line-height-1);
+      line-height: var(--rds-product-tour-line-height-1, 1.3);
       margin-bottom: var(--rds-spacing-cozy);
     }
 
     .rds-comp-product-tour__carousel-wrapper {
-      height: var(--rds-carousel-mobile-height);
+      height: var(--rds-carousel-mobile-height, 280px);
       border-radius: var(--rds-border-radius-sm);
       margin-bottom: var(--rds-spacing-sm);
     }
@@ -982,8 +985,8 @@
     }
 
     .rds-comp-product-tour__carousel-dot {
-      width: var(--rds-carousel-dot-size);
-      height: var(--rds-carousel-dot-size);
+      width: var(--rds-carousel-dot-size, 6px);
+      height: var(--rds-carousel-dot-size, 6px);
     }
 
     .rds-comp-product-tour__carousel-nav-row,
@@ -1027,7 +1030,7 @@
   .rds-comp-product-tour__form-content,
   .rds-comp-product-tour__animation-info {
 
-    max-height: calc(100vh - var(--rds-product-tour-max-height-2));
+    max-height: calc(100vh - var(--rds-product-tour-max-height-2, 120px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1092,7 +1095,7 @@
 
   .rds-comp-product-tour__carousel-wrapper {
 
-    height: clamp(var(--rds-product-tour-height-2), 34vh, var(--rds-spacing-240));
+    height: clamp(var(--rds-product-tour-height-2, 180px), 34vh, var(--rds-spacing-240));
   }
 
   .rds-comp-product-tour__carousel-dots {
@@ -1111,7 +1114,7 @@
 
   .rds-comp-product-tour__form-tab {
 
-    max-width: var(--rds-product-tour-max-width-3);
+    max-width: var(--rds-product-tour-max-width-3, 88px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1129,7 +1132,7 @@
         min-width: var(--rds-spacing-40-px);
         height: var(--rds-size-lg);
 
-        line-height: var(--rds-product-tour-line-height-2);
+        line-height: var(--rds-product-tour-line-height-2, 1.2);
       }
     }
 
@@ -1222,7 +1225,7 @@ padding: var(--rds-spacing-lg);
           flex-shrink: 1;
           min-width: 0;
 
-          max-width: var(--rds-product-tour-max-width-4);
+          max-width: var(--rds-product-tour-max-width-4, 72px);
         }
 
         .rds-autocomplete__chip--overflow {

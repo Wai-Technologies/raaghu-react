@@ -50,11 +50,11 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
   return (
     <Box className="rds-comp-reviews">
-      {props.variantType === VariantType.Default && (
+      {(props.variantType ?? VariantType.Default) === VariantType.Default && (
         <Grid container spacing={2} wrap="wrap">
           {props.itemList.map((item: Item, index: number) => (
             <Grid 
-             key={item.name ?? item.username ?? `review-${index}`}
+             key={`${item.name ?? item.username ?? 'review'}-${index}`}
              size={{
                xs: 12,
                sm: 12,

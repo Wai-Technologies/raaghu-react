@@ -849,13 +849,12 @@
   width: var(--rds-font-size-md);
   height: var(--rds-font-size-md);
 }
-.rds-adaptive-cards__calendar-reminder-select-icon {
-  width: var(--rds-calendar-reminder-select-icon-width);
-  height: var(--rds-calendar-reminder-select-icon-height);
-  font-size: var(--rds-font-size-xs);
+.rds-adaptive-cards__calendar-reminder-select-form .rds-adaptive-cards__calendar-reminder-select-icon {
+  width: var(--rds-font-size-md);
+  height: var(--rds-font-size-md);
+  font-size: var(--rds-font-size-md);
   stroke: var(--rds-text-secondary);
   color: var(--rds-text-secondary);
-  margin-right: var(--rds-spacing-sm);
 }
 
 .rds-adaptive-cards__calendar-reminder-placeholder {
@@ -1725,4 +1724,55 @@
   .rds-adaptive-cards__football-team-status {
     max-width: 100%;
   }
+}
+
+.rds-adaptive-cards .rds-adaptive-cards__header .MuiCardHeader-action {
+  align-self: center;
+  margin: 0;
+}
+
+.rds-adaptive-cards .rds-adaptive-cards__header .rds-adaptive-cards__title {
+  padding-top: 0;
+}
+
+.rds-adaptive-cards .rds-adaptive-cards__close-btn,
+.rds-adaptive-cards .custom-box__close-icon {
+  margin-right: calc(var(--rds-spacing-xs) * -1);
+}
+
+.rds-adaptive-cards__calendar-reminder-actions .rds-adaptive-cards__calendar-reminder-action-box {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+}
+
+.rds-adaptive-cards__calendar-reminder-actions .rds-adaptive-cards__calendar-reminder-action-box .MuiButton-root {
+  width: 100%;
+  height: auto;
+  padding: calc(var(--rds-spacing-xs) * 1.5) var(--rds-spacing-md);
+  line-height: 1.75;
+}
+
+.rds-adaptive-cards--football-scorecard .rds-card__content-wrapper {
+  padding-left: 0;
+}
+
+.rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-header-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: var(--rds-spacing-sm);
+}
+
+.rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-header-left {
+  grid-column: 2;
+  margin: 0;
+}
+
+.rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live {
+  grid-column: 3;
+  justify-self: end;
+  position: static;
+  transform: none;
+  margin: 0;
 }

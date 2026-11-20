@@ -30,13 +30,13 @@
   }
 
   &__canvas-container {
-    --rds-esignature-draw-height: var(--rds-signature-draw-height);
+    --rds-esignature-draw-height: var(--rds-signature-draw-height, 280px);
     border: var(--rds-spacing-xxs) dashed var(--rds-color-border-default);
     border-radius: var(--rds-radius-lg);
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
-    padding: 0 var(--rds-space-5) var(--rds-esignature-padding-bottom);
+    padding: 0 var(--rds-space-5) var(--rds-esignature-padding-bottom, 68px);
     background-color: var(--rds-color-surface);
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
@@ -102,9 +102,9 @@
 
   &--type-initials {
     .rds-e-signature__canvas-container {
-      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact);
-      max-width: var(--rds-esignature-compact-max-width);
-      padding: 0 var(--rds-spacing-md) var(--rds-esignature-compact-padding-bottom);
+      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact, 200px);
+      max-width: var(--rds-esignature-compact-max-width, 420px);
+      padding: 0 var(--rds-spacing-md) var(--rds-esignature-compact-padding-bottom, 56px);
     }
 
     .rds-e-signature__canvas-title {
@@ -125,7 +125,7 @@
     }
 
     .rds-e-signature__upload-panel {
-      max-width: var(--rds-esignature-upload-panel-max-width);
+      max-width: var(--rds-esignature-upload-panel-max-width, 420px);
       border-color: var(--rds-color-accent-blue-500);
       padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) 20px);
     }
@@ -144,24 +144,24 @@
     }
 
     .rds-e-signature__file-button {
-      height: var(--rds-file-button-height);
-      min-width: var(--rds-file-button-min-width);
-      font-size: var(--rds-file-button-font-size);
+      height: var(--rds-file-button-height, 32px);
+      min-width: var(--rds-file-button-min-width, 108px);
+      font-size: var(--rds-file-button-font-size, 13px);
       --rds-file-button-padding: 0 12px;
       padding: var(--rds-file-button-padding);
-      border-radius: var(--rds-file-button-radius) 0 0 var(--rds-file-button-radius);
+      border-radius: var(--rds-file-button-radius, 5px) 0 0 var(--rds-file-button-radius, 5px);
     }
 
     .rds-e-signature__file-text {
-      height: var(--rds-file-text-height);
-      font-size: var(--rds-file-text-font-size);
-      padding: 0 var(--rds-file-text-padding-horizontal);
+      height: var(--rds-file-text-height, 32px);
+      font-size: var(--rds-file-text-font-size, 13px);
+      padding: 0 var(--rds-file-text-padding-horizontal, 12px);
     }
 
     .rds-e-signature__file-delete {
-      height: var(--rds-file-delete-height);
+      height: var(--rds-file-delete-height, 32px);
       font-size: var(--rds-font-size-lg);
-      padding: 0 var(--rds-file-delete-padding-horizontal);
+      padding: 0 var(--rds-file-delete-padding-horizontal, 8px);
     }
 
     .rds-e-signature__file-button::before {
@@ -174,7 +174,7 @@
   &--type-fullname {
     .rds-e-signature__canvas-container {
       --rds-esignature-draw-height: 240px;
-      max-width: var(--rds-signature-fullname-max-width);
+      max-width: var(--rds-signature-fullname-max-width, 960px);
     }
   }
 
@@ -829,6 +829,11 @@
   background-color: var(--rds-color-surface-dark);
   color: var(--rds-text-secondary);
   border-color: var(--rds-color-border-subtle-dark);
+}
+
+[data-theme="dark"] .rds-e-signature__title,
+:root[data-theme="dark"] .rds-e-signature__title {
+  color: var(--rds-text-primary, var(--rds-color-neutral-0));
 }
 
 [data-theme="dark"] .rds-e-signature__upload-label,

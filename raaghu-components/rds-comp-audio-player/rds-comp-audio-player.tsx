@@ -233,7 +233,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
       {type === "Collapsed" && (
         <div className="rds-comp-audio-player__collapsed-container">
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple"><CircleOutlinedIcon /></span>
-          <span className="rds-comp-audio-player__icon-settings"><SettingsSuggestSharpIcon /></span>
+          {showSettings && <span className="rds-comp-audio-player__icon-settings"><SettingsSuggestSharpIcon /></span>}
         </div>
       )}
       {type === "Audio Player" && (

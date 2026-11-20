@@ -47,8 +47,10 @@ export interface AdaptiveCardProps {
   cardText?: string;
   cardTitle?: string;
   showHeader?: boolean;
+  /** Shows the close (X) button that dismisses the card. */
   showDismiss?: boolean;
   type?: string;
+  /** @deprecated Use `showDismiss`. */
   closeIcon?: boolean;
   label?: string;
   nameLabel?: string;
@@ -219,16 +221,16 @@ export function InputFormCard(props: AdaptiveCardProps) {
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void }) {
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick, onDismiss }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void; onDismiss?: () => void }) {
+  const showClose = Boolean(showDismiss || closeIcon);
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
           <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
-            {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
-            {closeIcon && (
-              <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+            {showClose && (
+              <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn" sx={{ marginLeft: 'auto' }} onClick={onDismiss}><CloseIcon /></IconButton>
             )}
           </RdsStack>
         </div>
@@ -397,7 +399,7 @@ export function CalendarReminderForm({
                 ? <span className="rds-adaptive-cards__calendar-reminder-placeholder">{placeholder || selectPlaceholder}</span>
                 : (resolvedSideOptions.find(opt => opt.value === selected)?.label || selected)
             }
-            IconComponent={props => <ExpandMoreIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
+            IconComponent={props => <ExpandMoreIcon {...props} className={`${props.className ?? ""} rds-adaptive-cards__calendar-reminder-select-icon`} />}
           >
             <MenuItem value="" disabled>{selectPlaceholder}</MenuItem>
             {resolvedSideOptions.map(opt => (
