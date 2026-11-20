@@ -847,4 +847,27 @@ describe('RdsCompProductTour', () => {
       expect(results).toHaveNoViolations();
     });
   });
+  describe('Navigation with stepsIndicator', () => {
+    it('advances from the initial step and calls onNext', () => {
+      const onNext = jest.fn();
+      render(<RdsCompProductTour {...defaultProps} showPrimaryButton onNext={onNext} />);
+      fireEvent.click(screen.getByLabelText('Next'));
+      expect(screen.getByText('2/3')).toBeInTheDocument();
+      expect(onNext).toHaveBeenCalled();
+    });
+
+    it('calls onSkip when Skip is clicked', () => {
+      const onSkip = jest.fn();
+      render(<RdsCompProductTour {...defaultProps} showTertiaryButton onSkip={onSkip} />);
+      fireEvent.click(screen.getByText('Skip'));
+      expect(onSkip).toHaveBeenCalled();
+    });
+
+    it('closes on Escape', () => {
+      const onClose = jest.fn();
+      render(<RdsCompProductTour {...defaultProps} onClose={onClose} />);
+      fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
 });

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./rds-comp-scrollbar.scss";
+import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
 
 export enum ScrollBarType {
   Mac = "Mac",
@@ -24,8 +25,8 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
   type = ScrollBarType.Mac,
   position = ScrollPosition.Start,
   showButtons = true,
-  startIcon,
-  endIcon,
+  startIcon = <ArrowDropUp />,
+  endIcon = <ArrowDropDown />,
   children
 }) => {
   const scrollContentRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,7 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
       {type === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">
           <button
+            type="button"
             className="rds-scrollbar__button"
             onClick={() => scrollToPosition(ScrollPosition.Start)}
             aria-label="Scroll to top"
@@ -59,6 +61,7 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
             {startIcon}
           </button>
           <button
+            type="button"
             className="rds-scrollbar__button"
             onClick={() => scrollToPosition(ScrollPosition.End)}
             aria-label="Scroll to bottom"

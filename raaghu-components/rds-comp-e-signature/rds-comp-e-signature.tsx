@@ -1,5 +1,5 @@
 import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import { RdsESignatureUpload, RdsESignatureChoose } from './rds-comp-e-signature-modes';
@@ -13,6 +13,7 @@ export interface RdsCompESignatureProps {
   disabledMessage?: string;
   disabledFooterMessage?: string;
   onSignatureChange?: (signature: string | File | null) => void;
+  onSave?: (dataUrl: string) => void;
   signatureData?: string | File | null;
   predefinedSignatures?: Array<{ id: string; name: string; style: string; fullName: string; initials: string; }>;
   width?: number;
@@ -29,6 +30,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   disabledMessage = 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.',
   disabledFooterMessage = 'Another method already selected',
   onSignatureChange,
+  onSave,
   predefinedSignatures = [
     { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
     { id: '2', name: 'Style 2', style: 'print', fullName: 'John Doe', initials: 'J.D' },
@@ -39,18 +41,38 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   ],
   width = 695,
   penColor = eSignaturePenColors.black,
-  title = 'Draw Signature',
+  title,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
+  const isDrawingRef = useRef(false);
   const [selectedColor, setSelectedColor] = useState(penColor);
+  const [prevPenColor, setPrevPenColor] = useState(penColor);
+  if (penColor !== prevPenColor) {
+    setPrevPenColor(penColor);
+    setSelectedColor(penColor);
+  }
   const [isHovered, setIsHovered] = useState(false);
-  const strokesRef = useRef<{ x: number; y: number; }[][]>([]);
+  const strokesRef = useRef<{ color: string; points: { x: number; y: number; }[]; }[]>([]);
   const [showLengthError, setShowLengthError] = useState(false);
 
   const [hasDrawn, setHasDrawn] = useState(false);
 
   const colors = [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red];
+
+  const redraw = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokesRef.current.forEach(({ color, points }) => {
+      if (points.length === 0) return;
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      points.slice(1).forEach((pt) => ctx.lineTo(pt.x, pt.y));
+      ctx.stroke();
+    });
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
@@ -63,69 +85,66 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
       const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.scale(dpr, dpr);
-        ctx.strokeStyle = selectedColor;
-        ctx.lineWidth = 2; 
+        ctx.lineWidth = 2;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
       }
+      redraw();
     };
     resize();
     globalThis.addEventListener('resize', resize);
     return () => globalThis.removeEventListener('resize', resize);
-  }, [mode, selectedColor, type]);
+  }, [mode, type, redraw]);
 
-  const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const getPoint = (canvas: HTMLCanvasElement, e: React.PointerEvent<HTMLCanvasElement>) => {
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+
+  const startDrawing = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (disabled) return;
-    setIsDrawing(true);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    isDrawingRef.current = true;
     if (!hasDrawn) setHasDrawn(true);
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width; 
-      const scaleY = canvas.height / rect.height;
-      const x = (e.clientX - rect.left) * scaleX;
-      const y = (e.clientY - rect.top) * scaleY;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.beginPath();
-        ctx.moveTo(x / scaleX, y / scaleY);
-      }
-      strokesRef.current.push([{ x: x / scaleX, y: y / scaleY }]);
+    canvas.setPointerCapture?.(e.pointerId);
+    const point = getPoint(canvas, e);
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.strokeStyle = selectedColor;
+      ctx.beginPath();
+      ctx.moveTo(point.x, point.y);
     }
+    strokesRef.current.push({ color: selectedColor, points: [point] });
   };
 
-  const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || disabled) return;
+  const draw = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!isDrawingRef.current || disabled) return;
     const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const x = (e.clientX - rect.left) * scaleX;
-      const y = (e.clientY - rect.top) * scaleY;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.lineTo(x / scaleX, y / scaleY);
-        ctx.stroke();
-      }
-      const currentStroke = strokesRef.current[strokesRef.current.length - 1];
-      if (currentStroke) currentStroke.push({ x: x / scaleX, y: y / scaleY });
+    if (!canvas) return;
+    const point = getPoint(canvas, e);
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.lineTo(point.x, point.y);
+      ctx.stroke();
     }
+    const currentStroke = strokesRef.current[strokesRef.current.length - 1];
+    if (currentStroke) currentStroke.points.push(point);
   };
-
 
   const evaluateSignatureLength = () => {
     const strokes = strokesRef.current;
-    const totalPoints = strokes.reduce((a, s) => a + s.length, 0);
+    const totalPoints = strokes.reduce((a, st) => a + st.points.length, 0);
     if (totalPoints === 0) { setShowLengthError(false); return; }
-    let minX = Infinity, maxX = -Infinity; strokes.forEach(s => s.forEach(p => { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; }));
+    let minX = Infinity, maxX = -Infinity; strokes.forEach(st => st.points.forEach(pt => { if (pt.x < minX) minX = pt.x; if (pt.x > maxX) maxX = pt.x; }));
     const boxW = maxX - minX;
     const hasFourLetters = boxW >= 160 && totalPoints >= 40;
     setShowLengthError(!hasFourLetters);
   };
 
   const stopDrawing = () => {
-    setIsDrawing(false);
+    if (!isDrawingRef.current) return;
+    isDrawingRef.current = false;
     if (canvasRef.current && onSignatureChange) {
       const dataURL = canvasRef.current.toDataURL();
       onSignatureChange(dataURL);
@@ -146,12 +165,23 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     setShowLengthError(false);
   };
 
+  const handleUndo = () => {
+    strokesRef.current.pop();
+    redraw();
+    if (strokesRef.current.length === 0) {
+      onSignatureChange?.(null);
+      setHasDrawn(false);
+      setShowLengthError(false);
+      return;
+    }
+    if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
+    evaluateSignatureLength();
+  };
 
   const handleSave = () => {
-    
-    clearCanvas();
-    setShowLengthError(false);
+    if (canvasRef.current) onSave?.(canvasRef.current.toDataURL());
   };
+
 
   const getStateClassName = () => {
     let className = `rds-e-signature rds-e-signature--${mode} rds-e-signature--type-${type}`;
@@ -164,7 +194,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   const renderDrawMode = () => (
     <Box className="rds-e-signature__draw-container">
       <Typography variant="h6" className="rds-e-signature__title">
-        {title}
+        {title ?? 'Draw Signature'}
         <span className="rds-e-signature__required">*</span>
       </Typography>
 
@@ -186,11 +216,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
         <canvas
           ref={canvasRef}
           className="rds-e-signature__canvas"
-          onMouseDown={startDrawing}
-          onMouseMove={draw}
-          onMouseUp={stopDrawing}
-          onMouseLeave={stopDrawing}
-          style={{ width: '100%', height: '100%' }}
+          onPointerDown={startDrawing}
+          onPointerMove={draw}
+          onPointerUp={stopDrawing}
+          onPointerCancel={stopDrawing}
+          onPointerLeave={stopDrawing}
+          style={{ width: '100%', height: '100%', touchAction: 'none' }}
         />
 
         <Box className="rds-e-signature__controls">
@@ -209,7 +240,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
             </Box>
           )}
           <Box className="rds-e-signature__actions">
-            <IconButton className="rds-e-signature__action-button" onClick={clearCanvas} disabled={disabled} aria-label="undo">
+            <IconButton className="rds-e-signature__action-button" onClick={handleUndo} disabled={disabled} aria-label="undo">
               <Undo fontSize="small" />
             </IconButton>
             <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label="save" onClick={handleSave}>
@@ -252,6 +283,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           disabled={disabled}
           disabledFooterMessage={disabledFooterMessage}
           width={width}
+          title={title}
           onSignatureChange={onSignatureChange}
         />
       )}
@@ -260,6 +292,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           type={type}
           disabled={disabled}
           predefinedSignatures={predefinedSignatures}
+          title={title}
           onSignatureChange={onSignatureChange}
         />
       )}

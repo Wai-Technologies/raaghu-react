@@ -27,6 +27,18 @@ export interface RdsCompAiFabMenuItem {
 
 type FabMenuColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'error' | 'dark' | 'light';
 
+const MENU_ICON_SIZES = {
+    small: 'var(--rds-spacing-20-px)',
+    medium: 'var(--rds-spacing-lg)',
+    large: 'var(--rds-spacing-xl)',
+} as const;
+
+const ITEM_ICON_SIZES = {
+    small: 'var(--rds-spacing-20-px)',
+    medium: 'var(--rds-spacing-lg)',
+    large: 'calc(var(--rds-spacing-lg) + var(--rds-spacing-xs))',
+} as const;
+
 export interface RdsCompAiFabMenuProps {
     /** Button color. `'danger'` is deprecated; use `'error'`. */
     color?: FabMenuColor;
@@ -66,6 +78,10 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     };
     
     const backgroundType = getBackgroundType();
+    const size = props.size ?? 'medium';
+    const menuIconColor = backgroundType === 'none'
+        ? undefined
+        : resolvedColorVariant === 'dark' || resolvedColorVariant === 'primary' || resolvedColorVariant === 'error' ? 'light' : 'dark';
     const baseClasses = `rds-fab-menu__button rds-fab-menu__button--${resolvedColorVariant}`;
     const sizeClass = props.size ? `rds-fab-menu__button--${props.size}` : '';
     const backgroundClass = `rds-fab-menu__button--${backgroundType}`;
@@ -118,7 +134,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
         }
     };
 
-    const rootClass = `rds-fab-menu ${props.alignment === 'right' ? 'rds-fab-menu--right' : ''} ${isMenuOpen ? 'rds-fab-menu--open' : ''}`.trim();
+    const rootClass = `rds-fab-menu ${props.size ? `rds-fab-menu--${props.size}` : ''} ${props.alignment === 'right' ? 'rds-fab-menu--right' : ''} ${isMenuOpen ? 'rds-fab-menu--open' : ''}`.replace(/\s+/g, ' ').trim();
     const dataAlignment = props.alignment || 'left';
 
     return (
@@ -137,9 +153,9 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     name={props.menuIcon || "list"}  
                     fill={false}
                     stroke={true}
-                    height="var(--rds-spacing-lg)"
-                    width="var(--rds-spacing-lg)"
-                    colorVariant={resolvedColorVariant === 'dark' || resolvedColorVariant === 'primary' || resolvedColorVariant === 'error' ? 'light' : 'dark'}
+                    height={MENU_ICON_SIZES[size]}
+                    width={MENU_ICON_SIZES[size]}
+                    colorVariant={menuIconColor}
                 />
             </button>
             <div className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${props.alignment || 'left'} ${isMenuOpen ? 'rds-fab-menu__dropdown-container--open' : ''}`} ref={menuRef}>
@@ -157,8 +173,8 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                         >
                             <RdsCompAiIcon 
                                 name={listItem.icon} 
-                                height={listItem.iconHeight} 
-                                width={listItem.iconWidth} 
+                                height={listItem.iconHeight ?? ITEM_ICON_SIZES[size]} 
+                                width={listItem.iconWidth ?? ITEM_ICON_SIZES[size]} 
                                 fill={false} 
                                 stroke={true}
                                 position="top-left"
