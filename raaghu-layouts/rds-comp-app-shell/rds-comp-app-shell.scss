@@ -1732,7 +1732,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       z-index: var(--rds-z-index-toast);
       box-shadow: var(--rds-elevation-3);
-      background: var(--rds-surface-primary);
+      background: var(--rds-surface-primary, var(--rds-neutral-0));
       display: flex;
 
       .MuiTab-root.Mui-selected,
@@ -1750,7 +1750,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .topnav-layout .MuiBottomNavigation-root,
     .topnav-layout .rds-footer-navigation {
       display: flex;
-      background: var(--rds-surface-primary);
+      background: var(--rds-surface-primary, var(--rds-neutral-0));
       border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     }
 

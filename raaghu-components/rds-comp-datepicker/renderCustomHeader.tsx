@@ -7,7 +7,12 @@ interface CustomHeaderProps {
   increaseMonth: () => void;
   prevMonthButtonDisabled: boolean;
   nextMonthButtonDisabled: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }
+
+export const createRenderCustomHeader = (minDate?: Date, maxDate?: Date) => (headerProps: CustomHeaderProps) =>
+  renderCustomHeader({ ...headerProps, minDate, maxDate });
 
 export const renderCustomHeader = ({
   date,
@@ -18,14 +23,16 @@ export const renderCustomHeader = ({
   increaseMonth,
   prevMonthButtonDisabled,
   nextMonthButtonDisabled,
+  minDate,
+  maxDate,
 }: CustomHeaderProps) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 6;
-  const endYear = currentYear + 6;
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
-
   const displayDate = monthDate || date;
+  const displayYear = displayDate.getFullYear();
+  const currentYear = new Date().getFullYear();
+  const startYear = Math.min(minDate ? minDate.getFullYear() : currentYear - 6, displayYear);
+  const endYear = Math.max(maxDate ? maxDate.getFullYear() : currentYear + 6, displayYear);
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
   return (
     <div className="rds-datepicker__custom-header">

@@ -399,14 +399,14 @@
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-warning .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
   --rds-switch-disabled-track-opacity: 0.4;
-  background-color: var(--rds-switch-disabled-warning-bg);
+  background-color: var(--rds-switch-disabled-warning-bg, color-mix(in srgb, var(--rds-warning-main) 24%, transparent));
   opacity: var(--rds-switch-disabled-track-opacity);
 }
 
 .rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-default .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
   --rds-switch-disabled-track-opacity: 0.4;
-  background-color: var(--rds-switch-disabled-default-bg);
+  background-color: var(--rds-switch-disabled-default-bg, color-mix(in srgb, var(--rds-action-disabled) 24%, transparent));
   opacity: var(--rds-switch-disabled-track-opacity);
 }
 

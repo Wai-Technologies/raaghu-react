@@ -512,8 +512,8 @@
       .rds-button {
         font-size: var(--rds-font-size-xs);
         padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-        min-width: var(--rds-card-action-min-width);
-        height: var(--rds-card-action-height);
+        min-width: var(--rds-card-action-min-width, 60px);
+        height: var(--rds-card-action-height, 32px);
         text-transform: uppercase;
         font-weight: var(--rds-font-weight-medium);
         border-radius: var(--rds-border-radius-xs);
@@ -609,7 +609,7 @@
 }
 
 .rds-card__avatar-section--editable .rds-avatar{
- margin-left: var(--rds-card-avatar-offset-left);
+ margin-left: var(--rds-card-avatar-offset-left, 15px);
   margin-top: var(--rds-spacing-xs);
 }
 
@@ -629,6 +629,6 @@
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
   --Paper-shadow: none;
-  --rds-card-shadow: 0 8px 24px var(--rds-card-shadow-color);
-  box-shadow: var(--rds-card-shadow);
+  --rds-card-shadow: 0 8px 24px var(--rds-card-shadow-color, color-mix(in srgb, var(--rds-color-black) 8%, transparent));
+  box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, color-mix(in srgb, var(--rds-color-black) 8%, transparent)));
 }

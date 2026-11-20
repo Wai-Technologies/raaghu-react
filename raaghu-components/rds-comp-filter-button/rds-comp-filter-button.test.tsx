@@ -798,4 +798,44 @@ describe('RdsCompFilterButton', () => {
       expect(results).toHaveNoViolations();
     });
   });
+
+
+  describe('Fixes', () => {
+    it('sets aria attributes on the trigger', () => {
+      renderComponent();
+      const button = screen.getByTestId('filter-trigger-button');
+      expect(button).toHaveAttribute('aria-haspopup', 'dialog');
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+      fireEvent.click(button);
+      expect(button).toHaveAttribute('aria-expanded', 'true');
+      expect(button.getAttribute('aria-controls')).toBe(screen.getByTestId('popover').id);
+    });
+
+    it('re-syncs local filters when the filters prop changes', () => {
+      const { rerender } = renderComponent();
+      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('Filter');
+      rerender(
+        <RdsCompFilterButton
+          filters={[{ id: 'category1', name: 'Category 1', values: ['Option A'], selectedValues: ['Option A'] }]}
+        />
+      );
+      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('Filter (1)');
+    });
+
+    it('clears the search text when the popover closes', () => {
+      renderComponent();
+      const button = screen.getByTestId('filter-trigger-button');
+      fireEvent.click(button);
+      fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Option' } });
+      fireEvent.click(button);
+      fireEvent.click(button);
+      expect((screen.getByTestId('search-input') as HTMLInputElement).value).toBe('');
+    });
+
+    it('renders string item icons with empty alt', () => {
+      renderComponent({ itemIcon: 'icon.png' });
+      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+      expect(document.querySelector('[src="icon.png"]')).toHaveAttribute('alt', '');
+    });
+  });
 });

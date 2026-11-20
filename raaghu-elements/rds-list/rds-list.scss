@@ -333,7 +333,7 @@
   background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-md);
   box-shadow: var(--rds-shadow-1);
-  max-width: var(--rds-list-demo-max-width);
+  max-width: var(--rds-list-demo-max-width, 400px);
 }
 
 .rds-list-demo__selection-status {

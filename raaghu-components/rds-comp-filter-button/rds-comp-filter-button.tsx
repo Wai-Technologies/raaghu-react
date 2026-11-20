@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState, useId } from 'react';
 import { 
   Box, 
   Typography, 
@@ -37,6 +37,8 @@ export interface RdsCompFilterButtonProps {
   itemIcon?: string | React.ReactNode;
 }
 
+const EMPTY_FILTERS: FilterOption[] = [];
+
 const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   shape = 'rectangle',
   text = 'Filter',
@@ -44,7 +46,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   showRightIcon = true,
   leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, var(--rds-spacing-md))' }} />,
   rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, var(--rds-spacing-md))' }} />,
-  filters = [],
+  filters = EMPTY_FILTERS,
   onFiltersChange,
   onApply,
   onClear,
@@ -55,16 +57,28 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(filters);
+  const filtersKey = JSON.stringify(filters);
+  const [prevFiltersKey, setPrevFiltersKey] = useState(filtersKey);
+  if (prevFiltersKey !== filtersKey) {
+    setPrevFiltersKey(filtersKey);
+    setLocalFilters(filters);
+  }
   const [searchTerm, setSearchTerm] = useState('');
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const popoverId = useId();
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+    if (isOpen) {
+      setSearchTerm('');
+    }
     setIsOpen(!isOpen);
   };
 
   const handleClose = () => {
     setIsOpen(false);
+    setSearchTerm('');
   };
 
   const handleFilterChange = (filterId: string, value: string, checked: boolean) => {
@@ -90,6 +104,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   const handleApply = () => {
     onApply?.(localFilters);
     setIsOpen(false);
+    setSearchTerm('');
   };
 
   const handleClearAll = () => {
@@ -134,7 +149,9 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   return (
     <Box className={`rds-comp-filter-button ${className || ''}`} {...props}>
       <RdsButton
-        ref={buttonRef}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        aria-controls={isOpen ? popoverId : undefined}
         text={buttonText}
         size={'medium'}
         shape={shape}
@@ -148,8 +165,9 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
       />
 
       <Popover
+        id={popoverId}
         open={isOpen}
-        anchorEl={buttonRef.current}
+        anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -238,7 +256,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     {itemIcon ? (
                       typeof itemIcon === 'string' ? (
-                        <Box component="img" src={itemIcon} />
+                        <Box component="img" src={itemIcon} alt="" />
                       ) : (
                         itemIcon
                       )
