@@ -45,6 +45,13 @@ const meta: Meta<typeof RdsTypography> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    text: 'Heading 1',
+    variant: 'h1',
+  },
+};
+
 export const Heading1: Story = {
   args: {
     text: 'Heading 1',
@@ -147,6 +154,5 @@ export const NoWrap: Story = {
   },
 };
 
-export const Default: Story = { ...Heading1 };
 
 

@@ -37,9 +37,16 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   leftIcon?: React.ReactNode; 
   rightIcon?: React.ReactNode; 
   showLeftIcon?: boolean; 
-  showRightIcon?: boolean; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
-  level?: number; 
+  showRightIcon?: boolean;
+  /** Shows the active tab in its selected style. */
+  selected?: boolean;
+  /** Disables every tab. */
+  disabled?: boolean;
+  /**
+   * @deprecated Use `selected` and `disabled` instead.
+   */
+  state?: 'default' | 'hover' | 'selected' | 'disabled';
+  level?: number;
 }
 
 const RdsTabs = ({
@@ -54,8 +61,15 @@ const RdsTabs = ({
   rightIcon,
   showLeftIcon = true,
   showRightIcon = true,
+  selected = true,
+  disabled,
+  state,
+  level: _level,
+  className,
   ...props
 }:RdsTabsProps) => {
+  const isDisabled = disabled ?? state === 'disabled';
+  const stateClass = isDisabled ? 'disabled' : (state ?? 'default');
   const capitalizeFirstLetter = (text: string) => {
     if (typeof text !== 'string' || text.length === 0) return text;
     const result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
@@ -72,7 +86,7 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`;
+const layoutClass = `rds-tabs--${layout} rds-state--${stateClass}${isDisabled ? ' rds-tabs--disabled' : ''}`;
 
   const tabsWithIcons = tabs.map((tab) => ({
     ...tab,
@@ -87,10 +101,10 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
 
   return (
     <MuiTabs
-      value={resolvedValue ?? false}
+      value={selected ? (resolvedValue ?? false) : false}
       onChange={handleChange}
       orientation={type}
-      className={`rds-tabs ${layoutClass}`}
+      className={`rds-tabs ${layoutClass}${className ? ` ${className}` : ''}`}
       {...props}
     >
       {tabsWithIcons.map((tab) => {
@@ -110,7 +124,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
             key={tab.id}
             value={tab.id}
             label={labelContent}
-            disabled={tab.disabled}
+            disabled={isDisabled || tab.disabled}
             title={tab.title ? capitalizeFirstLetter(tab.title) : capitalizeFirstLetter(tab.label)}
           />
         );

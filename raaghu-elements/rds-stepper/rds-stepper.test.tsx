@@ -235,8 +235,9 @@ describe('RdsStepper', () => {
       renderWithTheme(
         <RdsStepper steps={steps} showContent={true} />
       );
-      const stepContent = document.querySelectorAll('.MuiStepContent-root');
-      expect(stepContent.length).toBe(3);
+      const panel = document.querySelector('.rds-stepper__content');
+      expect(panel).toHaveTextContent('Content for step 1');
+      expect(document.querySelectorAll('.MuiStepContent-root').length).toBe(0);
     });
 
     it('should render step content correctly in vertical stepper', () => {
@@ -284,7 +285,7 @@ describe('RdsStepper', () => {
       const { rerender } = renderWithTheme(
         <RdsStepper steps={steps} showContent={false} />
       );
-      let stepContent = document.querySelector('.MuiStepContent-root');
+      let stepContent = document.querySelector('.rds-stepper__content');
       expect(stepContent).not.toBeInTheDocument();
 
       rerender(
@@ -292,7 +293,7 @@ describe('RdsStepper', () => {
           <RdsStepper steps={steps} showContent={true} />
         </ThemeProvider>
       );
-      stepContent = document.querySelector('.MuiStepContent-root');
+      stepContent = document.querySelector('.rds-stepper__content');
       expect(stepContent).toBeInTheDocument();
     });
   });

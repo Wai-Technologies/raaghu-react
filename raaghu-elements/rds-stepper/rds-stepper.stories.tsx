@@ -22,9 +22,11 @@ const meta: Meta<typeof RdsStepper> = {
     },
     showContent: {
       control: 'boolean',
+      description: 'Shows the content of the active step',
     },
     alternativeLabel: {
       control: { type: 'boolean' },
+      description: 'Places each step label below its icon (horizontal and vertical)',
     },
     nonLinear: {
       control: { type: 'boolean' },
@@ -40,9 +42,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const steps = [
-  { label: 'Select campaign settings' },
-  { label: 'Create an ad group' },
-  { label: 'Create an ad' },
+  { label: 'Select campaign settings', content: 'Choose the campaign name, budget and schedule.' },
+  { label: 'Create an ad group', content: 'Group your ads by theme and set the target audience.' },
+  { label: 'Create an ad', content: 'Write the headline and description for your ad.' },
 ];
 
 export const Default: Story = {

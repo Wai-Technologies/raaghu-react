@@ -10,12 +10,14 @@ export interface RdsSnackbarProps extends Omit<SnackbarProps, 'color'> {
   color?: SnackbarColor;
   /** @deprecated Use `color`. */
   type?: SnackbarColor;
+  /** Shows the close button of the alert. @default true */
   showCloseButton?: boolean;
-  /** Hides the close button of the alert. */
+  /** @deprecated Use `showCloseButton`. */
   hideCloseButton?: boolean;
   /** @deprecated Use `color`. */
   severity?: SnackbarColor;
   onClose?: () => void;
+  /** Time in milliseconds before the snackbar hides itself. @default 6000 */
   duration?: number;
 }
 
@@ -34,7 +36,8 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
 }) => {
   if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`color`');
   const resolvedColor: SnackbarColor = color ?? severity ?? type ?? 'info';
-  const showClose = hideCloseButton === undefined ? showCloseButton ?? true : !hideCloseButton;
+  if (hideCloseButton !== undefined) warnDeprecatedProp('RdsSnackbar', 'hideCloseButton', '`showCloseButton`');
+  const showClose = showCloseButton ?? (hideCloseButton === undefined ? true : !hideCloseButton);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -51,7 +54,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   return (
     <MuiSnackbar
       open={props.open}
-      autoHideDuration={autoHideDuration || duration}
+      autoHideDuration={autoHideDuration ?? duration}
       onClose={handleClose}
       {...props}
     >

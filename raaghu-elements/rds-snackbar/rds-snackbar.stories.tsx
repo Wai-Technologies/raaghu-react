@@ -9,8 +9,15 @@ const meta: Meta<typeof RdsSnackbar> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'padded',
+    controls: {
+      include: ['message', 'color', 'open', 'duration', 'showCloseButton'],
+    },
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    showCloseButton: true,
+    duration: 6000,
+  },
   argTypes: {
     message: {
       control: 'text',
@@ -21,19 +28,24 @@ const meta: Meta<typeof RdsSnackbar> = {
       options: ['error', 'warning', 'info', 'success'],
       description: 'Semantic color of the snackbar',
     },
-    type: {
-      control: 'select',
-      options: ['error', 'warning', 'info', 'success'],
-      description: 'Deprecated: use color',
-    },
     open: {
       control: 'boolean',
       description: 'Whether snackbar is open',
     },
-    autoHideDuration: {
-      control: 'number',
-      description: 'Duration before auto-hide (ms)',
+    duration: {
+      control: { type: 'number', min: 0, step: 500 },
+      description: 'Time in milliseconds before the snackbar hides itself',
+      table: { defaultValue: { summary: '6000' } },
     },
+    showCloseButton: {
+      control: 'boolean',
+      description: 'Shows the close button of the snackbar',
+      table: { defaultValue: { summary: 'true' } },
+    },
+    type: { table: { disable: true } },
+    severity: { table: { disable: true } },
+    hideCloseButton: { table: { disable: true } },
+    autoHideDuration: { table: { disable: true } },
   },
 };
 
@@ -62,6 +74,7 @@ const SnackbarTemplate = (args: any) => {
       />
       <RdsSnackbar
         {...args}
+        key={args.duration}
         open={open}
         onClose={() => setOpen(false)}
       />
@@ -69,47 +82,51 @@ const SnackbarTemplate = (args: any) => {
   );
 };
 
-export const Success = {
+export const Default: Story = {
   render: SnackbarTemplate,
   args: {
     message: 'Operation completed successfully!',
-    type: 'success',
+    color: 'success',
   },
 };
 
-export const Error = {
+export const Success: Story = {
+  render: SnackbarTemplate,
+  args: {
+    message: 'Operation completed successfully!',
+    color: 'success',
+  },
+};
+
+export const Error: Story = {
   render: SnackbarTemplate,
   args: {
     message: 'An error occurred. Please try again.',
-    type: 'error',
+    color: 'error',
   },
 };
 
-export const Warning = {
+export const Warning: Story = {
   render: SnackbarTemplate,
   args: {
     message: 'This action cannot be undone.',
-    type: 'warning',
+    color: 'warning',
   },
 };
 
-export const Info = {
+export const Info: Story = {
   render: SnackbarTemplate,
   args: {
     message: 'Your changes have been saved.',
-    type: 'info',
+    color: 'info',
   },
 };
 
-export const AutoHide = {
+export const AutoHide: Story = {
   render: SnackbarTemplate,
   args: {
     message: 'This will disappear in 2 seconds',
-    type: 'info',
-    autoHideDuration: 2000,
+    color: 'info',
+    duration: 2000,
   },
 };
-
-
-
-export const Default: Story = { ...Success };

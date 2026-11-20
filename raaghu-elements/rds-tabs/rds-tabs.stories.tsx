@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsTabs> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'state', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],
+      include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'selected', 'disabled', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -52,12 +52,17 @@ const meta: Meta<typeof RdsTabs> = {
       description: 'Override label for the active tab (applies in story render only)',
       defaultValue: '',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected', 'disabled'],
-      description: 'Control tab state for demo and Storybook',
-      defaultValue: 'default',
+    selected: {
+      control: 'boolean',
+      description: 'Shows the active tab in its selected style',
+      table: { defaultValue: { summary: 'true' } },
     },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables every tab',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    state: { table: { disable: true } },
     leftIcon: {
       control: 'select',
       options: ['Person', 'Add', 'Home'],
@@ -129,6 +134,8 @@ export const Default: Story = {
   args: {
     tabs: sampleTabs,
     activeTab: 0,
+    selected: true,
+    disabled: false,
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
@@ -141,11 +148,12 @@ export const ManyTabs: Story = {
   args: {
     tabs: Array.from({ length: 8 }, (_, i) => ({ id: i, label: `Tab ${i + 1}` })),
     activeTab: 0,
+    selected: true,
+    disabled: false,
     layout: "filled",
     leftIcon: 'Person',
     rightIcon: 'Add',
     type: "horizontal",
-    state: "default",
     level: 5
   },
   render: TabsStory,
@@ -155,6 +163,8 @@ export const SecondTabActive: Story = {
   args: {
     tabs: sampleTabs,
     activeTab: 1,
+    selected: true,
+    disabled: false,
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
@@ -176,6 +186,8 @@ export const SimpleTabs: Story = {
       { id: 7, label: 'Tab 8' },
     ],
     activeTab: 0,
+    selected: true,
+    disabled: false,
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
@@ -187,6 +199,8 @@ export const Vertical: Story = {
   args: {
     tabs: sampleTabs,
     activeTab: 0,
+    selected: true,
+    disabled: false,
     type: 'vertical',
     layout: 'filled',
     leftIcon: 'Person',

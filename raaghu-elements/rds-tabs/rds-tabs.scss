@@ -507,3 +507,8 @@
     fill: currentColor;
   }
 }
+
+.rds-tabs--disabled .MuiTab-root.Mui-selected.Mui-disabled {
+  background-color: var(--rds-color-disabled-bg);
+  color: var(--rds-color-disabled);
+}
