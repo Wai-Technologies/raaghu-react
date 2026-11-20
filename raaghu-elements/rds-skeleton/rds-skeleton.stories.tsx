@@ -45,6 +45,15 @@ const meta: Meta<typeof RdsSkeleton> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    shape: 'text',
+    frames: 3,
+    width: '100%',
+    animation: 'pulse',
+  },
+};
+
 export const Text: Story = {
   args: {
     shape: 'text',
@@ -129,5 +138,3 @@ export const CardSkeleton: Story = {
     </Card>
   ),
 };
-
-export const Default: Story = { ...Text };

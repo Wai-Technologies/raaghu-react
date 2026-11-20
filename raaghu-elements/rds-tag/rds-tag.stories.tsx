@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsTag> = {
     },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: ['default', 'primary', 'secondary', 'error', 'success', 'warning'],
     },
     size: {
       control: 'select',
@@ -104,7 +104,7 @@ export const Multiple: Story = {
       <RdsTag label="TypeScript" color="secondary" />
       <RdsTag label="Material-UI" color="success" />
       <RdsTag label="Removable Tag" onRemove={() => {}} removable />
-      <RdsTag label="Vite" color="info" variant="outlined" />
+      <RdsTag label="Vite" color="warning" variant="outlined" />
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>
   ),

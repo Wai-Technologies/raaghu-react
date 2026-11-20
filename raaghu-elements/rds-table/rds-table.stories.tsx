@@ -23,15 +23,13 @@ const meta: Meta<typeof RdsTable> = {
       control: { type: 'select' },
       options: ['small', 'medium'],
     },
-    sortDirection: { control: 
-      { type: 'select' }, 
-      options: ['asc', 'desc'] 
+    sortDirection: {
+      control: { type: 'select' },
+      options: ['asc', 'desc'],
+      description: 'Sort direction of the sorted column',
+      table: { defaultValue: { summary: 'asc' } },
     },
-     defaultSortDirection: { 
-      control: 
-      { type: 'select' }, 
-      options: ['asc', 'desc'] 
-    },
+    defaultSortDirection: { table: { disable: true } },
     stickyHeader: {
       control: { type: 'boolean' },
     },
@@ -415,10 +413,12 @@ const DefaultStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };
@@ -437,10 +437,12 @@ const SmallSizeStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };
@@ -460,10 +462,12 @@ const StickyHeaderStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };
@@ -483,10 +487,12 @@ const LargeDatasetStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };
@@ -511,10 +517,12 @@ const WithActionsStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };
@@ -542,10 +550,12 @@ const EmptyStory = (args) => {
     return (
       <RdsTable
         {...args}
+        key={args.sortDirection ?? 'asc'}
+        sortDirection={undefined}
         selectedRows={selected}
         onRowSelect={setSelected}
         defaultSortBy="id"
-        defaultSortDirection="asc"
+        defaultSortDirection={args.sortDirection ?? 'asc'}
       />
     );
   };

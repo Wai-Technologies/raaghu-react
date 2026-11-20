@@ -37,15 +37,21 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
 }) => {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
-  const rootClassName = ['rds-stepper', className].filter(Boolean).join(' ');
+  const isVertical = stepperOrientation === 'vertical';
+  const rootClassName = [
+    'rds-stepper',
+    isVertical && alternativeLabel && 'rds-stepper--vertical-alternative-label',
+    className,
+  ].filter(Boolean).join(' ');
+  const activeContent = !isVertical && showContent ? steps[stepperActiveStep]?.content : undefined;
 
-  return (
+  const stepper = (
     <MuiStepper
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
-  className={rootClassName}
-  {...(stepperOrientation === 'horizontal' ? { alternativeLabel } : {})}
-  {...props}
+      className={rootClassName}
+      {...(!isVertical ? { alternativeLabel } : {})}
+      {...props}
     >
       {steps.map((step, index) => (
         <MuiStep
@@ -59,7 +65,7 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
           >
             {step.label}
           </MuiStepLabel>
-          {showContent && step.content && (
+          {isVertical && showContent && step.content && (
             <MuiStepContent>
               {step.content}
             </MuiStepContent>
@@ -67,6 +73,17 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
         </MuiStep>
       ))}
     </MuiStepper>
+  );
+
+  if (activeContent === undefined || activeContent === null) {
+    return stepper;
+  }
+
+  return (
+    <div className="rds-stepper__wrapper">
+      {stepper}
+      <div className="rds-stepper__content">{activeContent}</div>
+    </div>
   );
 };
 RdsStepper.displayName = 'RdsStepper';
