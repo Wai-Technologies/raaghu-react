@@ -373,9 +373,9 @@ export const RealEstateContent = ({
           </div>
 
           <div className="rds-comp-details-pane__real-estate-badges">
-            {badges.map((badge) => (
+            {badges.map((badge, index) => (
               <span 
-                key={`${badge.content}-${badge.color}-${badge.size}-${badge.shape}`} 
+                key={`${badge.content}-${badge.color}-${badge.size}-${badge.shape}-${index}`} 
                 className={`rds-comp-details-pane__badge-item`}
               >
                 <RdsBadge 

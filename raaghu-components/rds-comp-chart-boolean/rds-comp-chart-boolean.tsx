@@ -62,22 +62,19 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
         const ctx = canvasElm?.getContext("2d");
 
         if (ctx) {
-            const svg = ChartIcons[props.centerIconName || ""];
-            const resolvedSvg = resolveSvgCssVariables(svg);
-            const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));
-            const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
+            const svg = props.centerIconName ? ChartIcons[props.centerIconName] : undefined;
+            const iconImage = svg ? new Image() : null;
 
             const centerIcon = {
                 id: "counter4",
                 afterDraw(chart: Chart) {
+                    if (!iconImage?.complete || !iconImage.src) return;
                     const ctx = chart.ctx;
                     ctx.save();
-                    const myIconImage = new Image();
-                    myIconImage.src = dataURL;
                     const iconSize = 30;
                     const x = chart.width / 2 - iconSize / 2;
                     const y = chart.height / 2 - iconSize / 2;
-                    ctx.drawImage(myIconImage, x, y, iconSize, iconSize);
+                    ctx.drawImage(iconImage, x, y, iconSize, iconSize);
                     ctx.restore();
                 },
             };
@@ -92,15 +89,22 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
                 options: props.options,
             });
 
+            if (iconImage && svg) {
+                iconImage.onload = () => { if (boolCanvas.ctx) boolCanvas.draw(); };
+                const encodedSVG = btoa(unescape(encodeURIComponent(resolveSvgCssVariables(svg))));
+                iconImage.src = `data:image/svg+xml;base64,${encodedSVG}`;
+            }
+
             if (boolCanvas !== null) {
                 boolCanvas.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
                 boolCanvas.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
             }
             return () => {
+                if (iconImage) iconImage.onload = null;
                 boolCanvas.destroy();
             };
         }
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, props.centerIconName, themeMode]);
 
     return (
         <div>

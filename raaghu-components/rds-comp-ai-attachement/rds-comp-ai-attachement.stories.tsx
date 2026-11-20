@@ -1,7 +1,7 @@
 import RdsCompAiAttachement from "./rds-comp-ai-attachement";
 import { Meta, StoryObj } from "@storybook/react-vite";
 const meta: Meta = {
-    title: "Components/AI ChatBox/Attachement",
+    title: "Components/AI ChatBox/Attachment",
     component: RdsCompAiAttachement,
     argTypes: {
         badgeColor: {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors, getCSSVar } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions, getCSSVar } from "../chart-utils";
 import "./rds-comp-chart-line.scss";
 
 export interface RdsCompLineProps {
@@ -34,7 +34,7 @@ const RdsCompLineChart = (props: RdsCompLineProps) => {
         const ctx = canvasRef.current?.getContext("2d");
         if (!ctx) return;
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
@@ -64,7 +64,7 @@ const RdsCompLineChart = (props: RdsCompLineProps) => {
         }
 
         return () => { lineCanvas.destroy(); };
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, props.id, themeMode]);
 
     return (
         <div className="rds-comp-chart-line">

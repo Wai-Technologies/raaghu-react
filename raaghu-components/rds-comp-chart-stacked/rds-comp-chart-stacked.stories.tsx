@@ -46,7 +46,7 @@ export const Default: Story = {
             "plugins": {
                 "title": {
                     "display": true,
-                    "text": "Chart.js Line Chart - stacked"
+                    "text": "Stacked Chart"
                 },
                 "tooltip": {
                     "mode": "index"

@@ -1,14 +1,14 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-chart-radar {
-  --rds-chart-radar-max-width-1: 680px;
-  --rds-chart-radar-height-1: 520px;
-  --rds-chart-radar-max-width-2: 580px;
-  --rds-chart-radar-max-width-3: 420px;
-  --rds-chart-radar-height-2: 280px;
-  --rds-chart-radar-height-3: 430px;
-  --rds-chart-radar-height-4: 335px;
   &-container {
+		--rds-chart-radar-max-width-1: 680px;
+		--rds-chart-radar-height-1: 520px;
+		--rds-chart-radar-max-width-2: 580px;
+		--rds-chart-radar-max-width-3: 420px;
+		--rds-chart-radar-height-2: 280px;
+		--rds-chart-radar-height-3: 430px;
+		--rds-chart-radar-height-4: 335px;
 		width: 90%;
 
 		max-width: var(--rds-chart-radar-max-width-1);

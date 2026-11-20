@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-polar-area.scss";
 
 export interface RdsCompPolarAreaChartProps {
@@ -40,7 +40,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
         const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
         chartInstanceRef.current?.destroy();
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
@@ -56,10 +56,12 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
         });
 
         if (PolarCanvas != null) {
-            PolarCanvas.canvas.style.height = props.radius + "px";
+            if (props.radius) PolarCanvas.canvas.style.height = props.radius + "px";
             chartInstanceRef.current = PolarCanvas as unknown as Chart<"polarArea", number[], unknown>;
         }
-    }, [props, themeMode]);
+
+        return () => { chartInstanceRef.current?.destroy(); };
+    }, [props.labels, props.options, props.dataSets, props.radius, themeMode]);
 
     return (
         <div className="rds-comp-chart-polar-area-container">

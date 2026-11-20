@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-pie.scss";
 
 export interface RdsCompPieProps {
@@ -38,7 +38,7 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
     const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
     Chart.getChart(canvasElm)?.destroy();
 
-    const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+    const chartOptions = cloneChartOptions(props.options || {}) as any;
     
     const chartData = { labels: props.labels, datasets: props.dataSets };
     if (!chartOptions.data) {
@@ -47,12 +47,14 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
     
     applyChartThemeColors(chartOptions, []);
 
-    new Chart(ctx, {
+    const pieChart = new Chart(ctx, {
       type: "pie",
       data: chartData,
-      options: { ...chartOptions, radius: props.radius },
+      options: props.radius !== undefined ? { ...chartOptions, radius: props.radius } : chartOptions,
     });
-  }, [props, themeMode]);
+
+    return () => { pieChart.destroy(); };
+  }, [props.labels, props.options, props.dataSets, props.radius, themeMode]);
 
   return (
     <div className="rds-comp-chart-pie">

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useCallback, useRef, useState, type ChangeEvent } from "react";
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
@@ -61,6 +61,7 @@ const RdsCompAiAttachement = ({
   importText,
   modalText,
   userData,
+  onFileSelect,
   onFigmaSubmit,
   handleAddComment,
   menuAlignment = "left",
@@ -74,6 +75,7 @@ const RdsCompAiAttachement = ({
     (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (!file?.type.startsWith("image/")) return;
+      onFileSelect?.(file);
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -94,11 +96,10 @@ const RdsCompAiAttachement = ({
       };
       reader.readAsDataURL(file);
     },
-    [handleAddComment, userData]
+    [handleAddComment, onFileSelect, userData]
   );
 
-  const openModal = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const openModal = useCallback(() => {
     setShowModal(true);
 
     const fabMenu = document.querySelector(".fab-dropdown");
@@ -127,14 +128,9 @@ const RdsCompAiAttachement = ({
   const listItems = [
     {
       key: "new",
+      onClick: openModal,
       value: (
-        <button
-          type="button"
-          onClick={openModal}
-          className="rds-comp-ai-attachement__reset-btn"
-          data-bs-toggle="modal"
-          data-bs-target="#modal1234"
-        >
+        <span className="rds-comp-ai-attachement__reset-btn">
           <span className="rds-comp-ai-attachement__upload-row">
             <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
             {showBadge && (
@@ -149,16 +145,13 @@ const RdsCompAiAttachement = ({
               />
             )}
           </span>
-        </button>
+        </span>
       ),
     },
     {
       key: "refresh",
-      value: (
-        <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
-          {importText}
-        </button>
-      ),
+      onClick: handleImportClick,
+      value: <span className="rds-comp-ai-attachement__reset-btn">{importText}</span>,
     },
   ];
 

@@ -81,7 +81,19 @@ const ChatMessage = memo(({
 ));
 ChatMessage.displayName = "ChatMessage";
 
-const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
+const avatarPropsFor = (user?: UserData) => {
+  const name = user ? `${user.firstName} ${user.lastName}`.trim() : "";
+  return {
+    alt: name || "User Avatar",
+    title: name,
+    subText: user?.status ?? "",
+    displayStyle: "with-name" as const,
+    showName: true,
+    showDesignation: true,
+    activeDotBottom: !!user?.activeDotButton,
+    src: user?.withProfilePic === false ? undefined : user?.profilePic || undefined,
+  };
+};
 
 const RdsCompChat = ({
   isChatScreenEnabled,
@@ -235,7 +247,7 @@ const RdsCompChat = ({
           <div className="rds-comp-chat__screen-main">
             {userData.map((item, index) => (
               <Box key={`${item.firstName}-${item.lastName}-${item.time}`} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} role="button" tabIndex={0} aria-pressed={state.selectedIndex === index} onClick={() => handleUserSelect(index)} onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleUserSelect(index); } }}>
-                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...AVATAR_PROPS} /></div>
+                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...avatarPropsFor(item)} /></div>
                 <div className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute">{item.time}</div>
               </Box>
             ))}
@@ -253,7 +265,7 @@ const RdsCompChat = ({
             )}
             <div className={clsx("rds-comp-chat__window-header-title", state.isMobile && "rds-comp-chat__window-header-title--mobile")}>
               <RdsAvatar
-                {...AVATAR_PROPS}
+                {...avatarPropsFor(state.currentUser)}
                 size={state.isSmallMobile ? "smallest" : state.isMobile ? "small" : "medium"}
               />
             </div>
@@ -276,11 +288,11 @@ const RdsCompChat = ({
           <div className="rds-comp-chat__window-main">
             {state.activeTab === "chat" ? (
               <>
-                {state.commentList.map((comment) => {
+                {state.commentList.map((comment, index) => {
                   const isCurrentUser = comment.firstName === state.currentUser?.firstName && comment.lastName === state.currentUser?.lastName;
                   return (
                     <ChatMessage
-                      key={`${comment.firstName}-${comment.lastName}-${comment.comment}`}
+                      key={`${comment.firstName}-${comment.lastName}-${index}`}
                       comment={comment}
                       isCurrentUser={isCurrentUser}
                       currentUserCommentBgColor={currentUserCommentBgColor}

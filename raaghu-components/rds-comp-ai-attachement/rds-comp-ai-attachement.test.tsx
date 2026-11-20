@@ -74,7 +74,7 @@ jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
         </button>
         <div data-testid="fab-menu-items">
           {listItems?.map((item: any, idx: number) => (
-            <div key={item.key || idx} data-testid={`fab-item-${item.key}`} style={{ cursor: 'pointer' }}>
+            <div key={item.key || idx} data-testid={`fab-item-${item.key}`} style={{ cursor: 'pointer' }} onClick={item.onClick}>
               {item.value}
             </div>
           ))}

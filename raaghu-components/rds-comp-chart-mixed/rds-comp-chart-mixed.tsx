@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-mixed.scss";
 
 export interface RdsCompMixedChartProps {
@@ -34,7 +34,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
         const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
         if (!ctx) return;
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = { labels: props.labels, datasets: props.dataSets };
         if (!chartOptions.data) {
@@ -50,7 +50,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
         });
 
         return () => { mixedCanvas.destroy(); };
-    }, [props, themeMode]);
+    }, [props.labels, props.options, props.dataSets, themeMode]);
 
     return (
         <div className="rds-comp-chart-mixed">

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-area.scss";
 
 export interface lineprops {
@@ -36,7 +36,7 @@ const RdsCompAreaChart = (props: lineprops) => {
         const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
         chartRef.current?.destroy();
 
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        const chartOptions = cloneChartOptions(props.options || {}) as any;
         
         const chartData = {
             labels: props.labels,
