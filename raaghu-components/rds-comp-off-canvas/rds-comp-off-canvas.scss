@@ -208,8 +208,8 @@
   }
 
   #offcanvas-btns .tertiary-button-container {
-    flex: 0 1 auto;
-    max-width: 38%;
+    flex: 0 0 auto;
+    max-width: none;
     margin-right: auto;
     align-self: center;
   }
@@ -236,12 +236,12 @@
 
   #offcanvas-btns .tertiary-button-container .rds-button,
   #offcanvas-btns .tertiary-button-container .MuiButton-root {
-    white-space: normal;
+    white-space: nowrap;
     text-align: left;
     justify-content: flex-start;
     align-self: flex-start;
     padding: var(--rds-spacing-tight) var(--rds-spacing-xs);
-    word-break: break-word;
+    word-break: normal;
     hyphens: auto;
   }
 
@@ -295,8 +295,8 @@
   }
 
   #offcanvas-btns .tertiary-button-container {
-    flex: 0 1 auto;
-    max-width: 42%;
+    flex: 0 0 auto;
+    max-width: none;
     margin-right: auto;
     align-self: center;
   }
@@ -323,10 +323,10 @@
 
   #offcanvas-btns .tertiary-button-container .rds-button,
   #offcanvas-btns .tertiary-button-container .MuiButton-root {
-    white-space: normal;
+    white-space: nowrap;
     text-align: left;
     justify-content: flex-start;
-    word-break: break-word;
+    word-break: normal;
     padding: var(--rds-spacing-tight) var(--rds-spacing-xs);
   }
 
@@ -345,4 +345,19 @@
   --rds-offcanvas-width: 650px;
   --rds-offcanvas-height: 100%;
   --rds-offcanvas-top-height: 300px;
+}
+
+@media (max-width: 360px) {
+  #offcanvas-btns {
+    padding-left: var(--rds-spacing-sm);
+    padding-right: var(--rds-spacing-sm);
+  }
+
+  #offcanvas-btns .rds-button,
+  #offcanvas-btns .MuiButton-root,
+  #offcanvas-btns .tertiary-button-container .MuiButton-root {
+    font-size: var(--rds-font-size-xs);
+    padding-left: var(--rds-spacing-xs);
+    padding-right: var(--rds-spacing-xs);
+  }
 }
