@@ -114,7 +114,7 @@ const RdsCarousel = ({
         maxWidth: '100vw',
         minWidth: 0,
         boxSizing: 'border-box',
-        borderRadius: tokens.radius.md,
+        borderRadius: style === 'full width image' ? 0 : tokens.radius.md,
         backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
       }}
     >

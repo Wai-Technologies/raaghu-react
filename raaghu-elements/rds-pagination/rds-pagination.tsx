@@ -41,6 +41,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   showManualInput = false,
   paginationStyle = 'Style 1',
   onPageSizeChange,
+  disabled = false,
   ...props
 }) => {
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
@@ -98,21 +99,21 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   const shouldShowManualInput = showManualInput || 
     (styleConfig.showManualInputControl && showManualInput !== false);
   return (
-    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
+    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}${disabled ? ' rds-pagination-wrapper--disabled' : ''}`} aria-disabled={disabled || undefined}>
       {styleConfig.showPagination && (
-      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={currentPageNumber}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  {...props}
+      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={currentPageNumber}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  disabled={disabled}  {...props}
       />
       )}
       {styleConfig.showPrevNext && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}>
+          <RdsButton style="filled" size="small" disabled={disabled || currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}>
             {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
               <KeyboardArrowLeft />
             ) : (
               'Prev'
             )}
           </RdsButton>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}>
+          <RdsButton style="filled" size="small" disabled={disabled || currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}>
             {paginationStyle === 'Style 10' ? (
               <KeyboardArrowRight />
             ) : (
@@ -122,10 +123,10 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
         </Box>
       )}
       {styleConfig.showNextOnly && (
-        <RdsButton style="filled" size="small" text="Next" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)} />
+        <RdsButton style="filled" size="small" text="Next" disabled={disabled || currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)} />
       )}
       {shouldShowDropdown && (
-      <FormControl size="small" className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>
+      <FormControl size="small" disabled={disabled} className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>
         <InputLabel id="rds-pagination-page-size-label">Records per page</InputLabel>
         <Select labelId="rds-pagination-page-size-label" value={pageSize} label="Records per page" onChange={handlePageSizeChange}
         >
@@ -145,7 +146,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
           <Typography variant="body2">
             Go to
           </Typography>
-          <TextField  size="small"  value={manualPageInput}  onChange={handleManualPageInput}  onKeyPress={handleManualPageSubmit}  placeholder="1"  inputProps={{    min: 1,    max: totalPagesCalc,    type: 'number'
+          <TextField  size="small"  disabled={disabled}  value={manualPageInput}  onChange={handleManualPageInput}  onKeyPress={handleManualPageSubmit}  placeholder="1"  inputProps={{    min: 1,    max: totalPagesCalc,    type: 'number'
             }}
           />
           <Typography variant="body2">

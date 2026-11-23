@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
-import { CloudUpload, Close } from '@mui/icons-material';
+import { CloudUpload, Close, InsertDriveFileOutlined } from '@mui/icons-material';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
@@ -49,6 +49,7 @@ interface UseFileUploaderProps {
   maxSize: number;
   maxFiles: number;
   isMandatory: boolean;
+  multiple?: boolean;
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
 }
@@ -57,6 +58,7 @@ export const useFileUploader = ({
   maxSize,
   maxFiles,
   isMandatory,
+  multiple = true,
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
@@ -83,13 +85,16 @@ export const useFileUploader = ({
   };
 
   const addFiles = (newFiles: File[]) => {
+    const baseFiles = multiple ? files : [];
+    const incoming = multiple ? newFiles : newFiles.slice(0, 1);
+    const limit = multiple ? maxFiles : Math.min(maxFiles, 1);
     const validFiles: FileWithProgress[] = [];
-    for (const file of newFiles) {
-      if (files.length + validFiles.length >= maxFiles) break;
+    for (const file of incoming) {
+      if (baseFiles.length + validFiles.length >= limit) break;
       const error = validateFile(file);
       validFiles.push({ file, progress: 0, error: error || undefined });
     }
-    const updatedFiles = [...files, ...validFiles];
+    const updatedFiles = [...baseFiles, ...validFiles];
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
@@ -311,74 +316,43 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
   isUploading,
   removeFile,
   formatFileSize,
-}) => {
-  const tokens = useRdsTokens();
-
-  return (
-    <Box className="rds-file-uploader__file-list">
-      <Typography className="rds-file-uploader__file-list-title" variant="subtitle2" gutterBottom>
-        Selected Files ({files.length})
-      </Typography>
-      {files.map((fileWithProgress, index) => (
-        <Box
-          key={`file-${fileWithProgress.file.name}-${fileWithProgress.file.size}`}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: { xs: '100%', sm: '100%', md: 'var(--rds-spacing-3xl, 500px)' },
-            minWidth: { xs: 0, sm: 0, md: 'var(--rds-spacing-2xl, 400px)' },
-            maxWidth: { xs: '98vw', sm: '98vw', md: 'var(--rds-spacing-3xl, 500px)' },
-            height: 'var(--rds-spacing-xl, var(--rds-spacing-36-px))',
-            background: tokens.color.surface,
-            borderRadius: tokens.radius.sm,
-            border: `var(--rds-spacing-hairline) solid ${tokens.color.textMuted}`,
-            px: tokens.space(0.5),
-            py: 0,
-            mb: tokens.space(0.5),
-            fontSize: { xs: 'var(--rds-font-size-sm, var(--rds-spacing-13))', sm: 'var(--rds-font-size-md, var(--rds-spacing-14))', md: 'var(--rds-font-size-md, var(--rds-spacing-15))' },
-          }}
-        >
-          <Typography
-            sx={{
-              color: tokens.color.text,
-              fontWeight: 500,
-              flex: 1,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-            title={fileWithProgress.file.name}
-          >
+}) => (
+  <Box className="rds-file-uploader__file-list">
+    <Typography className="rds-file-uploader__file-list-title" variant="subtitle2">
+      Selected Files ({files.length})
+    </Typography>
+    {files.map((fileWithProgress, index) => (
+      <Box
+        key={`file-${fileWithProgress.file.name}-${fileWithProgress.file.size}`}
+        className={`rds-file-uploader__file-item${fileWithProgress.error ? ' rds-file-uploader__file-item--error' : ''}`}
+      >
+        <InsertDriveFileOutlined className="rds-file-uploader__file-icon" />
+        <Box className="rds-file-uploader__file-details">
+          <Typography className="rds-file-uploader__file-name" title={fileWithProgress.file.name}>
             {fileWithProgress.file.name}
           </Typography>
-          <Typography
-            sx={{
-              color: tokens.color.textMuted,
-              fontWeight: 400,
-              fontSize: 'var(--rds-font-size-md, var(--rds-spacing-14))',
-              ml: tokens.space(2),
-              minWidth: 'var(--rds-spacing-xl, 70px)',
-              textAlign: 'right',
-            }}
-          >
+          <Typography className="rds-file-uploader__file-size" variant="caption">
             {formatFileSize(fileWithProgress.file.size)}
           </Typography>
-          <IconButton
-            aria-label="Remove file"
-            className="rds-file-uploader__file-remove"
-            size="small"
-            onClick={() => removeFile(index)}
-            disabled={isUploading}
-            sx={{ ml: tokens.space(0.5), color: tokens.color.textMuted, background: 'transparent', borderRadius: tokens.radius.full, '&:hover': { background: tokens.color.divider }, p: tokens.space(0.5) }}
-          >
-            <Close fontSize="small" sx={{ color: tokens.color.textMuted }} />
-          </IconButton>
+          {fileWithProgress.error && (
+            <Typography className="rds-file-uploader__file-error-msg" variant="caption">
+              {fileWithProgress.error}
+            </Typography>
+          )}
         </Box>
-      ))}
-    </Box>
-  );
-};
+        <IconButton
+          aria-label="Remove file"
+          className="rds-file-uploader__file-remove"
+          size="small"
+          onClick={() => removeFile(index)}
+          disabled={isUploading}
+        >
+          <Close fontSize="small" />
+        </IconButton>
+      </Box>
+    ))}
+  </Box>
+);
 
 RdsDropZoneSideIcon.displayName = 'RdsDropZoneSideIcon';
 RdsDropZoneWithButton.displayName = 'RdsDropZoneWithButton';

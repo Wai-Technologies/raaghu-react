@@ -56,6 +56,7 @@ const RdsFileUploader = ({
     maxSize,
     maxFiles,
     isMandatory,
+    multiple,
     onFilesChange,
     onUpload,
   });
