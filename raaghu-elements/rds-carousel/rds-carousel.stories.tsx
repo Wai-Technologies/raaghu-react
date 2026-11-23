@@ -14,11 +14,12 @@ const meta: Meta<typeof RdsCarousel> = {
   },
   decorators: [
     (Story, context) => {
-      if (context.args && context.args.style === 'full width image') {
+      const isFullWidth = context.args?.style === 'full width image';
+      if (isFullWidth) {
         context.args = { ...context.args, showDots: false };
       }
       return (
-        <Box sx={{ width: '100%', maxWidth: '100vw', minWidth: 0, overflowX: 'hidden', p: 1 }}>
+        <Box sx={{ width: '100%', maxWidth: '100vw', minWidth: 0, overflowX: 'hidden', p: isFullWidth ? 0 : 1 }}>
           <Story />
         </Box>
       );

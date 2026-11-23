@@ -18,3 +18,32 @@
     font-size: var(--rds-font-size-md);
   }
 }
+
+.rds-pagination-wrapper.rds-pagination-wrapper--disabled {
+  .pagination-legend,
+  .pagination-manual-input .MuiTypography-root {
+    color: var(--rds-text-disabled);
+  }
+
+  .MuiPaginationItem-root.Mui-disabled,
+  .MuiPaginationItem-root.Mui-selected.Mui-disabled:not(.MuiPaginationItem-outlined) {
+    color: var(--rds-text-disabled);
+    border-color: var(--rds-text-disabled);
+
+    &::after {
+      background: var(--rds-text-disabled);
+    }
+  }
+
+  .MuiButton-root.Mui-disabled,
+  .MuiButton-root.Mui-disabled:first-of-type,
+  .MuiButton-root.Mui-disabled:last-of-type {
+    background-color: var(--rds-action-disabled-background);
+    color: var(--rds-action-disabled);
+  }
+
+  .pagination-dropdown .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+    border-color: var(--rds-action-disabled-background);
+    border-bottom-color: var(--rds-text-disabled);
+  }
+}
