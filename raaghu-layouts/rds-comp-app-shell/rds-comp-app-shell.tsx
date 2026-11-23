@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement, useState, isValidElement, cloneElement } from "react";
+import { ReactNode, ReactElement, useState, useEffect, useCallback, isValidElement, cloneElement } from "react";
 import "./rds-comp-app-shell.scss";
 import { AppShellDisplayType } from "./shell-types";
 export { AppShellDisplayType };
@@ -36,8 +36,8 @@ const TopbarSlot = ({ topbar, onMenuClick }: TopbarSlotProps) => {
           }, clonedAppBar);
         }
       }
-    } catch (error) {
-      // Topbar clone failed — render without cloning
+    } catch {
+      return <>{topbar}</>;
     }
   }
 
@@ -49,7 +49,17 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
   const [internalMobileSidebarOpen, setInternalMobileSidebarOpen] = useState(false);
   
   const mobileSidebarOpen = props.mobileSidebarOpen ?? internalMobileSidebarOpen;
-  const handleMobileSidebarToggle = props.onMobileSidebarToggle ?? (() => setInternalMobileSidebarOpen(!internalMobileSidebarOpen));
+  const toggleInternalSidebar = useCallback(() => setInternalMobileSidebarOpen((open) => !open), []);
+  const handleMobileSidebarToggle = props.onMobileSidebarToggle ?? toggleInternalSidebar;
+
+  useEffect(() => {
+    if (!mobileSidebarOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') handleMobileSidebarToggle();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileSidebarOpen, handleMobileSidebarToggle]);
 
   return (
     <>

@@ -522,27 +522,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .double-nav {
-  --rds-app-shell-margin-top-3: 84px;
-  --rds-app-shell-margin-left: 87px;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
-
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: var(--rds-app-shell-margin-top-3);
-
-    margin-left: var(--rds-app-shell-margin-left);
-  }
-
-  .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper,
-  .css-1movy1a .MuiDrawer-paper {
-    margin-top: var(--rds-app-shell-margin-top-3);
-    margin-left: var(--rds-spacing-12-px);
-  }
 }
 
 .top-nav {
@@ -554,12 +539,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   position: relative;
   display: flex;
   flex-direction: column;
-
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: var(--rds-spacing-67);
-    margin-left: var(--rds-spacing-12-px);
-  }
 
   .rds-header__toolbar {
     gap: 0;
@@ -574,19 +553,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .triPane {
-  --rds-app-shell-margin-top-3: 84px;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
-
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: var(--rds-app-shell-margin-top-3);
-    margin-left: var(--rds-spacing-md);
-  }
 }
 
 .rds-comp-app-shell-item {
@@ -2039,12 +2011,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
-
-    .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-    .css-dm61o6 .MuiDrawer-paper {
-      margin-left: 0;
-      margin-top: 0;
-    }
   }
 
   .triPane {
@@ -2346,6 +2312,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       flex-direction: column;
       width: 100%;
+      margin-right: var(--rds-size-3xl);
       position: relative;
       z-index: var(--rds-z-index-layer-2);
     }
@@ -2410,6 +2377,28 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 @media (min-width: 1113px) {
+  .double-nav,
+  .triPane {
+    .rds-story-double-nav-layout,
+    .rds-story-tripane-layout {
+      align-items: stretch;
+      height: calc(100vh - var(--rds-spacing-68));
+    }
+
+    .rds-story-double-nav-content {
+      align-items: stretch;
+    }
+
+    .MuiDrawer-docked {
+      height: 100%;
+    }
+
+    .MuiDrawer-docked .MuiDrawer-paper {
+      position: relative;
+      height: 100%;
+    }
+  }
+
   .MuiTabs-root,
   .rds-header__navigation,
   .rds-appshell-appbar .MuiTabs-root,
