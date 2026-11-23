@@ -32,17 +32,26 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache License 2.0",
-  "main": "./dist/raaghu-react.umd.js",
-  "module": "./dist/raaghu-react.es.js",
+  "main": "./dist/raaghu-react.cjs",
+  "module": "./dist/raaghu-react.es.mjs",
   "types": "./dist/index.d.ts",
+  "style": "./dist/raaghu-react.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/raaghu-react.es.js",
-      "require": "./dist/raaghu-react.umd.js"
-    }
+      "import": "./dist/raaghu-react.es.mjs",
+      "require": "./dist/raaghu-react.cjs"
+    },
+    "./umd": "./dist/raaghu-react.umd.js",
+    "./styles.css": "./dist/raaghu-react.css",
+    "./raaghu-react.css": "./dist/raaghu-react.css",
+    "./dist/raaghu-react.css": "./dist/raaghu-react.css",
+    "./package.json": "./package.json"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "workspaces": [
     "raaghu-pages"
   ],
@@ -94,7 +103,7 @@
     "clean:install": "npm run clean && npm install",
     "type-check": "tsc --noEmit",
     "type-check:all": "tsc --noEmit --project tsconfig.library.json",
-    "postinstall": "node scripts/ensure-package-manifests.js",
+    "prepare": "node scripts/ensure-package-manifests.js",
     "prepublishOnly": "npm run build",
     "test:visual:all": "storybook test-runner --browsers chromium"
   },
