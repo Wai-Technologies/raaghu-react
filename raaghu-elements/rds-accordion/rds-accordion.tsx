@@ -20,6 +20,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   icon?: ReactNode;
   defaultExpanded?: boolean;
   size?: 'small' | 'medium' | 'large';
+  /** @deprecated Use `disabled` instead. */
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
   animationDuration?: number;

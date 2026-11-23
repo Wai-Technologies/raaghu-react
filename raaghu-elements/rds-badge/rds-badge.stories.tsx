@@ -38,12 +38,17 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge style',
       defaultValue: 'primary',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'disabled'],
-      description: 'Badge state',
-      defaultValue: 'default',
+    disabled: {
+      control: 'boolean',
+      description: 'Shows the badge in its disabled style',
+      table: { defaultValue: { summary: 'false' } },
     },
+    selected: {
+      control: 'boolean',
+      description: 'Shows the badge in its selected style',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    state: { control: { disable: true }, table: { disable: true } },
     color: {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'error', 'warning', 'light', 'success'],
@@ -67,7 +72,7 @@ export const Default: Story = {
   },
 };
 Default.parameters = {
-  controls: { exclude: ['shape', 'layout'] },
+  controls: { exclude: ['layout'] },
 };
 
 export const Dot: Story = {
@@ -87,7 +92,7 @@ export const WithAvatar: Story = {
   },
 };
 WithAvatar.parameters = {
-  controls: { exclude: ['shape', 'layout', 'badgeContent'] },
+  controls: { exclude: ['layout', 'badgeContent'] },
 };
 
 export const WithIcon: Story = {
@@ -101,7 +106,7 @@ export const WithIcon: Story = {
   },
 };
 WithIcon.parameters = {
-  controls: { exclude: ['shape', 'layout'] },
+  controls: { exclude: ['layout'] },
 };
 
 export const WithText: Story = {
@@ -120,7 +125,7 @@ export const ShowZeroTrue: Story = {
   },
 };
 ShowZeroTrue.parameters = {
-  controls: { exclude: ['shape', 'layout'] },
+  controls: { exclude: ['layout'] },
 };
 
 export const ShowZeroFalse: Story = {
@@ -131,7 +136,7 @@ export const ShowZeroFalse: Story = {
   },
 };
 ShowZeroFalse.parameters = {
-  controls: { exclude: ['shape', 'layout'] },
+  controls: { exclude: ['layout'] },
 };
 
 
