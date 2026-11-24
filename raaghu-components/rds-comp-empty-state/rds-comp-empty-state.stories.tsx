@@ -47,6 +47,17 @@ const meta: Meta<typeof RdsCompEmptyState> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    label: "No Data Available",
+    subLabel: "No data available at this moment. Would you like to add new data?",
+    iconHeight: 150,
+    iconWidth: 150,
+    buttonText: "Add New Data",
+    isContinueAnimate: false,
+  },
+};
+
 export const Standard: Story = {
   args: {
     label: "No Data Available",

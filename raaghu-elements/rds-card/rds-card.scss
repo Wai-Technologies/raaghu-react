@@ -618,3 +618,13 @@
   --rds-card-shadow: 0 8px 24px var(--rds-card-shadow-color, color-mix(in srgb, var(--rds-color-black) 8%, transparent));
   box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, color-mix(in srgb, var(--rds-color-black) 8%, transparent)));
 }
+
+.rds-card.rds-card--selected[aria-selected]:not(.rds-card--disabled) {
+  background-color: color-mix(in srgb, var(--rds-primary-main) 6%, var(--rds-background-paper));
+  outline: var(--rds-spacing-xxs) solid var(--rds-primary-main);
+  outline-offset: calc(-1 * var(--rds-spacing-xxs));
+
+  .rds-card__indicator-icon {
+    background-color: var(--rds-primary-main);
+  }
+}

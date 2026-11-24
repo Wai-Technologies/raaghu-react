@@ -9,10 +9,12 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        colorVariant: {
-            options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
+        color: {
+            options: ["primary", "secondary", "success", "error", "warning", "light", "dark"],
             control: { type: "select" },
+            description: "Icon color",
         },
+        colorVariant: { control: { disable: true }, table: { disable: true } },
         name: {
             options: ["person-outline","users"],
             control: { type: "select" },
@@ -31,8 +33,8 @@ export const Default: Story = {
         height: "24px",
         fill: false,
         stroke: true,
-        colorVariant: "primary",
+        color: "primary",
         isCursorPointer: true,
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };
+Default.parameters = { controls: { include: ['name', 'width', 'height', 'color', 'isCursorPointer'] } };
