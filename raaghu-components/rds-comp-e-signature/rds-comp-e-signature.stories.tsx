@@ -63,6 +63,15 @@ const meta: Meta<typeof RdsCompESignature> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    mode: 'draw',
+    type: 'fullname',
+    colourSwatch: true,
+    title: 'Draw Signature',
+  },
+};
+
 export const Draw: Story = {
   args: {
     mode: 'draw',
@@ -89,6 +98,4 @@ export const Choose: Story = {
     title: 'Choose Signature',
   },
 };
-
-export const Default: Story = { ...Draw };
 
