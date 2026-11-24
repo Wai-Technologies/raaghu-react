@@ -17,6 +17,11 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'color'> {
   shape?: 'rectangle' | 'pill';
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
   styleType?: 'primary' | 'outline' | 'transparent';
+  /** Shows the badge in its disabled style. */
+  disabled?: boolean;
+  /** Shows the badge in its selected style. */
+  selected?: boolean;
+  /** @deprecated Use `disabled` and `selected` instead. */
   state?: 'default' | 'disabled';
   /**
    * Palette used for standalone / BEM styling, or MUI badge color.
@@ -38,10 +43,14 @@ const RdsBadge= ({
   shape = 'pill',
   layout = 'text',
   styleType = 'primary',
+  disabled,
+  selected = false,
   state = 'default',
   colorVariant,
   ...props
 }:RdsBadgeProps) => {
+  const isDisabled = disabled ?? state === 'disabled';
+  const isSelected = selected && !isDisabled;
   if (colorProp === 'danger' || colorVariant === 'danger') {
     warnDeprecatedProp('RdsBadge', 'color="danger"', '`color: "error"`');
   }
@@ -58,7 +67,7 @@ const RdsBadge= ({
     : 'default';
   const content = badgeContent;
   
-  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${resolvedColorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
+  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${resolvedColorVariant || 'primary'}${isDisabled ? ' rds-badge--disabled' : ''}${isSelected ? ' rds-badge--selected' : ''}`;
   
   const isZeroContent = content === 0 || content === '0';
   
@@ -85,7 +94,7 @@ const RdsBadge= ({
       return null;
     }
     return (
-      <span className={bemClass}>
+      <span className={bemClass} aria-disabled={isDisabled || undefined}>
         <span className="rds-badge__badge">{badgeInner}</span>
       </span>
     );

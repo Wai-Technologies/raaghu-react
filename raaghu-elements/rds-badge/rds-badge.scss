@@ -350,3 +350,29 @@
   background-color: var(--rds-color-secondary, var(--rds-primary-800));
   color: var(--rds-color-on-secondary, var(--rds-neutral-0));
 }
+
+.rds-badge.rds-badge--rectangle > .rds-badge__badge,
+.rds-badge.rds-badge--rectangle .MuiBadge-badge:not(.MuiBadge-dot) {
+  border-radius: var(--rds-border-radius-sm);
+}
+
+.rds-badge.rds-badge--pill > .rds-badge__badge,
+.rds-badge.rds-badge--pill .MuiBadge-badge:not(.MuiBadge-dot) {
+  border-radius: var(--rds-border-radius-pill);
+}
+
+.rds-badge.rds-badge--selected > .rds-badge__badge,
+.rds-badge.rds-badge--selected .MuiBadge-badge {
+  box-shadow:
+    0 0 0 var(--rds-spacing-xxs) var(--rds-background-paper),
+    0 0 0 calc(var(--rds-spacing-xxs) * 2) var(--rds-primary-main);
+}
+
+.rds-badge.rds-badge--disabled:is(.rds-badge--primary, .rds-badge--outline, .rds-badge--transparent) > .rds-badge__badge,
+.rds-badge.rds-badge--disabled:is(.rds-badge--primary, .rds-badge--outline, .rds-badge--transparent) .MuiBadge-badge {
+  background-color: color-mix(in srgb, var(--rds-text-disabled) 20%, transparent);
+  color: var(--rds-text-disabled);
+  border-color: var(--rds-text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
