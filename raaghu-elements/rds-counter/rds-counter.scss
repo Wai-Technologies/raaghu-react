@@ -435,6 +435,14 @@
   height: var(--rds-counter-controls-height-large);
 }
 
+.rds-counter__controls--layout-bottom:is(
+  .rds-counter__controls--small_interactive,
+  .rds-counter__controls--medium_interactive,
+  .rds-counter__controls--large_interactive
+) {
+  height: auto;
+}
+
 @include bp.down(400) {
   .rds-counter {
     &__controls {

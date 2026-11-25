@@ -25,7 +25,7 @@ const meta: Meta<typeof RdsProgress> = {
       control: {
         type: 'select',
       },
-      options: ['primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: ['primary', 'secondary', 'error', 'success', 'warning'],
       description: 'The color of the progress indicator',
     },
     steps: {

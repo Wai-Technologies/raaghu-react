@@ -14,6 +14,7 @@
 
 .rds-collapse__story-box {
   border-radius: var(--rds-border-radius-sm);
+  padding: var(--rds-spacing-md);
   background-color: var(--rds-background-surface);
 }
 
@@ -28,11 +29,12 @@
   }
 
   .rds-collapse__story-box--warning {
-    background-color: var(--rds-warning-light);
-    color: var(--rds-text-primary-light);
+    background-color: color-mix(in srgb, var(--rds-warning-main) 16%, var(--rds-background-paper));
+    border-left: var(--rds-spacing-xxs) solid var(--rds-warning-main);
+    color: var(--rds-text-primary);
 
     .MuiTypography-root {
-      color: var(--rds-text-primary-light);
+      color: var(--rds-text-primary);
     }
   }
 }

@@ -21,6 +21,11 @@ export interface RdsTextAreaProps {
   label?: string;
   placeholder?: string;
   value?: string;
+  /** Disables the text area. */
+  disabled?: boolean;
+  /** Shows the text area in its selected style. */
+  selected?: boolean;
+  /** @deprecated Use `disabled` and `selected` instead. */
   state?: TextareaState;
   style?: TextareaStyle;
   showTitle?: boolean;
@@ -40,9 +45,14 @@ export interface RdsTextAreaProps {
 }
 
 const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
+  const baseState = props.disabled
+    ? TextareaState.Disabled
+    : props.selected
+      ? TextareaState.Selected
+      : props.state || TextareaState.Default;
   const [isValid, setIsValid] = useState(true);
   const [isMandatoryValid, setIsMandatoryValid] = useState(true);
-  const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
+  const [currentState, setCurrentState] = useState(baseState);
   const idRef = useRef<string>(props.id || createUniqueId('rds-textarea'));
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
@@ -55,8 +65,8 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
   }, [props.reset]);
 
   useEffect(() => {
-    setCurrentState(props.state || TextareaState.Default);
-  }, [props.state]);
+    setCurrentState(baseState);
+  }, [baseState]);
 
   useEffect(() => {
     if (props.isMandatory) {

@@ -1,7 +1,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Typography, Box } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RdsDialog from './rds-dialog';
 import RdsButton from '../rds-button/rds-button';
 import RdsTypography from '../rds-typography/rds-typography';
@@ -47,7 +47,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -88,7 +91,10 @@ export const Default: Story = {
 
 export const FullWidth: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -127,7 +133,10 @@ export const FullWidth: Story = {
 
 export const Interactive: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -172,7 +181,10 @@ export const Interactive: Story = {
 
 export const LargeContent: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -218,7 +230,10 @@ export const LargeContent: Story = {
 
 export const WithActions: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -322,7 +337,10 @@ export const WithIcon: Story = {
 
   render: (args) => {
     const { showTitle = true, ...rest } = args;
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(Boolean(args.open));
+    useEffect(() => {
+      setOpen(Boolean(args.open));
+    }, [args.open]);
     return (
       <>
         <RdsButton
@@ -339,7 +357,7 @@ export const WithIcon: Story = {
           textCase="uppercase"
           onClick={() => setOpen(true)}
         />
-        <RdsDialog open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
+        <RdsDialog showTitle={showTitle} {...rest} open={open} onClose={() => setOpen(false)} />
       </>
     );
   },
