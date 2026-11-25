@@ -18,6 +18,11 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   showHintText?: boolean;
   selectSize?: 'small' | 'medium' | 'large';
   controlStyle?: 'default' | 'bottom line';
+  /** Opens the option list. */
+  expanded?: boolean;
+  /** Selects the first option. */
+  selected?: boolean;
+  /** @deprecated Use `expanded`, `selected` and `disabled` instead. */
   state?: 'default' | 'expanded' | 'selected' | 'disabled';
   isShowCheckbox?: boolean;
   isShowRadio?: boolean;
@@ -40,6 +45,8 @@ const RdsAutocomplete = <T extends { label?: string },>({
   selectSize = 'medium',
   controlStyle = 'default',
   state = 'default',
+  expanded: expandedProp,
+  selected: selectedProp,
   isShowCheckbox = false,
   isShowRadio = false,
   isShowUser = false,
@@ -55,11 +62,14 @@ const RdsAutocomplete = <T extends { label?: string },>({
   onClose,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  const [selected, setSelected] = React.useState<T | T[] | null>(() => {
+  const isExpanded = expandedProp ?? state === 'expanded';
+  const isSelected = selectedProp ?? state === 'selected';
+  const isDisabled = Boolean(props.disabled) || state === 'disabled';
+  const [selectedValue, setSelectedValue] = React.useState<T | T[] | null>(() => {
     if (defaultValue !== undefined) return defaultValue as T | T[] | null;
     return allowMultiple
-      ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
-      : (state === 'selected' && props.options ? (props.options[0] as T) : null);
+      ? (isSelected && props.options ? [props.options[0] as T] : [])
+      : (isSelected && props.options ? (props.options[0] as T) : null);
   });
   const isFirstRender = React.useRef(true);
   const isValueControlled = valueProp !== undefined;
@@ -69,19 +79,18 @@ const RdsAutocomplete = <T extends { label?: string },>({
       isFirstRender.current = false;
       return;
     }
-    if (state === 'selected' && props.options) {
-      setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
-    } else if (state !== 'selected') {
-      setSelected(allowMultiple ? [] : null);
+    if (isSelected && props.options) {
+      setSelectedValue(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
+    } else {
+      setSelectedValue(allowMultiple ? [] : null);
     }
-  }, [state, props.options, allowMultiple]);
+  }, [isSelected, props.options, allowMultiple]);
 
-  const [open, setOpen] = React.useState(state === 'expanded');
+  const [open, setOpen] = React.useState(isExpanded);
   
   React.useEffect(() => {
-    if (state === 'expanded') setOpen(true);
-    else setOpen(false);
-  }, [state]);
+    setOpen(isExpanded);
+  }, [isExpanded]);
   let sizeClass = '';
   if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
   else if (selectSize === 'large') sizeClass = 'rds-autocomplete--large';
@@ -154,22 +163,22 @@ const RdsAutocomplete = <T extends { label?: string },>({
       }}
       open={openProp ?? open}
       onOpen={(event) => {
-        if (state !== 'expanded') {
+        if (!isExpanded) {
           setOpen(true);
         }
         onOpen?.(event);
       }}
       onClose={(event, reason) => {
-        if (state !== 'expanded') {
+        if (!isExpanded) {
           setOpen(false);
         }
         onClose?.(event, reason);
       }}
-      disabled={props.disabled || state === 'disabled'}
-      value={(isValueControlled ? valueProp : selected) as typeof valueProp}
+      disabled={isDisabled}
+      value={(isValueControlled ? valueProp : selectedValue) as typeof valueProp}
       onChange={(event, value, reason, details) => {
         if (!isValueControlled) {
-          setSelected(value as T | T[] | null);
+          setSelectedValue(value as T | T[] | null);
         }
         onChange?.(event, value, reason, details);
       }}
@@ -215,7 +224,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
         popupIcon={popupIcon}
         renderInput={(params) => {
           const shouldShowPlaceholder = allowMultiple
-            ? (Array.isArray(selected) ? selected.length === 0 : !selected)
+            ? (Array.isArray(selectedValue) ? selectedValue.length === 0 : !selectedValue)
             : true;
 
           return (
@@ -231,7 +240,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 'aria-label': params.inputProps?.['aria-label'] || label,
               }}
               onFocus={(e) => {
-                if (openOnFocus && state !== 'expanded') {
+                if (openOnFocus && !isExpanded) {
                   setOpen(true);
                 }
                 if (params.inputProps?.onFocus) {

@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
 import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-button.scss';
 
 function getIconComponent(iconType?: string): ReactNode {
@@ -43,7 +44,9 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
    */
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
+  /** @deprecated Use `style` instead. */
   variant?: 'filled' | 'outlined' | 'transparent';
+  /** Visual style of the button, or an inline style object. */
   style?: 'filled' | 'outlined' | 'transparent' | CSSProperties;
   color?: ButtonProps['color'];
   showLeftIcon?: boolean;
@@ -80,7 +83,8 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
   if (disabled || stateProp === 'disabled') state = 'disabled';
   else if (selected || stateProp === 'selected') state = 'selected';
   else if (stateProp === 'hover') state = 'hover';
-  const style = variant ?? (typeof styleProp === 'string' ? styleProp : undefined);
+  if (variant !== undefined) warnDeprecatedProp('RdsButton', 'variant', '`style`');
+  const style = (typeof styleProp === 'string' ? styleProp : undefined) ?? variant;
   const inlineStyle = typeof styleProp === 'object' ? styleProp : undefined;
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
@@ -275,7 +279,7 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
         ...textCaseStyles,
         '& .MuiButton-startIcon': { margin: 0 },
         '& .MuiButton-endIcon': { margin: 0 },
-        ...(hasIcons ? { padding: 'var(--rds-spacing-compact)' } : {}),
+        ...(hasIcons ? { gap: 'var(--rds-spacing-xs)' } : {}),
         ...(style === 'outlined' && paletteMain && state !== 'disabled' ? {
           ...(state === 'hover' ? {
             ...outlinedHoverStyles,

@@ -589,7 +589,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header--secondary {
   &.rds-header {
-    --rds-color-on-secondary: var(--rds-color-on-surface);
+    --rds-color-on-secondary: var(--rds-neutral-0);
     background: var(--rds-color-secondary);
     color: var(--rds-color-on-secondary);
 
@@ -601,7 +601,12 @@ $rds-app-bar-breakpoint-xs: 320px;
     #avatarname,
     .rds-avatar__designation,
     .rds-profile-menu__name,
-    .rds-profile-menu__chevron {
+    .rds-profile-menu__name-lg,
+    .rds-profile-menu__email,
+    .rds-profile-menu__chevron,
+    .rds-appbar-logo-label,
+    .rds-header__menu-button,
+    .rds-withmenubutton-settings {
       color: var(--rds-color-on-secondary);
     }
 
@@ -644,8 +649,8 @@ $rds-app-bar-breakpoint-xs: 320px;
       color: var(--rds-color-on-secondary);
 
       &.Mui-selected {
-        color: var(--rds-color-secondary);
-        background: var(--rds-color-surface);
+        color: var(--rds-color-on-secondary);
+        background: color-mix(in srgb, var(--rds-neutral-0) 20%, transparent);
       }
     }
   }
@@ -2860,5 +2865,114 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   @media (max-width: 599px) {
     .rds-dashboard-top-icons { display: none; }
+  }
+}
+
+@media (min-width: 835px) {
+  .rds-header.rds-header--variant-withmenubutton {
+    .rds-header__search-wrapper {
+      flex: 0 1 var(--rds-spacing-160);
+      min-width: var(--rds-spacing-120, 120px);
+    }
+
+    .rds-header__right-actions {
+      margin-left: auto;
+      min-width: 0;
+    }
+  }
+}
+
+@media (min-width: 835px) and (max-width: 1199px) {
+  .rds-header.rds-header--variant-withmenubutton .rds-header__right-actions .rds-appbar-badge {
+    display: none;
+  }
+
+  .rds-header.rds-header--variant-withmenubutton .rds-profile-menu__button {
+    .MuiBox-root,
+    .rds-avatar__info,
+    .rds-profile-menu__name-lg,
+    .rds-profile-menu__email,
+    .rds-profile-menu__chevron {
+      display: none;
+    }
+  }
+}
+
+.rds-header.rds-header--variant-withmenubutton.rds-header--has-menu-button .rds-header__logo {
+  position: static;
+  transform: none;
+}
+
+@media (max-width: 834px) {
+  .rds-header.rds-header--variant-withmenubutton.rds-header--has-menu-button {
+    .rds-appbar-logo-group,
+    .rds-withmenubutton-settings,
+    .rds-profile-menu__button {
+      position: static;
+      left: auto;
+      right: auto;
+      transform: none;
+    }
+
+    .rds-header__toolbar {
+      padding-left: var(--rds-spacing-sm);
+      padding-right: var(--rds-spacing-sm);
+      gap: var(--rds-spacing-xs);
+    }
+
+    .rds-header__logo,
+    .rds-appbar-logo-group {
+      width: auto;
+      min-width: 0;
+    }
+
+    .rds-header__menu-button {
+      flex-shrink: 0;
+      margin-left: 0;
+    }
+
+    .rds-header__logo {
+      flex-shrink: 0;
+      margin-left: var(--rds-spacing-xs);
+    }
+
+    .rds-header__title {
+      display: none;
+    }
+
+    .rds-header__search-wrapper {
+      order: 2;
+      flex: 1 1 auto;
+      min-width: var(--rds-spacing-80-px);
+      max-width: none;
+      margin: 0 var(--rds-spacing-xs);
+    }
+
+    .rds-header__search-wrapper .rds-header__search {
+      width: 100%;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .rds-profile-menu__button {
+      min-width: 0;
+      padding: var(--rds-spacing-xxs);
+    }
+
+    .rds-header__right-actions {
+      order: 3;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .rds-appbar-actions-group {
+      gap: var(--rds-spacing-xs);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header.rds-header--variant-withmenubutton.rds-header--has-menu-button .rds-appbar-logo-label {
+    display: none;
   }
 }

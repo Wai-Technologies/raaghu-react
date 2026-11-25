@@ -47,11 +47,6 @@ export interface RdsButtonDropdownProps {
   [key: string]: unknown;
 }
 
-const SECONDARY_BUTTON_STYLE = {
-  backgroundColor: 'var(--rds-button-dropdown-secondary-bg)',
-  color: 'var(--rds-button-dropdown-selected-text)',
-} as const;
-
 const RdsButtonDropdown = ({
   buttonText = 'Button',
   options,
@@ -147,17 +142,14 @@ const RdsButtonDropdown = ({
         size={size}
         layout={layout}
         shape={shape}
-        color="primary"
+        color={styleType === 'secondary' ? 'secondary' : 'primary'}
         disabled={isDisabled}
         selected={isSelected}
         state={buttonState === 'hover' ? 'hover' : undefined}
-        variant={
+        style={
           styleType === 'transparent' ? 'transparent' :
           styleType === 'primary' || styleType === 'secondary' ? 'filled' : 'outlined'
         }
-        // RdsButton paints filled buttons with an inline primary colour, which beat the
-        // secondary class; pass the secondary colour the same way (not when disabled).
-        style={styleType === 'secondary' && !isDisabled ? SECONDARY_BUTTON_STYLE : undefined}
           className={clsx(
             className,
             styleType === 'secondary' && 'rds-button-dropdown--secondary',

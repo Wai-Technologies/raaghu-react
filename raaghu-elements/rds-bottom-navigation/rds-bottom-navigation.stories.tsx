@@ -11,6 +11,25 @@ const meta: Meta<typeof RdsBottomNavigation> = {
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          position: 'relative',
+          transform: 'translateZ(0)',
+          overflow: 'hidden',
+          width: 'calc(var(--rds-spacing-240) + var(--rds-spacing-120, 120px))',
+          maxWidth: '100%',
+          height: 'calc(var(--rds-spacing-120, 120px) + var(--rds-spacing-xl))',
+          border: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
+          borderRadius: 'var(--rds-radius-md)',
+          backgroundColor: 'var(--rds-background-default)',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     activeValue: {
       control: { type: 'text' },

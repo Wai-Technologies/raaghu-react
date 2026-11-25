@@ -129,7 +129,7 @@ function darkSemanticPalette(): SemanticPalette {
       main: s[200],
       light: s[150],
       dark: s[750],
-      contrastText: n[900],
+      contrastText: white,
     },
     error: {
       main: e[200],

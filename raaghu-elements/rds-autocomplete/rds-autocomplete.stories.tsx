@@ -72,12 +72,17 @@ const meta: Meta<typeof RdsAutocomplete> = {
       defaultValue: 'default',
       description: 'Input style: default (with underline/border) or bottom line (no underline)',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'expanded', 'selected', 'disabled'],
-      defaultValue: 'default',
-      description: 'Controls the state of the autocomplete component',
+    expanded: {
+      control: 'boolean',
+      description: 'Opens the option list',
+      table: { defaultValue: { summary: 'false' } },
     },
+    selected: {
+      control: 'boolean',
+      description: 'Selects the first option',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    state: { control: { disable: true }, table: { disable: true } },
     isShowCheckbox: {
       control: { type: 'boolean' },
       description: 'Show checkbox with options only',
@@ -126,7 +131,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'showTitle', 'state'] 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'expanded', 'selected', 'showTitle'] 
   } 
 };
 
