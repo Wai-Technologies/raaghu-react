@@ -17,8 +17,12 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   visibility?: 'open' | 'closed';
   onClose: () => void;
   actions?: ReactNode;
+  /** Shows the close button in the header. @default true */
+  showCloseButton?: boolean;
+  /** @deprecated Use `showCloseButton` instead. */
   headerChrome?: 'closeable' | 'plain';
   icon?: ReactNode;
+  /** Which media to show above the title: the `icon`, the `imageSrc` image, both or none. */
   media?: 'none' | 'icon' | 'image' | 'both';
   imageSrc?: string;
   body?: 'visible' | 'hidden';
@@ -30,32 +34,27 @@ const RdsModal= ({
   visibility,
   onClose,
   actions,
+  showCloseButton,
   headerChrome,
   icon,
   media,
   body,
   imageSrc,
   children,
-  ...props
+  ...restProps
 }: RdsModalProps) => {
-  const legacyIsOpen = typeof props['isOpen'] === 'boolean' ? (props['isOpen'] as boolean) : undefined;
-  const legacyShowCloseButton = typeof props['showCloseButton'] === 'boolean' ? (props['showCloseButton'] as boolean) : undefined;
-  const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
-  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
+  const { isOpen: legacyIsOpenProp, showIcon: legacyShowIconProp, showDescription: legacyShowDescriptionProp, ...props } = restProps;
+  const legacyIsOpen = typeof legacyIsOpenProp === 'boolean' ? legacyIsOpenProp : undefined;
+  const legacyShowIcon = typeof legacyShowIconProp === 'boolean' ? legacyShowIconProp : undefined;
+  const legacyShowDescription = typeof legacyShowDescriptionProp === 'boolean' ? legacyShowDescriptionProp : undefined;
 
   const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? false);
-  const resolvedShowCloseButton = headerChrome === 'closeable' ? true : headerChrome === 'plain' ? false : (legacyShowCloseButton ?? true);
+  const resolvedShowCloseButton = showCloseButton ?? (headerChrome === 'plain' ? false : true);
   const resolvedShowDescription = body === 'visible' ? true : body === 'hidden' ? false : (legacyShowDescription ?? true);
-  const resolvedShowIcon = media === 'none'
-    ? false
-    : media === 'icon' || media === 'both'
-      ? true
-      : (legacyShowIcon ?? true);
-  const showImage = media === 'none'
-    ? false
-    : media === 'image' || media === 'both'
-      ? true
-      : true;
+  const resolvedShowIcon = media === undefined
+    ? (legacyShowIcon ?? true)
+    : media === 'icon' || media === 'both';
+  const showImage = media === undefined || media === 'image' || media === 'both';
 
   const hasImageHeader = Boolean(imageSrc && showImage);
 

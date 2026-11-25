@@ -1,6 +1,7 @@
 import type { Meta } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
+import { InfoOutlined } from '@mui/icons-material';
 import { useState } from 'react';
 import RdsButton from '../rds-button/rds-button';
 
@@ -24,6 +25,16 @@ const meta: Meta<typeof RdsModal> = {
       control: 'boolean',
       description: 'Whether to show the close button',
     },
+    headerChrome: { control: { disable: true }, table: { disable: true } },
+    media: {
+      control: 'select',
+      options: ['none', 'icon', 'image', 'both'],
+      description: 'Media shown above the title: the icon, the image, both or none',
+    },
+    imageSrc: {
+      control: 'text',
+      description: 'Image shown when media is image or both',
+    },
     maxWidth: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -38,8 +49,14 @@ const meta: Meta<typeof RdsModal> = {
 
 export default meta;
 
+const SAMPLE_IMAGE = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=60';
+
 const ModalTemplate = (args: any) => {
   const [open, setOpen] = useState(false);
+  const wantsIcon = args.media === 'icon' || args.media === 'both';
+  const wantsImage = args.media === 'image' || args.media === 'both';
+  const icon = args.icon ?? (wantsIcon ? <InfoOutlined color="primary" fontSize="large" /> : undefined);
+  const imageSrc = args.imageSrc ?? (wantsImage ? SAMPLE_IMAGE : undefined);
 
   return (
     <>
@@ -48,6 +65,8 @@ const ModalTemplate = (args: any) => {
       </RdsButton>
       <RdsModal
         {...args}
+        icon={icon}
+        imageSrc={imageSrc}
         isOpen={open}
         onClose={() => setOpen(false)}
       >

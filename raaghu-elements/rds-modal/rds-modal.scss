@@ -135,6 +135,9 @@
   &__media {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--rds-spacing-sm);
     justify-content: center;
   }
 

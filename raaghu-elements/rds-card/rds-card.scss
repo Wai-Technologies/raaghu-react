@@ -628,3 +628,15 @@
     background-color: var(--rds-primary-main);
   }
 }
+
+.rds-card.MuiPaper-root.rds-card--style-outlined {
+  background-color: var(--rds-background-paper);
+  border: var(--rds-border-width-thin) solid var(--rds-border-strong);
+  box-shadow: none;
+}
+
+.rds-card.MuiPaper-root.rds-card--style-filled {
+  background-color: color-mix(in srgb, var(--rds-text-primary) 6%, var(--rds-background-paper));
+  border: var(--rds-border-width-thin) solid transparent;
+  box-shadow: none;
+}

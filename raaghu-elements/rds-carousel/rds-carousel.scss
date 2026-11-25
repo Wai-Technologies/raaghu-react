@@ -533,10 +533,6 @@
   .rds-carousel--default .rds-carousel__indicators{
     bottom: 12px;
   }
-  .rds-carousel--auto-play .rds-carousel__slide-content {
-
-    height: var(--rds-carousel-height-5, 360px);
-  }
 
   .rds-carousel--with-title .rds-carousel__navigation {
     top: calc(50% + 45px);
@@ -612,10 +608,6 @@
   }
   .rds-carousel--default .rds-carousel__indicators {
     bottom: 13px;
-  }
-  .rds-carousel--auto-play .rds-carousel__slide-content {
-
-    height: var(--rds-carousel-height-5, 360px);
   }
 }
 

@@ -1,4 +1,4 @@
-import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
+import RdsTextArea, { TextareaStyle } from "./rds-text-area";
 import { Meta, StoryObj } from "@storybook/react-vite";
 const meta: Meta<typeof RdsTextArea> = {
     title: 'Elements/Text Area',
@@ -21,11 +21,15 @@ const meta: Meta<typeof RdsTextArea> = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        state: {
-            control: 'select',
-            options: ['Default', 'Active', 'Selected', 'Disabled', 'Error'],
-            description: 'Current state of the text area'
+        disabled: {
+            control: 'boolean',
+            description: 'Disables the text area'
         },
+        selected: {
+            control: 'boolean',
+            description: 'Shows the text area in its selected style'
+        },
+        state: { control: { disable: true }, table: { disable: true } },
         style: {
             control: 'select',
             options: ['Default', 'Pill', 'Bottom Outline'],
@@ -49,7 +53,8 @@ export const Default: Story = {
     args: {
         label: "Label",
         placeholder: "Enter Description",
-        state: TextareaState.Default,
+        disabled: false,
+        selected: false,
         style: TextareaStyle.Default,
         isMandatory: false,
         showTitle: true,
