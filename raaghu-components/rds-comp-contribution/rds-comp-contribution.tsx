@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Measure from 'react-measure';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
+import Box from '@mui/material/Box';
+import { joinClassNames, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 import {
   renderWeekLabels,
   renderContributionPanels,
@@ -15,7 +17,7 @@ import {
 
 dayjs.extend(customParseFormat);
 
-export interface RdsCompContributionProps {  
+export interface RdsCompContributionProps extends RdsStylingProps {  
   showMonthLabels?: boolean;
   showWeekLabels?: boolean;
   weekNames?: string[];
@@ -33,7 +35,7 @@ export interface RdsCompContributionProps {
   panelMargin?: number;
 }
 
-const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
+const RdsCompContribution = React.forwardRef<HTMLDivElement, RdsCompContributionProps>(function RdsCompContribution({
   showMonthLabels = true,
   showWeekLabels = false,
   weekNames,
@@ -49,7 +51,10 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   weekLabelWidth = 24,
   panelSize = 11,
   panelMargin = 2,
-}) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const columns = 53;
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
@@ -81,6 +86,13 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     return makeCalendarData(values, until, columns, dateFormat, dayjs);
   }, [values, until, columns, dateFormat, panelColors]);
 
+  const measureRefHolder = React.useRef<((node: HTMLDivElement | null) => void) | null>(null);
+  const setRootRef = React.useCallback((node: HTMLDivElement | null) => {
+    measureRefHolder.current?.(node);
+    if (typeof ref === 'function') ref(node);
+    else if (ref) ref.current = node;
+  }, [ref]);
+
   if (!panelColors || !values || !until || !contributions) {
     return null;
   }
@@ -91,8 +103,15 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   return (
     <Measure bounds onResize={(rect) => updateSizeFromBounds(rect.bounds, panelSize, panelMargin, setDynamicPanelSize, setDynamicPanelMargin)}>
-      {({ measureRef }: { measureRef: (ref: HTMLDivElement | null) => void }) => (
-        <div ref={measureRef} className="rds-comp-contribution">
+      {({ measureRef }: { measureRef: (ref: HTMLDivElement | null) => void }) => {
+        measureRefHolder.current = measureRef;
+        return (
+        <Box
+          ref={setRootRef}
+          className={joinClassNames("rds-comp-contribution", className)}
+          sx={sx}
+          style={style}
+        >
           <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
               <SvgIcon
@@ -106,10 +125,11 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
               </SvgIcon>
             </div>
           </div>
-        </div>
-      )}
+        </Box>
+        );
+      }}
     </Measure>
   );
-};
+});
 RdsCompContribution.displayName = "RdsCompContribution";
 export default RdsCompContribution;

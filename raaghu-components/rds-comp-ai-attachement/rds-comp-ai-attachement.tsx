@@ -1,4 +1,6 @@
-import { useCallback, useRef, useState, type ChangeEvent } from "react";
+import { forwardRef, useCallback, useRef, useState, type ChangeEvent } from "react";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
@@ -8,7 +10,7 @@ import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 
-export interface RdsCompAiAttachementProps {
+export interface RdsCompAiAttachementProps extends RdsStylingProps {
   menuIcon?: string;
   modalTitle?: string;
   hintText?: string;
@@ -49,7 +51,7 @@ export interface Comment {
 
 registerMaterialIcons({ attachment_icon: AttachmentIcon });
 
-const RdsCompAiAttachement = ({
+const RdsCompAiAttachement = forwardRef<HTMLDivElement, RdsCompAiAttachementProps>(function RdsCompAiAttachement({
   menuIcon,
   modalTitle,
   hintText,
@@ -65,7 +67,10 @@ const RdsCompAiAttachement = ({
   onFigmaSubmit,
   handleAddComment,
   menuAlignment = "left",
-}: RdsCompAiAttachementProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -166,7 +171,7 @@ const RdsCompAiAttachement = ({
         aria-label="Upload attachment"
       />
 
-      <div className="rds-comp-ai-attachement__dropdown">
+      <Box ref={ref} className={joinClassNames("rds-comp-ai-attachement__dropdown", className)} sx={sx} style={style}>
         <RdsCompAiFabMenu
           menuIcon={menuIcon}
           backgroundType="none"
@@ -175,7 +180,7 @@ const RdsCompAiAttachement = ({
           alignment={menuAlignment}
           listItems={listItems}
         />
-      </div>
+      </Box>
 
       {showModal && (
         <RdsModal
@@ -201,7 +206,7 @@ const RdsCompAiAttachement = ({
       )}
     </>
   );
-};
+});
 
 RdsCompAiAttachement.displayName = "RdsCompAiAttachement";
 export default RdsCompAiAttachement;

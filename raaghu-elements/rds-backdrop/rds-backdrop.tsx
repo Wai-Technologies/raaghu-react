@@ -11,14 +11,14 @@ export interface RdsBackdropProps extends Omit<BackdropProps, 'open'> {
   open?: boolean;
 }
 
-const RdsBackdrop: React.FC<RdsBackdropProps> = ({
+const RdsBackdrop = React.forwardRef<HTMLDivElement, RdsBackdropProps>(function RdsBackdrop({
   loading = false,
   loadingComponent,
   children,
   open,
   className = '',
   ...props
-}) => {
+}, ref) {
   const isOpen = open !== undefined ? open : loading;
 
   const resolvedLoadingComponent =
@@ -55,11 +55,11 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
   };
 
   return (
-    <MuiBackdrop open={isOpen} className={backdropClassName} sx={backdropSx} {...restProps}>
+    <MuiBackdrop ref={ref} open={isOpen} className={backdropClassName} sx={backdropSx} {...restProps}>
       {content}
     </MuiBackdrop>
   );
-};
+});
 
 RdsBackdrop.displayName = 'RdsBackdrop';
 export default RdsBackdrop;

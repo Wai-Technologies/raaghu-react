@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
 import RdsButton from '../rds-button/rds-button';
+import { joinClassNames, type RdsStylingProps } from '../shared/utils/styling-props';
 import { MultiLevelMenuPanel } from './rds-multi-level-menu.helpers';
 import './rds-multi-level-menu.scss';
 
@@ -9,7 +11,7 @@ export type MenuOption = {
   children?: MenuOption[];
 };
 
-export interface RdsMultiLevelMenuProps {
+export interface RdsMultiLevelMenuProps extends RdsStylingProps {
   options: MenuOption[];
   type?: 'expandable' | 'selectable';
   size?: 'default' | 'large';
@@ -23,14 +25,17 @@ export interface RdsMultiLevelMenuProps {
   state?: 'default' | 'hover' | 'selected';
 }
 
-export const RdsMultiLevelMenu = ({
+export const RdsMultiLevelMenu = React.forwardRef<HTMLDivElement, RdsMultiLevelMenuProps>(function RdsMultiLevelMenu({
   options,
   type = 'expandable',
   size = 'default',
   state: stateProp = 'default',
   selected = false,
   onSelect,
-}: RdsMultiLevelMenuProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const state = selected ? 'selected' : stateProp;
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
@@ -82,14 +87,14 @@ export const RdsMultiLevelMenu = ({
   );
 
   return (
-    <div className={`rds-multi-level-menu type-${type}`}>
+    <Box ref={ref} className={joinClassNames(`rds-multi-level-menu type-${type}`, className)} sx={sx} style={style}>
       <RdsButton style="filled" onClick={handleMenuOpen} size={size === 'large' ? 'large' : 'medium'}>
         Multi Level Menu
       </RdsButton>
       {renderMenu(options, 0)}
-    </div>
+    </Box>
   );
-};
+});
 
 RdsMultiLevelMenu.displayName = 'RdsMultiLevelMenu';
 export default RdsMultiLevelMenu;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, type BoxProps } from '@mui/material';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
+import { mergeSx } from '../../raaghu-elements/shared/utils/styling-props';
 
 export interface RdsCompLayoutProps extends BoxProps {
   children?: React.ReactNode;
@@ -18,7 +19,7 @@ export interface RdsCompLayoutProps extends BoxProps {
 }
 
 
-const RdsCompLayout= ({
+const RdsCompLayout = React.forwardRef<HTMLDivElement, RdsCompLayoutProps>(function RdsCompLayout({
   children,
   spacing = 2,
   direction = 'column',
@@ -31,18 +32,22 @@ const RdsCompLayout= ({
   alignItems = 'stretch',
   className,
    mode,
+  sx,
+  style,
   ...props
-}:RdsCompLayoutProps) => {
+}, ref) {
   const layoutClass = `rds-layout ${direction} ${fullHeight ? 'full-height' : ''} ${fullWidth ? 'full-width' : ''} ${className || ''}`;
 
 
  
     return (
   <>
- {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', hasShadow)) : (
+ {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', hasShadow, { ref, className, sx, style })) : (
   <Box
+      ref={ref}
       className={layoutClass}
-      sx={{
+      style={style}
+      sx={mergeSx({
         display: 'flex',
         flexDirection: direction,
         flexWrap: wrap ? 'wrap' : 'nowrap',
@@ -51,8 +56,7 @@ const RdsCompLayout= ({
         gap: spacing,
         height: fullHeight ? '100%' : 'auto',
         width: fullWidth ? '100%' : 'auto',
-        ...props.sx,
-      }}
+      }, sx)}
       {...props}
     >
       {children}
@@ -61,6 +65,6 @@ const RdsCompLayout= ({
 
 
     )
-};
+});
 RdsCompLayout.displayName = 'RdsCompLayout';
 export default RdsCompLayout;

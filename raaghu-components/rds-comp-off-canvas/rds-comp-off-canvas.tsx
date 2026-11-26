@@ -4,9 +4,10 @@ import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import "./rds-comp-off-canvas.scss";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 export enum RdsOffcanvasPlacement {Start = "left",End = "right",Top = "top",Bottom = "bottom"}
 export enum RdsOffcanvasBackDrop {Static = "static",True = "true",False = "false"}
-export interface RdsCompOffcanvasProps {
+export interface RdsCompOffcanvasProps extends RdsStylingProps {
   placement: RdsOffcanvasPlacement;
   backDrop: RdsOffcanvasBackDrop;
   scrolling?: boolean;
@@ -23,7 +24,7 @@ export interface RdsCompOffcanvasProps {
   showSecondaryButton?: boolean;
   showTertiaryButton?: boolean;
 }
-const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
+const RdsCompOffcanvas = React.forwardRef<HTMLDivElement, RdsCompOffcanvasProps>(function RdsCompOffcanvas({
   placement = RdsOffcanvasPlacement.End,
   backDrop = RdsOffcanvasBackDrop.True,
   scrolling = false,
@@ -39,7 +40,9 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
-}) => {
+  sx,
+  style,
+}, ref) {
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
   const handleOpen = () => {
@@ -95,7 +98,10 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           disableEscapeKeyDown={!preventEscapeKey}
           {...getBackdropProps()}
           className={`offcanvas-drawer placement-${placement}`}
-          id={offId}>
+          id={offId}
+          ref={ref}
+          sx={sx}
+          style={style}>
           <Box className={`offcanvas-container ${scrolling ? 'scrolling' : ''}`}>
             <Box className={`offcanvas-header ${isCanvasTitle ? '' : 'no-title'}`}>
               {isCanvasTitle ? (
@@ -146,6 +152,6 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       </div>
     </>
   );
-};
+});
 RdsCompOffcanvas.displayName = "RdsCompOffcanvas";
 export default RdsCompOffcanvas;

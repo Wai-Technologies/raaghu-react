@@ -20,7 +20,7 @@ export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'c
   showLabels?: boolean;  
 }
 
-const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
+const RdsBottomNavigation = React.forwardRef<HTMLDivElement, RdsBottomNavigationProps>(function RdsBottomNavigation({
   items,
   activeValue,
   onItemChange,
@@ -28,7 +28,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   value,
   onChange,
   ...props
-}) => {
+}, ref) {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (onItemChange) {
       onItemChange(newValue);
@@ -41,6 +41,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   return (
     <div className="rds-bottom-navigation">
       <MuiBottomNavigation
+        ref={ref}
         value={value || activeValue}
         onChange={handleChange}
         {...props}
@@ -58,7 +59,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
       </MuiBottomNavigation>
     </div>
   );
-};
+});
 
 RdsBottomNavigation.displayName = 'RdsBottomNavigation';
 export default RdsBottomNavigation;

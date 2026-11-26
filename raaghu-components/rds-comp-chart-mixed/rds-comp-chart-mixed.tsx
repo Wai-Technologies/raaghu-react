@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-mixed.scss";
 
-export interface RdsCompMixedChartProps {
+export interface RdsCompMixedChartProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -11,7 +13,7 @@ export interface RdsCompMixedChartProps {
     chartLabel?: string;
 }
 
-const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
+const RdsCompMixedChart = React.forwardRef<HTMLDivElement, RdsCompMixedChartProps>(function RdsCompMixedChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const [themeMode, setThemeMode] = React.useState(() => {
@@ -53,10 +55,10 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
     }, [props.labels, props.options, props.dataSets, themeMode]);
 
     return (
-        <div className="rds-comp-chart-mixed">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-mixed", props.className)} sx={props.sx} style={props.style}>
             <canvas className="rds-chart-canvas" data-testid={props.id} id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Mixed chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompMixedChart.displayName = 'RdsCompMixedChart';
 export default RdsCompMixedChart;

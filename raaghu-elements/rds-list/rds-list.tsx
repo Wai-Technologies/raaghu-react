@@ -1,5 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState, type ReactNode, type ReactElement, Fragment } from 'react';
+import React, { useState, type ReactNode, type ReactElement, Fragment } from 'react';
 import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,type ListProps, Divider } from '@mui/material';
 import clsx from 'clsx';
 import './rds-list.scss';
@@ -35,7 +35,7 @@ const ExpandIcon = ({ open }: { open: boolean }) => (
 );
 
 
-const RdsList = ({
+const RdsList = React.forwardRef<HTMLDivElement, RdsListProps>(function RdsList({
   items,
   variant = 'simple',
   alignItems,
@@ -45,9 +45,11 @@ const RdsList = ({
   onCheckboxChange,
   checkedItems,
   className,
+  sx,
+  style,
   dense,
   ...props
-}: RdsListProps) => {
+}, ref) {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
   const isControlledChecked = checkedItems !== undefined;
@@ -58,7 +60,7 @@ const RdsList = ({
 
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
-  const rootClass = clsx('rds-list', variantClass, denseClass, className);
+  const rootClass = clsx('rds-list', variantClass, denseClass);
 
   const getItemClass = (item: RdsListItem) => clsx(
     'rds-list__item',
@@ -219,13 +221,13 @@ const RdsList = ({
   }
 
   return (
-    <Paper>
+    <Paper ref={ref} className={className} sx={sx} style={style}>
       <MuiList className={rootClass} {...props}>
         {children}
       </MuiList>
     </Paper>
   );
-};
+});
 
 RdsList.displayName = 'RdsList';
 export default RdsList;

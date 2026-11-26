@@ -90,7 +90,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> 
   autoIcons?: boolean;
 }
 
-const RdsBreadcrumbs = ({
+const RdsBreadcrumbs = React.forwardRef<HTMLElement, RdsBreadcrumbsProps>(function RdsBreadcrumbs({
   items,
   separator,
   separatorType,
@@ -105,7 +105,7 @@ const RdsBreadcrumbs = ({
   icon,
   autoIcons = true,
   ...props
-}:RdsBreadcrumbsProps) => {
+}, ref) {
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
   if (state !== undefined) {
     warnDeprecatedProp('RdsBreadcrumbs', 'state', '`selected`, `disabled` or `hover`');
@@ -202,6 +202,7 @@ const RdsBreadcrumbs = ({
 
   return (
     <MuiBreadcrumbs 
+      ref={ref}
       separator={getSeparator()} 
       className={breadcrumbsClass}
       {...props}
@@ -265,7 +266,7 @@ const RdsBreadcrumbs = ({
       })}
     </MuiBreadcrumbs>
   );
-};
+});
 
 RdsBreadcrumbs.displayName = 'RdsBreadcrumbs';
 export default RdsBreadcrumbs;

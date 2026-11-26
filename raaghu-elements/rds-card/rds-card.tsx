@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
@@ -35,7 +35,7 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
   description?: string;
 }
 
-const RdsCard = ({
+const RdsCard = forwardRef<HTMLDivElement, RdsCardProps>(function RdsCard({
   padding,
   children,
   sx,
@@ -55,7 +55,7 @@ const RdsCard = ({
   cardSubtext,
   description,
   ...props
-}:RdsCardProps) => {
+}, ref) {
   let state: CardState = 'default';
   if (disabled || stateProp === 'disabled') state = 'disabled';
   else if (selected || stateProp === 'selected') state = 'selected';
@@ -174,6 +174,7 @@ const RdsCard = ({
 
   return (
     <MuiCard
+      ref={ref}
       className={getCardClassName()}
       sx={[
         cardInlineStyle,
@@ -215,7 +216,7 @@ const RdsCard = ({
       )}
     </MuiCard>
   );
-};
+});
 
 RdsCard.displayName = 'RdsCard';
 export default RdsCard;

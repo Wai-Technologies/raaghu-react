@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
+import { mergeSx } from '../shared/utils/styling-props';
 import './rds-tooltip.scss';
 export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   children: React.ReactElement;
@@ -25,7 +26,7 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   wrapper?: boolean;
 }
 
-const RdsTooltip= ({
+const RdsTooltip = React.forwardRef<HTMLSpanElement, RdsTooltipProps>(function RdsTooltip({
   children,
   style = 'top',
   title,
@@ -34,8 +35,9 @@ const RdsTooltip= ({
   tooltipStyle,
   arrow = false,
   wrapper: _wrapper,
+  sx,
   ...props
-}:RdsTooltipProps) => {
+}, ref) {
   const placement = typeof style === 'string' ? style : 'top';
   const tooltipClass = clsx(
     'rds-tooltip',
@@ -53,13 +55,14 @@ const RdsTooltip= ({
       placement={placement}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
-      sx={customStyle}
+      sx={mergeSx(customStyle, sx)}
       {...props}
+      ref={ref}
     >
       <span className="rds-tooltip__wrapper">{children}</span>
     </MuiTooltip>
   );
-};
+});
 RdsTooltip.displayName = 'RdsTooltip';
 export default RdsTooltip;
 

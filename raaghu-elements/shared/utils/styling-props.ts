@@ -3,7 +3,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * Custom-styling hooks every Raaghu element/component accepts on its root element.
- * They are hidden from the Storybook controls (see `.storybook/hide-styling-props.ts`).
+ * They are hidden from the Storybook controls (see `.storybook/preview.ts`).
  */
 export interface RdsStylingProps {
   /** Extra class name(s) applied to the root element. */

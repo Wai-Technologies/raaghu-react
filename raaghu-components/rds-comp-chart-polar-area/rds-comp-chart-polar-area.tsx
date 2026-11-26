@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-polar-area.scss";
 
-export interface RdsCompPolarAreaChartProps {
+export interface RdsCompPolarAreaChartProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -12,7 +14,7 @@ export interface RdsCompPolarAreaChartProps {
     chartLabel?: string;
 }
 
-const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
+const RdsCompPolarAreaChart = React.forwardRef<HTMLDivElement, RdsCompPolarAreaChartProps>(function RdsCompPolarAreaChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
     const CanvasId = props.id;
@@ -64,10 +66,10 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
     }, [props.labels, props.options, props.dataSets, props.radius, themeMode]);
 
     return (
-        <div className="rds-comp-chart-polar-area-container">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-polar-area-container", props.className)} sx={props.sx} style={props.style}>
             <canvas id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Polar area chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompPolarAreaChart.displayName = 'RdsCompPolarAreaChart';
 export default RdsCompPolarAreaChart;

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import clsx from 'clsx';
 import './rds-form-control.scss';
 import {
@@ -17,7 +17,7 @@ export interface RdsFormControlProps extends Omit<FormControlProps, 'component'>
   isGroup?: boolean;
 }
 
-const RdsFormControl = ({
+const RdsFormControl = React.forwardRef<HTMLDivElement, RdsFormControlProps>(function RdsFormControl({
   label,
   helperText,
   children,
@@ -26,7 +26,7 @@ const RdsFormControl = ({
   required,
   error,
   ...props
-}: RdsFormControlProps) => {
+}, ref) {
   const isRequiredProp = required !== undefined ? required : isRequired;
 
   const content = isGroup ? (
@@ -36,7 +36,7 @@ const RdsFormControl = ({
   );
 
   return (
-    <MuiFormControl required={isRequiredProp} error={error} {...props} className={clsx('rds-form-control', props.className)}>
+    <MuiFormControl ref={ref} required={isRequiredProp} error={error} {...props} className={clsx('rds-form-control', props.className)}>
       {label && (
         <MuiFormLabel required={isRequiredProp} className="rds-form-control__label">
           {label}
@@ -46,6 +46,6 @@ const RdsFormControl = ({
       {helperText && <MuiFormHelperText>{helperText}</MuiFormHelperText>}
     </MuiFormControl>
   );
-};
+});
 RdsFormControl.displayName = 'RdsFormControl';
 export default RdsFormControl;

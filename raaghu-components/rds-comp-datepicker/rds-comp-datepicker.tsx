@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clsx from 'clsx';
+import Box from "@mui/material/Box";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
@@ -22,7 +23,7 @@ import {
 
 const SafeDatePicker = DatePicker;
 
-const RdsDatepicker = ({
+const RdsDatepicker = forwardRef<HTMLDivElement, RdsCompDatepickerProps>(function RdsDatepicker({
     selectedDate,
     dateForEdit,
     titleText,
@@ -42,8 +43,11 @@ const RdsDatepicker = ({
     maxDate,
     disabled,
     required,
+    className,
+    sx,
+    style,
     ...legacyProps
-}: RdsCompDatepickerProps) => {
+}, ref) {
     const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
     const legacyIsDisabled = typeof legacyProps['isDisabled'] === 'boolean' ? (legacyProps['isDisabled'] as boolean) : undefined;
     const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;
@@ -277,7 +281,7 @@ const RdsDatepicker = ({
     );
 
     return (
-        <div className="rds-datepicker__field">
+        <Box ref={ref} className={clsx("rds-datepicker__field", className)} sx={sx} style={style}>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -321,8 +325,8 @@ const RdsDatepicker = ({
                 activateCustom,
                 customDropdownRef
             )}
-        </div>
+        </Box>
     );
-};
+});
 RdsDatepicker.displayName = "RdsCompDatepicker";
 export default RdsDatepicker;

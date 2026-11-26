@@ -13,6 +13,7 @@ import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 import './rds-comp-filter-button.scss';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import type { RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
 export interface FilterOption {
   id: string;
@@ -21,7 +22,7 @@ export interface FilterOption {
   selectedValues?: string[];
 }
 
-export interface RdsCompFilterButtonProps {
+export interface RdsCompFilterButtonProps extends RdsStylingProps {
   shape?: 'rectangle' | 'pill';
   text?: string;
   showLeftIcon?: boolean;
@@ -39,7 +40,7 @@ export interface RdsCompFilterButtonProps {
 
 const EMPTY_FILTERS: FilterOption[] = [];
 
-const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
+const RdsCompFilterButton = React.forwardRef<HTMLDivElement, RdsCompFilterButtonProps>(function RdsCompFilterButton({
   shape = 'rectangle',
   text = 'Filter',
   showLeftIcon = true,
@@ -54,7 +55,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   className,
   itemIcon,
   ...props
-}) => {
+}, ref) {
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(filters);
   const filtersKey = JSON.stringify(filters);
@@ -147,7 +148,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   }, [localFilters, searchTerm]);
 
   return (
-    <Box className={`rds-comp-filter-button ${className || ''}`} {...props}>
+    <Box ref={ref} className={`rds-comp-filter-button ${className || ''}`} {...props}>
       <RdsButton
         aria-haspopup="dialog"
         aria-expanded={isOpen}
@@ -324,6 +325,6 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
       </Popover>
     </Box>
   );
-};
+});
 RdsCompFilterButton.displayName = 'RdsCompFilterButton';
 export default RdsCompFilterButton;

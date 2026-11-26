@@ -1,4 +1,4 @@
-import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
+import React, { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, type MenuProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -114,18 +114,19 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> 
 }
 
 
-const RdsMenu = ({
+const RdsMenu = React.forwardRef<HTMLDivElement, RdsMenuProps>(function RdsMenu({
   items,
   size = 'small',
   placement,
   children,
   ...props
-}: RdsMenuProps) => {
+}, ref) {
   const dense = size === 'small';
   const menuClassName = clsx('rds-menu', size && `rds-menu--${size}`, props.className);
   const menuListClassName = 'rds-menu__list';
   return (
       <MuiMenu
+        ref={ref}
         {...(placement ? MENU_PLACEMENTS[placement] : {})}
         {...props}
         MenuListProps={{
@@ -200,7 +201,7 @@ const RdsMenu = ({
         })}
       </MuiMenu>
   );
-};
+});
 
 RdsMenu.displayName = 'RdsMenu';
 export default RdsMenu;

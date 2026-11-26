@@ -8,6 +8,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
+import Box from "@mui/material/Box";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 registerMaterialIcons({
     'list': ListIcon,
@@ -39,7 +41,7 @@ const ITEM_ICON_SIZES = {
     large: 'calc(var(--rds-spacing-lg) + var(--rds-spacing-xs))',
 } as const;
 
-export interface RdsCompAiFabMenuProps {
+export interface RdsCompAiFabMenuProps extends RdsStylingProps {
     /** Button color. `'danger'` is deprecated; use `'error'`. */
     color?: FabMenuColor;
     /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
@@ -59,7 +61,7 @@ export interface RdsCompAiFabMenuProps {
     'aria-label'?: string;
 }
 
-const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
+const RdsCompAiFabMenu = React.forwardRef<HTMLDivElement, RdsCompAiFabMenuProps>(function RdsCompAiFabMenu(props, ref) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -138,7 +140,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const dataAlignment = props.alignment || 'left';
 
     return (
-    <div className={rootClass} data-alignment={dataAlignment} data-open={isMenuOpen} onKeyDown={handleKeyDown}>
+    <Box ref={ref} className={rootClass} sx={props.sx} style={props.style} data-alignment={dataAlignment} data-open={isMenuOpen} onKeyDown={handleKeyDown}>
             <button
                 ref={buttonRef}
                 className={customClasses}
@@ -184,9 +186,9 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </Box>
     );
-};
+});
 
 RdsCompAiFabMenu.displayName = "RdsCompAiFabMenu"
 export default RdsCompAiFabMenu;

@@ -2,8 +2,10 @@ import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import type { FileWithProgress } from './rds-file-uploader';
+import { joinClassNames, mergeSx, type RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 
-interface RdsFileUploaderStandardViewProps {
+interface RdsFileUploaderStandardViewProps extends RdsStylingPropsWithoutStyle {
+  rootRef?: React.Ref<HTMLDivElement>;
   selected?: boolean;
   showTitle: boolean;
   isMandatory: boolean;
@@ -42,7 +44,10 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   setFiles,
   onFilesChange,
   children,
-  title
+  title,
+  rootRef,
+  className,
+  sx,
 }) => {
   const [internalDragOver, setInternalDragOver] = React.useState(false);
   const canDrop = dragAndDrop && !disabled;
@@ -52,7 +57,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   };
 
   return (
-    <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
+    <Box ref={rootRef} className={joinClassNames('rds-file-uploader__standard', className)} sx={mergeSx({ width: '100%' }, sx)}>
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>

@@ -1,3 +1,5 @@
+import type { RdsStylingPropsWithoutStyle } from "../../raaghu-elements/shared/utils/styling-props";
+
 export enum ColorPickerType {
   Default = "Default",
   Button = "Button",
@@ -21,7 +23,7 @@ export enum StyleType {
   Type2 = "Type 2",
 }
 
-export interface RdsCompColorPickerProps {
+export interface RdsCompColorPickerProps extends RdsStylingPropsWithoutStyle {
   value: string;
   isDisabled?: boolean;
   disabled?: boolean;

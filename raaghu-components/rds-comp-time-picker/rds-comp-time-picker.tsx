@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './rds-comp-time-picker.scss';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Box from '@mui/material/Box';
+import { useForkRef } from '@mui/material/utils';
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from '../../raaghu-elements/shared/utils/styling-props';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
 import { 
   getButtonClasses, 
@@ -11,7 +14,7 @@ import {
 } from './time-picker-utils';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-export interface RdsTimePickerProps {
+export interface RdsTimePickerProps extends RdsStylingPropsWithoutStyle {
   style?: 'default' | 'compact';
   /** Accent colour of the time picker. */
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
@@ -23,7 +26,7 @@ export interface RdsTimePickerProps {
   disabled?: boolean;
 }
 
-const RdsCompTimePicker = (props: RdsTimePickerProps) => {
+const RdsCompTimePicker = React.forwardRef<HTMLDivElement, RdsTimePickerProps>(function RdsCompTimePicker(props, ref) {
   const [showPicker, setShowPicker] = useState(false);
   const [hours, setHours] = useState(12);
   const [minutes, setMinutes] = useState(0);
@@ -34,6 +37,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const [tempMinute, setTempMinute] = useState<number>(0);
   const [tempPeriod, setTempPeriod] = useState<string>('AM');
   const containerRef = useRef<HTMLDivElement>(null);
+  const handleContainerRef = useForkRef(containerRef, ref);
 
   const resetTime = () => {
     setHours(12);
@@ -187,7 +191,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const variantClass = `time-picker-variant-${color}`;
 
   return (
-    <div ref={containerRef} className={`time-picker-container ${variantClass}`}>
+    <Box ref={handleContainerRef} className={joinClassNames(`time-picker-container ${variantClass}`, props.className)} sx={props.sx}>
       <div
         className={`time-input-container ${props.disabled ? 'disabled' : ''}`}
         onClick={!props.disabled ? togglePicker : undefined}
@@ -259,8 +263,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           </div>
         </div>
       )}
-    </div>
+    </Box>
   );
-};
+});
 RdsCompTimePicker.displayName = "RdsCompTimePicker";
 export default RdsCompTimePicker;

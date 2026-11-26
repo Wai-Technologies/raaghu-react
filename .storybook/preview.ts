@@ -9,7 +9,22 @@ import {
   sanitizeArrayArgs,
   sanitizeReactNodeArgs,
 } from './sanitize-react-node-args';
-import { hideStylingPropsEnhancer } from './hide-styling-props';
+import type { ArgTypes } from 'storybook/internal/types';
+
+// `sx`, `className`, `ref` and CSS-only `style` are custom-styling hooks every component
+// accepts; hide them from Controls/Docs. A `style` that is a visual variant (union with
+// string values, e.g. Button) stays visible.
+const hideStylingPropsEnhancer = ({ argTypes }: { argTypes: ArgTypes }): ArgTypes => {
+  const result: ArgTypes = { ...argTypes };
+  for (const [name, argType] of Object.entries(result)) {
+    const summary = String(argType?.table?.type?.summary ?? '');
+    const isCssStyle = name === 'style' && /CSSProperties/.test(summary) && !/['"]/.test(summary);
+    if (name === 'sx' || name === 'className' || name === 'ref' || isCssStyle) {
+      result[name] = { ...argType, control: false, table: { ...(argType?.table ?? {}), disable: true } };
+    }
+  }
+  return result;
+};
 
 const preview: Preview = {
   initialGlobals: {

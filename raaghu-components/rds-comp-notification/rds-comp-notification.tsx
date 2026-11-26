@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
 import "./rds-comp-notification.scss";
 import {
   NotificationLayout,
@@ -9,11 +10,12 @@ import {
 } from "./rds-comp-notification-types";
 import { NotificationCard } from "./rds-comp-notification-helpers";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { joinClassNames } from "../../raaghu-elements/shared/utils/styling-props";
 
 export { NotificationLayout, NotificationStyle, NotificationType };
 export type { NotificationItem, RdsCompNotificationProps };
 
-const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
+const RdsCompNotification = React.forwardRef<HTMLDivElement, RdsCompNotificationProps>(function RdsCompNotification({
     notifications,
     title,
     layout = NotificationLayout.Horizontal,
@@ -28,7 +30,9 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     description,
     onDismiss,
     onAccept,
-}) => {
+    className,
+    sx,
+}, ref) {
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`color`');
     if (severity !== undefined) warnDeprecatedProp('RdsCompNotification', 'severity', '`color`');
     const resolvedType = color ?? severity ?? type ?? NotificationType.Info;
@@ -46,7 +50,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     };
 
     return (
-        <Fragment>
+        <Box ref={ref} className={joinClassNames("rds-comp-notification-list", className)} sx={sx}>
             {visibleNotifications.map((notification, index) => (
                 <NotificationCard
                     key={notification.userNotificationId ?? `notification-${index}`}
@@ -65,8 +69,8 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     onAccept={onAccept}
                 />
             ))}
-        </Fragment>
+        </Box>
     );
-};
+});
 RdsCompNotification.displayName = "RdsCompNotification";
 export default RdsCompNotification;

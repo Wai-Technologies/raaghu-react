@@ -1,12 +1,14 @@
 import clsx from "clsx";
-import { useCallback, useState, type Dispatch, type SetStateAction, type ChangeEvent } from "react";
+import { forwardRef, useCallback, useState, type Dispatch, type SetStateAction, type ChangeEvent } from "react";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-ai-attachement/rds-comp-ai-attachement";
 import RdsCompAiChatHeader, { ChatHeaderSize } from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 import "./rds-comp-ai-chat-bot.scss";
 
-export interface RdsCompAiChatBotProps {
+export interface RdsCompAiChatBotProps extends RdsStylingProps {
   aiLogoUrl: string;
   userAvatarUrl?: string;
   placeholderText?: string;
@@ -22,14 +24,17 @@ export interface Message {
   sender: boolean;
 }
 
-const RdsCompAiChatBot = ({
+const RdsCompAiChatBot = forwardRef<HTMLDivElement, RdsCompAiChatBotProps>(function RdsCompAiChatBot({
   aiLogoUrl,
   userAvatarUrl,
   placeholderText,
   messages,
   setMessages,
   iconName,
-}: RdsCompAiChatBotProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const [inputImage, setInputImage] = useState<string | null>(null);
 
   const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +95,7 @@ const RdsCompAiChatBot = ({
   );
 
   return (
-    <div className="rds-ai-chat-bot">
+    <Box ref={ref} className={joinClassNames("rds-ai-chat-bot", className)} sx={sx} style={style}>
       <div className="rds-ai-chat-bot__messages">
         <RdsCompAiChatHeader
           logoUrl={aiLogoUrl}
@@ -128,9 +133,9 @@ const RdsCompAiChatBot = ({
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompAiChatBot.displayName = "RdsCompAiChatBot";
 export default RdsCompAiChatBot;

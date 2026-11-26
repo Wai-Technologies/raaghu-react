@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import clsx from 'clsx';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
@@ -9,12 +10,12 @@ import { DropdownMenu } from './rds-comp-comments-box-dropdown';
 
 export { useCommentsBoxLogic, DropdownMenu };
 
-const RdsCommentBox = (props: RdsCommentBoxProps) => {
-  const { state, avatarInitials, placeholderText, className, sx } = props;
+const RdsCommentBox = forwardRef<HTMLDivElement, RdsCommentBoxProps>(function RdsCommentBox(props, ref) {
+  const { state, avatarInitials, placeholderText, className, sx, style } = props;
 
   if (state === 'default' || !state) {
     return (
-      <RdsBox className={clsx('rds-comments-box rds-comments-box--default', className)} sx={sx}>
+      <RdsBox ref={ref} className={clsx('rds-comments-box rds-comments-box--default', className)} sx={sx} style={style}>
         <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
         <TextField
           variant="outlined"
@@ -34,8 +35,8 @@ const RdsCommentBox = (props: RdsCommentBoxProps) => {
       </RdsBox>
     );
   }
-  return <RdsCommentBoxLogic {...props} />;
-};
+  return <RdsCommentBoxLogic {...props} ref={ref} />;
+});
 
 export default RdsCommentBox;
 

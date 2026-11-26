@@ -24,7 +24,7 @@ export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'varian
   showContent?: boolean;
 }
 
-const RdsStepper: React.FC<RdsStepperProps> = ({
+const RdsStepper = React.forwardRef<HTMLDivElement, RdsStepperProps>(function RdsStepper({
   steps,
   currentStep = 0,
   direction = 'horizontal',
@@ -34,7 +34,7 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
   className,
   alternativeLabel,
   ...props
-}) => {
+}, ref) {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
   const isVertical = stepperOrientation === 'vertical';
@@ -45,8 +45,11 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
   ].filter(Boolean).join(' ');
   const activeContent = !isVertical && showContent ? steps[stepperActiveStep]?.content : undefined;
 
+  const hasWrapper = activeContent !== undefined && activeContent !== null;
+
   const stepper = (
     <MuiStepper
+      ref={hasWrapper ? undefined : ref}
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
       className={rootClassName}
@@ -75,16 +78,16 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
     </MuiStepper>
   );
 
-  if (activeContent === undefined || activeContent === null) {
+  if (!hasWrapper) {
     return stepper;
   }
 
   return (
-    <div className="rds-stepper__wrapper">
+    <div ref={ref} className="rds-stepper__wrapper">
       {stepper}
       <div className="rds-stepper__content">{activeContent}</div>
     </div>
   );
-};
+});
 RdsStepper.displayName = 'RdsStepper';
 export default RdsStepper;

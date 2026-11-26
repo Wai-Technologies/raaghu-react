@@ -7,7 +7,7 @@ export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required'> {
   errorMessage?: string;
 }
 
-const RdsTextField: React.FC<RdsTextFieldProps> = ({
+const RdsTextField = React.forwardRef<HTMLDivElement, RdsTextFieldProps>(function RdsTextField({
   isRequired = false,
   errorMessage,
   error,
@@ -21,7 +21,7 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
   minRows,
   maxRows,
   ...props
-}) => {
+}, ref) {
   const isPassword = props.type === 'password';
   const multilineProps = isPassword ? {} : { multiline, rows, minRows, maxRows };
   const mergedLabelProps = {
@@ -56,9 +56,10 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
       {...multilineProps}
       {...fieldProps}
       {...props}
+      ref={ref}
       className={rootClassName}
     />
   );
-};
+});
 RdsTextField.displayName = 'RdsTextField';
 export default RdsTextField;

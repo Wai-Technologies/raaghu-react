@@ -25,17 +25,17 @@ export interface RdsTimelineProps extends Omit<TimelineProps, 'children'> {
   alternating?: boolean;
 }
 
-const RdsTimeline: React.FC<RdsTimelineProps> = ({
+const RdsTimeline = React.forwardRef<HTMLUListElement, RdsTimelineProps>(function RdsTimeline({
   items,
   showTime = false,
   alternating = false,
   position,
   ...props
-}) => {
+}, ref) {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (
-    <MuiTimeline position={timelinePosition} {...props}>
+    <MuiTimeline position={timelinePosition} {...props} ref={ref}>
       {items.map((item, index) => (
           <MuiTimelineItem key={item.id}>
             {showTime && item.time && (
@@ -61,6 +61,6 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
         ))}
     </MuiTimeline>
   );
-};
+});
 RdsTimeline.displayName = 'RdsTimeline';
 export default RdsTimeline;

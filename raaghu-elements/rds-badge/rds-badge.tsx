@@ -1,8 +1,10 @@
 import React from 'react';
 import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
+import Box from '@mui/material/Box';
 import Notifications from '@mui/icons-material/Notifications';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import { normalizePaletteColor } from '../shared/utils/palette-color';
+import { joinClassNames } from '../shared/utils/styling-props';
 import './rds-badge.scss';
 
 type BadgePaletteColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
@@ -33,7 +35,7 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'color'> {
 }
 
 
-const RdsBadge= ({
+const RdsBadge = React.forwardRef<HTMLSpanElement, RdsBadgeProps>(function RdsBadge({
   children,
   showZero = false,
   max = 99,
@@ -47,8 +49,11 @@ const RdsBadge= ({
   selected = false,
   state = 'default',
   colorVariant,
+  className,
+  sx,
+  style,
   ...props
-}:RdsBadgeProps) => {
+}, ref) {
   const isDisabled = disabled ?? state === 'disabled';
   const isSelected = selected && !isDisabled;
   if (colorProp === 'danger' || colorVariant === 'danger') {
@@ -94,9 +99,9 @@ const RdsBadge= ({
       return null;
     }
     return (
-      <span className={bemClass} aria-disabled={isDisabled || undefined}>
+      <Box component="span" ref={ref} className={joinClassNames(bemClass, className)} sx={sx} style={style} aria-disabled={isDisabled || undefined}>
         <span className="rds-badge__badge">{badgeInner}</span>
-      </span>
+      </Box>
     );
   }
   const shouldRenderBadge = !(isZeroContent && !showZero);
@@ -107,17 +112,20 @@ const RdsBadge= ({
   
   return (
     <MuiBadge
+      ref={ref}
       badgeContent={content}
       showZero={showZero}
       max={max}
       color={muiColor}
       {...props}
-      className={bemClass}
+      className={joinClassNames(bemClass, className)}
+      sx={sx}
+      style={style}
     >
       {children}
     </MuiBadge>
   );
-};
+});
 
 RdsBadge.displayName = 'RdsBadge';
 export default RdsBadge;

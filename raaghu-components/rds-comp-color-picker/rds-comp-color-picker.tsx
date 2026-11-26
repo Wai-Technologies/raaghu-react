@@ -1,5 +1,6 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clsx from 'clsx';
+import Box from "@mui/material/Box";
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { getColorDisplay, normalizeHex, resolveColorToHex } from "./color-utils";
@@ -23,8 +24,8 @@ interface ColorUpdate {
 const toHex8 = (hex: string, a: number) =>
   `${hex}${Math.round(Math.min(Math.max(a, 0), 1) * 255).toString(16).padStart(2, '0').toUpperCase()}`;
 
-const RdsColorPicker = (props: RdsCompColorPickerProps) => {
-  const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, onChange } = props;
+const RdsColorPicker = forwardRef<HTMLDivElement, RdsCompColorPickerProps>(function RdsColorPicker(props, ref) {
+  const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, onChange, className, sx } = props;
   const isDisabled = props.disabled ?? props.isDisabled;
   const getDefaultColorHex = useCallback(() => {
     if (value) {
@@ -222,7 +223,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
 
   return (
     <Fragment>
-      <div className="rds-comp-color-picker" aria-disabled={isDisabled || undefined}>
+      <Box ref={ref} className={clsx("rds-comp-color-picker", className)} sx={sx} aria-disabled={isDisabled || undefined}>
         {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
           <RdsButton
             color="primary"
@@ -293,9 +294,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
             )}
           </div>
         )}
-      </div>
+      </Box>
     </Fragment>
   );
-};
+});
 RdsColorPicker.displayName = "RdsCompColorPicker";
 export default RdsColorPicker;

@@ -1,6 +1,7 @@
-import { useId } from 'react';
-import { 
-  Select as MuiSelect, 
+import { forwardRef, useId } from 'react';
+import {
+  Box,
+  Select as MuiSelect,
   FormControl, 
   InputLabel, 
   MenuItem, 
@@ -41,7 +42,7 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'componen
   size?: 'small' | 'medium';
 }
 
-const RdsSelect = ({
+const RdsSelect = forwardRef<HTMLDivElement, RdsSelectProps & { 'data-testid'?: string }>(function RdsSelect({
   label,
   placeholder,
   options,
@@ -58,7 +59,7 @@ const RdsSelect = ({
   sx,
   'data-testid': dataTestId,
   ...props
-}: RdsSelectProps & { 'data-testid'?: string }) => {
+}, ref) {
   if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
   if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
   if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');
@@ -74,7 +75,8 @@ const RdsSelect = ({
   const shrinkFloatingLabel = floatingLabel && !!resolvedPlaceholder;
   
   return (
-    <div
+    <Box
+      ref={ref}
       data-testid={dataTestId}
       className={clsx('rds-select', hasError && 'rds-select--error', className)}
     >
@@ -168,8 +170,8 @@ const RdsSelect = ({
           {resolvedHelperText}
         </FormHelperText>
       )}
-    </div>
+    </Box>
   );
-};
+});
 RdsSelect.displayName = 'RdsSelect';
 export default RdsSelect;

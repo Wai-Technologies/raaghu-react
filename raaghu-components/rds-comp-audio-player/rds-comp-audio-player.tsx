@@ -14,8 +14,10 @@ import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompAiFabMenu from "../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 import { VolumeSliderComponent, SettingsModalComponent, AudioEditionControls } from "./audio-player-components";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-interface AudioPlayerProps {
+interface AudioPlayerProps extends RdsStylingProps {
   src: string;
   type: "Audio Edition" | "Audio Player" | "Collapsed";
   showSettings: boolean;
@@ -26,7 +28,7 @@ interface AudioPlayerProps {
   onSave?: () => void;
 }
 
-const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Player", showSettings, showTranscript, showExport, showMoreOptions, onCancel, onSave }) => {
+const RdsCompAudioPlayer = React.forwardRef<HTMLDivElement, AudioPlayerProps>(function RdsCompAudioPlayer({ src, type="Audio Player", showSettings, showTranscript, showExport, showMoreOptions, onCancel, onSave, className, sx, style }, ref) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const volumeSliderRef = useRef<HTMLDivElement>(null);
   const transcriptButtonRef = useRef<HTMLButtonElement>(null);
@@ -231,13 +233,13 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
   return (
     <>
       {type === "Collapsed" && (
-        <div className="rds-comp-audio-player__collapsed-container">
+        <Box ref={ref} className={joinClassNames("rds-comp-audio-player__collapsed-container", className)} sx={sx} style={style}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple"><CircleOutlinedIcon /></span>
           {showSettings && <span className="rds-comp-audio-player__icon-settings"><SettingsSuggestSharpIcon /></span>}
-        </div>
+        </Box>
       )}
       {type === "Audio Player" && (
-        <div className="rds-comp-audio-player__player rds-comp-audio-player__player--image-layout">
+        <Box ref={ref} className={joinClassNames("rds-comp-audio-player__player rds-comp-audio-player__player--image-layout", className)} sx={sx} style={style}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple"><CircleOutlinedIcon /></span>
           <div className="rds-comp-audio-player__main-controls">
             <audio ref={audioRef} src={src} />
@@ -261,10 +263,10 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
           </div>
           <VolumeSliderComponent showTranscriptSlider={showTranscriptSlider} volumeSliderRef={volumeSliderRef} volumeLevel={volumeLevel} handleVolumeChange={handleVolumeChange} />
           <SettingsModalComponent showSettingsModal={showSettingsModal} playbackSpeed={playbackSpeed} handlePlaybackSpeedChange={handlePlaybackSpeedChange} />
-        </div>
+        </Box>
       )}
       {type === "Audio Edition" && !editorClosed && (
-        <div className="rds-comp-audio-player__edition-container">
+        <Box ref={ref} className={joinClassNames("rds-comp-audio-player__edition-container", className)} sx={sx} style={style}>
           <audio ref={audioRef} src={src} />
           <div className="rds-comp-audio-player__edition-buttons-top">
             <RdsButton color="primary" size="medium" text="Cancel" layout="text-only" shape="rectangle" state="default" style="transparent" onClick={handleCancel} />
@@ -303,10 +305,10 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
           </div>
           <AudioEditionControls formatTime={formatTime} getSelectedTimeRange={getSelectedTimeRange} togglePlayPause={togglePlayPause} 
             zoomLevel={zoomLevel} handleZoomOut={handleZoomOut} handleZoomIn={handleZoomIn} handleZoomChange={handleZoomChange} />
-        </div>
+        </Box>
       )}
     </>
   );
-};
+});
 RdsCompAudioPlayer.displayName = 'RdsCompAudioPlayer';
 export default RdsCompAudioPlayer;

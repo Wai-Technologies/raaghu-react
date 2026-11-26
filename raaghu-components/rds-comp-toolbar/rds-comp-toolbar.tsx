@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
 import "./rds-comp-toolbar.scss";
+import Box from "@mui/material/Box";
+import { useForkRef } from "@mui/material/utils";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 export enum ToolbarLayout {
   Primary = 'primary',
@@ -23,7 +26,7 @@ export enum ToolbarState {
   DisabledOff = 'disabled-off'
 }
 
-export interface RdsCompToolbarProps {
+export interface RdsCompToolbarProps extends RdsStylingProps {
   layout?: ToolbarLayout;
   type?: ToolbarType;
   state?: ToolbarState;
@@ -32,7 +35,7 @@ export interface RdsCompToolbarProps {
   'data-testid'?: string;
 }
 
-const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
+const RdsCompToolbar = React.forwardRef<HTMLDivElement, RdsCompToolbarProps>(function RdsCompToolbar({
   layout = ToolbarLayout.Primary,
   type = ToolbarType.FullFeatured,
   state = ToolbarState.On,
@@ -40,10 +43,11 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   className = '',
   'data-testid': testId,
   ...props
-}) => {
+}, ref) {
   const [activeFormats, setActiveFormats] = useState<string[]>([]);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
+  const handleToolbarRef = useForkRef(toolbarRef, ref);
   const isDisabled = state === ToolbarState.DisabledOn;
   const toolbarConfig = getToolbarConfig(type);
   // Secondary layout is always a stacked (two-row) toolbar: single-section
@@ -114,8 +118,8 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   const isActive = (format: string) => activeFormats.includes(format);
 
   return (
-    <div
-      ref={toolbarRef}
+    <Box
+      ref={handleToolbarRef}
       className={`rds-comp-toolbar rds-comp-toolbar--${layout} rds-comp-toolbar--${type} rds-comp-toolbar--${state} ${className}`}
       data-testid={testId}
       role="toolbar"
@@ -173,8 +177,8 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
           ))}
         </>
       )}
-    </div>
+    </Box>
   );
-};
+});
 RdsCompToolbar.displayName = "RdsCompToolbar";
 export default RdsCompToolbar;

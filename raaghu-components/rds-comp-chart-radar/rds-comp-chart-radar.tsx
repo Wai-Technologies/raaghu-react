@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -9,7 +11,7 @@ import {
 } from "../chart-utils";
 import "./rds-comp-chart-radar.scss";
 
-export interface RdsCompRadarProps {
+export interface RdsCompRadarProps extends RdsStylingProps {
   labels: string[];
   options: ChartOptions<"radar">;
   dataSets: ChartDataset<"radar">[];
@@ -42,14 +44,17 @@ const getFontWeightFromVar = (varName: string, fallback: number | string = "500"
   }
 };
 
-const RdsCompRadarChart = ({
+const RdsCompRadarChart = React.forwardRef<HTMLDivElement, RdsCompRadarProps>(function RdsCompRadarChart({
   labels,
   options,
   dataSets,
   id,
   chartLabel,
   radius,
-}: RdsCompRadarProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const themeMode = useChartThemeMode();
@@ -127,16 +132,16 @@ const RdsCompRadarChart = ({
   }, [labels, options, dataSets, radius, id, themeMode]);
 
   return (
-    <div className="rds-comp-chart-radar-container">
+    <Box ref={ref} className={joinClassNames("rds-comp-chart-radar-container", className)} sx={sx} style={style}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
         aria-label={chartLabel ?? "Radar chart"}
       />
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompRadarChart.displayName = "RdsCompRadarChart";
 export default RdsCompRadarChart;

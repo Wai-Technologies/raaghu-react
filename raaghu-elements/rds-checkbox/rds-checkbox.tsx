@@ -20,7 +20,7 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
 }
 
 
-const RdsCheckbox = ({
+const RdsCheckbox = React.forwardRef<HTMLDivElement, RdsCheckboxProps>(function RdsCheckbox({
   labeltext,
   isDisabled = false,
   style = 'square',
@@ -33,7 +33,7 @@ const RdsCheckbox = ({
   onChange,
   disabled,
   ...props
-}:RdsCheckboxProps) => {
+}, ref) {
   const getInitialCheckedState = () => {
     if (status !== undefined) {
       return status === 'checked';
@@ -92,7 +92,7 @@ const RdsCheckbox = ({
 
   if (labeltext) {
     return (
-      <div className={getCheckboxClasses()} style={cssStyle}>
+      <div ref={ref} className={getCheckboxClasses()} style={cssStyle}>
         <FormControlLabel
           control={checkbox}
           label={showText ? labeltext : ''}
@@ -103,11 +103,11 @@ const RdsCheckbox = ({
   }
 
   return (
-    <div className={getCheckboxClasses()} style={cssStyle}>
+    <div ref={ref} className={getCheckboxClasses()} style={cssStyle}>
       {checkbox}
     </div>
   );
-};
+});
 
 RdsCheckbox.displayName = 'RdsCheckbox';
 export default RdsCheckbox;

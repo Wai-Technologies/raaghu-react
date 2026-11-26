@@ -1,10 +1,11 @@
 import React from 'react';
+import type { RdsStylingPropsWithoutStyle } from '../../raaghu-elements/shared/utils/styling-props';
 
 export enum NotificationLayout { Vertical = "vertical", Horizontal = "horizontal", }
 export enum NotificationStyle { Default = "default", Avatar = "avatar", Icon = "icon", Image = "image", }
 export enum NotificationType { Error = "error", Info = "info", Success = "success", Warning = "warning", }
 export interface NotificationItem { userNotificationId?: string | number; title: string; time?: string; description: string; image?: string; avatar?: string; icon?: React.ReactNode | string; status?: string; urlTitle?: string; }
-export interface RdsCompNotificationProps {
+export interface RdsCompNotificationProps extends RdsStylingPropsWithoutStyle {
     notifications: any[];
     title?: string;
     description?: string;

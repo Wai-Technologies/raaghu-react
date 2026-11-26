@@ -1,4 +1,5 @@
-import { useState, type ReactNode, type MouseEvent } from 'react';
+import { forwardRef, useState, type ReactNode, type MouseEvent } from 'react';
+import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
 import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
@@ -8,6 +9,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
+import type { RdsStylingProps } from '../shared/utils/styling-props';
 
 /** Dropdown menu min-width per button size (medium keeps the original 176px). */
 const MENU_MIN_WIDTH: Record<'small' | 'medium' | 'large', number> = {
@@ -24,7 +26,7 @@ export interface RdsButtonDropdownOption {
   disabled?: boolean;
 }
 
-export interface RdsButtonDropdownProps {
+export interface RdsButtonDropdownProps extends RdsStylingProps {
   buttonText?: string;
   options: RdsButtonDropdownOption[];
   multiSelect?: boolean;
@@ -56,7 +58,7 @@ export interface RdsButtonDropdownProps {
   [key: string]: unknown;
 }
 
-const RdsButtonDropdown = ({
+const RdsButtonDropdown = forwardRef<HTMLButtonElement, RdsButtonDropdownProps>(function RdsButtonDropdown({
   buttonText = 'Button',
   options,
   multiSelect = false,
@@ -74,8 +76,10 @@ const RdsButtonDropdown = ({
   className,
   menuClassName,
   onChange,
+  sx,
+  style: inlineStyle,
   ...legacyProps
-}:RdsButtonDropdownProps) => {
+}, ref) {
   const legacyShowSearch = typeof legacyProps['showSearch'] === 'boolean' ? (legacyProps['showSearch'] as boolean) : undefined;
   const legacyShowUserAvatar = typeof legacyProps['showUserAvatar'] === 'boolean' ? (legacyProps['showUserAvatar'] as boolean) : undefined;
   const legacyShowRadio = typeof legacyProps['showRadio'] === 'boolean' ? (legacyProps['showRadio'] as boolean) : undefined;
@@ -145,6 +149,7 @@ const RdsButtonDropdown = ({
   return (
     <>
       <RdsButton
+        ref={ref}
         text={buttonText}
         onClick={handleDropdownButtonClick}
         showRightIcon={isShowRightIcon}
@@ -169,6 +174,7 @@ const RdsButtonDropdown = ({
             styleType === 'outline' && 'rds-button-dropdown--outline',
           )}
           textCase="uppercase"
+          sx={inlineStyle ? ({ ...inlineStyle, ...(sx as object) } as SxProps<Theme>) : sx}
       />
       <RdsMenu
         open={isDropdownOpen}
@@ -232,6 +238,6 @@ const RdsButtonDropdown = ({
       </RdsMenu>
     </>
   );
-};
+});
 RdsButtonDropdown.displayName = 'RdsButtonDropdown';
 export default RdsButtonDropdown;

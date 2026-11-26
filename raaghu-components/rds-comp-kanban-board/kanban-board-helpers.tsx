@@ -1,4 +1,5 @@
 import { useState, type MouseEventHandler, type MouseEvent } from 'react';
+import type { RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
 export interface KanbanAction {
   key: string;
@@ -29,7 +30,7 @@ export interface boardInfo {
   noDataTitle?: string;
 }
 
-export interface RdsCompKanbanBoardProps {
+export interface RdsCompKanbanBoardProps extends RdsStylingProps {
   isIlliustrationSmall?: boolean;
   noDataTitle?: string | undefined;
   noDataHeaderTitle?: string | undefined;

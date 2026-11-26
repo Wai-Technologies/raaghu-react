@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider as MuiSlider, SliderProps } from '@mui/material';
+import { Box, Slider as MuiSlider, SliderProps } from '@mui/material';
 import {
   resolveSliderMarksAndStep,
   getInitialSliderValue,
@@ -23,7 +23,7 @@ export interface RdsSliderProps extends SliderProps {
   className?: string;
 }
 
-const RdsSlider: React.FC<RdsSliderProps> = ({
+const RdsSlider = React.forwardRef<HTMLDivElement, RdsSliderProps>(function RdsSlider({
   label,
   showValue: showValueProp = false,
   showLabel: showLabelProp = false,
@@ -37,8 +37,10 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   leftLabel = '0',
   rightLabel = '100',
   className,
+  sx,
+  style,
   ...props
-}) => {
+}, ref) {
   const showValue = showValueProp === true;
   const showLabel = showLabelProp === true;
   const unit = typeof unitProp === 'string' ? unitProp : undefined;
@@ -73,7 +75,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   };
 
   return (
-    <div className={`rds-slider ${className || ''}`}>
+    <Box ref={ref} className={`rds-slider ${className || ''}`} sx={sx} style={style}>
       {(showLabel || showValue) && (
         <div className="rds-slider__label-row">
           {showLabel && <span className="rds-slider__label-text">{label}</span>}
@@ -96,9 +98,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
         />
         {rightLabel && <span className="rds-slider__right-label">{rightLabel}</span>}
       </div>
-    </div>
+    </Box>
   );
-};
+});
 
 RdsSlider.displayName = 'RdsSlider';
 export default RdsSlider;

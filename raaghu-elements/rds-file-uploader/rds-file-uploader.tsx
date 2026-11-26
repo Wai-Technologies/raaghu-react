@@ -4,6 +4,7 @@ import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
 import { useFileUploader } from './RdsFileUploaderComponents';
 import { DefaultModeView } from './rds-file-uploader.helpers';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import type { RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 
 export interface FileWithProgress {
   file: File;
@@ -11,7 +12,7 @@ export interface FileWithProgress {
   error?: string;
 }
 
-export interface RdsFileUploaderProps {
+export interface RdsFileUploaderProps extends RdsStylingPropsWithoutStyle {
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
   accept?: string;
@@ -37,7 +38,7 @@ export interface RdsFileUploaderProps {
   children?: React.ReactNode;
 }
 
-const RdsFileUploader = ({
+const RdsFileUploader = React.forwardRef<HTMLDivElement, RdsFileUploaderProps>(function RdsFileUploader({
   onFilesChange,
   title,
   onUpload,
@@ -58,7 +59,9 @@ const RdsFileUploader = ({
   mode = 'standard',
   style,
   children,
-}: RdsFileUploaderProps) => {
+  className,
+  sx,
+}, ref) {
   if (state !== undefined) warnDeprecatedProp('RdsFileUploader', 'state', '`selected`');
   const isSelected = selected ?? state === 'selected';
   const uploader = useFileUploader({
@@ -73,6 +76,9 @@ const RdsFileUploader = ({
   if (mode === 'standard') {
     return (
       <RdsFileUploaderStandardView
+        rootRef={ref}
+        className={className}
+        sx={sx}
         showTitle={showTitle}
         isMandatory={isMandatory}
         mandatoryError={uploader.mandatoryError}
@@ -98,6 +104,9 @@ const RdsFileUploader = ({
 
   return (
     <DefaultModeView
+      rootRef={ref}
+      className={className}
+      sx={sx}
       mode={mode}
       style={style}
       showTitle={showTitle}
@@ -126,7 +135,7 @@ const RdsFileUploader = ({
       formatFileSize={uploader.formatFileSize}
     />
   );
-};
+});
 
 RdsFileUploader.displayName = 'RdsFileUploader';
 export default RdsFileUploader;

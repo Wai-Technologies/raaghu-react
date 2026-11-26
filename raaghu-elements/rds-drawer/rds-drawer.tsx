@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Drawer as MuiDrawer, DrawerProps } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
+import { mergeSx } from '../shared/utils/styling-props';
 import './rds-drawer.scss';
 
 export interface RdsDrawerProps extends DrawerProps {
@@ -19,7 +20,7 @@ export interface RdsDrawerProps extends DrawerProps {
   triggerWrapperClassName?: string;
 }
 
-const RdsDrawer: React.FC<RdsDrawerProps> = ({
+const RdsDrawer = React.forwardRef<HTMLDivElement, RdsDrawerProps>(function RdsDrawer({
   children,
   width = 251,
   position = 'left',
@@ -36,7 +37,7 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   centerTrigger = false,
   triggerWrapperClassName,
   ...props
-}) => {
+}, ref) {
   const drawerAnchor = anchor || position;
   const isControlled = !showTrigger && props.open !== undefined;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
@@ -88,18 +89,18 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   const drawerElement = (
     <MuiDrawer
       {...props}
+      ref={ref}
       anchor={drawerAnchor}
       open={actualOpen}
       onClose={handleClose}
-      sx={{
+      sx={mergeSx({
         width: width,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: width,
           boxSizing: 'border-box',
         },
-        ...sx,
-      }}
+      }, sx)}
     >
       {renderDrawerContent()}
     </MuiDrawer>
@@ -142,6 +143,6 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   }
 
   return drawerElement;
-};
+});
 RdsDrawer.displayName = 'RdsDrawer';
 export default RdsDrawer;

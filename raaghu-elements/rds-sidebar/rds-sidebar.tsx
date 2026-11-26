@@ -1,4 +1,4 @@
-import { Fragment, isValidElement, useState, type ReactNode } from 'react';
+import { Fragment, forwardRef, isValidElement, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
   List,
@@ -136,7 +136,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   embedded?: boolean;
 }
 
-const RdsSidebar = ({
+const RdsSidebar = forwardRef<HTMLDivElement, RdsSidebarProps>(function RdsSidebar({
   items,
   isOpen,
   open,
@@ -164,7 +164,7 @@ const RdsSidebar = ({
   ModalProps: modalPropsFromProps,
   sx: propsSx,
   ...props
-}:RdsSidebarProps) => {
+}, ref) {
   if (isOpen !== undefined) warnDeprecatedProp('RdsSidebar', 'isOpen', '`open`');
   if (platform !== undefined) warnDeprecatedProp('RdsSidebar', 'platform', '`items`');
   if (avatarSrc !== undefined) warnDeprecatedProp('RdsSidebar', 'avatarSrc', '`user.avatarSrc`');
@@ -345,6 +345,7 @@ const RdsSidebar = ({
       container={container}
       ModalProps={modalProps}
       {...props}
+      ref={ref}
       className={sidebarClasses}
       sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
@@ -536,6 +537,6 @@ const RdsSidebar = ({
       </div>
     </MuiDrawer>
   );
-};
+});
 RdsSidebar.displayName = 'RdsSidebar';
 export default RdsSidebar;

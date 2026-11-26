@@ -4,6 +4,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { mergeSx } from '../shared/utils/styling-props';
 import './rds-autocomplete.scss';
 
 export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boolean, false, false>, 'renderInput'> {
@@ -33,7 +34,7 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   allowMultiple?: boolean;
 }
 
-const RdsAutocomplete = <T extends { label?: string },>({
+const RdsAutocomplete = React.forwardRef(function RdsAutocomplete<T extends { label?: string },>({
   label,
   showTitle = true,
   placeholder,
@@ -60,8 +61,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
   open: openProp,
   onOpen,
   onClose,
+  sx,
   ...props
-}: RdsAutocompleteProps<T>) => {
+}: RdsAutocompleteProps<T>, ref: React.ForwardedRef<HTMLDivElement>) {
   const isExpanded = expandedProp ?? state === 'expanded';
   const isSelected = selectedProp ?? state === 'selected';
   const isDisabled = Boolean(props.disabled) || state === 'disabled';
@@ -115,6 +117,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
         </label>
       )}
     <MuiAutocomplete
+      ref={ref}
       {...props}
       multiple={allowMultiple}
       limitTags={allowMultiple ? 4 : undefined}
@@ -148,7 +151,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           </>
         );
       } : undefined}
-      sx={{ width: '100%' }}
+      sx={mergeSx({ width: '100%' }, sx)}
       slotProps={{
         paper: {
           className: 'rds-autocomplete__dropdown-paper',
@@ -253,7 +256,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
     />
     </div>
   );
-};
+}) as (<T extends { label?: string }>(
+  props: RdsAutocompleteProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement | null) & { displayName?: string };
 
 RdsAutocomplete.displayName = 'RdsAutocomplete';
 export default RdsAutocomplete;

@@ -1,4 +1,5 @@
 import type { ReactNode, SyntheticEvent } from "react";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 export enum ToastLayout {
   Text = "text",
@@ -32,7 +33,7 @@ export enum ToastPosition {
   BottomRight = "bottomRight",
 }
 
-export interface RdsCompToastProps {
+export interface RdsCompToastProps extends RdsStylingProps {
   headerText?: string;
   subText: string;
   delay?: number;

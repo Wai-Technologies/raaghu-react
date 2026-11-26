@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions, getCSSVar } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-line.scss";
 
-export interface RdsCompLineProps {
+export interface RdsCompLineProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -11,7 +13,7 @@ export interface RdsCompLineProps {
     chartLabel?: string;
 }
 
-const RdsCompLineChart = (props: RdsCompLineProps) => {
+const RdsCompLineChart = React.forwardRef<HTMLDivElement, RdsCompLineProps>(function RdsCompLineChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const [themeMode, setThemeMode] = React.useState(() => {
@@ -67,10 +69,10 @@ const RdsCompLineChart = (props: RdsCompLineProps) => {
     }, [props.labels, props.options, props.dataSets, props.id, themeMode]);
 
     return (
-        <div className="rds-comp-chart-line">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-line", props.className)} sx={props.sx} style={props.style}>
             <canvas data-testid={props.id} id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Line chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompLineChart.displayName = 'RdsCompLineChart';
 export default RdsCompLineChart;
