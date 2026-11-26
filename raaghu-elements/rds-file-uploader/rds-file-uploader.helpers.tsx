@@ -20,6 +20,7 @@ export interface DefaultModeViewProps {
   title?: string;
   isMandatory: boolean;
   placeholderImage: string;
+  selected?: boolean;
   files: FileWithProgress[];
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   accept?: string;
@@ -48,6 +49,7 @@ export function DefaultModeView({
   title,
   isMandatory,
   placeholderImage,
+  selected = false,
   files,
   fileInputRef,
   accept,
@@ -78,6 +80,8 @@ export function DefaultModeView({
     isDragOver: canDrop && isDragOver,
     disabled,
     dragAndDrop,
+    selected,
+    placeholderImage: placeholderImage || undefined,
     onDragOver: canDrop ? handleDragOver : blockDrop,
     onDragLeave: canDrop ? handleDragLeave : blockDrop,
     onDrop: canDrop ? handleDrop : blockDrop,
@@ -91,12 +95,6 @@ export function DefaultModeView({
           {title || 'File Upload'}
           {isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
         </Typography>
-      )}
-
-      {placeholderImage && files.length === 0 && (
-        <Box sx={{ mb: 2, textAlign: 'center' }}>
-          <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" />
-        </Box>
       )}
 
       <input

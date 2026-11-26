@@ -612,3 +612,25 @@ color: var(--rds-color-primary);
   flex: 1;
   text-align: right;
 }
+
+// Selected state (replaces the deprecated `state="selected"`).
+.rds-file-uploader__drop-zone.rds-file-uploader__drop-zone--selected {
+  border-style: solid;
+  border-color: var(--rds-color-primary);
+  background-color: color-mix(in srgb, var(--rds-color-primary) 6%, var(--rds-background-paper));
+  box-shadow: 0 0 0 var(--rds-border-width-thin) var(--rds-color-primary);
+}
+
+.rds-file-uploader__input-row.rds-file-uploader__input-row--selected {
+  border-color: var(--rds-color-primary);
+  box-shadow: 0 0 0 var(--rds-border-width-thin) var(--rds-color-primary);
+}
+
+// Custom placeholder image sits where the upload icon normally is.
+.rds-file-uploader__drop-zone img.rds-file-uploader__placeholder-img {
+  width: var(--rds-file-uploader-icon-size, 40px);
+  height: var(--rds-file-uploader-icon-size, 40px);
+  max-width: none;
+  object-fit: contain;
+  opacity: 1;
+}

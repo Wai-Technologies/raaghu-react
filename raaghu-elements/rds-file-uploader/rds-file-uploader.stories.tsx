@@ -60,10 +60,16 @@ const meta: Meta<typeof RdsFileUploader> = {
       control: 'select',
       options: ['default', 'standard'],
     },
-    state: {
-      control: 'select',
-      options: ['default', 'selected']
+    selected: {
+      control: 'boolean',
+      description: 'Shows the drop area in its selected (highlighted) style',
+      table: { defaultValue: { summary: 'false' } },
     },
+    placeholderImage: {
+      control: 'text',
+      description: 'Image URL shown inside the drop area in place of the upload icon',
+    },
+    state: { table: { disable: true } },
     style: {
       control: 'select',
       options: [
@@ -141,7 +147,7 @@ export const ImagesOnly: Story = {
     style:'Drop Area - Top Icon',
     showHint: true,
     hintText: 'Maximum 5MB',
-    state: "selected"
+    selected: true
   },
   render: FileUploaderStory,
 };

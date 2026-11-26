@@ -4,6 +4,7 @@ import RdsButton from '../rds-button/rds-button';
 import type { FileWithProgress } from './rds-file-uploader';
 
 interface RdsFileUploaderStandardViewProps {
+  selected?: boolean;
   showTitle: boolean;
   isMandatory: boolean;
   mandatoryError: string | null;
@@ -24,6 +25,7 @@ interface RdsFileUploaderStandardViewProps {
 }
 
 const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = ({
+  selected = false,
   showTitle,
   isMandatory,
   mandatoryError,
@@ -60,7 +62,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
       )}
 
       <Box
-        className={`rds-file-uploader__input-row${(isDragOver || internalDragOver) && canDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}`}
+        className={`rds-file-uploader__input-row${(isDragOver || internalDragOver) && canDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}${selected && !disabled ? ' rds-file-uploader__input-row--selected' : ''}`}
         sx={{
           display: 'flex',
           width: '100%',
