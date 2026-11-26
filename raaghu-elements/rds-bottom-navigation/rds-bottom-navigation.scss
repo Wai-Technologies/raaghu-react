@@ -48,3 +48,10 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     }
   }
 }
+
+.rds-bottom-navigation .MuiBottomNavigationAction-root.Mui-disabled {
+  color: var(--rds-text-disabled);
+  opacity: var(--rds-bottom-navigation-disabled-opacity);
+  cursor: not-allowed;
+}
+

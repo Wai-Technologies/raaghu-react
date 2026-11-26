@@ -180,7 +180,6 @@
 
 .rds-button--layout-icon-text {
   gap: var(--rds-spacing-xs);
-  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
 }
 
 .rds-button--has-icon .rds-button__icon {
@@ -200,5 +199,35 @@
   .rds-button.MuiButton-contained,
   .rds-button.rds-button__primary {
     color: var(--rds-neutral-0);
+  }
+}
+
+.rds-button.rds-button--layout-icon-only.MuiButton-root {
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+
+  &.MuiButton-sizeSmall {
+    width: var(--rds-spacing-xl);
+
+    .MuiSvgIcon-root {
+      font-size: var(--rds-font-size-lg);
+    }
+  }
+
+  &.MuiButton-sizeMedium {
+    width: calc(var(--rds-spacing-xl) + var(--rds-spacing-xs));
+
+    .MuiSvgIcon-root {
+      font-size: var(--rds-font-size-xl);
+    }
+  }
+
+  &.MuiButton-sizeLarge {
+    width: calc(var(--rds-spacing-xl) + var(--rds-spacing-sm) + var(--rds-spacing-xxs));
+
+    .MuiSvgIcon-root {
+      font-size: var(--rds-font-size-2xl);
+    }
   }
 }

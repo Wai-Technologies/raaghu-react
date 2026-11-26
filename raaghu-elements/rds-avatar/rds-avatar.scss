@@ -50,8 +50,8 @@
 
 &__dot {
   position: absolute;
-  width: calc(var(--rds-avatar-dot-size) * var(--rds-avatar-dot-scale));
-  height: calc(var(--rds-avatar-dot-size) * var(--rds-avatar-dot-scale));
+  width: calc(var(--rds-avatar-dot-size) * var(--rds-avatar-dot-scale) * var(--dot-scale, 1));
+  height: calc(var(--rds-avatar-dot-size) * var(--rds-avatar-dot-scale) * var(--dot-scale, 1));
   border: 0 solid var(--rds-color-on-primary);
   border-radius: var(--rds-border-radius-full);
   z-index: calc(var(--rds-z-index-base) + 2);
@@ -180,8 +180,8 @@
     }
     .rds-avatar__dot {
       position: absolute;
-      width: calc(var(--rds-avatar-dot-size-lg) * var(--rds-avatar-dot-scale));
-      height: calc(var(--rds-avatar-dot-size-lg) * var(--rds-avatar-dot-scale));
+      width: calc(var(--rds-avatar-dot-size-lg) * var(--rds-avatar-dot-scale) * var(--dot-scale, 1));
+      height: calc(var(--rds-avatar-dot-size-lg) * var(--rds-avatar-dot-scale) * var(--dot-scale, 1));
       border: calc(var(--rds-avatar-dot-border-width) * var(--rds-avatar-dot-scale)) solid var(--rds-color-on-primary);
       border-radius: var(--rds-border-radius-full);
       z-index: calc(var(--rds-z-index-base) + 2);

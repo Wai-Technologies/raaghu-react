@@ -53,6 +53,7 @@ const meta: Meta<typeof RdsButton> = {
       description: 'Whether the button is shown as selected (pressed)',
     },
     state: { control: { disable: true }, table: { disable: true } },
+    variant: { control: { disable: true }, table: { disable: true } },
     layout: {
       control: 'select',
       options: ["icon+text", "icon-only", "text-only"],
