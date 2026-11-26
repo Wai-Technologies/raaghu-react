@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
 import "./rds-comp-chart-stacked.scss";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-export interface RdsCompStackedProps {
+export interface RdsCompStackedProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -11,7 +13,7 @@ export interface RdsCompStackedProps {
     chartLabel?: string;
 }
 
-const RdsCompStackedChart = (props: RdsCompStackedProps) => {
+const RdsCompStackedChart = React.forwardRef<HTMLDivElement, RdsCompStackedProps>(function RdsCompStackedChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartRef = useRef<Chart | null>(null);
     const CanvasId = props.id;
@@ -77,10 +79,10 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
     }, [props.labels, props.options, props.dataSets, themeMode]);
 
     return (
-        <div className="stack-chart-container">
+        <Box ref={ref} className={joinClassNames("stack-chart-container", props.className)} sx={props.sx} style={props.style}>
             <canvas id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Stacked chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompStackedChart.displayName = 'RdsCompStackedChart';
 export default RdsCompStackedChart;

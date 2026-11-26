@@ -1,4 +1,4 @@
-import { isValidElement, cloneElement, type ReactNode, type MouseEvent } from 'react';
+import { forwardRef, isValidElement, cloneElement, type ReactNode, type MouseEvent } from 'react';
 import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import clsx from 'clsx';
@@ -39,7 +39,7 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content' 
   [key: string]: unknown;
 }
 
-const RdsAlert= ({
+const RdsAlert = forwardRef<HTMLDivElement, RdsAlertProps>(function RdsAlert({
   description,
   children,
   color,
@@ -59,7 +59,7 @@ const RdsAlert= ({
   onSecondaryClick,
   onPrimaryClick,
   ...props
-}:RdsAlertProps) => {
+}, ref) {
   if (type !== undefined) warnDeprecatedProp('RdsAlert', 'type', '`color`');
   if (severity !== undefined) warnDeprecatedProp('RdsAlert', 'severity', '`color`');
   const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
@@ -129,9 +129,11 @@ const RdsAlert= ({
 
   return (
     <MuiAlert
+      ref={ref}
       variant={variant}
       severity={resolvedSeverity}
       icon={iconNode}
+      {...muiAlertProps}
       className={clsx(
         'rds-alert',
         sizeClass,
@@ -140,7 +142,6 @@ const RdsAlert= ({
         multilineClass,
         muiAlertProps.className,
       )}
-      {...muiAlertProps}
     >
       <div className="rds-alert__wrapper">
         <div className="rds-alert__content">
@@ -214,7 +215,7 @@ const RdsAlert= ({
       </div>
     </MuiAlert>
   );
-};
+});
 
 RdsAlert.displayName = 'RdsAlert';
 export default RdsAlert;

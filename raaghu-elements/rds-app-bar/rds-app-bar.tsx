@@ -1,6 +1,7 @@
 import {
   Children,
   cloneElement,
+  forwardRef,
   isValidElement,
   useEffect,
   useState,
@@ -59,7 +60,7 @@ const toolbarHeights: Record<RdsAppBarSize, number> = {
   large: 80,
 };
 
-const RdsAppBar = ({
+const RdsAppBar = forwardRef<HTMLElement, RdsAppBarProps>(function RdsAppBar({
   title,
   rightActions,
   centerContent,
@@ -83,7 +84,7 @@ const RdsAppBar = ({
   variantStyle,
   overflowContent,
   ...props
-}:RdsAppBarProps) => {
+}, ref) {
   const tokens = useRdsTokens();
   const [overflowOpen, setOverflowOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -109,6 +110,7 @@ const RdsAppBar = ({
   const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
+      ref={ref}
       {...props}
       className={clsx(
         `rds-app-bar--size-${size}`,
@@ -353,6 +355,6 @@ const RdsAppBar = ({
       {subHeader && <div className="rds-header__sub-header">{subHeader}</div>}
     </MuiAppBar>
   );
-};
+});
 RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

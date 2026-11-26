@@ -1,5 +1,5 @@
 
-import { type ReactNode, type MouseEvent } from 'react';
+import React, { type ReactNode, type MouseEvent } from 'react';
 import clsx from 'clsx';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -53,7 +53,7 @@ const mergePaperSlotProps = (base: PaperSlotPropsObject, consumer: PaperSlotProp
     ? (ownerState) => mergePaperProps(base, consumer(ownerState) as PaperSlotPropsObject)
     : mergePaperProps(base, consumer);
 
-const RdsDialog = ({
+const RdsDialog = React.forwardRef<HTMLDivElement, RdsDialogProps>(function RdsDialog({
   title,
   children,
   actions,
@@ -70,7 +70,7 @@ const RdsDialog = ({
   onSecondaryClick,
   slotProps,
   ...props
-}:RdsDialogProps) => {
+}, ref) {
   if (variant === 'standard') {
     const paperClassName = clsx(
       'rds-dialog',
@@ -81,6 +81,7 @@ const RdsDialog = ({
 
     return (
       <MuiDialog
+        ref={ref}
         onClose={onClose}
         maxWidth={size ? SIZE_MAP[size] : size}
         {...props}
@@ -135,6 +136,7 @@ const RdsDialog = ({
 
   return (
   <MuiDialog
+    ref={ref}
     onClose={onClose}
     maxWidth={size ? SIZE_MAP[size] : size}
     {...props}
@@ -185,7 +187,7 @@ const RdsDialog = ({
       )}
     </MuiDialog>
   );
-};
+});
 RdsDialog.displayName = 'RdsDialog';
 export default RdsDialog;
 

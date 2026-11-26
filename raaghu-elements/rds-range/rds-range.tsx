@@ -87,6 +87,7 @@ const RdsRange = forwardRef<HTMLDivElement, RdsRangeProps & { 'data-testid'?: st
   rightLabel,
   className,
   sx,
+  style,
   'data-testid': dataTestId,
   ...props
 }, ref) => {
@@ -160,6 +161,7 @@ const RdsRange = forwardRef<HTMLDivElement, RdsRangeProps & { 'data-testid'?: st
       className={generateClassName()}
       data-testid={dataTestId}
       sx={[{ width: '100%' }, ...(Array.isArray(sx) ? sx : sx != null ? [sx] : [])]}
+      style={style}
     >
       {((label && textLabel) || showValue) && (
         <Box className="rds-range__header" sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>

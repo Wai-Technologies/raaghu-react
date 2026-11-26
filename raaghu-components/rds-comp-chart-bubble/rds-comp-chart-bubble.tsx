@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import Box from "@mui/material/Box";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -8,7 +10,7 @@ import {
 } from "../chart-utils";
 import "./rds-comp-chart-bubble.scss";
 
-export interface RdsCompBubbleChartProps {
+export interface RdsCompBubbleChartProps extends RdsStylingProps {
   id: string;
   labels: string[];
   options: ChartOptions<"bubble">;
@@ -16,13 +18,16 @@ export interface RdsCompBubbleChartProps {
   chartLabel?: string;
 }
 
-const RdsCompBubbleChart = ({
+const RdsCompBubbleChart = React.forwardRef<HTMLDivElement, RdsCompBubbleChartProps>(function RdsCompBubbleChart({
   id,
   labels,
   options,
   dataSets,
   chartLabel,
-}: RdsCompBubbleChartProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const themeMode = useChartThemeMode();
 
@@ -48,7 +53,7 @@ const RdsCompBubbleChart = ({
   }, [id, labels, options, dataSets, themeMode]);
 
   return (
-    <div>
+    <Box ref={ref} className={className} sx={sx} style={style}>
       <canvas
         data-testid={id}
         id={id}
@@ -58,9 +63,9 @@ const RdsCompBubbleChart = ({
         role="img"
         aria-label={chartLabel ?? "Bubble chart"}
       />
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompBubbleChart.displayName = "RdsCompBubbleChart";
 export default RdsCompBubbleChart;

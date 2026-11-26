@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-doughnut.scss";
 
-export interface RdsCompDoughnutProps {
+export interface RdsCompDoughnutProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -13,7 +15,7 @@ export interface RdsCompDoughnutProps {
     chartLabel?: string;
 }
 
-const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
+const RdsCompDoughnutChart = React.forwardRef<HTMLDivElement, RdsCompDoughnutProps>(function RdsCompDoughnutChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
@@ -92,10 +94,10 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
     }, [props.labels, props.options, props.dataSets, props.titleText, props.subTitleText, themeMode]);
 
     return (
-        <div className="rds-comp-chart-doughnut">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-doughnut", props.className)} sx={props.sx} style={props.style}>
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Doughnut chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompDoughnutChart.displayName = 'RdsCompDoughnutChart';
 export default RdsCompDoughnutChart;

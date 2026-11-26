@@ -9,6 +9,7 @@ import {
   sanitizeArrayArgs,
   sanitizeReactNodeArgs,
 } from './sanitize-react-node-args';
+import { hideStylingPropsEnhancer } from './hide-styling-props';
 
 const preview: Preview = {
   initialGlobals: {
@@ -31,7 +32,7 @@ const preview: Preview = {
       },
     },
   },
-  argTypesEnhancers: [reactNodeArgTypesEnhancer],
+  argTypesEnhancers: [reactNodeArgTypesEnhancer, hideStylingPropsEnhancer],
   parameters: {
     controls: {
       exclude: ['component'],

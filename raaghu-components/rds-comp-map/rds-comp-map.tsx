@@ -2,9 +2,11 @@ import React from 'react';
 import { getCSSVar, useChartThemeMode } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
+import Box from '@mui/material/Box';
+import { joinClassNames, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
-export interface RdsCompMapProps {
+export interface RdsCompMapProps extends RdsStylingProps {
     title?: React.ReactNode,
     mapList: Array<{ country: string; value: number }>,
     color: string,
@@ -18,8 +20,8 @@ type WorldMapStylingContext = {
   maxValue: number;
 };
 
-const RdsCompMap = (props: RdsCompMapProps) => {
-    const { mapType = 'default' } = props;
+const RdsCompMap = React.forwardRef<HTMLDivElement, RdsCompMapProps>(function RdsCompMap(props, ref) {
+    const { mapType = 'default', className, sx, style } = props;
     const themeMode = useChartThemeMode();
     const isDarkTheme = themeMode === 'dark';
     const mapBackgroundColor = getCSSVar('--rds-background-surface');
@@ -114,7 +116,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     }, []);
 
     return (
-        <div className={`rds-comp-map ${mapType === 'heatmap' ? 'rds-comp-map--heatmap' : ''}`}>
+        <Box ref={ref} className={joinClassNames(`rds-comp-map ${mapType === 'heatmap' ? 'rds-comp-map--heatmap' : ''}`, className)} sx={sx} style={style}>
             {props.title && (
                 <div className="rds-comp-map__label">{props.title}</div>
             )}
@@ -138,8 +140,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                     />
                 </div>
             </div>
-        </div>
+        </Box>
     );
-}
+});
 RdsCompMap.displayName = "RdsCompMap";
 export default RdsCompMap;

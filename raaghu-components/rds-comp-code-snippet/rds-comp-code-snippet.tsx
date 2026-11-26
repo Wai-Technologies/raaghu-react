@@ -3,6 +3,8 @@ import "./rds-comp-code-snippet.scss";
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
 import { atomOneLight, atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
+import Box from "@mui/material/Box";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 type HighlighterTheme = Record<string, React.CSSProperties>;
 
@@ -43,7 +45,7 @@ const usePageTheme = (enabled: boolean): 'light' | 'dark' => {
 
 const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<Record<string, unknown>>;
 
-export interface RdsCompCodeSnippetProps {
+export interface RdsCompCodeSnippetProps extends RdsStylingProps {
   code?: string;
   language?: string | boolean;
   codeLines?: boolean;
@@ -55,7 +57,7 @@ export interface RdsCompCodeSnippetProps {
   sampleCodeSnippets?: Record<string, string>;
 }
 
-const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
+const RdsCompCodeSnippet = React.forwardRef<HTMLDivElement, RdsCompCodeSnippetProps>(function RdsCompCodeSnippet({
   code,
   language = "html",
   codeLines = false,
@@ -64,7 +66,9 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   maxHeight,
   className = "",
   sampleCodeSnippets,
-}) => {
+  sx,
+  style,
+}, ref) {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
     typeof language === 'string' ? language : 'html'
@@ -107,7 +111,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   const inlineHighlighterStyle = resolvedTheme === 'dark' ? DARK_INLINE_STYLE : LIGHT_INLINE_STYLE;
 
   return (
-    <div className={`rds-comp-code-snippet rds-comp-code-snippet--${resolvedTheme} rds-comp-code-snippet--${type} ${className}`.trim()}>
+    <Box ref={ref} className={`rds-comp-code-snippet rds-comp-code-snippet--${resolvedTheme} rds-comp-code-snippet--${type} ${className}`.trim()} sx={sx} style={style}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <SingleLineSnippet
@@ -136,8 +140,8 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
           />
         )}
       </div>
-    </div>
+    </Box>
   );
-};
+});
 RdsCompCodeSnippet.displayName = 'RdsCompCodeSnippet';
 export default RdsCompCodeSnippet;

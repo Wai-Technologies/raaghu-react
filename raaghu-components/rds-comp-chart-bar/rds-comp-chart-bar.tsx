@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -8,7 +10,7 @@ import {
 } from "../chart-utils";
 import "./rds-comp-chart-bar.scss";
 
-export interface RdsCompBarChartProps {
+export interface RdsCompBarChartProps extends RdsStylingProps {
   labels: string[];
   options: ChartOptions<"bar">;
   dataSets: ChartDataset<"bar">[];
@@ -45,14 +47,17 @@ const applyBarCanvasSizing = (
   chart.canvas.style.width = "100%";
 };
 
-const RdsCompBarChart = ({
+const RdsCompBarChart = React.forwardRef<HTMLDivElement, RdsCompBarChartProps>(function RdsCompBarChart({
   labels,
   options,
   dataSets,
   id,
   height,
   chartLabel,
-}: RdsCompBarChartProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const themeMode = useChartThemeMode();
 
@@ -80,7 +85,7 @@ const RdsCompBarChart = ({
   }, [options, labels, dataSets, height, id, themeMode]);
 
   return (
-    <div className="rds-comp-chart-bar">
+    <Box ref={ref} className={joinClassNames("rds-comp-chart-bar", className)} sx={sx} style={style}>
       <canvas
         data-testid={id}
         id={id}
@@ -88,9 +93,9 @@ const RdsCompBarChart = ({
         role="img"
         aria-label={chartLabel ?? "Bar chart"}
       />
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompBarChart.displayName = "RdsCompBarChart";
 export default RdsCompBarChart;

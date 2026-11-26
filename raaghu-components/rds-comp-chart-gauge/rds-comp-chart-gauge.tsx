@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-gauge.scss";
 
-export interface RdsCompGaugeProps {
+export interface RdsCompGaugeProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -15,7 +17,7 @@ export interface RdsCompGaugeProps {
     chartLabel?: string;
 }
 
-const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
+const RdsCompGaugeChart = React.forwardRef<HTMLDivElement, RdsCompGaugeProps>(function RdsCompGaugeChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
@@ -114,10 +116,10 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
     }, [props.labels, props.options, props.dataSets, props.titleText, props.subTitleText, props.value, props.maxValue, themeMode]);
 
     return (
-        <div className="rds-comp-chart-gauge">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-gauge", props.className)} sx={props.sx} style={props.style}>
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Gauge chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompGaugeChart.displayName = 'RdsCompGaugeChart';
 export default RdsCompGaugeChart;

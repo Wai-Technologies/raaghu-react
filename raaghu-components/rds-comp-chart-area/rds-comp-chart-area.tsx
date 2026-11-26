@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-area.scss";
 
-export interface lineprops {
+export interface lineprops extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -12,7 +14,7 @@ export interface lineprops {
     chartLabel?: string;
 }
 
-const RdsCompAreaChart = (props: lineprops) => {
+const RdsCompAreaChart = React.forwardRef<HTMLDivElement, lineprops>(function RdsCompAreaChart(props, ref) {
     const chartRef = useRef<Chart | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -64,10 +66,10 @@ const RdsCompAreaChart = (props: lineprops) => {
     }, [props.labels, props.dataSets, props.options, props.isGradient, themeMode]);
 
     return (
-        <div className="rds-comp-chart-area">
+        <Box ref={ref} className={joinClassNames("rds-comp-chart-area", props.className)} sx={props.sx} style={props.style}>
             <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Area chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompAreaChart.displayName = 'RdsCompAreaChart';
 export default RdsCompAreaChart;
