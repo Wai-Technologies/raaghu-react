@@ -213,3 +213,38 @@
   color: var(--rds-button-dropdown-selected-bg);
 }
 
+
+// Menu follows the button size (medium keeps the default look).
+.rds-button-dropdown__menu--small .rds-button-dropdown__option {
+  min-height: var(--rds-spacing-lg);
+
+  .MuiFormControlLabel-label,
+  &.rds-button-dropdown__option {
+    font-size: var(--rds-button-dropdown-font-size, 11px);
+  }
+
+  .rds-avatar,
+  .rds-avatar .MuiAvatar-root {
+    width: var(--rds-spacing-lg);
+    height: var(--rds-spacing-lg);
+    min-width: var(--rds-spacing-lg);
+    min-height: var(--rds-spacing-lg);
+  }
+}
+
+.rds-button-dropdown__menu--large .rds-button-dropdown__option {
+  min-height: var(--rds-spacing-40-px);
+
+  .MuiFormControlLabel-label,
+  &.rds-button-dropdown__option {
+    font-size: var(--rds-font-size-sm);
+  }
+
+  .rds-avatar,
+  .rds-avatar .MuiAvatar-root {
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
+    min-width: var(--rds-spacing-xl);
+    min-height: var(--rds-spacing-xl);
+  }
+}

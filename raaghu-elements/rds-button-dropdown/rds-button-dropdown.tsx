@@ -9,6 +9,13 @@ import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 
+/** Dropdown menu min-width per button size (medium keeps the original 176px). */
+const MENU_MIN_WIDTH: Record<'small' | 'medium' | 'large', number> = {
+  small: 152,
+  medium: 176,
+  large: 208,
+};
+
 export interface RdsButtonDropdownOption {
   id: string | number;
   label: string;
@@ -81,6 +88,8 @@ const RdsButtonDropdown = ({
   const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : (legacyShowLeftIcon ?? true);
   const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : (legacyShowRightIcon ?? true);
 
+  const menuSize = size in MENU_MIN_WIDTH ? size : 'medium';
+  const menuMinWidth = MENU_MIN_WIDTH[menuSize];
   const isDisabled = disabled || buttonState === 'disabled';
   const isSelected = selectedProp || buttonState === 'selected';
 
@@ -166,9 +175,9 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         items={[]}
-        slotProps={{ paper: { style: { minWidth: 176 }, className: clsx('rds-button-dropdown__menu', menuClassName) } }}
+        slotProps={{ paper: { style: { minWidth: menuMinWidth }, className: clsx('rds-button-dropdown__menu', `rds-button-dropdown__menu--${menuSize}`, menuClassName) } }}
       >
-        <div style={{ padding: 6, minWidth: 176 }}>
+        <div style={{ padding: 6, minWidth: menuMinWidth }}>
           {showSearch && (
             <div style={{ marginBottom: 6 }}>
               <RdsSearch

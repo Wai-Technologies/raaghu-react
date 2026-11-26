@@ -544,7 +544,7 @@ export const WithTags: Story = {
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
-    showDescription: false,
+    showDescription: true,
     layout: 'vertical',
     showIcon: true,
     changeIcon: 'person',

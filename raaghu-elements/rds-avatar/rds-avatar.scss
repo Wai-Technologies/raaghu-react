@@ -72,7 +72,7 @@
 }
 
   &--smallest {
-    --dot-scale: 0.67;
+    --dot-scale: 0.6;
     .MuiAvatar-root {
       width: var(--rds-spacing-lg);
       height: var(--rds-spacing-lg);
@@ -84,7 +84,7 @@
   }
 
   &--small {
-    --dot-scale: 0.83;
+    --dot-scale: 0.8;
     .MuiAvatar-root {
       width: var(--rds-spacing-xl);
       height: var(--rds-spacing-xl);
@@ -107,7 +107,7 @@
   }
 
   &--large {
-    --dot-scale: 1.17;
+    --dot-scale: 1.2;
     .MuiAvatar-root {
       width: var(--rds-spacing-2xl);
       height: var(--rds-spacing-2xl);
@@ -118,7 +118,7 @@
   }
 
   &--largest {
-    --dot-scale: 1.33;
+    --dot-scale: 1.6;
     .MuiAvatar-root {
       width: var(--rds-spacing-3xl);
       height: var(--rds-spacing-3xl);
