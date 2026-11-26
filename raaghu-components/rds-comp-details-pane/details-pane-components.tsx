@@ -1,12 +1,11 @@
 import { useState, useMemo, useCallback, type ReactNode } from "react";
 import clsx from 'clsx';
-import { 
-  History, 
-  StarBorder, 
-  Star, 
-  Edit,
-  Delete as DeleteIcon,
-} from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
+import History from '@mui/icons-material/History';
+import StarBorder from '@mui/icons-material/StarBorder';
+import Star from '@mui/icons-material/Star';
+import Edit from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCarousel from "../../raaghu-elements/rds-carousel/rds-carousel";
 import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
@@ -597,10 +596,10 @@ export const ToolbarContent = ({
             <div>
               {activeToolbarTab === 'icon_font' && (
                 <div>
-                  <div className="mb-3">
-                    <p className="rds-comp-details-pane__font-name fw-bold">Font Name : Poppins</p>
+                  <Box sx={{ mb: 'var(--rds-spacing-md)' }}>
+                    <Typography sx={{ fontWeight: 'var(--rds-font-weight-bold)' }} className="rds-comp-details-pane__font-name">Font Name : Poppins</Typography>
                     <hr className="rds-comp-details-pane__toolbar-divider"/>
-                  </div>
+                  </Box>
                   <div className="rds-comp-details-pane__font-size-btn-group">
                     <p className="rds-comp-details-pane__font-label">Font Size</p>
                     <div className="rds-comp-details-pane__font-size-grid">

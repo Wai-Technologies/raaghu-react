@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, type SxProps, type Theme } from '@mui/material';
-import { Delete } from '@mui/icons-material';
+import Delete from '@mui/icons-material/Delete';
 
 export interface PredefinedSignatureItem {
   id: string;

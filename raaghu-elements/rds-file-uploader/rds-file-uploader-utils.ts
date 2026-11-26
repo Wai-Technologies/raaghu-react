@@ -15,6 +15,25 @@ const MIME_LABELS: Record<string, string> = {
   'vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
 };
 
+/** Returns true when `file` matches an HTML `accept` attribute value (extensions, MIME, wildcards). */
+export function fileMatchesAccept(file: File, accept?: string): boolean {
+  if (!accept || accept.trim() === '' || accept.trim() === '*') return true;
+  const tokens = accept.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean);
+  if (tokens.length === 0) return true;
+  const name = file.name.toLowerCase();
+  const type = (file.type || '').toLowerCase();
+  return tokens.some((token) => {
+    if (token.startsWith('.')) {
+      return name.endsWith(token);
+    }
+    if (token.endsWith('/*')) {
+      const prefix = token.slice(0, -1);
+      return type.startsWith(prefix);
+    }
+    return type === token;
+  });
+}
+
 /** Turns an `accept` attribute (`.png,.jpg`, `image/*`, `application/pdf`) into a display label (`PNG, JPG`). */
 export function formatAcceptLabel(accept?: string): string {
   const labels = (accept ?? '')

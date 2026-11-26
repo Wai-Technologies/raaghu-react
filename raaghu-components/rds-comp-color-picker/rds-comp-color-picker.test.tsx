@@ -523,9 +523,20 @@ describe('RdsCompColorPicker', () => {
       });
     });
 
-    it('G4-005: opacity input reflects alpha', () => {
-      render(<actual.ColorPickerInfo {...infoProps} showColorModeDropdown={false} setShowColorModeDropdown={jest.fn()} />);
-      expect(screen.getByLabelText('Opacity percentage')).toHaveValue('50%');
+    it('G4-005: opacity input reflects alpha and is editable', () => {
+      const handleChange = jest.fn();
+      render(
+        <actual.ColorPickerInfo
+          {...infoProps}
+          handleChange={handleChange}
+          showColorModeDropdown={false}
+          setShowColorModeDropdown={jest.fn()}
+        />,
+      );
+      const opacity = screen.getByLabelText('Opacity percentage');
+      expect(opacity).toHaveValue('50');
+      fireEvent.change(opacity, { target: { value: '25' } });
+      expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ rgb: expect.objectContaining({ a: 0.25 }) }));
     });
 
     it('G4-006: radial gradient button gets the correct active class', () => {

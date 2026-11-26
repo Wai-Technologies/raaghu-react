@@ -1,32 +1,30 @@
-import {
-  FormatBold,
-  FormatItalic,
-  FormatUnderlined,
-  FormatStrikethrough,
-  FormatColorText,
-  Link,
-  Image,
-  FormatListBulleted,
-  FormatListNumbered,
-  FormatIndentIncrease,
-  FormatIndentDecrease,
-  FormatAlignLeft,
-  FormatAlignCenter,
-  FormatAlignRight,
-  FormatAlignJustify,
-  Code,
-  TableChart,
-  InsertEmoticon,
-  Undo,
-  Redo,
-  MoreVert,
-  FormatQuote,
-  HorizontalRule,
-  Videocam,
-  TextFields,
-  FontDownload,
-  Highlight
-} from "@mui/icons-material";
+import FormatBold from '@mui/icons-material/FormatBold';
+import FormatItalic from '@mui/icons-material/FormatItalic';
+import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
+import FormatStrikethrough from '@mui/icons-material/FormatStrikethrough';
+import FormatColorText from '@mui/icons-material/FormatColorText';
+import Link from '@mui/icons-material/Link';
+import Image from '@mui/icons-material/Image';
+import FormatListBulleted from '@mui/icons-material/FormatListBulleted';
+import FormatListNumbered from '@mui/icons-material/FormatListNumbered';
+import FormatIndentIncrease from '@mui/icons-material/FormatIndentIncrease';
+import FormatIndentDecrease from '@mui/icons-material/FormatIndentDecrease';
+import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft';
+import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
+import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
+import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
+import Code from '@mui/icons-material/Code';
+import TableChart from '@mui/icons-material/TableChart';
+import InsertEmoticon from '@mui/icons-material/InsertEmoticon';
+import Undo from '@mui/icons-material/Undo';
+import Redo from '@mui/icons-material/Redo';
+import MoreVert from '@mui/icons-material/MoreVert';
+import FormatQuote from '@mui/icons-material/FormatQuote';
+import HorizontalRule from '@mui/icons-material/HorizontalRule';
+import Videocam from '@mui/icons-material/Videocam';
+import TextFields from '@mui/icons-material/TextFields';
+import FontDownload from '@mui/icons-material/FontDownload';
+import Highlight from '@mui/icons-material/Highlight';
 import { ToolbarType } from './rds-comp-toolbar-types';
 import { type ToolbarConfig } from './rds-comp-toolbar-config-types';
 

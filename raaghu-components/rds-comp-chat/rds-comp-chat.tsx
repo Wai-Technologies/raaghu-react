@@ -2,13 +2,18 @@ import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEve
 import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
-import { SendOutlined as SendIcon, SentimentSatisfiedAltOutlined as EmojiIcon, ChatBubbleOutlineOutlined as ChatIcon, FilterListOutlined as FilterIcon, MoreVertOutlined as MoreIcon, ArrowBackIosNew as ArrowBackIcon } from "@mui/icons-material";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import SendIcon from '@mui/icons-material/SendOutlined';
+import EmojiIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import ChatIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import FilterIcon from '@mui/icons-material/FilterListOutlined';
+import MoreIcon from '@mui/icons-material/MoreVertOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export interface Comment {
   firstName: string;

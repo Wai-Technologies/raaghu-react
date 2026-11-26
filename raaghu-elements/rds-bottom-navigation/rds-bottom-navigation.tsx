@@ -7,6 +7,8 @@ import {
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-bottom-navigation.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsBottomNavigationItem {
   label: string;
   value: string;
@@ -26,7 +28,7 @@ export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'c
 }
 
 const RdsBottomNavigation = ({
-  items,
+  items = EMPTY_ARRAY,
   activeValue,
   onItemChange,
   showLabels = false,

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAvatar from './rds-avatar';
-import { Person } from '@mui/icons-material';
 import { expect } from 'storybook/test';
+import Person from '@mui/icons-material/Person';
 
 const meta: Meta<typeof RdsAvatar> = {
   title: 'Elements/Avatar',

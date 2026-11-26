@@ -1,6 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
+import { Box } from '@mui/material';
 import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
 import { BrowserRouter } from "react-router-dom";
@@ -22,7 +23,7 @@ import {
 } from "@mui/icons-material";
 import { ProfileMenu } from "../../raaghu-elements/shared/components/ProfileMenu";
 import { RaaghuLogoImg } from "../../raaghu-elements/shared/components/RaaghuLogoImg";
-import { Notifications as BellIcon } from "@mui/icons-material";
+import BellIcon from '@mui/icons-material/Notifications';
 
 const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
@@ -233,7 +234,7 @@ const AppShellStory = (args: any) => {
 
     if (args.displayType === AppShellDisplayType.SideNav) {
       return (
-        <div className="rds-appshell-side-nav-layout d-flex flex-row align-items-stretch w-100">
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', width: '100%' }} className="rds-appshell-side-nav-layout">
           {mobileSidebarOpen && (
             <div 
               className="mobile-sidebar-backdrop" 
@@ -255,7 +256,7 @@ const AppShellStory = (args: any) => {
             </BrowserRouter>
           </div>
           
-          <div className="rds-appshell-side-nav-right d-flex align-items-stretch justify-content-end rds-story-side-nav-right-container">
+          <Box sx={{ display: 'flex', alignItems: 'stretch', justifyContent: 'flex-end' }} className="rds-appshell-side-nav-right rds-story-side-nav-right-container">
             <div className="rds-story-side-nav-right-content rds-appshell__side-nav-icon-list">
               <BrowserRouter>
                 <RdsSidebar
@@ -271,8 +272,8 @@ const AppShellStory = (args: any) => {
                 />
               </BrowserRouter>
             </div>
-          </div>
-        </div>
+          </Box>
+        </Box>
       );
     }
 

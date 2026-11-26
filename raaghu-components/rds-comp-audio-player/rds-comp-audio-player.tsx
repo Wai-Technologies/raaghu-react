@@ -467,7 +467,7 @@ const RdsCompAudioPlayer = ({
       } else if (e.key === "Home") {
         e.preventDefault();
         if (side === "left") {
-          updateAudioState((prev) => ({ leftTrimPosition: 0 }));
+          updateAudioState({ leftTrimPosition: 0 });
         } else {
           updateAudioState((prev) => ({ rightTrimPosition: prev.leftTrimPosition + 5 }));
         }
@@ -476,7 +476,7 @@ const RdsCompAudioPlayer = ({
         if (side === "left") {
           updateAudioState((prev) => ({ leftTrimPosition: Math.min(prev.rightTrimPosition - 5, 100) }));
         } else {
-          updateAudioState((prev) => ({ rightTrimPosition: 100 }));
+          updateAudioState({ rightTrimPosition: 100 });
         }
       }
     },

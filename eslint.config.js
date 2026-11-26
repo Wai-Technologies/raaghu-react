@@ -1,4 +1,5 @@
 import storybook from "eslint-plugin-storybook";
+import noBootstrapClasses from './scripts/eslint-rule-no-bootstrap-classes.cjs';
 
 import js from '@eslint/js'
 import globals from 'globals'
@@ -11,6 +12,13 @@ export default tseslint.config([
   globalIgnores(['dist', 'node_modules', 'storybook-static', 'coverage', '.claude', '**/*.figma.tsx', '**/*.figma.ts']),
   {
     files: ['**/*.{ts,tsx}'],
+    plugins: {
+      'custom-rules': {
+        rules: {
+          'no-bootstrap-classes': noBootstrapClasses,
+        },
+      },
+    },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -23,6 +31,7 @@ export default tseslint.config([
     },
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'custom-rules/no-bootstrap-classes': 'error',
 
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', {

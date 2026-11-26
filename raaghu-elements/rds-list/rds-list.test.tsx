@@ -685,4 +685,10 @@ describe('audit fixes (renames)', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsList', 'withDividers', '`dividers`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsList', 'checkedItems', '`checked`');
   });
+
+  it('RDS-129 not reproducible: checkbox rows do not nest ListItemButton', () => {
+    const { container } = render(<RdsList checkboxSelection items={items} />);
+    expect(container.querySelectorAll('.MuiListItemButton-root')).toHaveLength(0);
+    expect(container.querySelectorAll('input[type="checkbox"]').length).toBeGreaterThan(0);
+  });
 });

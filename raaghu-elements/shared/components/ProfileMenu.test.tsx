@@ -20,9 +20,9 @@ describe('ProfileMenu audit fixes', () => {
     expect(screen.getAllByRole('menuitem').length).toBeGreaterThan(0);
   });
 
-  it('renders the default menu items and designation when none are provided', () => {
+  it('renders the default menu items without a default designation (RDS-168)', () => {
     render(<ProfileMenu name="Jane Doe" email="jane@example.com" />);
-    expect(screen.getByText('Developer')).toBeInTheDocument();
+    expect(screen.queryByText('Developer')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Account menu for Jane Doe' }));
     expect(screen.getAllByRole('menuitem').map((item) => item.textContent)).toEqual([
       'My Profile',
@@ -31,5 +31,10 @@ describe('ProfileMenu audit fixes', () => {
       'Help',
       'Logout',
     ]);
+  });
+
+  it('renders a provided designation', () => {
+    render(<ProfileMenu name="Jane Doe" email="jane@example.com" designation="Developer" />);
+    expect(screen.getByText('Developer')).toBeInTheDocument();
   });
 });

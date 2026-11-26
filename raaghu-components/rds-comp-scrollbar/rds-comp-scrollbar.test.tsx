@@ -345,6 +345,16 @@ describe('RdsCompScrollBar', () => {
       expect(buttons[1]).toHaveAttribute('aria-label', 'Scroll to bottom');
     });
 
+    it('RDS-021: scroll content is a focusable region with aria-label', () => {
+      const { container } = render(
+        <RdsCompScrollBar {...defaultProps} aria-label="Page scroll area" />,
+      );
+      const region = container.querySelector('.rds-scrollbar__content');
+      expect(region).toHaveAttribute('role', 'region');
+      expect(region).toHaveAttribute('tabIndex', '0');
+      expect(region).toHaveAttribute('aria-label', 'Page scroll area');
+    });
+
     it('should be keyboard accessible', () => {
       const { container } = render(
         <RdsCompScrollBar

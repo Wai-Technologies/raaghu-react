@@ -14,6 +14,8 @@ import clsx from 'clsx';
 export { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 import { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 
+const EMPTY_ARRAY: never[] = [];
+
 const iconMap: Record<string, ElementType> = {
   home: HomeOutlinedIcon,
   folder: FolderOutlinedIcon,
@@ -93,7 +95,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   /** Background style of the items; an item's own `layout` takes precedence. @default 'without background' */
   layout?: 'pill background' | 'without background' | 'square background';
-  /** Shows icons on the items; an item's `showIcon: false` hides its own. @default true */
+  /** Shows icons on the items; an item's `showIcon: false` hides its own. @default false */
   showIcon?: boolean;
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
   icon?: RdsBreadcrumbIcon;
@@ -104,13 +106,13 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
 }
 
 const RdsBreadcrumbs = ({
-  items,
+  items = EMPTY_ARRAY,
   separator,
   separatorType,
   level,
   layout = 'without background',
   className,
-  showIcon = true,
+  showIcon = false,
   icon,
   title,
   autoIcons: autoIconsProp,
@@ -119,7 +121,7 @@ const RdsBreadcrumbs = ({
   if (title !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'title', "the first item's `label`");
   if (autoIconsProp !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'autoIcons', '`icon`');
 
-  const autoIcons = autoIconsProp ?? true;
+  const autoIcons = autoIconsProp ?? false;
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   const getSeparator = (): ReactNode => {

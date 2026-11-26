@@ -529,6 +529,37 @@ describe('audit fixes', () => {
       expect(screen.getByRole('alert')).toHaveTextContent('File size exceeds 0 Bytes');
       expect(screen.getAllByRole('alert')).toHaveLength(1);
     });
+
+    it('RDS-032: StandardView shows per-file errors', () => {
+      render(
+        <ActualStandardView
+          {...standardViewProps({
+            files: [{ file: makeFile('big.pdf'), progress: 0, error: 'File size exceeds 0 Bytes' }],
+            selectedFileName: 'big.pdf',
+          })}
+        />,
+      );
+      expect(screen.getByRole('alert')).toHaveTextContent('File size exceeds 0 Bytes');
+    });
+  });
+
+  describe('RDS-154 accept on drop', () => {
+    it('flags dropped files that do not match accept', () => {
+      const { result } = renderHook(() =>
+        useActualFileUploader({ maxSize: 1024 * 1024, maxFiles: 5, isMandatory: false, accept: '.pdf' }),
+      );
+      const png = new File(['x'], 'photo.png', { type: 'image/png' });
+      act(() => result.current.addFiles([png]));
+      expect(result.current.files[0].error).toBe('File type is not accepted');
+    });
+
+    it('accepts dropped files that match accept', () => {
+      const { result } = renderHook(() =>
+        useActualFileUploader({ maxSize: 1024 * 1024, maxFiles: 5, isMandatory: false, accept: '.pdf,image/*' }),
+      );
+      act(() => result.current.addFiles([makeFile('ok.pdf')]));
+      expect(result.current.files[0].error).toBeUndefined();
+    });
   });
 
   describe('onUpload', () => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Fragment } from "react";
+import { useState, useEffect, useRef, Fragment, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Box from "@mui/material/Box";
 import { useForkRef } from "@mui/material/utils";
 export { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
@@ -98,6 +98,15 @@ const RdsCompToolbar = ({
   const handleRef = useForkRef(toolbarRef, ref);
 
   useEffect(() => {
+    const node = toolbarRef.current;
+    if (!node) return;
+    const items = Array.from(node.querySelectorAll<HTMLElement>('[data-toolbar-item="true"]:not(:disabled)'));
+    items.forEach((el, i) => {
+      el.tabIndex = i === 0 ? 0 : -1;
+    });
+  });
+
+  useEffect(() => {
     if (!openDropdown) return;
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element | null;
@@ -157,6 +166,26 @@ const RdsCompToolbar = ({
     />
   );
 
+  const onToolbarKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft' && event.key !== 'Home' && event.key !== 'End') {
+      return;
+    }
+    const root = event.currentTarget;
+    const items = Array.from(root.querySelectorAll<HTMLElement>('[data-toolbar-item="true"]:not(:disabled)'));
+    if (items.length === 0) return;
+    const currentIndex = items.indexOf(document.activeElement as HTMLElement);
+    let nextIndex = currentIndex;
+    if (event.key === 'ArrowRight') nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % items.length;
+    if (event.key === 'ArrowLeft') nextIndex = currentIndex < 0 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length;
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = items.length - 1;
+    event.preventDefault();
+    items.forEach((el, i) => {
+      el.tabIndex = i === nextIndex ? 0 : -1;
+    });
+    items[nextIndex]?.focus();
+  };
+
   return (
     <Box
       ref={handleRef}
@@ -172,6 +201,7 @@ const RdsCompToolbar = ({
       role="toolbar"
       aria-label={`${type} toolbar`}
       aria-disabled={isToolbarDisabled || undefined}
+      onKeyDown={onToolbarKeyDown}
       {...props}
     >
       {layout === ToolbarLayout.Primary ? (

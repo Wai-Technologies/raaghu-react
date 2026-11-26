@@ -93,6 +93,16 @@ describe('RdsLayout', () => {
       expect(screen.getByTestId('rds-header')).toBeInTheDocument();
     });
 
+    it('RDS-133: does not apply header margin when showHeader is true but header is missing', () => {
+      const { container } = renderWithTheme(
+        <RdsLayout showHeader={true}>
+          <div>Content</div>
+        </RdsLayout>,
+      );
+      const main = container.querySelector('main');
+      expect(main).toHaveStyle({ marginTop: '0' });
+    });
+
     it('should not render header when showHeader is false', () => {
       renderWithTheme(
         <RdsLayout showHeader={false} header={{ title: 'Test Header' }}>

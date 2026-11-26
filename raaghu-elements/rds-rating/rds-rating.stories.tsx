@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Star, StarBorder } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import RdsRating from './rds-rating';
+import Star from '@mui/icons-material/Star';
+import StarBorder from '@mui/icons-material/StarBorder';
 
 const levelToNumber = (level: unknown): number | undefined => {
   if (level === 'Left') return 0;

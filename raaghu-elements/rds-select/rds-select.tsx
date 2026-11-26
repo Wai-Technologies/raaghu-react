@@ -12,6 +12,8 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-select.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsSelectOption {
   label: string;
   value: string | number;
@@ -44,7 +46,7 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'componen
 const RdsSelect = ({
   label,
   placeholder,
-  options,
+  options = EMPTY_ARRAY,
   helperText,
   errorMessage,
   isRequired,

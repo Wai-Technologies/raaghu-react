@@ -3,9 +3,9 @@ import { useIsomorphicLayoutEffect } from "../../raaghu-react-themes/src/utils/u
 import clsx from "clsx";
 import { createPortal } from 'react-dom';
 import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
-import { KeyboardArrowDown } from "@mui/icons-material";
 import { type ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
 import { buttonHasDropdown, getButtonOptions, isEmojiAction } from './rds-comp-toolbar-dropdown-options';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 export type { ToolbarButtonConfig, ToolbarConfig, ToolbarOption } from './rds-comp-toolbar-config-types';
 
 type DropdownPosition = { top: number; left: number; minWidth: number };
@@ -112,6 +112,7 @@ export const ToolbarButton = ({
         aria-pressed={isActive}
         aria-expanded={hasDropdown ? isDropdownOpen : undefined}
         data-testid={`toolbar-button-${action}`}
+        data-toolbar-item="true"
       >
         <span className="rds-comp-toolbar__button-icon">
           {icon}

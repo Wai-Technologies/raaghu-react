@@ -136,18 +136,24 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const livePoliteness = isError ? 'assertive' : 'polite';
     const toastContentId = useId();
 
-    const { onClose } = props;
+    const { onClose, pauseOnHover = true, open: openProp } = props;
     const handleTimeout = useCallback(() => onClose?.(null, 'timeout'), [onClose]);
-    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(effectiveAutohide, effectiveDelay, handleTimeout);
-    const showState = props.open !== undefined ? (props.open ? "show" : "hide") : innerState;
+    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(
+        effectiveAutohide,
+        effectiveDelay,
+        handleTimeout,
+        openProp,
+    );
+    const showState = openProp !== undefined ? (openProp ? "show" : "hide") : innerState;
     const isVisible = showState === "show";
     const hideToast = useCallback((event: SyntheticEvent) => {
         setShowState("hide");
         onClose?.(event, 'closeClick');
     }, [setShowState, onClose]);
 
-    const pauseOnInteraction = effectiveAutohide ? pauseTimer : undefined;
-    const resumeOnInteraction = effectiveAutohide ? resumeTimer : undefined;
+    const shouldPauseOnHover = effectiveAutohide && pauseOnHover;
+    const pauseOnInteraction = shouldPauseOnHover ? pauseTimer : undefined;
+    const resumeOnInteraction = shouldPauseOnHover ? resumeTimer : undefined;
 
     return (
         <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx} id={props.id} aria-label={props['aria-label']} style={props.style}>

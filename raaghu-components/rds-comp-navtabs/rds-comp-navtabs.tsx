@@ -202,7 +202,7 @@ const RdsCompNavtabs = ({
                   </span>
                 )
               ) : (
-                <span className="fw-medium px-3 rds-comp-navtabs__label">{navtabsItem.label}</span>
+                <Box component="span" sx={{ fontWeight: 'var(--rds-font-weight-medium)', px: 'var(--rds-spacing-md)' }} className="rds-comp-navtabs__label">{navtabsItem.label}</Box>
               )}
               {navtabsItem.count != null && navtabsItem.count > 0 && (
                 <span className="rds-comp-navtabs__badge">

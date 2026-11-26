@@ -35,6 +35,39 @@ describe('safeGetItem / safeSetItem', () => {
   });
 });
 
+describe('RaaghuThemeProvider SSR-safe init (RDS-039)', () => {
+  const original = globalThis.localStorage;
+
+  afterEach(() => {
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: original,
+    });
+  });
+
+  it('seeds from defaultMode when initializeOnMount is false', () => {
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: jest.fn(() => 'dark'),
+        setItem: jest.fn(),
+        removeItem: jest.fn(),
+        clear: jest.fn(),
+        key: () => null,
+        length: 0,
+      },
+    });
+
+    const { getByText } = render(
+      <RaaghuThemeProvider defaultMode="light" initializeOnMount={false}>
+        <span>child</span>
+      </RaaghuThemeProvider>,
+    );
+    expect(getByText('child')).toBeInTheDocument();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+});
+
 describe('RaaghuThemeProvider with blocked localStorage', () => {
   const original = globalThis.localStorage;
 

@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
-import { Fastfood, LaptopMac, Hotel } from '@mui/icons-material';
 import RdsTimeline from './rds-timeline';
+import Fastfood from '@mui/icons-material/Fastfood';
+import LaptopMac from '@mui/icons-material/LaptopMac';
+import Hotel from '@mui/icons-material/Hotel';
 
 const meta: Meta<typeof RdsTimeline> = {
   title: 'Elements/Timeline',

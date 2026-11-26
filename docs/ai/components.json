@@ -179,7 +179,7 @@
           "name": "icon",
           "type": "ReactNode",
           "required": false,
-          "description": "Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. Defaults to a person icon."
+          "description": "Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. No icon is shown when neither `icon` nor `changeIcon` is set."
         },
         {
           "name": "layout",
@@ -632,7 +632,8 @@
         {
           "name": "options",
           "type": "RdsSelectOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Options rendered as menu items."
         },
         {
@@ -1392,7 +1393,8 @@
         {
           "name": "items",
           "type": "RdsBottomNavigationItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Navigation items (label, value, icon, disabled) to render."
         },
         {
@@ -1446,7 +1448,8 @@
         {
           "name": "items",
           "type": "RdsBreadcrumbItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Breadcrumb items to render, in order."
         },
         {
@@ -1478,7 +1481,7 @@
           "name": "showIcon",
           "type": "boolean",
           "required": false,
-          "default": "true",
+          "default": "false",
           "description": "Shows icons on the items; an item's `showIcon: false` hides its own."
         }
       ],
@@ -2683,7 +2686,8 @@
         {
           "name": "options",
           "type": "RdsRadioOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Radio options to render."
         },
         {
@@ -2845,7 +2849,8 @@
         {
           "name": "items",
           "type": "RdsSidebarItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Navigation items."
         },
         {
@@ -3206,7 +3211,8 @@
         {
           "name": "steps",
           "type": "RdsStepperStep[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Steps to render."
         }
       ],
@@ -3299,7 +3305,8 @@
         {
           "name": "columns",
           "type": "RdsTableColumn[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Column definitions (id, label, alignment, sortable, cell type)."
         },
         {
@@ -3387,7 +3394,8 @@
         {
           "name": "rows",
           "type": "RdsTableRow[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Row data keyed by column id; `id` identifies each row."
         },
         {
@@ -3544,7 +3552,8 @@
         {
           "name": "items",
           "type": "RdsTimelineItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Timeline entries to render, in order."
         },
         {
@@ -3567,9 +3576,76 @@
       "kind": "element",
       "import": "import { RdsToggleButton } from '@waiin/raaghu-react';",
       "source": "raaghu-elements/rds-toggle-button/rds-toggle-button.tsx",
-      "description": "Props for RdsStandaloneToggleButton, a single self-toggling MUI ToggleButton.",
-      "props": [],
-      "deprecatedProps": []
+      "inheritsFrom": [
+        "ToggleButtonGroupProps"
+      ],
+      "props": [
+        {
+          "name": "color",
+          "type": "OverridableStringUnion<\"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\" | \"standard\", ToggleButtonGroupPropsColorOverrides>",
+          "required": false,
+          "description": "Color of the selected button. `'info'` is deprecated; use `'primary'`."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Initially selected value(s) when uncontrolled."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow several options to be selected at once."
+        },
+        {
+          "name": "options",
+          "type": "RdsToggleButtonOption[]",
+          "required": false,
+          "default": "[]",
+          "description": "Options rendered as toggle buttons."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "horizontal",
+          "description": "Layout direction of the group."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Keep at least one option selected."
+        },
+        {
+          "name": "spacing",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Gap in px between buttons (the `--rds-toggle-button-spacing` CSS variable still wins). 0 uses the joined MUI group."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "enforceSelected",
+          "use": "Use `required` instead."
+        },
+        {
+          "name": "iconTextSpacing",
+          "use": "Set the `--rds-spacing-xs` theme token instead. Gap in px between icon and label."
+        },
+        {
+          "name": "inputSize",
+          "use": "Use `size` instead."
+        }
+      ]
     },
     {
       "name": "RdsTooltip",
@@ -4337,7 +4413,13 @@
           "name": "onChange",
           "type": "((value: number, event: SyntheticEvent<Element, Event>) => void)",
           "required": false,
-          "description": "Value-first change handler (canonical for custom Raaghu controls).\nSignature: `(value, event) => void` — prefer reading `value`.\nIn-range numbers are emitted while typing. Clearing the field emits `undefined` on blur."
+          "description": "Value-first change handler (canonical for custom Raaghu controls).\nSignature: `(value, event) => void` — prefer reading `value`.\nIn-range numbers are emitted while typing. Clearing the field calls `onClear` on blur instead."
+        },
+        {
+          "name": "onClear",
+          "type": "((event: SyntheticEvent<Element, Event>) => void)",
+          "required": false,
+          "description": "Called on blur when the user has cleared the field. Set `value` to `undefined` to accept it."
         },
         {
           "name": "placeholder",
@@ -4896,7 +4978,8 @@
         {
           "name": "options",
           "type": "RdsButtonDropdownOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Options listed in the dropdown menu."
         },
         {
@@ -5905,6 +5988,12 @@
       "import": "import { RdsCompScrollbar } from '@waiin/raaghu-react';",
       "source": "raaghu-components/rds-comp-scrollbar/rds-comp-scrollbar.tsx",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for the scrollable region."
+        },
         {
           "name": "children",
           "type": "ReactNode",
@@ -7414,7 +7503,8 @@
         {
           "name": "messages",
           "type": "Message[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Chat messages rendered in the conversation log."
         },
         {
@@ -7767,6 +7857,13 @@
           "type": "((item: Item, value: number) => void)",
           "required": false,
           "description": "Called with the review item and the new rating value when a rating changes."
+        },
+        {
+          "name": "ratingInteractive",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allows the star rating to be changed by interacting with it. When `false` the rating is read-only."
         },
         {
           "name": "ref",
@@ -8772,6 +8869,13 @@
           "description": "Per-control visibility ('visible' | 'hidden') for dismiss, primary, secondary, tertiary buttons and visual placeholder."
         },
         {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Initial visibility when uncontrolled."
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -8813,6 +8917,12 @@
           "type": "(() => void)",
           "required": false,
           "description": "Called when the skip button is clicked."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled visibility. When set, the tour ignores internal open state."
         },
         {
           "name": "ref",

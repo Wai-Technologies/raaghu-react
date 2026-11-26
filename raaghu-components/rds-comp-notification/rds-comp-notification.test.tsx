@@ -163,9 +163,10 @@ describe('RdsCompNotification', () => {
       has(container, '.rds-comp-notification--style-avatar');
     });
 
-    it('applies CSS style to the notification root card', () => {
+    it('applies CSS style to the list root, not to each card', () => {
       const { container } = setup({ variant: NotificationStyle.Avatar, style: { marginTop: 8 } });
-      expect(container.querySelector('.rds-comp-notification')).toHaveStyle({ marginTop: '8px' });
+      expect(container.querySelector('.rds-comp-notification-list')).toHaveStyle({ marginTop: '8px' });
+      expect(container.querySelector('.rds-comp-notification')).not.toHaveAttribute('style');
     });
   });
 
@@ -534,11 +535,12 @@ describe('RdsCompNotification', () => {
       expect(screen.getAllByTestId('rds-button-yes').length).toBe(2);
     });
 
-    it('sets role=status, item-title image alt, and forwards className (G6-038)', () => {
+    it('sets role=status, item-title image alt, and forwards className to the root only (G6-038, RDS-013)', () => {
       const { container } = render(<RdsCompNotification notifications={two} variant="image" className="extra" />);
       const card = screen.getAllByTestId('card')[0];
       expect(card).toHaveAttribute('role', 'status');
-      expect(card).toHaveClass('extra');
+      expect(card).not.toHaveClass('extra');
+      expect(container.querySelector('.rds-comp-notification-list')).toHaveClass('extra');
       expect(container.querySelector('img')).toHaveAttribute('alt', 'Same');
     });
   });

@@ -10,12 +10,12 @@ import {
   TextField,
 } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-filter-button.scss';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export interface FilterOption {
   id: string;

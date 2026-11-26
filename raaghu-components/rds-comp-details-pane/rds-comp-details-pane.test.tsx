@@ -553,7 +553,7 @@ describe('RdsCompDetailsPane', () => {
       expect(detailsPane).toHaveStyle('position: relative');
     });
 
-    it('should have header with fw-bold class', () => {
+    it('should have the header class', () => {
       render(
         <RdsCompDetailsPane
           headerText="Bold Header"
@@ -561,7 +561,6 @@ describe('RdsCompDetailsPane', () => {
         />
       );
       const header = screen.getByText('Bold Header');
-      expect(header).toHaveClass('fw-bold');
       expect(header).toHaveClass('rds-comp-details-pane__header');
     });
   });

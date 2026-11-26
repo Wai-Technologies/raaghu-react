@@ -1,7 +1,20 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {FormatBold,FormatItalic,FormatUnderlined,FormatAlignLeft,FormatAlignCenter,FormatAlignRight,FormatAlignJustify,ViewList,ViewModule,ViewQuilt,Check,PhoneAndroid,Laptop,Tablet} from '@mui/icons-material';
 import RdsToggleButton, { RdsStandaloneToggleButton } from './rds-toggle-button';
+import FormatBold from '@mui/icons-material/FormatBold';
+import FormatItalic from '@mui/icons-material/FormatItalic';
+import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
+import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft';
+import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
+import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
+import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
+import ViewList from '@mui/icons-material/ViewList';
+import ViewModule from '@mui/icons-material/ViewModule';
+import ViewQuilt from '@mui/icons-material/ViewQuilt';
+import Check from '@mui/icons-material/Check';
+import PhoneAndroid from '@mui/icons-material/PhoneAndroid';
+import Laptop from '@mui/icons-material/Laptop';
+import Tablet from '@mui/icons-material/Tablet';
 
 const meta: Meta<typeof RdsToggleButton> = {
   title: 'Elements/Toggle Button',

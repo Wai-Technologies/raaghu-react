@@ -11,7 +11,6 @@ import {
   type SxProps,
   type Theme,
 } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
@@ -19,6 +18,10 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { getRaaghuLogoUrl } from '../shared/constants/raaghu-logo';
 import './rds-sidebar.scss';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+
+const EMPTY_ARRAY: never[] = [];
 
 /** Use only values that React can render as children (guards Storybook `{}` controls). */
 const asReactNode = (value: ReactNode): ReactNode => {
@@ -111,7 +114,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
 }
 
 const RdsSidebar = ({
-  items,
+  items = EMPTY_ARRAY,
   isOpen,
   open,
   onClose,
@@ -329,7 +332,6 @@ const RdsSidebar = ({
             {resolvedHeader ?? (layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
-                  status="online"
                   src={resolvedAvatarSrc}
                 />
               ) : (
@@ -340,7 +342,6 @@ const RdsSidebar = ({
                   name={userName}
                   showDesignation={Boolean(userSubtitle)}
                   showName={Boolean(userName)}
-                  status="online"
                   src={resolvedAvatarSrc}
                 />
               )
@@ -501,12 +502,10 @@ const RdsSidebar = ({
                 name={userName}
                 showDesignation={Boolean(userSubtitle)}
                 showName={Boolean(userName)}
-                status="online"
                 src={resolvedAvatarSrc}
               />
             ) : (
               <RdsAvatar
-                status="online"
                 src={resolvedAvatarSrc}
               />
             ))}

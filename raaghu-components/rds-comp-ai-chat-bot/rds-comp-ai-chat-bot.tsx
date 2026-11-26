@@ -9,6 +9,8 @@ import "./rds-comp-ai-chat-bot.scss";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
   /** Avatar of the assistant, also shown in the header. */
   assistantAvatar?: string;
@@ -65,7 +67,7 @@ const RdsCompAiChatBot = ({
   userAvatarUrl,
   placeholder,
   placeholderText,
-  messages,
+  messages = EMPTY_ARRAY,
   onSend,
   setMessages,
   iconName,

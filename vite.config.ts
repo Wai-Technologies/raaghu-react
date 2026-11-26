@@ -34,11 +34,32 @@ function prependStaticTokensCss(): Plugin {
   };
 }
 
+/** Prepends "use client" to component, index, provider and hook modules for React Server Components. */
+function addUseClientDirective(): Plugin {
+  const directive = '"use client";\n';
+  const isClientModule = (fileName: string) =>
+    !fileName.includes('vendor') &&
+    (/\/rds-[^/]+\/rds-[^/]+\.(mjs|cjs)$/.test(fileName) ||
+      /^index\.(mjs|cjs)$/.test(fileName) ||
+      /provider|hooks/.test(fileName));
+  return {
+    name: 'add-use-client-directive',
+    generateBundle(_, bundle) {
+      for (const [fileName, chunk] of Object.entries(bundle)) {
+        if (chunk.type === 'chunk' && isClientModule(fileName) && !chunk.code.startsWith(directive)) {
+          chunk.code = directive + chunk.code;
+        }
+      }
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
     plugins: [
       react(),
       prependStaticTokensCss(),
+      addUseClientDirective(),
     ],
     resolve: {
       alias: {

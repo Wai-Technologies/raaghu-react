@@ -538,12 +538,19 @@ export const ColorPickerInfo = memo(({
         onHexCommit={(hex) => handleChange?.({ hex })}
       />      
       <div className="rds-comp-color-picker__percent-wrapper">
-        <input
-          type="text"
-          value={`${Math.round((rgb.a ?? 1) * 100)}%`}
-          readOnly
+        <ChannelField
+          label="Opacity percentage"
+          value={`${Math.round((rgb.a ?? 1) * 100)}`}
           className="rds-comp-color-picker__percent-input"
-          aria-label="Opacity percentage"
+          disabled={disabled}
+          validate={inRange(100)}
+          onCommit={(text) => {
+            const nextAlpha = Number(text) / 100;
+            handleChange?.({
+              hex: selectedColorState.hex,
+              rgb: { ...rgb, a: nextAlpha },
+            });
+          }}
         />
       </div>
     </div>

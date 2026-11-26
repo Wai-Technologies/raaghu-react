@@ -14,6 +14,8 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-radio.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsRadioOption {
   value: string;
   /** Option label. */
@@ -51,7 +53,7 @@ const placementLayouts = {
 } as const;
 
 const RdsRadio = ({
-  options,
+  options = EMPTY_ARRAY,
   label,
   direction,
   row,

@@ -3,6 +3,7 @@ import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
+import { VisuallyHidden } from "../../raaghu-elements/shared/components/visually-hidden";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompTruncateTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -79,12 +80,13 @@ const RdsCompTruncateText = ({
       className={className}
       sx={sx}
     >
+      {isLong && <VisuallyHidden>{content}</VisuallyHidden>}
       {showTooltip ? (
         <RdsTooltip title={content} placement="bottom" arrow>
-          <span style={spanStyle}>{displayText}</span>
+          <span style={spanStyle} aria-hidden={isLong || undefined}>{displayText}</span>
         </RdsTooltip>
       ) : (
-        <span style={spanStyle}>{displayText}</span>
+        <span style={spanStyle} aria-hidden={isLong || undefined}>{displayText}</span>
       )}
     </Box>
   );

@@ -533,9 +533,32 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(getInput(container).value).toBe('Option 2');
   });
 
-  it('re-derives the selected option when the options really change with selected (G1-043)', () => {
+  it('RDS-031: keeps the user pick when options change with selected if it still exists', () => {
     const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} selected />);
     expect(getInput(container).value).toBe('Option 1');
+
+    openList(container);
+    fireEvent.click(screen.getByRole('option', { name: 'Option 2' }));
+    expect(getInput(container).value).toBe('Option 2');
+
+    rerender(
+      <RdsAutocomplete
+        options={[
+          { label: 'Option 1', value: 1 },
+          { label: 'Option 2', value: 2 },
+          { label: 'Option 9', value: 9 },
+        ]}
+        selected
+      />,
+    );
+    expect(getInput(container).value).toBe('Option 2');
+  });
+
+  it('RDS-031: re-seeds from selected when the previous pick disappears from options', () => {
+    const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} selected />);
+    openList(container);
+    fireEvent.click(screen.getByRole('option', { name: 'Option 2' }));
+    expect(getInput(container).value).toBe('Option 2');
 
     rerender(<RdsAutocomplete options={[{ label: 'Other', value: 9 }]} selected />);
     expect(getInput(container).value).toBe('Other');

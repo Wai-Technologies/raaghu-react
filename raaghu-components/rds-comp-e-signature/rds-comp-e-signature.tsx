@@ -14,10 +14,13 @@ import {
 import clsx from 'clsx';
 import { Box, Typography, IconButton, Paper, TextField } from '@mui/material';
 import type { BoxProps } from '@mui/material';
-import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import { RdsESignatureUpload, RdsESignatureChoose, type PredefinedSignatureItem } from './rds-comp-e-signature-modes';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-e-signature.scss';
+import Brush from '@mui/icons-material/Brush';
+import Save from '@mui/icons-material/Save';
+import Delete from '@mui/icons-material/Delete';
+import Undo from '@mui/icons-material/Undo';
 
 export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width' | 'height' | 'ref' | 'children'> {
   /** Signature method shown: draw on a canvas, upload an image, or choose a predefined style. */
@@ -234,8 +237,7 @@ const RdsCompESignature = ({
   useEffect(() => {
     if (!typedSignature.trim()) return;
     paintTypedSignature(typedSignature, selectedColor);
-    if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
-  }, [typedSignature, selectedColor, paintTypedSignature, onSignatureChange]);
+  }, [typedSignature, selectedColor, paintTypedSignature]);
 
   const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: ClientPoint): Point => {
     const rect = canvas.getBoundingClientRect();

@@ -18,6 +18,8 @@ import clsx from 'clsx';
 import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-table.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 const DEFAULT_ROWS_PER_PAGE_OPTIONS = [5, 10, 25];
 const EMPTY_SELECTED_ROWS: string[] = [];
 
@@ -126,8 +128,8 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
  * prefer MUI X DataGrid instead.
  */
 const RdsTable = ({
-  columns,
-  rows,
+  columns = EMPTY_ARRAY,
+  rows = EMPTY_ARRAY,
   paginated,
   pagination,
   pageSize = 10,

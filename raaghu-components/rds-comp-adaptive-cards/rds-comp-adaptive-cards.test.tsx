@@ -186,10 +186,19 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-jest.mock('@mui/icons-material', () => ({
-  Close: () => <span data-testid="close-icon">Close</span>,
-  ExpandMore: () => <span data-testid="expand-more-icon">ExpandMore</span>,
-  InfoOutlined: () => <span data-testid="info-icon">Info</span>,
+jest.mock('@mui/icons-material/Close', () => ({
+  __esModule: true,
+  default: () => <span data-testid="close-icon">Close</span>,
+}));
+
+jest.mock('@mui/icons-material/ExpandMore', () => ({
+  __esModule: true,
+  default: () => <span data-testid="expand-more-icon">ExpandMore</span>,
+}));
+
+jest.mock('@mui/icons-material/InfoOutlined', () => ({
+  __esModule: true,
+  default: () => <span data-testid="info-icon">Info</span>,
 }));
 
 describe('RdsCompAdaptiveCards', () => {

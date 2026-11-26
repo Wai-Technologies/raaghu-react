@@ -25,10 +25,13 @@ import {
   TextField, Box, FormControl, InputLabel, Select, Autocomplete,
 } from '@mui/material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon, DragIndicator as DragIndicatorIcon } from '@mui/icons-material';
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
-import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import {
   RdsCompKanbanBoardProps,
   useKanbanBoardState,
@@ -230,8 +233,20 @@ const RdsCompKanbanBoard = ({
     if (value !== undefined) warnDeprecatedProp('RdsCompKanbanBoard', key, DEPRECATED_PROPS[key]);
   });
 
-  const showAddColumn = allowAddColumn ?? allowAddingNewCard;
-  const showAddCard = allowAddCard ?? allowAddingNewSubCard;
+  const showAddColumn = resolveDeprecatedProp(
+    allowAddColumn,
+    allowAddingNewCard,
+    'RdsCompKanbanBoard',
+    'allowAddingNewCard',
+    '`allowAddColumn`',
+  );
+  const showAddCard = resolveDeprecatedProp(
+    allowAddCard,
+    allowAddingNewSubCard,
+    'RdsCompKanbanBoard',
+    'allowAddingNewSubCard',
+    '`allowAddCard`',
+  );
   const resolvedTagOptions = tagOptions ?? allTagsList;
   const resolvedCategoryOptions = categoryOptions ?? allCategoriesList;
   const handleColumnsChange = onColumnsChange ?? onBoardDataChange;
@@ -239,6 +254,8 @@ const RdsCompKanbanBoard = ({
   const props: RdsCompKanbanBoardProps = {
     columns, defaultColumns, boardData, onColumnsChange: handleColumnsChange,
     onCardAction, onSubCardOption, onColumnAction, onCardOption, onCardAdd, onAddQuestionSaveHandler, onSelectedTagsListChange,
+    allowAddColumn: showAddColumn,
+    allowAddCard: showAddCard,
   };
   const state = useKanbanBoardState(props);
   const {

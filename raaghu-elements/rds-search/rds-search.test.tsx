@@ -503,6 +503,45 @@ describe('RdsSearch', () => {
       }, { timeout: 200 });
     });
 
+    it('RDS-167: clears the debounce timer on Clear so a stale onSearch does not fire', async () => {
+      jest.useFakeTimers();
+      const handleSearch = jest.fn();
+      const handleChange = jest.fn();
+      renderWithTheme(
+        <RdsSearch
+          value="pending"
+          onChange={handleChange}
+          onSearch={handleSearch}
+          debounce={300}
+          showClearButton
+        />,
+      );
+
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: 'stale' } });
+      fireEvent.click(screen.getByLabelText('clear'));
+      jest.advanceTimersByTime(400);
+
+      expect(handleSearch).not.toHaveBeenCalled();
+      jest.useRealTimers();
+    });
+
+    it('RDS-167: clears the debounce timer on Enter before the immediate onSearch', async () => {
+      jest.useFakeTimers();
+      const handleSearch = jest.fn();
+      renderWithTheme(
+        <RdsSearch value="query" onChange={() => {}} onSearch={handleSearch} debounce={300} />,
+      );
+
+      const input = screen.getByRole('textbox');
+      fireEvent.change(input, { target: { value: 'typed' } });
+      fireEvent.keyPress(input, { key: 'Enter', code: 'Enter', charCode: 13 });
+      jest.advanceTimersByTime(400);
+
+      expect(handleSearch).toHaveBeenCalledTimes(1);
+      expect(handleSearch).toHaveBeenCalledWith('query');
+      jest.useRealTimers();
+    });
+
     it('should not call onSearch when autoSearch is false', async () => {
       const handleSearch = jest.fn();
       renderWithTheme(
@@ -810,9 +849,10 @@ describe('RdsSearch', () => {
       const searchButtons = screen.getAllByLabelText('search');
       fireEvent.click(searchButtons[0]);
 
-      await waitFor(() => {
-        expect(handleSearch).toHaveBeenCalledWith('test');
-      }, { timeout: 200 });
+      expect(handleSearch).toHaveBeenCalledTimes(1);
+      expect(handleSearch).toHaveBeenCalledWith('');
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      expect(handleSearch).toHaveBeenCalledTimes(1);
     });
   });
 

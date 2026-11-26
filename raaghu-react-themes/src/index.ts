@@ -20,6 +20,10 @@ export {
 } from '../tokens/build-rds-css-vars';
 export { RaaghuThemeProvider, useRaaghuTheme, type RaaghuThemeProviderProps } from './provider/RaaghuThemeProvider';
 export {
+  InitRaaghuThemeScript,
+  type InitRaaghuThemeScriptProps,
+} from './provider/InitRaaghuThemeScript';
+export {
   applyRaaghuTheme,
   getRaaghuThemeMode,
   initializeRaaghuTheme,

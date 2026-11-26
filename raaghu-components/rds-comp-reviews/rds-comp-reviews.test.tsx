@@ -159,6 +159,7 @@ describe('RdsCompReviews', () => {
       [10, ['up', 'down']],
       [11, ['avatar', 'name', 'summary']],
       [12, ['name', 'summary']],
+      [13, ['avatar', 'name', 'summary']],
     ])('should render Style%i', (n, keys) => {
       withItem(S[`Style${n}`]);
       (keys as string[]).forEach(k => checks[k]());
@@ -166,9 +167,10 @@ describe('RdsCompReviews', () => {
   });
 
   describe('Default Style Behavior', () => {
-    it.each([undefined, 'unknown'])('should render nothing when style is %s', variant => {
+    it.each([undefined, 'unknown'])('should fall back to Style1 when style is %s', variant => {
       setup({ variant });
-      expect(screen.queryAllByTestId('card')).toHaveLength(0);
+      expect(screen.queryAllByTestId('card')).toHaveLength(1);
+      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
     });
   });
 
@@ -225,8 +227,13 @@ describe('RdsCompReviews', () => {
       });
     });
 
-    it('should render rating as readonly false', () => {
+    it('should render rating as readonly by default', () => {
       setup();
+      expect(screen.getByTestId('rds-rating')).toHaveAttribute('data-readonly', 'true');
+    });
+
+    it('should allow opting into an interactive rating via ratingInteractive', () => {
+      setup({ ratingInteractive: true });
       expect(screen.getByTestId('rds-rating')).toHaveAttribute('data-readonly', 'false');
     });
   });
@@ -310,6 +317,7 @@ describe('RdsCompReviews', () => {
     it.each([
       [11, '4.75', '4.75'],
       [12, '4.75', '4.75'],
+      [13, '4.75', '4.75'],
       [11, undefined, '0'],
     ])('should display reviews summary for Style%i (reviews: %s)', (n, reviews, expected) => {
       withItem(S[`Style${n}`], { reviews });
@@ -328,7 +336,7 @@ describe('RdsCompReviews', () => {
       expect(container.querySelectorAll('[data-testid="card"]').length).toBeGreaterThan(0);
     });
 
-    it.each(Array.from({ length: 12 }, (_, i) => i + 1))('should accept Style%i', n => {
+    it.each(Array.from({ length: 13 }, (_, i) => i + 1))('should accept Style%i', n => {
       const { container } = withItem(S[`Style${n}`]);
       expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
     });

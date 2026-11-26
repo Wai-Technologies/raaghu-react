@@ -47,11 +47,24 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-jest.mock('@mui/icons-material', () => ({
-  Brush: () => <span data-testid="brush-icon">Brush</span>,
-  Save: () => <span data-testid="save-icon">Save</span>,
-  Delete: () => <span data-testid="delete-icon">Delete</span>,
-  Undo: () => <span data-testid="undo-icon">Undo</span>,
+jest.mock('@mui/icons-material/Brush', () => ({
+  __esModule: true,
+  default: () => <span data-testid="brush-icon">Brush</span>,
+}));
+
+jest.mock('@mui/icons-material/Save', () => ({
+  __esModule: true,
+  default: () => <span data-testid="save-icon">Save</span>,
+}));
+
+jest.mock('@mui/icons-material/Delete', () => ({
+  __esModule: true,
+  default: () => <span data-testid="delete-icon">Delete</span>,
+}));
+
+jest.mock('@mui/icons-material/Undo', () => ({
+  __esModule: true,
+  default: () => <span data-testid="undo-icon">Undo</span>,
 }));
 
 jest.mock('./rds-comp-e-signature-modes', () => ({
@@ -410,6 +423,14 @@ describe('RdsCompESignature', () => {
       const onSignatureChange = jest.fn();
       const { rerender } = setup({ onSignatureChange });
       rerender(<RdsCompESignature mode="draw" onSignatureChange={onSignatureChange} />);
+      expect(onSignatureChange).not.toHaveBeenCalled();
+    });
+
+    it('RDS-004: changing pen color alone does not fire onSignatureChange', () => {
+      const onSignatureChange = jest.fn();
+      const { rerender } = setup({ onSignatureChange, penColor: '#000000' });
+      onSignatureChange.mockClear();
+      rerender(<RdsCompESignature mode="draw" onSignatureChange={onSignatureChange} penColor="#FF0000" />);
       expect(onSignatureChange).not.toHaveBeenCalled();
     });
 

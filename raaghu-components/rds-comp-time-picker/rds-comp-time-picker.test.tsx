@@ -656,6 +656,18 @@ describe('RdsCompTimePicker', () => {
       expect(onChange).not.toHaveBeenCalled();
     });
 
+    it('RDS-022: moves focus into the popup and restores it to the input on Escape', () => {
+      render(<RdsCompTimePicker value="3:30 PM" />);
+      const input = screen.getByLabelText('Selected time');
+      expect(input).toHaveAttribute('aria-haspopup', 'dialog');
+      fireEvent.click(input);
+      const dialog = screen.getByRole('dialog', { name: 'Time picker' });
+      expect(dialog.contains(document.activeElement)).toBe(true);
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(input).toHaveFocus();
+    });
+
     it('applies CSS style and variant layout; color wins over colorVariant', () => {
       const { container } = render(<RdsCompTimePicker style={{ marginTop: 8 }} variant="compact" colorVariant="info" color="success" />);
       open();

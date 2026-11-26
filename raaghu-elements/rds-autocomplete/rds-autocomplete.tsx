@@ -232,8 +232,34 @@ const RdsAutocomplete = <T extends { label?: string },>(
       !sameOptions(options, prevSelectionProps.options)
     )
   ) {
+    const selectedPropChanged = isSelected !== prevSelectionProps.selected;
+    const multipleChanged = allowMultipleResolved !== prevSelectionProps.allowMultiple;
+    const optionsChanged = !sameOptions(options, prevSelectionProps.options);
     setPrevSelectionProps({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
-    setSelected(deriveSelection(isSelected, options, allowMultipleResolved));
+
+    if (selectedPropChanged || multipleChanged) {
+      setSelected(deriveSelection(isSelected, options, allowMultipleResolved));
+    } else if (optionsChanged) {
+      const optionList = options ?? [];
+      const stillPresent = (item: T) => optionList.some((opt) => Object.is(opt, item) || (
+        isPlainObject(opt) && isPlainObject(item) && shallowEqualObjects(opt, item)
+      ));
+      if (allowMultipleResolved) {
+        const kept = Array.isArray(selected) ? selected.filter(stillPresent) : [];
+        if (kept.length > 0) {
+          setSelected(kept);
+        } else {
+          setSelected(deriveSelection(isSelected, options, true));
+        }
+      } else {
+        const current = Array.isArray(selected) ? selected[0] : selected;
+        if (current != null && stillPresent(current as T)) {
+          setSelected(current as T);
+        } else {
+          setSelected(deriveSelection(isSelected, options, false));
+        }
+      }
+    }
   }
 
   const currentValue = isValueControlled ? value : selected;

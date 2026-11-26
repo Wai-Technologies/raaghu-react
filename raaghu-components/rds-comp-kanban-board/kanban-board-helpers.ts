@@ -164,9 +164,11 @@ export const colorClass = (colortype: string) =>
   `kanban-${colortype != "" && colortype != null ? colortype : "primary"}`;
 
 export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
+  const allowAddColumn = props.allowAddColumn ?? props.allowAddingNewCard;
+  const allowAddCard = props.allowAddCard ?? props.allowAddingNewSubCard;
   const [boardName, setBoardName] = useState("");
-  const [showAddBoardBtn, setShowAddBoardBtn] = useState(props.allowAddingNewCard ? false : true);
-  const [addButton, setAddButton] = useState(props.allowAddingNewSubCard ? true : false);
+  const [showAddBoardBtn, setShowAddBoardBtn] = useState(true);
+  const [addButton, setAddButton] = useState(Boolean(allowAddCard ?? allowAddColumn));
   const [showBoard, setShowBoard] = useState(true);
   const initial = props.columns ?? props.defaultColumns ?? props.boardData;
   const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>(initial ? initial.map(() => false) : []);
@@ -527,23 +529,50 @@ export const createDragEndHandler = (
 ) => {
   return (event: DragEndEvent) => {
     const { active, over } = event;
-    if (!over) return;
-    if (active.id === over.id) return;
+    if (!over) {
+      onColumnsChange?.(boards);
+      return;
+    }
 
-    const source = findSubCardLocation(boards, active.id)
-      ?? {
-        boardIndex: active.data.current?.boardIndex ?? -1,
-        subCardIndex: active.data.current?.subCardIndex ?? -1,
-      };
-    if (source.boardIndex === -1 || source.subCardIndex === -1) return;
+    const current = findSubCardLocation(boards, active.id);
+    if (!current) {
+      onColumnsChange?.(boards);
+      return;
+    }
 
     const dest = resolveDropLocation(boards, over.id, over.data.current);
-    if (dest.boardIndex < 0 || dest.boardIndex >= boards.length) return;
+    if (dest.boardIndex < 0 || dest.boardIndex >= boards.length) {
+      onColumnsChange?.(boards);
+      return;
+    }
+
+    if (current.boardIndex === dest.boardIndex) {
+      const droppingOnColumn = typeof over.id === 'string' && String(over.id).startsWith('column-');
+      if (
+        !droppingOnColumn &&
+        dest.subCardIndex >= 0 &&
+        dest.subCardIndex !== current.subCardIndex &&
+        active.id !== over.id
+      ) {
+        const reordered = moveSubCard(
+          boards,
+          current.boardIndex,
+          current.subCardIndex,
+          dest.boardIndex,
+          dest.subCardIndex,
+        );
+        setBoards(reordered);
+        onColumnsChange?.(reordered);
+        return;
+      }
+      onColumnsChange?.(boards);
+      return;
+    }
 
     const newBoards = moveSubCard(
       boards,
-      source.boardIndex,
-      source.subCardIndex,
+      current.boardIndex,
+      current.subCardIndex,
       dest.boardIndex,
       dest.subCardIndex,
     );

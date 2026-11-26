@@ -926,6 +926,39 @@ describe('audit fixes', () => {
     expect(screen.getByText('Custom')).toBeInTheDocument();
   });
 
+  it('RDS-024: pauseOnHover={false} does not pause the autohide timer on hover', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { container } = render(
+      <RdsCompToast {...base} message="m" autoHideDuration={1000} pauseOnHover={false} onClose={onClose} />,
+    );
+    const toast = container.querySelector('.rds-comp-toast');
+    fireEvent.mouseEnter(toast!);
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    expect(onClose).toHaveBeenCalledWith(null, 'timeout');
+    jest.useRealTimers();
+  });
+
+  it('RDS-042: reopening controlled open restarts the autohide timer', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { rerender } = render(
+      <RdsCompToast {...base} message="m" open autoHideDuration={500} onClose={onClose} />,
+    );
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
+    rerender(<RdsCompToast {...base} message="m" open={false} autoHideDuration={500} onClose={onClose} />);
+    rerender(<RdsCompToast {...base} message="m" open autoHideDuration={500} onClose={onClose} />);
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    expect(onClose).toHaveBeenCalledWith(null, 'timeout');
+    jest.useRealTimers();
+  });
+
   it('G6-135 controlled open and onClose reasons', () => {
     const onClose = jest.fn();
     const { rerender } = render(<RdsCompToast {...base} message="m" open={true} onClose={onClose} />);

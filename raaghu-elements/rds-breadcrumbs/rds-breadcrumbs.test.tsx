@@ -162,9 +162,9 @@ describe('RdsBreadcrumbs', () => {
   });
 
   describe('Icons', () => {
-    it('should render icons by default', () => {
+    it('RDS-146: does not render icons by default', () => {
       setup();
-      expect(screen.getByTestId('home-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('home-icon')).not.toBeInTheDocument();
     });
 
     it('should not render icons when showIcon is false', () => {
@@ -173,37 +173,37 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('should render icons based on autoIcons', () => {
-      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Products' })} autoIcons={true} />);
+      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Products' })} showIcon autoIcons={true} />);
       expect(screen.getByTestId('home-icon')).toBeInTheDocument();
     });
 
     it('should not render icons when autoIcons is false', () => {
-      const { container } = render(<RdsBreadcrumbs items={[{ label: 'No Icon Item' }]} autoIcons={false} />);
+      const { container } = render(<RdsBreadcrumbs items={[{ label: 'No Icon Item' }]} showIcon autoIcons={false} />);
       expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
     });
 
     it('should use item-specific icon', () => {
-      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} showIcon />);
       expect(screen.getByTestId('star-icon')).toBeInTheDocument();
     });
 
     it('should use global icon when item icon is not set', () => {
-      render(<RdsBreadcrumbs items={[{ label: 'Home' }]} icon="folder" />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home' }]} showIcon icon="folder" />);
       expect(screen.getByTestId('folder-icon')).toBeInTheDocument();
     });
 
     it('should prioritize item icon over global icon', () => {
-      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} icon="folder" />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} showIcon icon="folder" />);
       expect(screen.getByTestId('star-icon')).toBeInTheDocument();
     });
 
-    it('should assign default icon based on position and label', () => {
-      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Folder' })} />);
+    it('should assign default icon based on position and label when autoIcons is on', () => {
+      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Folder' })} showIcon autoIcons />);
       expect(screen.getByTestId('home-icon')).toBeInTheDocument();
     });
 
     it('should not render icon when item showIcon is false', () => {
-      render(<RdsBreadcrumbs items={list({ label: 'Home', showIcon: false }, { label: 'Products' })} />);
+      render(<RdsBreadcrumbs items={list({ label: 'Home', showIcon: false }, { label: 'Products' })} showIcon autoIcons />);
       expect(screen.getByText('Home').querySelector('[data-testid]')).not.toBeInTheDocument();
     });
   });
@@ -468,6 +468,7 @@ describe('RdsBreadcrumbs audit fixes', () => {
           { label: 'Laptops' },
         ]}
         icon={<span data-testid="global-node-icon" />}
+        showIcon
       />
     );
     expect(screen.getByTestId('item-node-icon')).toBeInTheDocument();

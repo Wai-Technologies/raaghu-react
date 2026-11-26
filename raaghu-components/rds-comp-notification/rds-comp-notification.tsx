@@ -2,12 +2,12 @@ import clsx from "clsx";
 import { useState } from "react";
 import type { FC, MouseEvent } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
-import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-notification.scss";
+import Close from '@mui/icons-material/Close';
 import {
     NotificationLayout,
     NotificationStyle,
@@ -97,7 +97,13 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const isHorizontalLayout = layout === NotificationLayout.Horizontal;
 
     return (
-        <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}>
+        <Box
+            {...rest}
+            ref={ref}
+            className={clsx("rds-comp-notification-list", className)}
+            style={typeof styleProp === 'object' ? styleProp : undefined}
+            sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}
+        >
             {visibleNotifications.map(({ notification, key }) => (
                 <Card
                     role="status"
@@ -107,9 +113,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                       `rds-comp-notification--layout-${layout}`,
                       `rds-comp-notification--style-${style}`,
                       `rds-comp-notification--type-${resolvedType}`,
-                      className
                     )}
-                    style={typeof styleProp === 'object' ? styleProp : undefined}
                     sx={{ padding: isHorizontalImage ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: isHorizontalImage ? "flex" : "block",overflow: "hidden"
                     }}>
 

@@ -171,7 +171,7 @@
     &.border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
     &.border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
 
-    .row {
+    .time-picker__header {
       margin: 0;
       display: flex;
       justify-content: space-between;

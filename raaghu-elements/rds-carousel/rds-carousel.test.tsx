@@ -581,11 +581,11 @@ describe('audit fixes', () => {
       expect(getSlides(container)[2]).not.toHaveAttribute('inert');
     });
 
-    it('ignores an activeIndex outside the slide range', () => {
+    it('clamps an activeIndex outside the slide range to the last slide', () => {
       const { container, rerender } = render(<RdsCarousel activeIndex={0}>{slides.slice(0, 2)}</RdsCarousel>);
       rerender(<RdsCarousel activeIndex={3}>{slides.slice(0, 2)}</RdsCarousel>);
       const dots = container.querySelectorAll('.rds-carousel__indicator');
-      expect(dots[0]).toHaveAttribute('aria-current', 'true');
+      expect(dots[1]).toHaveAttribute('aria-current', 'true');
     });
   });
 });
@@ -632,4 +632,24 @@ describe('RdsCarousel additive renames', () => {
     expect(dots(container)[0]).toHaveClass('rds-carousel__indicator--line');
   });
 });
+describe('RDS-160 carousel children and activeIndex', () => {
+  const dots = (c: HTMLElement) => c.querySelectorAll('.rds-carousel__indicator');
+  const slides = [<div key="a">A</div>, <div key="b">B</div>, <div key="c">C</div>];
 
+  it('flattens sparse/falsy children via Children.toArray', () => {
+    const { container } = render(
+      <RdsCarousel>
+        <div>One</div>
+        {false}
+        {null}
+        <div>Two</div>
+      </RdsCarousel>,
+    );
+    expect(dots(container)).toHaveLength(2);
+  });
+
+  it('clamps out-of-range activeIndex to the last slide', () => {
+    const { container } = render(<RdsCarousel activeIndex={99}>{slides}</RdsCarousel>);
+    expect(dots(container)[2]).toHaveAttribute('aria-current', 'true');
+  });
+});

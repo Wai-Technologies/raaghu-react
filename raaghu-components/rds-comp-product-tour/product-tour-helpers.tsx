@@ -1,11 +1,13 @@
 import type { HTMLAttributes, KeyboardEvent, ReactNode, Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material';
 import { Box, Typography, IconButton } from '@mui/material';
-import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import RdsInput from '../../raaghu-elements/rds-input/rds-input';
 import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import clsx from 'clsx';
+import Close from '@mui/icons-material/Close';
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
 export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
@@ -73,6 +75,10 @@ export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElem
     items?: string[];
     /** @deprecated Use `items` instead. */
     tabTitle?: string[];
+    /** Controlled visibility. When set, the tour ignores internal open state. */
+    open?: boolean;
+    /** Initial visibility when uncontrolled. @default true */
+    defaultOpen?: boolean;
     /** Called when the tour is dismissed via the close button. */
     onClose?: () => void;
     /** Whether the dismiss button is shown; overridden by `controls.dismiss`. */

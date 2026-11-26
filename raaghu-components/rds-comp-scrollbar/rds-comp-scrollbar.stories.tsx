@@ -2,7 +2,8 @@ import React from "react";
 import { expect } from 'storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsScrollBar, { ScrollBarType, ScrollPosition } from "./rds-comp-scrollbar";
- import { ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 
  
 const meta: Meta = { 

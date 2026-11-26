@@ -103,7 +103,7 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
   showDescription?: boolean;
   /** Shows the icon. Defaults to `true`. Use `icon={false}` to hide it as well. */
   showIcon?: boolean;
-  /** Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. Defaults to a person icon. */
+  /** Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. No icon is shown when neither `icon` nor `changeIcon` is set. */
   icon?: ReactNode;
   /** @deprecated Use `icon` instead. */
   changeIcon?: CardIconName;
@@ -173,7 +173,8 @@ const RdsCard = ({
   };
 
   const hasCustomIcon = icon !== undefined && !iconHiddenByProp;
-  const iconName = changeIcon ?? 'person';
+  const iconName = changeIcon;
+  const mappedIcon = iconName ? ICON_MAP[iconName] : undefined;
 
   const cardClassName = clsx(
     'rds-card',
@@ -186,15 +187,15 @@ const RdsCard = ({
     !showSubtext && 'rds-card--hide-subtext',
     !showDescription && 'rds-card--hide-description',
     !showIcon && 'rds-card--hide-icon',
-    showIcon && !hasCustomIcon && `rds-card--icon-${iconName}`,
+    showIcon && !hasCustomIcon && iconName && `rds-card--icon-${iconName}`,
     className,
   );
 
   const cardInlineStyle = padding ? { padding } : undefined;
 
-  const iconElement = !showIcon ? null : (
-    <Avatar className={clsx('rds-card__icon', !hasCustomIcon && `rds-card__icon--${iconName}`)}>
-      {hasCustomIcon ? icon : (ICON_MAP[iconName] ?? <Person />)}
+  const iconElement = !showIcon || (!hasCustomIcon && !mappedIcon) ? null : (
+    <Avatar className={clsx('rds-card__icon', !hasCustomIcon && iconName && `rds-card__icon--${iconName}`)}>
+      {hasCustomIcon ? icon : mappedIcon}
     </Avatar>
   );
 
