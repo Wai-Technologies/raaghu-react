@@ -29,7 +29,7 @@ figma.connect(
         height="240px"
         muted={false}
         autoplay={props.autoplay ?? false}
-        videoLink={props.videoLink || "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
+        videoLink={props.videoLink || "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"}
       />
     ),
   },

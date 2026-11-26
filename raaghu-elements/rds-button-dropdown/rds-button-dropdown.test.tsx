@@ -34,7 +34,7 @@ jest.mock('../rds-checkbox/rds-checkbox', () => {
 });
 
 jest.mock('../rds-radio/rds-radio', () => {
-  return function MockRadio({ options, value, onChange, state }: any) {
+  return function MockRadio({ options, value, onChange, disabled }: any) {
     return (
       <div data-testid="radio-group">
         {options.map((opt: any) => (
@@ -44,9 +44,8 @@ jest.mock('../rds-radio/rds-radio', () => {
               value={opt.value}
               checked={value === opt.value}
               onChange={onChange}
-              disabled={state === 'disabled'}
+              disabled={disabled}
             />
-            {opt.text}
           </label>
         ))}
       </div>

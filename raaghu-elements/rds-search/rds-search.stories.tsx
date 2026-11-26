@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import { Box, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import RdsSearch from './rds-search';
+
+const onSearchAction = fn().mockName('onSearch');
 
 const searchResultsBoxSx = {
   p: 1,
@@ -128,7 +131,7 @@ export const Default: Story = {
           : [];
         setSearchResults(mockResults);
       } else {
-        alert(`Searching for: ${value}`);
+        onSearchAction(value);
       }
     };
 

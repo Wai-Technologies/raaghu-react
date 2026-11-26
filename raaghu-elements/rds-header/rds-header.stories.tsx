@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import RdsHeader from './rds-header';
 import { Button, IconButton, Avatar, Badge } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
@@ -321,7 +322,7 @@ export const WithMenuButton: Story = {
   args: {
     title: 'Dashboard',
     showMenuButton: true,
-    onMenuClick: () => alert('Menu clicked!'),
+    onMenuClick: fn().mockName('onMenuClick'),
     color: 'default',
   },
 };

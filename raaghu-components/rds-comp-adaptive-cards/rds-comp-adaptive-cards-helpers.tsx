@@ -427,7 +427,7 @@ export function CalendarReminderForm({
 export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: AdaptiveCardProps) {
   const [selectedValue, setSelectedValue] = useState('');
   const radioOptionsMapped = useMemo(
-    () => radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [],
+    () => radioOptions?.map(opt => ({ value: opt.value, label: `${opt.label} : ${opt.desc}` })) ?? [],
     [radioOptions]
   );
   return (
@@ -444,7 +444,6 @@ export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions 
         options={radioOptionsMapped}
         value={selectedValue}
         onChange={e => setSelectedValue(e.target.value)}
-        direction="column"
         layout="icon with label"
         className="rds-adaptive-cards__activity-update-radio-group"
       />

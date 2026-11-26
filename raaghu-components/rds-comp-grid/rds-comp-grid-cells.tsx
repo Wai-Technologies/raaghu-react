@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import {
   Box,
   TextField,
@@ -308,7 +309,7 @@ export const GridBodyCell: React.FC<GridBodyCellProps> = ({
   return (
     <TableCell key={header.key} sx={{ ...cellSx, color: 'text.primary' }}>
       {shouldRenderHtml ? (
-        <Box sx={HTML_CELL_SX} dangerouslySetInnerHTML={{ __html: String(cellValue) }} />
+        <Box sx={HTML_CELL_SX} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(String(cellValue)) }} />
       ) : isEditable && inlineEditMode === 'cell' ? (
         <EditableCell
           value={cellValue}

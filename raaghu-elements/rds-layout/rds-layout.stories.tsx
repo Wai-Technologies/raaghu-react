@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import RdsLayout from './rds-layout';
 import { Typography, Card, CardContent, Box, IconButton } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
@@ -89,7 +90,7 @@ export const WithMenuButton: Story = {
     header: {
       title: 'Dashboard',
       showMenuButton: true,
-      onMenuClick: () => alert('Menu clicked!'),
+      onMenuClick: fn().mockName('onMenuClick'),
     },
     children: <SampleContent />,
   },

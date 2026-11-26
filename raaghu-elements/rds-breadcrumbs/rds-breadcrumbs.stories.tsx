@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import RdsBreadcrumbs, { BreadcrumbSeparator } from './rds-breadcrumbs';
 
 const meta: Meta<typeof RdsBreadcrumbs> = {
@@ -108,10 +109,10 @@ export const Simple: Story = {
 export const WithClickHandlers: Story = {
   args: {
     items: [
-      { label: 'Home', onClick: () => console.log('Navigate to Home') },
-      { label: 'Products', onClick: () => console.log('Navigate to Products') },
-      { label: 'Category', onClick: () => console.log('Navigate to Category') },
-      { label: 'Subcategory', onClick: () => console.log('Navigate to Subcategory') },
+      { label: 'Home', onClick: fn().mockName('navigateToHome') },
+      { label: 'Products', onClick: fn().mockName('navigateToProducts') },
+      { label: 'Category', onClick: fn().mockName('navigateToCategory') },
+      { label: 'Subcategory', onClick: fn().mockName('navigateToSubcategory') },
       { label: 'Current Page', active: true },
     ],
     layout: 'pill background',

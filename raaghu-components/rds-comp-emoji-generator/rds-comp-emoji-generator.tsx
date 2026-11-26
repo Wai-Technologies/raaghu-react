@@ -274,8 +274,13 @@ function isFlagEmoji(emoji: string): boolean {
         || /\uE006/u.test(normalized);
 }
 
+// Pinned: the twemoji repo is archived, so `@latest` is not a stable reference.
+const TWEMOJI_BASE_URL = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.3/assets/72x72';
+
 function twemojiUrl(emoji: string): string {
-    const normalized = normalizeEmojiForTwemoji(emoji);
-    const codepoints = Array.from(normalized).map(c => c.codePointAt(0)!.toString(16)).join('-');
-    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/${codepoints}.png`;
+    // Twemoji file names keep U+FE0F inside ZWJ sequences (e.g. pirate / rainbow flag)
+    // and drop it everywhere else.
+    const forFileName = emoji.includes('‍') ? emoji.replace(/︎/g, '') : normalizeEmojiForTwemoji(emoji);
+    const codepoints = Array.from(forFileName).map(c => c.codePointAt(0)!.toString(16)).join('-');
+    return `${TWEMOJI_BASE_URL}/${codepoints}.png`;
 }

@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
 import { useChartThemeMode } from "../chart-utils";
+import placeholderAvatar from "../assets/placeholder-avatar.jpg";
 import {
   NotificationLayout,
   NotificationStyle,
@@ -139,8 +140,7 @@ export function NotificationCard({
           {style === NotificationStyle.Avatar && (
             <Avatar
               src={
-                notification.avatar ||
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+                notification.avatar || placeholderAvatar
               }
               sx={{ width: 'var(--rds-spacing-40-px)', height: 'var(--rds-spacing-40-px)', marginRight: 2 }}
             />

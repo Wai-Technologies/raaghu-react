@@ -135,7 +135,7 @@ const RdsCompAiAttachement = ({
             <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
             {showBadge && (
               <RdsBadge
-                colorVariant={badgeColor || "primary"}
+                color={badgeColor || "primary"}
                 layout="text"
                 shape="rectangle"
                 badgeContent={badgeLabel || ""}

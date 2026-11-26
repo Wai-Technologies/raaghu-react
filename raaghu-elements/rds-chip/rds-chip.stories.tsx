@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import RdsChip from './rds-chip';
 import { Face, Delete, Done } from '@mui/icons-material';
 
@@ -75,7 +76,7 @@ export const Clickable: Story = {
   args: {
     label: 'Clickable Chip',
     clickable: true,
-    onClick: () => alert('Chip clicked!'),
+    onClick: fn().mockName('onClick'),
   },
 };
 
@@ -89,7 +90,7 @@ export const WithIcon: Story = {
 export const WithDeleteIcon: Story = {
   args: {
     label: 'Deletable Chip',
-    onDelete: () => alert('Chip deleted!'),
+    onDelete: fn().mockName('onDelete'),
     deleteIcon: <Delete />,
   },
 };

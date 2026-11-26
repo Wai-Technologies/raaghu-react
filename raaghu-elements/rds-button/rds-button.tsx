@@ -161,7 +161,7 @@ const RdsButton = forwardRef<HTMLButtonElement, RdsButtonProps>(({
   const renderContent = () => {
     if (isLoading) {
       return <RdsCompSpinner
-        colorVariant="light"
+        color="light"
         labelText={text || "Loading"}
         layout={SpinnerLayout.SpinnerAndLabel}
         showLabel

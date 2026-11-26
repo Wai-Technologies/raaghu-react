@@ -62,7 +62,7 @@ const SortableSubCard = memo(({ subCard, subCardIndex, boardIndex, avatarData, t
               {subCard.displayId && <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId}</Typography>}
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
-              {subCard.badge && <RdsBadge badgeContent={subCard.badge} color="secondary" size="small" shape="rectangle" colorVariant="secondary" />}
+              {subCard.badge && <RdsBadge badgeContent={subCard.badge} color="secondary" size="small" shape="rectangle" />}
               <IconButton
                 size="small"
                 onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(subCard.SubcardId, e, subCard, boardIndex); }}

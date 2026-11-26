@@ -33,11 +33,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       options: ['error', 'warning', 'info', 'success'],
       description: 'Semantic color of the banner',
     },
-    type: {
-      control: 'select',
-      options: ['error', 'warning', 'info', 'success'],
-      description: 'Deprecated: use color',
-    },
+    type: { table: { disable: true } },
     Icon: {
       control: 'boolean',
       description: 'Show the info icon in the banner',
@@ -113,7 +109,7 @@ type Story = StoryObj<typeof meta>;
 export const Info: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'info',
+    color: 'info',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -126,7 +122,7 @@ export const Info: Story = {
 export const Success: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'success',
+    color: 'success',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -136,7 +132,7 @@ export const Success: Story = {
 export const Warning: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'warning',
+    color: 'warning',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -146,7 +142,7 @@ export const Warning: Story = {
 export const Error: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'error',
+    color: 'error',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -156,7 +152,7 @@ export const Error: Story = {
 export const Filled: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'success',
+    color: 'success',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -166,7 +162,7 @@ export const Filled: Story = {
 export const Outlined: Story = {
   args: {
     description: 'This is the description of the banner.',
-    type: 'warning',
+    color: 'warning',
     Icon: true,
     showTitle: true,
     title: 'Heading Title.',
@@ -178,7 +174,7 @@ export const Outlined: Story = {
 export const NotClosable: Story = {
   args: {
     description: 'This banner cannot be dismissed.',
-    type: 'warning',
+    color: 'warning',
     closable: false,
   },
 };
@@ -186,7 +182,7 @@ export const NotClosable: Story = {
 export const WithActions: Story = {
   args: {
     description: 'New features are available!',
-    type: 'success',
+    color: 'success',
     actions: (
       <Box sx={{ display: 'flex', gap: 1, marginBottom: "3px" }}>
         <Button size="small" variant="outlined" color="inherit">
@@ -231,7 +227,7 @@ const InteractiveStory = (args) => {
               <RdsBanner
                 key={banner.id}
                 description={banner.description}
-                type={banner.type}
+                color={banner.type}
     variantStyle={(args as any)?.variantStyle ?? 'style1'}
     style={(args as any)?.style}
                 onClose={() => handleClose(banner.id)}
@@ -252,25 +248,25 @@ export const AllTypes: Story = {
     <Box sx={{ width: 600, display: 'flex', flexDirection: 'column', gap: 1 }}>
       <RdsBanner
         description="This is an info banner with useful information."
-        type="info"
+        color="info"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
         style={(args as any)?.style}
       />
       <RdsBanner
         description="This is a success banner for positive feedback."
-        type="success"
+        color="success"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
         style={(args as any)?.style}
       />
       <RdsBanner
         description="This is a warning banner to alert users."
-        type="warning"
+        color="warning"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
         style={(args as any)?.style}
       />
       <RdsBanner
         description="This is an error banner for critical issues."
-        type="error"
+        color="error"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
         style={(args as any)?.style}
       />
@@ -284,7 +280,7 @@ export const AllTypes: Story = {
           borderBottomColor: 'transparent'
         }}
         title="Heading Title."
-        type="success"        
+        color="success"        
         variantStyle="style1"
       />
       <RdsBanner
@@ -294,7 +290,7 @@ export const AllTypes: Story = {
         showTitle
         size="medium"
         title="Heading Title."
-        type="warning"
+        color="warning"
         variantStyle="style1"
       />
     </Box>
@@ -304,7 +300,7 @@ export const AllTypes: Story = {
 export const Persistent: Story = {
   args: {
     description: 'This is a persistent banner that stays visible even when closed.',
-    type: 'info',
+    color: 'info',
     persistent: true,
   },
 };
@@ -312,7 +308,7 @@ export const Persistent: Story = {
 export const NotFullWidth: Story = {
   args: {
     description: 'This banner is not full width.',
-    type: 'success',
+    color: 'success',
     fullWidth: false,
   },
 };

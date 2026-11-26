@@ -155,7 +155,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     stroke={true}
                     height={MENU_ICON_SIZES[size]}
                     width={MENU_ICON_SIZES[size]}
-                    colorVariant={menuIconColor}
+                    color={menuIconColor}
                 />
             </button>
             <div className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${props.alignment || 'left'} ${isMenuOpen ? 'rds-fab-menu__dropdown-container--open' : ''}`} ref={menuRef}>
