@@ -9,17 +9,27 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        State: {
-            options: [
-                "Default"   ,
-                "Active"  ,
-                "Selected",
-                "Disabled" ,
-                "Error"   
-            ],
-            control: { type: "select" },
-            description: "State of the text editor",
+        disabled: {
+            control: { type: "boolean" },
+            description: "Disables the editor",
+            table: { defaultValue: { summary: "false" } },
         },
+        selected: {
+            control: { type: "boolean" },
+            description: "Shows the editor in its selected style",
+            table: { defaultValue: { summary: "false" } },
+        },
+        error: {
+            control: { type: "boolean" },
+            description: "Shows the editor in its error style",
+            table: { defaultValue: { summary: "false" } },
+        },
+        active: {
+            control: { type: "boolean" },
+            description: "Shows the editor in its active (focused) style",
+            table: { defaultValue: { summary: "false" } },
+        },
+        State: { table: { disable: true } },
     },
 } satisfies Meta<typeof RdsCompTextEditor>;
 
@@ -28,13 +38,16 @@ type Story = StoryObj<typeof RdsCompTextEditor>;
 
 export const Default: Story = {
     args: {
-        State: "Default",
+        disabled: false,
+        selected: false,
+        error: false,
+        active: false,
         showTitle: true,
         label:"Label",
         isMandatory: false,
         rows:6,
         resizable:false,
         placeholder:"Enter Description"
-    },
+    },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };
+Default.parameters = { controls: { include: ['disabled', 'selected', 'error', 'active', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };

@@ -9,9 +9,13 @@ import {
   getCurrentTime, 
   formatTime 
 } from './time-picker-utils';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 export interface RdsTimePickerProps {
   style?: 'default' | 'compact';
+  /** Accent colour of the time picker. */
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+  /** @deprecated Use `color` instead (`info` maps to `primary`). */
   colorVariant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
   state?: 'default' | 'expanded' | 'selected';
   onChange?: (time: string) => void;
@@ -175,7 +179,12 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
   };
 
-  const variantClass = `time-picker-variant-${props.colorVariant || 'primary'}`;
+  if (props.colorVariant !== undefined) {
+    warnDeprecatedProp('RdsCompTimePicker', 'colorVariant', '`color`');
+  }
+  const legacyColor = props.colorVariant === 'info' ? 'primary' : props.colorVariant;
+  const color = props.color ?? legacyColor ?? 'primary';
+  const variantClass = `time-picker-variant-${color}`;
 
   return (
     <div ref={containerRef} className={`time-picker-container ${variantClass}`}>
@@ -185,7 +194,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       >
         <input
           type="text"
-          className={`time-input ${getInputBorderClass(props.colorVariant)}`}
+          className={`time-input ${getInputBorderClass(color)}`}
           value={props.value !== undefined ? props.value : time}
           readOnly
           disabled={props.disabled}
@@ -199,7 +208,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       </div>
 
       {showPicker && (
-        <div role="dialog" aria-label="Time picker" className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass(props.colorVariant)}`}>
+        <div role="dialog" aria-label="Time picker" className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass(color)}`}>
           <div className="row d-flex align-items-center justify-content-between">
             <div className={`time-display ${props.style === 'compact' ? "time-display-compact" : "time-display"}`}>
               {props.style === 'compact' 
@@ -239,10 +248,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
-            <button type="button" className={getButtonClasses(props.colorVariant).cancel} onClick={handleCancel}>Cancel</button>
+            <button type="button" className={getButtonClasses(color).cancel} onClick={handleCancel}>Cancel</button>
             <button
               type="button"
-              className={getButtonClasses(props.colorVariant).setTime}
+              className={getButtonClasses(color).setTime}
               onClick={handleSetTime}
             >
               Set Time

@@ -16,6 +16,7 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             source: {
                 transform: (code: string) => {
+                    code = code.replace(/color="([^"]+)"/g, (match, p1) => `color={ToastState.${p1.charAt(0).toUpperCase()}${p1.slice(1)}}`);
                     code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: ToastState.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);;
@@ -32,19 +33,23 @@ const meta: Meta<typeof RdsCompToast> = {
     
     tags: ["autodocs", 'stable'],
     argTypes: {
-        state: {
-            options: Object.values(ToastState), 
+        color: {
+            options: Object.values(ToastState),
             control: { 
                 type: "select",
                 labels: {
                     [ToastState.Basic]: 'Basic',
                     [ToastState.Info]: 'Info',
                     [ToastState.Success]: 'Success',
+                    [ToastState.Warning]: 'Warning',
                     [ToastState.Error]: 'Error'
                 }
             },
-            description: "State variant of the toast notification"
+            description: "Colour of the toast notification",
+            table: { defaultValue: { summary: "basic" } },
         },
+        state: { table: { disable: true } },
+        severity: { table: { disable: true } },
         layout: {
             options: Object.values(ToastLayout), 
             control: { 
@@ -119,7 +124,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        state: ToastState.Basic,
+        color: ToastState.Basic,
         headerText: "Toast Headline",
         showSubText: true,
         subText: "This is a big sample placeholder text.",

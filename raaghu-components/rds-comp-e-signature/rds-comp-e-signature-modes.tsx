@@ -15,6 +15,7 @@ export interface RdsESignatureUploadProps {
   disabled: boolean;
   disabledFooterMessage?: string;
   width?: number;
+  height?: number;
   title?: string;
   onSignatureChange?: (signature: string | File | null) => void;
 }
@@ -26,6 +27,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   disabled,
   disabledFooterMessage,
   width,
+  height,
   title,
   onSignatureChange,
 }) => {
@@ -58,13 +60,17 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   }, [onSignatureChange]);
 
   return (
-    <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
+    <Box
+      className={`rds-e-signature__upload-container${width ? ' rds-e-signature__upload-container--sized' : ''}`}
+      style={width ? { width: `${width}px`, maxWidth: '100%' } : { maxWidth: '695px' }}
+    >
       <Typography variant="h6" className="rds-e-signature__title">
         {title ?? (type === 'initials' ? 'Upload Initial' : 'Upload Signature')}
         <span className="rds-e-signature__required">*</span>
       </Typography>
       <Box
-        className={`rds-e-signature__upload-panel ${!disabled && isUploadHovered ? 'rds-e-signature__upload-panel--hover' : ''} ${uploadError ? 'rds-e-signature__upload-panel--error' : ''}`}
+        className={`rds-e-signature__upload-panel ${!disabled && isUploadHovered ? 'rds-e-signature__upload-panel--hover' : ''} ${uploadError ? 'rds-e-signature__upload-panel--error' : ''}${height ? ' rds-e-signature__upload-panel--fixed-height' : ''}`}
+        style={height ? { minHeight: `${height}px` } : undefined}
         onMouseEnter={() => !disabled && setIsUploadHovered(true)}
         onMouseLeave={() => !disabled && setIsUploadHovered(false)}
       >

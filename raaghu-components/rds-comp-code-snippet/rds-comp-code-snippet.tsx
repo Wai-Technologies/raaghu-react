@@ -132,6 +132,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
             languageOptions={languageOptions}
             onLanguageChange={handleLanguageChange}
             maxHeight={maxHeight}
+            theme={resolvedTheme}
           />
         )}
       </div>

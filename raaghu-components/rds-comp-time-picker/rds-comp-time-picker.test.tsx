@@ -124,23 +124,28 @@ describe('RdsCompTimePicker', () => {
   });
 
   describe('Color Variants', () => {
-    const colorVariants: Array<'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'> = 
-      ['primary', 'secondary', 'success', 'error', 'warning', 'info'];
+    const colorVariants: Array<'primary' | 'secondary' | 'success' | 'error' | 'warning'> =
+      ['primary', 'secondary', 'success', 'error', 'warning'];
 
     colorVariants.forEach((color) => {
       it(`should apply color variant ${color}`, () => {
-        render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
+        render(<RdsCompTimePicker {...defaultProps} color={color} />);
         const input = screen.getByPlaceholderText('12:00 AM');
         expect(input).toHaveClass(`border-${color}`);
       });
 
       it(`should apply ${color} color to buttons`, () => {
-        render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
+        render(<RdsCompTimePicker {...defaultProps} color={color} />);
         const input = screen.getByPlaceholderText('12:00 AM');
         fireEvent.click(input);
         const cancelBtn = screen.getByRole('button', { name: /cancel/i });
         expect(cancelBtn).toHaveClass(`cancel-btn`);
       });
+    });
+
+    it('maps the deprecated colorVariant="info" to primary', () => {
+      render(<RdsCompTimePicker {...defaultProps} colorVariant="info" />);
+      expect(screen.getByPlaceholderText('12:00 AM')).toHaveClass('border-primary');
     });
   });
 

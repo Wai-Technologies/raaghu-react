@@ -44,6 +44,8 @@ export interface RdsButtonDropdownProps {
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
   className?: string;
+  /** Extra class for the dropdown menu paper (rendered in a portal). */
+  menuClassName?: string;
   [key: string]: unknown;
 }
 
@@ -63,6 +65,7 @@ const RdsButtonDropdown = ({
   shape = 'rectangle',
   buttonState = 'default',
   className,
+  menuClassName,
   onChange,
   ...legacyProps
 }:RdsButtonDropdownProps) => {
@@ -163,7 +166,7 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         items={[]}
-        slotProps={{ paper: { style: { minWidth: 176 }, className: 'rds-button-dropdown__menu' } }}
+        slotProps={{ paper: { style: { minWidth: 176 }, className: clsx('rds-button-dropdown__menu', menuClassName) } }}
       >
         <div style={{ padding: 6, minWidth: 176 }}>
           {showSearch && (
