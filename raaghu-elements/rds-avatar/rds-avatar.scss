@@ -165,16 +165,10 @@
       z-index: calc(var(--rds-z-index-base) + 2);
       box-shadow: 0 0 0 var(--rds-avatar-dot-border-width) var(--rds-background-paper);
       transition: background var(--rds-transition-base);
-      right: calc(var(--rds-spacing-neg-4) * var(--dot-scale, 1));
+      right: calc(var(--rds-spacing-neg-2) * var(--dot-scale, 1));
     }
-
-    &.rds-avatar--dot-top .rds-avatar__dot {
-      right: calc(var(--rds-spacing-neg-4) * var(--dot-scale, 1));
-    }
-    &.rds-avatar--dot-bottom .rds-avatar__dot {
-      bottom: calc(var(--rds-spacing-neg-2) * var(--dot-scale, 1));
-      right: calc(0 * var(--dot-scale, 1));
-    }
+    .rds-avatar__dot--top { top: 0; }
+    .rds-avatar__dot--bottom { bottom: 0; }
   }
   
   &__info {
