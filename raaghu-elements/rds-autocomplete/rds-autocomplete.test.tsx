@@ -745,4 +745,12 @@ describe('RdsAutocomplete additive renames', () => {
     render(<RdsAutocomplete options={options} data-testid="country-autocomplete" />);
     expect(screen.getByTestId('country-autocomplete')).toHaveClass('rds-autocomplete');
   });
+
+  it('treats value={null} as controlled and clears the input', () => {
+    const options = [{ label: 'Option 1', value: 1 }];
+    const { rerender } = render(<RdsAutocomplete options={options} value={options[0]} />);
+    expect(screen.getByRole('combobox')).toHaveValue('Option 1');
+    rerender(<RdsAutocomplete options={options} value={null} />);
+    expect(screen.getByRole('combobox')).toHaveValue('');
+  });
 });

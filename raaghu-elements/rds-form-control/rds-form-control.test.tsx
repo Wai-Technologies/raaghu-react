@@ -465,7 +465,7 @@ describe('audit fixes', () => {
       expect(group.tagName).toBe('DIV');
     });
 
-    it('does not add a role when isGroup is not set', () => {
+    it('associates the label with the control when isGroup is not set', () => {
       const { container } = render(
         <RdsFormControl label="Name">
           <input type="text" />
@@ -474,7 +474,8 @@ describe('audit fixes', () => {
       const root = container.querySelector('.rds-form-control');
       expect(root).not.toHaveAttribute('role');
       expect(root).not.toHaveAttribute('aria-labelledby');
-      expect(container.querySelector('.MuiFormLabel-root')).not.toHaveAttribute('id');
+      expect(screen.getByRole('textbox', { name: 'Name' })).toBeInTheDocument();
+      expect(container.querySelector('.MuiFormLabel-root')).toHaveAttribute('for');
     });
 
     it('keeps consumer role and aria-labelledby', () => {

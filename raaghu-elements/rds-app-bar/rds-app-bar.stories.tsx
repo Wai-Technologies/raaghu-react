@@ -9,6 +9,7 @@ import RdsButton from '../rds-button/rds-button';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
+import './rds-app-bar.stories.scss';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 
 const HomeIcon = () => (

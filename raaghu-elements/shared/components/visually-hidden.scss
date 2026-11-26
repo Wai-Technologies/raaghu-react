@@ -1,0 +1,16 @@
+.rds-visually-hidden {
+  position: absolute;
+  width: var(--rds-input-sr-only-size);
+  height: var(--rds-input-sr-only-size);
+  padding: var(--rds-border-width-none);
+  margin: var(--rds-input-sr-only-offset);
+  overflow: hidden;
+  clip: rect(
+    var(--rds-border-width-none),
+    var(--rds-border-width-none),
+    var(--rds-border-width-none),
+    var(--rds-border-width-none)
+  );
+  white-space: nowrap;
+  border: var(--rds-border-width-none);
+}

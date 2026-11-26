@@ -6,6 +6,8 @@ export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'w
 export interface RdsTimePickerLocaleText {
   now?: string;
   cancel?: string;
+  /** Label for the action that clears the committed time. @default "Clear" */
+  clear?: string;
   setTime?: string;
   placeholder?: string;
 }

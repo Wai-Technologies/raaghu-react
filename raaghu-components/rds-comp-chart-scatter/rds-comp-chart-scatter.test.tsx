@@ -320,22 +320,57 @@ describe('RdsCompScatterChart', () => {
     });
   });
 
-  describe('Chart Destruction', () => {
-    it('destroys chart on unmount', () => {
-      const { unmount } = render(<RdsCompScatterChart {...defaultProps} />);
-      unmount();
-      expect(true).toBe(true);
+  describe('Chart Lifecycle', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+
+    beforeEach(() => {
+      ChartMock.mockClear();
+      jest
+        .spyOn(HTMLCanvasElement.prototype, 'getContext')
+        .mockReturnValue({} as unknown as ReturnType<HTMLCanvasElement['getContext']>);
     });
 
-    it('destroys previous chart on props update', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('destroys chart on unmount', () => {
+      const { unmount } = render(<RdsCompScatterChart {...defaultProps} />);
+      const chart = ChartMock.mock.results[0].value;
+      expect(chart.destroy).not.toHaveBeenCalled();
+      unmount();
+      expect(chart.destroy).toHaveBeenCalledTimes(1);
+    });
+
+    it('updates the existing chart in place when labels change', () => {
       const { rerender } = render(<RdsCompScatterChart {...defaultProps} />);
+      const chart = ChartMock.mock.results[0].value;
       rerender(
         <RdsCompScatterChart
           {...defaultProps}
           labels={['A', 'B', 'C']}
         />
       );
-      expect(true).toBe(true);
+      expect(ChartMock).toHaveBeenCalledTimes(1);
+      expect(chart.destroy).not.toHaveBeenCalled();
+      expect(chart.update).toHaveBeenCalledWith('none');
+      expect(chart.data.labels).toEqual(['A', 'B', 'C']);
+    });
+
+    it('does not recreate or update the chart when rerendered with equal props', () => {
+      const { rerender } = render(<RdsCompScatterChart {...defaultProps} />);
+      const chart = ChartMock.mock.results[0].value;
+      rerender(
+        <RdsCompScatterChart
+          {...defaultProps}
+          labels={[...defaultProps.labels]}
+          dataSets={defaultProps.dataSets.map((dataset) => ({ ...dataset }))}
+          options={{ ...defaultProps.options }}
+        />
+      );
+      expect(ChartMock).toHaveBeenCalledTimes(1);
+      expect(chart.update).not.toHaveBeenCalled();
+      expect(chart.destroy).not.toHaveBeenCalled();
     });
   });
 

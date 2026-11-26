@@ -20,6 +20,8 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       <button
         data-testid={`btn-${props.text || props.children || 'icon-only'}`}
         onClick={props.onClick}
+        disabled={props.disabled}
+        aria-label={props['aria-label']}
         data-color={props.color}
         data-style={props.variant ?? props.placement ?? props.style}
         data-layout={props.layout}
@@ -156,7 +158,7 @@ describe('RdsCompAiTypingSection', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       
-      await userEvent.type(textarea, 'Line 1{enter}Line 2');
+      fireEvent.change(textarea, { target: { value: 'Line 1\nLine 2' } });
       expect(textarea.value).toContain('Line 1');
       expect(textarea.value).toContain('Line 2');
     });
@@ -175,13 +177,24 @@ describe('RdsCompAiTypingSection', () => {
       expect(textarea.value).toBe('');
     });
 
-    it('handles empty input submission', () => {
+    it('disables send and does not call onSend when empty', () => {
       const onSend = jest.fn();
       render(<RdsCompAiTypingSection {...defaultProps} onSend={onSend} />);
       const sendButton = screen.getByTestId('btn-icon-only');
-      
+      expect(sendButton).toBeDisabled();
       fireEvent.click(sendButton);
-      expect(onSend).toHaveBeenCalledWith('', undefined);
+      expect(onSend).not.toHaveBeenCalled();
+    });
+
+    it('sends on Enter and inserts newline on Shift+Enter', async () => {
+      const onSend = jest.fn();
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} onSend={onSend} />);
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
+      fireEvent.change(textarea, { target: { value: 'Hello' } });
+      fireEvent.keyDown(textarea, { key: 'Enter', shiftKey: true });
+      expect(onSend).not.toHaveBeenCalled();
+      fireEvent.keyDown(textarea, { key: 'Enter' });
+      expect(onSend).toHaveBeenCalledWith('Hello', undefined);
     });
 
     it('handles very long text input', async () => {
@@ -574,10 +587,9 @@ it('handles emoji input', () => {
   });
 
   describe('Accessibility', () => {
-    it('textarea has title attribute', () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
-      expect(textarea).toHaveAttribute('title', 'Enter your prompt here');
+    it('textarea has an accessible name', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.getByRole('textbox', { name: 'Prompt input' })).toBeInTheDocument();
     });
   
     it('has no axe accessibility violations', async () => {
@@ -586,14 +598,15 @@ it('handles emoji input', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('buttons are keyboard accessible', () => {
+    it('send button is disabled when empty and enabled with text', async () => {
       const onSend = jest.fn();
-      render(
+      const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
       const sendButton = screen.getByTestId('btn-icon-only');
-      
-      expect(sendButton).toBeVisible();
+      expect(sendButton).toBeDisabled();
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
+      fireEvent.change(textarea, { target: { value: 'Hi' } });
       expect(sendButton).toBeEnabled();
     });
 

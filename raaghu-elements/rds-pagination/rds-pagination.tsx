@@ -147,11 +147,8 @@ const RdsPagination = ({
 
   const handlePageSizeChange = (event: SelectChangeEvent<number>) => {
     const newSize = Number(event.target.value);
-    if (onPageSizeChange) {
-      onPageSizeChange(newSize);
-    } else {
-      setLocalPageSize(newSize);
-    }
+    if (pageSizeProp === undefined) setLocalPageSize(newSize);
+    if (onPageSizeChange) onPageSizeChange(newSize);
   };
   const handleManualPageInput = (event: ChangeEvent<HTMLInputElement>) => {
     setManualPageInput(event.target.value);

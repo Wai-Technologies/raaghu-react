@@ -78,7 +78,7 @@ const preview: Preview = {
       options: {
         restoreScroll: true,
       },
-      test: 'todo',
+      test: 'error',
     },
     docs: {
       theme: getDocsTheme('system'),

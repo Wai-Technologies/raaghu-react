@@ -1,9 +1,10 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartOptions, ChartDataset, ChartData } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-mixed.scss";
 
@@ -26,6 +27,8 @@ export interface RdsCompMixedChartProps
   width?: string | number;
   /** Accessible label of the chart. Default "Mixed chart". */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
@@ -43,13 +46,21 @@ const RdsCompMixedChart = ({
   height,
   width,
   ariaLabel,
+  description,
   chartLabel,
   className,
   ref,
   sx,
   ...rest
 }: RdsCompMixedChartProps) => {
+  const accessibleAltId = useId();
   const resolved = resolveChartData("RdsCompMixedChart", data, labels, dataSets);
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    resolved.labels,
+    resolved.datasets,
+  );
   const { canvasRef } = useChart(
     {
       type: "bar",
@@ -70,6 +81,13 @@ const RdsCompMixedChart = ({
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompMixedChart", ariaLabel, chartLabel, "Mixed chart")}
+        aria-describedby={describedBy}
+      />
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={resolved.labels}
+        datasets={resolved.datasets}
       />
     </Box>
   );

@@ -1,6 +1,6 @@
 import RdsCompTextEditor from "./rds-comp-text-editor";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Text Editor',
@@ -39,11 +39,29 @@ export const Default: Story = {
         required: false,
         rows:6,
         resizable:false,
-        placeholder:"Enter Description"
+        placeholder:"Enter Description",
+        onChange: fn(),
     },
-    play: async ({ canvasElement }) => {
-        const editor = canvasElement.querySelector('[contenteditable="true"], .ql-editor, .ProseMirror') || canvasElement.firstElementChild;
-        expect(editor).toBeTruthy();
+    play: async ({ canvasElement, args }) => {
+        const canvas = within(canvasElement);
+        const editable = await waitFor(() => {
+            const node = canvasElement.querySelector('[contenteditable="true"]');
+            expect(node).toBeTruthy();
+            return node as HTMLElement;
+        });
+
+        await userEvent.click(editable);
+        await userEvent.type(editable, 'Hello React 19');
+
+        const bold = canvasElement.querySelector('.rdw-option-wrapper[title="Bold"], .rdw-option-wrapper[aria-label="Bold"]')
+            ?? canvas.getByTitle('Bold');
+        await userEvent.click(bold as HTMLElement);
+
+        await waitFor(() => {
+            expect(args.onChange).toHaveBeenCalled();
+            const html = (args.onChange as ReturnType<typeof fn>).mock.calls.at(-1)?.[0] as string;
+            expect(html).toMatch(/Hello React 19/i);
+        });
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['state', 'showTitle', 'label', 'required','rows','resizable','placeholder','className','sx','ref'] } };
+Default.parameters = { controls: { include: ['state', 'showTitle', 'label', 'required','rows','resizable','placeholder','onChange','className','sx','ref'] } };

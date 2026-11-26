@@ -1238,9 +1238,9 @@ export const semanticAliasTokens = {
   /** Icon button focus color (used by rds-icon-button) */
   rdsIconButtonFocusColor: colorTokens.info[600],
   /** Tab selected accent (line-solid variants) */
-  tabAccent: colorTokens.primary[200],
+  tabAccent: 'var(--rds-primary-main)',
   /** Tab selected background tint */
-  tabAccentBg: 'rgba(60, 152, 255, 0.3)',
+  tabAccentBg: 'color-mix(in srgb, var(--rds-primary-main) 30%, transparent)',
 };
 
 export const mapTokens = {

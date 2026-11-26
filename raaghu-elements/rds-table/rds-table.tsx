@@ -216,9 +216,10 @@ const RdsTable = ({
     } else {
       nextDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     }
-    if (onSortChange) onSortChange(nextColumn, nextDirection); else {
+    if (controlledSortBy === undefined) {
       updateTableState({ internalSortBy: nextColumn, internalSortDirection: nextDirection });
     }
+    onSortChange?.(nextColumn, nextDirection);
   };
 
   const sortedRows = useMemo(() => {

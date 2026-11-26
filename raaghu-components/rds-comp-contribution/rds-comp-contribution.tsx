@@ -1,13 +1,20 @@
 import dayjs, { type Dayjs } from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useRef, useState, type HTMLAttributes, type Ref, type SVGProps, type ReactElement } from 'react';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type HTMLAttributes, type Ref, type SVGProps, type ReactElement } from 'react';
 import { Box } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { VisuallyHidden } from '../../raaghu-elements/shared/components/visually-hidden';
 
-dayjs.extend(customParseFormat);
+let dayjsPluginsReady = false;
+/** Registers the dayjs plugins on first use so importing this module has no side effects. */
+const ensureDayjsPlugins = () => {
+  if (dayjsPluginsReady) return;
+  dayjs.extend(customParseFormat);
+  dayjsPluginsReady = true;
+};
 
 const COLUMNS = 53;
 
@@ -67,6 +74,8 @@ export interface RdsCompContributionProps
   ref?: Ref<HTMLDivElement>;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
+  /** Accessible label for the contribution graph SVG. @default 'Contribution graph' */
+  ariaLabel?: string;
 }
 
 const RdsCompContribution = ({
@@ -93,9 +102,11 @@ const RdsCompContribution = ({
   panelMargin = 2,
   className,
   sx,
+  ariaLabel = 'Contribution graph',
   ref,
   ...rest
 }: RdsCompContributionProps) => {
+  const contributionAltId = useId();
   const deprecated: [string, unknown, string][] = [
     ['weekNames', weekNamesProp, 'weekdayLabels'],
     ['monthNames', monthNamesProp, 'monthLabels'],
@@ -179,6 +190,7 @@ const RdsCompContribution = ({
   }, [dynamicPanelMargin, dynamicPanelSize, monthLabelHeight, weekLabelWidth]);
 
   const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: Dayjs | Date | string, columnCount: number) => {
+    ensureDayjsPlugins();
     const d = typeof lastDay === 'string' ? dayjs(lastDay, dateFormat) : dayjs(lastDay);
     const lastWeekend = d.endOf('week');
     const endDate = d.endOf('day');
@@ -206,6 +218,19 @@ const RdsCompContribution = ({
     if (!values || !until || !panelColors) return null;
     return makeCalendarData(values, until, columns);
   }, [values, until, columns, panelColors, makeCalendarData]);
+
+  const contributionLevelCounts = useMemo(() => {
+    if (!values) return [];
+    const tally = new Map<number, number>();
+    Object.values(values).forEach((count) => {
+      const level = Number(count) || 0;
+      tally.set(level, (tally.get(level) ?? 0) + 1);
+    });
+    return [...tally.entries()].sort((a, b) => a[0] - b[0]);
+  }, [values]);
+
+  const contributionDescribedBy =
+    contributionLevelCounts.length > 0 ? `${contributionAltId}-data-table` : undefined;
 
   const weekLabels = useMemo(() => {
     if (!showWeekLabels) return null;
@@ -380,16 +405,38 @@ const RdsCompContribution = ({
             className="rds-comp-contribution__svg"
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             role="img"
-            aria-label="Contribution graph"
+            aria-label={ariaLabel}
+            aria-describedby={contributionDescribedBy}
             data-testid="svg-icon"
           >
-            <title>Contribution graph</title>
+            <title>{ariaLabel}</title>
             {weekLabels}
             {contributionPanels}
             {monthLabels}
           </svg>
         </div>
       </div>
+      {contributionLevelCounts.length > 0 ? (
+        <VisuallyHidden>
+          <table id={`${contributionAltId}-data-table`}>
+            <caption>Contribution counts by activity level</caption>
+            <thead>
+              <tr>
+                <th scope="col">Level</th>
+                <th scope="col">Days</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contributionLevelCounts.map(([level, days]) => (
+                <tr key={level}>
+                  <th scope="row">{level}</th>
+                  <td>{days}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </VisuallyHidden>
+      ) : null}
     </Box>
   );
 };

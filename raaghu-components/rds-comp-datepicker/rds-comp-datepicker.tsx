@@ -22,7 +22,15 @@ import {
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
-const toDate = (value?: Date | string | null) => (value ? new Date(value) : null);
+const DATE_ONLY = /^(\d{4})-(\d{2})-(\d{2})$/;
+/** `YYYY-MM-DD` is a calendar date in local time. Any other string is an absolute instant. */
+const toDate = (value?: Date | string | null) => {
+  if (!value) return null;
+  if (value instanceof Date) return value;
+  const match = DATE_ONLY.exec(value);
+  if (match) return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  return new Date(value);
+};
 /** Locale-aware display; omit locale to keep the legacy `toDateString().slice(4)` shape (G4-109). */
 const formatDisplayDate = (date: Date, locale?: string) =>
     locale

@@ -1023,4 +1023,10 @@ describe('audit fixes', () => {
     renderWithTheme(<RdsRange data-testid="price-range" />);
     expect(screen.getByTestId('price-range')).toHaveClass('rds-range');
   });
+
+  it('treats deprecated range without type as two-way', () => {
+    const { container } = renderWithTheme(<RdsRange range />);
+    expect(screen.getAllByRole('slider')).toHaveLength(2);
+    expect(container.querySelector('.rds-range')).toHaveClass('rds-range--two-way');
+  });
 });

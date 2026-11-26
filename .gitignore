@@ -58,6 +58,7 @@ bunfig.toml
 
 # Storybook
 /storybook-static/
+/.consumer-smoke-esm/
 /storybook-test/
 
 # Chromatic
@@ -116,3 +117,5 @@ Thumbs.db
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+/.consumer-smoke-button/
+/.consumer-smoke-mui-button/

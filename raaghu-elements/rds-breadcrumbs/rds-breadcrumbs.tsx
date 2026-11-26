@@ -219,23 +219,21 @@ const RdsBreadcrumbs = ({
         const itemLayoutClass = getLayoutClass(item.layout);
         const isSelected = item.selected === true;
 
+        const visuallySelected = isSelected || selectedIdx === index;
         const typographyClass = clsx(
           'rds-breadcrumbs__item',
           'rds-breadcrumbs__item__active',
           itemLayoutClass,
-          (isSelected || selectedIdx === index) && 'rds-breadcrumbs__item__selected',
+          visuallySelected && 'rds-breadcrumbs__item__selected',
         );
 
-        if (isLast || item.active || isSelected || selectedIdx === index) {
+        if (isLast) {
           return (
             <Typography
               key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
-              onClick={() => setSelectedIdx(index)}
-              {...(isLast
-                ? { 'aria-current': 'page' as const }
-                : { role: 'button', tabIndex: 0, onKeyDown: activateOnKey })}
-              style={{ cursor: 'pointer' }}
+              aria-current="page"
+              style={{ cursor: 'default' }}
             >
               {showIcon && item.showIcon !== false && getIconComponent(item.icon, icon, index, item.label)}
               {item.label}
@@ -243,11 +241,10 @@ const RdsBreadcrumbs = ({
           );
         }
 
-        const isClickable = Boolean(item.onClick) || item.selected === true;
-        const buttonProps =
-          !item.href && isClickable
-            ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
-            : {};
+        const isClickable = Boolean(item.onClick) || Boolean(item.href);
+        const buttonProps = !item.href
+          ? { role: 'button' as const, tabIndex: 0, onKeyDown: activateOnKey }
+          : {};
 
         return (
           <Link
@@ -256,18 +253,15 @@ const RdsBreadcrumbs = ({
             href={item.href}
             {...buttonProps}
             onClick={e => {
-              if (item.selected) {
-                setSelectedIdx(index);
-                e.preventDefault();
-              }
-
-              if (item.onClick) item.onClick(e);
+              setSelectedIdx(index);
+              item.onClick?.(e);
             }}
             underline="hover"
             className={clsx(
               'rds-breadcrumbs__item',
               itemLayoutClass,
-              item.selected && 'rds-breadcrumbs__item__selected',
+              (item.active || visuallySelected) && 'rds-breadcrumbs__item__active',
+              visuallySelected && 'rds-breadcrumbs__item__selected',
             )}
             sx={{ cursor: isClickable ? 'pointer' : 'default' }}
           >

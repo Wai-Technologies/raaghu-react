@@ -11,25 +11,13 @@ import {
   type SxProps,
   type Theme,
 } from '@mui/material';
-import { 
-  ExpandLess, 
-  ExpandMore,
-  DashboardOutlined,
-  GroupsOutlined,
-  AppsOutlined,
-  ManageAccounts,
-  DesignServicesOutlined,
-  ReceiptLongOutlined,
-  FolderOutlined,
-  MailOutline,
-  CampaignOutlined,
-  RequestQuoteOutlined
-} from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { getRaaghuLogoUrl } from '../shared/constants/raaghu-logo';
 import './rds-sidebar.scss';
 
 /** Use only values that React can render as children (guards Storybook `{}` controls). */
@@ -49,23 +37,6 @@ const asReactNode = (value: ReactNode): ReactNode => {
 };
 
 
-
-const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
-  { label: 'Dashboard', icon: <DashboardOutlined /> },
-  { label: 'Saas', icon: <AppsOutlined /> },
-  { label: 'Administration', icon: <ManageAccounts /> },
-  { label: 'Demo UI Components', icon: <DesignServicesOutlined /> },
-];
-
-const ABP_MENU_ITEMS: RdsSidebarItem[] = [
-  { label: 'Dashboard', icon: <DashboardOutlined /> },
-  { label: 'Saas', icon: <GroupsOutlined /> },
-  { label: 'Invoices', icon: <ReceiptLongOutlined /> },
-  { label: 'Ticket Allocation', icon: <FolderOutlined /> },
-  { label: 'Communication', icon: <MailOutline /> },
-  { label: 'Advertisements', icon: <CampaignOutlined /> },
-  { label: 'Requests', icon: <RequestQuoteOutlined /> },
-];
 
 /** A single navigation entry in {@link RdsSidebar}. */
 export interface RdsSidebarItem {
@@ -88,7 +59,7 @@ export interface RdsSidebarItem {
 
 /** Props for {@link RdsSidebar}. */
 export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {
-  /** Navigation items. Ignored when `platform` selects a built-in menu. */
+  /** Navigation items. */
   items: RdsSidebarItem[];
   /** @deprecated Use `open`. */
   isOpen?: boolean;
@@ -106,7 +77,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   defaultSearchValue?: string;
   /** Called when the search text changes. The sidebar also filters items by label. */
   onSearchChange?: (value: string) => void;
-  /** User shown in the avatar area. Defaults to "Jane Doe" / "Designation". String values are expected by RdsAvatar. */
+  /** User shown in the avatar area. String values are expected by RdsAvatar. */
   user?: { name?: string; subtitle?: string; avatarSrc?: string };
   /** Custom logo node; replaces the default logo image when `showLogo` is on. */
   logo?: ReactNode;
@@ -120,11 +91,14 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   collapsed?: boolean;
   /** Sidebar state: 'collapse' and 'fixed' render icons only, 'expanded' shows labels; `collapsed` takes precedence. @default 'expanded' */
   typeOf?: 'collapse' | 'expanded' | 'fixed';
-  /** @deprecated Pass `items` instead. */
+  /**
+   * @deprecated Pass `items` instead. No longer selects built-in demo menus;
+   * kept only to emit a deprecation warning.
+   */
   platform?: 'abp-list' | 'anz-list';
   /** @deprecated Use `user.avatarSrc` instead. */
   avatarSrc?: string;
-  /** Source of the default logo image shown in the header when the sidebar is expanded. */
+  /** Source of the logo image shown in the header when expanded (collapsed uses {@link getRaaghuLogoUrl}). */
   avatarCollapsedSrc?: string;
   /** Shows the header with the logo (or custom `logo`). */
   showLogo?: boolean;
@@ -178,16 +152,15 @@ const RdsSidebar = ({
     if (!isSearchControlled) setInnerSearch(value);
     onSearchChange?.(value);
   };
-  const userName = user?.name ?? 'Jane Doe';
-  const userSubtitle = user?.subtitle ?? 'Designation';
-  const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
+  const userName = user?.name;
+  const userSubtitle = user?.subtitle;
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
   const resolvedLogo = asReactNode(logo);
   const resolvedHeader = asReactNode(header);
   const resolvedFooter = asReactNode(footer);
 
-  const baseMenuItems = platform === 'abp-list' ? ABP_MENU_ITEMS :
-                   platform === 'anz-list' ? ANZ_MENU_ITEMS :
-                   items;
+  const baseMenuItems = items;
+  const defaultLogoSrc = getRaaghuLogoUrl('light');
 
   const searchQuery = currentSearch.trim().toLowerCase();
   const menuItems = !searchQuery
@@ -211,8 +184,10 @@ const RdsSidebar = ({
     return item.selected ?? item.active;
   };
 
-  const toggleOpen = (idx: number) => {
-    setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
+  const itemKey = (item: RdsSidebarItem) => `${item.path ?? item.href ?? ''}::${item.label}`;
+
+  const toggleOpen = (key: string) => {
+    setOpenMap(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
@@ -363,18 +338,20 @@ const RdsSidebar = ({
                   description={userSubtitle}
                   displayStyle="with-name"
                   name={userName}
-                  showDesignation
-                  showName
+                  showDesignation={Boolean(userSubtitle)}
+                  showName={Boolean(userName)}
                   status="online"
                   src={resolvedAvatarSrc}
                 />
               )
             ) : resolvedLogo ?? (
-              <img
-                src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
-                alt="Raaghu Design System Logo"
-                className={getLogoClass()}
-              />
+              (shouldShowIconsOnly || avatarCollapsedSrc) ? (
+                <img
+                  src={shouldShowIconsOnly ? defaultLogoSrc : avatarCollapsedSrc}
+                  alt="Raaghu Design System Logo"
+                  className={getLogoClass()}
+                />
+              ) : null
             ))}
           </div>
         )}
@@ -406,16 +383,17 @@ const RdsSidebar = ({
           </>
         )}
         <List className="rds-sidebar__nav-list">
-          {menuItems.map((item, index) => {
+          {menuItems.map((item) => {
             const itemIcon = asReactNode(item.icon);
             const hasChildren = !!(item.children && item.children.length);
             const itemHref = !hasChildren ? (item.href || item.path) : undefined;
+            const key = itemKey(item);
             const listItemButton = (
               <ListItemButton
                 {...(itemHref ? { component: 'a' as const, href: itemHref } : {})}
                 onClick={() => {
                   if (hasChildren) {
-                    toggleOpen(index);
+                    toggleOpen(key);
                   } else {
                     item.onClick && item.onClick();
                   }
@@ -423,7 +401,8 @@ const RdsSidebar = ({
                 disabled={item.disabled}
                 selected={isItemSelected(item)}
                 className={navButtonClasses}
-                aria-expanded={hasChildren ? !!openMap[index] : undefined}
+                aria-expanded={hasChildren ? !!openMap[key] : undefined}
+                aria-label={shouldShowIconsOnly ? item.label : undefined}
                 sx={{
                   minHeight: 'var(--rds-sidebar-nav-min-height)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
@@ -437,7 +416,7 @@ const RdsSidebar = ({
                 )}
                 {showLabels && <ListItemText primary={item.label} />}
                 {hasChildren && !shouldShowIconsOnly && (
-                  (openMap[index]) ? <ExpandLess /> : <ExpandMore />
+                  (openMap[key]) ? <ExpandLess /> : <ExpandMore />
                 )}
               </ListItemButton>
             );
@@ -458,7 +437,7 @@ const RdsSidebar = ({
                   )}
                 </ListItem>
                 {hasChildren && (
-                  <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
+                  <Collapse in={!!openMap[key]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {item.children!.map((child) => {
                         const childIcon = asReactNode(child.icon);
@@ -470,6 +449,7 @@ const RdsSidebar = ({
                             disabled={child.disabled}
                             selected={isItemSelected(child)}
                             className={navButtonClasses}
+                            aria-label={shouldShowIconsOnly ? `${item.label} - ${child.label}` : undefined}
                             sx={{
                                 minHeight: 'var(--rds-sidebar-child-nav-min-height)',
                               justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
@@ -519,8 +499,8 @@ const RdsSidebar = ({
                 description={userSubtitle}
                 displayStyle="with-name"
                 name={userName}
-                showDesignation
-                showName
+                showDesignation={Boolean(userSubtitle)}
+                showName={Boolean(userName)}
                 status="online"
                 src={resolvedAvatarSrc}
               />

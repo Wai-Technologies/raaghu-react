@@ -123,9 +123,9 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-accent-blue-700` | `#1565C0` | same |
 | `--rds-color-accent-blue-bg-hover` | `#BBDEFB` | same |
 | `--rds-color-accent-blue-disabled` | `#90CAF9` | same |
-| `--rds-color-accent-light` | `#bbdefb` | same |
+| `--rds-color-accent-light` | `color-mix(in srgb, var(--rds-primary-main) 16%, transparent)` | same |
 | `--rds-color-avatar-bg` | `#bbdefb` | `#0d47a1` |
-| `--rds-color-avatar-fg` | `#3C98FF` | same |
+| `--rds-color-avatar-fg` | `var(--rds-primary-main)` | same |
 | `--rds-color-background` | `var(--rds-background-default)` | same |
 | `--rds-color-background-light` | `#ffffff` | same |
 | `--rds-color-black` | `#000000` | same |
@@ -228,25 +228,25 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-color-primary` | `var(--rds-primary-main)` | same |
 | `--rds-color-primary-20` | `#e3f2fd` | `#0d47a1` |
 | `--rds-color-primary-30` | `#e3f2fd` | `#0d47a1` |
-| `--rds-color-primary-700` | `#3C98FF` | same |
+| `--rds-color-primary-700` | `var(--rds-primary-main)` | same |
 | `--rds-color-primary-800` | `#1565c0` | `#bbdefb` |
 | `--rds-color-primary-900` | `#0d47a1` | `#e3f2fd` |
-| `--rds-color-primary-bg` | `#3C98FF` | same |
+| `--rds-color-primary-bg` | `var(--rds-primary-main)` | same |
 | `--rds-color-primary-container` | `color-mix(in srgb, var(--rds-primary-main) 8%, transparent)` | `color-mix(in srgb, var(--rds-primary-main) 20%, transparent)` |
 | `--rds-color-primary-container-hover` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | `color-mix(in srgb, var(--rds-primary-main) 28%, transparent)` |
 | `--rds-color-primary-container-variant` | `color-mix(in srgb, var(--rds-primary-main) 15%, transparent)` | `color-mix(in srgb, var(--rds-primary-main) 24%, transparent)` |
-| `--rds-color-primary-contrast` | `#ffffff` | same |
+| `--rds-color-primary-contrast` | `var(--rds-primary-contrast-text)` | same |
 | `--rds-color-primary-dark` | `var(--rds-primary-dark)` | — |
 | `--rds-color-primary-hover` | `var(--rds-primary-light)` | same |
-| `--rds-color-primary-hover-bg` | `#1565c0` | same |
+| `--rds-color-primary-hover-bg` | `var(--rds-primary-dark)` | same |
 | `--rds-color-primary-hover-light` | `#e3f2fd` | `#0d47a1` |
-| `--rds-color-primary-light` | `#bbdefb` | same |
-| `--rds-color-primary-lighter` | `#e3f2fd` | same |
-| `--rds-color-primary-outline` | `#3C98FF` | same |
+| `--rds-color-primary-light` | `var(--rds-primary-light)` | same |
+| `--rds-color-primary-lighter` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | same |
+| `--rds-color-primary-outline` | `var(--rds-primary-main)` | same |
 | `--rds-color-primary-overlay` | `color-mix(in srgb, var(--rds-primary-main) 10%, transparent)` | same |
 | `--rds-color-primary-overlay-soft` | `color-mix(in srgb, var(--rds-primary-main) 5%, transparent)` | same |
 | `--rds-color-primary-overlay-strong` | `color-mix(in srgb, var(--rds-primary-main) 20%, transparent)` | same |
-| `--rds-color-primary-pressed` | `#0d47a1` | same |
+| `--rds-color-primary-pressed` | `var(--rds-primary-dark)` | same |
 | `--rds-color-primary-pressed-light` | `#bbdefb` | `#1565c0` |
 | `--rds-color-primary-rgb` | `60,152,255` | same |
 | `--rds-color-purple-dark` | `#530054` | same |
@@ -455,8 +455,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 
 | Token | Light | Dark |
 |---|---|---|
-| `--rds-primary-100` | `#bbdefb` | same |
-| `--rds-primary-800` | `#1565c0` | same |
+| `--rds-primary-100` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | same |
+| `--rds-primary-800` | `var(--rds-primary-dark)` | same |
 | `--rds-primary-alpha-10` | `color-mix(in srgb, var(--rds-primary-main) 10%, transparent)` | — |
 | `--rds-primary-color` | `var(--rds-primary-main)` | same |
 | `--rds-primary-contrast-text` | `#ffffff` | `#212121` |
@@ -472,7 +472,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-secondary-alpha-10` | `color-mix(in srgb, var(--rds-secondary-main) 10%, transparent)` | — |
 | `--rds-secondary-contrast-text` | `#ffffff` | `#212121` |
 | `--rds-secondary-dark` | `#1827BB` | same |
-| `--rds-secondary-light` | `#f8bbd9` | same |
+| `--rds-secondary-light` | `#C8CCFA` | same |
 | `--rds-secondary-main` | `#2534E9` | same |
 | `--rds-secondary-rgb` | `37,52,233` | same |
 
@@ -762,27 +762,27 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-alert-left-border-width` | `6px` | same |
 | `--rds-alert-link-font-size` | `0.8125rem` | same |
 | `--rds-alert-link-margin-right` | `0.625rem` | same |
-| `--rds-alert-loading-border` | `#3C98FF` | same |
+| `--rds-alert-loading-border` | `var(--rds-primary-main)` | same |
 | `--rds-alert-padding-lg` | `0.5rem 1rem` | same |
 | `--rds-alert-padding-md` | `0.375rem 0.75rem` | same |
 | `--rds-alert-padding-sm` | `0.25rem 0.5rem` | same |
 | `--rds-alert-style-border-width` | `1.5px` | same |
 | `--rds-alert-style1-shadow` | `0px 12px 20px -4px rgba(0, 0, 0, 0.15)` | same |
-| `--rds-alert-success-bg` | `#e3f2fd` | `rgba(31, 118, 48, 0.15)` |
+| `--rds-alert-success-bg` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | `rgba(31, 118, 48, 0.15)` |
 | `--rds-alert-success-border` | `#7825E9` | `#1F7630` |
 | `--rds-alert-success-text` | `#1D5E2A` | `#31B64A` |
 | `--rds-alert-warning-bg` | `#FED99B` | `rgba(160, 120, 0, 0.15)` |
 | `--rds-alert-warning-border` | `#C2510C` | same |
 | `--rds-alert-warning-text` | `#C2510C` | `#F98816` |
 | `--rds-appbar-action-font-size-xs` | `10px` | same |
-| `--rds-appbar-badge-bg` | `#e3f2fd` | `#232e3a` |
+| `--rds-appbar-badge-bg` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | `#232e3a` |
 | `--rds-appbar-badge-bg-dark` | — | `#232e3a` |
 | `--rds-appbar-badge-bg-fallback` | `rgba(25, 118, 210, 0.1)` | same |
-| `--rds-appbar-badge-color` | `#3C98FF` | `#90caf9` |
+| `--rds-appbar-badge-color` | `var(--rds-primary-main)` | `#90caf9` |
 | `--rds-appbar-badge-color-dark` | — | `#90caf9` |
-| `--rds-appbar-bg` | `#3C98FF` | `#181c20` |
+| `--rds-appbar-bg` | `var(--rds-primary-main)` | `#181c20` |
 | `--rds-appbar-bg-dark` | — | `#181c20` |
-| `--rds-appbar-color` | `#ffffff` | same |
+| `--rds-appbar-color` | `var(--rds-primary-contrast-text)` | `#ffffff` |
 | `--rds-appbar-language-menu-max-height` | `360px` | same |
 | `--rds-appbar-language-menu-max-height-sm` | `300px` | same |
 | `--rds-appbar-language-menu-max-height-xs` | `280px` | same |
@@ -792,7 +792,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-appbar-line-height-tight` | `1.1` | same |
 | `--rds-appbar-search-width-lg` | `140px` | same |
 | `--rds-appbar-search-width-md` | `120px` | same |
-| `--rds-appbar-secondary-bg` | `#2534E9` | `#7c2946` |
+| `--rds-appbar-secondary-bg` | `var(--rds-secondary-main)` | `#7c2946` |
 | `--rds-appbar-secondary-bg-dark` | — | `#7c2946` |
 | `--rds-appbar-separator-bg` | `var(--rds-border-light)` | `#ffffff` |
 | `--rds-appbar-separator-horizontal-margin` | `0.5rem` | — |
@@ -843,8 +843,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-backdrop-color` | `rgba(255, 255, 255, 0.75)` | same |
 | `--rds-backdrop-disabled-opacity` | `0.6` | same |
 | `--rds-backdrop-focus-ring-width` | `2px` | same |
-| `--rds-badge-bg-primary-card` | `#e3f2fd` | same |
-| `--rds-badge-bg-secondary-card` | `#fce4ec` | same |
+| `--rds-badge-bg-primary-card` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | same |
+| `--rds-badge-bg-secondary-card` | `color-mix(in srgb, var(--rds-secondary-main) 12%, transparent)` | same |
 | `--rds-badge-dot-font-size` | `0.75rem` | same |
 | `--rds-badge-dot-min-size` | `1.25rem` | same |
 | `--rds-badge-dot-padding-x` | `6px` | same |
@@ -874,7 +874,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-border-light` | `#eeeeee` | `#424242` |
 | `--rds-border-opacity-dark` | `rgba(255, 255, 255, 0.12)` | same |
 | `--rds-border-opacity-light` | `rgba(0, 0, 0, 0.12)` | same |
-| `--rds-border-selected` | `#3C98FF` | same |
+| `--rds-border-selected` | `var(--rds-primary-main)` | same |
 | `--rds-border-strong` | `#757575` | same |
 | `--rds-border-subtle` | `#eeeeee` | same |
 | `--rds-bottom-navigation-action-min-width` | `72px` | same |
@@ -915,28 +915,28 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-button-dropdown-selected-bg` | `var(--rds-primary-main)` | same |
 | `--rds-button-dropdown-selected-text` | `var(--rds-neutral-0)` | same |
 | `--rds-button-dropdown-transition` | `var(--rds-transition-base)` | same |
-| `--rds-button-primary-bg` | `#3C98FF` | same |
-| `--rds-button-primary-bg-active` | `#1565c0` | `#42a5f5` |
-| `--rds-button-primary-bg-disabled` | `#bbdefb` | `#646464` |
-| `--rds-button-primary-bg-hover` | `#2E7CE0` | `#66B2FF` |
-| `--rds-button-primary-text` | `#ffffff` | `#212121` |
-| `--rds-button-primary-text-disabled` | `#64b5f6` | `#757575` |
+| `--rds-button-primary-bg` | `var(--rds-primary-main)` | same |
+| `--rds-button-primary-bg-active` | `color-mix(in srgb, var(--rds-primary-main) 75%, black)` | `var(--rds-primary-dark)` |
+| `--rds-button-primary-bg-disabled` | `color-mix(in srgb, var(--rds-primary-main) 20%, transparent)` | `#646464` |
+| `--rds-button-primary-bg-hover` | `color-mix(in srgb, var(--rds-primary-main) 88%, black)` | `color-mix(in srgb, var(--rds-primary-main) 85%, white)` |
+| `--rds-button-primary-text` | `var(--rds-primary-contrast-text)` | same |
+| `--rds-button-primary-text-disabled` | `var(--rds-text-disabled)` | `#757575` |
 | `--rds-button-secondary-bg` | `transparent` | same |
 | `--rds-button-secondary-bg-active` | `#D4BBFF` | `color-mix(in srgb, var(--rds-primary-main) 20%, transparent)` |
 | `--rds-button-secondary-bg-disabled` | `#f5f5f5` | `#424242` |
 | `--rds-button-secondary-bg-hover` | `#EBDCFF` | `transparent` |
-| `--rds-button-secondary-border` | `#2534E9` | `#3C98FF` |
-| `--rds-button-secondary-border-active` | `#1827BB` | `#66B2FF` |
+| `--rds-button-secondary-border` | `#2534E9` | `var(--rds-primary-main)` |
+| `--rds-button-secondary-border-active` | `#1827BB` | `color-mix(in srgb, var(--rds-primary-main) 85%, white)` |
 | `--rds-button-secondary-border-disabled` | `#e0e0e0` | `#646464` |
-| `--rds-button-secondary-border-hover` | `#1827BB` | `#66B2FF` |
-| `--rds-button-secondary-text` | `#7825E9` | `#3C98FF` |
-| `--rds-button-secondary-text-active` | `#7825E9` | `#3C98FF` |
+| `--rds-button-secondary-border-hover` | `#1827BB` | `color-mix(in srgb, var(--rds-primary-main) 85%, white)` |
+| `--rds-button-secondary-text` | `#7825E9` | `var(--rds-primary-main)` |
+| `--rds-button-secondary-text-active` | `#7825E9` | `var(--rds-primary-main)` |
 | `--rds-button-secondary-text-disabled` | `#A875FF` | `#757575` |
-| `--rds-button-text-bg-active` | `#bbdefb` | `color-mix(in srgb, var(--rds-primary-main) 15%, transparent)` |
-| `--rds-button-text-bg-hover` | `#e3f2fd` | `color-mix(in srgb, var(--rds-primary-main) 10%, transparent)` |
-| `--rds-button-text-color` | `#3C98FF` | same |
-| `--rds-button-text-color-active` | `#1e88e5` | `#66B2FF` |
-| `--rds-button-text-color-disabled` | `#64b5f6` | `#757575` |
+| `--rds-button-text-bg-active` | `rgba(0, 0, 0, 0.54)` | `color-mix(in srgb, var(--rds-primary-main) 15%, transparent)` |
+| `--rds-button-text-bg-hover` | `rgba(0, 0, 0, 0.04)` | `color-mix(in srgb, var(--rds-primary-main) 10%, transparent)` |
+| `--rds-button-text-color` | `var(--rds-primary-main)` | same |
+| `--rds-button-text-color-active` | `var(--rds-primary-dark)` | `color-mix(in srgb, var(--rds-primary-main) 85%, white)` |
+| `--rds-button-text-color-disabled` | `color-mix(in srgb, var(--rds-primary-main) 40%, transparent)` | `#757575` |
 | `--rds-button-text-variant-bg` | `rgba(60, 152, 255, 0.04)` | `color-mix(in srgb, var(--rds-primary-main) 4%, transparent)` |
 | `--rds-card-avatar-controls-mobile-offset` | `6.875rem` | same |
 | `--rds-card-bg` | `var(--rds-background-paper)` | same |
@@ -1006,7 +1006,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-comments-box-send-button-min-width` | `26px` | same |
 | `--rds-comments-input-bg` | `#ffffff` | same |
 | `--rds-comments-input-text` | `#212121` | same |
-| `--rds-comments-selected-text` | `#e3f2fd` | same |
+| `--rds-comments-selected-text` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | same |
 | `--rds-comp-chart-bar-barchart1-height` | `65vh` | same |
 | `--rds-comp-chart-bar-dataset-bg` | `#4BC0C0` | same |
 | `--rds-comp-chart-bar-dataset-border` | `#36A2EB` | same |
@@ -1111,7 +1111,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-file-uploader-upload-padding-x` | `13px` | same |
 | `--rds-file-uploader-upload-padding-y` | `4px` | same |
 | `--rds-filter-button-header-title-line-height` | `22px` | same |
-| `--rds-focus-color` | `#3C98FF` | same |
+| `--rds-focus-color` | `var(--rds-primary-main)` | same |
 | `--rds-focus-ring` | `2px solid var(--rds-primary-main)` | — |
 | `--rds-focus-ring-offset` | `2px` | same |
 | `--rds-focus-ring-width` | `2px` | same |
@@ -1119,7 +1119,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-form-bg` | `#ffffff` | `#424242` |
 | `--rds-form-bg-focus` | `#ffffff` | `#424242` |
 | `--rds-form-border` | `#e0e0e0` | `#646464` |
-| `--rds-form-border-focus` | `#3C98FF` | same |
+| `--rds-form-border-focus` | `var(--rds-primary-main)` | same |
 | `--rds-form-control-asterisk-color` | `#BD0D1D` | same |
 | `--rds-form-control-asterisk-font-weight` | `600` | same |
 | `--rds-form-control-fullwidth-margin-right` | `2.25rem` | same |
@@ -1138,7 +1138,7 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-grid-letter-spacing-caps` | `0.3px` | same |
 | `--rds-grid-panel-border-radius` | `4px` | same |
 | `--rds-grid-row-hover` | — | `#505050` |
-| `--rds-grid-row-selected` | `#e3f2fd` | same |
+| `--rds-grid-row-selected` | `color-mix(in srgb, var(--rds-primary-main) 12%, transparent)` | same |
 | `--rds-grid-text` | — | `#ffffff` |
 | `--rds-grid-text-subtle` | — | `#bdbdbd` |
 | `--rds-header-toolbar-height` | `56px` | same |
@@ -1202,17 +1202,17 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-loader-duration-2s` | `2s` | same |
 | `--rds-loader-duration-3s` | `3s` | same |
 | `--rds-loader-duration-5s` | `5s` | same |
-| `--rds-loader-jump-fill` | `#3C98FF` | same |
+| `--rds-loader-jump-fill` | `var(--rds-primary-main)` | same |
 | `--rds-loader-jump-shadow` | `rgba(0,0,0,0.2)` | same |
 | `--rds-loader-rolling-rock-easing` | `cubic-bezier(.79, 0, .47, .97)` | same |
 | `--rds-loader-rotate-delay` | `0.1s` | same |
-| `--rds-loader-rotate-primary` | `#3C98FF` | same |
-| `--rds-loader-rotate-secondary` | `#2196f3` | same |
-| `--rds-loader-rotate-tertiary` | `#64b5f6` | same |
-| `--rds-loader-round-color` | `#3C98FF` | same |
-| `--rds-loader-sand-dark` | `#3C98FF` | same |
-| `--rds-loader-sand-light` | `#3C98FF` | same |
-| `--rds-loader-spinner-accent` | `#2196f3` | same |
+| `--rds-loader-rotate-primary` | `var(--rds-primary-main)` | same |
+| `--rds-loader-rotate-secondary` | `color-mix(in srgb, var(--rds-primary-main) 70%, white)` | same |
+| `--rds-loader-rotate-tertiary` | `color-mix(in srgb, var(--rds-primary-main) 40%, white)` | same |
+| `--rds-loader-round-color` | `var(--rds-primary-main)` | same |
+| `--rds-loader-sand-dark` | `var(--rds-primary-main)` | same |
+| `--rds-loader-sand-light` | `color-mix(in srgb, var(--rds-primary-main) 35%, white)` | same |
+| `--rds-loader-spinner-accent` | `color-mix(in srgb, var(--rds-primary-main) 70%, white)` | same |
 | `--rds-map-label-letter-spacing` | `0.2px` | same |
 | `--rds-menu-avatar-font-size` | `0.5rem` | same |
 | `--rds-menu-enter-duration` | `120ms` | same |
@@ -1349,13 +1349,13 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-surface-neutral-light` | `#E1E3EA` | `#424242` |
 | `--rds-surface-neutral-medium` | `#CDCDCD` | `#646464` |
 | `--rds-surface-neutral-subtle` | `#ffffff` | `#000000` |
-| `--rds-surface-primary-dark` | `#3C98FF` | `#42a5f5` |
-| `--rds-surface-primary-darker` | `#1565c0` | `#3C98FF` |
+| `--rds-surface-primary-dark` | `var(--rds-primary-main)` | `#42a5f5` |
+| `--rds-surface-primary-darker` | `#1565c0` | `var(--rds-primary-main)` |
 | `--rds-surface-primary-light` | `#e3f2fd` | `#1565c0` |
 | `--rds-surface-primary-medium` | `#bbdefb` | `#1e88e5` |
 | `--rds-surface-primary-subtle` | `#e3f2fd` | `#0d47a1` |
 | `--rds-surface-subtle` | `#fafafa` | same |
-| `--rds-switch-active-bg` | `#3C98FF` | same |
+| `--rds-switch-active-bg` | `var(--rds-primary-main)` | same |
 | `--rds-switch-disabled-bg` | `#eeeeee` | same |
 | `--rds-switch-disabled-default-bg` | `rgba(158, 158, 158, 0.24)` | same |
 | `--rds-switch-disabled-secondary-bg` | `rgba(24, 39, 187, 0.24)` | same |
@@ -1384,8 +1384,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-syntax-tag-dark` | `#818CF8` | same |
 | `--rds-syntax-value` | `#7C3AED` | same |
 | `--rds-syntax-value-dark` | `#A78BFA` | same |
-| `--rds-tab-accent` | `#3C98FF` | same |
-| `--rds-tab-accent-bg` | `rgba(60, 152, 255, 0.3)` | same |
+| `--rds-tab-accent` | `var(--rds-primary-main)` | same |
+| `--rds-tab-accent-bg` | `color-mix(in srgb, var(--rds-primary-main) 30%, transparent)` | same |
 | `--rds-table-actions-width` | `120px` | same |
 | `--rds-table-checkbox-border-width` | `2px` | same |
 | `--rds-table-checkbox-check-height` | `10px` | same |
@@ -1403,8 +1403,8 @@ Total: 1339 variables. Machine-readable copy: `docs/ai/tokens.json`.
 | `--rds-tertiary-dark` | `#940F99` | `#B30FBC` |
 | `--rds-tertiary-light` | `#F8A4FF` | same |
 | `--rds-tertiary-main` | `#DA25E9` | `#F56EFF` |
-| `--rds-time-picker-accent` | `#3C98FF` | same |
-| `--rds-time-picker-accent-rgb` | `60,152,255` | same |
+| `--rds-time-picker-accent` | `var(--rds-primary-main)` | same |
+| `--rds-time-picker-accent-rgb` | `var(--rds-primary-rgb)` | same |
 | `--rds-toast-accent-info-color` | `var(--rds-color-info, var(--rds-info-main))` | `var(--rds-color-on-surface, var(--rds-text-primary))` |
 | `--rds-toast-accent-success-color` | `var(--rds-color-success, var(--rds-success-main))` | `var(--rds-color-primary, var(--rds-primary-main))` |
 | `--rds-toast-circle-color` | `#757575` | same |

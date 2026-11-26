@@ -147,6 +147,8 @@ const RdsAppBar = ({
   logo,
   showLogo = true,
   onMenuClick,
+  'aria-expanded': ariaExpanded,
+  'aria-controls': ariaControls,
   showMenuButton = false,
   actions,
   userName,
@@ -328,7 +330,7 @@ const RdsAppBar = ({
         props.color === 'primary' && 'rds-header--primary',
         props.color === 'secondary' && 'rds-header--secondary',
         props.color === 'transparent' && 'rds-header--transparent',
-        showMenuButton && 'rds-header--has-menu-button',
+        (showMenuButton || !!onMenuClick) && 'rds-header--has-menu-button',
         variantClass && `rds-header--variant-${variantClass}`,
         bottomNavActive && 'rds-header--bottom-nav-active',
         isWithMenuButton && isSmallScreen && 'rds-header--withmenubutton-compact',
@@ -366,8 +368,16 @@ const RdsAppBar = ({
         }}
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-          {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} className="rds-header__menu-button">
+          {(showMenuButton || onMenuClick) && (
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              aria-expanded={ariaExpanded}
+              aria-controls={ariaControls}
+              onClick={onMenuClick}
+              className="rds-header__menu-button"
+            >
               <DehazeIcon />
             </IconButton>
           )}

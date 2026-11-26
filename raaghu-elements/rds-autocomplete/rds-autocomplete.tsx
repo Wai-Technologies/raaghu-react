@@ -128,7 +128,11 @@ const deriveSelection = <T,>(selected: boolean, options: readonly T[] | undefine
   return multiple ? [] : null;
 };
 
-const RdsAutocomplete = <T extends { label?: string },>({
+const RdsAutocomplete = <T extends { label?: string },>(
+  props: RdsAutocompleteProps<T> & { 'data-testid'?: string },
+) => {
+  const isValueControlled = Object.prototype.hasOwnProperty.call(props, 'value');
+  const {
   label,
   placeholder,
   helperText,
@@ -175,7 +179,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   disabled,
   'data-testid': dataTestId,
   ...muiAutocompleteProps
-}: RdsAutocompleteProps<T> & { 'data-testid'?: string }) => {
+} = props;
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
   if (behavior !== undefined) warnDeprecatedProp('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
   if (optionDecorators !== undefined) warnDeprecatedProp('RdsAutocomplete', 'optionDecorators', '`optionVariant`');
@@ -216,16 +220,17 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const generatedId = useId();
   const inputId = id ?? `rds-autocomplete-${generatedId}`;
 
-  const isValueControlled = value !== undefined;
   const [selected, setSelected] = useState<T | T[] | null>(() =>
     defaultValue !== undefined ? defaultValue : deriveSelection(isSelected, options, allowMultipleResolved),
   );
   const [prevSelectionProps, setPrevSelectionProps] = useState({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
 
   if (
-    isSelected !== prevSelectionProps.selected ||
-    allowMultipleResolved !== prevSelectionProps.allowMultiple ||
-    !sameOptions(options, prevSelectionProps.options)
+    !isValueControlled && (
+      isSelected !== prevSelectionProps.selected ||
+      allowMultipleResolved !== prevSelectionProps.allowMultiple ||
+      !sameOptions(options, prevSelectionProps.options)
+    )
   ) {
     setPrevSelectionProps({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
     setSelected(deriveSelection(isSelected, options, allowMultipleResolved));

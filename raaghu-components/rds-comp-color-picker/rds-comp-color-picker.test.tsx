@@ -692,4 +692,22 @@ describe('ColorPickerSpectrum keyboard support', () => {
     fireEvent.keyDown(slider, { key: 'ArrowUp', shiftKey: true });
     expect(handleChange.mock.calls[1][0].rgb.r).toBeGreaterThan(128);
   });
+
+  it('commits a typed hex value', () => {
+    const { ColorPickerInfo } = jest.requireActual('./color-picker-components');
+    const handleChange = jest.fn();
+    render(
+      <ColorPickerInfo
+        colorModeDropdownRef={{ current: null }}
+        setShowColorModeDropdown={jest.fn()}
+        showColorModeDropdown={false}
+        selectedColorMode={ColorMode.HEX}
+        selectedColorState={{ hex: '#000000', rgb: { r: 0, g: 0, b: 0, a: 1 } }}
+        getColorDisplay={() => '#000000'}
+        handleChange={handleChange}
+      />,
+    );
+    fireEvent.change(screen.getByLabelText('Hex color value'), { target: { value: '#112233' } });
+    expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ hex: '#112233' }));
+  });
 });

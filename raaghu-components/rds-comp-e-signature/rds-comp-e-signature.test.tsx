@@ -32,6 +32,19 @@ jest.mock('@mui/material', () => ({
       {children}
     </div>
   ),
+  TextField: ({ value, onChange, label, placeholder, disabled, slotProps, className }: any) => (
+    <label className={className}>
+      {label}
+      <input
+        type="text"
+        value={value ?? ''}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        {...slotProps?.input}
+      />
+    </label>
+  ),
 }));
 
 jest.mock('@mui/icons-material', () => ({
@@ -526,6 +539,36 @@ describe('RdsCompESignature', () => {
     it('G5-008: canvas has an accessible name', () => {
       render(<RdsCompESignature type="initials" />);
       expect(screen.getByRole('img', { name: 'Initials drawing area' })).toBeInTheDocument();
+    });
+
+    it('RDS-016: Type to sign renders text on the canvas', () => {
+      const onSignatureChange = jest.fn();
+      const fillText = jest.fn();
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: jest.fn(() => ({
+          scale: jest.fn(),
+          beginPath: jest.fn(),
+          moveTo: jest.fn(),
+          lineTo: jest.fn(),
+          stroke: jest.fn(),
+          clearRect: jest.fn(),
+          fillText,
+          font: '',
+          fillStyle: '',
+          textAlign: '',
+          textBaseline: '',
+        })),
+      });
+      render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      fireEvent.change(screen.getByLabelText('Type to sign'), { target: { value: 'Jane Doe' } });
+      expect(fillText).toHaveBeenCalledWith('Jane Doe', expect.any(Number), expect.any(Number));
+      expect(onSignatureChange).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: originalGetContext,
+      });
     });
 
     it('G5-009: colour swatches are a keyboard-operable radiogroup', () => {

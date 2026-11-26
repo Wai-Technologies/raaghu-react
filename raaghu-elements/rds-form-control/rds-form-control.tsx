@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, useId, type ReactElement, type ReactNode } from 'react';
 import clsx from 'clsx';
 import './rds-form-control.scss';
 import {
@@ -27,6 +27,18 @@ export interface RdsFormControlProps extends FormControlProps {
   group?: boolean;
   /** @deprecated Use `group` instead. */
   isGroup?: boolean;
+  /**
+   * Id of the labelled control. Used as the label `htmlFor` target and merged onto
+   * a single child element when that child does not already set `id`.
+   * Prefer setting the same `id` on the child input yourself for complex children.
+   */
+  controlId?: string;
+}
+
+function mergeDescribedBy(existing: unknown, helperTextId: string): string {
+  const parts = typeof existing === 'string' ? existing.split(/\s+/).filter(Boolean) : [];
+  if (!parts.includes(helperTextId)) parts.push(helperTextId);
+  return parts.join(' ');
 }
 
 const RdsFormControl = ({
@@ -38,6 +50,7 @@ const RdsFormControl = ({
   isGroup,
   required,
   error,
+  controlId,
   ...props
 }: RdsFormControlProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsFormControl', 'isRequired', '`required`');
@@ -50,6 +63,7 @@ const RdsFormControl = ({
   const baseId = props.id ?? `rds-form-control-${generatedId}`;
   const labelId = `${baseId}-label`;
   const helperTextId = `${baseId}-helper-text`;
+  const resolvedControlId = controlId ?? `${baseId}-control`;
 
   const isFieldset = props.component === 'fieldset';
   const hasLabel = Boolean(label);
@@ -63,11 +77,32 @@ const RdsFormControl = ({
       }
       : {};
 
-  const content = isGrouped ? (
-    <MuiFormGroup>{children}</MuiFormGroup>
-  ) : (
-    children
-  );
+  let content: ReactNode = children;
+  if (!isGrouped && isValidElement(children) && Children.count(children) === 1) {
+    const child = children as ReactElement<Record<string, unknown>>;
+    const childProps = child.props;
+    const nextProps: Record<string, unknown> = {};
+    if (childProps.id === undefined) {
+      nextProps.id = resolvedControlId;
+    }
+    if (helperText) {
+      nextProps['aria-describedby'] = mergeDescribedBy(childProps['aria-describedby'], helperTextId);
+    }
+    content = Object.keys(nextProps).length > 0 ? cloneElement(child, nextProps) : child;
+  } else if (isGrouped) {
+    content = <MuiFormGroup>{children}</MuiFormGroup>;
+  }
+
+  const childId = isValidElement(children)
+    ? (children.props as { id?: string }).id
+    : undefined;
+  const canAssociateLabel =
+    !isGrouped &&
+    hasLabel &&
+    (controlId !== undefined || childId !== undefined || Children.count(children) === 1);
+  const controlHtmlFor = canAssociateLabel
+    ? (controlId ?? childId ?? resolvedControlId)
+    : undefined;
 
   return (
     <MuiFormControl
@@ -80,6 +115,7 @@ const RdsFormControl = ({
       {label && (
         <MuiFormLabel
           className="rds-form-control__label"
+          htmlFor={!isGrouped && !isFieldset ? controlHtmlFor : undefined}
           {...(isFieldset ? { component: 'legend' as const } : {})}
           {...(isGrouped ? { id: labelId } : {})}
         >

@@ -109,7 +109,7 @@ const RdsRadio = ({
     }
 
     if (layout === 'icon with bottom label') {
-      const radioId = `rds-radio-${option.value}`;
+      const radioId = `${groupId}-${option.value}`;
       return (
         <Box
           key={option.value}
@@ -130,7 +130,7 @@ const RdsRadio = ({
               name={groupName}
               onChange={(event) => {
                 if (finalDisabled || typeof selected !== 'undefined') return;
-                if (props.value === undefined && defaultValue !== undefined) setInnerValue(option.value);
+                if (props.value === undefined) setInnerValue(option.value);
                 props.onChange?.(event, option.value);
               }}
               className="rds-radio__option"

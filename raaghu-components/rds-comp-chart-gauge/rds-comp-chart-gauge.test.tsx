@@ -321,22 +321,51 @@ describe('RdsCompGaugeChart', () => {
     });
   });
 
-  describe('Chart Destruction', () => {
-    it('destroys chart on unmount', () => {
-      const { unmount } = render(<RdsCompGaugeChart {...defaultProps} />);
-      unmount();
-      expect(true).toBe(true);
+  describe('Chart Lifecycle', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+
+    beforeEach(() => {
+      ChartMock.mockClear();
+      jest
+        .spyOn(HTMLCanvasElement.prototype, 'getContext')
+        .mockReturnValue({} as unknown as ReturnType<HTMLCanvasElement['getContext']>);
     });
 
-    it('destroys previous chart on props update', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('destroys chart on unmount', () => {
+      const { unmount } = render(<RdsCompGaugeChart {...defaultProps} />);
+      const chart = ChartMock.mock.results[0].value;
+      expect(chart.destroy).not.toHaveBeenCalled();
+      unmount();
+      expect(chart.destroy).toHaveBeenCalledTimes(1);
+    });
+
+    it('updates the existing chart in place and refreshes the centre-text plugin on props update', () => {
       const { rerender } = render(<RdsCompGaugeChart {...defaultProps} />);
-      rerender(
-        <RdsCompGaugeChart
-          {...defaultProps}
-          titleText="Updated Title"
-        />
-      );
-      expect(true).toBe(true);
+      const chart = ChartMock.mock.results[0].value;
+      const plugins = ChartMock.mock.calls[0][1].plugins;
+      const originalPlugin = plugins[0];
+
+      rerender(<RdsCompGaugeChart {...defaultProps} titleText="Updated Title" />);
+
+      expect(ChartMock).toHaveBeenCalledTimes(1);
+      expect(chart.destroy).not.toHaveBeenCalled();
+      expect(chart.update).toHaveBeenCalledWith('none');
+      expect(plugins).toHaveLength(1);
+      expect(plugins[0]).not.toBe(originalPlugin);
+    });
+
+    it('does not recreate or update the chart when rerendered with equal value/maxValue', () => {
+      const props = { id: 'gauge-stable', options: { responsive: true }, value: 40, maxValue: 100 };
+      const { rerender } = render(<RdsCompGaugeChart {...props} options={{ ...props.options }} />);
+      const chart = ChartMock.mock.results[0].value;
+      rerender(<RdsCompGaugeChart {...props} options={{ ...props.options }} />);
+      expect(ChartMock).toHaveBeenCalledTimes(1);
+      expect(chart.update).not.toHaveBeenCalled();
+      expect(chart.destroy).not.toHaveBeenCalled();
     });
   });
 

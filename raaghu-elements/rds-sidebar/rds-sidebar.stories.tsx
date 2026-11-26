@@ -28,12 +28,7 @@ const meta: Meta<typeof RdsSidebar> = {
       },
       description: {
         component: `
-The Sidebar component supports different platforms with predefined menu items:
-
-- **ABP Platform** (\`platform="abp-list"\`): Shows Dashboard, Saas, Administration, Demo UI Components
-- **ANZ Platform** (\`platform="anz-list"\`): Shows Dashboard, Saas, Invoices, Ticket Allocation, Communication, Advertisements, Requests
-
-When a platform is specified, the component automatically displays the appropriate menu items regardless of the \`items\` prop.
+Pass navigation via the \`items\` prop. Demo menus for ABP/ANZ-style apps belong in stories or the consuming app — the library no longer ships baked-in platform menus. The deprecated \`platform\` prop only warns.
         `
       }
     },

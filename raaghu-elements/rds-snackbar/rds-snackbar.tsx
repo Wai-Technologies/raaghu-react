@@ -62,7 +62,7 @@ const RdsSnackbar = ({
 
   return (
     <MuiSnackbar
-      autoHideDuration={autoHideDuration || duration || 6000}
+      autoHideDuration={autoHideDuration !== undefined ? autoHideDuration : (duration ?? 6000)}
       onClose={handleClose}
       {...props}
     >

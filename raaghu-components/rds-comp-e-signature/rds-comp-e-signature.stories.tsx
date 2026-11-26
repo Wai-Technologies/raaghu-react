@@ -23,7 +23,7 @@ const meta: Meta<typeof RdsCompESignature> = {
     docs: {
       description: {
         component:
-          'A comprehensive e-signature component supporting draw, upload, and choose signature modes with various states and customization options.',
+          'A comprehensive e-signature component supporting draw, upload, and choose signature modes with various states and customization options. In draw mode, keyboard users can type a name in **Type to sign** to render a typed signature on the canvas.',
       },
     },
   },

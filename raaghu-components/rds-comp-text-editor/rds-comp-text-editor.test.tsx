@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import RdsCompTextEditor, { RdsCompTextEditorProps } from './rds-comp-text-editor';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -99,6 +99,9 @@ jest.mock('@mui/material', () => ({
 const renderEditor = async (props: RdsCompTextEditorProps) => {
   const result = render(<RdsCompTextEditor {...props} />);
   await screen.findByTestId('draft-editor');
+  await act(async () => {
+    await import('html-to-draftjs');
+  });
   return result;
 };
 

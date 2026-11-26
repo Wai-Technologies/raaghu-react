@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement, Ref, HTMLAttributes, useState, useEffect, useCallback, isValidElement, cloneElement } from "react";
+import { ReactNode, ReactElement, Ref, HTMLAttributes, useState, useEffect, useCallback, useId, useRef, isValidElement, cloneElement } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import "./rds-comp-app-shell.scss";
@@ -46,15 +46,33 @@ export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement
   ref?: Ref<HTMLDivElement>;
 }
 
+type MenuInjectProps = {
+  onMenuClick?: () => void;
+  'aria-expanded'?: boolean;
+  'aria-controls'?: string;
+};
+
 /** Wires the menu button of an `RdsAppBar` wrapped in a single container element. */
-const withMenuClick = (topbar: ReactNode, onMenuClick: () => void): ReactNode => {
+const withMenuClick = (
+  topbar: ReactNode,
+  onMenuClick: () => void,
+  menuA11y: { expanded: boolean; controlsId: string },
+): ReactNode => {
   if (!topbar) return null;
   if (!isValidElement<{ children?: ReactNode }>(topbar)) return topbar;
   const appBar = topbar.props.children;
   if (!isValidElement(appBar) || (appBar.type as { displayName?: string }).displayName !== 'RdsAppBar') {
     return topbar;
   }
-  return cloneElement(topbar, undefined, cloneElement(appBar as ReactElement<{ onMenuClick?: () => void }>, { onMenuClick }));
+  return cloneElement(
+    topbar,
+    undefined,
+    cloneElement(appBar as ReactElement<MenuInjectProps>, {
+      onMenuClick,
+      'aria-expanded': menuA11y.expanded,
+      'aria-controls': menuA11y.controlsId,
+    }),
+  );
 };
 
 const RdsCompAppShell = ({
@@ -80,6 +98,10 @@ const RdsCompAppShell = ({
 
   const [internalOpen, setInternalOpen] = useState(false);
   const [layoutReady, setLayoutReady] = useState(false);
+  const sidebarId = useId();
+  const mainId = useId();
+  const menuTriggerRef = useRef<HTMLElement | null>(null);
+  const sidebarRef = useRef<HTMLElement | null>(null);
 
   const openProp = sidebarOpen ?? mobileSidebarOpen;
   const open = openProp ?? internalOpen;
@@ -96,8 +118,19 @@ const RdsCompAppShell = ({
     }
   }, [onSidebarOpenChange, onMobileSidebarToggle, openProp]);
 
-  const toggleSidebar = useCallback(() => requestOpen(!open), [requestOpen, open]);
-  const closeSidebar = useCallback(() => requestOpen(false), [requestOpen]);
+  const toggleSidebar = useCallback(() => {
+    if (!open) {
+      menuTriggerRef.current = document.activeElement as HTMLElement | null;
+    }
+    requestOpen(!open);
+  }, [requestOpen, open]);
+
+  const closeSidebar = useCallback(() => {
+    requestOpen(false);
+    queueMicrotask(() => {
+      menuTriggerRef.current?.focus?.();
+    });
+  }, [requestOpen]);
 
   useEffect(() => {
     const isProduction = typeof process !== 'undefined' && process.env?.NODE_ENV === 'production';
@@ -114,9 +147,16 @@ const RdsCompAppShell = ({
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeSidebar();
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeSidebar();
+      }
     };
     document.addEventListener('keydown', handleKeyDown);
+    const firstFocusable = sidebarRef.current?.querySelector<HTMLElement>(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    );
+    firstFocusable?.focus();
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [open, closeSidebar]);
 
@@ -132,17 +172,35 @@ const RdsCompAppShell = ({
       )}
       sx={sx}
     >
-      <div className="sidebar-layout">{sidebar}</div>
+      <a href={`#${mainId}`} className="rds-appshell__skip-link">
+        Skip to main content
+      </a>
+      <nav
+        id={sidebarId}
+        ref={sidebarRef}
+        className="sidebar-layout"
+        aria-label="Primary"
+      >
+        {sidebar}
+      </nav>
       <div className="topnav-layout">
-        {withMenuClick(header ?? topbar, toggleSidebar)}
-        {children}
+        {withMenuClick(header ?? topbar, toggleSidebar, { expanded: open, controlsId: sidebarId })}
+        <main
+          id={mainId}
+          className="rds-appshell__main"
+          inert={open ? true : undefined}
+          aria-hidden={open || undefined}
+        >
+          {children}
+        </main>
       </div>
       {open && (
-        <button
-          type="button"
+        <div
           className="mobile-sidebar-backdrop"
           onClick={closeSidebar}
-          aria-label={closeSidebarLabel}
+          aria-hidden="true"
+          tabIndex={-1}
+          data-close-label={closeSidebarLabel}
         />
       )}
     </Box>

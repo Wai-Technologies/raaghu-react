@@ -45,6 +45,10 @@ export interface RdsCompChatProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   /** @deprecated Use `chatScreenEnabled` instead. */
   isChatScreenEnabled?: boolean;
   userData: UserData[];
+  /** Controlled comment list for the selected user. When set, sends go through `onCommentsChange`. */
+  comments?: Comment[];
+  /** Called with the next comment list when `comments` is controlled. */
+  onCommentsChange?: (comments: Comment[]) => void;
   onAddComment?: (comment: Comment) => void;
   /** @deprecated Use `onAddComment` instead. */
   handleAddComment?: (comment: Comment) => void;
@@ -113,6 +117,8 @@ const RdsCompChat = ({
   chatScreenEnabled: chatScreenEnabledProp,
   isChatScreenEnabled,
   userData,
+  comments,
+  onCommentsChange,
   onAddComment: onAddCommentProp,
   handleAddComment: handleAddCommentProp,
   currentUserCommentBgColor = "var(--rds-primary-main)",
@@ -137,11 +143,26 @@ const RdsCompChat = ({
     commentText: "",
     showEmojiPicker: false,
     selectedIndex: null as number | null,
-    commentList: userData[0]?.comments || [],
+    commentList: comments ?? userData[0]?.comments ?? [],
     showCamera: false,
     activeTab: "chat" as "chat" | "media",
     currentUser: userData[0]
   });
+  const [prevUserData, setPrevUserData] = useState(userData);
+  const [prevComments, setPrevComments] = useState(comments);
+  if (userData !== prevUserData || comments !== prevComments) {
+    setPrevUserData(userData);
+    setPrevComments(comments);
+    setState((current) => {
+      const index = current.selectedIndex ?? 0;
+      const nextUser = userData[index] ?? userData[0];
+      return {
+        ...current,
+        currentUser: nextUser,
+        commentList: comments ?? nextUser?.comments ?? [],
+      };
+    });
+  }
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -184,10 +205,12 @@ const RdsCompChat = ({
   }, [state.isMobile, updateState, userData]);
 
   const addComment = useCallback((newComment: Comment) => {
-    const updatedComments = [...state.commentList, newComment];
-    updateState({ commentList: updatedComments });
+    const source = comments ?? state.commentList;
+    const updatedComments = [...source, newComment];
+    if (comments === undefined) updateState({ commentList: updatedComments });
+    else onCommentsChange?.(updatedComments);
     onAddComment?.(newComment);
-  }, [onAddComment, state.commentList, updateState]);
+  }, [comments, onAddComment, onCommentsChange, state.commentList, updateState]);
 
   const handleAddComment = useCallback(() => {
     if (state.commentText.trim() && state.currentUser) {

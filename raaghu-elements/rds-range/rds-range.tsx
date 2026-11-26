@@ -81,7 +81,7 @@ const RdsRange= ({
   valueLabelDisplay,
   valueLabelFormat,
   defaultValue,
-  type = 'one-way',
+  type,
   level = '1',
   leftLabel,
   rightLabel,
@@ -96,20 +96,21 @@ const RdsRange= ({
   if (showLabel !== undefined) warnDeprecatedProp('RdsRange', 'showLabel', '`showMinMax`');
   if (showTooltip !== undefined) warnDeprecatedProp('RdsRange', 'showTooltip', '`valueLabelDisplay`');
   if (range) warnDeprecatedProp('RdsRange', 'range', '`type="two-way"`');
+  const resolvedType = type ?? (range ? 'two-way' : 'one-way');
   const min = props.min ?? leftLabel ?? 0;
   const max = props.max ?? rightLabel ?? 100;
   const minMaxVisible = showMinMax ?? showLabel ?? false;
   const labelDisplay = valueLabelDisplay ?? (showTooltip ? 'on' : 'off');
-  const initialValue = () => defaultValue ?? getDefaultRangeValue(type, level, range, min, max);
+  const initialValue = () => defaultValue ?? getDefaultRangeValue(resolvedType, level, range, min, max);
   const isControlled = value !== undefined && value !== null;
 
   const [internalValue, setInternalValue] = useState<number | number[]>(() =>
     isControlled ? value : initialValue()
   );
 
-  const [prevMode, setPrevMode] = useState(`${type}-${level}-${min}-${max}-${range}`);
+  const [prevMode, setPrevMode] = useState(`${resolvedType}-${level}-${min}-${max}-${range}`);
 
-  const modeKey = `${type}-${level}-${min}-${max}-${range}`;
+  const modeKey = `${resolvedType}-${level}-${min}-${max}-${range}`;
   if (!isControlled && modeKey !== prevMode) {
     setPrevMode(modeKey);
     setInternalValue(initialValue());
@@ -122,9 +123,9 @@ const RdsRange= ({
   const generateClassName = () => {
     return clsx(
       'rds-range',
-      type === 'one-way' && 'rds-range--one-way',
-      type === 'one-way' && level && `rds-range--level-${level}`,
-      type !== 'one-way' && 'rds-range--two-way',
+      resolvedType === 'one-way' && 'rds-range--one-way',
+      resolvedType === 'one-way' && level && `rds-range--level-${level}`,
+      resolvedType !== 'one-way' && 'rds-range--two-way',
       props.disabled && 'rds-range--disabled',
       labelDisplay === 'on' && 'rds-range--with-tooltip',
       minMaxVisible && 'rds-range--with-labels',

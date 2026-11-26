@@ -357,6 +357,22 @@ function resolveColorValue(colorValue: unknown): unknown {
   return colorValue;
 }
 
+export {
+  buildChartDataTableProps,
+  chartAccessibleDescribedBy,
+  formatChartDataCell,
+  hasChartAccessibleTableData,
+  renderChartDataAlternative,
+  ChartAccessibleAlternative,
+} from './chart-accessible-alternative';
+export type {
+  BuildChartDataTablePropsInput,
+  ChartAccessibleAlternativeProps,
+  ChartAccessibleDataset,
+  ChartDataTableProps,
+  RenderChartDataAlternativeInput,
+} from './chart-accessible-alternative';
+
 export function resolveChartLabel(
   component: string,
   ariaLabel: string | undefined,
@@ -366,6 +382,12 @@ export function resolveChartLabel(
   if (chartLabel !== undefined) warnDeprecatedProp(component, 'chartLabel', '`ariaLabel`');
   return ariaLabel ?? chartLabel ?? fallback;
 }
+
+/**
+ * Shared fallback for charts with no datasets, so `resolveChartData` returns the same reference
+ * on every render. Deliberately not frozen: Chart.js attaches array listeners to `data.datasets`.
+ */
+const EMPTY_DATASETS: unknown[] = [];
 
 export function resolveChartData<L, D extends unknown[]>(
   component: string,
@@ -378,8 +400,67 @@ export function resolveChartData<L, D extends unknown[]>(
   if (warn && dataSets !== undefined) warnDeprecatedProp(component, 'dataSets', '`data`');
   return {
     labels: data?.labels ?? labels,
-    datasets: data?.datasets ?? dataSets ?? ([] as unknown as D),
+    datasets: data?.datasets ?? dataSets ?? (EMPTY_DATASETS as D),
   };
+}
+
+const MAX_EQUAL_DEPTH = 32;
+
+function isPlainObject(value: object): boolean {
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function isDeepEqualAt(a: unknown, b: unknown, depth: number): boolean {
+  if (Object.is(a, b)) return true;
+  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false;
+  if (depth > MAX_EQUAL_DEPTH) return false;
+
+  if (Array.isArray(a)) {
+    if (!Array.isArray(b) || a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i += 1) {
+      if (!isDeepEqualAt(a[i], b[i], depth + 1)) return false;
+    }
+    return true;
+  }
+  if (Array.isArray(b)) return false;
+
+  if (a instanceof Date || b instanceof Date) {
+    return a instanceof Date && b instanceof Date && a.getTime() === b.getTime();
+  }
+
+  if (ArrayBuffer.isView(a) || ArrayBuffer.isView(b)) {
+    if (!ArrayBuffer.isView(a) || !ArrayBuffer.isView(b) || a.constructor !== b.constructor) return false;
+    if (a instanceof DataView) return false;
+    const x = a as unknown as ArrayLike<number | bigint>;
+    const y = b as unknown as ArrayLike<number | bigint>;
+    if (x.length !== y.length) return false;
+    for (let i = 0; i < x.length; i += 1) {
+      if (!Object.is(x[i], y[i])) return false;
+    }
+    return true;
+  }
+
+  // Class instances (DOM nodes, gradients, Chart.js helpers…) are compared by reference only.
+  if (!isPlainObject(a) || !isPlainObject(b)) return false;
+
+  const aKeys = Object.keys(a);
+  if (aKeys.length !== Object.keys(b).length) return false;
+  for (const key of aKeys) {
+    if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
+    if (!isDeepEqualAt((a as Record<string, unknown>)[key], (b as Record<string, unknown>)[key], depth + 1)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Structural equality for chart props (options, labels, datasets). Plain objects, arrays, typed
+ * arrays and dates are compared by value; functions and class instances by reference.
+ */
+export function isChartDeepEqual(a: unknown, b: unknown): boolean {
+  return isDeepEqualAt(a, b, 0);
 }
 
 export function applyCanvasSize(

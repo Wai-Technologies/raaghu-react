@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
-import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import { Box, IconButton, Typography, useMediaQuery, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import Pause from '@mui/icons-material/Pause';
+import PlayArrow from '@mui/icons-material/PlayArrow';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
@@ -114,16 +116,19 @@ const RdsCarousel = ({
 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const paused = hovered || focused;
+  const [userPaused, setUserPaused] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const autoPlayEnabled = autoPlay && !prefersReducedMotion;
+  const paused = hovered || focused || userPaused || prefersReducedMotion;
 
   useEffect(() => {
-    if (autoPlay && !paused && slideCount > 1) {
+    if (autoPlayEnabled && !paused && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
+  }, [autoPlayEnabled, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);
@@ -270,6 +275,29 @@ const RdsCarousel = ({
           );
         })}
       </Box>
+
+      {autoPlay && slideCount > 1 && (
+        <IconButton
+          aria-label={userPaused || prefersReducedMotion ? 'Play slideshow' : 'Pause slideshow'}
+          aria-pressed={userPaused || prefersReducedMotion}
+          onClick={() => setUserPaused((prev) => !prev)}
+          disabled={prefersReducedMotion}
+          className="rds-carousel__autoplay-toggle"
+          sx={{
+            position: 'absolute',
+            right: tokens.space(1),
+            bottom: tokens.space(1),
+            zIndex: tokens.zIndex.layer2,
+            backgroundColor: tokens.cssVar('overlay-dark'),
+            color: tokens.cssVar('neutral-0'),
+            '&:hover': {
+              backgroundColor: tokens.cssVar('overlay-darker'),
+            },
+          }}
+        >
+          {userPaused || prefersReducedMotion ? <PlayArrow /> : <Pause />}
+        </IconButton>
+      )}
 
       {showArrows && slideCount > 1 && (
         <>

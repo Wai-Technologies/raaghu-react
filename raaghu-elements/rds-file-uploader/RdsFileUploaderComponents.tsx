@@ -15,6 +15,8 @@ interface RdsDropZoneProps {
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: (e: DragEvent<HTMLDivElement>) => void;
+  /** When false, or when `disabled`, drop handlers are not attached. @default true */
+  dragAndDrop?: boolean;
   openFileDialog: () => void;
   /** The file input `accept` value; shown to the user as the list of allowed file types. */
   accept?: string;
@@ -173,10 +175,12 @@ export const RdsDropZoneSideIcon = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
   accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -186,9 +190,9 @@ export const RdsDropZoneSideIcon = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       onClick={!disabled ? openFileDialog : undefined}
       sx={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
     >
@@ -214,9 +218,11 @@ export const RdsDropZoneWithButton = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -226,9 +232,9 @@ export const RdsDropZoneWithButton = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -273,10 +279,12 @@ export const RdsDropZoneDefault = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
   accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -286,9 +294,9 @@ export const RdsDropZoneDefault = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       onClick={!disabled ? openFileDialog : undefined}
       sx={{
         width: '100%',

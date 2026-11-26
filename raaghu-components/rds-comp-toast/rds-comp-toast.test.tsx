@@ -50,29 +50,29 @@ describe('RdsCompToast', () => {
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       render(<RdsCompToast {...defaultProps} />);
-      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsCompToast.displayName).toBe('RdsCompToast');
     });
 
-    it('should render with alert role and assertive aria-live', () => {
+    it('should render with status role and polite aria-live', () => {
       render(<RdsCompToast {...defaultProps} />);
-      const alert = screen.getByRole('alert');
-      expect(alert).toHaveAttribute('aria-live', 'assertive');
+      const alert = screen.getByRole('status');
+      expect(alert).toHaveAttribute('aria-live', 'polite');
       expect(alert).toHaveAttribute('aria-atomic', 'true');
     });
 
     it('should have correct id', () => {
       render(<RdsCompToast {...defaultProps} />);
-      const alert = screen.getByRole('alert');
-      expect(alert).toHaveAttribute('id', 'toastId');
+      const alert = screen.getByRole('status');
+      expect(alert.getAttribute('id')).toBeTruthy();
     });
 
     it('should render with visible class by default', () => {
       render(<RdsCompToast {...defaultProps} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--visible');
     });
 
@@ -85,20 +85,20 @@ describe('RdsCompToast', () => {
   describe('Severity Variants', () => {
     it('should apply basic state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--basic');
     });
 
     it('should apply info state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--info');
       expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
 
     it('should apply success state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Success} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--success');
       expect(alert).toHaveClass('rds-comp-toast--border-success');
     });
@@ -106,6 +106,7 @@ describe('RdsCompToast', () => {
     it('should apply error state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Error} />);
       const alert = screen.getByRole('alert');
+      expect(alert).toHaveAttribute('aria-live', 'assertive');
       expect(alert).toHaveClass('rds-comp-toast--error');
       expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
@@ -114,11 +115,11 @@ describe('RdsCompToast', () => {
       const { rerender } = render(
         <RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />
       );
-      let alert = screen.getByRole('alert');
+      let alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--border-basic');
 
       rerender(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
-      alert = screen.getByRole('alert');
+      alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
   });
@@ -126,25 +127,25 @@ describe('RdsCompToast', () => {
   describe('Layout Variants', () => {
     it('should apply text layout class', () => {
       render(<RdsCompToast {...defaultProps} layout={ToastLayout.Text} showHeader={true} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--text');
     });
 
     it('should apply download layout class', () => {
       render(<RdsCompToast {...defaultProps} layout={ToastLayout.Download} showHeader={true} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--download');
     });
 
     it('should apply chat layout class', () => {
       render(<RdsCompToast {...defaultProps} layout={ToastLayout.Chat} showHeader={true} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--chat');
     });
 
     it('should apply request layout class', () => {
       render(<RdsCompToast {...defaultProps} layout={ToastLayout.Request} showHeader={true} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--request');
     });
 
@@ -198,7 +199,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.TopLeft}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--top-left');
     });
 
@@ -209,7 +210,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.TopCenter}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--top-center');
     });
 
@@ -220,7 +221,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.TopRight}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--top-right');
     });
 
@@ -231,7 +232,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.MiddleLeft}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--middle-left');
     });
 
@@ -242,7 +243,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.MiddleCenter}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--middle-center');
     });
 
@@ -253,7 +254,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.MiddleRight}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--middle-right');
     });
 
@@ -264,7 +265,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.BottomLeft}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--bottom-left');
     });
 
@@ -275,7 +276,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.BottomCenter}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--bottom-center');
     });
 
@@ -286,7 +287,7 @@ describe('RdsCompToast', () => {
           position={ToastPosition.BottomRight}
         />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--bottom-right');
     });
 
@@ -294,7 +295,7 @@ describe('RdsCompToast', () => {
       render(
         <RdsCompToast {...defaultProps} position={undefined} />
       );
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container--top-left');
     });
   });
@@ -478,14 +479,13 @@ describe('RdsCompToast', () => {
         />
       );
 
-      const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--visible');
+      expect(screen.getByRole('status')).toHaveClass('rds-comp-toast--visible');
 
       const closeBtn = screen.getByLabelText('Close');
       fireEvent.click(closeBtn);
 
       await waitFor(() => {
-        expect(alert).toHaveClass('rds-comp-toast--hidden');
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
       });
     });
 
@@ -519,13 +519,12 @@ describe('RdsCompToast', () => {
         />
       );
 
-      const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--visible');
+      expect(screen.getByRole('status')).toHaveClass('rds-comp-toast--visible');
 
       jest.advanceTimersByTime(2000);
 
       await waitFor(() => {
-        expect(alert).toHaveClass('rds-comp-toast--hidden');
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
       });
     });
 
@@ -537,13 +536,12 @@ describe('RdsCompToast', () => {
         />
       );
 
-      const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--visible');
+      expect(screen.getByRole('status')).toHaveClass('rds-comp-toast--visible');
 
       jest.advanceTimersByTime(3000);
 
       await waitFor(() => {
-        expect(alert).toHaveClass('rds-comp-toast--hidden');
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
       });
     });
 
@@ -556,7 +554,7 @@ describe('RdsCompToast', () => {
         />
       );
 
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       jest.advanceTimersByTime(1000);
 
       expect(alert).toHaveClass('rds-comp-toast--visible');
@@ -702,7 +700,7 @@ describe('RdsCompToast', () => {
       expect(screen.getByText('Download Complete')).toBeInTheDocument();
       expect(screen.getByText('Your file has been downloaded')).toBeInTheDocument();
       expect(screen.getByText('report.pdf')).toBeInTheDocument();
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--success');
       expect(alert).toHaveClass('rds-comp-toast--download');
     });
@@ -743,7 +741,7 @@ describe('RdsCompToast', () => {
         />
       );
 
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast--info');
       expect(screen.getByText('2:45 PM')).toBeInTheDocument();
     });
@@ -758,7 +756,7 @@ describe('RdsCompToast', () => {
           headerText=""
         />
       );
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toBeInTheDocument();
     });
 
@@ -769,7 +767,7 @@ describe('RdsCompToast', () => {
           subText=""
         />
       );
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toBeInTheDocument();
     });
 
@@ -822,7 +820,7 @@ describe('RdsCompToast', () => {
           leadingIcon={ToastLeadingIcon.Circle}
         />
       );
-      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
     });
   });
 
@@ -845,7 +843,7 @@ describe('RdsCompToast', () => {
         </div>
       );
 
-      const alerts = container.querySelectorAll('[role="alert"]');
+      const alerts = container.querySelectorAll('[role="status"], [role="alert"]');
       expect(alerts.length).toBe(2);
       expect(screen.getByText('First toast')).toBeInTheDocument();
       expect(screen.getByText('Second toast')).toBeInTheDocument();
@@ -881,13 +879,13 @@ describe('RdsCompToast', () => {
   describe('Container Classes', () => {
     it('should have base container class', () => {
       render(<RdsCompToast {...defaultProps} />);
-      const container = screen.getByRole('alert').parentElement;
+      const container = screen.getByRole('status').parentElement;
       expect(container).toHaveClass('rds-comp-toast__container');
     });
 
     it('should have base toast class', () => {
       render(<RdsCompToast {...defaultProps} />);
-      const alert = screen.getByRole('alert');
+      const alert = screen.getByRole('status');
       expect(alert).toHaveClass('rds-comp-toast');
     });
   });
@@ -933,9 +931,9 @@ describe('audit fixes', () => {
     const { rerender } = render(<RdsCompToast {...base} message="m" open={true} onClose={onClose} />);
     fireEvent.click(screen.getByLabelText('Close'));
     expect(onClose).toHaveBeenCalledWith(expect.anything(), 'closeClick');
-    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    expect(screen.getByRole('status')).toHaveClass('rds-comp-toast--visible');
     rerender(<RdsCompToast {...base} message="m" open={false} onClose={onClose} />);
-    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--hidden');
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
   it('G6-135/144 autoHideDuration fires timeout; null is sticky', () => {
@@ -947,7 +945,7 @@ describe('audit fixes', () => {
     unmount();
     render(<RdsCompToast {...base} message="m" autoHideDuration={null} autohide delay={100} />);
     act(() => { jest.advanceTimersByTime(1000); });
-    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    expect(screen.getByRole('status')).toHaveClass('rds-comp-toast--visible');
     jest.useRealTimers();
   });
 
@@ -955,7 +953,7 @@ describe('audit fixes', () => {
     jest.useFakeTimers();
     const onClose = jest.fn();
     const { unmount } = render(<RdsCompToast {...base} message="m" autoHideDuration={1000} pauseOnHover onClose={onClose} />);
-    const el = screen.getByRole('alert');
+    const el = screen.getByRole('status');
     fireEvent.mouseEnter(el);
     fireEvent.mouseLeave(el);
     unmount();

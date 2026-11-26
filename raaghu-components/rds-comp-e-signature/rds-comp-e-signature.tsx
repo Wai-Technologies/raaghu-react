@@ -12,7 +12,7 @@ import {
   type Ref,
 } from 'react';
 import clsx from 'clsx';
-import { Box, Typography, IconButton, Paper } from '@mui/material';
+import { Box, Typography, IconButton, Paper, TextField } from '@mui/material';
 import type { BoxProps } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import { RdsESignatureUpload, RdsESignatureChoose, type PredefinedSignatureItem } from './rds-comp-e-signature-modes';
@@ -26,6 +26,10 @@ export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width'
   variant?: 'draw' | 'upload' | 'choose';
   /** Whether the signature is a full name or initials. */
   type?: 'fullname' | 'initials';
+  /** Minimum stroke width, in canvas pixels, before the signature counts as clear. Defaults to a fraction of the canvas width. */
+  minStrokeWidth?: number;
+  /** Minimum point count before the signature counts as clear. Defaults lower for initials. */
+  minPoints?: number;
   /** Alias of `type`; wins when defined. */
   signatureType?: 'fullName' | 'initials';
   /** Shows the pen colour picker in draw mode. Defaults to `true`. */
@@ -99,6 +103,8 @@ const RdsCompESignature = ({
   mode: modeProp = 'draw',
   variant,
   type: typeProp = 'fullname',
+  minStrokeWidth,
+  minPoints,
   signatureType,
   showColorPicker,
   colourSwatch,
@@ -154,8 +160,9 @@ const RdsCompESignature = ({
     isHovered: false,
     showLengthError: false,
     hasDrawn: false,
+    typedSignature: '',
   });
-  const { isDrawing, selectedColor, isHovered, showLengthError, hasDrawn } = uiState;
+  const { isDrawing, selectedColor, isHovered, showLengthError, hasDrawn, typedSignature } = uiState;
   const updateUiState = useCallback((updates: Partial<typeof uiState>) => {
     setUiState((prev) => ({ ...prev, ...updates }));
   }, []);
@@ -166,11 +173,32 @@ const RdsCompESignature = ({
   }
   const strokesRef = useRef<Stroke[]>([]);
 
+  const paintTypedSignature = useCallback(
+    (text: string, color: string) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (!canvas || !ctx || !text.trim()) return;
+      const rect = canvas.getBoundingClientRect();
+      const fontSize = type === 'initials' ? rect.height * 0.4 : rect.height * 0.35;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = `${fontSize}px "Brush Script MT", "Segoe Script", cursive`;
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text.trim(), rect.width / 2, rect.height / 2);
+    },
+    [type]
+  );
+
   const redraw = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (typedSignature.trim()) {
+      paintTypedSignature(typedSignature, selectedColor);
+      return;
+    }
     strokesRef.current.forEach(({ color, points }) => {
       if (points.length === 0) return;
       ctx.strokeStyle = color;
@@ -179,7 +207,7 @@ const RdsCompESignature = ({
       points.slice(1).forEach((p) => ctx.lineTo(p.x, p.y));
       ctx.stroke();
     });
-  }, []);
+  }, [paintTypedSignature, selectedColor, typedSignature]);
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
@@ -203,14 +231,39 @@ const RdsCompESignature = ({
     return () => window.removeEventListener('resize', resize);
   }, [mode, redraw]);
 
+  useEffect(() => {
+    if (!typedSignature.trim()) return;
+    paintTypedSignature(typedSignature, selectedColor);
+    if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
+  }, [typedSignature, selectedColor, paintTypedSignature, onSignatureChange]);
+
   const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: ClientPoint): Point => {
     const rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }, []);
 
+  const handleTypedSignatureChange = useCallback(
+    (value: string) => {
+      if (disabled) return;
+      strokesRef.current = [];
+      if (!value.trim()) {
+        updateUiState({ typedSignature: '', hasDrawn: false, showLengthError: false });
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        onSignatureChange?.(null);
+        return;
+      }
+      updateUiState({ typedSignature: value, hasDrawn: true, showLengthError: false });
+      paintTypedSignature(value, selectedColor);
+      if (canvasRef.current) onSignatureChange?.(canvasRef.current.toDataURL());
+    },
+    [disabled, onSignatureChange, paintTypedSignature, selectedColor, updateUiState]
+  );
+
   const startDrawing = useCallback((e: ClientPoint) => {
     if (disabled) return;
-    updateUiState({ isDrawing: true, hasDrawn: true });
+    updateUiState({ isDrawing: true, hasDrawn: true, typedSignature: '' });
     const canvas = canvasRef.current;
     if (canvas) {
       const point = getCanvasPoint(canvas, e);
@@ -245,9 +298,13 @@ const RdsCompESignature = ({
     if (totalPoints === 0) { updateUiState({ showLengthError: false }); return; }
     let minX = Infinity, maxX = -Infinity; strokes.forEach(s => s.points.forEach(p => { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; }));
     const boxW = maxX - minX;
-    const hasFourLetters = boxW >= 160 && totalPoints >= 40;
+    const canvasWidth = canvasRef.current?.width || 1;
+    const initials = type === 'initials';
+    const requiredWidth = minStrokeWidth ?? canvasWidth * (initials ? 0.15 : 0.35);
+    const requiredPoints = minPoints ?? (initials ? 8 : 24);
+    const hasFourLetters = boxW >= requiredWidth && totalPoints >= requiredPoints;
     updateUiState({ showLengthError: !hasFourLetters });
-  }, [updateUiState]);
+  }, [updateUiState, type, minStrokeWidth, minPoints]);
 
   const stopDrawing = useCallback(() => {
     if (!isDrawing) return;
@@ -268,7 +325,7 @@ const RdsCompESignature = ({
       }
     }
     strokesRef.current = [];
-    updateUiState({ hasDrawn: false, showLengthError: false });
+    updateUiState({ hasDrawn: false, showLengthError: false, typedSignature: '' });
   }, [onSignatureChange, updateUiState]);
 
   const handleUndo = useCallback(() => {
@@ -315,6 +372,18 @@ const RdsCompESignature = ({
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
 
+      <TextField
+        className="rds-e-signature__type-input"
+        size="small"
+        fullWidth
+        disabled={disabled}
+        label="Type to sign"
+        placeholder={type === 'initials' ? 'Type initials' : 'Type your name'}
+        value={typedSignature}
+        onChange={(e) => handleTypedSignatureChange(e.target.value)}
+        slotProps={{ input: { 'aria-label': 'Type to sign' } }}
+      />
+
       <Paper className="rds-e-signature__canvas-container" elevation={0}>
         {(disabled || !hasDrawn) && (
           <Box className="rds-e-signature__canvas-header" aria-hidden={hasDrawn && !disabled}>
@@ -324,7 +393,7 @@ const RdsCompESignature = ({
               </Typography>
             ) : (
               <Typography className="rds-e-signature__canvas-title">
-                <Brush className="rds-e-signature__canvas-icon" />
+                <Brush className="rds-e-signature__canvas-icon" aria-hidden />
                 {type === 'initials' ? 'Draw Initial' : 'Draw Signature'}
               </Typography>
             )}

@@ -22,14 +22,8 @@ jest.mock('chart.js/auto', () => {
       this.config = config;
       this.data = config.data;
       this.options = config.options;
-      if (ctx) {
-        this.canvas = {
-          ...ctx.canvas,
-          style: {
-            height: '0',
-            width: '0',
-          },
-        };
+      if (ctx?.canvas) {
+        this.canvas = ctx.canvas;
       } else {
         this.canvas = {
           style: {
@@ -242,9 +236,15 @@ describe('RdsCompAreaChart', () => {
     });
 
     it('sets canvas width style', () => {
+      const getContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement) {
+        return { canvas: this } as unknown as CanvasRenderingContext2D;
+      } as unknown as HTMLCanvasElement['getContext'];
       const { container } = render(<RdsCompAreaChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
-      expect(canvas).toBeInTheDocument();
+      expect(canvas.style.width).toBe('100%');
+      expect(canvas.style.height).toBe('76vh');
+      HTMLCanvasElement.prototype.getContext = getContext;
     });
   });
 

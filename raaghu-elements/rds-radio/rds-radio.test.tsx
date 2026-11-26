@@ -550,7 +550,7 @@ describe('RdsRadio', () => {
       expect(radio2).toBeInTheDocument();
     });
 
-    it('should use option value in bottom label radio id', () => {
+    it('should scope bottom label radio id by group id and option value', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -560,7 +560,20 @@ describe('RdsRadio', () => {
       );
       
       const radio = container.querySelector('input[type="radio"][value="option1"]');
-      expect(radio).toHaveAttribute('id', 'rds-radio-option1');
+      expect(radio?.getAttribute('id')).toMatch(/-option1$/);
+      expect(radio?.getAttribute('id')).not.toBe('rds-radio-option1');
+    });
+
+    it('gives unique ids to two groups with the same option values', () => {
+      const { container } = renderWithTheme(
+        <>
+          <RdsRadio options={defaultOptions} layout="icon with bottom label" name="group-a" />
+          <RdsRadio options={defaultOptions} layout="icon with bottom label" name="group-b" />
+        </>
+      );
+      const radios = container.querySelectorAll('input[type="radio"][value="option1"]');
+      expect(radios).toHaveLength(2);
+      expect(radios[0].id).not.toBe(radios[1].id);
     });
 
     it('should handle label htmlFor attribute in bottom label', () => {
@@ -1043,5 +1056,12 @@ describe('doc-09 renames', () => {
   it('forwards data-testid to the root .rds-radio', () => {
     renderWithTheme(<RdsRadio options={defaultOptions} data-testid="plan-radio" />);
     expect(screen.getByTestId('plan-radio')).toHaveClass('rds-radio');
+  });
+
+  it('checks a bottom-label option when defaultValue is omitted', () => {
+    renderWithTheme(<RdsRadio layout="icon with bottom label" options={defaultOptions} />);
+    const radios = screen.getAllByRole('radio');
+    fireEvent.click(radios[1]);
+    expect(radios[1]).toBeChecked();
   });
 });

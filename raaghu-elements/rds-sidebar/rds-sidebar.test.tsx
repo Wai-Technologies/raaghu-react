@@ -199,17 +199,11 @@ describe('RdsSidebar', () => {
   });
 
   describe('Platforms', () => {
-    it('should use abp-list items when platform=abp-list', () => {
-      setup({ items: [], platform: 'abp-list' });
-      expect(screen.getByText('Dashboard')).toBeInTheDocument();
-      expect(screen.getByText('Invoices')).toBeInTheDocument();
-    });
-
-    it('should use anz-list items when platform=anz-list', () => {
-      setup({ items: [], platform: 'anz-list' });
-      expect(screen.getByText('Dashboard')).toBeInTheDocument();
-      expect(screen.getByText('Saas')).toBeInTheDocument();
-      expect(screen.getByText('Administration')).toBeInTheDocument();
+    it('warns on deprecated platform and does not inject demo menus', () => {
+      setup({ items: [{ label: 'Home', onClick: () => {} }], platform: 'abp-list' });
+      expect(screen.getByText('Home')).toBeInTheDocument();
+      expect(screen.queryByText('Invoices')).not.toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'platform', '`items`');
     });
   });
 
@@ -320,14 +314,15 @@ describe('audit fixes', () => {
     { label: 'Parent', icon: <span>p</span>, children: [{ label: 'Kid' }] },
   ];
 
-  it('renders custom user name and default user', () => {
+  it('renders custom user name and omits demo defaults when user is unset', () => {
     const { unmount } = renderWithTheme(
       <RdsSidebar items={items} open variant="permanent" user={{ name: 'Ann', subtitle: 'Boss' }} />
     );
     expect(screen.getByText('Ann')).toBeInTheDocument();
     unmount();
     renderWithTheme(<RdsSidebar items={items} open variant="permanent" />);
-    expect(screen.getByText('Jane Doe')).toBeInTheDocument();
+    expect(screen.queryByText('Jane Doe')).not.toBeInTheDocument();
+    expect(screen.queryByText('Designation')).not.toBeInTheDocument();
   });
 
   it('supports controlled and uncontrolled search', async () => {
@@ -388,9 +383,10 @@ describe('audit fixes', () => {
     expect(screen.queryByTestId('rds-avatar')).not.toBeInTheDocument();
   });
 
-  it('516: platform still selects the built-in menu and warns', () => {
-    renderWithTheme(<RdsSidebar items={[]} open variant="permanent" platform="abp-list" />);
-    expect(screen.getByText('Ticket Allocation')).toBeInTheDocument();
+  it('516: platform warns and does not inject demo menus', () => {
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" platform="abp-list" />);
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.queryByText('Ticket Allocation')).not.toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'platform', '`items`');
   });
 
@@ -403,6 +399,23 @@ describe('audit fixes', () => {
       </ThemeProvider>
     );
     expect(container.querySelector('.rds-sidebar--expanded')).toBeInTheDocument();
+  });
+
+  it('does not expand a different group when search shifts indexes', () => {
+    renderWithTheme(
+      <RdsSidebar
+        open
+        variant="permanent"
+        items={[
+          { label: 'Alpha', children: [{ label: 'One' }] },
+          { label: 'Beta', children: [{ label: 'Two' }] },
+        ]}
+      />,
+    );
+    fireEvent.click(screen.getByText('Alpha'));
+    expect(screen.getByText('One')).toBeInTheDocument();
+    fireEvent.change(screen.getByTestId('rds-search'), { target: { value: 'Beta' } });
+    expect(screen.queryByText('Two')).not.toBeInTheDocument();
   });
 });
 

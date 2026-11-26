@@ -5,6 +5,8 @@ import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachment.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+import { isHttpsFigmaUrl } from "../shared/is-https-figma-url";
 import RdsCompAiFabMenu, { type RdsCompAiFabMenuIcon } from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
@@ -52,7 +54,7 @@ export interface RdsCompAiAttachmentProps
   onFileSelect?: (file: File) => void;
   /** Called on every change of the Figma URL field. */
   onFigmaUrlChange?: (value: string) => void;
-  /** @deprecated Use `onFigmaUrlChange` instead (it fires on every change). */
+  /** Called with a validated https://figma.com URL when Import or Enter confirms it. */
   onFigmaSubmit?: (value: string) => void;
   /** Called with the comment built from an uploaded image. */
   onAddComment?: (comment: Comment) => void;
@@ -106,6 +108,8 @@ export interface Comment {
   lastName: string;
   comment: string;
   image?: string;
+  /** Set when a confirmed Figma URL is attached. */
+  figmaUrl?: string;
 }
 
 registerMaterialIcons({ attachment_icon: AttachmentIcon });
@@ -124,7 +128,6 @@ const DEPRECATED_PROPS = {
   userData: "`currentUser`",
   menuAlignment: "`placement`",
   image: "nothing (no effect)",
-  onFigmaSubmit: "`onFigmaUrlChange`",
   handleAddComment: "`onAddComment`",
 } as const;
 
@@ -169,10 +172,11 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
 
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
+  const [figmaError, setFigmaError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
   const addComment = onAddComment ?? handleAddComment;
-  const figmaUrlChange = onFigmaUrlChange ?? onFigmaSubmit;
+  const figmaUrlChange = onFigmaUrlChange;
   const user = currentUser ?? userData?.[0];
   const alignment = placement ? PLACEMENT_ALIGNMENT[placement] : menuAlignment ?? "left";
   const resolvedUploadText = slotProps?.menu?.uploadText ?? uploadText;
@@ -212,7 +216,19 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   const closeModal = useCallback(() => {
     setShowModal(false);
     setFigmaUrl("");
+    setFigmaError(false);
   }, []);
+
+  const confirmFigma = useCallback(() => {
+    if (!isHttpsFigmaUrl(figmaUrl)) {
+      setFigmaError(true);
+      return;
+    }
+    onFigmaSubmit?.(figmaUrl.trim());
+    setShowModal(false);
+    setFigmaUrl("");
+    setFigmaError(false);
+  }, [figmaUrl, onFigmaSubmit]);
 
   const handleImportClick = useCallback(() => {
     fileInputRef.current?.click();
@@ -300,17 +316,29 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
           open={showModal}
           onClose={closeModal}
           title={dialog?.title ?? modalTitle}
-          actions={null}
+          actions={
+            <>
+              <RdsButton variant="outlined" text="Cancel" onClick={closeModal} />
+              <RdsButton variant="filled" text="Import" onClick={confirmFigma} />
+            </>
+          }
         >
           <p className="text-muted rds-comp-ai-attachment__import-size">{dialog?.text ?? modalText}</p>
           <RdsInput
-            helperText={dialog?.hintText ?? hintText}
+            helperText={figmaError ? "Enter an https://figma.com URL" : (dialog?.hintText ?? hintText)}
+            error={figmaError}
             id={inputId}
             placeholder={dialog?.placeholder ?? inputPlaceholder}
             layout="text"
             name="Enter Figma URL"
             value={figmaUrl}
             onChange={handleFigmaInputChange}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                confirmFigma();
+              }
+            }}
           />
         </RdsModal>
       )}

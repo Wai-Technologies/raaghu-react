@@ -3,6 +3,21 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
+
+/** 12-hour locales ship an `a`/`A` token in dayjs `LT`; 24-hour locales do not. */
+const localeUses12Hour = () => {
+  const locales = (dayjs as unknown as { Ls?: Record<string, { formats?: { LT?: string } }> }).Ls;
+  const lt = locales?.[dayjs.locale()]?.formats?.LT ?? 'h:mm A';
+  return /a/i.test(lt);
+};
+
+const clockFormat = (withSeconds: boolean, withDate: boolean) => {
+  const ampm = localeUses12Hour();
+  const time = ampm
+    ? (withSeconds ? 'hh:mm:ss a' : 'hh:mm a')
+    : (withSeconds ? 'HH:mm:ss' : 'HH:mm');
+  return { ampm, format: withDate ? `MM/DD/YYYY ${time}` : time };
+};
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -104,12 +119,19 @@ export default function RdsCompDatePicker({
   if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompDatePicker', 'style', '`appearance`');
   const style = appearance ?? legacyStyle ?? 'default';
   const isRequired = required ?? legacyRequired ?? false;
-  const [dateValue, setDateValue] = useState<Dayjs | null>(
-    Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
+  const isControlled = value !== undefined;
+  const [uncontrolledDate, setUncontrolledDate] = useState<Dayjs | null>(
+    Array.isArray(value) ? (value[0] ?? null) : ((value as Dayjs | null) ?? null)
   );
-  const [rangeValue, setRangeValue] = useState<[Dayjs | null, Dayjs | null]>(
+  const [uncontrolledRange, setUncontrolledRange] = useState<[Dayjs | null, Dayjs | null]>(
     Array.isArray(value) ? value : [null, null]
   );
+  const dateValue = isControlled
+    ? (Array.isArray(value) ? (value[0] ?? null) : ((value as Dayjs | null) ?? null))
+    : uncontrolledDate;
+  const rangeValue: [Dayjs | null, Dayjs | null] = isControlled
+    ? (Array.isArray(value) ? value : [null, null])
+    : uncontrolledRange;
 
   const [selectedPreset, setSelectedPreset] = useState<string>('custom');
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -118,22 +140,22 @@ export default function RdsCompDatePicker({
     setSelectedPreset(preset.key);
     if (preset.key !== 'custom') {
       const newRange = preset.getValue();
-      setRangeValue(newRange);
+      if (!isControlled) setUncontrolledRange(newRange);
       onChange?.(newRange);
     }
-  }, [onChange]);
+  }, [onChange, isControlled]);
 
   const handleDateChange = useCallback((newValue: Dayjs | Date | null) => {
     const normalizedValue =
       newValue === null ? null : dayjs.isDayjs(newValue) ? newValue : dayjs(newValue);
-    setDateValue(normalizedValue);
+    if (!isControlled) setUncontrolledDate(normalizedValue);
     onChange?.(normalizedValue);
-  }, [onChange]);
+  }, [onChange, isControlled]);
 
   const handleRangeChange = useCallback((newValue: [Dayjs | null, Dayjs | null]) => {
-    setRangeValue(newValue);
+    if (!isControlled) setUncontrolledRange(newValue);
     onChange?.(newValue);
-  }, [onChange]);
+  }, [onChange, isControlled]);
 
   const formattedLabel = useMemo(() => {
     if (!label) return undefined;
@@ -208,9 +230,9 @@ export default function RdsCompDatePicker({
   }, []);
 
   const handleClearRange = useCallback(() => {
-    setRangeValue([null, null]);
+    if (!isControlled) setUncontrolledRange([null, null]);
     onChange?.([null, null]);
-  }, [onChange]);
+  }, [onChange, isControlled]);
 
   const renderRangeField = useCallback(() => {
     const rangeVariant =
@@ -377,23 +399,26 @@ export default function RdsCompDatePicker({
 
   const getPickerComponent = useCallback(() => {
     switch (variant) {
-      case 'time':
+      case 'time': {
+        const clock = clockFormat(showSeconds, false);
         return (
           <TimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
+            format={format || clock.format}
             views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-            ampm={true}
+            ampm={clock.ampm}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           />
         );
+      }
 
-      case 'datetime':
+      case 'datetime': {
+        const clock = clockFormat(showSeconds, true);
         return (
           <DateTimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a')}
-            ampm={true}
+            format={format || clock.format}
+            ampm={clock.ampm}
             views={showSeconds ? ['year', 'month', 'day', 'hours', 'minutes', 'seconds'] : ['year', 'month', 'day', 'hours', 'minutes']}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
             displayWeekNumber
@@ -408,6 +433,7 @@ export default function RdsCompDatePicker({
             }}
           />
         );
+      }
 
       case 'timerange':
         return (

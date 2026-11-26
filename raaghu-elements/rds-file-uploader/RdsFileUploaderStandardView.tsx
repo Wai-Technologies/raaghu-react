@@ -1,9 +1,10 @@
-import { useId, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, useRef, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
+import '../shared/components/visually-hidden.scss';
 import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 interface RdsFileUploaderStandardViewProps {
@@ -58,6 +59,10 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
   const { className, sx, ...restRootProps } = rootProps ?? {};
   const titleId = useId();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const openFileDialog = () => {
+    if (!disabled) fileInputRef.current?.click();
+  };
 
   return (
     <Box
@@ -106,19 +111,21 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
             height: 'auto',
           }}
           aria-describedby={showTitle ? titleId : undefined}
-          component="label"
+          onClick={openFileDialog}
         >
           Choose File
-          <input
-            type="file"
-            hidden
-            accept={accept}
-            multiple={multiple}
-            disabled={disabled}
-            onChange={handleFileSelect}
-            aria-label="Choose file"
-          />
         </RdsButton>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept={accept}
+          multiple={multiple}
+          disabled={disabled}
+          onChange={handleFileSelect}
+          aria-label="Choose file"
+          tabIndex={-1}
+          className="rds-file-uploader__native-input rds-visually-hidden"
+        />
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"

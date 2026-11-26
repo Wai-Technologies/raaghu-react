@@ -269,23 +269,21 @@ describe('RdsCompTimePicker', () => {
       expect(onChange).toHaveBeenCalledWith(expect.stringContaining(':'));
     });
 
-    it('should call onChange when Cancel button clicked', () => {
+    it('should not call onChange when Cancel restores the committed value', () => {
       const onChange = jest.fn();
       render(<RdsCompTimePicker {...defaultProps} value="3:30 PM" onChange={onChange} />);
-      const input = screen.getByPlaceholderText('12:00 AM');
+      const input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
       fireEvent.click(input);
-      const cancelBtn = screen.getByRole('button', { name: /cancel/i });
-      fireEvent.click(cancelBtn);
-      expect(onChange).toHaveBeenCalledWith('');
+      fireEvent.click(screen.getByRole('button', { name: /^cancel$/i }));
+      expect(onChange).not.toHaveBeenCalled();
+      expect(input.value).toBe('3:30 PM');
     });
 
-    it('should pass empty string to onChange on Cancel', () => {
+    it('should emit an empty string from Clear', () => {
       const onChange = jest.fn();
       render(<RdsCompTimePicker {...defaultProps} value="3:30 PM" onChange={onChange} />);
-      const input = screen.getByPlaceholderText('12:00 AM');
-      fireEvent.click(input);
-      const cancelBtn = screen.getByRole('button', { name: /cancel/i });
-      fireEvent.click(cancelBtn);
+      fireEvent.click(screen.getByPlaceholderText('12:00 AM'));
+      fireEvent.click(screen.getByRole('button', { name: /^clear$/i }));
       expect(onChange).toHaveBeenCalledWith('');
     });
 
@@ -323,11 +321,12 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should set current time on NOW button click (default style)', () => {
-      render(<RdsCompTimePicker {...defaultProps} variant="default" />);
+      const onChange = jest.fn();
+      render(<RdsCompTimePicker {...defaultProps} variant="default" onChange={onChange} />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
-      const nowBtn = screen.getByText('NOW');
-      fireEvent.click(nowBtn);
+      fireEvent.click(screen.getByText('NOW'));
+      expect(onChange).not.toHaveBeenCalled();
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
@@ -581,10 +580,11 @@ describe('RdsCompTimePicker', () => {
 
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
-      const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+      const cancelBtn = screen.getByRole('button', { name: /^cancel$/i });
       fireEvent.click(cancelBtn);
 
-      expect(onChange).toHaveBeenCalledWith('');
+      expect(onChange).not.toHaveBeenCalled();
+      expect(screen.getByPlaceholderText('12:00 AM')).toHaveValue('3:30 PM');
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
     });
 
@@ -621,9 +621,10 @@ describe('RdsCompTimePicker', () => {
       expect(onChange).toHaveBeenCalled();
 
       fireEvent.click(input);
-      const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+      const cancelBtn = screen.getByRole('button', { name: /^cancel$/i });
       fireEvent.click(cancelBtn);
-      expect(onChange).toHaveBeenCalledWith('');
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(input).toHaveValue('12:00 AM');
     });
   });
 

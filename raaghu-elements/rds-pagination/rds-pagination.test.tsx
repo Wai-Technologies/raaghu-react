@@ -872,4 +872,15 @@ describe('audit fixes', () => {
     render(<RdsPagination totalPages={3} data-testid="users-pagination" />);
     expect(screen.getByTestId('users-pagination')).toHaveClass('rds-pagination-wrapper');
   });
+
+  it('updates the uncontrolled page size when onPageSizeChange is set without pageSize', async () => {
+    const onPageSizeChange = jest.fn();
+    renderWithTheme(
+      <RdsPagination totalPages={3} showRecordsPerPage pageSizeOptions={[10, 20]} onPageSizeChange={onPageSizeChange} />,
+    );
+    await userEvent.click(screen.getByLabelText(/records per page/i));
+    await userEvent.click(screen.getByRole('option', { name: '20' }));
+    expect(onPageSizeChange).toHaveBeenCalledWith(20);
+    expect(screen.getByLabelText(/records per page/i)).toHaveTextContent('20');
+  });
 });

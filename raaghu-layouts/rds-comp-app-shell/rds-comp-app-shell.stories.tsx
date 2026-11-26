@@ -5,6 +5,7 @@ import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
 import { BrowserRouter } from "react-router-dom";
 import "./rds-comp-app-shell.scss";
+import "./rds-comp-app-shell.stories.scss";
 import RdsCompDetailsPane from "../../raaghu-components/rds-comp-details-pane/rds-comp-details-pane";
 import RdsSidebar from "../../raaghu-elements/rds-sidebar/rds-sidebar";
 import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
@@ -255,7 +256,7 @@ const AppShellStory = (args: any) => {
           </div>
           
           <div className="rds-appshell-side-nav-right d-flex align-items-stretch justify-content-end rds-story-side-nav-right-container">
-            <div className="rds-story-side-nav-right-content" id="side-nav-icon-list">
+            <div className="rds-story-side-nav-right-content rds-appshell__side-nav-icon-list">
               <BrowserRouter>
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
@@ -304,7 +305,7 @@ const AppShellStory = (args: any) => {
           <div className="rds-appshell-add-layout-flex-center">
             <span className="rds-appshell-add-layout-text">Add Layout</span>
           </div>
-          <div id="details-pane-app-shell">
+          <div className="rds-appshell__details-pane">
             <RdsCompDetailsPane
               className="rds-comp-details-pane--flush"
               headerSubText="Agent Information"
@@ -333,7 +334,7 @@ const AppShellStory = (args: any) => {
           <div className="rds-appshell-add-layout-flex-center">
             <span className="rds-appshell-add-layout-text">Add Layout</span>
           </div>
-          <div id="detail-pane-one-three-one">
+          <div className="rds-appshell__details-pane-toolbar">
             <RdsCompDetailsPane 
               className="rds-comp-details-pane--flush-toolbar"
               variant="Toolbar"

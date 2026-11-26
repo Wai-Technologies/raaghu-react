@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -202,6 +202,9 @@ const RdsCompEmojiGenerator = ({
     const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
     const [emojiDataReady, setEmojiDataReady] = useState(() => isEmojiDataReady());
+    const [activeEmojiIndex, setActiveEmojiIndex] = useState(0);
+    const gridContainerRef = useRef<HTMLDivElement | null>(null);
+    const emojiCellRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         let cancelled = false;
@@ -244,6 +247,57 @@ const RdsCompEmojiGenerator = ({
         [filteredEmojis, maxEmojis]
     );
 
+    useEffect(() => {
+        setActiveEmojiIndex(0);
+        emojiCellRefs.current = [];
+    }, [displayEmojis, currentCategory, searchTerm, mood]);
+
+    const getGridColumnCount = useCallback(() => {
+        const container = gridContainerRef.current;
+        if (!container) return 7;
+        const cells = container.querySelectorAll<HTMLElement>('.rds-emoji-generator__emoji');
+        if (cells.length < 2) return 1;
+        const firstTop = cells[0].offsetTop;
+        let cols = 0;
+        for (const cell of cells) {
+            if (cell.offsetTop === firstTop) cols += 1;
+            else break;
+        }
+        return cols || 1;
+    }, []);
+
+    const focusEmojiAt = useCallback((index: number) => {
+        const next = Math.max(0, Math.min(displayEmojis.length - 1, index));
+        setActiveEmojiIndex(next);
+        emojiCellRefs.current[next]?.focus();
+    }, [displayEmojis.length]);
+
+    const handleEmojiGridKeyDown = useCallback((e: KeyboardEvent<HTMLElement>, emoji: string, index: number) => {
+        const cols = getGridColumnCount();
+        const last = displayEmojis.length - 1;
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            if (index < last) focusEmojiAt(index + 1);
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            if (index > 0) focusEmojiAt(index - 1);
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (index + cols <= last) focusEmojiAt(index + cols);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (index - cols >= 0) focusEmojiAt(index - cols);
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            focusEmojiAt(0);
+        } else if (e.key === 'End') {
+            e.preventDefault();
+            focusEmojiAt(last);
+        } else {
+            handleActivationKey(e, () => handleEmojiClick(emoji, e));
+        }
+    }, [displayEmojis.length, focusEmojiAt, getGridColumnCount, handleEmojiClick]);
+
     if (resolvedType === EmojiGeneratorType.QuickReactions) {
         return (
             <Box ref={setRootRef} className={clsx("rds-emoji-generator rds-emoji-generator--quick", className)} sx={sx} {...props}>
@@ -285,6 +339,7 @@ const RdsCompEmojiGenerator = ({
                             onChange={(e) => setSearchTerm(e.target.value)}
                             slotProps={{
                                 input: {
+                                    'aria-label': searchPlaceholder,
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <SearchIcon />
@@ -346,9 +401,11 @@ const RdsCompEmojiGenerator = ({
                                 key={t.id}
                                 icon={<I />}
                                 size="small"
-                                                                variant={currentCategory === t.id ? 'filled' : 'outlined'}
-                                                                color={currentCategory === t.id ? 'primary' : 'default'}
+                                variant={currentCategory === t.id ? 'filled' : 'outlined'}
+                                color={currentCategory === t.id ? 'primary' : 'default'}
                                 onClick={() => handleCategoryChange(t.id)}
+                                aria-label={t.title}
+                                aria-pressed={currentCategory === t.id}
                                 title={t.title}
                                 className={clsx(
                                   "rds-emoji-generator__category-chip",
@@ -366,16 +423,24 @@ const RdsCompEmojiGenerator = ({
                         {mood.trim() ? "Search Results" : CATEGORY_TABS.find(t => t.id === currentCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
-                <Box className="rds-emoji-generator__grid-container" tabIndex={0}>
-                    {displayEmojis.map((e) => (
+                <Box
+                    ref={gridContainerRef}
+                    className="rds-emoji-generator__grid-container"
+                    role="listbox"
+                    aria-label={mood.trim() ? 'Search results' : CATEGORY_TABS.find(t => t.id === currentCategory)?.title ?? 'Emojis'}
+                >
+                    {displayEmojis.map((e, index) => (
                         <Box
                             key={`${e}-${currentCategory}`}
+                            ref={(node: HTMLDivElement | null) => { emojiCellRefs.current[index] = node; }}
                             className="rds-emoji-generator__emoji"
-                            role="button"
-                            tabIndex={0}
+                            role="option"
+                            aria-selected={index === activeEmojiIndex}
+                            tabIndex={index === activeEmojiIndex ? 0 : -1}
                             aria-label={getEmojiLabel(e) ?? e}
                             onClick={(ev) => handleEmojiClick(e, ev)}
-                            onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e, ev))}
+                            onFocus={() => setActiveEmojiIndex(index)}
+                            onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleEmojiGridKeyDown(ev, e, index)}
                         >
                             {isFlagEmoji(e) ? (
                                 <img

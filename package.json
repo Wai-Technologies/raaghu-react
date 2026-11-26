@@ -29,15 +29,15 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache-2.0",
-  "main": "./dist/raaghu-react.cjs",
-  "module": "./dist/raaghu-react.es.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "style": "./dist/raaghu-react.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/raaghu-react.es.mjs",
-      "require": "./dist/raaghu-react.cjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/raaghu-react.css",
     "./raaghu-react.css": "./dist/raaghu-react.css",
@@ -95,10 +95,12 @@
     "docs:ai": "node scripts/generate-ai-manifest.mjs",
     "preview": "vite preview",
     "test": "jest",
+    "test:consumer-smoke": "node --max-old-space-size=4096 scripts/consumer-smoke.mjs",
     "test:visual": "npm run test:storybook",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:accessibility": "jest --testPathPattern=accessibility",
+    "test:a11y": "vitest --maxWorkers=1",
     "test:storybook": "vitest --maxWorkers=1",
     "test:ui": "vitest --ui",
     "test:storybook:coverage": "vitest --coverage",
@@ -217,22 +219,24 @@
   },
   "size-limit": [
     {
-      "name": "Elements (all)",
-      "path": "raaghu-elements/index.ts",
-      "limit": "500 kB",
-      "import": "*"
+      "name": "RdsButton only (tree-shaken, deps + peers external)",
+      "path": "dist/index.mjs",
+      "import": "{ RdsButton }",
+      "limit": "10 kB",
+      "ignore": ["@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities", "@hello-pangea/dnd", "chart.js", "clsx", "dayjs", "dompurify", "draft-js", "draftjs-to-html", "emojibase", "emojibase-data", "html-to-draftjs", "immutable", "lottie-react", "react-datepicker", "react-draft-wysiwyg", "react-player", "react-svg-worldmap", "react-syntax-highlighter", "@emotion/react", "@emotion/styled", "@mui/icons-material", "@mui/lab", "@mui/material", "@mui/system", "@mui/x-date-pickers", "react", "react-dom"]
     },
     {
-      "name": "Components (all)",
-      "path": "raaghu-components/index.ts",
-      "limit": "500 kB",
-      "import": "*"
+      "name": "Full ESM entry (deps + peers external)",
+      "path": "dist/index.mjs",
+      "import": "*",
+      "limit": "350 kB",
+      "ignore": ["@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities", "@hello-pangea/dnd", "chart.js", "clsx", "dayjs", "dompurify", "draft-js", "draftjs-to-html", "emojibase", "emojibase-data", "html-to-draftjs", "immutable", "lottie-react", "react-datepicker", "react-draft-wysiwyg", "react-player", "react-svg-worldmap", "react-syntax-highlighter", "@emotion/react", "@emotion/styled", "@mui/icons-material", "@mui/lab", "@mui/material", "@mui/system", "@mui/x-date-pickers", "react", "react-dom"]
     },
     {
-      "name": "Themes",
-      "path": "raaghu-react-themes/tokens/design-tokens.ts",
-      "limit": "50 kB",
-      "import": "*"
+      "name": "Themes (design tokens)",
+      "path": "dist/raaghu-react-themes/tokens/design-tokens.mjs",
+      "import": "*",
+      "limit": "15 kB"
     }
   ]
 }

@@ -441,4 +441,15 @@ describe('RdsCounter additive renames', () => {
     expect(controls).toHaveAttribute('id', 'ctl');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   });
+
+  it('holds a cleared controlled value until blur, then calls onClear', () => {
+    const onChange = jest.fn();
+    const onClear = jest.fn();
+    render(<RdsCounter value={5} onChange={onChange} onClear={onClear} />);
+    fireEvent.change(textbox(), { target: { value: '' } });
+    expect(textbox().value).toBe('');
+    fireEvent.blur(textbox());
+    expect(onClear).toHaveBeenCalledWith(expect.any(Object));
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

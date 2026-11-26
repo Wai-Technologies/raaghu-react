@@ -406,4 +406,14 @@ describe('RdsInput audit fixes', () => {
     expect(root).toHaveClass('rds-input');
     expect(container.querySelector('.MuiTextField-root')).not.toHaveAttribute('data-testid');
   });
+
+  it('allows Enter, a decimal, and a leading minus on number layout', () => {
+    const { container } = setup({ layout: 'number' });
+    const input = getInput(container);
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'Escape' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: '.' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: '-' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'e' })).toBe(false);
+  });
 });

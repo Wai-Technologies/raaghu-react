@@ -1,4 +1,4 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import {
   resolveChartData,
   resolveChartLabel,
 } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-radar.scss";
@@ -33,6 +34,8 @@ export interface RdsCompRadarProps
   id: string;
   /** Accessible label of the chart. Default "Radar chart". */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Canvas height (number = px). */
@@ -60,6 +63,7 @@ const RdsCompRadarChart = ({
   dataSets,
   id,
   ariaLabel,
+  description,
   chartLabel,
   height,
   width,
@@ -70,8 +74,15 @@ const RdsCompRadarChart = ({
   ...rest
 }: RdsCompRadarProps) => {
   if (radius !== undefined) warnDeprecatedProp("RdsCompRadarChart", "radius", "`height`");
+  const accessibleAltId = useId();
   const canvasHeight = height ?? radius;
   const resolved = resolveChartData("RdsCompRadarChart", data, labels, dataSets, false);
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    resolved.labels,
+    resolved.datasets,
+  );
 
   const { canvasRef } = useChart<"radar">(
     {
@@ -148,6 +159,13 @@ const RdsCompRadarChart = ({
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompRadarChart", ariaLabel, chartLabel, "Radar chart")}
+        aria-describedby={describedBy}
+      />
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={resolved.labels}
+        datasets={resolved.datasets}
       />
     </Box>
   );

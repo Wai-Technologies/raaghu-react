@@ -82,6 +82,29 @@ const RAAGHU_THEME_BODY_CLASSES = {
 } as const;
 
 /**
+ * localStorage access that never throws (Safari blocked storage, sandboxed
+ * iframes, and some enterprise policies raise SecurityError on get/set).
+ */
+export function safeGetItem(key: string): string | null {
+  try {
+    if (typeof localStorage === 'undefined') return null;
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+/** @see safeGetItem */
+export function safeSetItem(key: string, value: string): void {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(key, value);
+  } catch {
+    // Persistence is best-effort; theme still applies in-memory.
+  }
+}
+
+/**
  * Returns true when the document is in dark mode.
  * Checks data-theme and legacy body/html class patterns.
  */
@@ -134,8 +157,8 @@ export function applyRaaghuTheme(
   );
 
   // Persist the user's intent ('system', 'light', or 'dark') — not the resolved value
-  if (options?.persist !== false && typeof localStorage !== 'undefined') {
-    localStorage.setItem(THEME_STORAGE_KEY, mode);
+  if (options?.persist !== false) {
+    safeSetItem(THEME_STORAGE_KEY, mode);
   }
 
   injectTokens(effectiveMode, overrides);
@@ -226,10 +249,7 @@ export function getRaaghuThemeMode(): RaaghuThemeMode {
  * Returns `'system'` when no stored preference exists (default behaviour).
  */
 export function initializeRaaghuTheme(): RaaghuThemeMode {
-  const stored =
-    typeof localStorage !== 'undefined'
-      ? (localStorage.getItem(THEME_STORAGE_KEY) as RaaghuThemeMode | null)
-      : null;
+  const stored = safeGetItem(THEME_STORAGE_KEY) as RaaghuThemeMode | null;
 
   const mode: RaaghuThemeMode =
     stored === 'dark' || stored === 'light' || stored === 'system'

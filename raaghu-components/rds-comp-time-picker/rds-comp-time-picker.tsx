@@ -76,6 +76,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const resolvedColor = color ?? colorVariant;
   const nowText = localeText?.now ?? 'NOW';
   const cancelText = localeText?.cancel ?? 'Cancel';
+  const clearText = localeText?.clear ?? 'Clear';
   const setTimeText = localeText?.setTime ?? 'Set Time';
   const placeholderText = localeText?.placeholder ?? '12:00 AM';
 
@@ -86,6 +87,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     ...getSyncUpdates(valueProp),
     ...(defaultOpen !== undefined && { showPicker: defaultOpen }),
   }));
+  const committedRef = useRef<Partial<PickerState>>(getSyncUpdates(valueProp));
   const { showPicker: innerOpen, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
   const showPicker = openProp ?? innerOpen;
   const updatePickerState = useCallback((updates: Partial<PickerState> | ((prev: PickerState) => Partial<PickerState>)) => {
@@ -99,7 +101,9 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
   if (valueProp !== prevValueProp) {
     setPrevValueProp(valueProp);
-    setPickerState({ ...pickerState, ...getSyncUpdates(valueProp) });
+    const synced = getSyncUpdates(valueProp);
+    committedRef.current = synced;
+    setPickerState({ ...pickerState, ...synced });
   }
 
   const setOpen = useCallback((next: boolean) => {
@@ -127,32 +131,23 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       e.stopPropagation();
     }
 
-    if (pickerStyle === 'compact') {
-      const formattedTime = formatTime(tempHour, tempMinute, tempPeriod);
-      updatePickerState({
-        hours: tempHour,
-        minutes: tempMinute,
-        period: tempPeriod,
-        time: formattedTime,
-      });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
-    } else {
-      const formattedTime = formatTime(hours, minutes, period);
-      updatePickerState({ time: formattedTime });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
-    }
+    const committed = pickerStyle === 'compact'
+      ? { hours: tempHour, minutes: tempMinute, period: tempPeriod, time: formatTime(tempHour, tempMinute, tempPeriod), tempHour, tempMinute, tempPeriod }
+      : { hours, minutes, period, time: formatTime(hours, minutes, period), tempHour: hours, tempMinute: minutes, tempPeriod: period };
+    committedRef.current = committed;
+    updatePickerState(committed);
+    onChangeProp?.(committed.time);
 
     setOpen(false);
   }, [pickerStyle, tempHour, tempMinute, tempPeriod, onChangeProp, hours, minutes, period, updatePickerState, setOpen]);
 
   const handleCancel = useCallback(() => {
-    updatePickerState({
+    updatePickerState({ ...committedRef.current, showPicker: false });
+    setOpen(false);
+  }, [updatePickerState, setOpen]);
+
+  const handleClear = useCallback(() => {
+    const cleared = {
       time: '',
       hours: 12,
       minutes: 0,
@@ -160,11 +155,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       tempHour: 12,
       tempMinute: 0,
       tempPeriod: 'AM',
-    });
-
-    if (onChangeProp) {
-      onChangeProp('');
-    }
+    };
+    committedRef.current = cleared;
+    updatePickerState(cleared);
+    onChangeProp?.('');
     setOpen(false);
   }, [onChangeProp, updatePickerState, setOpen]);
 
@@ -190,19 +184,13 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     if (pickerStyle === 'compact') {
       updatePickerState({ tempHour: currentHours, tempMinute: currentMinutes, tempPeriod: currentPeriod });
     } else {
-      const formattedTime = formatTime(currentHours, currentMinutes, currentPeriod);
       updatePickerState({
         hours: currentHours,
         minutes: currentMinutes,
         period: currentPeriod,
-        time: formattedTime,
       });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
     }
-  }, [pickerStyle, onChangeProp, updatePickerState]);
+  }, [pickerStyle, updatePickerState]);
 
   const incrementHour = useCallback(() => updatePickerState((prev) => ({ hours: (prev.hours % 12) + 1 })), [updatePickerState]);
   const decrementHour = useCallback(() => updatePickerState((prev) => ({ hours: prev.hours - 1 <= 0 ? 12 : prev.hours - 1 })), [updatePickerState]);
@@ -296,6 +284,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
           <div className={clsx("buttons", pickerStyle === "compact" ? "buttons-compact" : "buttons")}>
             <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>{cancelText}</button>
+            <button type="button" className={buttonClasses.cancel} onClick={handleClear}>{clearText}</button>
             <button
               type="button"
               className={buttonClasses.setTime}

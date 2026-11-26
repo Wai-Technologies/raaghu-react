@@ -802,5 +802,11 @@ describe('RdsCompCodeSnippet', () => {
       const mainDiv = container.querySelector('.rds-comp-code-snippet');
       expect(mainDiv?.className).not.toContain('undefined');
     });
+
+    it('highlights the language chosen in the dropdown', () => {
+      render(<RdsCompCodeSnippet language={true} type="multiLine" code="const n = 1;" />);
+      fireEvent.change(screen.getByTestId('rds-button-dropdown'), { target: { value: 'css' } });
+      expect(screen.getByTestId('syntax-highlighter')).toHaveAttribute('data-language', 'css');
+    });
   });
 });

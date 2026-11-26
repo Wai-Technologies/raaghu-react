@@ -599,4 +599,16 @@ describe('audit fixes', () => {
     );
     expect(screen.getByTestId('users-table')).toHaveClass('rds-table');
   });
+
+  it('updates row order when onSortChange is set without sortBy', () => {
+    const rows = [
+      { id: '1', name: 'B', email: 'b@example.com', age: 2 },
+      { id: '2', name: 'A', email: 'a@example.com', age: 1 },
+    ];
+    const { container } = renderWithTheme(
+      <RdsTable columns={sortableName} rows={rows} onSortChange={jest.fn()} />,
+    );
+    fireEvent.click(container.querySelector('.rds-table__header-content')!);
+    expect(container.querySelector('.rds-table__body .rds-table__cell')?.textContent).toBe('A');
+  });
 });

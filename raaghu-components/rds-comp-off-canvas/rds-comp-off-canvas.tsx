@@ -167,7 +167,11 @@ const RdsCompOffcanvas = ({
       const sx = consumer?.sx;
       return {
         ...consumer,
-        ...(isCanvasTitle ? { "aria-labelledby": titleId } : {}),
+        role: "dialog",
+        "aria-modal": true,
+        ...(isCanvasTitle
+          ? { "aria-labelledby": titleId }
+          : { "aria-label": (consumer as { "aria-label"?: string } | undefined)?.["aria-label"] ?? "Off canvas" }),
         ...(resolvedWidth !== undefined
           ? { sx: [{ width: resolvedWidth }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])] }
           : {}),

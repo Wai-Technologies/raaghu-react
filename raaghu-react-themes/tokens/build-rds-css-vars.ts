@@ -648,10 +648,10 @@ function sharedCssVars(): Record<string, string> {
     '--rds-container-padding': componentTokens.container.padding,
     '--rds-icon-button-focus-color': semanticAliasTokens.rdsIconButtonFocusColor,
     '--rds-button-primary-bg': 'var(--rds-primary-main)',
-    '--rds-button-primary-text': 'var(--rds-color-on-primary)',
-    '--rds-button-primary-bg-hover': 'var(--rds-primary-light)',
-    '--rds-button-primary-bg-active': 'var(--rds-primary-dark)',
-    '--rds-button-primary-bg-disabled': alphaTokens.actionDisabledLight,
+    '--rds-button-primary-text': 'var(--rds-primary-contrast-text)',
+    '--rds-button-primary-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 88%, black)',
+    '--rds-button-primary-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 75%, black)',
+    '--rds-button-primary-bg-disabled': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
     '--rds-button-primary-text-disabled': 'var(--rds-text-disabled)',
     '--rds-button-secondary-bg': 'var(--rds-secondary-main)',
     '--rds-button-secondary-text': 'var(--rds-color-on-secondary)',
@@ -725,11 +725,11 @@ function sharedCssVars(): Record<string, string> {
     '--rds-background-neutral-50': colorTokens.neutral[50],
     '--rds-background-surface-hover': 'var(--rds-action-hover)',
     '--rds-surface-subtle': colorTokens.neutral[50],
-    '--rds-badge-bg-primary-card': colorTokens.primary[50],
-    '--rds-badge-bg-secondary-card': colorTokens.secondary[50],
+    '--rds-badge-bg-primary-card': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-badge-bg-secondary-card': 'color-mix(in srgb, var(--rds-secondary-main) 12%, transparent)',
     '--rds-badge-text-on-dark': white,
     '--rds-border-hover': colorTokens.neutral[400],
-    '--rds-border-selected': colorTokens.primary[700],
+    '--rds-border-selected': 'var(--rds-primary-main)',
     '--rds-border-strong': colorTokens.neutral[600],
     '--rds-border-subtle': colorTokens.neutral[200],
     '--rds-box-shadow-xs': elevationTokens[1],
@@ -739,7 +739,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-carousel-title-bg-dark': colorTokens.neutral[800],
     '--rds-carousel-title-border': colorTokens.neutral[200],
     '--rds-carousel-wrapper-bg': white,
-    '--rds-color-accent-light': colorTokens.primary[100],
+    '--rds-color-accent-light': 'color-mix(in srgb, var(--rds-primary-main) 16%, transparent)',
     '--rds-color-background-light': white,
     '--rds-color-border-hover': colorTokens.neutral[400],
     '--rds-color-border-light': colorTokens.neutral[200],
@@ -777,13 +777,13 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-text-secondary-dark': colorTokens.neutral[400],
     '--rds-color-text-tertiary': colorTokens.neutral[600],
     '--rds-color-white': white,
-    '--rds-color-primary-bg': colorTokens.primary[700],
-    '--rds-color-primary-contrast': white,
-    '--rds-color-primary-hover-bg': colorTokens.primary[800],
-    '--rds-color-primary-light': colorTokens.primary[100],
-    '--rds-color-primary-lighter': colorTokens.primary[50],
-    '--rds-color-primary-outline': colorTokens.primary[700],
-    '--rds-color-primary-pressed': colorTokens.primary[900],
+    '--rds-color-primary-bg': 'var(--rds-primary-main)',
+    '--rds-color-primary-contrast': 'var(--rds-primary-contrast-text)',
+    '--rds-color-primary-hover-bg': 'var(--rds-primary-dark)',
+    '--rds-color-primary-light': 'var(--rds-primary-light)',
+    '--rds-color-primary-lighter': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-color-primary-outline': 'var(--rds-primary-main)',
+    '--rds-color-primary-pressed': 'var(--rds-primary-dark)',
     '--rds-color-secondary-container': colorTokens.secondary[50],
     '--rds-color-secondary-container-hover': colorTokens.secondary[100],
     '--rds-color-surface-container-high': colorTokens.neutral[100],
@@ -792,7 +792,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-surface-variant-hover': colorTokens.neutral[100],
     '--rds-color-switch-thumb': white,
     '--rds-color-switch-track': colorTokens.neutral[400],
-    '--rds-switch-active-bg': colorTokens.primary[700],
+    '--rds-switch-active-bg': 'var(--rds-primary-main)',
     '--rds-switch-disabled-bg': colorTokens.neutral[200],
     '--rds-switch-inactive-bg': colorTokens.neutral[300],
     '--rds-switch-root-width': '44px',
@@ -803,22 +803,22 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-tertiary': colorTokens.tertiary[500],
     '--rds-comments-input-bg': white,
     '--rds-comments-input-text': colorTokens.neutral[900],
-    '--rds-comments-selected-text': colorTokens.primary[50],
-    '--rds-focus-color': colorTokens.primary[700],
-    '--rds-grid-row-selected': colorTokens.primary[50],
+    '--rds-comments-selected-text': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-focus-color': 'var(--rds-primary-main)',
+    '--rds-grid-row-selected': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
     '--rds-font-size-caption': typographyTokens.fontSize.xs,
-    '--rds-loader-jump-fill': colorTokens.primary[700],
+    '--rds-loader-jump-fill': 'var(--rds-primary-main)',
     '--rds-loader-jump-shadow': 'rgba(0,0,0,0.2)',
-    '--rds-loader-rotate-primary': colorTokens.primary[700],
-    '--rds-loader-rotate-secondary': colorTokens.primary[500],
-    '--rds-loader-rotate-tertiary': colorTokens.primary[300],
-    '--rds-loader-round-color': colorTokens.primary[700],
-    '--rds-loader-sand-dark': colorTokens.primary[700],
-    '--rds-loader-sand-light': colorTokens.primary[200],
-    '--rds-loader-spinner-accent': colorTokens.primary[500],
+    '--rds-loader-rotate-primary': 'var(--rds-primary-main)',
+    '--rds-loader-rotate-secondary': 'color-mix(in srgb, var(--rds-primary-main) 70%, white)',
+    '--rds-loader-rotate-tertiary': 'color-mix(in srgb, var(--rds-primary-main) 40%, white)',
+    '--rds-loader-round-color': 'var(--rds-primary-main)',
+    '--rds-loader-sand-dark': 'var(--rds-primary-main)',
+    '--rds-loader-sand-light': 'color-mix(in srgb, var(--rds-primary-main) 35%, white)',
+    '--rds-loader-spinner-accent': 'color-mix(in srgb, var(--rds-primary-main) 70%, white)',
     '--rds-offcanvas-border': colorTokens.neutral[300],
-    '--rds-primary-100': colorTokens.primary[100],
-    '--rds-primary-800': colorTokens.primary[800],
+    '--rds-primary-100': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-primary-800': 'var(--rds-primary-dark)',
     '--rds-primary-rgb': '60,152,255',
     '--rds-radius-base': radiusTokens.base,
     '--rds-radius-lg': radiusTokens.lg,
@@ -848,8 +848,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-syntax-value-dark': syntaxTokens.valueDark,
     '--rds-text-primary-light': colorTokens.neutral[900],
     '--rds-text-tertiary': colorTokens.neutral[600],
-    '--rds-time-picker-accent': colorTokens.primary[700],
-    '--rds-time-picker-accent-rgb': '60,152,255',
+    '--rds-time-picker-accent': 'var(--rds-primary-main)',
+    '--rds-time-picker-accent-rgb': 'var(--rds-primary-rgb)',
     '--rds-toast-circle-color': colorTokens.neutral[600],
     '--rds-toast-plus-color': colorTokens.neutral[600],
     '--rds-tooltip-max-width': '320px',
@@ -1163,7 +1163,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-primary-dark': sem.primary.dark,
     '--rds-primary-contrast-text': sem.primary.contrastText,
     '--rds-surface-primary-darker': p[800],
-    '--rds-surface-primary-dark': p[700],
+    '--rds-surface-primary-dark': 'var(--rds-primary-main)',
     '--rds-surface-primary-medium': p[100],
     '--rds-surface-primary-light': p[50],
     '--rds-surface-primary-subtle': p[50],
@@ -1231,19 +1231,13 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
     '--rds-divider': sem.divider,
-    '--rds-button-primary-bg': p[700],
-    '--rds-button-primary-bg-hover': p[750],
-    '--rds-button-primary-bg-active': p[800],
-    '--rds-button-primary-bg-disabled': p[100],
-    '--rds-button-primary-text': white,
-    '--rds-button-primary-text-disabled': p[300],
-    '--rds-appbar-bg': p[700],
-    '--rds-appbar-color': white,
+    '--rds-appbar-bg': 'var(--rds-primary-main)',
+    '--rds-appbar-color': 'var(--rds-primary-contrast-text)',
     '--rds-appbar-shadow': 'var(--rds-elevation-1)',
     '--rds-appbar-separator-bg': 'var(--rds-border-light)',
-    '--rds-appbar-secondary-bg': s[700],
-    '--rds-appbar-badge-bg': p[50],
-    '--rds-appbar-badge-color': p[700],
+    '--rds-appbar-secondary-bg': 'var(--rds-secondary-main)',
+    '--rds-appbar-badge-bg': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-appbar-badge-color': 'var(--rds-primary-main)',
     '--rds-appbar-separator-horizontal-margin': spacingTokens[2],
     '--rds-appbar-separator-horizontal-margin-sm': '6px',
     '--rds-appbar-separator-horizontal-margin-xs': spacingTokens[1],
@@ -1263,15 +1257,11 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-text-active': interactiveTokens.secondaryText,
     '--rds-button-secondary-text-disabled': interactiveTokens.secondaryTextDisabled,
     '--rds-button-secondary-bg-disabled': n[100],
-    '--rds-button-text-bg-hover': p[50],
     '--rds-button-text-variant-bg': interactiveTokens.variantTextBg,
-    '--rds-button-text-bg-active': p[100],
-    '--rds-button-text-color': p[700],
-    '--rds-button-text-color-active': p[600],
-    '--rds-button-text-color-disabled': p[300],
-    '--rds-alert-success-bg': p[50],
+    '--rds-button-text-color-disabled': 'color-mix(in srgb, var(--rds-primary-main) 40%, transparent)',
+    '--rds-alert-success-bg': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
     '--rds-alert-success-border': interactiveTokens.alertSuccessBorder,
-    '--rds-alert-loading-border': colorTokens.primary[700],
+    '--rds-alert-loading-border': 'var(--rds-primary-main)',
     '--rds-alert-success-text': su[750],
     '--rds-alert-error-bg': interactiveTokens.alertErrorBg,
     '--rds-alert-error-border': e[700],
@@ -1284,7 +1274,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-alert-info-text': i[600],
     '--rds-form-bg': white,
     '--rds-form-border': n[300],
-    '--rds-form-border-focus': p[700],
+    '--rds-form-border-focus': 'var(--rds-primary-main)',
     '--rds-form-bg-focus': white,
     '--rds-placeholder-color': 'var(--rds-placeholder-color-light)',
     '--rds-form-control-asterisk-color': e[700],
@@ -1350,7 +1340,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-rating-color-light': 'var(--rds-border-default)',
     '--rds-color-neutral-300': n[300],
     '--rds-color-neutral-500': n[500],
-    '--rds-color-primary-700': p[700],
+    '--rds-color-primary-700': 'var(--rds-primary-main)',
     '--rds-color-primary-800': p[800],
     '--rds-color-primary-900': p[900],
     '--rds-color-primary-20': p[50],
@@ -1369,7 +1359,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-border-subtle-dark': n[700],
     '--rds-color-surface-contrast': n[900],
     '--rds-color-avatar-bg': p[100],
-    '--rds-color-avatar-fg': p[700],
+    '--rds-color-avatar-fg': 'var(--rds-primary-main)',
     '--rds-color-red-600': e[600],
     '--rds-color-red-danger': e[700],
     '--rds-color-red-danger-hover': e[750],
@@ -1412,7 +1402,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-primary-light': sem.primary.light,
     '--rds-primary-dark': sem.primary.dark,
     '--rds-primary-contrast-text': sem.primary.contrastText,
-    '--rds-surface-primary-darker': p[200],
+    '--rds-surface-primary-darker': 'var(--rds-primary-main)',
     '--rds-surface-primary-dark': p[400],
     '--rds-surface-primary-medium': p[600],
     '--rds-surface-primary-light': p[800],
@@ -1461,28 +1451,26 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
     '--rds-divider': sem.divider,
-    '--rds-button-primary-bg': p[200],
-    '--rds-button-primary-bg-hover': p[250],
-    '--rds-button-primary-bg-active': p[400],
+    '--rds-button-primary-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 85%, white)',
+    '--rds-button-primary-bg-active': 'var(--rds-primary-dark)',
     '--rds-button-primary-bg-disabled': n[700],
-    '--rds-button-primary-text': n[900],
     '--rds-button-primary-text-disabled': n[600],
     '--rds-button-secondary-bg': 'transparent',
     '--rds-button-secondary-bg-hover': 'transparent',
     '--rds-button-secondary-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
-    '--rds-button-secondary-border': p[200],
-    '--rds-button-secondary-border-hover': p[250],
-    '--rds-button-secondary-border-active': p[250],
+    '--rds-button-secondary-border': 'var(--rds-primary-main)',
+    '--rds-button-secondary-border-hover': 'color-mix(in srgb, var(--rds-primary-main) 85%, white)',
+    '--rds-button-secondary-border-active': 'color-mix(in srgb, var(--rds-primary-main) 85%, white)',
     '--rds-button-secondary-border-disabled': n[700],
-    '--rds-button-secondary-text': p[200],
-    '--rds-button-secondary-text-active': p[200],
+    '--rds-button-secondary-text': 'var(--rds-primary-main)',
+    '--rds-button-secondary-text-active': 'var(--rds-primary-main)',
     '--rds-button-secondary-text-disabled': n[600],
     '--rds-button-secondary-bg-disabled': n[800],
     '--rds-button-text-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 10%, transparent)',
     '--rds-button-text-variant-bg': 'color-mix(in srgb, var(--rds-primary-main) 4%, transparent)',
     '--rds-button-text-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 15%, transparent)',
-    '--rds-button-text-color': p[200],
-    '--rds-button-text-color-active': p[250],
+    '--rds-button-text-color': 'var(--rds-primary-main)',
+    '--rds-button-text-color-active': 'color-mix(in srgb, var(--rds-primary-main) 85%, white)',
     '--rds-button-text-color-disabled': n[600],
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',
@@ -1567,12 +1555,12 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-appbar-badge-color-dark': appBarTokens.darkBadgeColor,
     '--rds-form-bg': n[800],
     '--rds-form-border': n[700],
-    '--rds-form-border-focus': p[200],
+    '--rds-form-border-focus': 'var(--rds-primary-main)',
     '--rds-form-bg-focus': n[800],
     '--rds-form-control-asterisk-color': e[200],
     '--rds-alert-success-bg': 'rgba(31, 118, 48, 0.15)',
     '--rds-alert-success-border': su[200],
-    '--rds-alert-loading-border': colorTokens.primary[700],
+    '--rds-alert-loading-border': 'var(--rds-primary-main)',
     '--rds-alert-success-text': su[250],
     '--rds-alert-error-bg': 'rgba(189, 13, 29, 0.15)',
     '--rds-alert-error-border': e[200],
@@ -1588,7 +1576,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-badge-neutral-bg': n[200],
     '--rds-color-neutral-300': n[700],
     '--rds-color-neutral-500': n[500],
-    '--rds-color-primary-700': p[200],
+    '--rds-color-primary-700': 'var(--rds-primary-main)',
     '--rds-color-primary-800': p[100],
     '--rds-color-primary-900': p[50],
     '--rds-color-primary-20': p[900],
@@ -1608,7 +1596,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-border-subtle-dark': n[700],
     '--rds-color-surface-contrast': white,
     '--rds-color-avatar-bg': p[900],
-    '--rds-color-avatar-fg': p[200],
+    '--rds-color-avatar-fg': 'var(--rds-primary-main)',
     '--rds-card-surface-filled': 'var(--rds-surface-primary-light)',
     '--rds-card-bg-hover': 'var(--rds-surface-neutral-medium)',
     '--rds-card-selected-bg': 'var(--rds-surface-neutral-medium)',
@@ -1666,6 +1654,65 @@ export function buildRdsCssVars(mode: RdsThemeMode): Record<string, string> {
  */
 export type RdsBrandOverrides = Partial<Record<string, string>>;
 
+export interface RdsBrandPrimaryShortcut {
+  /** Brand primary fill (maps to `--rds-primary-main`). */
+  main: string;
+  /** Optional lighter tint (defaults to a mix toward white). */
+  light?: string;
+  /** Optional darker shade (defaults to a mix toward black). */
+  dark?: string;
+  /** Optional contrast text on primary (defaults to white). */
+  contrastText?: string;
+  /** Optional `r,g,b` channels for rgba() usages (derived from `main` when hex). */
+  rgb?: string;
+}
+
+/** Convert `#rgb` / `#rrggbb` to `r,g,b` channels, or `null` when not a hex color. */
+export function hexToRgbChannels(hex: string): string | null {
+  const raw = hex.trim().replace(/^#/, '');
+  if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(raw)) return null;
+  const full =
+    raw.length === 3
+      ? raw
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : raw;
+  const n = Number.parseInt(full, 16);
+  return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+}
+
+/**
+ * Expands a single brand primary color into the semantic `--rds-primary-*`
+ * (+ rgb) overrides consumers need for white-labelling.
+ */
+export function expandBrandPrimary(primary: RdsBrandPrimaryShortcut | string): RdsBrandOverrides {
+  const main = typeof primary === 'string' ? primary : primary.main;
+  const light =
+    typeof primary === 'string'
+      ? `color-mix(in srgb, ${main} 35%, white)`
+      : (primary.light ?? `color-mix(in srgb, ${main} 35%, white)`);
+  const dark =
+    typeof primary === 'string'
+      ? `color-mix(in srgb, ${main} 75%, black)`
+      : (primary.dark ?? `color-mix(in srgb, ${main} 75%, black)`);
+  const contrastText =
+    typeof primary === 'string' ? white : (primary.contrastText ?? white);
+  const rgb =
+    typeof primary === 'string'
+      ? (hexToRgbChannels(main) ?? undefined)
+      : (primary.rgb ?? hexToRgbChannels(main) ?? undefined);
+
+  const overrides: RdsBrandOverrides = {
+    '--rds-primary-main': main,
+    '--rds-primary-light': light,
+    '--rds-primary-dark': dark,
+    '--rds-primary-contrast-text': contrastText,
+  };
+  if (rgb) overrides['--rds-primary-rgb'] = rgb;
+  return overrides;
+}
+
 const TRACKED_CSS_VAR_KEYS = new Set<string>();
 
 /**
@@ -1721,10 +1768,30 @@ export function injectTokens(mode: RdsThemeMode = 'light', overrides?: RdsBrandO
  * const criticalCss = buildStaticCssSnapshot('light');
  * // <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
  */
-export function buildStaticCssSnapshot(mode: RdsThemeMode = 'light'): string {
-  const vars = buildRdsCssVars(mode);
+function formatCssVarBlock(selector: string, vars: Record<string, string>): string {
   const entries = Object.entries(vars)
     .map(([key, value]) => `  ${key}: ${value};`)
     .join('\n');
-  return `:root {\n${entries}\n}`;
+  return `${selector} {\n${entries}\n}`;
+}
+
+/**
+ * Generates static CSS for light + dark tokens (and a prefers-color-scheme
+ * fallback) so `styles.css` can style components before JS runs.
+ *
+ * @param mode - When `'light'` or `'dark'`, emits only that mode under `:root`
+ *   (legacy SSR critical-CSS path). When omitted, emits both modes.
+ */
+export function buildStaticCssSnapshot(mode?: RdsThemeMode): string {
+  if (mode) {
+    return formatCssVarBlock(':root', buildRdsCssVars(mode));
+  }
+
+  const light = buildRdsCssVars('light');
+  const dark = buildRdsCssVars('dark');
+  return [
+    formatCssVarBlock(':root', light),
+    formatCssVarBlock('[data-theme="dark"]', dark),
+    `@media (prefers-color-scheme: dark) {\n${formatCssVarBlock(':root:not([data-theme="light"])', dark)}\n}`,
+  ].join('\n\n');
 }

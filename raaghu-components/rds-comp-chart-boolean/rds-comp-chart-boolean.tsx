@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode, Ref } from "react";
+import { useId, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
@@ -14,6 +14,7 @@ import {
     resolveChartData,
     resolveChartLabel,
 } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-boolean.scss";
@@ -54,6 +55,9 @@ export interface RdsCompBooleanChartProps
     /** Accessible label of the chart. Defaults to "Boolean chart". */
     ariaLabel?: string;
 
+    /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+    description?: string;
+
     /** @deprecated Use `ariaLabel` instead. */
     chartLabel?: string;
 
@@ -87,6 +91,7 @@ const RdsCompBooleanChart = ({
     centerIcon,
     centerIconName,
     ariaLabel,
+    description,
     chartLabel,
     chartStyle,
     className,
@@ -94,6 +99,7 @@ const RdsCompBooleanChart = ({
     sx,
     ...rest
 }: RdsCompBooleanChartProps) => {
+    const accessibleAltId = useId();
     if (chartStyle !== undefined) {
         warnDeprecatedProp(
             "RdsCompBooleanChart",
@@ -115,6 +121,12 @@ const RdsCompBooleanChart = ({
         data,
         labels,
         dataSets,
+    );
+    const describedBy = chartAccessibleDescribedBy(
+        accessibleAltId,
+        description,
+        resolved.labels,
+        resolved.datasets,
     );
 
     const hasCenterIcon = centerIcon !== undefined && centerIcon !== null;
@@ -198,6 +210,7 @@ const RdsCompBooleanChart = ({
                 chartLabel,
                 "Boolean chart",
             )}
+            aria-describedby={describedBy}
         />
     );
 
@@ -228,6 +241,12 @@ const RdsCompBooleanChart = ({
             ) : (
                 canvas
             )}
+            <ChartAccessibleAlternative
+                summaryId={accessibleAltId}
+                description={description}
+                labels={resolved.labels}
+                datasets={resolved.datasets}
+            />
         </Box>
     );
 };

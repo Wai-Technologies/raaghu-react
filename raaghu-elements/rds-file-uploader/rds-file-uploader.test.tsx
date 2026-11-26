@@ -685,4 +685,41 @@ describe('RdsFileUploader additive renames', () => {
     render(<RdsFileUploader mode="standard" data-testid="avatar-upload" />);
     expect(mockStandardViewProps.rootProps['data-testid']).toBe('avatar-upload');
   });
+
+  it('keeps single-file mode when multiple is omitted', () => {
+    const { container } = render(<RdsFileUploader />);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    expect(input.multiple).toBe(false);
+    const { useFileUploader } = jest.requireActual('./RdsFileUploaderComponents') as typeof import('./RdsFileUploaderComponents');
+    const onFilesChange = jest.fn();
+    const { result } = renderHook(() =>
+      useFileUploader({ maxSize: 10_000_000, maxFiles: 5, isMandatory: false, multiple: false, onFilesChange }),
+    );
+    act(() => {
+      result.current.handleDrop({
+        preventDefault: jest.fn(),
+        dataTransfer: { files: [new File(['a'], 'a.txt'), new File(['b'], 'b.txt')] },
+      } as any);
+    });
+    expect(onFilesChange.mock.calls[0][0]).toHaveLength(1);
+  });
+
+  it('does not accept a drop when disabled', () => {
+    const { RdsDropZoneDefault } = jest.requireActual('./RdsFileUploaderComponents') as typeof import('./RdsFileUploaderComponents');
+    const onDrop = jest.fn();
+    const { container } = render(
+      <RdsDropZoneDefault
+        mode="default"
+        isDragOver={false}
+        disabled
+        dragAndDrop
+        onDrop={onDrop}
+        onDragOver={jest.fn()}
+        onDragLeave={jest.fn()}
+        openFileDialog={jest.fn()}
+      />,
+    );
+    fireEvent.drop(container.querySelector('.rds-file-uploader__drop-zone')!);
+    expect(onDrop).not.toHaveBeenCalled();
+  });
 });

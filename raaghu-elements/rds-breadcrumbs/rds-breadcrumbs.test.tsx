@@ -589,4 +589,19 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBreadcrumbs', 'title', "the first item's `label`");
     expect(screen.getByText('Start')).toBeInTheDocument();
   });
+
+  it('keeps a non-last active item as a link and calls onClick', () => {
+    const onClick = jest.fn();
+    render(<RdsBreadcrumbs items={[{ label: 'Home', active: true, onClick }, { label: 'Current' }]} />);
+    expect(screen.getByText('Home').closest('a')).toBeTruthy();
+    fireEvent.click(screen.getByText('Home'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not preventDefault on a selected link', () => {
+    const onClick = jest.fn();
+    render(<RdsBreadcrumbs items={[{ label: 'Home', href: '/', selected: true, onClick }, { label: 'Current' }]} />);
+    fireEvent.click(screen.getByText('Home'));
+    expect(onClick.mock.calls[0][0].defaultPrevented).toBe(false);
+  });
 });

@@ -728,6 +728,19 @@ describe('RdsCompChat', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+
+    it('shows comments from a later userData prop', () => {
+      const { rerender } = render(<RdsCompChat {...defaultProps} />);
+      expect(screen.getByText('Hello!')).toBeInTheDocument();
+      rerender(
+        <RdsCompChat
+          {...defaultProps}
+          userData={[{ ...defaultUserData[0], comments: [{ firstName: 'John', lastName: 'Doe', comment: 'Updated' }] }]}
+        />,
+      );
+      expect(screen.getByText('Updated')).toBeInTheDocument();
+      expect(screen.queryByText('Hello!')).not.toBeInTheDocument();
+    });
   });
 });
 

@@ -117,7 +117,7 @@ const RdsFileUploader = ({
     maxSize,
     maxFiles,
     isMandatory,
-    multiple: multipleProp !== false,
+    multiple,
     onFilesChange: emitFilesChange,
     onUpload,
   });
@@ -187,6 +187,7 @@ const RdsFileUploader = ({
               mode: mode || 'default',
               isDragOver,
               disabled,
+              dragAndDrop,
               onDragOver: handleDragOver,
               onDragLeave: handleDragLeave,
               onDrop: handleDrop,

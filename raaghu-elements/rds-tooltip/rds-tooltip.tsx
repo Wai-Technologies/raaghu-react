@@ -1,5 +1,11 @@
 
-import { type CSSProperties, type ReactElement, type ReactNode } from 'react';
+import {
+  cloneElement,
+  isValidElement,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -22,8 +28,13 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   style?: Placement | CSSProperties;
   /** @deprecated Use `title`. */
   label?: ReactNode;
-  /** @deprecated Has no effect; children are always wrapped in a span. */
+  /** @deprecated Has no effect; children are wrapped only when disabled. */
   wrapper?: boolean;
+}
+
+function childNeedsWrapper(child: ReactElement): boolean {
+  const props = child.props as { disabled?: boolean };
+  return Boolean(props.disabled);
 }
 
 const RdsTooltip = ({
@@ -55,6 +66,31 @@ const RdsTooltip = ({
     className
   );
 
+  const objectStyle = typeof style === 'object' ? style : undefined;
+
+  const trigger = isValidElement(children) && !childNeedsWrapper(children) ? (
+    cloneElement(children as ReactElement<Record<string, unknown>>, {
+      ...(dataTestId !== undefined ? { 'data-testid': dataTestId } : {}),
+      ...(objectStyle !== undefined
+        ? {
+            style: {
+              ...((children.props as { style?: CSSProperties }).style ?? {}),
+              ...objectStyle,
+            },
+          }
+        : {}),
+    })
+  ) : (
+    <span
+      className="rds-tooltip__child-wrapper"
+      style={objectStyle}
+      data-testid={dataTestId}
+      tabIndex={0}
+    >
+      {children}
+    </span>
+  );
+
   return (
     <MuiTooltip
       title={title ?? label}
@@ -62,15 +98,10 @@ const RdsTooltip = ({
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={tooltipStyle}
+      describeChild
       {...props}
     >
-      <span
-        className="rds-tooltip__wrapper"
-        style={typeof style === 'object' ? style : undefined}
-        data-testid={dataTestId}
-      >
-        {children}
-      </span>
+      {trigger}
     </MuiTooltip>
   );
 };

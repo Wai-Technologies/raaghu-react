@@ -1,9 +1,10 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, useMemo, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
@@ -32,7 +33,8 @@ function resolveDatasetColor(
 
 function normalizeScatterDataset(
   dataset: ChartDataset,
-  chartType: ScatterChartType
+  chartType: ScatterChartType,
+  lineColorFallback: string
 ) {
   const normalized = {
     ...dataset,
@@ -46,7 +48,7 @@ function normalizeScatterDataset(
   const colors = dataset as DatasetColors;
   const lineColor = resolveDatasetColor(
     colors.borderColor ?? colors.backgroundColor,
-    getCSSVar("--rds-primary-main")
+    lineColorFallback
   );
 
   return {
@@ -85,6 +87,8 @@ export interface RdsCompScatterChartProps
   width?: string | number;
   /** Accessible label of the chart. Default "Scatter chart". */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** @deprecated Use `showLine` on the datasets to connect the points. Chart.js type to draw. Default `"scatter"`. */
@@ -104,6 +108,7 @@ const RdsCompScatterChart = ({
   height,
   width,
   ariaLabel,
+  description,
   chartLabel,
   chartType,
   className,
@@ -111,6 +116,7 @@ const RdsCompScatterChart = ({
   sx,
   ...rest
 }: RdsCompScatterChartProps) => {
+  const accessibleAltId = useId();
   if (chartType !== undefined) {
     warnDeprecatedProp("RdsCompScatterChart", "chartType", "`showLine` on the datasets");
   }
@@ -121,13 +127,26 @@ const RdsCompScatterChart = ({
     labels,
     dataSets as ChartDataset[] | undefined
   );
+  // Read each render (a cheap string) so the memo below refreshes when the theme changes it.
+  const lineColorFallback = getCSSVar("--rds-primary-main");
+  const normalizedDatasets = useMemo(
+    () =>
+      resolved.datasets.map((dataset) =>
+        normalizeScatterDataset(dataset, resolvedChartType, lineColorFallback)
+      ) as ChartData<"scatter">["datasets"],
+    [resolved.datasets, resolvedChartType, lineColorFallback]
+  );
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    resolved.labels,
+    normalizedDatasets,
+  );
   const { canvasRef } = useChart<"scatter">(
     {
       type: resolvedChartType,
       labels: resolved.labels,
-      datasets: resolved.datasets.map((dataset) =>
-        normalizeScatterDataset(dataset, resolvedChartType)
-      ) as ChartData<"scatter">["datasets"],
+      datasets: normalizedDatasets,
       options: options as ChartConfiguration<"scatter">["options"],
       onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
     },
@@ -141,6 +160,13 @@ const RdsCompScatterChart = ({
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompScatterChart", ariaLabel, chartLabel, "Scatter chart")}
+        aria-describedby={describedBy}
+      />
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={resolved.labels}
+        datasets={normalizedDatasets}
       />
     </Box>
   );

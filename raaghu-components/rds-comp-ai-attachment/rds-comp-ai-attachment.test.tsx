@@ -24,7 +24,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-modal/rds-modal', () => {
-  return function MockRdsModal({ isOpen, open, onClose, title, children, showCloseButton, hideCloseButton, slotProps, ...props }: any) {
+  return function MockRdsModal({ isOpen, open, onClose, title, children, actions, showCloseButton, hideCloseButton, slotProps, ...props }: any) {
     if (!(open ?? isOpen)) return null;
     return (
       <div data-testid="rds-modal" {...props}>
@@ -39,6 +39,7 @@ jest.mock('../../raaghu-elements/rds-modal/rds-modal', () => {
         <div className="modal-body" data-testid="modal-body">
           {children}
         </div>
+        <div data-testid="modal-actions">{actions}</div>
       </div>
     );
   };
@@ -51,6 +52,7 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
     placeholder, 
     hintText,
     helperText,
+    error: _error,
     ...props 
   }: any) {
     return (
@@ -506,5 +508,18 @@ describe('RdsCompAiAttachment id', () => {
     expect(a.container.firstChild).toHaveAttribute('id', 'at');
     const b = render(<RdsCompAiAttachment />);
     expect(b.container.firstChild).not.toHaveAttribute('id');
+  });
+
+  it('confirms a https figma.com URL and rejects other hosts', () => {
+    const onFigmaSubmit = jest.fn();
+    render(<RdsCompAiAttachment uploadText="Upload" onFigmaSubmit={onFigmaSubmit} />);
+    fireEvent.click(screen.getByText('Upload'));
+    fireEvent.change(screen.getByTestId('rds-input'), { target: { value: 'http://figma.com/file' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Import' }));
+    expect(onFigmaSubmit).not.toHaveBeenCalled();
+    expect(screen.getByTestId('hint-text')).toHaveTextContent('https://figma.com');
+    fireEvent.change(screen.getByTestId('rds-input'), { target: { value: 'https://www.figma.com/file/abc' } });
+    fireEvent.keyDown(screen.getByTestId('rds-input'), { key: 'Enter' });
+    expect(onFigmaSubmit).toHaveBeenCalledWith('https://www.figma.com/file/abc');
   });
 });

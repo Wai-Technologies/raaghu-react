@@ -751,7 +751,7 @@ describe('audit fixes', () => {
 describe('additive prop renames', () => {
   it('renders centerIcon over the chart and not when unused', () => {
     const { container, rerender } = render(<RdsCompBooleanChart {...defaultProps} />);
-    expect(container.querySelector('span')).toBeNull();
+    expect(container.querySelector('span:not(.rds-visually-hidden)')).toBeNull();
     rerender(<RdsCompBooleanChart {...defaultProps} centerIcon={<i data-testid="ic" />} />);
     expect(screen.getByTestId('ic')).toBeInTheDocument();
   });

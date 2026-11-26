@@ -491,11 +491,11 @@ const moveSubCard = (
   return newBoards;
 };
 
-/** Cross-column preview while dragging (G5-132). Same-column reorder is handled on drag end. */
+/** Cross-column preview while dragging (G5-132). UI-only — commit via dragEnd (RDS-005). */
 export const createDragOverHandler = (
   boards: KanbanBoardInfo[],
   setBoards: (next: KanbanBoardInfo[]) => void,
-  onColumnsChange?: (columns: KanbanColumn[]) => void,
+  _onColumnsChange?: (columns: KanbanColumn[]) => void,
 ) => {
   return (event: DragOverEvent) => {
     const { active, over } = event;
@@ -517,7 +517,6 @@ export const createDragOverHandler = (
       dest.subCardIndex,
     );
     setBoards(newBoards);
-    onColumnsChange?.(newBoards);
   };
 };
 

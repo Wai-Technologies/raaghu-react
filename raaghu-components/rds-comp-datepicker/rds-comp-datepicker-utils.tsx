@@ -49,6 +49,14 @@ type DatepickerSharedProps = {
     inputId?: string;
     idPrefix?: string;
     isCompact?: boolean;
+    titleText?: string;
+    showTitle?: boolean;
+};
+
+const resolveInputAriaLabel = (props: DatepickerSharedProps): string | undefined => {
+    if (props.showTitle) return undefined;
+    const label = props.titleText?.trim() || props.placeholderText?.trim();
+    return label || 'Select date';
 };
 
 const popperContainer = ({ children }: { children?: ReactNode }) => (
@@ -207,6 +215,7 @@ export const renderDatePickerTypeView = (
                 clearDate: props.clearDate,
                 changeIcon: props.changeIcon,
                 openPickerIcon: props.openPickerIcon,
+                'aria-label': resolveInputAriaLabel(props),
             }),
         });
 
@@ -235,6 +244,7 @@ export const renderDatePickerTypeView = (
                 openCustomPicker: toggleDropdown,
                 expanded: isDropdownOpen,
                 controlsId: `${props.idPrefix}-presets`,
+                'aria-label': resolveInputAriaLabel(props),
             }),
             overrides: { open: false },
         });

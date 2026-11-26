@@ -43,6 +43,21 @@ export const rgbToHsl = (rgb: { r: number; g: number; b: number }) => {
   return { h: Math.round(h * 60), s: Math.round(s * 100), l: Math.round(l * 100) };
 };
 
+export const hslToRgb = (h: number, s: number, l: number) => {
+  const sat = s / 100;
+  const light = l / 100;
+  const a = sat * Math.min(light, 1 - light);
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    return light - a * Math.max(-1, Math.min(k - 3, Math.min(9 - k, 1)));
+  };
+  return {
+    r: Math.round(255 * f(0)),
+    g: Math.round(255 * f(8)),
+    b: Math.round(255 * f(4)),
+  };
+};
+
 export const componentToHex = (c: number) => {
   const hex = c.toString(16);
   return hex.length === 1 ? "0" + hex : hex;

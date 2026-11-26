@@ -729,5 +729,17 @@ describe('DropdownMenu Component', () => {
       expect(screen.getByText('Nothing here')).toBeInTheDocument();
       expect(screen.getByText('07')).toBeInTheDocument();
     });
+
+    it('submits the draft on Send and Enter', () => {
+      const onSubmit = jest.fn();
+      render(<RdsCommentBox onSubmit={onSubmit} />);
+      const input = screen.getByRole('textbox');
+      fireEvent.change(input, { target: { value: 'Hello' } });
+      fireEvent.click(screen.getByRole('button', { name: 'send comment' }));
+      expect(onSubmit).toHaveBeenCalledWith('Hello');
+      fireEvent.change(input, { target: { value: 'Next' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(onSubmit).toHaveBeenCalledWith('Next');
+    });
   });
 });

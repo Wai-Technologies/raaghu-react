@@ -20,9 +20,11 @@ export interface RdsCounterProps
   /**
    * Value-first change handler (canonical for custom Raaghu controls).
    * Signature: `(value, event) => void` — prefer reading `value`.
-   * Only values inside `[min, max]` are emitted.
+   * In-range numbers are emitted while typing. Clearing the field calls `onClear` on blur instead.
    */
   onChange?: (value: number, event: SyntheticEvent) => void;
+  /** Called on blur when the user has cleared the field. Set `value` to `undefined` to accept it. */
+  onClear?: (event: SyntheticEvent) => void;
   /** Initial value when uncontrolled. */
   defaultValue?: number;
   /** Minimum allowed value. @default 0 */
@@ -79,6 +81,7 @@ const canReachRange = (n: number, min: number, max: number): boolean => {
 const RdsCounter = ({
   value,
   onChange,
+  onClear,
   defaultValue,
   min = 0,
   max = Infinity,
@@ -120,7 +123,9 @@ const RdsCounter = ({
 
   const updateValue = (newValue: number | undefined, event?: SyntheticEvent) => {
     if (!isControlled) setInternalValue(newValue);
-    if (typeof newValue === 'number' && event) invokeValueFirstOnChange(onChange, newValue, event);
+    if (!event) return;
+    if (typeof newValue === 'number') invokeValueFirstOnChange(onChange, newValue, event);
+    else onClear?.(event);
   };
 
   const handleIncrement = (event: MouseEvent<HTMLButtonElement>) => {
@@ -140,8 +145,7 @@ const RdsCounter = ({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const raw = event.target.value.trim();
     if (raw === '') {
-      setDraft(null);
-      updateValue(undefined, event);
+      setDraft('');
       return;
     }
     if (raw === '-' && min < 0) {
@@ -161,6 +165,10 @@ const RdsCounter = ({
   const handleInputBlur = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (draft === null) return;
     setDraft(null);
+    if (draft === '' || draft === '-') {
+      updateValue(undefined, event);
+      return;
+    }
     const parsed = parseInt(draft, 10);
     if (isNaN(parsed)) return;
     const clamped = Math.min(Math.max(parsed, min), max);

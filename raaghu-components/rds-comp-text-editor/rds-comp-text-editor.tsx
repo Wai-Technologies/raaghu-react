@@ -1,10 +1,9 @@
-import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
+import { Suspense, lazy, useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
 import { Box, FormHelperText, InputLabel as Label, type SxProps, type Theme } from "@mui/material";
 import type { ComponentType } from "react";
 import clsx from 'clsx';
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { sanitizeEditorHtml } from "./sanitize-html";
@@ -73,8 +72,30 @@ export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivEleme
 
 type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
 
-const createEditorStateFromValue = (value?: string, showTitle?: boolean): DraftEditorState => {
-    if (value) {
+type HtmlToDraftFn = (html: string) => { contentBlocks: Parameters<typeof ContentState.createFromBlockArray>[0] } | null;
+
+/** Cached after the first browser load so later value updates stay synchronous. */
+let cachedHtmlToDraft: HtmlToDraftFn | null = null;
+
+/**
+ * html-to-draftjs reads `window` at module evaluation. Load it only in the browser,
+ * and only when HTML actually needs converting, so Node can import the package root.
+ */
+const loadHtmlToDraft = async (): Promise<HtmlToDraftFn | null> => {
+    if (typeof window === "undefined") return null;
+    if (cachedHtmlToDraft) return cachedHtmlToDraft;
+    const mod = await import("html-to-draftjs");
+    const fn = (typeof mod === "function" ? mod : (mod.default ?? mod)) as HtmlToDraftFn;
+    cachedHtmlToDraft = fn;
+    return fn;
+};
+
+const createEditorStateFromValue = (
+    value: string | undefined,
+    showTitle: boolean | undefined,
+    htmlToDraft: HtmlToDraftFn | null,
+): DraftEditorState => {
+    if (value && htmlToDraft) {
         const contentBlock = htmlToDraft(sanitizeEditorHtml(value));
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -119,18 +140,37 @@ const RdsCompTextEditor = ({
     const labelId = `${uid}-label`;
     const errorId = `${uid}-error`;
 
+    const [htmlToDraft, setHtmlToDraft] = useState<HtmlToDraftFn | null>(() => cachedHtmlToDraft);
+    useEffect(() => {
+        if (htmlToDraft || typeof window === "undefined") return;
+        let cancelled = false;
+        loadHtmlToDraft().then((fn) => {
+            if (!cancelled && fn) setHtmlToDraft(() => fn);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [htmlToDraft]);
+
     const [editorState, setEditorState] = useState<DraftEditorState>(() =>
-        createEditorStateFromValue(value ?? defaultValue, false)
+        createEditorStateFromValue(value ?? defaultValue, false, cachedHtmlToDraft)
     );
     const [prevValue, setPrevValue] = useState(value);
     const [prevShowTitle, setPrevShowTitle] = useState(showTitle);
     const [lastEmitted, setLastEmitted] = useState<string | undefined>(undefined);
+    const [appliedConverter, setAppliedConverter] = useState(Boolean(cachedHtmlToDraft));
+    if (htmlToDraft && !appliedConverter) {
+        setAppliedConverter(true);
+        if (value ?? defaultValue) {
+            setEditorState(createEditorStateFromValue(value ?? defaultValue, showTitle, htmlToDraft));
+        }
+    }
     if (value !== prevValue || showTitle !== prevShowTitle) {
         setPrevValue(value);
         setPrevShowTitle(showTitle);
         if (value !== lastEmitted || showTitle !== prevShowTitle) {
             setLastEmitted(undefined);
-            setEditorState(createEditorStateFromValue(value, showTitle));
+            setEditorState(createEditorStateFromValue(value, showTitle, htmlToDraft));
         }
     }
     const [isTouch, setIsTouch] = useState(false);

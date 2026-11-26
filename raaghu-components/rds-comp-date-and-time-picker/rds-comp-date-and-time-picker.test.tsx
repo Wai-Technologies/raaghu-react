@@ -74,6 +74,8 @@ jest.mock('@mui/x-date-pickers/TimePicker', () => {
             required={textFieldProps.required}
             placeholder={textFieldProps.placeholder}
             data-error={textFieldProps.error ? 'true' : 'false'}
+            data-format={props.format}
+            data-ampm={String(props.ampm)}
             {...mockOmitPickerProps(props)}
           />
         </div>
@@ -836,5 +838,21 @@ describe('RdsCompDatePicker', () => {
       input = screen.getByTestId('text-field-input') as HTMLInputElement;
       expect(input.value).toBe('01/01/2024');
     });
+
+    it('follows a later value prop after the first render', () => {
+      const { rerender } = render(<RdsCompDatePicker variant="date" value={dayjs('2024-01-01')} />);
+      expect(screen.getByTestId('text-field-input')).toHaveValue('01/01/2024');
+      rerender(<RdsCompDatePicker variant="date" value={dayjs('2024-06-15')} />);
+      expect(screen.getByTestId('text-field-input')).toHaveValue('06/15/2024');
+    });
+  });
+
+  it('uses a 12-hour token with the am/pm marker', () => {
+    render(<RdsCompDatePicker variant="time" />);
+    const input = screen.getByTestId('text-field-input');
+    const format = input.getAttribute('data-format') ?? '';
+    const ampm = input.getAttribute('data-ampm') === 'true';
+    expect(format.includes('HH') && format.includes('a')).toBe(false);
+    expect(ampm ? format.includes('hh') && format.includes('a') : format.includes('HH') && !format.includes('a')).toBe(true);
   });
 });

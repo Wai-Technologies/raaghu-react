@@ -178,8 +178,10 @@ const RdsInput = ({
       'Home',
       'End',
       'Tab',
+      'Enter',
+      'Escape',
     ];
-    if (e.ctrlKey || e.metaKey) return;
+    if (e.ctrlKey || e.metaKey || /^F\d{1,2}$/.test(e.key)) return;
 
     const input = e.currentTarget;
     const selectionStart = input.selectionStart ?? input.value.length;
@@ -197,6 +199,20 @@ const RdsInput = ({
       return;
     } else if (isPlusKey && layout !== 'phone number') {
       e.preventDefault();
+      return;
+    }
+
+    if (layout === 'number' && e.key === '-') {
+      const atStart = selectionStart === 0;
+      const hasMinus = input.value.startsWith('-');
+      const replacingMinus = hasMinus && selectionStart === 0 && selectionEnd > 0;
+      if (!atStart || (hasMinus && !replacingMinus)) e.preventDefault();
+      return;
+    }
+
+    if (layout === 'number' && e.key === '.') {
+      const nextValue = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+      if (nextValue.includes('.')) e.preventDefault();
       return;
     }
 
