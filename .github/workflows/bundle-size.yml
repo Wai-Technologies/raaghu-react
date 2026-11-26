@@ -9,6 +9,7 @@ on:
       - 'raaghu-layouts/**'
       - 'raaghu-react-themes/**'
       - 'package.json'
+      - 'vite.config.ts'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps --ignore-scripts
 
+      - name: Build library
+        run: npm run build
+
       - name: Check bundle size
         run: npm run size
 
@@ -41,4 +45,6 @@ jobs:
         uses: andresz1/size-limit-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          skip_step: install
+          build_script: build
         continue-on-error: true

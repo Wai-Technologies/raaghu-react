@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties, type HTMLAttributes, type KeyboardEvent, type ReactNode, type Ref } from "react";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import "./rds-comp-ai-typing-section.scss";
@@ -13,6 +13,7 @@ import RdsCompAiAttachment, {
 } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { isHttpsFigmaUrl } from "../shared/is-https-figma-url";
 
 export interface RdsCompAiTypingSectionOption {
   label: string;
@@ -133,11 +134,24 @@ const RdsCompAiTypingSectionComponent = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const hasSendableContent = Boolean(inputText.trim() || enhancedImage || resolvedImage);
+
   const handleSent = useCallback(() => {
+    if (!inputText.trim() && !enhancedImage && !resolvedImage) return;
     onSend?.(inputText, enhancedImage || resolvedImage);
     setInputText("");
     setEnhancedImage(null);
   }, [enhancedImage, inputText, onSend, resolvedImage]);
+
+  const handlePromptKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        handleSent();
+      }
+    },
+    [handleSent]
+  );
 
   const handleFileSelect = useCallback((file: File) => {
     const reader = new FileReader();
@@ -157,7 +171,8 @@ const RdsCompAiTypingSectionComponent = ({
 
   const handleFigmaSubmit = useCallback(
     (value: string) => {
-      onAddComment?.({ image: value } as AttachmentComment);
+      if (!isHttpsFigmaUrl(value)) return;
+      onAddComment?.({ comment: "", firstName: "", lastName: "", figmaUrl: value });
     },
     [onAddComment]
   );
@@ -184,7 +199,7 @@ const RdsCompAiTypingSectionComponent = ({
             placeholder={!enhancedImage ? (resolvedPlaceholder ?? "") : ""}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            title="Enter your prompt here"
+            onKeyDown={handlePromptKeyDown}
             aria-label="Prompt input"
           />
           {!inputText && (
@@ -212,7 +227,7 @@ const RdsCompAiTypingSectionComponent = ({
                 badgeProps={{ color: "primary" }}
                 onAddComment={handleAddComment}
                 icon="attachment_icon"
-                onFigmaUrlChange={handleFigmaSubmit}
+                onFigmaSubmit={handleFigmaSubmit}
                 onFileSelect={handleFileSelect}
                 placement="end"
                 slotProps={attachmentSlotProps}
@@ -226,6 +241,7 @@ const RdsCompAiTypingSectionComponent = ({
                 variant="filled"
                 layout="icon-only"
                 onClick={handleSent}
+                disabled={!hasSendableContent}
                 aria-label="Send"
               />
             </div>

@@ -8,8 +8,21 @@ export {
   type RaaghuMuiTheme,
 } from './mui';
 export { designTokens } from '../tokens/design-tokens';
-export { injectTokens, buildRdsCssVars, buildStaticCssSnapshot, type RdsThemeMode, type RdsBrandOverrides } from '../tokens/build-rds-css-vars';
+export {
+  injectTokens,
+  buildRdsCssVars,
+  buildStaticCssSnapshot,
+  expandBrandPrimary,
+  hexToRgbChannels,
+  type RdsThemeMode,
+  type RdsBrandOverrides,
+  type RdsBrandPrimaryShortcut,
+} from '../tokens/build-rds-css-vars';
 export { RaaghuThemeProvider, useRaaghuTheme, type RaaghuThemeProviderProps } from './provider/RaaghuThemeProvider';
+export {
+  InitRaaghuThemeScript,
+  type InitRaaghuThemeScriptProps,
+} from './provider/InitRaaghuThemeScript';
 export {
   applyRaaghuTheme,
   getRaaghuThemeMode,

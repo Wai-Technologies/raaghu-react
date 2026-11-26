@@ -32,13 +32,39 @@ jest.mock('@mui/material', () => ({
       {children}
     </div>
   ),
+  TextField: ({ value, onChange, label, placeholder, disabled, slotProps, className }: any) => (
+    <label className={className}>
+      {label}
+      <input
+        type="text"
+        value={value ?? ''}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        {...slotProps?.input}
+      />
+    </label>
+  ),
 }));
 
-jest.mock('@mui/icons-material', () => ({
-  Brush: () => <span data-testid="brush-icon">Brush</span>,
-  Save: () => <span data-testid="save-icon">Save</span>,
-  Delete: () => <span data-testid="delete-icon">Delete</span>,
-  Undo: () => <span data-testid="undo-icon">Undo</span>,
+jest.mock('@mui/icons-material/Brush', () => ({
+  __esModule: true,
+  default: () => <span data-testid="brush-icon">Brush</span>,
+}));
+
+jest.mock('@mui/icons-material/Save', () => ({
+  __esModule: true,
+  default: () => <span data-testid="save-icon">Save</span>,
+}));
+
+jest.mock('@mui/icons-material/Delete', () => ({
+  __esModule: true,
+  default: () => <span data-testid="delete-icon">Delete</span>,
+}));
+
+jest.mock('@mui/icons-material/Undo', () => ({
+  __esModule: true,
+  default: () => <span data-testid="undo-icon">Undo</span>,
 }));
 
 jest.mock('./rds-comp-e-signature-modes', () => ({
@@ -400,6 +426,14 @@ describe('RdsCompESignature', () => {
       expect(onSignatureChange).not.toHaveBeenCalled();
     });
 
+    it('RDS-004: changing pen color alone does not fire onSignatureChange', () => {
+      const onSignatureChange = jest.fn();
+      const { rerender } = setup({ onSignatureChange, penColor: '#000000' });
+      onSignatureChange.mockClear();
+      rerender(<RdsCompESignature mode="draw" onSignatureChange={onSignatureChange} penColor="#FF0000" />);
+      expect(onSignatureChange).not.toHaveBeenCalled();
+    });
+
     it('should render with all optional props', () => {
       const customSignatures = [{ id: '1', name: 'Custom 1', style: 'bold', fullName: 'Test User', initials: 'TU' }];
       const { container } = setup({
@@ -526,6 +560,36 @@ describe('RdsCompESignature', () => {
     it('G5-008: canvas has an accessible name', () => {
       render(<RdsCompESignature type="initials" />);
       expect(screen.getByRole('img', { name: 'Initials drawing area' })).toBeInTheDocument();
+    });
+
+    it('RDS-016: Type to sign renders text on the canvas', () => {
+      const onSignatureChange = jest.fn();
+      const fillText = jest.fn();
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: jest.fn(() => ({
+          scale: jest.fn(),
+          beginPath: jest.fn(),
+          moveTo: jest.fn(),
+          lineTo: jest.fn(),
+          stroke: jest.fn(),
+          clearRect: jest.fn(),
+          fillText,
+          font: '',
+          fillStyle: '',
+          textAlign: '',
+          textBaseline: '',
+        })),
+      });
+      render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      fireEvent.change(screen.getByLabelText('Type to sign'), { target: { value: 'Jane Doe' } });
+      expect(fillText).toHaveBeenCalledWith('Jane Doe', expect.any(Number), expect.any(Number));
+      expect(onSignatureChange).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: originalGetContext,
+      });
     });
 
     it('G5-009: colour swatches are a keyboard-operable radiogroup', () => {

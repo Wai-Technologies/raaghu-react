@@ -143,7 +143,7 @@ describe('RdsCard', () => {
 
   describe('Icon Rendering', () => {
     it.each([undefined, true])('should show icon when showIcon is %p', (v) => {
-      setup(v === undefined ? {} : { showIcon: v });
+      setup(v === undefined ? { changeIcon: 'person' } : { showIcon: v, changeIcon: 'person' });
       expect(screen.getByTestId('icon-person')).toBeInTheDocument();
     });
 
@@ -392,7 +392,7 @@ describe('RdsCard', () => {
     });
 
     it('should have proper Avatar for icon', () => {
-      setup({ showIcon: true });
+      setup({ showIcon: true, changeIcon: 'person' });
       expect(screen.getByTestId('card-avatar')).toBeInTheDocument();
     });
   });
@@ -404,11 +404,11 @@ describe('RdsCard audit fixes', () => {
   });
 
   describe('icon (G1-170)', () => {
-    it('still shows the person icon when neither icon nor changeIcon is given, without warning', () => {
+    it('renders no icon when neither icon nor changeIcon is given, without warning (RDS-150)', () => {
       const { container } = render(<RdsCard />);
-      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-      expect(container.querySelector('.rds-card__icon--person')).toBeInTheDocument();
-      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--icon-person');
+      expect(screen.queryByTestId('icon-person')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-card__icon')).not.toBeInTheDocument();
+      expect(screen.getByTestId('card-root')).not.toHaveClass('rds-card--icon-person');
       expect(warnDeprecatedProp).not.toHaveBeenCalled();
     });
 

@@ -279,13 +279,13 @@ describe('RdsCompEmptyState', () => {
   });
 
   describe('Button', () => {
-    it('should render button always', () => {
+    it('should not render a button without a handler or label', () => {
       renderComponent();
-      expect(screen.getByTestId('actionButton')).toBeInTheDocument();
+      expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
     });
 
-    it('should render button with default text', () => {
-      renderComponent();
+    it('should render button with default text when onButtonClick is set', () => {
+      renderComponent({ onButtonClick: jest.fn() });
       expect(screen.getByText('Add New Data')).toBeInTheDocument();
     });
 
@@ -301,20 +301,20 @@ describe('RdsCompEmptyState', () => {
       expect(onButtonClick).toHaveBeenCalledTimes(1);
     });
 
-    it('should handle missing onButtonClick gracefully', () => {
-      renderComponent({});
+    it('should handle missing onButtonClick gracefully when buttonText is set', () => {
+      renderComponent({ buttonText: 'Add New Data' });
       const button = screen.getByTestId('actionButton');
       expect(() => fireEvent.click(button)).not.toThrow();
     });
 
     it('should have correct button classes', () => {
-      const { container } = renderComponent();
+      const { container } = renderComponent({ onButtonClick: jest.fn() });
       const button = container.querySelector('.rds-comp-empty-state__button');
       expect(button).toBeInTheDocument();
     });
 
     it('should render button in action container', () => {
-      const { container } = renderComponent();
+      const { container } = renderComponent({ onButtonClick: jest.fn() });
       const actionContainer = container.querySelector('.rds-comp-empty-state__action');
       expect(actionContainer).toBeInTheDocument();
       expect(actionContainer?.querySelector('button')).toBeInTheDocument();
@@ -465,7 +465,7 @@ describe('RdsCompEmptyState', () => {
 
   describe('Props Propagation', () => {
     it('should pass data-testid through to elements', () => {
-      renderComponent();
+      renderComponent({ onButtonClick: jest.fn() });
       expect(screen.getByTestId('icon')).toBeInTheDocument();
       expect(screen.getByTestId('actionButton')).toBeInTheDocument();
     });
@@ -503,10 +503,9 @@ describe('RdsCompEmptyState', () => {
       expect(subLabel).not.toBeInTheDocument();
     });
 
-    it('should handle undefined onButtonClick', () => {
+    it('should omit the button when onButtonClick is undefined', () => {
       renderComponent({ onButtonClick: undefined });
-      const button = screen.getByTestId('actionButton');
-      expect(() => fireEvent.click(button)).not.toThrow();
+      expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
     });
 
     it('should handle null icon dimensions', () => {
@@ -518,7 +517,7 @@ describe('RdsCompEmptyState', () => {
     it('should render with minimal props', () => {
       renderComponent({});
       expect(screen.getByTestId('icon')).toBeInTheDocument();
-      expect(screen.getByTestId('actionButton')).toBeInTheDocument();
+      expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
     });
 
     it('should render with only image', () => {
@@ -674,7 +673,7 @@ describe('RdsCompEmptyState audit fixes', () => {
   });
 
   it('default action button keeps the filled class without grey override hooks (G5-046)', () => {
-    const { container } = render(<RdsCompEmptyState label="Empty" />);
+    const { container } = render(<RdsCompEmptyState label="Empty" onButtonClick={jest.fn()} />);
     const button = container.querySelector('.rds-comp-empty-state__button');
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('rds-button');

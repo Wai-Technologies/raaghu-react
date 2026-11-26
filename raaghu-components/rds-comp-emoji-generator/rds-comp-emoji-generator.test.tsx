@@ -9,13 +9,35 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 
 jest.mock('@mui/material', () => ({
-  Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
-    onClick ? (
-      <button type="button" ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} aria-label={props['aria-label']} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
+  Box: React.forwardRef(({ children, className, onClick, onKeyDown, role, tabIndex, ...props }: any, ref: any) => (
+    role === 'button' ? (
+      <button
+        type="button"
+        ref={ref}
+        className={className}
+        onClick={onClick}
+        onKeyDown={(e: any) => {
+          onKeyDown?.(e);
+          if (!e.defaultPrevented && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            onClick?.(e);
+          }
+        }}
+        tabIndex={tabIndex}
+        {...props}
+      >
         {children}
       </button>
     ) : (
-      <div ref={ref} className={className} data-testid={props['data-testid']}>
+      <div
+        ref={ref}
+        className={className}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        role={role}
+        tabIndex={tabIndex}
+        {...props}
+      >
         {children}
       </div>
     )
@@ -26,12 +48,14 @@ jest.mock('@mui/material', () => ({
         onChange(e);
       }
     };
+    const { endAdornment: _end, startAdornment: _start, ...inputSlotProps } = slotProps?.input ?? {};
     return (
       <input
         type="text"
         value={value || ''}
         onChange={handleChange}
         placeholder={placeholder}
+        {...inputSlotProps}
         {...props}
       />
     );
@@ -505,11 +529,15 @@ describe('audit fixes', () => {
     expect(container.querySelectorAll('.rds-emoji-generator__emoji--quick')).toHaveLength(2);
   });
 
-  it('G5-031: emoji elements are keyboard accessible with a label', () => {
+  it('G5-031: emoji grid uses roving tabindex and keyboard activation', () => {
     const onEmojiSelect = jest.fn();
     const { container } = render(<RdsEmojiGenerator onEmojiSelect={onEmojiSelect} />);
+    const grid = container.querySelector('.rds-emoji-generator__grid-container') as HTMLElement;
+    expect(grid).toHaveAttribute('role', 'listbox');
     const first = container.querySelector('.rds-emoji-generator__emoji') as HTMLElement;
+    expect(first).toHaveAttribute('role', 'option');
     expect(first).toHaveAttribute('aria-label', 'smiling face');
+    expect(first).toHaveAttribute('tabIndex', '0');
     fireEvent.keyDown(first, { key: 'Enter' });
     expect(onEmojiSelect).toHaveBeenCalledWith('😊');
   });

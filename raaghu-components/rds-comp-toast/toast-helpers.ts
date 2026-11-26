@@ -59,7 +59,12 @@ export const resolveToastPosition = (
     return position;
 };
 
-export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
+export const useToastTimer = (
+    autohide?: boolean,
+    delay?: number,
+    onTimeout?: () => void,
+    open?: boolean,
+) => {
     const onTimeoutRef = useRef(onTimeout);
     useEffect(() => {
         onTimeoutRef.current = onTimeout;
@@ -68,23 +73,34 @@ export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: ()
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const remainingRef = useRef<number>(delay ?? 3000);
     const startTimeRef = useRef<number>(0);
+    const prevOpenRef = useRef(open);
 
-    const startTimer = useCallback((duration: number) => {
-        startTimeRef.current = Date.now();
-        timerRef.current = setTimeout(() => {
-            setShowState("hide");
-            onTimeoutRef.current?.();
-        }, duration);
-    }, []);
-
-    const pauseTimer = useCallback(() => {
-        if (timerRef.current) {
+    const clearTimer = useCallback(() => {
+        if (timerRef.current !== undefined) {
             clearTimeout(timerRef.current);
-            remainingRef.current -= Date.now() - startTimeRef.current;
+            timerRef.current = undefined;
         }
     }, []);
 
+    const startTimer = useCallback((duration: number) => {
+        clearTimer();
+        startTimeRef.current = Date.now();
+        timerRef.current = setTimeout(() => {
+            timerRef.current = undefined;
+            setShowState("hide");
+            onTimeoutRef.current?.();
+        }, duration);
+    }, [clearTimer]);
+
+    const pauseTimer = useCallback(() => {
+        if (timerRef.current === undefined) return;
+        clearTimeout(timerRef.current);
+        timerRef.current = undefined;
+        remainingRef.current -= Date.now() - startTimeRef.current;
+    }, []);
+
     const resumeTimer = useCallback(() => {
+        if (timerRef.current !== undefined) return;
         if (remainingRef.current > 0) {
             startTimer(remainingRef.current);
         }
@@ -96,9 +112,23 @@ export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: ()
             startTimer(remainingRef.current);
         }
         return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
+            clearTimer();
         };
-    }, [autohide, delay, startTimer]);
+    }, [autohide, delay, startTimer, clearTimer]);
+
+    useEffect(() => {
+        const wasOpen = prevOpenRef.current;
+        prevOpenRef.current = open;
+        if (!autohide || open === undefined) return;
+        if (wasOpen === false && open === true) {
+            remainingRef.current = delay ?? 3000;
+            setShowState("show");
+            startTimer(remainingRef.current);
+        }
+        if (open === false) {
+            clearTimer();
+        }
+    }, [open, autohide, delay, startTimer, clearTimer]);
 
     return {
         showState,

@@ -168,33 +168,65 @@ const RdsList = ({
       );
     }
 
-    if (variant === 'button' || item.onClick || showCheckboxes) {
-      const checkbox = showCheckboxes && !item.icon ? (
-        <MuiListItemIcon className="rds-list__icon">
-          <RdsCheckbox
-            checked={effectiveCheckedItems.includes(item.id)}
-            disabled={item.disabled}
-            onChange={(event) => handleCheckboxChange(item.id, event)}
-            variant="square"
+    if (showCheckboxes) {
+      const itemName = typeof item.primary === 'string' ? item.primary : `Item ${item.id}`;
+      return (
+        <MuiListItem
+          disablePadding
+          {...itemProps}
+          key={item.id}
+          className={clsx('rds-list__checkbox-item', itemProps.className)}
+          onClick={item.disabled
+            ? undefined
+            : (event: MouseEvent<HTMLElement>) => {
+                if (!(event.target instanceof HTMLInputElement)) {
+                  handleCheckboxChange(item.id, event);
+                }
+                (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
+              }}
+          sx={{ cursor: item.disabled ? 'default' : 'pointer' }}
+        >
+          <MuiListItemIcon className="rds-list__icon">
+            {item.icon ?? (
+              <RdsCheckbox
+                checked={effectiveCheckedItems.includes(item.id)}
+                disabled={item.disabled}
+                onChange={(event) => handleCheckboxChange(item.id, event)}
+                onClick={(event) => event.stopPropagation()}
+                variant="square"
+                showText={false}
+                label={itemName}
+              />
+            )}
+          </MuiListItemIcon>
+          {item.avatar && (
+            <MuiListItemAvatar className="rds-list__avatar">
+              {item.avatar}
+            </MuiListItemAvatar>
+          )}
+          <MuiListItemText
+            primary={item.primary}
+            secondary={item.secondary}
+            slotProps={{ primary: { className: 'rds-list__content-primary', component: 'span' }, secondary: { className: 'rds-list__content-secondary', component: 'span' } }}
           />
-        </MuiListItemIcon>
-      ) : null;
+          {item.secondaryAction && (
+            <span className="rds-list__secondary-action">{item.secondaryAction}</span>
+          )}
+        </MuiListItem>
+      );
+    }
 
+    if (variant === 'button' || item.onClick) {
       const icon = item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
           {item.icon}
         </MuiListItemIcon>
-      ) : checkbox;
+      ) : null;
 
       return (
         <MuiListItem disablePadding {...itemProps} key={item.id}>
           <MuiListItemButton
-            onClick={showCheckboxes
-              ? (event: MouseEvent<HTMLElement>) => {
-                  if (!(event.target instanceof HTMLInputElement)) handleCheckboxChange(item.id, event);
-                  (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
-                }
-              : item.onClick}
+            onClick={item.onClick}
             disabled={item.disabled}
           >
             {icon}

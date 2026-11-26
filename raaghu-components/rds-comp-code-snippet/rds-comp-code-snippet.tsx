@@ -98,6 +98,11 @@ const RdsCompCodeSnippet = ({
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
     typeof language === 'string' ? language : 'html'
   );
+  const [languageProp, setLanguageProp] = useState(language);
+  if (language !== languageProp) {
+    setLanguageProp(language);
+    if (typeof language === 'string') setSelectedLanguage(language);
+  }
 
   const currentCode = useMemo((): string => {
     if (code) return code;
@@ -131,7 +136,7 @@ const RdsCompCodeSnippet = ({
           <div className="rds-comp-code-snippet__toolbar rds-comp-code-snippet__toolbar--single-line">
               <span className="rds-comp-code-snippet__single-line-code">
               <Highlighter
-                language={languageLabel as string}
+                language={selectedLanguage}
                 style={highlighterStyle}
                 showLineNumbers={false}
                 wrapLongLines={false}
@@ -197,7 +202,7 @@ const RdsCompCodeSnippet = ({
               >
                 <div className="rds-comp-code-snippet__syntax">
                     <Highlighter
-                      language={languageLabel as string}
+                      language={selectedLanguage}
                       style={highlighterStyle}
                       showLineNumbers={codeLines}
                       className="rds-comp-code-snippet__highlighter"

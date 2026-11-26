@@ -1,0 +1,60 @@
+name: Consumer smoke
+
+on:
+  pull_request:
+    branches: [main, development, production]
+    paths:
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+      - 'raaghu-react-themes/**'
+      - 'utils/**'
+      - 'index.ts'
+      - 'vite.config.ts'
+      - 'scripts/consumer-smoke.mjs'
+      - 'scripts/consumer-smoke/**'
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    branches: [development, production]
+    paths:
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+      - 'raaghu-react-themes/**'
+      - 'utils/**'
+      - 'index.ts'
+      - 'vite.config.ts'
+      - 'scripts/consumer-smoke.mjs'
+      - 'scripts/consumer-smoke/**'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  consumer-smoke:
+    name: Pack consumer smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: Build the library
+        run: npm run build
+
+      - name: ESM, CJS, and SSR smoke
+        run: npm run test:consumer-smoke

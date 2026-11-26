@@ -53,6 +53,8 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     items,
     tabTitle,
     onClose,
+    open: openProp,
+    defaultOpen = true,
     showDismiss: legacyShowDismissProp,
     showPrimaryButton: legacyShowPrimaryButtonProp,
     showSecondaryButton: legacyShowSecondaryButtonProp,
@@ -81,15 +83,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         if (typeof ref === 'function') ref(node);
         else if (ref) ref.current = node;
     }, [ref]);
-    const rootProps = {
-        ...rest,
-        role: 'dialog' as const,
-        'aria-modal': true,
-        'aria-labelledby': resolvedHeader ? headerId : undefined,
-        tabIndex: -1,
-        sx,
-        ref: setDialogRef,
-    };
+    const isOpenControlled = openProp !== undefined;
     const legacyShowDismiss = legacyShowDismissProp;
     const legacyShowPrimaryButton = legacyShowPrimaryButtonProp;
     const legacyShowSecondaryButton = legacyShowSecondaryButtonProp;
@@ -102,7 +96,17 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const showTertiaryButton = controls?.tertiary ? controls.tertiary === 'visible' : (legacyShowTertiaryButton ?? true);
     const showVisualPlaceholder = controls?.visual ? controls.visual === 'visible' : (legacyShowVisualPlaceholder ?? true);
 
-    const [isVisible, setIsVisible] = useState(true);
+    const [uncontrolledVisible, setUncontrolledVisible] = useState(defaultOpen);
+    const isVisible = isOpenControlled ? Boolean(openProp) : uncontrolledVisible;
+    const rootProps = {
+        ...rest,
+        role: 'dialog' as const,
+        ...(isVisible ? { 'aria-modal': true as const } : {}),
+        'aria-labelledby': resolvedHeader ? headerId : undefined,
+        tabIndex: -1,
+        sx,
+        ref: setDialogRef,
+    };
     const resolvedSlides = slides ?? EMPTY_TOUR_SLIDES;
     const resolvedTabTitle = items ?? tabTitle ?? EMPTY_TAB_TITLES;
     const stepsIndicator = steps !== undefined || activeStep !== undefined ? `${activeStep ?? 1}/${steps ?? resolvedSlides.length}` : legacyStepsIndicator;
@@ -144,11 +148,9 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         setCurrentIndex((i) => (i - 1 + totalSlides) % totalSlides);
     }, [effectiveSlides, totalSlides]);
     const handleClose = useCallback(() => {
-        setIsVisible(false);
-        if (onClose) {
-            onClose();
-        }
-    }, [onClose]);
+        if (!isOpenControlled) setUncontrolledVisible(false);
+        onClose?.();
+    }, [isOpenControlled, onClose]);
     const closeRef = useRef(handleClose);
     useEffect(() => {
         closeRef.current = handleClose;
@@ -302,7 +304,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                     {formInputsElement}
                     <Box className="rds-comp-product-tour__file-upload-container">
                         <Box className="rds-comp-product-tour__file-upload-container-wrapper">
-                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop helperText="Maximum 5MB" required maxFiles={1} maxSize={2097152} mode="standard" onChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
+                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop helperText="Maximum 2MB" required maxFiles={1} maxSize={2097152} mode="standard" onChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
                         </Box>
                     </Box>
                     {formNavigationElement}

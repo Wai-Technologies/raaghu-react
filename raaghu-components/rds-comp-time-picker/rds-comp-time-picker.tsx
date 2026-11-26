@@ -16,6 +16,8 @@ import {
   formatTime
 } from './time-picker-utils';
 
+const FOCUSABLE_SELECTOR = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
 interface PickerState {
   showPicker: boolean;
   hours: number;
@@ -76,16 +78,20 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const resolvedColor = color ?? colorVariant;
   const nowText = localeText?.now ?? 'NOW';
   const cancelText = localeText?.cancel ?? 'Cancel';
+  const clearText = localeText?.clear ?? 'Clear';
   const setTimeText = localeText?.setTime ?? 'Set Time';
   const placeholderText = localeText?.placeholder ?? '12:00 AM';
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
   const rootRef = useForkRef(containerRef, ref);
   const [pickerState, setPickerState] = useState<PickerState>(() => ({
     ...INITIAL_STATE,
     ...getSyncUpdates(valueProp),
     ...(defaultOpen !== undefined && { showPicker: defaultOpen }),
   }));
+  const committedRef = useRef<Partial<PickerState>>(getSyncUpdates(valueProp));
   const { showPicker: innerOpen, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
   const showPicker = openProp ?? innerOpen;
   const updatePickerState = useCallback((updates: Partial<PickerState> | ((prev: PickerState) => Partial<PickerState>)) => {
@@ -99,7 +105,9 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
   if (valueProp !== prevValueProp) {
     setPrevValueProp(valueProp);
-    setPickerState({ ...pickerState, ...getSyncUpdates(valueProp) });
+    const synced = getSyncUpdates(valueProp);
+    committedRef.current = synced;
+    setPickerState({ ...pickerState, ...synced });
   }
 
   const setOpen = useCallback((next: boolean) => {
@@ -127,32 +135,23 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       e.stopPropagation();
     }
 
-    if (pickerStyle === 'compact') {
-      const formattedTime = formatTime(tempHour, tempMinute, tempPeriod);
-      updatePickerState({
-        hours: tempHour,
-        minutes: tempMinute,
-        period: tempPeriod,
-        time: formattedTime,
-      });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
-    } else {
-      const formattedTime = formatTime(hours, minutes, period);
-      updatePickerState({ time: formattedTime });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
-    }
+    const committed = pickerStyle === 'compact'
+      ? { hours: tempHour, minutes: tempMinute, period: tempPeriod, time: formatTime(tempHour, tempMinute, tempPeriod), tempHour, tempMinute, tempPeriod }
+      : { hours, minutes, period, time: formatTime(hours, minutes, period), tempHour: hours, tempMinute: minutes, tempPeriod: period };
+    committedRef.current = committed;
+    updatePickerState(committed);
+    onChangeProp?.(committed.time);
 
     setOpen(false);
   }, [pickerStyle, tempHour, tempMinute, tempPeriod, onChangeProp, hours, minutes, period, updatePickerState, setOpen]);
 
   const handleCancel = useCallback(() => {
-    updatePickerState({
+    updatePickerState({ ...committedRef.current, showPicker: false });
+    setOpen(false);
+  }, [updatePickerState, setOpen]);
+
+  const handleClear = useCallback(() => {
+    const cleared = {
       time: '',
       hours: 12,
       minutes: 0,
@@ -160,18 +159,47 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       tempHour: 12,
       tempMinute: 0,
       tempPeriod: 'AM',
-    });
-
-    if (onChangeProp) {
-      onChangeProp('');
-    }
+    };
+    committedRef.current = cleared;
+    updatePickerState(cleared);
+    onChangeProp?.('');
     setOpen(false);
   }, [onChangeProp, updatePickerState, setOpen]);
 
   useEffect(() => {
     if (!showPicker) return undefined;
+    const popup = popupRef.current;
+    const input = inputRef.current;
+    const focusables = () =>
+      popup ? Array.from(popup.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+        (el) => !el.hasAttribute('disabled') && el.tabIndex !== -1,
+      ) : [];
+
+    const first = focusables()[0];
+    (first ?? popup)?.focus({ preventScroll: true });
+
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        event.stopPropagation();
+        setOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab' || !popup) return;
+      const nodes = focusables();
+      if (nodes.length === 0) {
+        event.preventDefault();
+        popup.focus({ preventScroll: true });
+        return;
+      }
+      const firstNode = nodes[0];
+      const lastNode = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === firstNode) {
+        event.preventDefault();
+        lastNode.focus();
+      } else if (!event.shiftKey && document.activeElement === lastNode) {
+        event.preventDefault();
+        firstNode.focus();
+      }
     };
     const onPointerDown = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) setOpen(false);
@@ -181,6 +209,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('mousedown', onPointerDown);
+      const active = document.activeElement;
+      if (!active || active === document.body || !active.isConnected || popup?.contains(active)) input?.focus({ preventScroll: true });
     };
   }, [showPicker, setOpen]);
 
@@ -190,19 +220,13 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     if (pickerStyle === 'compact') {
       updatePickerState({ tempHour: currentHours, tempMinute: currentMinutes, tempPeriod: currentPeriod });
     } else {
-      const formattedTime = formatTime(currentHours, currentMinutes, currentPeriod);
       updatePickerState({
         hours: currentHours,
         minutes: currentMinutes,
         period: currentPeriod,
-        time: formattedTime,
       });
-
-      if (onChangeProp) {
-        onChangeProp(formattedTime);
-      }
     }
-  }, [pickerStyle, onChangeProp, updatePickerState]);
+  }, [pickerStyle, updatePickerState]);
 
   const incrementHour = useCallback(() => updatePickerState((prev) => ({ hours: (prev.hours % 12) + 1 })), [updatePickerState]);
   const decrementHour = useCallback(() => updatePickerState((prev) => ({ hours: prev.hours - 1 <= 0 ? 12 : prev.hours - 1 })), [updatePickerState]);
@@ -223,6 +247,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         className={clsx("time-input-container", disabled && "disabled")}
       >
         <input
+          ref={inputRef}
           type="text"
           className={clsx("time-input", inputBorderClass, selected && "selected")}
           value={valueProp !== undefined ? valueProp : time}
@@ -230,6 +255,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           disabled={disabled}
           placeholder={placeholderText}
           aria-label="Selected time"
+          aria-haspopup="dialog"
           onClick={!disabled ? togglePicker : undefined}
           onKeyDown={!disabled ? (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
@@ -244,6 +270,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           onClick={!disabled ? togglePicker : undefined}
           disabled={disabled}
           aria-label="Toggle time picker"
+          aria-haspopup="dialog"
+          aria-expanded={showPicker}
         >
           <AccessTimeIcon fontSize="small" />
         </button>
@@ -251,14 +279,16 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
       {showPicker && (
         <div
+          ref={popupRef}
           role="dialog"
           aria-label="Time picker"
+          tabIndex={-1}
           className={clsx(
             "time-picker",
             pickerStyle === 'compact' ? "time-picker-compact" : "time-picker",
             inputBorderClass
           )}>
-          <div className="row d-flex align-items-center justify-content-between">
+          <div className="time-picker__header">
             <div className={clsx("time-display", pickerStyle === 'compact' ? "time-display-compact" : "time-display")}>
               {pickerStyle === 'compact'
                 ? formatTime(tempHour, tempMinute, tempPeriod || 'AM')
@@ -296,6 +326,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
           <div className={clsx("buttons", pickerStyle === "compact" ? "buttons-compact" : "buttons")}>
             <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>{cancelText}</button>
+            <button type="button" className={buttonClasses.cancel} onClick={handleClear}>{clearText}</button>
             <button
               type="button"
               className={buttonClasses.setTime}

@@ -10,6 +10,9 @@ import MuiTimelineContent from '@mui/lab/TimelineContent';
 import MuiTimelineDot from '@mui/lab/TimelineDot';
 import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import './rds-timeline.scss';
+
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
@@ -34,7 +37,7 @@ export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'comp
 }
 
 const RdsTimeline = ({
-  items,
+  items = EMPTY_ARRAY,
   showTime = false,
   alternating = false,
   position,

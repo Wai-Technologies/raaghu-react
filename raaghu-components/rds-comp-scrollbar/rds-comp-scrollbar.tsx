@@ -25,6 +25,8 @@ export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   endIcon?: ReactNode;
   /** Content rendered inside the scroll container; replaces the placeholder. */
   children?: ReactNode;
+  /** Accessible name for the scrollable region. */
+  'aria-label'?: string;
   /** Extra class name applied to the root element. */
   className?: string;
   /** MUI system styles applied to the root element. */
@@ -45,6 +47,7 @@ const RdsCompScrollBar = ({
   className,
   sx,
   ref,
+  'aria-label': ariaLabel,
   ...rest
 }: RdsScrollBarProps) => {
   if (position !== undefined) warnDeprecatedProp("RdsCompScrollBar", "position", "`scrollTo`");
@@ -98,7 +101,13 @@ const RdsCompScrollBar = ({
           </button>
         </div>
       )}
-      <div className="rds-scrollbar__content" ref={scrollContentRef}>
+      <div
+        className="rds-scrollbar__content"
+        ref={scrollContentRef}
+        role="region"
+        tabIndex={0}
+        aria-label={ariaLabel}
+      >
         {children ?? <div className="rds-scrollbar__inner-content"></div>}
       </div>
     </Box>

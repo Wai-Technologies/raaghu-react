@@ -66,12 +66,9 @@ export function RaaghuThemeProvider({
   brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
   const isControlled = controlledMode !== undefined;
-  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(() =>
-    !isControlled && initializeOnMount && typeof window !== 'undefined' ? initializeRaaghuTheme() : defaultMode,
-  );
-  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
-    typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
-  );
+  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
+  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(false);
+  const [didHydrateStorage, setDidHydrateStorage] = useState(false);
   const mode = controlledMode ?? internalMode;
 
   const brandOverridesKey = brandOverrides ? JSON.stringify(brandOverrides) : '';
@@ -86,8 +83,18 @@ export function RaaghuThemeProvider({
   );
 
   useIsomorphicLayoutEffect(() => {
+    setSystemPrefersDark(prefersDarkColorScheme());
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!isControlled && initializeOnMount && !didHydrateStorage) {
+      const stored = initializeRaaghuTheme();
+      setInternalMode(stored);
+      setDidHydrateStorage(true);
+      return;
+    }
     applyRaaghuTheme(mode, stableBrandOverrides, { persist: !isControlled });
-  }, [mode, systemPrefersDark, stableBrandOverrides, isControlled]);
+  }, [mode, systemPrefersDark, stableBrandOverrides, isControlled, initializeOnMount, didHydrateStorage]);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');

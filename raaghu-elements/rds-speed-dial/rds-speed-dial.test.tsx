@@ -1,10 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Share, Print, Favorite } from '@mui/icons-material';
 import RdsSpeedDial, { RdsSpeedDialAction, RdsSpeedDialProps } from './rds-speed-dial';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import Share from '@mui/icons-material/Share';
+import Print from '@mui/icons-material/Print';
+import Favorite from '@mui/icons-material/Favorite';
 
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBadge from './rds-badge';
 import { Avatar, IconButton } from '@mui/material';
-import { Mail, Notifications } from '@mui/icons-material';
 import { expect } from 'storybook/test';
+import Mail from '@mui/icons-material/Mail';
+import Notifications from '@mui/icons-material/Notifications';
 
 const meta: Meta<typeof RdsBadge> = {
   title: 'Elements/Badge',

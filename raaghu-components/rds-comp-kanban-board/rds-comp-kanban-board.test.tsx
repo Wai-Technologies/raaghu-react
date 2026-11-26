@@ -1,11 +1,22 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
-import { boardInfo, RdsCompKanbanBoardProps, colorClass, type KanbanSubCard } from './kanban-board-helpers';
+import {
+  boardInfo,
+  RdsCompKanbanBoardProps,
+  colorClass,
+  createDragEndHandler,
+  createDragOverHandler,
+  type KanbanBoardInfo,
+  type KanbanSubCard,
+} from './kanban-board-helpers';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  resolveDeprecatedProp: (canonical: unknown, legacy: unknown) => (canonical !== undefined ? canonical : legacy),
+}));
 
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
 
@@ -54,6 +65,7 @@ jest.mock('@mui/icons-material', () => ({
   MoreVert: () => <span data-testid="more-vert-icon">⋮</span>,
   Close: () => <span data-testid="close-icon">✕</span>,
   Delete: () => <span data-testid="delete-icon">🗑</span>,
+  DragIndicator: () => <span data-testid="drag-indicator-icon" />,
   MoreVertIcon: () => <span data-testid="more-vert-icon">⋮</span>,
   CloseIcon: () => <span data-testid="close-icon">✕</span>,
   DeleteIcon: () => <span data-testid="delete-icon">🗑</span>,
@@ -83,6 +95,7 @@ jest.mock('@dnd-kit/sortable', () => ({
     attributes: { 'data-testid': 'draggable', 'data-id': String(id) },
     listeners: {},
     setNodeRef: jest.fn(),
+    setActivatorNodeRef: jest.fn(),
     transform: null,
     transition: null,
     isDragging: false,
@@ -776,5 +789,51 @@ describe('audit fixes', () => {
     openMenu('.rds-kanban-board__subcard-dropdown-button', 0);
     clickItem('Edit');
     expect(onCardAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 1, cardId: 7 });
+  });
+});
+
+describe('RDS-011 drag handlers without dnd-kit mocks', () => {
+  const makeCard = (id: number, title: string): KanbanSubCard =>
+    ({ id, ticketId: String(id), ticketQuestion: title, ticketPriority: 'low' }) as KanbanSubCard;
+
+  it('createDragOverHandler moves a card across columns in UI state only', () => {
+    let current: KanbanBoardInfo[] = [
+      { cardId: 1, name: 'Todo', cardColor: 'primary', subCards: [makeCard(10, 'Card A'), makeCard(11, 'Card B')] },
+      { cardId: 2, name: 'Doing', cardColor: 'success', subCards: [makeCard(12, 'Card C')] },
+    ];
+    const setBoards = (next: KanbanBoardInfo[]) => {
+      current = next;
+    };
+    const onColumnsChange = jest.fn();
+
+    createDragOverHandler(current, setBoards, onColumnsChange)({
+      active: { id: 10, data: { current: { boardIndex: 0, subCardIndex: 0 } } },
+      over: { id: 'column-1', data: { current: { boardIndex: 1 } } },
+    } as any);
+
+    expect(current[0].subCards.map((c) => c.id)).toEqual([11]);
+    expect(current[1].subCards.map((c) => c.id)).toEqual([12, 10]);
+    expect(onColumnsChange).not.toHaveBeenCalled();
+  });
+
+  it('createDragEndHandler commits without double-moving after dragOver', () => {
+    const current: KanbanBoardInfo[] = [
+      { cardId: 1, name: 'Todo', cardColor: 'primary', subCards: [makeCard(11, 'Card B')] },
+      { cardId: 2, name: 'Doing', cardColor: 'success', subCards: [makeCard(12, 'Card C'), makeCard(10, 'Card A')] },
+    ];
+    const setBoards = jest.fn();
+    const onColumnsChange = jest.fn();
+
+    createDragEndHandler(current, setBoards, onColumnsChange)({
+      active: { id: 10, data: { current: { boardIndex: 0, subCardIndex: 0 } } },
+      over: { id: 'column-1', data: { current: { boardIndex: 1 } } },
+    } as any);
+
+    expect(onColumnsChange).toHaveBeenCalledTimes(1);
+    const committed = onColumnsChange.mock.calls[0][0] as KanbanBoardInfo[];
+    expect(committed[0].subCards.map((c) => c.id)).toEqual([11]);
+    expect(committed[1].subCards.map((c) => c.id)).toEqual([12, 10]);
+    expect(committed.flatMap((b) => b.subCards).filter((c) => c.id === 10)).toHaveLength(1);
+    expect(setBoards).not.toHaveBeenCalled();
   });
 });

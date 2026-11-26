@@ -5,7 +5,7 @@ import CloudUpload from '@mui/icons-material/CloudUpload';
 import Close from '@mui/icons-material/Close';
 import type { FileWithProgress, RdsFileUploaderProps } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
-import { formatAcceptLabel, formatFileSize } from './rds-file-uploader-utils';
+import { fileMatchesAccept, formatAcceptLabel, formatFileSize } from './rds-file-uploader-utils';
 
 /** Props shared by the three drop-zone layouts. */
 interface RdsDropZoneProps {
@@ -15,6 +15,8 @@ interface RdsDropZoneProps {
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: (e: DragEvent<HTMLDivElement>) => void;
+  /** When false, or when `disabled`, drop handlers are not attached. @default true */
+  dragAndDrop?: boolean;
   openFileDialog: () => void;
   /** The file input `accept` value; shown to the user as the list of allowed file types. */
   accept?: string;
@@ -33,11 +35,16 @@ interface UseFileUploaderProps {
   isMandatory: boolean;
   /** When `false`, a new selection or drop replaces the current file instead of appending. Defaults to `true`. */
   multiple?: boolean;
+  /** HTML `accept` attribute; dropped/selected files that do not match are kept with an error. */
+  accept?: string;
   onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   onUpload?: (files: File[]) => Promise<void>;
 }
 
-function validateFile(file: File, maxSize: number): string | null {
+function validateFile(file: File, maxSize: number, accept?: string): string | null {
+  if (!fileMatchesAccept(file, accept)) {
+    return `File type is not accepted`;
+  }
   if (file.size > maxSize) {
     return `File size exceeds ${formatFileSize(maxSize)}`;
   }
@@ -49,6 +56,7 @@ export const useFileUploader = ({
   maxFiles,
   isMandatory,
   multiple = true,
+  accept,
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
@@ -73,7 +81,7 @@ export const useFileUploader = ({
     const validFiles: FileWithProgress[] = [];
     for (const file of newFiles) {
       if (base.length + validFiles.length >= limit) break;
-      const error = validateFile(file, maxSize);
+      const error = validateFile(file, maxSize, accept);
       validFiles.push({ file, progress: 0, error: error || undefined });
     }
     const updatedFiles = [...base, ...validFiles];
@@ -173,10 +181,12 @@ export const RdsDropZoneSideIcon = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
   accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -186,9 +196,9 @@ export const RdsDropZoneSideIcon = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       onClick={!disabled ? openFileDialog : undefined}
       sx={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
     >
@@ -214,9 +224,11 @@ export const RdsDropZoneWithButton = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -226,9 +238,9 @@ export const RdsDropZoneWithButton = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -273,10 +285,12 @@ export const RdsDropZoneDefault = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  dragAndDrop = true,
   openFileDialog,
   accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
+  const dropEnabled = dragAndDrop && !disabled;
 
   return (
     <Paper
@@ -286,9 +300,9 @@ export const RdsDropZoneDefault = ({
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
         (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
       }
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
+      onDragOver={dropEnabled ? onDragOver : undefined}
+      onDragLeave={dropEnabled ? onDragLeave : undefined}
+      onDrop={dropEnabled ? onDrop : undefined}
       onClick={!disabled ? openFileDialog : undefined}
       sx={{
         width: '100%',

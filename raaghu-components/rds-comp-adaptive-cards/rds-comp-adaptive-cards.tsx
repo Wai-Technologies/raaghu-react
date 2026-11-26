@@ -8,7 +8,8 @@ import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-but
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
 import { CardHeader, CardContent, CardActions, IconButton } from "@mui/material";
-import { Close as CloseIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
+import Close from '@mui/icons-material/Close';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import {
   FootballScorecardCard,
   ActivityUpdateCard,
@@ -212,7 +213,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   className="custom-box__close-icon"
                   onClick={handleDismiss}
                 >
-                  <CloseIcon />
+                  <Close />
                 </IconButton>
               )}
             </RdsStack>
@@ -287,7 +288,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     className="rds-adaptive-cards__close-btn"
                     onClick={handleDismiss}
                   >
-                    <CloseIcon />
+                    <Close />
                   </IconButton>
                 )
               }
@@ -422,7 +423,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         showUserAvatar={true}
                         multiple={false}
                         showLeftIcon={false}
-                        endIcon={<ExpandMoreIcon />}
+                        endIcon={<ExpandMore />}
                       >
                         {btn1Label}
                       </RdsButtonDropdown>

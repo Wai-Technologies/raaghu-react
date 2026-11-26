@@ -10,14 +10,49 @@ function sanitizePhone(raw: string): string {
   return (plus ? '+' : '') + raw.replace(/\D/g, '').slice(0, plus ? 12 : 10);
 }
 
-function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
+function sanitizeNumber(raw: string): string {
+  let result = '';
+  let hasDot = false;
+  let hasMinus = false;
+  for (const ch of raw) {
+    if (ch >= '0' && ch <= '9') {
+      result += ch;
+    } else if (ch === '.' && !hasDot) {
+      hasDot = true;
+      result += ch;
+    } else if (ch === '-' && !hasMinus && result.length === 0) {
+      hasMinus = true;
+      result += ch;
+    }
+  }
+  return result;
+}
+
+function sanitizeCardNumber(raw: string): string {
+  return raw.replace(/\D/g, '');
+}
+
+function sanitizeByLayout(layout: RdsInputProps['layout'] | undefined, raw: string): string {
+  switch (layout) {
+    case 'phone number':
+      return sanitizePhone(raw);
+    case 'number':
+      return sanitizeNumber(raw);
+    case 'card number':
+      return sanitizeCardNumber(raw);
+    default:
+      return raw;
+  }
+}
+
+function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string | undefined {
   switch (layoutType) {
     case 'password': return '••••••••';
     case 'phone number': return 'Enter Phone Number';
     case 'number': return 'Enter Number';
     case 'card number': return 'XXXX XXXX XXXX XXXX';
     case 'text':
-    default: return 'Placeholder Text';
+    default: return undefined;
   }
 }
 
@@ -135,7 +170,7 @@ const RdsInput = ({
   }
 
   const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (layout === 'phone number') event.target.value = sanitizePhone(event.target.value);
+    event.target.value = sanitizeByLayout(layout, event.target.value);
     if (!isControlled) {
       setInternalValue(event.target.value);
     }
@@ -178,8 +213,10 @@ const RdsInput = ({
       'Home',
       'End',
       'Tab',
+      'Enter',
+      'Escape',
     ];
-    if (e.ctrlKey || e.metaKey) return;
+    if (e.ctrlKey || e.metaKey || /^F\d{1,2}$/.test(e.key)) return;
 
     const input = e.currentTarget;
     const selectionStart = input.selectionStart ?? input.value.length;
@@ -197,6 +234,20 @@ const RdsInput = ({
       return;
     } else if (isPlusKey && layout !== 'phone number') {
       e.preventDefault();
+      return;
+    }
+
+    if (layout === 'number' && e.key === '-') {
+      const atStart = selectionStart === 0;
+      const hasMinus = input.value.startsWith('-');
+      const replacingMinus = hasMinus && selectionStart === 0 && selectionEnd > 0;
+      if (!atStart || (hasMinus && !replacingMinus)) e.preventDefault();
+      return;
+    }
+
+    if (layout === 'number' && e.key === '.') {
+      const nextValue = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+      if (nextValue.includes('.')) e.preventDefault();
       return;
     }
 

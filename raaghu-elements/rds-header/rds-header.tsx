@@ -2,7 +2,7 @@ import { useState, type ComponentProps, type ReactNode, type SyntheticEvent } fr
 import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab } from '@mui/material';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';

@@ -32,22 +32,20 @@ import {
   Divider,
   Grid,
 } from '@mui/material';
-import {
-  Search as SearchIcon,
-  FilterList as FilterIcon,
-  Sort as SortIcon,
-  MoreVert as MoreIcon,
-  Add as AddIcon,
-  Person as PersonIcon,
-  Visibility as VisibilityIcon,
-  Clear as ClearIcon,
-  ArrowUpward as ArrowUpIcon,
-  ArrowDownward as ArrowDownIcon,
-  SwapVert as ArrowUpDownIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  DragIndicator as DragIndicatorIcon,
-} from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
+import FilterIcon from '@mui/icons-material/FilterList';
+import SortIcon from '@mui/icons-material/Sort';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowUpIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpDownIcon from '@mui/icons-material/SwapVert';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';

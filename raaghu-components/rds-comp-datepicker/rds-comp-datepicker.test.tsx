@@ -536,4 +536,10 @@ describe('RdsDatepicker style', () => {
     const b = render(<RdsDatepicker isDropdownOpen={false} />);
     expect(b.container.querySelector('.rds-datepicker')).not.toHaveAttribute('style');
   });
+
+  it('parses a date-only string as local midnight', () => {
+    render(<RdsDatepicker value="2024-01-15" isDropdownOpen={false} />);
+    const start = mockCaptured.type?.[1] as Date;
+    expect(start.getTime()).toBe(new Date(2024, 0, 15).getTime());
+  });
 });

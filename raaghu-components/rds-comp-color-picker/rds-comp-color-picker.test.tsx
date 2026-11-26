@@ -523,9 +523,20 @@ describe('RdsCompColorPicker', () => {
       });
     });
 
-    it('G4-005: opacity input reflects alpha', () => {
-      render(<actual.ColorPickerInfo {...infoProps} showColorModeDropdown={false} setShowColorModeDropdown={jest.fn()} />);
-      expect(screen.getByLabelText('Opacity percentage')).toHaveValue('50%');
+    it('G4-005: opacity input reflects alpha and is editable', () => {
+      const handleChange = jest.fn();
+      render(
+        <actual.ColorPickerInfo
+          {...infoProps}
+          handleChange={handleChange}
+          showColorModeDropdown={false}
+          setShowColorModeDropdown={jest.fn()}
+        />,
+      );
+      const opacity = screen.getByLabelText('Opacity percentage');
+      expect(opacity).toHaveValue('50');
+      fireEvent.change(opacity, { target: { value: '25' } });
+      expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ rgb: expect.objectContaining({ a: 0.25 }) }));
     });
 
     it('G4-006: radial gradient button gets the correct active class', () => {
@@ -691,5 +702,23 @@ describe('ColorPickerSpectrum keyboard support', () => {
     expect(handleChange.mock.calls[0][0].hex).not.toBe('#800000');
     fireEvent.keyDown(slider, { key: 'ArrowUp', shiftKey: true });
     expect(handleChange.mock.calls[1][0].rgb.r).toBeGreaterThan(128);
+  });
+
+  it('commits a typed hex value', () => {
+    const { ColorPickerInfo } = jest.requireActual('./color-picker-components');
+    const handleChange = jest.fn();
+    render(
+      <ColorPickerInfo
+        colorModeDropdownRef={{ current: null }}
+        setShowColorModeDropdown={jest.fn()}
+        showColorModeDropdown={false}
+        selectedColorMode={ColorMode.HEX}
+        selectedColorState={{ hex: '#000000', rgb: { r: 0, g: 0, b: 0, a: 1 } }}
+        getColorDisplay={() => '#000000'}
+        handleChange={handleChange}
+      />,
+    );
+    fireEvent.change(screen.getByLabelText('Hex color value'), { target: { value: '#112233' } });
+    expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ hex: '#112233' }));
   });
 });

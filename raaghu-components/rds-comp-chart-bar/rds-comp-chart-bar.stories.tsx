@@ -40,6 +40,11 @@ className: {
   control: "text",
   description: "CSS class applied to the chart container.",
 },
+    description: {
+      control: "text",
+      description:
+        "Optional visible summary for sighted users; links to the chart via aria-describedby and supplements the hidden data table for screen readers.",
+    },
 
     labels: { control: false, table: { disable: true } },
     dataSets: { control: false, table: { disable: true } },
@@ -96,6 +101,15 @@ export const Default: Story = {
         await expect(canvasElement.querySelector("canvas")).toBeTruthy();
     },
 } satisfies Story;
+
+/** Demonstrates `description` with a visible summary and screen-reader data table. */
+export const WithAccessibleDescription: Story = {
+    args: {
+        ...Default.args,
+        description:
+            "Monthly comparison of two datasets; full numeric values are available in the accessible data table.",
+    },
+};
 
 export const BorderRadius: Story = {
     args: {

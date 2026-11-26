@@ -42,10 +42,19 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-jest.mock('@mui/icons-material', () => ({
-  Close: () => <span data-testid="close-icon">×</span>,
-  InfoOutlined: () => <span data-testid="info-icon">ⓘ</span>,
-  ExpandMore: () => <span data-testid="expand-icon">▼</span>,
+jest.mock('@mui/icons-material/Close', () => ({
+  __esModule: true,
+  default: () => <span data-testid="close-icon">×</span>,
+}));
+
+jest.mock('@mui/icons-material/InfoOutlined', () => ({
+  __esModule: true,
+  default: () => <span data-testid="info-icon">ⓘ</span>,
+}));
+
+jest.mock('@mui/icons-material/ExpandMore', () => ({
+  __esModule: true,
+  default: () => <span data-testid="expand-icon">▼</span>,
 }));
 
 jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
@@ -81,7 +90,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
 }));
 jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
   __esModule: true,
-  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onChange, ...props }: any) => (
+  default: ({ accept, dragAndDrop, hintText, helperText, maxFiles, maxSize, onChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}
@@ -89,7 +98,7 @@ jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
       data-max-size={maxSize}
       {...mockOmitUnknownProps(props)}
     >
-      {hintText}
+      {helperText ?? hintText}
     </div>
   ),
 }));
@@ -1004,6 +1013,21 @@ describe('RdsCompProductTour', () => {
   });
 
   describe('focus management', () => {
+    it('RDS-014: respects controlled open={false}', () => {
+      render(<RdsCompProductTour variant="Image" title="T" open={false} />);
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('RDS-014: defaultOpen={false} starts hidden', () => {
+      render(<RdsCompProductTour variant="Image" title="T" defaultOpen={false} />);
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('RDS-016: form upload helper text matches 2MB maxSize', () => {
+      render(<RdsCompProductTour variant="Form" title="T" />);
+      expect(screen.getByText(/Maximum 2MB/i)).toBeInTheDocument();
+    });
+
     it('sets aria-modal and moves focus into the dialog', () => {
       render(<RdsCompProductTour variant="Image" title="T" />);
       const dialog = screen.getByRole('dialog');

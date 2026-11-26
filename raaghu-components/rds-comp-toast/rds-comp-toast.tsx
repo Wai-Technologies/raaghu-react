@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useCallback, type ReactNode, type SyntheticEvent } from "react";
+import { useCallback, useId, type ReactNode, type SyntheticEvent } from "react";
 import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
@@ -94,6 +94,8 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
     error: 'error',
 };
 
+const ACTION_LAYOUTS = new Set<ToastLayout>([ToastLayout.Request, ToastLayout.Download, ToastLayout.Chat]);
+
 /**
  * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
  */
@@ -115,7 +117,9 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const titleText = props.title ?? props.headerText;
     const messageText = props.message ?? props.subText;
     const { autoHideDuration } = props;
-    const effectiveAutohide = autoHideDuration !== undefined ? autoHideDuration !== null : props.autohide;
+    const hasActions = props.action != null || (props.layout !== undefined && ACTION_LAYOUTS.has(props.layout));
+    const wantsAutohide = autoHideDuration !== undefined ? autoHideDuration !== null : Boolean(props.autohide);
+    const effectiveAutohide = wantsAutohide && !hasActions;
     const effectiveDelay = typeof autoHideDuration === 'number' ? autoHideDuration : props.delay;
 
     if (props.leadingIcon !== undefined) warnDeprecatedProp('RdsCompToast', 'leadingIcon', '`icon`');
@@ -127,32 +131,53 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     if (props.severity !== undefined) warnDeprecatedProp('RdsCompToast', 'severity', '`color`');
     const _stateClass = getStateClass(props.color ?? props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
+    const isError = _stateClass === 'error';
+    const liveRole = isError ? 'alert' : 'status';
+    const livePoliteness = isError ? 'assertive' : 'polite';
+    const toastContentId = useId();
 
-    const { onClose } = props;
+    const { onClose, pauseOnHover = true, open: openProp } = props;
     const handleTimeout = useCallback(() => onClose?.(null, 'timeout'), [onClose]);
-    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(effectiveAutohide, effectiveDelay, handleTimeout);
-    const showState = props.open !== undefined ? (props.open ? "show" : "hide") : innerState;
+    const { showState: innerState, setShowState, pauseTimer, resumeTimer } = useToastTimer(
+        effectiveAutohide,
+        effectiveDelay,
+        handleTimeout,
+        openProp,
+    );
+    const showState = openProp !== undefined ? (openProp ? "show" : "hide") : innerState;
+    const isVisible = showState === "show";
     const hideToast = useCallback((event: SyntheticEvent) => {
         setShowState("hide");
         onClose?.(event, 'closeClick');
     }, [setShowState, onClose]);
 
+    const shouldPauseOnHover = effectiveAutohide && pauseOnHover;
+    const pauseOnInteraction = shouldPauseOnHover ? pauseTimer : undefined;
+    const resumeOnInteraction = shouldPauseOnHover ? resumeTimer : undefined;
+
     return (
         <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx} id={props.id} aria-label={props['aria-label']} style={props.style}>
+            {isVisible ? (
             <div
-                role="alert"
-                aria-live="assertive"
+                role={liveRole}
+                aria-live={livePoliteness}
                 aria-atomic="true"
                 className={clsx(
                   "rds-comp-toast",
                   `rds-comp-toast--${_stateClass}`,
                   `rds-comp-toast--${getLayoutClass(props.layout)}`,
                   borderColor,
-                  showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"
+                  "rds-comp-toast--visible"
                 )}
-                id="toastId"
-                onMouseEnter={effectiveAutohide && props.pauseOnHover ? pauseTimer : undefined}
-                onMouseLeave={effectiveAutohide && props.pauseOnHover ? resumeTimer : undefined}
+                id={toastContentId}
+                onMouseEnter={pauseOnInteraction}
+                onMouseLeave={resumeOnInteraction}
+                onFocus={pauseOnInteraction}
+                onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                        resumeOnInteraction?.();
+                    }
+                }}
             >
                 {showHeader && (
                     <div className="rds-comp-toast__header">
@@ -232,6 +257,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                     </div>
                 )}
             </div>
+            ) : null}
         </Box>
     );
 };

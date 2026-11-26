@@ -3,13 +3,22 @@ import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import { Home, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
+import './rds-app-bar.stories.scss';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
+import Home from '@mui/icons-material/Home';
+import Notifications from '@mui/icons-material/Notifications';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Brightness5 from '@mui/icons-material/Brightness5';
+import Brightness2 from '@mui/icons-material/Brightness2';
+import Brightness4 from '@mui/icons-material/Brightness4';
+import Logout from '@mui/icons-material/Logout';
+import Security from '@mui/icons-material/Security';
+import Close from '@mui/icons-material/Close';
 
 const HomeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

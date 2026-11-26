@@ -54,6 +54,40 @@
     background: transparent;
   }
 
+  &__figure {
+    width: 100%;
+  }
+
+  &__legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--rds-spacing-sm);
+    margin-top: var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-sm);
+    color: var(--rds-text-secondary);
+  }
+
+  &__legend-end {
+    font-weight: var(--rds-font-weight-medium);
+    color: var(--rds-text-primary);
+  }
+
+  &__legend-scale {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--rds-border-radius-xs);
+    overflow: hidden;
+    border: var(--rds-border-width-thin) solid var(--rds-divider);
+  }
+
+  &__legend-swatch {
+    display: block;
+    width: var(--rds-size-md);
+    height: var(--rds-size-sm);
+  }
+
   svg {
     display: block;
     margin: 0 auto;

@@ -58,6 +58,8 @@ export interface ReviewStyleCardProps {
   onRatingChange?: (item: Item, value: number) => void;
   onLike?: (item: Item) => void;
   onDislike?: (item: Item) => void;
+  /** Allows the star rating to be changed by interacting with it. @default false (read-only) */
+  interactive?: boolean;
 }
 
 export const ReviewStyleCard = ({
@@ -68,6 +70,7 @@ export const ReviewStyleCard = ({
   onRatingChange,
   onLike,
   onDislike,
+  interactive = false,
 }: ReviewStyleCardProps) => {
   const getInitialRating = () =>
     variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
@@ -135,11 +138,12 @@ export const ReviewStyleCard = ({
       precision={0.5}
       size={size}
       onChange={handleRatingChange}
-      readOnly={false}
+      readOnly={!interactive}
     />
   );
 
   switch (variant) {
+    default:
     case ReviewStyle.Style1:
       return (
         <Card sx={{ height: "100%" }}>
@@ -174,7 +178,7 @@ export const ReviewStyleCard = ({
                 size="medium"
                 onChange={handleRatingChange}
                 precision={0.5}
-                readOnly={false}
+                readOnly={!interactive}
               />
             </Box>
             <Typography variant="body1">{item.description}</Typography>
@@ -534,8 +538,43 @@ export const ReviewStyleCard = ({
         </Card>
       );
 
-    default:
-      return null;
+    case ReviewStyle.Style13:
+      return (
+        <Card sx={{ height: "100%" }}>
+          <CardContent>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+              <RdsAvatar
+                src={item.imageUrl}
+                name={item.name}
+                alt={item.name}
+                showName={false}
+                size="medium"
+              />
+            </Box>
+            <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>
+              {item.name}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: "center" }}>
+              {item.username}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "var(--rds-spacing-xs-px)",
+                my: 3,
+              }}
+            >
+              {starRating("medium", 1)}
+              <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
+            </Box>
+            <Typography variant="body1" sx={{ textAlign: "center" }}>
+              {item.description}
+            </Typography>
+          </CardContent>
+        </Card>
+      );
   }
 };
 

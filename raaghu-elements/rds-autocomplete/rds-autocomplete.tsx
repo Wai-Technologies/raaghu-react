@@ -128,7 +128,11 @@ const deriveSelection = <T,>(selected: boolean, options: readonly T[] | undefine
   return multiple ? [] : null;
 };
 
-const RdsAutocomplete = <T extends { label?: string },>({
+const RdsAutocomplete = <T extends { label?: string },>(
+  props: RdsAutocompleteProps<T> & { 'data-testid'?: string },
+) => {
+  const isValueControlled = Object.prototype.hasOwnProperty.call(props, 'value');
+  const {
   label,
   placeholder,
   helperText,
@@ -175,7 +179,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   disabled,
   'data-testid': dataTestId,
   ...muiAutocompleteProps
-}: RdsAutocompleteProps<T> & { 'data-testid'?: string }) => {
+} = props;
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
   if (behavior !== undefined) warnDeprecatedProp('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
   if (optionDecorators !== undefined) warnDeprecatedProp('RdsAutocomplete', 'optionDecorators', '`optionVariant`');
@@ -216,19 +220,46 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const generatedId = useId();
   const inputId = id ?? `rds-autocomplete-${generatedId}`;
 
-  const isValueControlled = value !== undefined;
   const [selected, setSelected] = useState<T | T[] | null>(() =>
     defaultValue !== undefined ? defaultValue : deriveSelection(isSelected, options, allowMultipleResolved),
   );
   const [prevSelectionProps, setPrevSelectionProps] = useState({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
 
   if (
-    isSelected !== prevSelectionProps.selected ||
-    allowMultipleResolved !== prevSelectionProps.allowMultiple ||
-    !sameOptions(options, prevSelectionProps.options)
+    !isValueControlled && (
+      isSelected !== prevSelectionProps.selected ||
+      allowMultipleResolved !== prevSelectionProps.allowMultiple ||
+      !sameOptions(options, prevSelectionProps.options)
+    )
   ) {
+    const selectedPropChanged = isSelected !== prevSelectionProps.selected;
+    const multipleChanged = allowMultipleResolved !== prevSelectionProps.allowMultiple;
+    const optionsChanged = !sameOptions(options, prevSelectionProps.options);
     setPrevSelectionProps({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
-    setSelected(deriveSelection(isSelected, options, allowMultipleResolved));
+
+    if (selectedPropChanged || multipleChanged) {
+      setSelected(deriveSelection(isSelected, options, allowMultipleResolved));
+    } else if (optionsChanged) {
+      const optionList = options ?? [];
+      const stillPresent = (item: T) => optionList.some((opt) => Object.is(opt, item) || (
+        isPlainObject(opt) && isPlainObject(item) && shallowEqualObjects(opt, item)
+      ));
+      if (allowMultipleResolved) {
+        const kept = Array.isArray(selected) ? selected.filter(stillPresent) : [];
+        if (kept.length > 0) {
+          setSelected(kept);
+        } else {
+          setSelected(deriveSelection(isSelected, options, true));
+        }
+      } else {
+        const current = Array.isArray(selected) ? selected[0] : selected;
+        if (current != null && stillPresent(current as T)) {
+          setSelected(current as T);
+        } else {
+          setSelected(deriveSelection(isSelected, options, false));
+        }
+      }
+    }
   }
 
   const currentValue = isValueControlled ? value : selected;

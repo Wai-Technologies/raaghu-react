@@ -18,7 +18,11 @@ export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePicker
 export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children" | "defaultValue"> {
   /** @deprecated Use `onChange` instead (single-date picks). */
   selectedDate?: (date: Date | null) => void;
-  /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
+  /**
+   * Selected date; the picker re-syncs whenever it changes (`null` clears it).
+   * A `YYYY-MM-DD` string is local midnight on that calendar day.
+   * A full ISO datetime is an absolute instant (`new Date(value)`).
+   */
   value?: Date | string | null;
   /** Initial selected date. */
   defaultValue?: Date | string | null;

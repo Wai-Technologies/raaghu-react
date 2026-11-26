@@ -64,6 +64,24 @@ export interface RdsCommentBoxProps {
   mentionUsers?: string[];
   noImageText?: string;
   score?: string;
+  /** Controlled composer text. */
+  value?: string;
+  /** Initial composer text when `value` is omitted. */
+  defaultValue?: string;
+  /** Called as the composer text changes. */
+  onChange?: (value: string) => void;
+  /** Called with the composer text when Send or Enter is used. */
+  onSubmit?: (value: string) => void;
+  /** Called when Edit is chosen. */
+  onEdit?: () => void;
+  /** Called when Delete is chosen. */
+  onDelete?: () => void;
+  /** Called when a pin control is activated. */
+  onPin?: () => void;
+  /** Called when the thread close control is activated. */
+  onCloseThread?: () => void;
+  /** Called when an upvote or downvote control is activated. */
+  onVote?: (direction: 'up' | 'down') => void;
 }
 
 const SendButton = ({ label = 'send', size, onClick }: { label?: string; size?: 'small'; onClick?: () => void }) => (
@@ -90,6 +108,8 @@ const CommentActionsMenu = ({
   deleteIcon,
   editLabel,
   deleteLabel,
+  onEdit,
+  onDelete,
 }: {
   menuRef: Ref<HTMLDivElement>;
   onClose: () => void;
@@ -97,9 +117,11 @@ const CommentActionsMenu = ({
   deleteIcon?: ReactNode;
   editLabel?: string;
   deleteLabel?: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }) => (
   <div ref={menuRef} className="rds-comments-box__comment-dropdown-menu">
-    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={onClose} onKeyDown={onActivateKey(onClose)}>
+    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { onEdit?.(); onClose(); }} onKeyDown={onActivateKey(() => { onEdit?.(); onClose(); })}>
       {editIcon ? (
         <span className="rds-comments-box__comment-dropdown-icon">{editIcon}</span>
       ) : (
@@ -107,7 +129,7 @@ const CommentActionsMenu = ({
       )}
       <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{editLabel || 'Edit'}</span>
     </button>
-    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={onClose} onKeyDown={onActivateKey(onClose)}>
+    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { onDelete?.(); onClose(); }} onKeyDown={onActivateKey(() => { onDelete?.(); onClose(); })}>
       {deleteIcon ? (
         <span className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete">{deleteIcon}</span>
       ) : (
@@ -126,7 +148,17 @@ const Avatar = ({ initials, className }: { initials?: string; className?: string
 
 export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
   const { state, avatarInitials = 'RD', placeholderText, typingPlaceholderText, className, sx, ref } = props;
-  const [draft, setDraft] = useState('');
+  const isComposerControlled = props.value !== undefined;
+  const [uncontrolledDraft, setUncontrolledDraft] = useState(props.defaultValue ?? '');
+  const draft = isComposerControlled ? (props.value ?? '') : uncontrolledDraft;
+  const setDraft = (next: string) => {
+    if (!isComposerControlled) setUncontrolledDraft(next);
+    props.onChange?.(next);
+  };
+  const submitDraft = () => {
+    props.onSubmit?.(draft);
+    if (!isComposerControlled) setUncontrolledDraft('');
+  };
   const logic = useCommentsBoxLogic(props.mentionUsers);
   const root = (modifier: string, extra?: string) => ({
     ref,
@@ -138,6 +170,8 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
     deleteIcon: props.deleteIcon,
     editLabel: props.editLabel,
     deleteLabel: props.deleteLabel,
+    onEdit: props.onEdit,
+    onDelete: props.onDelete,
   };
 
   switch (state) {
@@ -294,7 +328,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
                 <RdsTypography className="rds-comments-box__time">{props.hoverTime}</RdsTypography>
               </RdsBox>
               <RdsBox className="rds-comments-box__hover-tools">
-                <IconButton aria-label="Pin comment" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+                <IconButton aria-label="Pin comment" onClick={() => props.onPin?.()} disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                   <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
                 </IconButton>
                 <span className="rds-comments-box__dropdown-trigger">
@@ -326,10 +360,10 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
                   <CommentActionsMenu menuRef={logic.threadDropdownHeaderRef} onClose={() => logic.setThreadDropdownOpenHeader(false)} {...menuProps} />
                 )}
               </span>
-              <IconButton aria-label="Pin thread" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+              <IconButton aria-label="Pin thread" onClick={() => props.onPin?.()} disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                 <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
               </IconButton>
-              <IconButton aria-label="Close" className="rds-comments-box__close-btn">
+              <IconButton aria-label="Close" onClick={() => props.onCloseThread?.()} className="rds-comments-box__close-btn">
                 <CloseIcon className="rds-comments-box__close-icon" />
               </IconButton>
             </RdsBox>
@@ -337,11 +371,11 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
           <div className="rds-comments-box__thread-divider" role="separator" />
           <RdsBox className="rds-comments-box__thread-body">
             <RdsBox className="rds-comments-box__vote">
-              <ArrowUpwardIcon className="rds-comments-box__upvote-icon" />
+              <IconButton aria-label="Upvote" onClick={() => props.onVote?.('up')}><ArrowUpwardIcon className="rds-comments-box__upvote-icon" /></IconButton>
               <div className="rds-comments-box__score-border">
                 <RdsTypography className="rds-comments-box__score">{props.score ? props.score.padStart(2, '0') : '00'}</RdsTypography>
               </div>
-              <ArrowDownwardIcon className="rds-comments-box__downvote-icon" />
+              <IconButton aria-label="Downvote" onClick={() => props.onVote?.('down')}><ArrowDownwardIcon className="rds-comments-box__downvote-icon" /></IconButton>
             </RdsBox>
             <RdsBox className="rds-comments-box__comment-content">
               <RdsBox className="rds-comments-box__comment-header">
@@ -351,7 +385,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
                   <RdsTypography className="rds-comments-box__time">{props.time}</RdsTypography>
                 </RdsBox>
                 <RdsBox className="rds-comments-box__tools relative">
-                  <IconButton aria-label="Pin comment" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+                  <IconButton aria-label="Pin comment" onClick={() => props.onPin?.()} disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                     <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
                   </IconButton>
                   <span className="rds-comments-box__dropdown-trigger">
@@ -396,11 +430,17 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
             className="rds-comments-box__input rds-input--compact"
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                submitDraft();
+              }
+            }}
             slotProps={{
               input: {
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SendButton label="send comment" size="small" onClick={() => setDraft('')} />
+                    <SendButton label="send comment" size="small" onClick={submitDraft} />
                   </InputAdornment>
                 ),
               },

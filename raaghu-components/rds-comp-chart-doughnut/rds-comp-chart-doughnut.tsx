@@ -1,9 +1,10 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-doughnut.scss";
@@ -35,6 +36,8 @@ export interface RdsCompDoughnutProps
   subTitleText?: string;
   /** Accessible label of the chart. Defaults to "Doughnut chart" followed by the title and subtitle text, if any. */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
@@ -56,12 +59,14 @@ const RdsCompDoughnutChart = ({
   subtitle,
   subTitleText,
   ariaLabel,
+  description,
   chartLabel,
   className,
   ref,
   sx,
   ...rest
 }: RdsCompDoughnutProps) => {
+  const accessibleAltId = useId();
   if (titleText !== undefined) {
     warnDeprecatedProp("RdsCompDoughnutChart", "titleText", "`title`");
   }
@@ -71,6 +76,12 @@ const RdsCompDoughnutChart = ({
   const centerTitle = title ?? titleText ?? "";
   const subTitle = subtitle ?? subTitleText ?? "";
   const resolved = resolveChartData("RdsCompDoughnutChart", data, labels, dataSets);
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    resolved.labels,
+    resolved.datasets,
+  );
   const defaultLabel = ["Doughnut chart:", ...[centerTitle, subTitle].filter(Boolean)];
   const { canvasRef } = useChart(
     {
@@ -111,6 +122,13 @@ const RdsCompDoughnutChart = ({
           chartLabel,
           defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart"
         )}
+        aria-describedby={describedBy}
+      />
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={resolved.labels}
+        datasets={resolved.datasets}
       />
     </Box>
   );

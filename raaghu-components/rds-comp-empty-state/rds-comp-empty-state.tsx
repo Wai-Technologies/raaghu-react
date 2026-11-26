@@ -192,8 +192,10 @@ const RdsCompEmptyState = ({
   }
 
   const hasCustomAction = action !== undefined && (action === null || isCustomImageNode(action) || typeof action === 'string' || typeof action === 'number');
+  const showDefaultButton = onButtonClick !== undefined || buttonText !== undefined;
   const resolvedAction =
     !hasCustomAction ? (
+      showDefaultButton ? (
       <RdsButton
         variant="filled"
         className="rds-comp-empty-state__button"
@@ -202,6 +204,7 @@ const RdsCompEmptyState = ({
       >
         {buttonText || "Add New Data"}
       </RdsButton>
+      ) : null
     ) : (
       action
     );

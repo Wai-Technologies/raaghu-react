@@ -2,13 +2,18 @@ import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEve
 import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
-import { SendOutlined as SendIcon, SentimentSatisfiedAltOutlined as EmojiIcon, ChatBubbleOutlineOutlined as ChatIcon, FilterListOutlined as FilterIcon, MoreVertOutlined as MoreIcon, ArrowBackIosNew as ArrowBackIcon } from "@mui/icons-material";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import SendIcon from '@mui/icons-material/SendOutlined';
+import EmojiIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import ChatIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import FilterIcon from '@mui/icons-material/FilterListOutlined';
+import MoreIcon from '@mui/icons-material/MoreVertOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export interface Comment {
   firstName: string;
@@ -45,6 +50,10 @@ export interface RdsCompChatProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   /** @deprecated Use `chatScreenEnabled` instead. */
   isChatScreenEnabled?: boolean;
   userData: UserData[];
+  /** Controlled comment list for the selected user. When set, sends go through `onCommentsChange`. */
+  comments?: Comment[];
+  /** Called with the next comment list when `comments` is controlled. */
+  onCommentsChange?: (comments: Comment[]) => void;
   onAddComment?: (comment: Comment) => void;
   /** @deprecated Use `onAddComment` instead. */
   handleAddComment?: (comment: Comment) => void;
@@ -113,6 +122,8 @@ const RdsCompChat = ({
   chatScreenEnabled: chatScreenEnabledProp,
   isChatScreenEnabled,
   userData,
+  comments,
+  onCommentsChange,
   onAddComment: onAddCommentProp,
   handleAddComment: handleAddCommentProp,
   currentUserCommentBgColor = "var(--rds-primary-main)",
@@ -137,11 +148,26 @@ const RdsCompChat = ({
     commentText: "",
     showEmojiPicker: false,
     selectedIndex: null as number | null,
-    commentList: userData[0]?.comments || [],
+    commentList: comments ?? userData[0]?.comments ?? [],
     showCamera: false,
     activeTab: "chat" as "chat" | "media",
     currentUser: userData[0]
   });
+  const [prevUserData, setPrevUserData] = useState(userData);
+  const [prevComments, setPrevComments] = useState(comments);
+  if (userData !== prevUserData || comments !== prevComments) {
+    setPrevUserData(userData);
+    setPrevComments(comments);
+    setState((current) => {
+      const index = current.selectedIndex ?? 0;
+      const nextUser = userData[index] ?? userData[0];
+      return {
+        ...current,
+        currentUser: nextUser,
+        commentList: comments ?? nextUser?.comments ?? [],
+      };
+    });
+  }
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -184,10 +210,12 @@ const RdsCompChat = ({
   }, [state.isMobile, updateState, userData]);
 
   const addComment = useCallback((newComment: Comment) => {
-    const updatedComments = [...state.commentList, newComment];
-    updateState({ commentList: updatedComments });
+    const source = comments ?? state.commentList;
+    const updatedComments = [...source, newComment];
+    if (comments === undefined) updateState({ commentList: updatedComments });
+    else onCommentsChange?.(updatedComments);
     onAddComment?.(newComment);
-  }, [onAddComment, state.commentList, updateState]);
+  }, [comments, onAddComment, onCommentsChange, state.commentList, updateState]);
 
   const handleAddComment = useCallback(() => {
     if (state.commentText.trim() && state.currentUser) {

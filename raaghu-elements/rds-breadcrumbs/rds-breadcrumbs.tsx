@@ -14,6 +14,8 @@ import clsx from 'clsx';
 export { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 import { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 
+const EMPTY_ARRAY: never[] = [];
+
 const iconMap: Record<string, ElementType> = {
   home: HomeOutlinedIcon,
   folder: FolderOutlinedIcon,
@@ -93,7 +95,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   /** Background style of the items; an item's own `layout` takes precedence. @default 'without background' */
   layout?: 'pill background' | 'without background' | 'square background';
-  /** Shows icons on the items; an item's `showIcon: false` hides its own. @default true */
+  /** Shows icons on the items; an item's `showIcon: false` hides its own. @default false */
   showIcon?: boolean;
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
   icon?: RdsBreadcrumbIcon;
@@ -104,13 +106,13 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
 }
 
 const RdsBreadcrumbs = ({
-  items,
+  items = EMPTY_ARRAY,
   separator,
   separatorType,
   level,
   layout = 'without background',
   className,
-  showIcon = true,
+  showIcon = false,
   icon,
   title,
   autoIcons: autoIconsProp,
@@ -119,7 +121,7 @@ const RdsBreadcrumbs = ({
   if (title !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'title', "the first item's `label`");
   if (autoIconsProp !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'autoIcons', '`icon`');
 
-  const autoIcons = autoIconsProp ?? true;
+  const autoIcons = autoIconsProp ?? false;
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   const getSeparator = (): ReactNode => {
@@ -219,23 +221,21 @@ const RdsBreadcrumbs = ({
         const itemLayoutClass = getLayoutClass(item.layout);
         const isSelected = item.selected === true;
 
+        const visuallySelected = isSelected || selectedIdx === index;
         const typographyClass = clsx(
           'rds-breadcrumbs__item',
           'rds-breadcrumbs__item__active',
           itemLayoutClass,
-          (isSelected || selectedIdx === index) && 'rds-breadcrumbs__item__selected',
+          visuallySelected && 'rds-breadcrumbs__item__selected',
         );
 
-        if (isLast || item.active || isSelected || selectedIdx === index) {
+        if (isLast) {
           return (
             <Typography
               key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
-              onClick={() => setSelectedIdx(index)}
-              {...(isLast
-                ? { 'aria-current': 'page' as const }
-                : { role: 'button', tabIndex: 0, onKeyDown: activateOnKey })}
-              style={{ cursor: 'pointer' }}
+              aria-current="page"
+              style={{ cursor: 'default' }}
             >
               {showIcon && item.showIcon !== false && getIconComponent(item.icon, icon, index, item.label)}
               {item.label}
@@ -243,11 +243,10 @@ const RdsBreadcrumbs = ({
           );
         }
 
-        const isClickable = Boolean(item.onClick) || item.selected === true;
-        const buttonProps =
-          !item.href && isClickable
-            ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
-            : {};
+        const isClickable = Boolean(item.onClick) || Boolean(item.href);
+        const buttonProps = !item.href
+          ? { role: 'button' as const, tabIndex: 0, onKeyDown: activateOnKey }
+          : {};
 
         return (
           <Link
@@ -256,18 +255,15 @@ const RdsBreadcrumbs = ({
             href={item.href}
             {...buttonProps}
             onClick={e => {
-              if (item.selected) {
-                setSelectedIdx(index);
-                e.preventDefault();
-              }
-
-              if (item.onClick) item.onClick(e);
+              setSelectedIdx(index);
+              item.onClick?.(e);
             }}
             underline="hover"
             className={clsx(
               'rds-breadcrumbs__item',
               itemLayoutClass,
-              item.selected && 'rds-breadcrumbs__item__selected',
+              (item.active || visuallySelected) && 'rds-breadcrumbs__item__active',
+              visuallySelected && 'rds-breadcrumbs__item__selected',
             )}
             sx={{ cursor: isClickable ? 'pointer' : 'default' }}
           >

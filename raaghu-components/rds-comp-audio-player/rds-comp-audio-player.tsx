@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type MouseEvent as ReactMouseEvent, type KeyboardEvent as ReactKeyboardEvent, type Ref } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type KeyboardEvent as ReactKeyboardEvent, type PointerEvent as ReactPointerEvent, type Ref } from "react";
 import clsx from 'clsx';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
@@ -38,7 +38,7 @@ export interface RdsCompAudioPlayerRange {
 }
 
 export interface RdsCompAudioPlayerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'id' | 'children' | 'onChange' | 'onCancel'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'id' | 'children' | 'onChange' | 'onCancel' | 'onSelect'> {
   /** URL of the audio file to play. */
   src: string;
   /** Figma variant name. */
@@ -68,10 +68,12 @@ export interface RdsCompAudioPlayerProps
   showExport?: boolean;
   /** Show the more-options menu. */
   showMoreOptions?: boolean;
-  /** Items of the export menu (defaults to the built-in sample items). */
+  /** Items of the export menu. @default [] */
   exportItems?: RdsCompAiFabMenuItem[];
-  /** Items of the "more options" menu (defaults to the built-in sample items). */
+  /** Items of the "more options" menu. @default [] */
   moreItems?: RdsCompAiFabMenuItem[];
+  /** Called when an export or more-options item is chosen. */
+  onSelect?: (item: RdsCompAiFabMenuItem) => void;
   /** Called when the editor's Cancel button is clicked. */
   onCancel?: () => void;
   /** Called when the editor's Save button is clicked. */
@@ -80,7 +82,7 @@ export interface RdsCompAudioPlayerProps
   onTrim?: (range: RdsCompAudioPlayerRange) => void;
   /** Called with the current trim selection (seconds) when Delete is clicked. */
   onDelete?: (range: RdsCompAudioPlayerRange) => void;
-  /** Editor waveform bar heights (SVG units, viewBox height 200); defaults to generated sample data. */
+  /** Editor waveform bar heights (SVG units, viewBox height 200). No bars are drawn when omitted. */
   waveform?: number[];
   /** Ref to the variant's root element. */
   ref?: Ref<HTMLDivElement>;
@@ -90,7 +92,7 @@ export interface RdsCompAudioPlayerProps
   sx?: SxProps<Theme>;
 }
 
-const SLIDER_MAX = 120;
+const mediaDuration = (duration: number) => (duration > 0 ? duration : 0);
 const MOBILE_QUERY = `(max-width:${extendedBreakpointTokens["tablet-sm"]})`;
 
 const VARIANT_TO_TYPE: Record<NonNullable<RdsCompAudioPlayerProps['variant']>, AudioPlayerType> = {
@@ -101,25 +103,6 @@ const VARIANT_TO_TYPE: Record<NonNullable<RdsCompAudioPlayerProps['variant']>, A
 
 const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
-
-const EXPORT_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Share Link" },
-  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Export Audio" },
-  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Export Transcript" },
-  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Export Summary" },
-  { icon: "download", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "download", label: "Export Mind Map" },
-];
-
-const MORE_OPTIONS_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "new", label: "Move to folder" },
-  { icon: "refresh", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "refresh", label: "Find & Replace" },
-  { icon: "export", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "export", label: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "var(--rds-ai-icon-size)", iconWidth: "var(--rds-ai-icon-size)", key: "delete", label: "Re-Summarize" },
-];
-
-const DEFAULT_WAVEFORM: number[] = Array.from({ length: 150 }, (_, barIndex) =>
-  Math.max(20, Math.abs(Math.sin(barIndex * 0.1) * 60 + Math.cos(barIndex * 0.27) * 40))
-);
 
 type AudioPlayerState = {
   isPlaying: boolean;
@@ -147,13 +130,14 @@ const RdsCompAudioPlayer = ({
   showTranscript: legacyShowTranscript,
   showExport: legacyShowExport,
   showMoreOptions: legacyShowMoreOptions,
-  exportItems = EXPORT_MENU_ITEMS,
-  moreItems = MORE_OPTIONS_MENU_ITEMS,
+  exportItems = [],
+  moreItems = [],
+  onSelect,
   onCancel,
   onSave,
   onTrim,
   onDelete,
-  waveform = DEFAULT_WAVEFORM,
+  waveform,
   className,
   ref,
   id,
@@ -234,13 +218,22 @@ const RdsCompAudioPlayer = ({
     playbackSpeed,
   } = audioState;
 
-  const timeMarkConfig = useMemo(
-    () =>
-      isMobileView
-        ? { intervalSec: 30, count: 5 }
-        : { intervalSec: 10, count: 13 },
-    [isMobileView]
-  );
+  const timeMarks = useMemo(() => {
+    const span = mediaDuration(duration);
+    if (span <= 0) return [];
+    const intervalSec = isMobileView ? 30 : 10;
+    const count = Math.floor(span / intervalSec) + 1;
+    return Array.from({ length: count }, (_, index) => Math.min(index * intervalSec, span));
+  }, [duration, isMobileView]);
+
+  const selectItems = (items: RdsCompAiFabMenuItem[]) =>
+    items.map((item) => ({
+      ...item,
+      onClick: () => {
+        item.onClick?.();
+        onSelect?.(item);
+      },
+    }));
 
   useEffect(() => {
     if (!audioElement) return;
@@ -286,35 +279,22 @@ const RdsCompAudioPlayer = ({
     };
   }, [audioElement, updateAudioState]);
 
-  useEffect(() => {
-    if (!isDraggingLeft && !isDraggingRight) return;
-
-    const handleDocumentMouseMove = (e: MouseEvent) => {
+  const updateTrimFromClientX = useCallback(
+    (clientX: number, side: "left" | "right") => {
       const waveformElement = waveformRef.current;
       if (!waveformElement) return;
 
       const rect = waveformElement.getBoundingClientRect();
-      const percentage = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+      const percentage = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
 
-      if (isDraggingLeft && percentage < rightTrimPosition - 5) {
+      if (side === "left" && percentage < rightTrimPosition - 5) {
         updateAudioState({ leftTrimPosition: percentage });
-      } else if (isDraggingRight && percentage > leftTrimPosition + 5) {
+      } else if (side === "right" && percentage > leftTrimPosition + 5) {
         updateAudioState({ rightTrimPosition: percentage });
       }
-    };
-
-    const handleDocumentMouseUp = () => {
-      updateAudioState({ isDraggingLeft: false, isDraggingRight: false });
-    };
-
-    document.addEventListener("mousemove", handleDocumentMouseMove);
-    document.addEventListener("mouseup", handleDocumentMouseUp);
-
-    return () => {
-      document.removeEventListener("mousemove", handleDocumentMouseMove);
-      document.removeEventListener("mouseup", handleDocumentMouseUp);
-    };
-  }, [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, updateAudioState]);
+    },
+    [leftTrimPosition, rightTrimPosition, updateAudioState]
+  );
 
   useEffect(() => {
     if (!showVolumeSlider && !showSettingsModal) return;
@@ -363,7 +343,7 @@ const RdsCompAudioPlayer = ({
   const handleSeek = useCallback(
     (_: Event, value: number | number[]) => {
       const raw = Array.isArray(value) ? value[0] : value;
-      const time = Math.max(0, Math.min(raw, duration > 0 ? duration : SLIDER_MAX));
+      const time = Math.max(0, Math.min(raw, mediaDuration(duration)));
       updateAudioState({ sliderValue: time, currentTime: time });
       if (audioRef.current && time <= duration) {
         audioRef.current.currentTime = time;
@@ -373,7 +353,7 @@ const RdsCompAudioPlayer = ({
   );
 
   const getSelectedTimeRange = useCallback(() => {
-    const totalDuration = duration > 0 ? duration : SLIDER_MAX;
+    const totalDuration = mediaDuration(duration);
     const startTime = (leftTrimPosition / 100) * totalDuration;
     const endTime = (rightTrimPosition / 100) * totalDuration;
     return { startTime, endTime, selectedDuration: endTime - startTime };
@@ -401,13 +381,43 @@ const RdsCompAudioPlayer = ({
     updateAudioState((prev) => ({ zoomLevel: Math.max(0, prev.zoomLevel - 10) }));
   }, [updateAudioState]);
 
-  const handleWaveformMouseDown = useCallback((e: ReactMouseEvent, side: "left" | "right") => {
+  const handleWaveformPointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>, side: "left" | "right") => {
     e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
     updateAudioState({
       isDraggingLeft: side === "left",
       isDraggingRight: side === "right",
     });
   }, [updateAudioState]);
+
+  const handleWaveformPointerMove = useCallback(
+    (e: ReactPointerEvent<HTMLDivElement>, side: "left" | "right") => {
+      if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+      updateTrimFromClientX(e.clientX, side);
+    },
+    [updateTrimFromClientX]
+  );
+
+  const handleWaveformPointerUp = useCallback(
+    (e: ReactPointerEvent<HTMLDivElement>) => {
+      if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
+      updateAudioState({ isDraggingLeft: false, isDraggingRight: false });
+    },
+    [updateAudioState]
+  );
+
+  const trimHandleValueText = useCallback(
+    (position: number) => {
+      const total = mediaDuration(duration);
+      if (total > 0) {
+        return formatTime((position / 100) * total);
+      }
+      return `${Math.round(position)}%`;
+    },
+    [duration]
+  );
 
   const togglePlayPause = useCallback(() => {
     const audio = audioRef.current;
@@ -431,7 +441,7 @@ const RdsCompAudioPlayer = ({
 
   const skipForward = useCallback(() => {
     if (!audioRef.current) return;
-    const maxDuration = duration > 0 ? duration : SLIDER_MAX;
+    const maxDuration = mediaDuration(duration);
     const newTime = Math.min(maxDuration, currentTime + 10);
     audioRef.current.currentTime = newTime;
     updateAudioState({ currentTime: newTime, sliderValue: newTime });
@@ -453,6 +463,20 @@ const RdsCompAudioPlayer = ({
           updateAudioState((prev) => ({ leftTrimPosition: Math.min(prev.rightTrimPosition - 5, prev.leftTrimPosition + step) }));
         } else {
           updateAudioState((prev) => ({ rightTrimPosition: Math.min(100, prev.rightTrimPosition + step) }));
+        }
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        if (side === "left") {
+          updateAudioState({ leftTrimPosition: 0 });
+        } else {
+          updateAudioState((prev) => ({ rightTrimPosition: prev.leftTrimPosition + 5 }));
+        }
+      } else if (e.key === "End") {
+        e.preventDefault();
+        if (side === "left") {
+          updateAudioState((prev) => ({ leftTrimPosition: Math.min(prev.rightTrimPosition - 5, 100) }));
+        } else {
+          updateAudioState({ rightTrimPosition: 100 });
         }
       }
     },
@@ -561,7 +585,7 @@ const RdsCompAudioPlayer = ({
             <span className="rds-comp-audio-player__current-time">{formatTime(sliderValue)}</span>
             <RdsSlider
               min={0}
-              max={duration > 0 ? duration : SLIDER_MAX}
+              max={mediaDuration(duration)}
               value={sliderValue}
               onChange={handleSeek}
               className="rds-comp-audio-player__slider"
@@ -571,7 +595,7 @@ const RdsCompAudioPlayer = ({
               aria-label="Playback progress"
             />
             <span className="rds-comp-audio-player__total-time">
-              {formatTime(duration > 0 ? duration : SLIDER_MAX)}
+              {formatTime(mediaDuration(duration))}
             </span>
           </div>
           <div className="rds-comp-audio-player__extra-controls">
@@ -591,7 +615,7 @@ const RdsCompAudioPlayer = ({
                 placement="right"
                 variant="text"
                 color="secondary"
-                items={exportItems}
+                items={selectItems(exportItems)}
                 icon="share_icon"
                 size="small"
               />
@@ -601,7 +625,7 @@ const RdsCompAudioPlayer = ({
                 placement="right"
                 variant="text"
                 color="secondary"
-                items={moreItems}
+                items={selectItems(moreItems)}
                 icon="pending_icon"
                 size="small"
               />
@@ -666,9 +690,9 @@ const RdsCompAudioPlayer = ({
             />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {Array.from({ length: timeMarkConfig.count }, (_, index) => (
-              <span key={`timemark-${index}`} className="rds-comp-audio-player__edition-timemark">
-                {formatTime(index * timeMarkConfig.intervalSec)}
+            {timeMarks.map((mark) => (
+              <span key={`timemark-${mark}`} className="rds-comp-audio-player__edition-timemark">
+                {formatTime(mark)}
               </span>
             ))}
           </div>
@@ -684,6 +708,7 @@ const RdsCompAudioPlayer = ({
               <div className="rds-comp-audio-player__waveform-disabled-overlay rds-comp-audio-player__waveform-disabled-overlay--left" />
               <div className="rds-comp-audio-player__waveform-disabled-overlay rds-comp-audio-player__waveform-disabled-overlay--right" />
               <div className="rds-comp-audio-player__waveform-selection" />
+              {waveform && waveform.length > 0 && (
               <svg width="100%" height="200" viewBox={`0 0 ${waveform.length * 8} 200`} preserveAspectRatio="none">
                 {waveform.map((height, barIndex) => {
                   const x = barIndex * 8;
@@ -702,28 +727,35 @@ const RdsCompAudioPlayer = ({
                   );
                 })}
               </svg>
+              )}
             </div>
-            {(["left", "right"] as const).map((side) => (
-              <button
-                type="button"
+            {(["left", "right"] as const).map((side) => {
+              const trimPosition = side === "left" ? leftTrimPosition : rightTrimPosition;
+              return (
+              <div
                 key={side}
                 className={clsx(
                   "rds-comp-audio-player__waveform-blue-bar",
                   `rds-comp-audio-player__waveform-blue-bar--${side}`
                 )}
-                onMouseDown={(e) => handleWaveformMouseDown(e, side)}
+                onPointerDown={(e) => handleWaveformPointerDown(e, side)}
+                onPointerMove={(e) => handleWaveformPointerMove(e, side)}
+                onPointerUp={handleWaveformPointerUp}
+                onPointerCancel={handleWaveformPointerUp}
                 onKeyDown={(e) => handleKeyDown(e, side)}
                 tabIndex={0}
                 role="slider"
                 aria-orientation="horizontal"
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-valuenow={side === 'left' ? leftTrimPosition : rightTrimPosition}
+                aria-valuenow={trimPosition}
+                aria-valuetext={trimHandleValueText(trimPosition)}
                 aria-label={`${side} trim handle`}
               >
                 <div className="rds-comp-audio-player__waveform-bar-handle" />
-              </button>
-            ))}
+              </div>
+              );
+            })}
           </div>
           <AudioEditionControls
             formatTime={formatTime}

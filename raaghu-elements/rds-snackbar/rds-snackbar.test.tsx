@@ -670,4 +670,22 @@ describe('audit fixes 526', () => {
     render(<RdsSnackbar open message="Hi" data-testid="toast-snackbar" />);
     expect(screen.getByTestId('toast-snackbar')).toBeInTheDocument();
   });
+
+  test('autoHideDuration 0 does not fall back to 6000', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    renderWithTheme(<RdsSnackbar open message="Soon" autoHideDuration={0} onClose={onClose} />);
+    jest.advanceTimersByTime(0);
+    expect(onClose).toHaveBeenCalled();
+    jest.useRealTimers();
+  });
+
+  test('autoHideDuration null disables auto-hide', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    renderWithTheme(<RdsSnackbar open message="Stay" autoHideDuration={null} onClose={onClose} />);
+    jest.advanceTimersByTime(7000);
+    expect(onClose).not.toHaveBeenCalled();
+    jest.useRealTimers();
+  });
 });

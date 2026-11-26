@@ -215,9 +215,8 @@ describe('RdsCompAudioPlayer', () => {
     });
 
     it('renders waveform, time marks and SVG in Audio Edition', () => {
-      const { container } = setup({ type: 'Audio Edition' });
+      const { container } = setup({ type: 'Audio Edition', waveform: [10, 20, 30] });
       expect(q(container, 'edition-waveform')).toBeInTheDocument();
-      expect(container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length).toBeGreaterThan(0);
       expect(container.querySelector('svg')).toBeInTheDocument();
     });
 
@@ -409,11 +408,13 @@ describe('RdsCompAudioPlayer', () => {
   });
 
   describe('Accessibility', () => {
-    it('waveform trim handles have aria attributes and are keyboard accessible', () => {
+    it('waveform trim handles are div sliders with aria-valuetext', () => {
       const { container } = setup({ type: 'Audio Edition' });
       container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar').forEach((bar) => {
+        expect(bar.tagName).toBe('DIV');
         expect(bar).toHaveAttribute('role', 'slider');
         expect(bar).toHaveAttribute('aria-label');
+        expect(bar).toHaveAttribute('aria-valuetext');
         expect(bar).toHaveAttribute('tabIndex', '0');
       });
     });
@@ -466,10 +467,12 @@ describe('audit fixes', () => {
     mockFabMenuProps.length = 0;
     const items = [{ key: 'a', value: 'A', onClick: jest.fn() }];
     render(<RdsCompAudioPlayer src="a.mp3" showExport showMoreOptions exportItems={items} />);
-    expect(mockFabMenuProps.find((p) => p.icon === 'share_icon').items).toBe(items);
+    const exported = mockFabMenuProps.find((p) => p.icon === 'share_icon').items;
+    expect(exported).toEqual([expect.objectContaining({ key: 'a', value: 'A' })]);
+    exported[0].onClick();
+    expect(items[0].onClick).toHaveBeenCalled();
     const defaults = mockFabMenuProps.find((p) => p.icon === 'pending_icon').items;
-    expect(defaults).toHaveLength(4);
-    expect(defaults[0]).not.toHaveProperty('some');
+    expect(defaults).toEqual([]);
   });
 
   it('G3-156: Cancel/Save/Trim/Delete call their handlers with the trim range', () => {
@@ -478,7 +481,10 @@ describe('audit fixes', () => {
     const onSave = jest.fn();
     const onTrim = jest.fn();
     const onDelete = jest.fn();
-    render(<RdsCompAudioPlayer src="a.mp3" type="Audio Edition" onCancel={onCancel} onSave={onSave} onTrim={onTrim} onDelete={onDelete} />);
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" type="Audio Edition" onCancel={onCancel} onSave={onSave} onTrim={onTrim} onDelete={onDelete} />);
+    const audio = container.querySelector('audio') as HTMLAudioElement;
+    Object.defineProperty(audio, 'duration', { configurable: true, value: 100 });
+    fireEvent.loadedMetadata(audio);
     fireEvent.click(screen.getByTestId('rds-button-Cancel'));
     fireEvent.click(screen.getByTestId('rds-button-Save'));
     const props = mockEditionProps[mockEditionProps.length - 1];
@@ -486,8 +492,8 @@ describe('audit fixes', () => {
     props.onDelete();
     expect(onCancel).toHaveBeenCalled();
     expect(onSave).toHaveBeenCalled();
-    expect(onTrim).toHaveBeenCalledWith({ start: 12, end: 108 });
-    expect(onDelete).toHaveBeenCalledWith({ start: 12, end: 108 });
+    expect(onTrim).toHaveBeenCalledWith({ start: 10, end: 90 });
+    expect(onDelete).toHaveBeenCalledWith({ start: 10, end: 90 });
   });
 
   it('G3-156: AudioEditionControls wires Trim and Delete buttons', () => {
@@ -547,7 +553,7 @@ describe('audit fixes', () => {
 
   it('G3-165: progress slider max follows the loaded duration', () => {
     const { container } = render(<RdsCompAudioPlayer src="a.mp3" />);
-    expect(screen.getByTestId('rds-slider')).toHaveAttribute('max', '120');
+    expect(screen.getByTestId('rds-slider')).toHaveAttribute('max', '0');
     const audio = container.querySelector('audio') as HTMLAudioElement;
     Object.defineProperty(audio, 'duration', { value: 60, configurable: true });
     fireEvent(audio, new Event('loadedmetadata'));

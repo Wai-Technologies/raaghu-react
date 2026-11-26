@@ -1,6 +1,7 @@
-import { useId, useState, type HTMLAttributes, type ReactNode, type MouseEvent, type Ref } from 'react';
+import { useEffect, useId, useRef, useState, type HTMLAttributes, type ReactNode, type MouseEvent, type Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
+import { useForkRef } from '@mui/material/utils';
 import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -11,6 +12,8 @@ import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import { invokeValueFirstOnChange, resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+
+const EMPTY_ARRAY: never[] = [];
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -170,7 +173,7 @@ const flag = (value: unknown, fallback: boolean) => (typeof value === 'boolean' 
 const RdsButtonDropdown = ({
   children,
   buttonText,
-  options,
+  options = EMPTY_ARRAY,
   multiple,
   multiSelect,
   value,
@@ -256,6 +259,8 @@ const RdsButtonDropdown = ({
   const isValueControlled = value !== undefined;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const handleTriggerRef = useForkRef(triggerRef, ref);
   const [search, setSearch] = useState('');
   const [selectedState, setSelectedState] = useState<(string | number)[]>(() => {
     if (defaultValue !== undefined) return defaultValue;
@@ -269,7 +274,13 @@ const RdsButtonDropdown = ({
   });
   const selected = isValueControlled ? value : selectedState;
 
-  const isDropdownOpen = isOpenControlled ? open : Boolean(anchorEl);
+  const isDropdownOpen = isOpenControlled ? Boolean(open) : Boolean(anchorEl);
+
+  useEffect(() => {
+    if (isOpenControlled && open && !anchorEl && triggerRef.current) {
+      setAnchorEl(triggerRef.current);
+    }
+  }, [isOpenControlled, open, anchorEl]);
 
   const requestClose = (event: object, reason: RdsButtonDropdownCloseReason) => {
     if (!isOpenControlled) setAnchorEl(null);
@@ -306,7 +317,7 @@ const RdsButtonDropdown = ({
         <RdsButton
           {...rest}
         id={id}
-          ref={ref}
+          ref={handleTriggerRef}
           sx={sx}
           aria-label={rest['aria-label'] ?? (layout === 'icon-only' && typeof label === 'string' ? label : undefined)}
           onClick={(event) => {
@@ -339,7 +350,7 @@ const RdsButtonDropdown = ({
       <RdsMenu
         id={menuId}
         open={isDropdownOpen}
-        anchorEl={anchorEl}
+        anchorEl={anchorEl ?? triggerRef.current}
         onClose={requestClose}
         items={[]}
         slotProps={{ paper: { style: { minWidth: 'var(--rds-button-dropdown-panel-min-width)' }, className: 'rds-button-dropdown__menu', elevation: 0 } }}

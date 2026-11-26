@@ -11,12 +11,7 @@ jest.mock('chart.js/auto', () => {
     return {
       ctx,
       config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
-      },
+      canvas: ctx?.canvas ?? { style: { height: '', width: '' } },
       destroy: jest.fn(),
       update: jest.fn(),
       resize: jest.fn(),
@@ -116,6 +111,22 @@ describe('RdsCompLineChart', () => {
       );
       const canvas = container.querySelector('canvas');
       expect(canvas).toHaveAttribute('id', 'custom-id');
+    });
+
+    it('defaults the canvas width to 100% and keeps the legacy linechart1 size', () => {
+      const getContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement) {
+        return { canvas: this } as unknown as CanvasRenderingContext2D;
+      } as unknown as HTMLCanvasElement['getContext'];
+      const { container, rerender } = render(<RdsCompLineChart {...defaultProps} id="sales" />);
+      const canvas = container.querySelector('canvas') as HTMLCanvasElement;
+      expect(canvas.style.width).toBe('100%');
+      expect(canvas.style.height).toBe('76vh');
+      rerender(<RdsCompLineChart {...defaultProps} id="linechart1" />);
+      const legacy = container.querySelector('canvas') as HTMLCanvasElement;
+      expect(legacy.style.width).toBe('100vh');
+      expect(legacy.style.height).toBe('65vh');
+      HTMLCanvasElement.prototype.getContext = getContext;
     });
 
     it('handles different id values', () => {

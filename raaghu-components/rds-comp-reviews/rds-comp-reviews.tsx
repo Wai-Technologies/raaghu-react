@@ -31,6 +31,8 @@ export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>
   onLike?: (item: Item) => void;
   /** Called with the review item when its dislike button is clicked. */
   onDislike?: (item: Item) => void;
+  /** Allows the star rating to be changed by interacting with it. When `false` the rating is read-only. @default false */
+  ratingInteractive?: boolean;
   /** MUI system styles applied to the root element. */
   sx?: SxProps<Theme>;
   /** Ref forwarded to the root element. */
@@ -59,6 +61,7 @@ const RdsCompReviews = ({
   onRatingChange,
   onLike,
   onDislike,
+  ratingInteractive,
   className,
   sx,
   ref,
@@ -87,6 +90,7 @@ const RdsCompReviews = ({
                 onRatingChange={onRatingChange}
                 onLike={onLike}
                 onDislike={onDislike}
+                interactive={ratingInteractive}
               />
             </Grid>
           ))}

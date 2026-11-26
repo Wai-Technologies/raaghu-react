@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
-import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import { Children, useState, useEffect, useCallback, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
+import { Box, IconButton, Typography, useMediaQuery, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -93,7 +93,7 @@ const RdsCarousel = ({
   const style = variant ?? legacyVariant ?? 'default';
   const indicatorType = indicatorVariant ?? type ?? 'circle';
   const indicatorsVisible = showIndicators ?? showDots ?? true;
-  const slides: ReactNode[] = Array.isArray(children) ? children : children == null ? [] : [children];
+  const slides: ReactNode[] = Children.toArray(children);
   const slideCount = slides.length;
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
@@ -101,10 +101,12 @@ const RdsCarousel = ({
   const [uncontrolledIndex, setUncontrolledIndex] = useState(
     Number.isInteger(initialIndex) && initialIndex >= 0 && initialIndex < slideCount ? initialIndex : 0
   );
+  const clampIndex = (index: number) =>
+    slideCount === 0 ? 0 : Math.min(Math.max(0, index), slideCount - 1);
   const currentIndex =
-    activeIndex !== undefined && Number.isInteger(activeIndex) && activeIndex >= 0 && activeIndex < slideCount
-      ? activeIndex
-      : uncontrolledIndex;
+    activeIndex !== undefined && Number.isInteger(activeIndex)
+      ? clampIndex(activeIndex)
+      : clampIndex(uncontrolledIndex);
   const changeIndex = useCallback((index: number) => {
     if (activeIndex === undefined) setUncontrolledIndex(index);
     onActiveIndexChange?.(index);
@@ -114,16 +116,18 @@ const RdsCarousel = ({
 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const paused = hovered || focused;
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const autoPlayEnabled = autoPlay && !prefersReducedMotion;
+  const paused = hovered || focused || prefersReducedMotion;
 
   useEffect(() => {
-    if (autoPlay && !paused && slideCount > 1) {
+    if (autoPlayEnabled && !paused && slideCount > 1) {
       const interval = setInterval(() => {
         changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
+  }, [autoPlayEnabled, autoPlayInterval, changeIndex, currentIndex, paused, slideCount]);
 
   const nextSlide = () => {
     changeIndex((currentIndex + 1) % slideCount);
@@ -195,7 +199,7 @@ const RdsCarousel = ({
       >
         {slides.map((child, index) => {
           const displayTitle = items?.[index]?.title ?? resolvedTitles[index] ?? title ?? `Card Title`;
-          const displaySubtitle = items?.[index]?.subtitle ?? resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+          const displaySubtitle = items?.[index]?.subtitle ?? resolvedSubtitles[index] ?? subtitle;
           const slideKey = isValidElement(child) && child.key != null ? child.key : `rds-carousel-slide-${index}`;
           const isActive = index === currentIndex;
 

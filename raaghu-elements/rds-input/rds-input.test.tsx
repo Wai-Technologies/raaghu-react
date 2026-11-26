@@ -163,7 +163,7 @@ describe('RdsInput', () => {
   describe('Placeholder and Value', () => {
     it.each([
       [{ placeholder: 'Enter text' }, 'Enter text'],
-      [{ layout: 'text' }, 'Placeholder Text'],
+      [{ layout: 'text' }, ''],
       [{ layout: 'password' }, '••••••••'],
       [{ layout: 'phone number' }, 'Enter Phone Number'],
       [{ layout: 'number' }, 'Enter Number'],
@@ -405,5 +405,32 @@ describe('RdsInput audit fixes', () => {
     const root = screen.getByTestId('email-field');
     expect(root).toHaveClass('rds-input');
     expect(container.querySelector('.MuiTextField-root')).not.toHaveAttribute('data-testid');
+  });
+
+  it('allows Enter, a decimal, and a leading minus on number layout', () => {
+    const { container } = setup({ layout: 'number' });
+    const input = getInput(container);
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'Escape' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: '.' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: '-' })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'e' })).toBe(false);
+  });
+
+  it('RDS-158: sanitizes number layout on change/paste, not only keydown', () => {
+    const onChange = jest.fn();
+    render(<RdsInput layout="number" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.input(input, { target: { value: '12ab3.4e5' } });
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange.mock.calls[0][0].target.value).toBe('123.45');
+  });
+
+  it('RDS-158: sanitizes card number layout on change/paste', () => {
+    const onChange = jest.fn();
+    render(<RdsInput layout="card number" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.input(input, { target: { value: '4111-abcd-1111' } });
+    expect(onChange.mock.calls[0][0].target.value).toBe('41111111');
   });
 });

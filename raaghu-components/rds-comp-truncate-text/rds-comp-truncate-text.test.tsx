@@ -576,7 +576,7 @@ describe('RdsCompTruncateText', () => {
         );
       }
 
-      const span = container.querySelector('span');
+      const span = container.querySelector('span[aria-hidden="true"]');
       expect(span?.textContent).toContain('...');
     });
 
@@ -644,6 +644,26 @@ describe('audit fixes', () => {
   it('applies inline line clamp when lines > 5', () => {
     render(<RdsCompTruncateText lines={8}>abc</RdsCompTruncateText>);
     expect(screen.getByText('abc')).toHaveStyle({ overflow: 'hidden' });
+  });
+
+  it('RDS-028: keeps the full text in the DOM via a visually-hidden element when truncated', () => {
+    const fullText = 'This is a very long piece of text that will be visually truncated';
+    const { container } = render(
+      <RdsCompTruncateText maxLength={10}>{fullText}</RdsCompTruncateText>
+    );
+    const hidden = container.querySelector('.rds-visually-hidden');
+    expect(hidden).toBeInTheDocument();
+    expect(hidden).toHaveTextContent(fullText);
+    expect(screen.getByText('This is a ...')).toBeInTheDocument();
+    expect(screen.getByText('This is a ...')).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('RDS-028: does not duplicate content with a visually-hidden element when not truncated', () => {
+    const { container } = render(
+      <RdsCompTruncateText maxLength={100}>Short text</RdsCompTruncateText>
+    );
+    expect(container.querySelector('.rds-visually-hidden')).not.toBeInTheDocument();
+    expect(screen.getByText('Short text')).not.toHaveAttribute('aria-hidden');
   });
 });
 

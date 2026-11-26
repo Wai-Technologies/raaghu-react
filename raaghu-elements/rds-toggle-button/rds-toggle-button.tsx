@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-toggle-button.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 /** A single option rendered as a toggle button. */
 export interface RdsToggleButtonOption {
   /** Unique value of the option. */
@@ -42,7 +44,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
 }
 
 const RdsToggleButton = ({
-  options,
+  options = EMPTY_ARRAY,
   multiple = false,
   orientation = 'horizontal',
   spacing = 0,

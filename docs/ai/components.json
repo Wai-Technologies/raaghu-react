@@ -30,7 +30,7 @@
           "type": "OverridableStringUnion<\"inherit\" | \"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\", ButtonPropsColorOverrides>",
           "required": false,
           "default": "primary",
-          "description": "The color of the component.\nIt supports both default and custom theme colors, which can be added as shown in the\n[palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors)."
+          "description": "Button color. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "layout",
@@ -179,7 +179,7 @@
           "name": "icon",
           "type": "ReactNode",
           "required": false,
-          "description": "Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. Defaults to a person icon."
+          "description": "Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. No icon is shown when neither `icon` nor `changeIcon` is set."
         },
         {
           "name": "layout",
@@ -632,7 +632,8 @@
         {
           "name": "options",
           "type": "RdsSelectOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Options rendered as menu items."
         },
         {
@@ -1088,7 +1089,7 @@
           "name": "controlStyle",
           "type": "\"default\" | \"bottom line\"",
           "required": false,
-          "default": "default",
+          "default": "'default'",
           "description": "Style of the input control; 'bottom line' shows only a bottom border."
         },
         {
@@ -1131,7 +1132,6 @@
           "name": "hideClearAllOnMobile",
           "type": "boolean",
           "required": false,
-          "default": "false",
           "description": "Hides the clear-all control when the field width is at or below large mobile (414px)."
         },
         {
@@ -1168,7 +1168,6 @@
           "name": "selected",
           "type": "boolean",
           "required": false,
-          "default": "false",
           "description": "Selects the first available option when no value/defaultValue is provided."
         },
         {
@@ -1211,7 +1210,7 @@
           "name": "variant",
           "type": "\"filled\" | \"outlined\" | \"standard\"",
           "required": false,
-          "default": "outlined",
+          "default": "'outlined'",
           "description": "MUI text field variant."
         }
       ],
@@ -1394,7 +1393,8 @@
         {
           "name": "items",
           "type": "RdsBottomNavigationItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Navigation items (label, value, icon, disabled) to render."
         },
         {
@@ -1448,7 +1448,8 @@
         {
           "name": "items",
           "type": "RdsBreadcrumbItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Breadcrumb items to render, in order."
         },
         {
@@ -1480,7 +1481,7 @@
           "name": "showIcon",
           "type": "boolean",
           "required": false,
-          "default": "true",
+          "default": "false",
           "description": "Shows icons on the items; an item's `showIcon: false` hides its own."
         }
       ],
@@ -1947,6 +1948,12 @@
           "type": "ReactNode",
           "required": true,
           "description": "The content of the component."
+        },
+        {
+          "name": "controlId",
+          "type": "string",
+          "required": false,
+          "description": "Id of the labelled control. Used as the label `htmlFor` target and merged onto\na single child element when that child does not already set `id`.\nPrefer setting the same `id` on the child input yourself for complex children."
         },
         {
           "name": "group",
@@ -2679,7 +2686,8 @@
         {
           "name": "options",
           "type": "RdsRadioOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Radio options to render."
         },
         {
@@ -2799,7 +2807,7 @@
           "name": "avatarCollapsedSrc",
           "type": "string",
           "required": false,
-          "description": "Source of the default logo image shown in the header when the sidebar is expanded."
+          "description": "Source of the logo image shown in the header when expanded (collapsed uses {@link getRaaghuLogoUrl})."
         },
         {
           "name": "collapsed",
@@ -2841,8 +2849,9 @@
         {
           "name": "items",
           "type": "RdsSidebarItem[]",
-          "required": true,
-          "description": "Navigation items. Ignored when `platform` selects a built-in menu."
+          "required": false,
+          "default": "[]",
+          "description": "Navigation items."
         },
         {
           "name": "layout",
@@ -2904,7 +2913,7 @@
           "name": "user",
           "type": "{ name?: string; subtitle?: string; avatarSrc?: string | undefined; } | undefined",
           "required": false,
-          "description": "User shown in the avatar area. Defaults to \"Jane Doe\" / \"Designation\". String values are expected by RdsAvatar."
+          "description": "User shown in the avatar area. String values are expected by RdsAvatar."
         },
         {
           "name": "width",
@@ -2925,7 +2934,7 @@
         },
         {
           "name": "platform",
-          "use": "Pass `items` instead."
+          "use": "Pass `items` instead. No longer selects built-in demo menus;"
         }
       ]
     },
@@ -3202,7 +3211,8 @@
         {
           "name": "steps",
           "type": "RdsStepperStep[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Steps to render."
         }
       ],
@@ -3234,6 +3244,13 @@
         "SwitchBaseProps"
       ],
       "props": [
+        {
+          "name": "color",
+          "type": "OverridableStringUnion<\"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\" | \"default\", SwitchPropsColorOverrides>",
+          "required": false,
+          "default": "'primary'",
+          "description": "Switch color. `'info'` is deprecated; use `'primary'`."
+        },
         {
           "name": "data-testid",
           "type": "string",
@@ -3288,7 +3305,8 @@
         {
           "name": "columns",
           "type": "RdsTableColumn[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Column definitions (id, label, alignment, sortable, cell type)."
         },
         {
@@ -3376,7 +3394,8 @@
         {
           "name": "rows",
           "type": "RdsTableRow[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Row data keyed by column id; `id` identifies each row."
         },
         {
@@ -3533,7 +3552,8 @@
         {
           "name": "items",
           "type": "RdsTimelineItem[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Timeline entries to render, in order."
         },
         {
@@ -3556,9 +3576,76 @@
       "kind": "element",
       "import": "import { RdsToggleButton } from '@waiin/raaghu-react';",
       "source": "raaghu-elements/rds-toggle-button/rds-toggle-button.tsx",
-      "description": "Props for RdsStandaloneToggleButton, a single self-toggling MUI ToggleButton.",
-      "props": [],
-      "deprecatedProps": []
+      "inheritsFrom": [
+        "ToggleButtonGroupProps"
+      ],
+      "props": [
+        {
+          "name": "color",
+          "type": "OverridableStringUnion<\"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\" | \"standard\", ToggleButtonGroupPropsColorOverrides>",
+          "required": false,
+          "description": "Color of the selected button. `'info'` is deprecated; use `'primary'`."
+        },
+        {
+          "name": "data-testid",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Initially selected value(s) when uncontrolled."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow several options to be selected at once."
+        },
+        {
+          "name": "options",
+          "type": "RdsToggleButtonOption[]",
+          "required": false,
+          "default": "[]",
+          "description": "Options rendered as toggle buttons."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "horizontal",
+          "description": "Layout direction of the group."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Keep at least one option selected."
+        },
+        {
+          "name": "spacing",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Gap in px between buttons (the `--rds-toggle-button-spacing` CSS variable still wins). 0 uses the joined MUI group."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "enforceSelected",
+          "use": "Use `required` instead."
+        },
+        {
+          "name": "iconTextSpacing",
+          "use": "Set the `--rds-spacing-xs` theme token instead. Gap in px between icon and label."
+        },
+        {
+          "name": "inputSize",
+          "use": "Use `size` instead."
+        }
+      ]
     },
     {
       "name": "RdsTooltip",
@@ -3623,7 +3710,7 @@
         },
         {
           "name": "wrapper",
-          "use": "Has no effect; children are always wrapped in a span."
+          "use": "Has no effect; children are wrapped only when disabled."
         }
       ]
     },
@@ -3921,7 +4008,7 @@
           "type": "\"primary\" | \"secondary\" | \"success\" | \"error\" | \"info\" | \"warning\"",
           "required": false,
           "default": "'primary'",
-          "description": "Theme color of the MUI progress indicator."
+          "description": "Theme color of the MUI progress indicator. `'info'` is deprecated; use `'primary'`."
         },
         {
           "name": "label",
@@ -4049,7 +4136,6 @@
           "name": "type",
           "type": "\"one-way\" | \"two-way\"",
           "required": false,
-          "default": "one-way",
           "description": "Figma variant: one thumb or two."
         },
         {
@@ -4327,7 +4413,13 @@
           "name": "onChange",
           "type": "((value: number, event: SyntheticEvent<Element, Event>) => void)",
           "required": false,
-          "description": "Value-first change handler (canonical for custom Raaghu controls).\nSignature: `(value, event) => void` — prefer reading `value`.\nOnly values inside `[min, max]` are emitted."
+          "description": "Value-first change handler (canonical for custom Raaghu controls).\nSignature: `(value, event) => void` — prefer reading `value`.\nIn-range numbers are emitted while typing. Clearing the field calls `onClear` on blur instead."
+        },
+        {
+          "name": "onClear",
+          "type": "((event: SyntheticEvent<Element, Event>) => void)",
+          "required": false,
+          "description": "Called on blur when the user has cleared the field. Set `value` to `undefined` to accept it."
         },
         {
           "name": "placeholder",
@@ -4886,7 +4978,8 @@
         {
           "name": "options",
           "type": "RdsButtonDropdownOption[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Options listed in the dropdown menu."
         },
         {
@@ -5409,6 +5502,13 @@
       "source": "raaghu-components/rds-comp-contribution/rds-comp-contribution.tsx",
       "props": [
         {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": "Contribution graph",
+          "description": "Accessible label for the contribution graph SVG."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false,
@@ -5889,6 +5989,12 @@
       "source": "raaghu-components/rds-comp-scrollbar/rds-comp-scrollbar.tsx",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for the scrollable region."
+        },
+        {
           "name": "children",
           "type": "ReactNode",
           "required": false,
@@ -6333,6 +6439,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -6407,6 +6519,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -6475,6 +6593,12 @@
           "type": "ChartData<\"pie\", number[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -6549,6 +6673,12 @@
           "type": "ChartData<\"doughnut\", number[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -6639,6 +6769,12 @@
           "type": "ChartData<\"doughnut\", number[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -6736,6 +6872,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -6810,6 +6952,12 @@
           "type": "ChartData<\"doughnut\", number[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -6890,6 +7038,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. Set `type: \"line\"` on a dataset to draw it as a line over the bars."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -6958,6 +7112,12 @@
           "type": "ChartData<\"polarArea\", number[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -7034,6 +7194,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -7106,6 +7272,12 @@
           "type": "ChartData<keyof ChartTypeRegistry, (number | Point | [number, number] | BubbleDataPoint | null)[], unknown>",
           "required": false,
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
         },
         {
           "name": "height",
@@ -7182,6 +7354,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -7252,6 +7430,12 @@
           "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
         },
         {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
           "name": "height",
           "type": "string | number",
           "required": false,
@@ -7319,7 +7503,8 @@
         {
           "name": "messages",
           "type": "Message[]",
-          "required": true,
+          "required": false,
+          "default": "[]",
           "description": "Chat messages rendered in the conversation log."
         },
         {
@@ -7399,8 +7584,8 @@
           "name": "exportItems",
           "type": "RdsCompAiFabMenuItem[]",
           "required": false,
-          "default": "[\r\n  { icon: \"users\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"new\", label: \"Share Link\" },\r\n  { icon: \"refresh\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"refresh\", label: \"Export Audio\" },\r\n  { icon: \"export\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"export\", label: \"Export Transcript\" },\r\n  { icon: \"delete\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"delete\", label: \"Export Summary\" },\r\n  { icon: \"download\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"download\", label: \"Export Mind Map\" },\r\n]",
-          "description": "Items of the export menu (defaults to the built-in sample items)."
+          "default": "[]",
+          "description": "Items of the export menu."
         },
         {
           "name": "id",
@@ -7412,8 +7597,8 @@
           "name": "moreItems",
           "type": "RdsCompAiFabMenuItem[]",
           "required": false,
-          "default": "[\r\n  { icon: \"users\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"new\", label: \"Move to folder\" },\r\n  { icon: \"refresh\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"refresh\", label: \"Find & Replace\" },\r\n  { icon: \"export\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"export\", label: \"Re-Transcribe\" },\r\n  { icon: \"delete\", iconHeight: \"var(--rds-ai-icon-size)\", iconWidth: \"var(--rds-ai-icon-size)\", key: \"delete\", label: \"Re-Summarize\" },\r\n]",
-          "description": "Items of the \"more options\" menu (defaults to the built-in sample items)."
+          "default": "[]",
+          "description": "Items of the \"more options\" menu."
         },
         {
           "name": "onCancel",
@@ -7432,6 +7617,12 @@
           "type": "(() => void)",
           "required": false,
           "description": "Called when the editor's Save button is clicked."
+        },
+        {
+          "name": "onSelect",
+          "type": "((item: RdsCompAiFabMenuItem) => void)",
+          "required": false,
+          "description": "Called when an export or more-options item is chosen."
         },
         {
           "name": "onTrim",
@@ -7498,8 +7689,7 @@
           "name": "waveform",
           "type": "number[]",
           "required": false,
-          "default": "Array.from({ length: 150 }, (_, barIndex) =>\r\n  Math.max(20, Math.abs(Math.sin(barIndex * 0.1) * 60 + Math.cos(barIndex * 0.27) * 40))\r\n)",
-          "description": "Editor waveform bar heights (SVG units, viewBox height 200); defaults to generated sample data."
+          "description": "Editor waveform bar heights (SVG units, viewBox height 200). No bars are drawn when omitted."
         }
       ],
       "deprecatedProps": [
@@ -7669,6 +7859,13 @@
           "description": "Called with the review item and the new rating value when a rating changes."
         },
         {
+          "name": "ratingInteractive",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allows the star rating to be changed by interacting with it. When `false` the rating is read-only."
+        },
+        {
           "name": "ref",
           "type": "Ref<HTMLDivElement>",
           "required": false,
@@ -7836,6 +8033,12 @@
       "import": "import { RdsCompMap } from '@waiin/raaghu-react';",
       "source": "raaghu-components/rds-comp-map/rds-comp-map.tsx",
       "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for the map when no visible string title is provided."
+        },
         {
           "name": "color",
           "type": "(string & {}) | RdsCompMapPaletteColor",
@@ -8419,7 +8622,7 @@
           "name": "value",
           "type": "string | Date | null",
           "required": false,
-          "description": "Selected date; the picker re-syncs whenever it changes (`null` clears it)."
+          "description": "Selected date; the picker re-syncs whenever it changes (`null` clears it).\nA `YYYY-MM-DD` string is local midnight on that calendar day.\nA full ISO datetime is an absolute instant (`new Date(value)`)."
         },
         {
           "name": "variant",
@@ -8666,6 +8869,13 @@
           "description": "Per-control visibility ('visible' | 'hidden') for dismiss, primary, secondary, tertiary buttons and visual placeholder."
         },
         {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Initial visibility when uncontrolled."
+        },
+        {
           "name": "description",
           "type": "string",
           "required": false,
@@ -8707,6 +8917,12 @@
           "type": "(() => void)",
           "required": false,
           "description": "Called when the skip button is clicked."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled visibility. When set, the tour ignores internal open state."
         },
         {
           "name": "ref",
@@ -9085,6 +9301,18 @@
           "description": "Disables all interaction."
         },
         {
+          "name": "minPoints",
+          "type": "number",
+          "required": false,
+          "description": "Minimum point count before the signature counts as clear. Defaults lower for initials."
+        },
+        {
+          "name": "minStrokeWidth",
+          "type": "number",
+          "required": false,
+          "description": "Minimum stroke width, in canvas pixels, before the signature counts as clear. Defaults to a fraction of the canvas width."
+        },
+        {
           "name": "mode",
           "type": "\"upload\" | \"draw\" | \"choose\"",
           "required": false,
@@ -9251,6 +9479,12 @@
           "description": "Called with the comment built from an uploaded image."
         },
         {
+          "name": "onFigmaSubmit",
+          "type": "((value: string) => void)",
+          "required": false,
+          "description": "Called with a validated https://figma.com URL when Import or Enter confirms it."
+        },
+        {
           "name": "onFigmaUrlChange",
           "type": "((value: string) => void)",
           "required": false,
@@ -9266,7 +9500,7 @@
           "name": "placement",
           "type": "\"start\" | \"end\"",
           "required": false,
-          "description": "Side the menu opens to."
+          "description": "Puts the icon at the start or end of its container; the menu opens inward from that edge. When omitted the icon keeps its natural position."
         },
         {
           "name": "ref",
@@ -9331,10 +9565,6 @@
         {
           "name": "modalTitle",
           "use": "Use `slotProps.dialog.title` instead."
-        },
-        {
-          "name": "onFigmaSubmit",
-          "use": "Use `onFigmaUrlChange` instead (it fires on every change)."
         },
         {
           "name": "showBadge",
@@ -9615,7 +9845,7 @@
           "name": "color",
           "type": "RaaghuPaletteColor",
           "required": false,
-          "description": "Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`."
+          "description": "Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`; `info` is deprecated and maps to `primary`."
         },
         {
           "name": "component",

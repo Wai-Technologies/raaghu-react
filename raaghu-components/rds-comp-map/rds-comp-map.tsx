@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { Box } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { getCSSVar } from '../chart-utils';
@@ -11,6 +11,7 @@ import type { CountryContext, Data } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
 import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { VisuallyHidden } from '../../raaghu-elements/shared/components/visually-hidden';
 
 /** Theme palette keys that `color` resolves to `theme.palette[color].main`. */
 export type RdsCompMapPaletteColor =
@@ -45,6 +46,8 @@ export interface RdsCompMapProps
     sx?: SxProps<Theme>;
     /** Ref to the root element. */
     ref?: Ref<HTMLDivElement>;
+    /** Accessible name for the map when no visible string title is provided. */
+    ariaLabel?: string;
 }
 
 type MapSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'responsive' | undefined;
@@ -116,11 +119,14 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         header,
         highlightedCountries,
         valueSuffix = '',
+        ariaLabel,
         className,
         sx,
         ref,
         ...rest
     } = props;
+
+    const mapDataTableId = useId();
 
     if (mapList !== undefined) {
         warnDeprecatedProp('RdsCompMap', 'mapList', '`data`');
@@ -137,6 +143,23 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     const theme = useTheme();
     const resolvedVariant = variant ?? mapType ?? 'default';
     const resolvedData = (data ?? mapList ?? []) as Data;
+
+    const mapAccessibleName =
+        ariaLabel?.trim() ||
+        (typeof header === 'string' ? header.trim() : '') ||
+        (typeof title === 'string' ? title.trim() : '') ||
+        'World map';
+
+    const mapValueBounds = useMemo(() => {
+        if (resolvedData.length === 0) {
+            return { min: 0, max: 0 };
+        }
+        const values = resolvedData.map((entry) => Number(entry.value)).filter(Number.isFinite);
+        if (values.length === 0) {
+            return { min: 0, max: 0 };
+        }
+        return { min: Math.min(...values), max: Math.max(...values) };
+    }, [resolvedData]);
 
     const resolvedColor = PALETTE_KEYS.includes(color)
         ? theme.palette[color as RdsCompMapPaletteColor].main
@@ -217,16 +240,61 @@ const RdsCompMap = (props: RdsCompMapProps) => {
             )}
 
             <div className="rds-comp-map__center">
-                <div className="rds-comp-map__worldmap-host">
-                    <WorldMap
-                        styleFunction={stylingFunction}
-                        color={resolvedColor}
-                        backgroundColor="transparent"
-                        title=""
-                        valueSuffix={valueSuffix}
-                        size={mapSize}
-                        data={resolvedData}
-                    />
+                <div
+                    className="rds-comp-map__figure"
+                    role="img"
+                    aria-label={mapAccessibleName}
+                    aria-describedby={resolvedData.length > 0 ? `${mapDataTableId}-data-table` : undefined}
+                >
+                    <div className="rds-comp-map__worldmap-host">
+                        <WorldMap
+                            styleFunction={stylingFunction}
+                            color={resolvedColor}
+                            backgroundColor="transparent"
+                            valueSuffix={valueSuffix}
+                            size={mapSize}
+                            data={resolvedData}
+                        />
+                    </div>
+                    {resolvedVariant === 'heatmap' ? (
+                        <div className="rds-comp-map__legend" aria-hidden={false}>
+                            <span className="rds-comp-map__legend-end">Low ({mapValueBounds.min}{valueSuffix})</span>
+                            <div className="rds-comp-map__legend-scale" role="presentation">
+                                {heatMapPalette.map((stopColor, index) => (
+                                    <span
+                                        key={`heatmap-stop-${index}`}
+                                        className="rds-comp-map__legend-swatch"
+                                        style={{ backgroundColor: stopColor }}
+                                    />
+                                ))}
+                            </div>
+                            <span className="rds-comp-map__legend-end">High ({mapValueBounds.max}{valueSuffix})</span>
+                        </div>
+                    ) : null}
+                    {resolvedData.length > 0 ? (
+                        <VisuallyHidden>
+                            <table id={`${mapDataTableId}-data-table`}>
+                                <caption>Map data by country</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {resolvedData.map((entry) => (
+                                        <tr key={entry.country}>
+                                            <th scope="row">{entry.country}</th>
+                                            <td>
+                                                {entry.value}
+                                                {valueSuffix}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </VisuallyHidden>
+                    ) : null}
                 </div>
             </div>
         </Box>

@@ -1027,12 +1027,24 @@ describe('RdsTooltip audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', expect.any(String));
   });
 
-  it('forwards data-testid to the trigger wrapper', () => {
+  it('forwards data-testid to the interactive child', () => {
     renderWithTheme(
       <RdsTooltip title="Tip" data-testid="help-tooltip">
         <button>Child</button>
       </RdsTooltip>,
     );
-    expect(screen.getByTestId('help-tooltip')).toHaveClass('rds-tooltip__wrapper');
+    expect(screen.getByTestId('help-tooltip')).toHaveTextContent('Child');
+  });
+
+  it('puts aria-describedby on the interactive child, not a wrapper span', async () => {
+    renderWithTheme(
+      <RdsTooltip title="Tip" open>
+        <button>Child</button>
+      </RdsTooltip>,
+    );
+    const button = screen.getByRole('button', { name: 'Child' });
+    await waitFor(() => {
+      expect(button).toHaveAttribute('aria-describedby');
+    });
   });
 });

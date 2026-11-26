@@ -4,17 +4,15 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 import { Button, Box } from '@mui/material';
-import { 
-  Home, 
-  Dashboard, 
-  Person, 
-  Settings, 
-  Help,
-  Inbox,
-  Star,
-  Send,
-  Drafts,
-} from '@mui/icons-material';
+import Home from '@mui/icons-material/Home';
+import Dashboard from '@mui/icons-material/Dashboard';
+import Person from '@mui/icons-material/Person';
+import Settings from '@mui/icons-material/Settings';
+import Help from '@mui/icons-material/Help';
+import Inbox from '@mui/icons-material/Inbox';
+import Star from '@mui/icons-material/Star';
+import Send from '@mui/icons-material/Send';
+import Drafts from '@mui/icons-material/Drafts';
 
 const meta: Meta<typeof RdsSidebar> = {
   title: 'Elements/Sidebar',
@@ -28,12 +26,7 @@ const meta: Meta<typeof RdsSidebar> = {
       },
       description: {
         component: `
-The Sidebar component supports different platforms with predefined menu items:
-
-- **ABP Platform** (\`platform="abp-list"\`): Shows Dashboard, Saas, Administration, Demo UI Components
-- **ANZ Platform** (\`platform="anz-list"\`): Shows Dashboard, Saas, Invoices, Ticket Allocation, Communication, Advertisements, Requests
-
-When a platform is specified, the component automatically displays the appropriate menu items regardless of the \`items\` prop.
+Pass navigation via the \`items\` prop. Demo menus for ABP/ANZ-style apps belong in stories or the consuming app — the library no longer ships baked-in platform menus. The deprecated \`platform\` prop only warns.
         `
       }
     },

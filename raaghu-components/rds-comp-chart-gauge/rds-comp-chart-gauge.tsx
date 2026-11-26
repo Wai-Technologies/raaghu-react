@@ -1,12 +1,16 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, useMemo, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-gauge.scss";
+
+/** Labels for a gauge built from `value` / `maxValue`; module-level so the reference is stable. */
+const GAUGE_VALUE_LABELS: string[] = ["Value", "Remainder"];
 
 /** Props for {@link RdsCompGaugeChart}. */
 export interface RdsCompGaugeProps
@@ -42,6 +46,8 @@ export interface RdsCompGaugeProps
   maxValue?: number;
   /** Accessible label of the chart. Default "Gauge chart". */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
@@ -64,30 +70,41 @@ const RdsCompGaugeChart = ({
   value,
   maxValue,
   ariaLabel,
+  description,
   chartLabel,
   className,
   ref,
   sx,
   ...rest
 }: RdsCompGaugeProps) => {
+  const accessibleAltId = useId();
   if (value !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "value", "`dataSets`");
   if (maxValue !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "maxValue", "`dataSets`");
   if (subTitleText !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "subTitleText", "`subtitle`");
   const subTitle = subtitle ?? subTitleText ?? "";
   const resolved = resolveChartData("RdsCompGaugeChart", data, labels, dataSets);
   const hasExplicitDatasets = (data?.datasets?.length ?? 0) > 0 || (dataSets?.length ?? 0) > 0;
-  const gaugeFromValue =
-    !hasExplicitDatasets && value !== undefined && maxValue !== undefined && maxValue > 0
-      ? ([
-          {
-            data: [value, Math.max(0, maxValue - value)],
-            backgroundColor: ["var(--rds-success-main)", "var(--rds-neutral-200)"],
-            borderWidth: 0,
-          },
-        ] as ChartDataset<"doughnut">[])
-      : undefined;
-  const chartLabels = resolved.labels ?? (gaugeFromValue ? (["Value", "Remainder"] as string[]) : undefined);
+  const gaugeFromValue = useMemo(
+    () =>
+      !hasExplicitDatasets && value !== undefined && maxValue !== undefined && maxValue > 0
+        ? ([
+            {
+              data: [value, Math.max(0, maxValue - value)],
+              backgroundColor: ["var(--rds-success-main)", "var(--rds-neutral-200)"],
+              borderWidth: 0,
+            },
+          ] as ChartDataset<"doughnut">[])
+        : undefined,
+    [hasExplicitDatasets, value, maxValue]
+  );
+  const chartLabels = resolved.labels ?? (gaugeFromValue ? GAUGE_VALUE_LABELS : undefined);
   const chartDatasets = gaugeFromValue ?? resolved.datasets;
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    chartLabels,
+    chartDatasets,
+  );
 
   const { canvasRef } = useChart<"doughnut">(
     {
@@ -140,6 +157,13 @@ const RdsCompGaugeChart = ({
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompGaugeChart", ariaLabel, chartLabel, "Gauge chart")}
+        aria-describedby={describedBy}
+      />
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={chartLabels}
+        datasets={chartDatasets}
       />
     </Box>
   );

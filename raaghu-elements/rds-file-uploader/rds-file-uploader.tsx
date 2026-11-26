@@ -117,7 +117,8 @@ const RdsFileUploader = ({
     maxSize,
     maxFiles,
     isMandatory,
-    multiple: multipleProp !== false,
+    multiple,
+    accept,
     onFilesChange: emitFilesChange,
     onUpload,
   });
@@ -139,10 +140,13 @@ const RdsFileUploader = ({
             dragAndDrop,
             isDragOver,
             multiple,
+            onDragOver: handleDragOver,
+            onDragLeave: handleDragLeave,
           }}
           mandatoryError={mandatoryError}
           hintText={hint}
           selectedFileName={selectedFileName}
+          files={files}
           handleFileSelect={handleFileSelect}
           addFiles={addFiles}
           setSelectedFileName={setSelectedFileName}
@@ -187,6 +191,7 @@ const RdsFileUploader = ({
               mode: mode || 'default',
               isDragOver,
               disabled,
+              dragAndDrop,
               onDragOver: handleDragOver,
               onDragLeave: handleDragLeave,
               onDrop: handleDrop,

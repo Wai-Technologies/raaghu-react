@@ -529,6 +529,37 @@ describe('audit fixes', () => {
       expect(screen.getByRole('alert')).toHaveTextContent('File size exceeds 0 Bytes');
       expect(screen.getAllByRole('alert')).toHaveLength(1);
     });
+
+    it('RDS-032: StandardView shows per-file errors', () => {
+      render(
+        <ActualStandardView
+          {...standardViewProps({
+            files: [{ file: makeFile('big.pdf'), progress: 0, error: 'File size exceeds 0 Bytes' }],
+            selectedFileName: 'big.pdf',
+          })}
+        />,
+      );
+      expect(screen.getByRole('alert')).toHaveTextContent('File size exceeds 0 Bytes');
+    });
+  });
+
+  describe('RDS-154 accept on drop', () => {
+    it('flags dropped files that do not match accept', () => {
+      const { result } = renderHook(() =>
+        useActualFileUploader({ maxSize: 1024 * 1024, maxFiles: 5, isMandatory: false, accept: '.pdf' }),
+      );
+      const png = new File(['x'], 'photo.png', { type: 'image/png' });
+      act(() => result.current.addFiles([png]));
+      expect(result.current.files[0].error).toBe('File type is not accepted');
+    });
+
+    it('accepts dropped files that match accept', () => {
+      const { result } = renderHook(() =>
+        useActualFileUploader({ maxSize: 1024 * 1024, maxFiles: 5, isMandatory: false, accept: '.pdf,image/*' }),
+      );
+      act(() => result.current.addFiles([makeFile('ok.pdf')]));
+      expect(result.current.files[0].error).toBeUndefined();
+    });
   });
 
   describe('onUpload', () => {
@@ -684,5 +715,42 @@ describe('RdsFileUploader additive renames', () => {
   it('passes data-testid through rootProps in standard mode', () => {
     render(<RdsFileUploader mode="standard" data-testid="avatar-upload" />);
     expect(mockStandardViewProps.rootProps['data-testid']).toBe('avatar-upload');
+  });
+
+  it('keeps single-file mode when multiple is omitted', () => {
+    const { container } = render(<RdsFileUploader />);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    expect(input.multiple).toBe(false);
+    const { useFileUploader } = jest.requireActual('./RdsFileUploaderComponents') as typeof import('./RdsFileUploaderComponents');
+    const onFilesChange = jest.fn();
+    const { result } = renderHook(() =>
+      useFileUploader({ maxSize: 10_000_000, maxFiles: 5, isMandatory: false, multiple: false, onFilesChange }),
+    );
+    act(() => {
+      result.current.handleDrop({
+        preventDefault: jest.fn(),
+        dataTransfer: { files: [new File(['a'], 'a.txt'), new File(['b'], 'b.txt')] },
+      } as any);
+    });
+    expect(onFilesChange.mock.calls[0][0]).toHaveLength(1);
+  });
+
+  it('does not accept a drop when disabled', () => {
+    const { RdsDropZoneDefault } = jest.requireActual('./RdsFileUploaderComponents') as typeof import('./RdsFileUploaderComponents');
+    const onDrop = jest.fn();
+    const { container } = render(
+      <RdsDropZoneDefault
+        mode="default"
+        isDragOver={false}
+        disabled
+        dragAndDrop
+        onDrop={onDrop}
+        onDragOver={jest.fn()}
+        onDragLeave={jest.fn()}
+        openFileDialog={jest.fn()}
+      />,
+    );
+    fireEvent.drop(container.querySelector('.rds-file-uploader__drop-zone')!);
+    expect(onDrop).not.toHaveBeenCalled();
   });
 });

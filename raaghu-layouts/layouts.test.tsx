@@ -13,9 +13,9 @@ describe('audit fixes', () => {
 
   it('variant maps to the same class as displayType', () => {
     const { container, rerender } = render(<RdsCompAppShell displayType={AppShellDisplayType.TopNav} />);
-    expect(container.firstChild).toHaveClass('top-nav');
+    expect(container.firstChild).toHaveClass('rds-comp-app-shell--top-nav');
     rerender(<RdsCompAppShell displayType={AppShellDisplayType.TopNav} variant="tri-pane" />);
-    expect(container.firstChild).toHaveClass('triPane');
+    expect(container.firstChild).toHaveClass('rds-comp-app-shell--tri-pane');
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 
@@ -30,7 +30,7 @@ describe('audit fixes', () => {
     const onSidebarOpenChange = jest.fn();
     const { container } = render(<RdsCompAppShell sidebarOpen onSidebarOpenChange={onSidebarOpenChange} />);
     expect(container.firstChild).toHaveClass('mobile-sidebar-open');
-    fireEvent.click(screen.getByLabelText('Close sidebar overlay'));
+    fireEvent.click(container.querySelector('.mobile-sidebar-backdrop')!);
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onSidebarOpenChange).toHaveBeenNthCalledWith(1, false);
     expect(onSidebarOpenChange).toHaveBeenNthCalledWith(2, false);
@@ -38,8 +38,8 @@ describe('audit fixes', () => {
 
   it('deprecated mobileSidebarOpen/onMobileSidebarToggle keep working', () => {
     const onMobileSidebarToggle = jest.fn();
-    render(<RdsCompAppShell mobileSidebarOpen onMobileSidebarToggle={onMobileSidebarToggle} />);
-    fireEvent.click(screen.getByLabelText('Close sidebar overlay'));
+    const { container } = render(<RdsCompAppShell mobileSidebarOpen onMobileSidebarToggle={onMobileSidebarToggle} />);
+    fireEvent.click(container.querySelector('.mobile-sidebar-backdrop')!);
     expect(onMobileSidebarToggle).toHaveBeenCalledTimes(1);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAppShell', 'mobileSidebarOpen', '`sidebarOpen`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAppShell', 'onMobileSidebarToggle', '`onSidebarOpenChange`');

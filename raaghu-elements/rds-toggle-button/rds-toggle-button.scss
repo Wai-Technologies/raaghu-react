@@ -185,8 +185,7 @@
     border-bottom-right-radius: 0;
   }
   
-  // Full-width wrapped row: restore the left border MUI clears for last/middle buttons.
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3) {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__group .MuiToggleButton-root:nth-child(3) {
     flex:1 1 100%;
     max-width:100%;
     margin-left: 0;
@@ -238,7 +237,7 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__group .MuiToggleButton-root:nth-child(3) {
       margin-left: 0;
       border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
       border-top: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, color-mix(in srgb, var(--rds-color-black) 23%, transparent));
@@ -345,8 +344,8 @@
     }
   }
 
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
-  .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__group .MuiToggleButton-root:nth-child(3),
+  .rds-toggle-button--wrap-mobile .rds-toggle-button__group .MuiToggleButton-root:nth-child(3) {
     border-left-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
     border-top-color: var(--rds-toggle-group-border-dark, color-mix(in srgb, var(--rds-color-white) 23%, transparent));
 

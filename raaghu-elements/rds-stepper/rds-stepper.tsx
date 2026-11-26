@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import clsx from 'clsx';
 
+const EMPTY_ARRAY: never[] = [];
+
 /** A step of the stepper. */
 export interface RdsStepperStep {
   /** Step label (also used as the aria-label). */
@@ -40,7 +42,7 @@ export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'varian
 }
 
 const RdsStepper = ({
-  steps,
+  steps = EMPTY_ARRAY,
   currentStep,
   direction,
   showContent,

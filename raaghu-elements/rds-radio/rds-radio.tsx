@@ -14,6 +14,8 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-radio.scss';
 
+const EMPTY_ARRAY: never[] = [];
+
 export interface RdsRadioOption {
   value: string;
   /** Option label. */
@@ -51,7 +53,7 @@ const placementLayouts = {
 } as const;
 
 const RdsRadio = ({
-  options,
+  options = EMPTY_ARRAY,
   label,
   direction,
   row,
@@ -109,7 +111,7 @@ const RdsRadio = ({
     }
 
     if (layout === 'icon with bottom label') {
-      const radioId = `rds-radio-${option.value}`;
+      const radioId = `${groupId}-${option.value}`;
       return (
         <Box
           key={option.value}
@@ -130,7 +132,7 @@ const RdsRadio = ({
               name={groupName}
               onChange={(event) => {
                 if (finalDisabled || typeof selected !== 'undefined') return;
-                if (props.value === undefined && defaultValue !== undefined) setInnerValue(option.value);
+                if (props.value === undefined) setInnerValue(option.value);
                 props.onChange?.(event, option.value);
               }}
               className="rds-radio__option"

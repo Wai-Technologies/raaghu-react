@@ -60,7 +60,7 @@ export const ProfileMenu = ({
   email,
   variant = 'rich',
   shortName,
-  designation = 'Developer',
+  designation,
   items,
   menuItems,
 }: ProfileMenuProps) => {

@@ -1,9 +1,10 @@
-import type { HTMLAttributes, Ref } from "react";
+import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-pie.scss";
@@ -32,6 +33,8 @@ export interface RdsCompPieProps
   width?: string | number;
   /** Accessible label of the chart. Default "Pie chart". */
   ariaLabel?: string;
+  /** Optional visible summary; chart data is also exposed in a screen-reader table. */
+  description?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
@@ -50,14 +53,22 @@ const RdsCompPieChart = ({
   height,
   width,
   ariaLabel,
+  description,
   chartLabel,
   className,
   ref,
   sx,
   ...rest
 }: RdsCompPieProps) => {
+  const accessibleAltId = useId();
   if (radius !== undefined) warnDeprecatedProp("RdsCompPieChart", "radius", "`options.radius`");
   const resolved = resolveChartData("RdsCompPieChart", data, labels, dataSets);
+  const describedBy = chartAccessibleDescribedBy(
+    accessibleAltId,
+    description,
+    resolved.labels,
+    resolved.datasets,
+  );
 
   const { canvasRef } = useChart(
     {
@@ -80,8 +91,15 @@ const RdsCompPieChart = ({
           ref={canvasRef}
           role="img"
           aria-label={resolveChartLabel("RdsCompPieChart", ariaLabel, chartLabel, "Pie chart")}
+          aria-describedby={describedBy}
         />
       </div>
+      <ChartAccessibleAlternative
+        summaryId={accessibleAltId}
+        description={description}
+        labels={resolved.labels}
+        datasets={resolved.datasets}
+      />
     </Box>
   );
 };

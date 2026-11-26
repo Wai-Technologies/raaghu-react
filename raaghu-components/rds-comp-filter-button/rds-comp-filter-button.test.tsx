@@ -122,12 +122,15 @@ jest.mock('@mui/material', () => {
   };
 });
 
-jest.mock('@mui/icons-material', () => {
-  return {
-    ExpandMore: () => <span data-testid="expand-more-icon">▼</span>,
-    CircleOutlined: () => <span data-testid="CircleOutlinedIcon">●</span>,
-  };
-});
+jest.mock('@mui/icons-material/ExpandMore', () => ({
+  __esModule: true,
+  default: () => <span data-testid="expand-more-icon">▼</span>,
+}));
+
+jest.mock('@mui/icons-material/CircleOutlined', () => ({
+  __esModule: true,
+  default: () => <span data-testid="CircleOutlinedIcon">●</span>,
+}));
 
 jest.mock('@mui/icons-material/FilterList', () => ({
   __esModule: true,

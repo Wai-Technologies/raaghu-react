@@ -25,10 +25,13 @@ import {
   TextField, Box, FormControl, InputLabel, Select, Autocomplete,
 } from '@mui/material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
-import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import {
   RdsCompKanbanBoardProps,
   useKanbanBoardState,
@@ -75,7 +78,7 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
       {subCard.ticketId}
     </>
   ) : title || null;
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({
     id: cardId,
     data: { type: 'subCard', boardIndex, subCardIndex },
   });
@@ -85,11 +88,20 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
     opacity: isDragging ? 0.5 : 1,
   };
   return (
-    <Box ref={setNodeRef} style={style} {...attributes} {...listeners} className="sub-card rds-kanban-board__sub-card">
+    <Box ref={setNodeRef} style={style} {...attributes} className="sub-card rds-kanban-board__sub-card">
       <Card variant="outlined" className="rds-kanban-board__sub-card-card">
         <CardContent className="rds-kanban-board__sub-card-content">
           <Box className="rds-kanban-board__sub-card-header">
             <Box className="rds-kanban-board__sub-card-header-left">
+              <IconButton
+                size="small"
+                ref={setActivatorNodeRef}
+                {...listeners}
+                className="btn-sm rds-kanban-board__drag-handle"
+                aria-label={`Drag ${title || 'card'}`}
+              >
+                <DragIndicatorIcon fontSize="small" />
+              </IconButton>
               {subCard.displayId && <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId}</Typography>}
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
@@ -97,7 +109,6 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
               <IconButton
                 size="small"
                 onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(cardId, e, subCard, boardIndex); }}
-                onPointerDown={(e) => e.stopPropagation()}
                 className="btn-sm rds-kanban-board__subcard-dropdown-button"
                 aria-label="More options"
               >
@@ -222,8 +233,20 @@ const RdsCompKanbanBoard = ({
     if (value !== undefined) warnDeprecatedProp('RdsCompKanbanBoard', key, DEPRECATED_PROPS[key]);
   });
 
-  const showAddColumn = allowAddColumn ?? allowAddingNewCard;
-  const showAddCard = allowAddCard ?? allowAddingNewSubCard;
+  const showAddColumn = resolveDeprecatedProp(
+    allowAddColumn,
+    allowAddingNewCard,
+    'RdsCompKanbanBoard',
+    'allowAddingNewCard',
+    '`allowAddColumn`',
+  );
+  const showAddCard = resolveDeprecatedProp(
+    allowAddCard,
+    allowAddingNewSubCard,
+    'RdsCompKanbanBoard',
+    'allowAddingNewSubCard',
+    '`allowAddCard`',
+  );
   const resolvedTagOptions = tagOptions ?? allTagsList;
   const resolvedCategoryOptions = categoryOptions ?? allCategoriesList;
   const handleColumnsChange = onColumnsChange ?? onBoardDataChange;
@@ -231,6 +254,8 @@ const RdsCompKanbanBoard = ({
   const props: RdsCompKanbanBoardProps = {
     columns, defaultColumns, boardData, onColumnsChange: handleColumnsChange,
     onCardAction, onSubCardOption, onColumnAction, onCardOption, onCardAdd, onAddQuestionSaveHandler, onSelectedTagsListChange,
+    allowAddColumn: showAddColumn,
+    allowAddCard: showAddCard,
   };
   const state = useKanbanBoardState(props);
   const {
@@ -248,17 +273,54 @@ const RdsCompKanbanBoard = ({
   } = handlers;
 
   const [activeDragId, setActiveDragId] = useState<UniqueIdentifier | null>(null);
-  const onDragOver = createDragOverHandler(boards, state.setBoards, handleColumnsChange);
+  const [dragSnapshot, setDragSnapshot] = useState<typeof boards | null>(null);
+  const onDragOver = createDragOverHandler(boards, state.setBoards);
   const onDragEndBase = createDragEndHandler(boards, state.setBoards, handleColumnsChange);
   const onDragStart = (event: DragStartEvent) => {
+    setDragSnapshot(boards.map((board) => ({
+      ...board,
+      subCards: [...board.subCards],
+    })));
     setActiveDragId(event.active.id);
   };
   const onDragEnd = (event: Parameters<typeof onDragEndBase>[0]) => {
     setActiveDragId(null);
+    setDragSnapshot(null);
     onDragEndBase(event);
   };
   const onDragCancel = () => {
+    if (dragSnapshot) {
+      state.setBoards(dragSnapshot);
+    }
     setActiveDragId(null);
+    setDragSnapshot(null);
+  };
+  const kanbanAnnouncements = {
+    onDragStart({ active }: { active: { id: UniqueIdentifier } }) {
+      const card = boards.flatMap((b) => b.subCards).find((c) => cardIdOf(c) === active.id);
+      const title = card?.title ?? card?.ticketQuestion ?? String(active.id);
+      return `Picked up ${title}.`;
+    },
+    onDragOver({ active, over }: { active: { id: UniqueIdentifier }; over: { id: UniqueIdentifier } | null }) {
+      if (!over) return;
+      const card = boards.flatMap((b) => b.subCards).find((c) => cardIdOf(c) === active.id);
+      const title = card?.title ?? card?.ticketQuestion ?? String(active.id);
+      const column = boards.find((b) => b.cardId === over.id || b.subCards.some((c) => cardIdOf(c) === over.id));
+      const columnTitle = column?.name ?? String(over.id);
+      return `${title} was moved over ${columnTitle}.`;
+    },
+    onDragEnd({ active, over }: { active: { id: UniqueIdentifier }; over: { id: UniqueIdentifier } | null }) {
+      const card = boards.flatMap((b) => b.subCards).find((c) => cardIdOf(c) === active.id);
+      const title = card?.title ?? card?.ticketQuestion ?? String(active.id);
+      if (!over) return `${title} was dropped.`;
+      const column = boards.find((b) => b.cardId === over.id || b.subCards.some((c) => cardIdOf(c) === over.id));
+      return `${title} was dropped into ${column?.name ?? over.id}.`;
+    },
+    onDragCancel({ active }: { active: { id: UniqueIdentifier } }) {
+      const card = boards.flatMap((b) => b.subCards).find((c) => cardIdOf(c) === active.id);
+      const title = card?.title ?? card?.ticketQuestion ?? String(active.id);
+      return `Dragging ${title} was cancelled.`;
+    },
   };
   const activeDragCard = activeDragId == null
     ? null
@@ -287,6 +349,7 @@ const RdsCompKanbanBoard = ({
       onDragOver={onDragOver}
       onDragEnd={onDragEnd}
       onDragCancel={onDragCancel}
+      accessibility={{ announcements: kanbanAnnouncements }}
     >
       <Box {...rest} ref={ref} className={clsx('rds-kanban-board-container', className)} sx={sx}>
         {showAddColumn !== undefined && (

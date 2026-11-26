@@ -1,11 +1,12 @@
 import { useId, useState, type ChangeEvent, type KeyboardEvent, type ReactNode, type SyntheticEvent } from 'react';
 import { Pagination as MuiPagination, PaginationItem as MuiPaginationItem, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography, useMediaQuery } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-pagination.scss';
 import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 /**
  * Props for {@link RdsPagination}. Extends MUI `PaginationProps` (forwarded to the
@@ -147,11 +148,8 @@ const RdsPagination = ({
 
   const handlePageSizeChange = (event: SelectChangeEvent<number>) => {
     const newSize = Number(event.target.value);
-    if (onPageSizeChange) {
-      onPageSizeChange(newSize);
-    } else {
-      setLocalPageSize(newSize);
-    }
+    if (pageSizeProp === undefined) setLocalPageSize(newSize);
+    if (onPageSizeChange) onPageSizeChange(newSize);
   };
   const handleManualPageInput = (event: ChangeEvent<HTMLInputElement>) => {
     setManualPageInput(event.target.value);

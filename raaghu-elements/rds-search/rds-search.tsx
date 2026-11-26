@@ -71,15 +71,20 @@ const RdsSearch = ({
   const delay = debounce ?? searchDelay ?? 300;
   const iconAtEnd = iconPosition === 'right' || iconPosition === 'end';
 
+  const clearDebounceTimer = () => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = null;
+    }
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
 
     const newValue = event.target.value;
     invokeValueFirstOnChange(onChange, newValue, event);
     if (autoSearchOn && onSearch) {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
+      clearDebounceTimer();
       searchTimeoutRef.current = setTimeout(() => {
         onSearch(newValue);
       }, delay);
@@ -88,12 +93,14 @@ const RdsSearch = ({
 
   const handleSearch = () => {
     if (disabled) return;
+    clearDebounceTimer();
     onSearch?.(value);
   };
 
   const handleClear = (event: MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
 
+    clearDebounceTimer();
     invokeValueFirstOnChange(onChange, '', event);
     onClear?.();
   };
@@ -101,6 +108,7 @@ const RdsSearch = ({
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      clearDebounceTimer();
       onSearch?.(value);
     }
   };

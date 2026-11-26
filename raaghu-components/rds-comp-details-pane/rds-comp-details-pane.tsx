@@ -1,6 +1,6 @@
 import { useState, useCallback, type ReactNode } from "react";
 import type { CSSProperties, Ref } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material";
 import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -104,7 +104,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
       <Box ref={ref} className={clsx("rds-comp-details-pane", className)} sx={[{ position: 'relative' }, ...(Array.isArray(sx) ? sx : [sx])]} style={typeof style === 'object' ? style : undefined}>
         {(variant === "Favourites" || variant === "Favourites - New Folder" || variant === "Prompt History") ? (
           <div>
-            <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
+            <Typography variant="h5" sx={{ fontWeight: 'var(--rds-font-weight-bold)' }} className="rds-comp-details-pane__header">{props.headerText}</Typography>
             <HistoryFavoritesTabs 
               activeTab={activeTab}
               setActiveTab={setActiveTab}

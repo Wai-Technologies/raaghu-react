@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
+import { memo, useRef, useState, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
 import { Slider } from "@mui/material";
-import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb } from "./color-utils";
+import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb, hslToRgb } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker.types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
@@ -59,6 +59,7 @@ interface ColorPickerInfoProps {
   setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
+  handleChange?: (color: ColorUpdate) => void;
   disabled?: boolean;
 }
 
@@ -138,6 +139,7 @@ export const ColorPickerGrid = memo(({
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
+        handleChange={handleChange}
         disabled={disabled}
       />
     </div>
@@ -219,6 +221,7 @@ export const ColorPickerSpectrum = memo(({
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
         onSelectColorMode={onSelectColorMode}
+        handleChange={handleChange}
         disabled={disabled}
       />
 
@@ -332,56 +335,119 @@ interface ColorInputsProps {
   hsb: { h: number; s: number; b: number };
   hsl: { h: number; s: number; l: number };
   getColorDisplay: () => string;
+  disabled?: boolean;
+  onRgbCommit?: (rgb: { r: number; g: number; b: number }) => void;
+  onHsbCommit?: (hsb: { h: number; s: number; b: number }) => void;
+  onHslCommit?: (hsl: { h: number; s: number; l: number }) => void;
+  onHexCommit?: (hex: string) => void;
 }
 
-const ColorInputs = ({ selectedColorMode, rgb, hsb, hsl, getColorDisplay }: ColorInputsProps) => {
+const ChannelField = ({
+  label,
+  value,
+  className,
+  disabled,
+  validate,
+  onCommit,
+}: {
+  label: string;
+  value: string;
+  className: string;
+  disabled?: boolean;
+  validate: (text: string) => boolean;
+  onCommit: (text: string) => void;
+}) => {
+  const [draft, setDraft] = useState<string | null>(null);
+  return (
+    <input
+      type="text"
+      aria-label={label}
+      className={className}
+      disabled={disabled}
+      value={draft ?? value}
+      onChange={(event) => {
+        const next = event.target.value;
+        if (validate(next)) {
+          setDraft(null);
+          onCommit(next);
+        } else {
+          setDraft(next);
+        }
+      }}
+      onBlur={() => setDraft(null)}
+    />
+  );
+};
+
+const inRange = (max: number) => (text: string) => /^\d+$/.test(text) && Number(text) >= 0 && Number(text) <= max;
+const isHex = (text: string) => /^#?[0-9a-fA-F]{6}$/.test(text);
+
+const ColorInputs = ({
+  selectedColorMode,
+  rgb,
+  hsb,
+  hsl,
+  getColorDisplay,
+  disabled,
+  onRgbCommit,
+  onHsbCommit,
+  onHslCommit,
+  onHexCommit,
+}: ColorInputsProps) => {
+  const channel = (
+    label: string,
+    value: number,
+    max: number,
+    commit: (next: number) => void,
+  ) => (
+    <div className="rds-comp-color-picker__input-wrapper" key={label}>
+      <ChannelField
+        label={label}
+        value={String(value)}
+        className="rds-comp-color-picker__color-input"
+        disabled={disabled}
+        validate={inRange(max)}
+        onCommit={(text) => commit(Number(text))}
+      />
+    </div>
+  );
+
   switch (selectedColorMode) {
     case ColorMode.RGB:
       return (
         <>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.r} readOnly className="rds-comp-color-picker__color-input" aria-label="Red channel value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.g} readOnly className="rds-comp-color-picker__color-input" aria-label="Green channel value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={rgb.b} readOnly className="rds-comp-color-picker__color-input" aria-label="Blue channel value" />
-          </div>
+          {channel('Red channel value', rgb.r, 255, (r) => onRgbCommit?.({ ...rgb, r }))}
+          {channel('Green channel value', rgb.g, 255, (g) => onRgbCommit?.({ ...rgb, g }))}
+          {channel('Blue channel value', rgb.b, 255, (b) => onRgbCommit?.({ ...rgb, b }))}
         </>
       );
     case ColorMode.HSB:
       return (
         <>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.h} readOnly className="rds-comp-color-picker__color-input" aria-label="Hue value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.s} readOnly className="rds-comp-color-picker__color-input" aria-label="Saturation value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsb.b} readOnly className="rds-comp-color-picker__color-input" aria-label="Brightness value" />
-          </div>
+          {channel('Hue value', hsb.h, 360, (h) => onHsbCommit?.({ ...hsb, h }))}
+          {channel('Saturation value', hsb.s, 100, (s) => onHsbCommit?.({ ...hsb, s }))}
+          {channel('Brightness value', hsb.b, 100, (b) => onHsbCommit?.({ ...hsb, b }))}
         </>
       );
     case ColorMode.HSL:
       return (
         <>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.h} readOnly className="rds-comp-color-picker__color-input" aria-label="Hue value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.s} readOnly className="rds-comp-color-picker__color-input" aria-label="Saturation value" />
-          </div>
-          <div className="rds-comp-color-picker__input-wrapper">
-            <input type="text" value={hsl.l} readOnly className="rds-comp-color-picker__color-input" aria-label="Lightness value" />
-          </div>
+          {channel('Hue value', hsl.h, 360, (h) => onHslCommit?.({ ...hsl, h }))}
+          {channel('Saturation value', hsl.s, 100, (s) => onHslCommit?.({ ...hsl, s }))}
+          {channel('Lightness value', hsl.l, 100, (l) => onHslCommit?.({ ...hsl, l }))}
         </>
       );
     default:
       return (
         <div className="rds-comp-color-picker__input-wrapper">
-          <input type="text" value={getColorDisplay()} readOnly className="rds-comp-color-picker__hex-input" aria-label="Hex color value" />
+          <ChannelField
+            label="Hex color value"
+            value={getColorDisplay()}
+            className="rds-comp-color-picker__hex-input"
+            disabled={disabled}
+            validate={isHex}
+            onCommit={(text) => onHexCommit?.(text.startsWith('#') ? text : `#${text}`)}
+          />
         </div>
       );
   }
@@ -396,6 +462,7 @@ export const ColorPickerInfo = memo(({
   selectedColorState,
   getColorDisplay,
   onSelectColorMode,
+  handleChange,
   disabled,
 }: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
@@ -458,14 +525,32 @@ export const ColorPickerInfo = memo(({
         hsb={hsb}
         hsl={hsl}
         getColorDisplay={getColorDisplay}
+        disabled={disabled}
+        onRgbCommit={(next) => handleChange?.({ hex: rgbToHex(next.r, next.g, next.b), rgb: { ...next, a: rgb.a } })}
+        onHsbCommit={(next) => {
+          const converted = hsvToRgb(next.h / 360, next.s / 100, next.b / 100);
+          handleChange?.({ hex: rgbToHex(converted.r, converted.g, converted.b), rgb: { ...converted, a: rgb.a } });
+        }}
+        onHslCommit={(next) => {
+          const converted = hslToRgb(next.h, next.s, next.l);
+          handleChange?.({ hex: rgbToHex(converted.r, converted.g, converted.b), rgb: { ...converted, a: rgb.a } });
+        }}
+        onHexCommit={(hex) => handleChange?.({ hex })}
       />      
       <div className="rds-comp-color-picker__percent-wrapper">
-        <input
-          type="text"
-          value={`${Math.round((rgb.a ?? 1) * 100)}%`}
-          readOnly
+        <ChannelField
+          label="Opacity percentage"
+          value={`${Math.round((rgb.a ?? 1) * 100)}`}
           className="rds-comp-color-picker__percent-input"
-          aria-label="Opacity percentage"
+          disabled={disabled}
+          validate={inRange(100)}
+          onCommit={(text) => {
+            const nextAlpha = Number(text) / 100;
+            handleChange?.({
+              hex: selectedColorState.hex,
+              rgb: { ...rgb, a: nextAlpha },
+            });
+          }}
         />
       </div>
     </div>

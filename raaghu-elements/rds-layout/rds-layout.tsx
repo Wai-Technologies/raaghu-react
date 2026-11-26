@@ -48,7 +48,7 @@ const RdsLayout= ({
       <Box
         component="main"
         sx={{
-          marginTop: showHeader ? `${headerHeight}px` : 0,
+          marginTop: showHeader && header ? `${headerHeight}px` : 0,
           flexGrow: 1,
           padding: padding,
         }}

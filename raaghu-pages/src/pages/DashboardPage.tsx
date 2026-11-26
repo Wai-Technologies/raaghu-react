@@ -24,27 +24,25 @@ import {
   ListItemText as MenuItemText,
   useMediaQuery,
 } from '@mui/material';
-import {
-  Dashboard as DashboardIcon,
-  Person as PersonIcon,
-  Settings as SettingsIcon,
-  Help as HelpIcon,
-  Folder as ProjectsIcon,
-  TrendingUp,
-  TrendingDown,
-  Notifications as BellIcon,
-  WbSunny as SunIcon,
-  NightsStay as MoonIcon,
-  SettingsBrightness as SystemThemeIcon,
-  PeopleAlt as PeopleIcon,
-  AttachMoney as MoneyIcon,
-  WorkOutline as WorkIcon,
-  ConfirmationNumber as TicketIcon,
-  CheckCircleOutline as CheckIcon,
-  ErrorOutline as ErrorIcon,
-  ScheduleOutlined as ClockIcon,
-  FlashOn as FlashIcon,
-} from '@mui/icons-material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpIcon from '@mui/icons-material/Help';
+import ProjectsIcon from '@mui/icons-material/Folder';
+import TrendingUp from '@mui/icons-material/TrendingUp';
+import TrendingDown from '@mui/icons-material/TrendingDown';
+import BellIcon from '@mui/icons-material/Notifications';
+import SunIcon from '@mui/icons-material/WbSunny';
+import MoonIcon from '@mui/icons-material/NightsStay';
+import SystemThemeIcon from '@mui/icons-material/SettingsBrightness';
+import PeopleIcon from '@mui/icons-material/PeopleAlt';
+import MoneyIcon from '@mui/icons-material/AttachMoney';
+import WorkIcon from '@mui/icons-material/WorkOutline';
+import TicketIcon from '@mui/icons-material/ConfirmationNumber';
+import CheckIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorIcon from '@mui/icons-material/ErrorOutline';
+import ClockIcon from '@mui/icons-material/ScheduleOutlined';
+import FlashIcon from '@mui/icons-material/FlashOn';
 
 
 /** Soft tint from a semantic token — preferred over hardcoded rgba(hex). */
