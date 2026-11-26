@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
+import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator";
 
 const meta: Meta = {
     title: 'Components/Emoji Generator',
@@ -25,11 +25,12 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Category of emojis to display",
         },
-        State: {
-            options: Object.values(SkinToneState),
-            control: { type: "select" },
-            description: "State of skin tone selector (Default or Expanded)",
+        expanded: {
+            control: { type: "boolean" },
+            description: "Keeps the skin tone palette open below the skin tone button",
+            table: { defaultValue: { summary: "false" } },
         },
+        State: { table: { disable: true } },
         "Show Skin Tone": {
             control: { type: "boolean" },
             description: "Show skin tone selector toggle",
@@ -58,7 +59,7 @@ export const Default: Story = {
         Category: EmojiCategory.SmileysAndPeople,
         "Show Skin Tone": true,
         "Show Footer": true,
-        State: SkinToneState.Default,
+        expanded: false,
         maxEmojis: 80,
     },
     parameters: {
@@ -76,7 +77,7 @@ export const QuickReactions: Story = {
         Category: EmojiCategory.SmileysAndPeople,
         "Show Skin Tone": false,
         "Show Footer": false,
-        State: SkinToneState.Default,
+        expanded: false,
         maxEmojis: 32,
     },
     parameters: {

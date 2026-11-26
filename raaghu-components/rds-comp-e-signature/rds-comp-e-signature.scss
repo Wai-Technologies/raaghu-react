@@ -889,3 +889,17 @@
     display: flex;
   }
 }
+
+// Upload mode: explicit `width` / `height` props take over the default size caps.
+.rds-e-signature .rds-e-signature__upload-container--sized {
+  .rds-e-signature__upload-panel,
+  .rds-e-signature__file-row,
+  .rds-e-signature__file-hint-row {
+    max-width: none;
+  }
+}
+
+.rds-e-signature .rds-e-signature__upload-panel--fixed-height {
+  display: flex;
+  align-items: center;
+}

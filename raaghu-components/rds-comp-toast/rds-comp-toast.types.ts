@@ -44,11 +44,11 @@ export interface RdsCompToastProps {
     subText?: "visible" | "hidden";
   };
   layout: ToastLayout;
-  /** Semantic toast state/color. Prefer `color` for new code. */
-  state?: ToastState;
-  /** Semantic color alias for `state`. */
+  /** Semantic colour of the toast (basic, info, success, warning, error). */
   color?: ToastState;
-  /** @deprecated Use `color` or `state`. */
+  /** @deprecated Use `color` instead. */
+  state?: ToastState;
+  /** @deprecated Use `color` instead. */
   severity?: ToastState;
   placeholder?: string;
   progressWidth?: number;

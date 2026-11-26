@@ -13,19 +13,13 @@ const meta: Meta = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
-    colorVariant: {
-      options: [
-        "primary",
-        "secondary",
-        "success",
-        "error",
-        "warning",
-        "info"
-      ],
+    color: {
+      options: ["primary", "secondary", "success", "error", "warning"],
       control: { type: "select" },
-      defaultValue: "primary",
-      description: "Color variant of the time picker",
+      description: "Accent colour of the time picker",
+      table: { defaultValue: { summary: "primary" } },
     },
+    colorVariant: { table: { disable: true } },
     style: {
       options: ["default", "compact"],
       control: { type: "select" },
@@ -50,7 +44,7 @@ type Story = StoryObj<typeof RdsCompTimePicker>;
 
 export const Default: Story = {
   args: {
-    colorVariant: "primary",
+    color: "primary",
     style: "default",
     state: "default",
     disabled: false,

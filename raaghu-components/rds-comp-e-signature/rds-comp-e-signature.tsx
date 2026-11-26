@@ -14,10 +14,14 @@ export interface RdsCompESignatureProps {
   disabledFooterMessage?: string;
   onSignatureChange?: (signature: string | File | null) => void;
   onSave?: (dataUrl: string) => void;
+  /** @deprecated Has no effect and will be removed in the next major version. */
   signatureData?: string | File | null;
   predefinedSignatures?: Array<{ id: string; name: string; style: string; fullName: string; initials: string; }>;
+  /** Width of the upload panel in px (upload mode). Defaults to a 695px max width. */
   width?: number;
+  /** Minimum height of the upload panel in px (upload mode). */
   height?: number;
+  /** Initial pen colour (draw mode). */
   penColor?: string;
   title?: string;
 }
@@ -39,7 +43,8 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     { id: '5', name: 'Style 5', style: 'elegant', fullName: 'John Doe', initials: 'J.D' },
     { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
   ],
-  width = 695,
+  width,
+  height,
   penColor = eSignaturePenColors.black,
   title,
 }) => {
@@ -283,6 +288,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           disabled={disabled}
           disabledFooterMessage={disabledFooterMessage}
           width={width}
+          height={height}
           title={title}
           onSignatureChange={onSignatureChange}
         />

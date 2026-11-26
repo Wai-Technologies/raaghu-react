@@ -57,11 +57,30 @@ const meta: Meta<typeof RdsCompESignature> = {
       description: 'Title for the component',
       table: { defaultValue: { summary: 'Draw Signature' } },
     },
+    width: {
+      control: { type: 'number', min: 200, step: 10 },
+      description: 'Width of the upload panel in px (upload mode)',
+      table: { defaultValue: { summary: '695 (max width)' } },
+    },
+    height: {
+      control: { type: 'number', min: 100, step: 10 },
+      description: 'Minimum height of the upload panel in px (upload mode)',
+    },
+    disabledFooterMessage: {
+      control: 'text',
+      description: 'Footer message shown while disabled',
+    },
+    signatureData: { table: { disable: true } },
+    predefinedSignatures: { table: { disable: true } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const DRAW_CONTROLS = ['mode', 'type', 'colourSwatch', 'penColor', 'disabled', 'disabledMessage', 'disabledFooterMessage', 'title'];
+const UPLOAD_CONTROLS = ['mode', 'type', 'width', 'height', 'disabled', 'disabledFooterMessage', 'title'];
+const CHOOSE_CONTROLS = ['mode', 'type', 'disabled', 'title'];
 
 export const Default: Story = {
   args: {
@@ -70,6 +89,7 @@ export const Default: Story = {
     colourSwatch: true,
     title: 'Draw Signature',
   },
+  parameters: { controls: { include: DRAW_CONTROLS } },
 };
 
 export const Draw: Story = {
@@ -78,24 +98,24 @@ export const Draw: Story = {
     type: 'fullname',
     colourSwatch: true,
     title: 'Draw Signature',
-  },
+  },
+  parameters: { controls: { include: DRAW_CONTROLS } },
 };
 
 export const Upload: Story = {
   args: {
     mode: 'upload',
     type: 'fullname',
-    colourSwatch: true,
     title: 'Upload Signature',
   },
+  parameters: { controls: { include: UPLOAD_CONTROLS } },
 };
 
 export const Choose: Story = {
   args: {
     mode: 'choose',
     type: 'fullname',
-    colourSwatch: true,
     title: 'Choose Signature',
   },
+  parameters: { controls: { include: CHOOSE_CONTROLS } },
 };
-

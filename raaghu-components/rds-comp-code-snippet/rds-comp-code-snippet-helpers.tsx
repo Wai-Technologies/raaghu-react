@@ -90,6 +90,7 @@ export interface MultiLineSnippetProps {
   languageOptions: { id: string; label: string }[];
   onLanguageChange: (val: string[] | string) => void;
   maxHeight?: string;
+  theme?: 'light' | 'dark';
 }
 
 export function MultiLineSnippet({
@@ -105,6 +106,7 @@ export function MultiLineSnippet({
   languageOptions,
   onLanguageChange,
   maxHeight,
+  theme = 'light',
 }: MultiLineSnippetProps) {
   return (
     <>
@@ -122,6 +124,7 @@ export function MultiLineSnippet({
                 showUserAvatar={false}
                 showRadio={false}
                 size="small"
+                menuClassName={`rds-comp-code-snippet__language-menu rds-comp-code-snippet__language-menu--${theme}`}
               />
             </div>
           )}

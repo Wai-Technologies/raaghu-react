@@ -49,6 +49,7 @@ jest.mock('@mui/material', () => ({
       {children}
     </div>
   ),
+  ClickAwayListener: ({ children }: any) => children,
   Popover: ({ open, children, onClose }: any) => (
     open ? (
       <div data-testid="skin-tone-popover" role="button" tabIndex={0} onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
@@ -287,19 +288,26 @@ describe('RdsEmojiGenerator', () => {
       expect(skinToneOptions.length).toBe(6);
     });
 
-    it('should show popover in Default state when skin tone button clicked', () => {
+    it('should open the skin tone palette below the button when clicked', () => {
       const { container } = render(
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true }}
-          State={'Default' as any}
         />
       );
-      const skinToneButton = container.querySelector('.rds-emoji-generator__skin-tone-button');
-      if (skinToneButton) {
-        fireEvent.click(skinToneButton);
-      }
-      expect(container).toBeInTheDocument();
+      expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).not.toBeInTheDocument();
+      fireEvent.click(container.querySelector('.rds-emoji-generator__skin-tone-button')!);
+      expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
+      fireEvent.click(container.querySelectorAll('.rds-emoji-generator__skin-tone-option')[2]);
+      expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).not.toBeInTheDocument();
+    });
+
+    it('should keep the palette open with the expanded prop', () => {
+      const { container } = render(
+        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} expanded />
+      );
+      fireEvent.click(container.querySelectorAll('.rds-emoji-generator__skin-tone-option')[1]);
+      expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
     });
 
     it('should change selected skin tone', () => {

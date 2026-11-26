@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { InputLabel as Label } from "@mui/material";
 import "./rds-comp-text-editor.scss";
 import { sanitizeEditorHtml } from "./sanitize-html";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompTextEditorProps {
     id?: string;
@@ -12,6 +13,15 @@ export interface RdsCompTextEditorProps {
     label?: string;
     isMandatory?: boolean;
     labelClass?: string;
+    /** Disables the editor (read-only with disabled styling). */
+    disabled?: boolean;
+    /** Shows the editor in its selected style. */
+    selected?: boolean;
+    /** Shows the editor in its error style. */
+    error?: boolean;
+    /** Shows the editor in its active (focused) style. */
+    active?: boolean;
+    /** @deprecated Use `disabled`, `selected`, `error` or `active` instead. */
     State?: string;
     showTitle?: boolean;
     rows?: number;
@@ -103,12 +113,20 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         return editorState.getCurrentContent().getPlainText().trim() === '';
     };
 
+    if (props.State !== undefined) {
+        warnDeprecatedProp("RdsCompTextEditor", "State", "`disabled`, `selected`, `error` or `active`");
+    }
+    const isDisabled = props.disabled ?? props.State === "Disabled";
+    const isSelected = props.selected ?? props.State === "Selected";
+    const isError = props.error ?? props.State === "Error";
+    const isActive = props.active ?? props.State === "Active";
+
     const stateClass = [
-        props.State === "Selected" && "rds-comp-text-editor--selected",
-        props.State === "Error"    && "rds-comp-text-editor--error",
-        props.State === "Active"   && "rds-comp-text-editor--active",
-        props.State === "Disabled" && "rds-comp-text-editor--disabled",
-        isResizable                && "rds-comp-text-editor--resizable",
+        isSelected  && "rds-comp-text-editor--selected",
+        isError     && "rds-comp-text-editor--error",
+        isActive    && "rds-comp-text-editor--active",
+        isDisabled  && "rds-comp-text-editor--disabled",
+        isResizable && "rds-comp-text-editor--resizable",
     ].filter(Boolean).join(" ");
 
     return (
@@ -132,7 +150,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                         key={props.placeholder}
                         editorState={editorState}
                         onEditorStateChange={handleEditorChange}
-                        readOnly={props.readOnly || props.State === "Disabled"}
+                        readOnly={props.readOnly || isDisabled}
                         placeholder={props.placeholder}
                         ref={editorRef}
                         toolbarClassName="rds-comp-text-editor__toolbar"

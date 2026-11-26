@@ -180,6 +180,26 @@ body.theme-dark .docs-story {
   border-color: #3a4250 !important;
 }
 
+/* Object/array (JSON) control values */
+[data-theme="dark"] .docblock-argstable .rejt-value,
+[data-theme="dark"] .docblock-argstable .rejt-value-node,
+[data-theme="dark"] .docblock-argstable .rejt-not-collapsed-delimiter,
+[data-theme="dark"] .docblock-argstable .rejt-collapsed-text {
+  color: #e6eaf2 !important;
+}
+
+[data-theme="dark"] .docblock-argstable .rejt-value-node:hover > .rejt-value {
+  background: #2a3342 !important;
+  border-color: #3a4250 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .docblock-argstable .rejt-name:hover,
+[data-theme="dark"] .docblock-argstable .rejt-object-node:hover > span,
+[data-theme="dark"] .docblock-argstable .rejt-array-node:hover > span {
+  background: transparent !important;
+}
+
 [data-theme="dark"] .docblock-argstable input::placeholder,
 [data-theme="dark"] .docblock-argstable textarea::placeholder {
   color: #9aa6b8 !important;

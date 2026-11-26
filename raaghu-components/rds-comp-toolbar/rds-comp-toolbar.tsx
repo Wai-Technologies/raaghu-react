@@ -46,6 +46,15 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   const toolbarRef = useRef<HTMLDivElement>(null);
   const isDisabled = state === ToolbarState.DisabledOn;
   const toolbarConfig = getToolbarConfig(type);
+  // Secondary layout is always a stacked (two-row) toolbar: single-section
+  // configs are split so it stays visually distinct from the one-row primary layout.
+  const secondaryRows = toolbarConfig.sections.length > 1
+    ? toolbarConfig.sections
+    : (() => {
+        const [only = []] = toolbarConfig.sections;
+        const splitAt = Math.ceil(only.length / 2);
+        return only.length > 1 ? [only.slice(0, splitAt), only.slice(splitAt)] : [only];
+      })();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -139,7 +148,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
         </div>
       ) : (
         <>
-          {toolbarConfig.sections.map((section, sectionIndex) => (
+          {secondaryRows.map((section, sectionIndex) => (
             <div
               key={sectionIndex}
               className={`rds-comp-toolbar__row ${sectionIndex === 1 ? 'rds-comp-toolbar__row--secondary' : ''}`}

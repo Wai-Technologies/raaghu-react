@@ -112,6 +112,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const showSubText = props.chrome?.subText ? props.chrome.subText === 'visible' : (legacyShowSubText ?? false);
 
     if (props.severity !== undefined) warnDeprecatedProp('RdsCompToast', 'severity', '`color`');
+    if (props.state !== undefined) warnDeprecatedProp('RdsCompToast', 'state', '`color`');
     const resolvedState =
       resolveDeprecatedProp(props.color, props.severity, 'RdsCompToast', 'severity', '`color`')
       ?? props.state
