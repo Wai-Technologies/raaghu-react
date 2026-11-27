@@ -2976,3 +2976,69 @@ $rds-app-bar-breakpoint-xs: 320px;
     display: none;
   }
 }
+
+// ---------------------------------------------------------------------------
+// Responsive safety net (all variants, all widths).
+// Top-bar items must never overlap or be cut off. When space runs out it is
+// given up in this order: the title (ellipsis), the inline tabs (become
+// swipeable), then the search box (down to a minimum width). The logo, menu
+// button and action icons keep their size.
+// ---------------------------------------------------------------------------
+.rds-header .rds-header__toolbar {
+  min-width: 0;
+
+  .rds-header__logo,
+  .rds-header__menu-button,
+  .rds-header__actions,
+  .rds-header__right-actions,
+  .rds-header__center-content {
+    flex-shrink: 0;
+  }
+
+  .rds-header__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rds-header__tabs-inline {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  // The wrapper may shrink, but never below what its input needs, and the
+  // input always fills the wrapper (it used to keep its own min-width and
+  // spill over the neighbouring buttons).
+  .rds-header__search-wrapper {
+    min-width: var(--rds-app-bar-search-min-width, 96px);
+  }
+
+  .rds-header__search-wrapper .rds-header__search {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+}
+
+// Very narrow phones: let the search box go a little smaller so the logo,
+// search and remaining icons still fit on one row.
+@media (max-width: 360px) {
+  .rds-header .rds-header__toolbar .rds-header__search-wrapper {
+    min-width: var(--rds-app-bar-search-min-width-xs, 64px);
+  }
+}
+
+// Logo + (search) + tabs + actions variants switch to the bottom bar at 520px
+// (see the threshold in rds-app-bar.tsx), so hide the top-bar copies of the
+// actions from 421px too, exactly as the <=420px rules above do.
+@media (min-width: 421px) and (max-width: 520px) {
+  .rds-header--variant-logotabsactions .rds-story-nav-actions,
+  .rds-header--variant-logotabsactions .rds-story-nav-action,
+  .rds-header--variant-logotabsactions .rds-appbar-overflow-button,
+  .rds-header--variant-logosearchtabsactions .rds-story-nav-actions,
+  .rds-header--variant-logosearchtabsactions .rds-appbar-overflow-button {
+    display: none;
+  }
+}

@@ -98,6 +98,10 @@ const RdsAppBar = forwardRef<HTMLElement, RdsAppBarProps>(function RdsAppBar({
       let threshold = 420;
       if (needsTabletBottomNav) threshold = 840;
       else if (variantLower === 'dashboardwithlang') threshold = 599;
+      // Logo + (search) + tabs + five action icons no longer fit on one row below
+      // ~520px, so these variants move their actions to the bottom bar earlier.
+      // Keep in sync with the matching 421–520px rules in rds-app-bar.scss.
+      else if (variantLower === 'logotabsactions' || variantLower === 'logosearchtabsactions') threshold = 520;
       setIsSmallScreen(window.innerWidth <= threshold);
     };
 
@@ -147,6 +151,8 @@ const RdsAppBar = forwardRef<HTMLElement, RdsAppBarProps>(function RdsAppBar({
               className="rds-header__tabs-inline"
               value={tabValue}
               onChange={(_, v) => onTabChange(v)}
+              variant="scrollable"
+              scrollButtons={false}
               textColor="primary"
               indicatorColor="primary"
             >
