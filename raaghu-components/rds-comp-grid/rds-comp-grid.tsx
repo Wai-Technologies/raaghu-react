@@ -48,10 +48,28 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
-import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
+import { 
+  DndContext, 
+  type DragEndEvent,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+  closestCenter,
+  type Announcements,
+  type UniqueIdentifier,
+} from '@dnd-kit/core';
+import { 
+  SortableContext, 
+  useSortable, 
+  verticalListSortingStrategy,
+  sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 
 
@@ -526,6 +544,70 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
   );
 };
 
+interface SortableGridRowProps {
+  rowId: string;
+  index: number;
+  isSelected: boolean;
+  enableRowSwapping: boolean;
+  onRowClick?: (rowId: string) => void;
+  children: ReactNode;
+}
+
+/** Table row that can be reordered with @dnd-kit (pointer and keyboard) through its drag-handle button. */
+const SortableGridRow = ({ rowId, index, isSelected, enableRowSwapping, onRowClick, children }: SortableGridRowProps) => {
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({
+    id: rowId,
+    disabled: !enableRowSwapping,
+  });
+
+  return (
+    <TableRow
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      selected={isSelected}
+      hover
+      onClick={() => onRowClick?.(rowId)}
+      sx={{
+        cursor: 'pointer',
+        ...(isDragging && {
+          backgroundColor: isSelected ? 'var(--rds-primary-light)' : undefined,
+        }),
+      }}
+    >
+      {enableRowSwapping && (
+        <TableCell sx={{
+          width: 'var(--rds-spacing-60)',
+          padding: 'var(--rds-spacing-sm-px)',
+          borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
+          textAlign: 'center',
+          verticalAlign: 'middle'
+        }}>
+          <IconButton
+            ref={setActivatorNodeRef}
+            {...attributes}
+            {...listeners}
+            size="small"
+            aria-label={`Reorder row ${index + 1}`}
+            onClick={(event) => event.stopPropagation()}
+            sx={{ cursor: 'grab', '&:active': { cursor: 'grabbing' } }}
+          >
+            <DragIndicatorIcon
+              fontSize="small"
+              sx={{
+                color: 'var(--rds-text-secondary)',
+                '&:hover': {
+                  color: 'var(--rds-text-primary)',
+                }
+              }}
+            />
+          </IconButton>
+        </TableCell>
+      )}
+      {children}
+    </TableRow>
+  );
+};
+
 const RdsCompGrid = ({
   ref,
   className,
@@ -667,40 +749,16 @@ const RdsCompGrid = ({
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Ensure react-beautiful-dnd drag preview is visible */
-      .react-beautiful-dnd-drag-handle {
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-      
-      .react-beautiful-dnd-draggable {
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-      
-      /* Improve drag preview appearance */
-      [data-rbd-drag-handle-draggable-id] {
-        cursor: grab !important;
-      }
-      
-      [data-rbd-drag-handle-draggable-id]:active {
-        cursor: grabbing !important;
-      }
-      
-      /* Hide the default placeholder during column drag */
-      .react-beautiful-dnd-droppable[data-rbd-droppable-id="columns"] .react-beautiful-dnd-placeholder {
-        display: none !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const reorder = <T,>(list: T[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
@@ -709,45 +767,41 @@ const RdsCompGrid = ({
     return result;
   };
 
-  const onDragEnd = (result: DropResult) => {
-    
+  const rowPosition = (id: UniqueIdentifier) => Number(String(id).replace('row-', '')) + 1;
+
+  const resetBodySelection = () => {
     document.body.style.userSelect = '';
     document.body.style.webkitUserSelect = '';
-    
-    if (!result.destination) {
-      return;
-    }
-    
-    if (result.type === 'COLUMN') {
-      const newOrder = reorder(columnOrder, result.source.index, result.destination.index);
-      setColumnOrder(newOrder);
-      onColumnSwap?.(result.source.index, result.destination.index, newOrder);
-      return;
-    }
-    
-    if (result.type === 'ROW') {
-      let sourceIndex = result.source.index;
-      let destinationIndex = result.destination.index;
-      
-      if (pagination) {
-        const startIndex = (currentPage - 1) * recordsPerPage;
-        sourceIndex = startIndex + result.source.index;
-        destinationIndex = startIndex + result.destination.index;
-      }
-      
-      const newData = reorder(localTableData, sourceIndex, destinationIndex);
-      setLocalTableData(newData);
-      onRowSwap?.(sourceIndex, destinationIndex, newData);
-    }
   };
 
-  const onDragStart = (_start: DragStart) => {
-    
+  const handleDragStart = () => {
     document.body.style.userSelect = 'none';
     document.body.style.webkitUserSelect = 'none';
   };
 
-  const onDragUpdate = (_update: DragUpdate) => {
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    resetBodySelection();
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    const pageOffset = pagination ? (currentPage - 1) * recordsPerPage : 0;
+    const sourceIndex = pageOffset + rowPosition(active.id) - 1;
+    const destinationIndex = pageOffset + rowPosition(over.id) - 1;
+    const newData = reorder(localTableData, sourceIndex, destinationIndex);
+    setLocalTableData(newData);
+    onRowSwap?.(sourceIndex, destinationIndex, newData);
+  };
+
+  const gridAnnouncements: Announcements = {
+    onDragStart: ({ active }) => `Picked up row ${rowPosition(active.id)}.`,
+    onDragOver: ({ active, over }) =>
+      over ? `Row ${rowPosition(active.id)} is over position ${rowPosition(over.id)}.` : undefined,
+    onDragEnd: ({ active, over }) =>
+      over
+        ? `Row ${rowPosition(active.id)} was dropped at position ${rowPosition(over.id)}.`
+        : `Row ${rowPosition(active.id)} was dropped.`,
+    onDragCancel: ({ active }) => `Moving row ${rowPosition(active.id)} was cancelled.`,
   };
 
   const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
@@ -1858,25 +1912,6 @@ const RdsCompGrid = ({
       '& .MuiTableCell-root': {
         color: 'text.primary'
       },
-      '& .react-beautiful-dnd-drag-handle': {
-        visibility: 'visible !important',
-        opacity: '1 !important',
-      },
-      '& .react-beautiful-dnd-draggable': {
-        visibility: 'visible !important',
-        opacity: '1 !important',
-      },
-      '& .react-beautiful-dnd-droppable': {
-        minHeight: 'auto !important',
-      },
-      '& .react-beautiful-dnd-placeholder': {
-        display: 'table-cell !important',
-        visibility: 'visible !important',
-        opacity: '0.5 !important',
-        backgroundColor: 'action.hover',
-        border: 'var(--rds-border-width-medium) dashed',
-        borderColor: 'var(--rds-primary-main)',
-      },
     }, sx] as SxProps<Theme>}>
       {showHeader && (
         <Box
@@ -2021,10 +2056,13 @@ const RdsCompGrid = ({
             bgcolor: 'background.paper',
           }}
         >
-          <DragDropContext 
-            onDragEnd={(enableRowSwapping || enableColumnSwapping) ? onDragEnd : () => {}}
-            onDragStart={(enableRowSwapping || enableColumnSwapping) ? onDragStart : () => {}}
-            onDragUpdate={(enableRowSwapping || enableColumnSwapping) ? onDragUpdate : () => {}}
+          <DndContext 
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={enableRowSwapping ? handleDragStart : undefined}
+            onDragEnd={enableRowSwapping ? handleDragEnd : undefined}
+            onDragCancel={enableRowSwapping ? resetBodySelection : undefined}
+            accessibility={{ announcements: gridAnnouncements }}
           >
             <Table stickyHeader ref={tableRef} sx={{ tableLayout: 'fixed' }}>
             <TableHead sx={{ 
@@ -2331,71 +2369,26 @@ const RdsCompGrid = ({
               </TableRow>
             </TableHead>
             
-            <Droppable droppableId="droppable-body" type="ROW">
-              {(provided: DroppableProvided) => (
-                <TableBody
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
+            <SortableContext
+              items={processedData.map((_, index) => `row-${index}`)}
+              strategy={verticalListSortingStrategy}
+              disabled={!enableRowSwapping}
+            >
+              <TableBody>
               {processedData.map((row, index) => {
                 const rowId = `row-${index}`;
                 const isSelected = selectedRows.has(rowId);
                 const isRowEditing = editingRow === rowId;
-                
-                return (
-                  <Draggable 
-                    key={rowId} 
-                    draggableId={String(rowId)} 
-                    index={index}
-                    isDragDisabled={!enableRowSwapping}
-                  >
-                    {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => (
-                      <TableRow
-                        key={rowId}
-                        ref={dragProvided.innerRef}
-                        {...dragProvided.draggableProps}
-                        selected={isSelected}
-                        hover
-                        onClick={() => onRowClick?.(rowId)}
-                        sx={{ 
-                          cursor: 'pointer',
-                          ...(dragSnapshot.isDragging && {
-                            backgroundColor: isSelected ? 'var(--rds-primary-light)' : undefined,
-                          }),
-                        }}
-                      >
-                        {enableRowSwapping && (
-                          <TableCell sx={{ 
-                            width: 'var(--rds-spacing-60)',
-                            padding: 'var(--rds-spacing-sm-px)',
-                            borderRight: 'var(--rds-border-width-thin) solid var(--rds-border-default)',
-                            textAlign: 'center',
-                            verticalAlign: 'middle'
-                          }}>
-                            <div 
-                              {...dragProvided.dragHandleProps}
-                              style={{ 
-                                cursor: 'grab',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: '100%',
-                                height: '100%'
-                              }}
-                            >
-                              <DragIndicatorIcon 
-                                fontSize="small" 
-                                sx={{ 
-                                  color: 'var(--rds-text-secondary)',
-                                  '&:hover': {
-                                    color: 'var(--rds-text-primary)',
-                                  }
-                                }} 
-                              />
-                            </div>
-                          </TableCell>
-                        )}
 
+                return (
+                  <SortableGridRow
+                    key={rowId}
+                    rowId={rowId}
+                    index={index}
+                    isSelected={isSelected}
+                    enableRowSwapping={enableRowSwapping}
+                    onRowClick={onRowClick}
+                  >
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
@@ -2707,17 +2700,13 @@ const RdsCompGrid = ({
                         </Stack>
                       </TableCell>
                     )}
-                      </TableRow>
-                        )}
-                      </Draggable>
+                  </SortableGridRow>
                 );
               })}
-                  {provided.placeholder}
-                </TableBody>
-              )}
-            </Droppable>
+              </TableBody>
+            </SortableContext>
           </Table>
-          </DragDropContext>
+          </DndContext>
         </TableContainer>
       )}
 
@@ -2998,10 +2987,16 @@ const RdsCompGrid = ({
                         
                         {inputType === 'date' ? (
                           <Box onMouseDown={e => e.stopPropagation()}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
                               <DatePicker
-                                value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
-                                onChange={(date) => handleFilterConditionChange(1, 'value', date)}
+                                value={
+                                  filterConditions[0].value
+                                    ? dayjs(filterConditions[0].value as string | number | Date)
+                                    : null
+                                }
+                                onChange={(date: Dayjs | null) =>
+                                  handleFilterConditionChange(1, 'value', date ? date.toDate() : null)
+                                }
                                 slotProps={{
                                   textField: {
                                     size: 'small',

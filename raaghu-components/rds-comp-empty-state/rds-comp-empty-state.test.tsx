@@ -1,6 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
+import RdsCompEmptyStateBase, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
+import { lottieAnimationRenderer } from './lottie-animation-renderer';
+
+const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => (
+  <RdsCompEmptyStateBase animationRenderer={lottieAnimationRenderer} {...props} />
+);
 import { axe } from 'jest-axe';
 
 jest.mock('lottie-react', () => {
@@ -88,7 +93,7 @@ describe('RdsCompEmptyState', () => {
     });
 
     it('should have correct displayName', () => {
-      expect(RdsCompEmptyState.displayName).toBe('RdsCompEmptyState');
+      expect(RdsCompEmptyStateBase.displayName).toBe('RdsCompEmptyState');
     });
 
     it('should render root element with correct class', () => {
@@ -708,5 +713,13 @@ describe('RdsCompEmptyState doc-09 renames', () => {
     unmount();
     render(<RdsCompEmptyState imageSize={{ width: 60, height: 40 }} />);
     expect(screen.getByTestId('icon')).toHaveStyle({ width: '60px', height: '40px' });
+  });
+});
+
+describe('RdsCompEmptyState without an animation renderer', () => {
+  it('shows the static image when animated is set but no renderer is passed', () => {
+    render(<RdsCompEmptyStateBase label="Nothing here" animated />);
+    expect(screen.getByTestId('emptyStateImage')).toBeInTheDocument();
+    expect(screen.queryByTestId('emptyStateLottie')).not.toBeInTheDocument();
   });
 });

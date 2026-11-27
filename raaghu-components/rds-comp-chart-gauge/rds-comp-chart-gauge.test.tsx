@@ -7,32 +7,31 @@ import RdsCompGaugeChart, { type RdsCompGaugeProps } from './rds-comp-chart-gaug
 jest.mock('./rds-comp-chart-gauge.scss', () => ({}));
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-      width: 300,
-      height: 300,
-      chartArea: {
-        top: 10,
-        right: 290,
-        bottom: 290,
-        left: 10,
-        width: 280,
-        height: 280,
-      },
-    };
-  });
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 300,
+    height: 300,
+    chartArea: {
+      top: 10,
+      right: 290,
+      bottom: 290,
+      left: 10,
+      width: 280,
+      height: 280,
+    },
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 const defaultProps = {
@@ -322,7 +321,7 @@ describe('RdsCompGaugeChart', () => {
   });
 
   describe('Chart Lifecycle', () => {
-    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
 
     beforeEach(() => {
       ChartMock.mockClear();
@@ -891,7 +890,7 @@ describe('RdsCompGaugeChart', () => {
   });
 });
 describe('audit fixes', () => {
-  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
   const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
 
   beforeEach(() => {
@@ -918,7 +917,7 @@ describe('audit fixes', () => {
   });
 
   it('builds doughnut data from value/maxValue when datasets are omitted (G3-040)', () => {
-    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
     ChartMock.mockClear();
     const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
     render(

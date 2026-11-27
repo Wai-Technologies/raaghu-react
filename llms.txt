@@ -2,7 +2,7 @@
 
 > React 19 + MUI design system: about 110 exported components (elements, composite components, layouts, charts, AI chat UI) themed through `--rds-*` CSS variables with light and dark modes.
 
-Import from the package root, wrap the app in `RaaghuThemeProvider` and import `@waiin/raaghu-react/styles.css`. Style only with `var(--rds-*)` tokens.
+Import from the package root, wrap the app in `RaaghuThemeProvider` and import `@waiin/raaghu-react/styles.css`. Charts, the date picker, the text editor, Kanban, timeline, video, map and the Lottie renderer come from subpaths (`/charts`, `/date`, `/editor`, `/kanban`, `/timeline`, `/video`, `/map`, `/lottie`) and need their optional peer packages; see the README table. Style only with `var(--rds-*)` tokens.
 
 ## Docs
 

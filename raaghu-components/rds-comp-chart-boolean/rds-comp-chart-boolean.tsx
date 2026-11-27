@@ -2,11 +2,15 @@ import { useId, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import Chart, {
+import {
+    Chart,
     type ChartData,
     type ChartOptions,
     type ChartDataset,
-} from "chart.js/auto";
+} from "chart.js";
+import { registerDoughnutChart } from "../chart-js-register";
+
+registerDoughnutChart();
 import { ChartIcons, type ChartIconName } from "./chart-icons";
 import {
     applyCanvasSize,

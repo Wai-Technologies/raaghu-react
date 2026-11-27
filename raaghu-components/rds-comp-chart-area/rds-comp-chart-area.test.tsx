@@ -8,8 +8,8 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 
 jest.mock('./rds-comp-chart-area.scss', () => ({}));
 
-jest.mock('chart.js/auto', () => {
-  return class MockChart {
+jest.mock('chart.js', () => {
+  class MockChart {
     static register = jest.fn();
     context: CanvasRenderingContext2D | null = null;
     canvas: any = null;
@@ -39,7 +39,8 @@ jest.mock('chart.js/auto', () => {
     render = jest.fn();
     resize = jest.fn();
     toBase64Image = jest.fn(() => 'data:image/png;base64,fake');
-  };
+  }
+  return { Chart: Object.assign(MockChart, { getChart: jest.fn() }) };
 });
 
 const defaultProps = {

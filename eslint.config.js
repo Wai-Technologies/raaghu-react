@@ -69,4 +69,54 @@ export default tseslint.config([
       'no-var': 'off',
     },
   },
+  {
+    files: ['**/*.{ts,tsx}'],
+    ignores: [
+      'raaghu-components/rds-comp-chart-*/**',
+      'raaghu-components/chart-utils.ts',
+      'raaghu-components/chart-js-register.ts',
+      'raaghu-components/use-chart.ts',
+      'raaghu-components/rds-comp-empty-state/lottie-animation-renderer.tsx',
+      'raaghu-components/rds-comp-video-player/**',
+      'raaghu-components/rds-comp-map/**',
+      'raaghu-components/rds-comp-kanban-board/**',
+      'raaghu-components/rds-comp-grid/**',
+      'raaghu-components/rds-comp-text-editor/**',
+      'raaghu-components/rds-comp-datepicker/**',
+      'raaghu-components/rds-comp-contribution/**',
+      'raaghu-components/rds-comp-date-and-time-picker/**',
+      'raaghu-components/rds-comp-emoji-generator/**',
+      'raaghu-elements/rds-timeline/**',
+      '**/*.test.{ts,tsx}',
+      '**/*.stories.{ts,tsx}',
+      '**/*.figma.{ts,tsx}',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: 'chart.js/auto', message: 'Import chart.js parts through chart-js-register.' },
+            { name: 'emojibase-data/en/data.json', message: 'Import emojibase-data only inside rds-comp-emoji-generator.' },
+          ],
+          patterns: [
+            {
+              group: [
+                'chart.js', 'chart.js/*',
+                'lottie-react', 'lottie-react/*',
+                'react-player', 'react-player/*',
+                'react-svg-worldmap', 'react-svg-worldmap/*',
+                '@dnd-kit/*',
+                'lexical', '@lexical/*',
+                'dayjs', 'dayjs/*',
+                '@mui/x-date-pickers', '@mui/x-date-pickers/*',
+                '@mui/lab', '@mui/lab/*',
+              ],
+              message: 'Optional peer dependency: import it only inside its feature folder, exported from a subpath entry (charts, date, editor, kanban, timeline, video, map, lottie).',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ], storybook.configs["flat/recommended"]);

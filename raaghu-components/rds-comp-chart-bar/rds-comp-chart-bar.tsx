@@ -2,7 +2,10 @@ import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import Chart, { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { Chart, type ChartData, type ChartOptions, type ChartDataset } from "chart.js";
+import { registerBarChart } from "../chart-js-register";
+
+registerBarChart();
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import {
   ChartAccessibleAlternative,

@@ -44,7 +44,6 @@ export { default as RdsStepper } from './rds-stepper/rds-stepper';
 export { default as RdsSwitch } from './rds-switch/rds-switch';
 export { default as RdsTable } from './rds-table/rds-table';
 export { default as RdsTabs } from './rds-tabs/rds-tabs';
-export { default as RdsTimeline } from './rds-timeline/rds-timeline';
 export { default as RdsToggleButton, RdsStandaloneToggleButton } from './rds-toggle-button/rds-toggle-button';
 export { default as RdsTooltip } from './rds-tooltip/rds-tooltip';
 export { default as RdsCarousel } from './rds-carousel/rds-carousel';
@@ -110,7 +109,6 @@ export type { RdsStepperProps, RdsStepperStep } from './rds-stepper/rds-stepper'
 export type { RdsSwitchProps } from './rds-switch/rds-switch';
 export type { RdsTableProps, RdsTableColumn } from './rds-table/rds-table';
 export type { RdsTabsProps, RdsTabItem, RdsTabsLayout } from './rds-tabs/rds-tabs';
-export type { RdsTimelineProps, RdsTimelineItem } from './rds-timeline/rds-timeline';
 export type { 
   RdsToggleButtonProps, 
   RdsToggleButtonOption, 

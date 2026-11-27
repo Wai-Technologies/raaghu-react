@@ -53,9 +53,7 @@ export const Default: Story = {
         await userEvent.click(editable);
         await userEvent.type(editable, 'Hello React 19');
 
-        const bold = canvasElement.querySelector('.rdw-option-wrapper[title="Bold"], .rdw-option-wrapper[aria-label="Bold"]')
-            ?? canvas.getByTitle('Bold');
-        await userEvent.click(bold as HTMLElement);
+        await userEvent.click(canvas.getByRole('button', { name: 'Bold' }));
 
         await waitFor(() => {
             expect(args.onChange).toHaveBeenCalled();

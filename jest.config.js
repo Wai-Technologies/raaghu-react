@@ -55,8 +55,19 @@ export default {
         strict: true,
       },
       useESM: true
+    }],
+    '^.+[\\\\/](lexical|@lexical[\\\\/][^\\\\/]+)[\\\\/].+\\.js$': ['ts-jest', {
+      tsconfig: {
+        allowJs: true,
+        isolatedModules: true,
+        noEmit: true,
+        target: 'ES2022',
+        module: 'commonjs',
+        skipLibCheck: true,
+      },
     }]
   },
+  transformIgnorePatterns: ['[\\\\/]node_modules[\\\\/](?!(lexical|@lexical)[\\\\/])'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   testEnvironmentOptions: {

@@ -92,12 +92,10 @@ export default defineConfig({
       '@mui/icons-material/ThumbUpAlt',
       '@mui/icons-material/ThumbDownAlt',
       'chart.js',
-      'chart.js/auto',
       'react-syntax-highlighter/dist/esm/default-highlight',
       'react-syntax-highlighter/dist/esm/styles/hljs',
       'dayjs',
       'dayjs/plugin/customParseFormat',
-      'react-datepicker',
       'lottie-react',
       '@dnd-kit/core',
       '@dnd-kit/sortable',
@@ -106,10 +104,6 @@ export default defineConfig({
     ],
     exclude: [
       'markdown-to-jsx',
-      'immutable',
-      'draft-js',
-      'html-to-draftjs',
-      'react-draft-wysiwyg',
     ],
   },
   test: {

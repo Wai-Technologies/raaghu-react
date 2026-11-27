@@ -1,30 +1,26 @@
-import { Suspense, lazy, useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type HTMLAttributes, type Ref } from "react";
 import { Box, FormHelperText, InputLabel as Label, type SxProps, type Theme } from "@mui/material";
-import type { ComponentType } from "react";
 import clsx from 'clsx';
-import { EditorState, convertToRaw, ContentState } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { ListItemNode, ListNode } from '@lexical/list';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
+import { $getRoot, $insertNodes, type EditorState, type LexicalEditor } from 'lexical';
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-import { sanitizeEditorHtml } from "./sanitize-html";
-
-type DraftWysiwygEditorProps = {
-    editorState: ReturnType<typeof EditorState.createEmpty>;
-    onEditorStateChange: (state: ReturnType<typeof EditorState.createEmpty>) => void;
-    readOnly?: boolean;
-    placeholder?: string;
-    toolbar?: unknown;
-    toolbarClassName?: string;
-    wrapperClassName?: string;
-    editorClassName?: string;
-    editorStyle?: CSSProperties;
-    ariaDescribedBy?: string;
-    ref?: Ref<unknown>;
-};
-
-const Editor = lazy(() =>
-    import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
-) as ComponentType<DraftWysiwygEditorProps>;
+import { isSafeUrl, sanitizeEditorHtml } from "./sanitize-html";
+import { editorTheme } from './editor-theme';
+import { EditorToolbar } from './editor-toolbar';
+import { ImageNode } from './image-node';
+import { ImagePlugin } from './image-plugin';
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {
@@ -70,43 +66,47 @@ export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivEleme
     ref?: Ref<HTMLDivElement>;
 }
 
-type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
+const EXTERNAL_VALUE_TAG = 'rds-external-value';
 
-type HtmlToDraftFn = (html: string) => { contentBlocks: Parameters<typeof ContentState.createFromBlockArray>[0] } | null;
+function EditablePlugin({ editable }: { editable: boolean }): null {
+    const [editor] = useLexicalComposerContext();
+    useEffect(() => {
+        editor.setEditable(editable);
+    }, [editor, editable]);
+    return null;
+}
 
-/** Cached after the first browser load so later value updates stay synchronous. */
-let cachedHtmlToDraft: HtmlToDraftFn | null = null;
+function HtmlValuePlugin({ html, lastEmittedRef }: { html?: string; lastEmittedRef: { current: string | undefined } }): null {
+    const [editor] = useLexicalComposerContext();
+    const appliedRef = useRef<string | undefined>(undefined);
 
-/**
- * html-to-draftjs reads `window` at module evaluation. Load it only in the browser,
- * and only when HTML actually needs converting, so Node can import the package root.
- */
-const loadHtmlToDraft = async (): Promise<HtmlToDraftFn | null> => {
-    if (typeof window === "undefined") return null;
-    if (cachedHtmlToDraft) return cachedHtmlToDraft;
-    const mod = await import("html-to-draftjs");
-    const fn = (typeof mod === "function" ? mod : (mod.default ?? mod)) as HtmlToDraftFn;
-    cachedHtmlToDraft = fn;
-    return fn;
-};
+    useEffect(() => {
+        if (html === undefined || html === appliedRef.current || html === lastEmittedRef.current) return;
+        appliedRef.current = html;
+        editor.update(() => {
+            const root = $getRoot();
+            root.clear();
+            if (!html) return;
+            const dom = new DOMParser().parseFromString(sanitizeEditorHtml(html), 'text/html');
+            root.select();
+            $insertNodes($generateNodesFromDOM(editor, dom));
+        }, { tag: EXTERNAL_VALUE_TAG });
+    }, [editor, html, lastEmittedRef]);
 
-const createEditorStateFromValue = (
-    value: string | undefined,
-    showTitle: boolean | undefined,
-    htmlToDraft: HtmlToDraftFn | null,
-): DraftEditorState => {
-    if (value && htmlToDraft) {
-        const contentBlock = htmlToDraft(sanitizeEditorHtml(value));
-        if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            return EditorState.createWithContent(contentState);
-        }
-    }
-    if (showTitle) {
-        return EditorState.createWithContent(ContentState.createFromText(""));
-    }
-    return EditorState.createEmpty();
-};
+    return null;
+}
+
+function LinkValidationPlugin(): null {
+    const [editor] = useLexicalComposerContext();
+    useEffect(
+        () =>
+            editor.registerNodeTransform(LinkNode, (node) => {
+                if (!isSafeUrl(node.getURL())) node.setURL('#');
+            }),
+        [editor],
+    );
+    return null;
+}
 
 const RdsCompTextEditor = ({
     id,
@@ -136,98 +136,57 @@ const RdsCompTextEditor = ({
     const isRequired = required ?? isMandatory;
     const isError = error ?? state === "Error";
     const isDisabled = disabled ?? state === "Disabled";
+    const isEditable = !readOnly && !isDisabled;
     const uid = useId();
     const labelId = `${uid}-label`;
     const errorId = `${uid}-error`;
 
-    const [htmlToDraft, setHtmlToDraft] = useState<HtmlToDraftFn | null>(() => cachedHtmlToDraft);
-    useEffect(() => {
-        if (htmlToDraft || typeof window === "undefined") return;
-        let cancelled = false;
-        loadHtmlToDraft().then((fn) => {
-            if (!cancelled && fn) setHtmlToDraft(() => fn);
-        });
-        return () => {
-            cancelled = true;
-        };
-    }, [htmlToDraft]);
-
-    const [editorState, setEditorState] = useState<DraftEditorState>(() =>
-        createEditorStateFromValue(value ?? defaultValue, false, cachedHtmlToDraft)
-    );
-    const [prevValue, setPrevValue] = useState(value);
-    const [prevShowTitle, setPrevShowTitle] = useState(showTitle);
-    const [lastEmitted, setLastEmitted] = useState<string | undefined>(undefined);
-    const [appliedConverter, setAppliedConverter] = useState(Boolean(cachedHtmlToDraft));
-    if (htmlToDraft && !appliedConverter) {
-        setAppliedConverter(true);
-        if (value ?? defaultValue) {
-            setEditorState(createEditorStateFromValue(value ?? defaultValue, showTitle, htmlToDraft));
-        }
-    }
-    if (value !== prevValue || showTitle !== prevShowTitle) {
-        setPrevValue(value);
-        setPrevShowTitle(showTitle);
-        if (value !== lastEmitted || showTitle !== prevShowTitle) {
-            setLastEmitted(undefined);
-            setEditorState(createEditorStateFromValue(value, showTitle, htmlToDraft));
-        }
-    }
+    const [initialDefault] = useState(defaultValue);
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<unknown>(null);
+    const [isEmpty, setIsEmpty] = useState(!(value ?? defaultValue));
+    const contentRef = useRef<HTMLDivElement>(null);
+    const lastEmittedRef = useRef<string | undefined>(undefined);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
-    const lineHeightVar = "var(--rds-line-height-body)";
-    const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
+    const editorMinHeight = `calc(${computedRows} * var(--rds-line-height-body))`;
     const isResizable = resizable !== false;
+    const showRequiredError = Boolean(isRequired && isEmpty && isTouch);
+    const hasLabel = Boolean(showTitle && label);
 
-    const editorStyle = useMemo(
-        () => ({
-            minHeight: editorMinHeight,
-            resize: isResizable ? "vertical" as const : "none" as const,
-            overflow: "auto" as const,
-        }),
-        [editorMinHeight, isResizable],
+    const [initialConfig] = useState(() => ({
+        namespace: 'RdsCompTextEditor',
+        theme: editorTheme,
+        onError: (err: Error) => {
+            console.error('[RdsCompTextEditor]', err);
+        },
+        nodes: [HeadingNode, ListNode, ListItemNode, QuoteNode, LinkNode, AutoLinkNode, ImageNode],
+        editable: isEditable,
+    }));
+
+    const handleChange = useCallback(
+        (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => {
+            editorState.read(() => {
+                setIsEmpty($getRoot().getTextContent().trim() === '');
+                if (tags.has(EXTERNAL_VALUE_TAG)) return;
+                setIsTouch(true);
+                if (!onChange) return;
+                const html = sanitizeEditorHtml($generateHtmlFromNodes(editor, null));
+                lastEmittedRef.current = html;
+                onChange(html, { ops: [{ insert: html }] }, 'user', contentRef.current);
+            });
+        },
+        [onChange],
     );
 
-    const toolbarConfig = useMemo(
-        () => ({
-            options: ["inline", "blockType", "list", "textAlign", "link", "image", "history"],
-            inline: { options: ["bold", "italic", "underline", "strikethrough"] },
-            image: {
-                urlEnabled: true,
-                uploadEnabled: true,
-                alignmentEnabled: true,
-                uploadCallback: (file: File) =>
-                    Promise.resolve(
-                        onImageUpload
-                            ? onImageUpload(file)
-                            : new Promise<string>((resolve, reject) => {
-                                const reader = new FileReader();
-                                reader.onload = () => resolve(reader.result as string);
-                                reader.onerror = () => reject(reader.error);
-                                reader.readAsDataURL(file);
-                            }),
-                    ).then((link) => ({ data: { link } })),
-                previewImage: true,
-                inputAccept: "image/gif,image/jpeg,image/jpg,image/png",
-                alt: { present: true, mandatory: false },
-            },
-        }),
-        [onImageUpload],
-    );
-
-    const handleEditorChange = useCallback((state: DraftEditorState) => {
-        setEditorState(state);
-        setIsTouch(true);
-        if (onChange) {
-            const htmlContent = sanitizeEditorHtml(draftToHtml(convertToRaw(state.getCurrentContent())));
-            setLastEmitted(htmlContent);
-            onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
-        }
-    }, [onChange]);
-
-    const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
+    const contentProps = {
+        className: "rds-comp-text-editor__content",
+        "aria-multiline": true,
+        "aria-required": isRequired || undefined,
+        "aria-invalid": isError || showRequiredError || undefined,
+        "aria-describedby": showRequiredError ? errorId : undefined,
+        "aria-labelledby": hasLabel ? labelId : undefined,
+        "aria-label": hasLabel ? undefined : label || "Rich text editor",
+    };
 
     const stateClass = clsx(
         state === "Selected" && "rds-comp-text-editor--selected",
@@ -239,7 +198,7 @@ const RdsCompTextEditor = ({
 
     return (
         <>
-            {showTitle && label && (
+            {hasLabel && (
                 <Label id={labelId} className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
                     {isRequired && <span className="rds-comp-text-editor__required" aria-hidden>*</span>}
@@ -251,25 +210,44 @@ const RdsCompTextEditor = ({
                 ref={ref}
                 className={clsx("rds-comp-text-editor", stateClass, className)}
                 sx={sx}
-                {...(showTitle && label ? { role: "group", "aria-labelledby": labelId } : {})}
+                {...(hasLabel ? { role: "group", "aria-labelledby": labelId } : {})}
             >
-                <Suspense fallback={<div className="rds-comp-text-editor__loading" />}>
-                    <Editor
-                        editorState={editorState}
-                        onEditorStateChange={handleEditorChange}
-                        readOnly={readOnly || isDisabled}
-                        ariaDescribedBy={isRequired && isEmpty && isTouch ? errorId : undefined}
-                        placeholder={placeholder}
-                        ref={editorRef}
-                        toolbarClassName="rds-comp-text-editor__toolbar"
-                        wrapperClassName="rds-comp-text-editor__wrapper"
-                        editorClassName="rds-comp-text-editor__content"
-                        editorStyle={editorStyle}
-                        toolbar={toolbarConfig}
-                    />
-                </Suspense>
+                <LexicalComposer initialConfig={initialConfig}>
+                    <div className="rds-comp-text-editor__wrapper">
+                        <EditorToolbar disabled={!isEditable} onImageUpload={onImageUpload} />
+                        <RichTextPlugin
+                            contentEditable={
+                                <div
+                                    ref={contentRef}
+                                    className="rds-comp-text-editor__scroller"
+                                    style={{ minHeight: editorMinHeight, resize: isResizable ? 'vertical' : 'none', overflow: 'auto' }}
+                                    onBlur={() => setIsTouch(true)}
+                                >
+                                    {placeholder ? (
+                                        <ContentEditable
+                                            {...contentProps}
+                                            aria-placeholder={placeholder}
+                                            placeholder={<div className="rds-comp-text-editor__placeholder">{placeholder}</div>}
+                                        />
+                                    ) : (
+                                        <ContentEditable {...contentProps} />
+                                    )}
+                                </div>
+                            }
+                            ErrorBoundary={LexicalErrorBoundary}
+                        />
+                        <OnChangePlugin ignoreSelectionChange onChange={handleChange} />
+                        <EditablePlugin editable={isEditable} />
+                        <HtmlValuePlugin html={value ?? initialDefault} lastEmittedRef={lastEmittedRef} />
+                        <HistoryPlugin />
+                        <ListPlugin />
+                        <LinkPlugin validateUrl={isSafeUrl} />
+                        <LinkValidationPlugin />
+                        <ImagePlugin />
+                    </div>
+                </LexicalComposer>
             </Box>
-            {isRequired && isEmpty && isTouch && (
+            {showRequiredError && (
                 <FormHelperText id={errorId} error role="alert" className="rds-comp-text-editor__error">
                     {label} is required
                 </FormHelperText>

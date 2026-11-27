@@ -14,12 +14,19 @@ const BARRELS = [
   ['element', 'raaghu-elements/index.ts'],
   ['component', 'raaghu-components/index.ts'],
   ['layout', 'raaghu-layouts/index.ts'],
+  ['component', 'charts.ts', 'charts', ['chart.js']],
+  ['component', 'date.ts', 'date', ['@mui/x-date-pickers', 'dayjs']],
+  ['component', 'editor.ts', 'editor', ['lexical', '@lexical/react', '@lexical/rich-text', '@lexical/list', '@lexical/link', '@lexical/html', '@lexical/selection']],
+  ['component', 'kanban.ts', 'kanban', ['@dnd-kit/core', '@dnd-kit/sortable', '@dnd-kit/utilities']],
+  ['element', 'timeline.ts', 'timeline', ['@mui/lab']],
+  ['component', 'video.ts', 'video', ['react-player']],
+  ['component', 'map.ts', 'map', ['react-svg-worldmap']],
 ];
 const EXPORT_RE = /export\s*\{\s*default\s+as\s+(\w+)\s*(?:,[^}]*)?\}\s*from\s*['"](\.[^'"]+)['"]/g;
 
 function readExports() {
   const entries = [];
-  for (const [kind, barrel] of BARRELS) {
+  for (const [kind, barrel, subpath, peers] of BARRELS) {
     const src = fs.readFileSync(path.join(ROOT, barrel), 'utf8');
     const deprecated = new Set(
       [...src.matchAll(/@deprecated[^\n]*\n\s*export\s*\{\s*default\s+as\s+(\w+)/g)].map((m) => m[1])
@@ -28,7 +35,7 @@ function readExports() {
       if (deprecated.has(name)) continue;
       const base = path.join(path.dirname(path.join(ROOT, barrel)), rel);
       const file = ['.tsx', '.ts', '/index.tsx', '/index.ts'].map((ext) => base + ext).find(fs.existsSync);
-      if (file) entries.push({ kind, name, file });
+      if (file) entries.push({ kind, name, file, subpath, peers });
     }
   }
   return entries;
@@ -63,7 +70,7 @@ function generateComponents() {
     shouldRemoveUndefinedFromOptional: true,
   });
   const docs = parser.parse([...new Set(exportsList.map((e) => e.file))]);
-  return exportsList.map(({ kind, name, file }) => {
+  return exportsList.map(({ kind, name, file, subpath, peers }) => {
     const rel = path.relative(ROOT, file).split(path.sep).join('/');
     const inFile = docs.filter((d) => path.resolve(d.filePath) === path.resolve(file));
     const doc =
@@ -77,7 +84,8 @@ function generateComponents() {
     return {
       name,
       kind,
-      import: `import { ${name} } from '${pkg.name}';`,
+      import: `import { ${name} } from '${pkg.name}${subpath ? `/${subpath}` : ''}';`,
+      ...(peers ? { requires: peers } : {}),
       source: rel,
       ...(doc?.description ? { description: doc.description } : {}),
       ...(muiBase.length ? { inheritsFrom: muiBase } : {}),

@@ -1,8 +1,7 @@
-import type { Theme } from '@mui/material/styles';
-import type { SystemStyleObject } from '@mui/system';
+import type { SxProps, Theme } from '@mui/material/styles';
 import { extendedBreakpointTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
-type AppBarSx = SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>);
+type AppBarSx = NonNullable<SxProps<Theme>>;
 
 const bp = (key: keyof typeof extendedBreakpointTokens) => parseFloat(extendedBreakpointTokens[key]);
 

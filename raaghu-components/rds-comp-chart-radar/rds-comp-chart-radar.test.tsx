@@ -5,24 +5,23 @@ import { axe } from 'jest-axe';
 import RdsCompRadarChart, { type RdsCompRadarProps } from './rds-comp-chart-radar';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-      width: 450,
-      height: 350,
-    };
-  });
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 450,
+    height: 350,
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 jest.mock('./rds-comp-chart-radar.scss', () => ({}));
@@ -865,7 +864,7 @@ describe('RdsCompRadarChart', () => {
   });
 });
 describe('audit fixes', () => {
-  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
   const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
   const props = defaultProps as React.ComponentProps<typeof RdsCompRadarChart>;
 

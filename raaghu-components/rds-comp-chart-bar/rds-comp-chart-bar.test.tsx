@@ -9,9 +9,11 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 
 jest.mock('./rds-comp-chart-bar.scss', () => ({}));
 
-jest.mock('chart.js/auto', () => {
-  return class MockChart {
+jest.mock('chart.js', () => {
+  class MockChart {
     static configs: any[] = [];
+    static register = jest.fn();
+    static getChart = jest.fn();
     constructor(ctx: any, config: any) {
       (MockChart as any).configs.push(config);
       this.ctx = ctx;
@@ -22,7 +24,8 @@ jest.mock('chart.js/auto', () => {
     ctx: any;
     config: any;
     canvas: HTMLCanvasElement;
-  };
+  }
+  return { Chart: MockChart };
 });
 
 const defaultProps = {
@@ -813,7 +816,7 @@ describe('audit fixes', () => {
 
   it('lets consumer options override responsive and maintainAspectRatio', () => {
     jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
-    const Chart = jest.requireMock('chart.js/auto');
+    const Chart = jest.requireMock('chart.js').Chart;
     Chart.configs.length = 0;
     render(<RdsCompBarChart {...defaultProps} options={{ responsive: false, maintainAspectRatio: true }} />);
     expect(Chart.configs[0].options).toMatchObject({ responsive: false, maintainAspectRatio: true });
@@ -825,7 +828,7 @@ describe('audit fixes', () => {
 
 describe('additive prop renames', () => {
   const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
-  const getChart = () => jest.requireMock('chart.js/auto');
+  const getChart = () => jest.requireMock('chart.js').Chart;
 
   it('ariaLabel wins over the deprecated chartLabel', () => {
     render(<RdsCompBarChart {...defaultProps} ariaLabel="New" chartLabel="Old" />);

@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking (3.0.0): optional feature packages
+
+- **Specialised components moved to subpath entries.** Import them from:
+  - `@waiin/raaghu-react/charts`: the 13 `RdsComp*Chart` components and their prop types
+  - `@waiin/raaghu-react/date`: `RdsCompDatepicker`, `RdsCompContribution`, `DatePickerStyleType`, `DatePickerLayout`
+  - `@waiin/raaghu-react/editor`: `RdsCompTextEditor`
+  - `@waiin/raaghu-react/kanban`: `RdsCompKanbanBoard` and the `Kanban*` types
+  - `@waiin/raaghu-react/timeline`: `RdsTimeline`
+  - `@waiin/raaghu-react/video`: `RdsCompVideoPlayer`
+  - `@waiin/raaghu-react/map`: `RdsCompMap`
+  - `@waiin/raaghu-react/lottie`: `lottieAnimationRenderer`
+- **Their libraries are optional peer dependencies.** `chart.js`, `@mui/x-date-pickers`, `dayjs`, `lexical` and `@lexical/*`, `@dnd-kit/*`, `@mui/lab`, `react-player`, `react-svg-worldmap` and `lottie-react` are no longer installed automatically. Install the ones for the entry points you use. The only runtime dependencies left are `clsx` and `dompurify`.
+- **`RdsCompEmptyState` no longer loads Lottie by default.** With `animated` it shows the static image unless you pass `animationRenderer={lottieAnimationRenderer}` from `@waiin/raaghu-react/lottie`.
+- **`RdsCompDatepicker` uses MUI X Date Pickers** (community edition) with `dayjs` instead of `react-datepicker`. Props and the `Date` / `[Date | null, Date | null]` values are unchanged; the calendar now has MUI X styling and keyboard support.
+- **`@mui/system` is no longer a peer dependency**, and `@mui/lab` (only for `RdsTimeline`) now targets `^7.0.1-beta.25` instead of the deprecated `7.0.0`.
+- **Migration:** run `node node_modules/@waiin/raaghu-react/scripts/migrate-v3-imports.mjs src` to rewrite imports, then install the peers for the entry points you use (see the README table).
+
+### Changed
+
+- **Text editor migrated to Lexical.** `RdsCompTextEditor` now uses Lexical (`~0.53.0`) instead of draft-js and react-draft-wysiwyg. All public props remain unchanged. XSS protection improved: `javascript:` URLs in links are blocked, and DOMPurify now strips event handler attributes. The migration removes all draft-js vulnerabilities (immutable, linkify-it) from the dependency tree.
+- **Grid drag-and-drop migrated to @dnd-kit.** `RdsCompGrid` row reordering now uses `@dnd-kit` (~6.3.1 / ~10.0.0) instead of `@hello-pangea/dnd`. Keyboard navigation improved: Space activates drag, arrow keys move the row, Space drops, Escape cancels. Screen-reader announcements added for drag start/over/end/cancel events. All public props remain unchanged.
+
 ### Breaking
 
 - The npm package now ships only the build output: `dist/`, `raaghu-react-themes/src/styles/index.scss`, the AI docs (`AGENTS.md`, `llms.txt`, `docs/ai/`, `docs/TOKENS.md`), `README.md`, `CHANGELOG.md` and `LICENSE`. The source folders (`raaghu-elements/`, `raaghu-components/`, `raaghu-layouts/`, `raaghu-react-themes/`, `utils/`, `index.ts`) are no longer published. **Migration:** replace deep imports such as `@waiin/raaghu-react/raaghu-elements/...` or `raaghu-react-themes/...` with imports from the package root (`@waiin/raaghu-react`), and load styles with `import '@waiin/raaghu-react/styles.css'`. The optional global resets stay available at `@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss`.

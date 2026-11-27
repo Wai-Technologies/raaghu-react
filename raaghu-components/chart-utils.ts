@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import type { ChartArea, ChartType, Plugin } from 'chart.js/auto';
+import type { ChartArea, ChartType, Plugin } from 'chart.js';
 import { warnDeprecatedProp } from '../raaghu-elements/shared/utils/deprecation';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 

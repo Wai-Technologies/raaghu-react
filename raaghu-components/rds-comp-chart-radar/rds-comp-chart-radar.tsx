@@ -2,7 +2,10 @@ import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js";
+import { registerRadarChart } from "../chart-js-register";
+
+registerRadarChart();
 import {
   applyCanvasSize,
   chartTextColor,

@@ -6,32 +6,31 @@ import RdsCompDoughnutChart, { type RdsCompDoughnutProps } from './rds-comp-char
 
 jest.mock('./rds-comp-chart-doughnut.scss', () => ({}));
 
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 300,
+    height: 300,
+    chartArea: {
+      top: 0,
+      right: 300,
+      bottom: 300,
+      left: 0,
       width: 300,
       height: 300,
-      chartArea: {
-        top: 0,
-        right: 300,
-        bottom: 300,
-        left: 0,
-        width: 300,
-        height: 300,
-      },
-    };
-  });
+    },
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 const defaultProps = {

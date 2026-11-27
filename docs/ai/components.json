@@ -1,6 +1,6 @@
 {
   "package": "@waiin/raaghu-react",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "components": [
     {
       "name": "RdsButton",
@@ -3541,37 +3541,6 @@
       ]
     },
     {
-      "name": "RdsTimeline",
-      "kind": "element",
-      "import": "import { RdsTimeline } from '@waiin/raaghu-react';",
-      "source": "raaghu-elements/rds-timeline/rds-timeline.tsx",
-      "inheritsFrom": [
-        "TimelineProps"
-      ],
-      "props": [
-        {
-          "name": "items",
-          "type": "RdsTimelineItem[]",
-          "required": false,
-          "default": "[]",
-          "description": "Timeline entries to render, in order."
-        },
-        {
-          "name": "showTime",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Shows each item's deprecated `time` as its opposite content when `opposite` is not set."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "alternating",
-          "use": "Use `position=\"alternate\"` instead."
-        }
-      ]
-    },
-    {
       "name": "RdsToggleButton",
       "kind": "element",
       "import": "import { RdsToggleButton } from '@waiin/raaghu-react';",
@@ -5496,158 +5465,6 @@
       ]
     },
     {
-      "name": "RdsCompContribution",
-      "kind": "component",
-      "import": "import { RdsCompContribution } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-contribution/rds-comp-contribution.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "default": "Contribution graph",
-          "description": "Accessible label for the contribution graph SVG."
-        },
-        {
-          "name": "className",
-          "type": "string",
-          "required": false,
-          "description": "Extra class name(s) merged onto the root element."
-        },
-        {
-          "name": "colors",
-          "type": "string[]",
-          "required": false,
-          "description": "Colours by contribution count; the last colour is used for higher counts."
-        },
-        {
-          "name": "data",
-          "type": "{ [date: string]: number; }",
-          "required": false,
-          "description": "Contribution counts keyed by date, formatted with `dateFormat`."
-        },
-        {
-          "name": "dateFormat",
-          "type": "string",
-          "required": false,
-          "default": "YYYY-MM-DD",
-          "description": "Format of the `data` keys and of string dates."
-        },
-        {
-          "name": "endDate",
-          "type": "string | Dayjs | Date",
-          "required": false,
-          "description": "Last day shown. Strings are parsed with `dateFormat`."
-        },
-        {
-          "name": "monthLabelHeight",
-          "type": "number",
-          "required": false,
-          "default": "28",
-          "description": "Height reserved for the month labels, in pixels."
-        },
-        {
-          "name": "monthLabels",
-          "type": "string[]",
-          "required": false,
-          "description": "Names for January..December."
-        },
-        {
-          "name": "panelMargin",
-          "type": "number",
-          "required": false,
-          "default": "2",
-          "description": "Gap between panels, in pixels."
-        },
-        {
-          "name": "panelSize",
-          "type": "number",
-          "required": false,
-          "default": "11",
-          "description": "Size of each panel, in pixels."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "showMonthLabels",
-          "type": "boolean",
-          "required": false,
-          "default": "true",
-          "description": "Shows month labels above the panels."
-        },
-        {
-          "name": "showWeekLabels",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Shows weekday labels beside the panels."
-        },
-        {
-          "name": "slotProps",
-          "type": "{ weekLabel?: (SVGProps<SVGTextElement> & DataAttributes); monthLabel?: (SVGProps<SVGTextElement> & DataAttributes); panel?: (SVGProps<...> & DataAttributes) | undefined; } | undefined",
-          "required": false,
-          "description": "Props merged onto the week labels, month labels and panels."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "weekdayLabels",
-          "type": "string[]",
-          "required": false,
-          "description": "Short names for Sunday..Saturday."
-        },
-        {
-          "name": "weekLabelWidth",
-          "type": "number",
-          "required": false,
-          "default": "24",
-          "description": "Width reserved for the weekday labels, in pixels."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "monthLabelAttributes",
-          "use": "Use `slotProps.monthLabel` instead."
-        },
-        {
-          "name": "monthNames",
-          "use": "Use `monthLabels` instead."
-        },
-        {
-          "name": "panelAttributes",
-          "use": "Use `slotProps.panel` instead."
-        },
-        {
-          "name": "panelColors",
-          "use": "Use `colors` instead."
-        },
-        {
-          "name": "until",
-          "use": "Use `endDate` instead."
-        },
-        {
-          "name": "values",
-          "use": "Use `data` instead."
-        },
-        {
-          "name": "weekLabelAttributes",
-          "use": "Use `slotProps.weekLabel` instead."
-        },
-        {
-          "name": "weekNames",
-          "use": "Use `weekdayLabels` instead."
-        }
-      ]
-    },
-    {
       "name": "RdsCompColorPicker",
       "kind": "component",
       "import": "import { RdsCompColorPicker } from '@waiin/raaghu-react';",
@@ -6421,1073 +6238,6 @@
       ]
     },
     {
-      "name": "RdsCompAreaChart",
-      "kind": "component",
-      "import": "import { RdsCompAreaChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-area/rds-comp-chart-area.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Defaults to \"Area chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"line\", (number | Point | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px). Defaults to `76vh`."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": false,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"line\"> & ElementChartOptions<\"line\"> & PluginChartOptions<\"line\"> & DatasetChartOptions<\"line\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
-          "required": false,
-          "description": "Chart.js options (never mutated). Defaults to `{}`."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "System styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px). Defaults to `100vh`."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "isGradient",
-          "use": "Has no effect. Use a scriptable `backgroundColor` on the dataset instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompLineChart",
-      "kind": "component",
-      "import": "import { RdsCompLineChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-line/rds-comp-chart-line.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Line chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"line\", (number | Point | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element. Note: legacy IDs `linechart1` and `linechart2` trigger specific canvas sizes."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"line\"> & ElementChartOptions<\"line\"> & PluginChartOptions<\"line\"> & DatasetChartOptions<\"line\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompPieChart",
-      "kind": "component",
-      "import": "import { RdsCompPieChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-pie/rds-comp-chart-pie.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Pie chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"pie\", number[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"pie\"> & ElementChartOptions<\"pie\"> & PluginChartOptions<\"pie\"> & DatasetChartOptions<\"pie\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        },
-        {
-          "name": "radius",
-          "use": "Use `options.radius` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompDoughnutChart",
-      "kind": "component",
-      "import": "import { RdsCompDoughnutChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-doughnut/rds-comp-chart-doughnut.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Defaults to \"Doughnut chart\" followed by the title and subtitle text, if any."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"doughnut\", number[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "subtitle",
-          "type": "string",
-          "required": false,
-          "description": "Smaller text drawn under the title."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "title",
-          "type": "string",
-          "required": false,
-          "description": "Large text drawn in the centre."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        },
-        {
-          "name": "subTitleText",
-          "use": "Use `subtitle` instead."
-        },
-        {
-          "name": "titleText",
-          "use": "Use `title` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompGaugeChart",
-      "kind": "component",
-      "import": "import { RdsCompGaugeChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-gauge/rds-comp-chart-gauge.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Gauge chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"doughnut\", number[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated). The gauge always uses `rotation: -90` and `circumference: 180`."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "subtitle",
-          "type": "string",
-          "required": false,
-          "description": "Smaller text drawn under the title."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "titleText",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "description": "Large text drawn in the gauge."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        },
-        {
-          "name": "maxValue",
-          "use": "Prefer `data.datasets` / `dataSets`. Used with `value` when datasets are omitted."
-        },
-        {
-          "name": "subTitleText",
-          "use": "Use `subtitle` instead."
-        },
-        {
-          "name": "value",
-          "use": "Prefer `data.datasets` / `dataSets`. When those are omitted, builds"
-        }
-      ]
-    },
-    {
-      "name": "RdsCompBarChart",
-      "kind": "component",
-      "import": "import { RdsCompBarChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-bar/rds-comp-chart-bar.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"bar\", (number | [number, number] | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated). `responsive` and `maintainAspectRatio` default to `true` / `false`."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompBooleanChart",
-      "kind": "component",
-      "import": "import { RdsCompBooleanChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-boolean/rds-comp-chart-boolean.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Defaults to \"Boolean chart\"."
-        },
-        {
-          "name": "centerIcon",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Node shown over the centre of the chart. Takes precedence over `centerIconName`."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"doughnut\", number[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `div`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "centerIconName",
-          "use": "Use `centerIcon` instead. Name of the icon drawn in the centre (a key of `ChartIcons`)."
-        },
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "chartStyle",
-          "use": "It has no effect."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompMixedChart",
-      "kind": "component",
-      "import": "import { RdsCompMixedChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-mixed/rds-comp-chart-mixed.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Mixed chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<keyof ChartTypeRegistry, (number | Point | [number, number] | BubbleDataPoint | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. Set `type: \"line\"` on a dataset to draw it as a line over the bars."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead. Set `type: \"line\"` on a dataset to draw it as a line over the bars."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompPolarAreaChart",
-      "kind": "component",
-      "import": "import { RdsCompPolarAreaChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-polar-area/rds-comp-chart-polar-area.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Polar area chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"polarArea\", number[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"polarArea\"> & ElementChartOptions<\"polarArea\"> & PluginChartOptions<\"polarArea\"> & DatasetChartOptions<...> & ScaleChartOptions<...> & PolarAreaControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        },
-        {
-          "name": "radius",
-          "use": "Use `height` instead (this is the canvas height in px)."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompRadarChart",
-      "kind": "component",
-      "import": "import { RdsCompRadarChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-radar/rds-comp-chart-radar.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Radar chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"radar\", (number | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"radar\"> & ElementChartOptions<\"radar\"> & PluginChartOptions<\"radar\"> & DatasetChartOptions<\"radar\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js options (never mutated).\nNote: The legend's `pointStyleWidth` is set to `undefined` to prevent oval-shaped legend markers.\nThis ensures consistent circular markers regardless of `boxWidth` and `boxHeight` settings."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        },
-        {
-          "name": "radius",
-          "use": "Use `height` instead (this is the canvas height in px)."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompScatterChart",
-      "kind": "component",
-      "import": "import { RdsCompScatterChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-scatter/rds-comp-chart-scatter.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Scatter chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<keyof ChartTypeRegistry, (number | Point | [number, number] | BubbleDataPoint | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<keyof ChartTypeRegistry> & ElementChartOptions<keyof ChartTypeRegistry> & PluginChartOptions<...> & DatasetChartOptions<...> & ScaleChartOptions<...>> | undefined",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "chartType",
-          "use": "Use `showLine` on the datasets to connect the points. Chart.js type to draw. Default `\"scatter\"`."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompStackedChart",
-      "kind": "component",
-      "import": "import { RdsCompStackedChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-stacked/rds-comp-chart-stacked.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart. Default \"Stacked chart\"."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"bar\", (number | [number, number] | null)[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
-          "required": true,
-          "description": "Chart.js bar options (never mutated). Axes default to `stacked: true`; pass `false` to opt out."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompBubbleChart",
-      "kind": "component",
-      "import": "import { RdsCompBubbleChart } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-chart-bubble/rds-comp-chart-bubble.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible label of the chart."
-        },
-        {
-          "name": "data",
-          "type": "ChartData<\"bubble\", BubbleDataPoint[], unknown>",
-          "required": false,
-          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false,
-          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas height (number = px)."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": "Id of the canvas element."
-        },
-        {
-          "name": "options",
-          "type": "_DeepPartialObject<CoreChartOptions<\"bubble\"> & ElementChartOptions<\"bubble\"> & PluginChartOptions<\"bubble\"> & DatasetChartOptions<\"bubble\"> & ScaleChartOptions<...>>",
-          "required": true,
-          "description": "Chart.js options (never mutated)."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root `<div>`."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the chart root element."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "description": "Canvas width (number = px)."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "chartLabel",
-          "use": "Use `ariaLabel` instead."
-        },
-        {
-          "name": "dataSets",
-          "use": "Use `data.datasets` instead."
-        },
-        {
-          "name": "labels",
-          "use": "Use `data.labels` instead."
-        }
-      ]
-    },
-    {
       "name": "RdsCompAiChatBot",
       "kind": "component",
       "import": "import { RdsCompAiChatBot } from '@waiin/raaghu-react';",
@@ -7704,119 +6454,6 @@
       ]
     },
     {
-      "name": "RdsCompVideoPlayer",
-      "kind": "component",
-      "import": "import { RdsCompVideoPlayer } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-video-player/rds-comp-video-player.tsx",
-      "props": [
-        {
-          "name": "autoPlay",
-          "type": "boolean",
-          "required": false,
-          "description": "Starts playback automatically unless the player is disabled."
-        },
-        {
-          "name": "className",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "description": "Extra class name applied to the root element."
-        },
-        {
-          "name": "controls",
-          "type": "boolean",
-          "required": false,
-          "default": "true",
-          "description": "Shows the player controls."
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Disables playback and shows `disabledMessage`."
-        },
-        {
-          "name": "disabledMessage",
-          "type": "string",
-          "required": false,
-          "default": "Video player is disabled",
-          "description": "Message shown over the player when disabled."
-        },
-        {
-          "name": "height",
-          "type": "string | number",
-          "required": false,
-          "default": "auto",
-          "description": "Height of the player."
-        },
-        {
-          "name": "loop",
-          "type": "boolean",
-          "required": false,
-          "description": "Defaults to `autoPlay && !disabled`."
-        },
-        {
-          "name": "muted",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Mutes the audio."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "src",
-          "type": "string",
-          "required": false,
-          "description": "URL of the video to play."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the video player root."
-        },
-        {
-          "name": "title",
-          "type": "string",
-          "required": false,
-          "description": "Accessible title for the embedded player."
-        },
-        {
-          "name": "type",
-          "type": "VideoPlayerType",
-          "required": false,
-          "default": "Default",
-          "description": "Video source type (Default, YouTube or Vimeo); also detected from the URL."
-        },
-        {
-          "name": "volume",
-          "type": "number",
-          "required": false,
-          "default": "0.8",
-          "description": "Initial volume between 0 and 1."
-        },
-        {
-          "name": "width",
-          "type": "string | number",
-          "required": false,
-          "default": "100%",
-          "description": "Width of the player."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "videoLink",
-          "use": "Use `src` instead."
-        }
-      ]
-    },
-    {
       "name": "RdsCompReviews",
       "kind": "component",
       "import": "import { RdsCompReviews } from '@waiin/raaghu-react';",
@@ -7896,212 +6533,6 @@
         {
           "name": "variantType",
           "use": "Has no effect."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompTextEditor",
-      "kind": "component",
-      "import": "import { RdsCompTextEditor } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-text-editor/rds-comp-text-editor.tsx",
-      "props": [
-        {
-          "name": "defaultValue",
-          "type": "string",
-          "required": false,
-          "description": "Initial HTML content when `value` is not provided."
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "description": "Disables the editor; falls back to `state === 'Disabled'` when omitted."
-        },
-        {
-          "name": "error",
-          "type": "boolean",
-          "required": false,
-          "description": "Applies the error style; falls back to `state === 'Error'` when omitted."
-        },
-        {
-          "name": "focused",
-          "type": "boolean",
-          "required": false,
-          "description": "Applies the active (focused) style."
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": false,
-          "description": "HTML id applied to the editor element."
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": false,
-          "description": "Label shown above the editor when `showTitle` is true."
-        },
-        {
-          "name": "labelClass",
-          "type": "string",
-          "required": false,
-          "description": "Extra class name applied to the label."
-        },
-        {
-          "name": "onChange",
-          "type": "((value: string, delta: unknown, source: unknown, editor: unknown) => void)",
-          "required": false,
-          "description": "Called with the sanitized HTML value whenever the editor content changes."
-        },
-        {
-          "name": "onImageUpload",
-          "type": "((file: File) => string | Promise<string>)",
-          "required": false,
-          "description": "Upload handler for toolbar images. Return a public URL (or data URL). When omitted, files are read as base64 data URLs."
-        },
-        {
-          "name": "placeholder",
-          "type": "string",
-          "required": false,
-          "description": "Placeholder text shown when the editor is empty."
-        },
-        {
-          "name": "readOnly",
-          "type": "boolean",
-          "required": false,
-          "description": "Makes the editor non-editable."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "required",
-          "type": "boolean",
-          "required": false,
-          "description": "Marks the field as required."
-        },
-        {
-          "name": "resizable",
-          "type": "boolean",
-          "required": false,
-          "description": "Whether the editor can be resized by the user."
-        },
-        {
-          "name": "rows",
-          "type": "number",
-          "required": false,
-          "description": "Number of visible text rows used to size the editor."
-        },
-        {
-          "name": "showTitle",
-          "type": "boolean",
-          "required": false,
-          "description": "Shows the label above the editor."
-        },
-        {
-          "name": "state",
-          "type": "string",
-          "required": false,
-          "description": "Visual state: 'Selected', 'Active', 'Error' or 'Disabled'."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "value",
-          "type": "string",
-          "required": false,
-          "description": "Controlled HTML content of the editor."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "isMandatory",
-          "use": "Use `required` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompMap",
-      "kind": "component",
-      "import": "import { RdsCompMap } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-map/rds-comp-map.tsx",
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "required": false,
-          "description": "Accessible name for the map when no visible string title is provided."
-        },
-        {
-          "name": "color",
-          "type": "(string & {}) | RdsCompMapPaletteColor",
-          "required": true,
-          "description": "Fill colour for the default variant: a CSS colour or a theme palette key."
-        },
-        {
-          "name": "data",
-          "type": "{ country: string; value: number; }[]",
-          "required": false,
-          "description": "Values per country (ISO 3166-1 alpha-2 code)."
-        },
-        {
-          "name": "header",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Rich heading content shown above the map; wins over `title`."
-        },
-        {
-          "name": "highlightedCountries",
-          "type": "string[]",
-          "required": false,
-          "description": "Country codes filled with the info colour in the default variant."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref to the root element."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "title",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Heading text shown above the map. Passing anything other than a string is deprecated; use `header`."
-        },
-        {
-          "name": "valueSuffix",
-          "type": "string",
-          "required": false,
-          "description": "Text appended to values in the tooltip."
-        },
-        {
-          "name": "variant",
-          "type": "\"default\" | \"heatmap\"",
-          "required": false,
-          "description": "Visual style of the map."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "mapList",
-          "use": "Use `data` instead."
-        },
-        {
-          "name": "mapType",
-          "use": "Use `variant` instead."
         }
       ]
     },
@@ -8480,365 +6911,6 @@
       ]
     },
     {
-      "name": "RdsCompDatepicker",
-      "kind": "component",
-      "import": "import { RdsCompDatepicker } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-datepicker/rds-comp-datepicker.tsx",
-      "props": [
-        {
-          "name": "clearable",
-          "type": "boolean",
-          "required": false,
-          "description": "Shows the clear-date button when a date is selected."
-        },
-        {
-          "name": "controls",
-          "type": "{ title?: \"hidden\" | \"visible\"; disabled?: \"off\" | \"on\"; mandatory?: \"required\" | \"optional\" | undefined; clearDate?: \"hidden\" | \"visible\" | undefined; defaultDate?: \"off\" | ... 1 more ... | undefined; } | undefined",
-          "required": false,
-          "description": "Legacy grouped toggles for title, disabled, mandatory, clear-date and default-date; the matching direct props win."
-        },
-        {
-          "name": "datePickerLabel",
-          "type": "string",
-          "required": false,
-          "description": "Label text; used when `label` is not set."
-        },
-        {
-          "name": "datePickerStyleType",
-          "type": "DatePickerStyleType",
-          "required": false,
-          "description": "Style type of the date picker; overridden by `variant` when set."
-        },
-        {
-          "name": "defaultValue",
-          "type": "string | Date | null",
-          "required": false,
-          "description": "Initial selected date."
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "description": "Disables the picker. When defined it wins over `controls.disabled` and the legacy `isDisabled`."
-        },
-        {
-          "name": "isDropdownOpen",
-          "type": "boolean",
-          "required": false,
-          "description": "Has no effect: the preset list manages its own open state. Kept for backwards compatibility."
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": false,
-          "description": "Label text; shows the label unless `showTitle` / `controls.title` say otherwise."
-        },
-        {
-          "name": "layout",
-          "type": "DatePickerLayout",
-          "required": false,
-          "description": "Layout variant of the date picker."
-        },
-        {
-          "name": "locale",
-          "type": "string",
-          "required": false,
-          "description": "Locale for month names / formatting (forwarded to react-datepicker)."
-        },
-        {
-          "name": "maxDate",
-          "type": "Date",
-          "required": false,
-          "description": "Latest selectable date (forwarded to react-datepicker)."
-        },
-        {
-          "name": "minDate",
-          "type": "Date",
-          "required": false,
-          "description": "Earliest selectable date (forwarded to react-datepicker)."
-        },
-        {
-          "name": "onChange",
-          "type": "((value: Date | [Date | null, Date | null] | null) => void)",
-          "required": false,
-          "description": "Fires with the picked date, the picked range, or `[null, null]` when cleared."
-        },
-        {
-          "name": "openPickerIcon",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Icon of the open-calendar button."
-        },
-        {
-          "name": "placeholder",
-          "type": "string",
-          "required": false,
-          "description": "Placeholder text of the date input."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "required",
-          "type": "boolean",
-          "required": false,
-          "description": "Marks the field as required (shows the `*` next to the title and sets `aria-required`).\nWhen defined it wins over `controls.mandatory` and the legacy `isMandatory`."
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Applies the selected appearance to the date picker."
-        },
-        {
-          "name": "showTitle",
-          "type": "boolean",
-          "required": false,
-          "description": "Shows the title label (`titleText`). `controls.title` wins when set."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "titleText",
-          "type": "string",
-          "required": false,
-          "description": "Title text; used when neither `label` nor `datePickerLabel` is set."
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "description": "Picker type; 'Custom' enables the preset range list, otherwise 'Default'."
-        },
-        {
-          "name": "value",
-          "type": "string | Date | null",
-          "required": false,
-          "description": "Selected date; the picker re-syncs whenever it changes (`null` clears it).\nA `YYYY-MM-DD` string is local midnight on that calendar day.\nA full ISO datetime is an absolute instant (`new Date(value)`)."
-        },
-        {
-          "name": "variant",
-          "type": "\"dropdown\" | \"selector\"",
-          "required": false,
-          "description": "Picker variant, dropdown or selector; takes precedence over `datePickerStyleType`."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "changeIcon",
-          "use": "Use `openPickerIcon` instead."
-        },
-        {
-          "name": "customDate",
-          "use": "Use `onChange` instead (range picks)."
-        },
-        {
-          "name": "dateForEdit",
-          "use": "Use `value` instead."
-        },
-        {
-          "name": "isDefaultDate",
-          "use": "Use `defaultValue` instead."
-        },
-        {
-          "name": "isDisabled",
-          "use": "Use `disabled` instead."
-        },
-        {
-          "name": "isMandatory",
-          "use": "Use `required` instead."
-        },
-        {
-          "name": "onDatePicker",
-          "use": "Use `onChange` instead."
-        },
-        {
-          "name": "placeholderText",
-          "use": "Use `placeholder` instead."
-        },
-        {
-          "name": "selectedDate",
-          "use": "Use `onChange` instead (single-date picks)."
-        },
-        {
-          "name": "showClearDate",
-          "use": "Use `clearable` instead."
-        }
-      ]
-    },
-    {
-      "name": "RdsCompKanbanBoard",
-      "kind": "component",
-      "import": "import { RdsCompKanbanBoard } from '@waiin/raaghu-react';",
-      "source": "raaghu-components/rds-comp-kanban-board/rds-comp-kanban-board.tsx",
-      "props": [
-        {
-          "name": "allowAddCard",
-          "type": "boolean",
-          "required": false,
-          "description": "Shows the \"Add Item\" button in each column."
-        },
-        {
-          "name": "allowAddColumn",
-          "type": "boolean",
-          "required": false,
-          "description": "Shows the \"Add Board\" column."
-        },
-        {
-          "name": "avatarData",
-          "type": "KanbanAssignee[]",
-          "required": false,
-          "description": "Avatars shown on cards without their own `assignees`."
-        },
-        {
-          "name": "categoryOptions",
-          "type": "KanbanOption[]",
-          "required": false,
-          "description": "Category options offered when adding a card."
-        },
-        {
-          "name": "className",
-          "type": "string",
-          "required": false,
-          "description": "Extra class name applied to the root element."
-        },
-        {
-          "name": "columns",
-          "type": "KanbanBoardInfo[]",
-          "required": false,
-          "description": "Controlled columns."
-        },
-        {
-          "name": "defaultColumns",
-          "type": "KanbanBoardInfo[]",
-          "required": false,
-          "description": "Initial columns when uncontrolled."
-        },
-        {
-          "name": "onCardAction",
-          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, details: { action: string; columnId: number; cardId: number; }) => void)",
-          "required": false,
-          "description": "Called when a card menu action is clicked."
-        },
-        {
-          "name": "onCardAdd",
-          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, card: KanbanSubCard) => void)",
-          "required": false,
-          "description": "Called with the new card when \"Add Item\" is clicked."
-        },
-        {
-          "name": "onColumnAction",
-          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, details: { action: string; columnId: number; }) => void)",
-          "required": false,
-          "description": "Called when a column menu action is clicked."
-        },
-        {
-          "name": "onColumnsChange",
-          "type": "((columns: KanbanBoardInfo[]) => void)",
-          "required": false,
-          "description": "Called with the updated columns after a drag, add, rename or delete."
-        },
-        {
-          "name": "onSelectedTagsListChange",
-          "type": "((items: unknown) => void)",
-          "required": false,
-          "description": "Called with the selected tags when the tag selection in the add-card form changes."
-        },
-        {
-          "name": "ref",
-          "type": "Ref<HTMLDivElement>",
-          "required": false,
-          "description": "Ref forwarded to the root element."
-        },
-        {
-          "name": "sx",
-          "type": "SxProps<Theme>",
-          "required": false,
-          "description": "MUI system styles applied to the root element."
-        },
-        {
-          "name": "tagOptions",
-          "type": "KanbanOption[]",
-          "required": false,
-          "description": "Tag options offered when adding a card."
-        }
-      ],
-      "deprecatedProps": [
-        {
-          "name": "addQuestionData",
-          "use": "It has no effect."
-        },
-        {
-          "name": "allCategoriesList",
-          "use": "Use `categoryOptions` instead."
-        },
-        {
-          "name": "allowAddingDynamicData",
-          "use": "It has no effect."
-        },
-        {
-          "name": "allowAddingNewCard",
-          "use": "Use `allowAddColumn` instead."
-        },
-        {
-          "name": "allowAddingNewSubCard",
-          "use": "Use `allowAddCard` instead."
-        },
-        {
-          "name": "allTagsList",
-          "use": "Use `tagOptions` instead."
-        },
-        {
-          "name": "boardData",
-          "use": "Use `columns` or `defaultColumns` instead."
-        },
-        {
-          "name": "illustration",
-          "use": "It has no effect."
-        },
-        {
-          "name": "isIlliustrationSmall",
-          "use": "It has no effect."
-        },
-        {
-          "name": "noDataHeaderTitle",
-          "use": "It has no effect."
-        },
-        {
-          "name": "noDataTitle",
-          "use": "It has no effect."
-        },
-        {
-          "name": "onAddQuestionSaveHandler",
-          "use": "Use `onCardAdd` instead."
-        },
-        {
-          "name": "onBoardDataChange",
-          "use": "Use `onColumnsChange` instead."
-        },
-        {
-          "name": "onCardOption",
-          "use": "Use `onColumnAction` instead."
-        },
-        {
-          "name": "onClick",
-          "use": "It has no effect."
-        },
-        {
-          "name": "onSubCardOption",
-          "use": "Use `onCardAction` instead."
-        }
-      ]
-    },
-    {
       "name": "RdsCompProductTour",
       "kind": "component",
       "import": "import { RdsCompProductTour } from '@waiin/raaghu-react';",
@@ -9192,7 +7264,13 @@
           "name": "animated",
           "type": "boolean",
           "required": false,
-          "description": "Plays the Lottie animation instead of the static image (illustration variant)."
+          "description": "Plays the animation instead of the static image (illustration variant). Needs `animationRenderer`."
+        },
+        {
+          "name": "animationRenderer",
+          "type": "ComponentType<LottieAnimationRendererProps>",
+          "required": false,
+          "description": "Player used when `animated` is true, e.g. `lottieAnimationRenderer` from `@waiin/raaghu-react/lottie`.\nWithout it the static image is shown, so the core package never loads `lottie-react`."
         },
         {
           "name": "description",
@@ -10461,6 +8539,2004 @@
       ],
       "props": [],
       "deprecatedProps": []
+    },
+    {
+      "name": "RdsCompAreaChart",
+      "kind": "component",
+      "import": "import { RdsCompAreaChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-area/rds-comp-chart-area.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Defaults to \"Area chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"line\", (number | Point | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px). Defaults to `76vh`."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"line\"> & ElementChartOptions<\"line\"> & PluginChartOptions<\"line\"> & DatasetChartOptions<\"line\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
+          "required": false,
+          "description": "Chart.js options (never mutated). Defaults to `{}`."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "System styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px). Defaults to `100vh`."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "isGradient",
+          "use": "Has no effect. Use a scriptable `backgroundColor` on the dataset instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompLineChart",
+      "kind": "component",
+      "import": "import { RdsCompLineChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-line/rds-comp-chart-line.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Line chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"line\", (number | Point | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element. Note: legacy IDs `linechart1` and `linechart2` trigger specific canvas sizes."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"line\"> & ElementChartOptions<\"line\"> & PluginChartOptions<\"line\"> & DatasetChartOptions<\"line\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompPieChart",
+      "kind": "component",
+      "import": "import { RdsCompPieChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-pie/rds-comp-chart-pie.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Pie chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"pie\", number[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"pie\"> & ElementChartOptions<\"pie\"> & PluginChartOptions<\"pie\"> & DatasetChartOptions<\"pie\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        },
+        {
+          "name": "radius",
+          "use": "Use `options.radius` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompDoughnutChart",
+      "kind": "component",
+      "import": "import { RdsCompDoughnutChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-doughnut/rds-comp-chart-doughnut.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Defaults to \"Doughnut chart\" followed by the title and subtitle text, if any."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"doughnut\", number[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "description": "Smaller text drawn under the title."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Large text drawn in the centre."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        },
+        {
+          "name": "subTitleText",
+          "use": "Use `subtitle` instead."
+        },
+        {
+          "name": "titleText",
+          "use": "Use `title` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompGaugeChart",
+      "kind": "component",
+      "import": "import { RdsCompGaugeChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-gauge/rds-comp-chart-gauge.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Gauge chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"doughnut\", number[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated). The gauge always uses `rotation: -90` and `circumference: 180`."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "description": "Smaller text drawn under the title."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "titleText",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Large text drawn in the gauge."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        },
+        {
+          "name": "maxValue",
+          "use": "Prefer `data.datasets` / `dataSets`. Used with `value` when datasets are omitted."
+        },
+        {
+          "name": "subTitleText",
+          "use": "Use `subtitle` instead."
+        },
+        {
+          "name": "value",
+          "use": "Prefer `data.datasets` / `dataSets`. When those are omitted, builds"
+        }
+      ]
+    },
+    {
+      "name": "RdsCompBarChart",
+      "kind": "component",
+      "import": "import { RdsCompBarChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-bar/rds-comp-chart-bar.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"bar\", (number | [number, number] | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated). `responsive` and `maintainAspectRatio` default to `true` / `false`."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompBooleanChart",
+      "kind": "component",
+      "import": "import { RdsCompBooleanChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-boolean/rds-comp-chart-boolean.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Defaults to \"Boolean chart\"."
+        },
+        {
+          "name": "centerIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Node shown over the centre of the chart. Takes precedence over `centerIconName`."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"doughnut\", number[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"doughnut\"> & ElementChartOptions<\"doughnut\"> & PluginChartOptions<\"doughnut\"> & DatasetChartOptions<\"doughnut\"> & ScaleChartOptions<...> & DoughnutControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `div`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "centerIconName",
+          "use": "Use `centerIcon` instead. Name of the icon drawn in the centre (a key of `ChartIcons`)."
+        },
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "chartStyle",
+          "use": "It has no effect."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompMixedChart",
+      "kind": "component",
+      "import": "import { RdsCompMixedChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-mixed/rds-comp-chart-mixed.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Mixed chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<keyof ChartTypeRegistry, (number | Point | [number, number] | BubbleDataPoint | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. Set `type: \"line\"` on a dataset to draw it as a line over the bars."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead. Set `type: \"line\"` on a dataset to draw it as a line over the bars."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompPolarAreaChart",
+      "kind": "component",
+      "import": "import { RdsCompPolarAreaChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-polar-area/rds-comp-chart-polar-area.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Polar area chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"polarArea\", number[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"polarArea\"> & ElementChartOptions<\"polarArea\"> & PluginChartOptions<\"polarArea\"> & DatasetChartOptions<...> & ScaleChartOptions<...> & PolarAreaControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        },
+        {
+          "name": "radius",
+          "use": "Use `height` instead (this is the canvas height in px)."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompRadarChart",
+      "kind": "component",
+      "import": "import { RdsCompRadarChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-radar/rds-comp-chart-radar.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Radar chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"radar\", (number | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"radar\"> & ElementChartOptions<\"radar\"> & PluginChartOptions<\"radar\"> & DatasetChartOptions<\"radar\"> & ScaleChartOptions<...> & LineControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js options (never mutated).\nNote: The legend's `pointStyleWidth` is set to `undefined` to prevent oval-shaped legend markers.\nThis ensures consistent circular markers regardless of `boxWidth` and `boxHeight` settings."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        },
+        {
+          "name": "radius",
+          "use": "Use `height` instead (this is the canvas height in px)."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompScatterChart",
+      "kind": "component",
+      "import": "import { RdsCompScatterChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-scatter/rds-comp-chart-scatter.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Scatter chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<keyof ChartTypeRegistry, (number | Point | [number, number] | BubbleDataPoint | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<keyof ChartTypeRegistry> & ElementChartOptions<keyof ChartTypeRegistry> & PluginChartOptions<...> & DatasetChartOptions<...> & ScaleChartOptions<...>> | undefined",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "chartType",
+          "use": "Use `showLine` on the datasets to connect the points. Chart.js type to draw. Default `\"scatter\"`."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompStackedChart",
+      "kind": "component",
+      "import": "import { RdsCompStackedChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-stacked/rds-comp-chart-stacked.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart. Default \"Stacked chart\"."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"bar\", (number | [number, number] | null)[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"bar\"> & ElementChartOptions<\"bar\"> & PluginChartOptions<\"bar\"> & DatasetChartOptions<\"bar\"> & ScaleChartOptions<...> & BarControllerChartOptions>",
+          "required": true,
+          "description": "Chart.js bar options (never mutated). Axes default to `stacked: true`; pass `false` to opt out."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompBubbleChart",
+      "kind": "component",
+      "import": "import { RdsCompBubbleChart } from '@waiin/raaghu-react/charts';",
+      "requires": [
+        "chart.js"
+      ],
+      "source": "raaghu-components/rds-comp-chart-bubble/rds-comp-chart-bubble.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible label of the chart."
+        },
+        {
+          "name": "data",
+          "type": "ChartData<\"bubble\", BubbleDataPoint[], unknown>",
+          "required": false,
+          "description": "Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional visible summary; chart data is also exposed in a screen-reader table."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas height (number = px)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Id of the canvas element."
+        },
+        {
+          "name": "options",
+          "type": "_DeepPartialObject<CoreChartOptions<\"bubble\"> & ElementChartOptions<\"bubble\"> & PluginChartOptions<\"bubble\"> & DatasetChartOptions<\"bubble\"> & ScaleChartOptions<...>>",
+          "required": true,
+          "description": "Chart.js options (never mutated)."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root `<div>`."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the chart root element."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Canvas width (number = px)."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "chartLabel",
+          "use": "Use `ariaLabel` instead."
+        },
+        {
+          "name": "dataSets",
+          "use": "Use `data.datasets` instead."
+        },
+        {
+          "name": "labels",
+          "use": "Use `data.labels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompDatepicker",
+      "kind": "component",
+      "import": "import { RdsCompDatepicker } from '@waiin/raaghu-react/date';",
+      "requires": [
+        "@mui/x-date-pickers",
+        "dayjs"
+      ],
+      "source": "raaghu-components/rds-comp-datepicker/rds-comp-datepicker.tsx",
+      "props": [
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows the clear-date button when a date is selected."
+        },
+        {
+          "name": "controls",
+          "type": "{ title?: \"hidden\" | \"visible\"; disabled?: \"off\" | \"on\"; mandatory?: \"required\" | \"optional\" | undefined; clearDate?: \"hidden\" | \"visible\" | undefined; defaultDate?: \"off\" | ... 1 more ... | undefined; } | undefined",
+          "required": false,
+          "description": "Legacy grouped toggles for title, disabled, mandatory, clear-date and default-date; the matching direct props win."
+        },
+        {
+          "name": "datePickerLabel",
+          "type": "string",
+          "required": false,
+          "description": "Label text; used when `label` is not set."
+        },
+        {
+          "name": "datePickerStyleType",
+          "type": "DatePickerStyleType",
+          "required": false,
+          "description": "Style type of the date picker; overridden by `variant` when set."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | Date | null",
+          "required": false,
+          "description": "Initial selected date."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the picker. When defined it wins over `controls.disabled` and the legacy `isDisabled`."
+        },
+        {
+          "name": "isDropdownOpen",
+          "type": "boolean",
+          "required": false,
+          "description": "Has no effect: the preset list manages its own open state. Kept for backwards compatibility."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text; shows the label unless `showTitle` / `controls.title` say otherwise."
+        },
+        {
+          "name": "layout",
+          "type": "DatePickerLayout",
+          "required": false,
+          "description": "Layout variant of the date picker."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "description": "Locale for month names and the calendar (a dayjs locale you have loaded, e.g. `de`)."
+        },
+        {
+          "name": "maxDate",
+          "type": "Date",
+          "required": false,
+          "description": "Latest selectable date."
+        },
+        {
+          "name": "minDate",
+          "type": "Date",
+          "required": false,
+          "description": "Earliest selectable date."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: Date | [Date | null, Date | null] | null) => void)",
+          "required": false,
+          "description": "Fires with the picked date, the picked range, or `[null, null]` when cleared."
+        },
+        {
+          "name": "openPickerIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon of the open-calendar button."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text of the date input."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root element."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Marks the field as required (shows the `*` next to the title and sets `aria-required`).\nWhen defined it wins over `controls.mandatory` and the legacy `isMandatory`."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Applies the selected appearance to the date picker."
+        },
+        {
+          "name": "showTitle",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows the title label (`titleText`). `controls.title` wins when set."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "titleText",
+          "type": "string",
+          "required": false,
+          "description": "Title text; used when neither `label` nor `datePickerLabel` is set."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Picker type; 'Custom' enables the preset range list, otherwise 'Default'."
+        },
+        {
+          "name": "value",
+          "type": "string | Date | null",
+          "required": false,
+          "description": "Selected date; the picker re-syncs whenever it changes (`null` clears it).\nA `YYYY-MM-DD` string is local midnight on that calendar day.\nA full ISO datetime is an absolute instant (`new Date(value)`)."
+        },
+        {
+          "name": "variant",
+          "type": "\"dropdown\" | \"selector\"",
+          "required": false,
+          "description": "Picker variant, dropdown or selector; takes precedence over `datePickerStyleType`."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "changeIcon",
+          "use": "Use `openPickerIcon` instead."
+        },
+        {
+          "name": "customDate",
+          "use": "Use `onChange` instead (range picks)."
+        },
+        {
+          "name": "dateForEdit",
+          "use": "Use `value` instead."
+        },
+        {
+          "name": "isDefaultDate",
+          "use": "Use `defaultValue` instead."
+        },
+        {
+          "name": "isDisabled",
+          "use": "Use `disabled` instead."
+        },
+        {
+          "name": "isMandatory",
+          "use": "Use `required` instead."
+        },
+        {
+          "name": "onDatePicker",
+          "use": "Use `onChange` instead."
+        },
+        {
+          "name": "placeholderText",
+          "use": "Use `placeholder` instead."
+        },
+        {
+          "name": "selectedDate",
+          "use": "Use `onChange` instead (single-date picks)."
+        },
+        {
+          "name": "showClearDate",
+          "use": "Use `clearable` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompContribution",
+      "kind": "component",
+      "import": "import { RdsCompContribution } from '@waiin/raaghu-react/date';",
+      "requires": [
+        "@mui/x-date-pickers",
+        "dayjs"
+      ],
+      "source": "raaghu-components/rds-comp-contribution/rds-comp-contribution.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": "Contribution graph",
+          "description": "Accessible label for the contribution graph SVG."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Extra class name(s) merged onto the root element."
+        },
+        {
+          "name": "colors",
+          "type": "string[]",
+          "required": false,
+          "description": "Colours by contribution count; the last colour is used for higher counts."
+        },
+        {
+          "name": "data",
+          "type": "{ [date: string]: number; }",
+          "required": false,
+          "description": "Contribution counts keyed by date, formatted with `dateFormat`."
+        },
+        {
+          "name": "dateFormat",
+          "type": "string",
+          "required": false,
+          "default": "YYYY-MM-DD",
+          "description": "Format of the `data` keys and of string dates."
+        },
+        {
+          "name": "endDate",
+          "type": "string | Date | Dayjs",
+          "required": false,
+          "description": "Last day shown. Strings are parsed with `dateFormat`."
+        },
+        {
+          "name": "monthLabelHeight",
+          "type": "number",
+          "required": false,
+          "default": "28",
+          "description": "Height reserved for the month labels, in pixels."
+        },
+        {
+          "name": "monthLabels",
+          "type": "string[]",
+          "required": false,
+          "description": "Names for January..December."
+        },
+        {
+          "name": "panelMargin",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "description": "Gap between panels, in pixels."
+        },
+        {
+          "name": "panelSize",
+          "type": "number",
+          "required": false,
+          "default": "11",
+          "description": "Size of each panel, in pixels."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root element."
+        },
+        {
+          "name": "showMonthLabels",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Shows month labels above the panels."
+        },
+        {
+          "name": "showWeekLabels",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows weekday labels beside the panels."
+        },
+        {
+          "name": "slotProps",
+          "type": "{ weekLabel?: (SVGProps<SVGTextElement> & DataAttributes); monthLabel?: (SVGProps<SVGTextElement> & DataAttributes); panel?: (SVGProps<...> & DataAttributes) | undefined; } | undefined",
+          "required": false,
+          "description": "Props merged onto the week labels, month labels and panels."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "weekdayLabels",
+          "type": "string[]",
+          "required": false,
+          "description": "Short names for Sunday..Saturday."
+        },
+        {
+          "name": "weekLabelWidth",
+          "type": "number",
+          "required": false,
+          "default": "24",
+          "description": "Width reserved for the weekday labels, in pixels."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "monthLabelAttributes",
+          "use": "Use `slotProps.monthLabel` instead."
+        },
+        {
+          "name": "monthNames",
+          "use": "Use `monthLabels` instead."
+        },
+        {
+          "name": "panelAttributes",
+          "use": "Use `slotProps.panel` instead."
+        },
+        {
+          "name": "panelColors",
+          "use": "Use `colors` instead."
+        },
+        {
+          "name": "until",
+          "use": "Use `endDate` instead."
+        },
+        {
+          "name": "values",
+          "use": "Use `data` instead."
+        },
+        {
+          "name": "weekLabelAttributes",
+          "use": "Use `slotProps.weekLabel` instead."
+        },
+        {
+          "name": "weekNames",
+          "use": "Use `weekdayLabels` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompTextEditor",
+      "kind": "component",
+      "import": "import { RdsCompTextEditor } from '@waiin/raaghu-react/editor';",
+      "requires": [
+        "lexical",
+        "@lexical/react",
+        "@lexical/rich-text",
+        "@lexical/list",
+        "@lexical/link",
+        "@lexical/html",
+        "@lexical/selection"
+      ],
+      "source": "raaghu-components/rds-comp-text-editor/rds-comp-text-editor.tsx",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Initial HTML content when `value` is not provided."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the editor; falls back to `state === 'Disabled'` when omitted."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "description": "Applies the error style; falls back to `state === 'Error'` when omitted."
+        },
+        {
+          "name": "focused",
+          "type": "boolean",
+          "required": false,
+          "description": "Applies the active (focused) style."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "HTML id applied to the editor element."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label shown above the editor when `showTitle` is true."
+        },
+        {
+          "name": "labelClass",
+          "type": "string",
+          "required": false,
+          "description": "Extra class name applied to the label."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string, delta: unknown, source: unknown, editor: unknown) => void)",
+          "required": false,
+          "description": "Called with the sanitized HTML value whenever the editor content changes."
+        },
+        {
+          "name": "onImageUpload",
+          "type": "((file: File) => string | Promise<string>)",
+          "required": false,
+          "description": "Upload handler for toolbar images. Return a public URL (or data URL). When omitted, files are read as base64 data URLs."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text shown when the editor is empty."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "description": "Makes the editor non-editable."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root element."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Marks the field as required."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the editor can be resized by the user."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "description": "Number of visible text rows used to size the editor."
+        },
+        {
+          "name": "showTitle",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows the label above the editor."
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "required": false,
+          "description": "Visual state: 'Selected', 'Active', 'Error' or 'Disabled'."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled HTML content of the editor."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "isMandatory",
+          "use": "Use `required` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompKanbanBoard",
+      "kind": "component",
+      "import": "import { RdsCompKanbanBoard } from '@waiin/raaghu-react/kanban';",
+      "requires": [
+        "@dnd-kit/core",
+        "@dnd-kit/sortable",
+        "@dnd-kit/utilities"
+      ],
+      "source": "raaghu-components/rds-comp-kanban-board/rds-comp-kanban-board.tsx",
+      "props": [
+        {
+          "name": "allowAddCard",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows the \"Add Item\" button in each column."
+        },
+        {
+          "name": "allowAddColumn",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows the \"Add Board\" column."
+        },
+        {
+          "name": "avatarData",
+          "type": "KanbanAssignee[]",
+          "required": false,
+          "description": "Avatars shown on cards without their own `assignees`."
+        },
+        {
+          "name": "categoryOptions",
+          "type": "KanbanOption[]",
+          "required": false,
+          "description": "Category options offered when adding a card."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Extra class name applied to the root element."
+        },
+        {
+          "name": "columns",
+          "type": "KanbanBoardInfo[]",
+          "required": false,
+          "description": "Controlled columns."
+        },
+        {
+          "name": "defaultColumns",
+          "type": "KanbanBoardInfo[]",
+          "required": false,
+          "description": "Initial columns when uncontrolled."
+        },
+        {
+          "name": "onCardAction",
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, details: { action: string; columnId: number; cardId: number; }) => void)",
+          "required": false,
+          "description": "Called when a card menu action is clicked."
+        },
+        {
+          "name": "onCardAdd",
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, card: KanbanSubCard) => void)",
+          "required": false,
+          "description": "Called with the new card when \"Add Item\" is clicked."
+        },
+        {
+          "name": "onColumnAction",
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>, details: { action: string; columnId: number; }) => void)",
+          "required": false,
+          "description": "Called when a column menu action is clicked."
+        },
+        {
+          "name": "onColumnsChange",
+          "type": "((columns: KanbanBoardInfo[]) => void)",
+          "required": false,
+          "description": "Called with the updated columns after a drag, add, rename or delete."
+        },
+        {
+          "name": "onSelectedTagsListChange",
+          "type": "((items: unknown) => void)",
+          "required": false,
+          "description": "Called with the selected tags when the tag selection in the add-card form changes."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root element."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "tagOptions",
+          "type": "KanbanOption[]",
+          "required": false,
+          "description": "Tag options offered when adding a card."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "addQuestionData",
+          "use": "It has no effect."
+        },
+        {
+          "name": "allCategoriesList",
+          "use": "Use `categoryOptions` instead."
+        },
+        {
+          "name": "allowAddingDynamicData",
+          "use": "It has no effect."
+        },
+        {
+          "name": "allowAddingNewCard",
+          "use": "Use `allowAddColumn` instead."
+        },
+        {
+          "name": "allowAddingNewSubCard",
+          "use": "Use `allowAddCard` instead."
+        },
+        {
+          "name": "allTagsList",
+          "use": "Use `tagOptions` instead."
+        },
+        {
+          "name": "boardData",
+          "use": "Use `columns` or `defaultColumns` instead."
+        },
+        {
+          "name": "illustration",
+          "use": "It has no effect."
+        },
+        {
+          "name": "isIlliustrationSmall",
+          "use": "It has no effect."
+        },
+        {
+          "name": "noDataHeaderTitle",
+          "use": "It has no effect."
+        },
+        {
+          "name": "noDataTitle",
+          "use": "It has no effect."
+        },
+        {
+          "name": "onAddQuestionSaveHandler",
+          "use": "Use `onCardAdd` instead."
+        },
+        {
+          "name": "onBoardDataChange",
+          "use": "Use `onColumnsChange` instead."
+        },
+        {
+          "name": "onCardOption",
+          "use": "Use `onColumnAction` instead."
+        },
+        {
+          "name": "onClick",
+          "use": "It has no effect."
+        },
+        {
+          "name": "onSubCardOption",
+          "use": "Use `onCardAction` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsTimeline",
+      "kind": "element",
+      "import": "import { RdsTimeline } from '@waiin/raaghu-react/timeline';",
+      "requires": [
+        "@mui/lab"
+      ],
+      "source": "raaghu-elements/rds-timeline/rds-timeline.tsx",
+      "inheritsFrom": [
+        "TimelineProps"
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "RdsTimelineItem[]",
+          "required": false,
+          "default": "[]",
+          "description": "Timeline entries to render, in order."
+        },
+        {
+          "name": "showTime",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows each item's deprecated `time` as its opposite content when `opposite` is not set."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "alternating",
+          "use": "Use `position=\"alternate\"` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompVideoPlayer",
+      "kind": "component",
+      "import": "import { RdsCompVideoPlayer } from '@waiin/raaghu-react/video';",
+      "requires": [
+        "react-player"
+      ],
+      "source": "raaghu-components/rds-comp-video-player/rds-comp-video-player.tsx",
+      "props": [
+        {
+          "name": "autoPlay",
+          "type": "boolean",
+          "required": false,
+          "description": "Starts playback automatically unless the player is disabled."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Extra class name applied to the root element."
+        },
+        {
+          "name": "controls",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Shows the player controls."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables playback and shows `disabledMessage`."
+        },
+        {
+          "name": "disabledMessage",
+          "type": "string",
+          "required": false,
+          "default": "Video player is disabled",
+          "description": "Message shown over the player when disabled."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "default": "auto",
+          "description": "Height of the player."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "description": "Defaults to `autoPlay && !disabled`."
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Mutes the audio."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref forwarded to the root element."
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "description": "URL of the video to play."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the video player root."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Accessible title for the embedded player."
+        },
+        {
+          "name": "type",
+          "type": "VideoPlayerType",
+          "required": false,
+          "default": "Default",
+          "description": "Video source type (Default, YouTube or Vimeo); also detected from the URL."
+        },
+        {
+          "name": "volume",
+          "type": "number",
+          "required": false,
+          "default": "0.8",
+          "description": "Initial volume between 0 and 1."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "default": "100%",
+          "description": "Width of the player."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "videoLink",
+          "use": "Use `src` instead."
+        }
+      ]
+    },
+    {
+      "name": "RdsCompMap",
+      "kind": "component",
+      "import": "import { RdsCompMap } from '@waiin/raaghu-react/map';",
+      "requires": [
+        "react-svg-worldmap"
+      ],
+      "source": "raaghu-components/rds-comp-map/rds-comp-map.tsx",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for the map when no visible string title is provided."
+        },
+        {
+          "name": "color",
+          "type": "(string & {}) | RdsCompMapPaletteColor",
+          "required": true,
+          "description": "Fill colour for the default variant: a CSS colour or a theme palette key."
+        },
+        {
+          "name": "data",
+          "type": "{ country: string; value: number; }[]",
+          "required": false,
+          "description": "Values per country (ISO 3166-1 alpha-2 code)."
+        },
+        {
+          "name": "header",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Rich heading content shown above the map; wins over `title`."
+        },
+        {
+          "name": "highlightedCountries",
+          "type": "string[]",
+          "required": false,
+          "description": "Country codes filled with the info colour in the default variant."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLDivElement>",
+          "required": false,
+          "description": "Ref to the root element."
+        },
+        {
+          "name": "sx",
+          "type": "SxProps<Theme>",
+          "required": false,
+          "description": "MUI system styles applied to the root element."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Heading text shown above the map. Passing anything other than a string is deprecated; use `header`."
+        },
+        {
+          "name": "valueSuffix",
+          "type": "string",
+          "required": false,
+          "description": "Text appended to values in the tooltip."
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"heatmap\"",
+          "required": false,
+          "description": "Visual style of the map."
+        }
+      ],
+      "deprecatedProps": [
+        {
+          "name": "mapList",
+          "use": "Use `data` instead."
+        },
+        {
+          "name": "mapType",
+          "use": "Use `variant` instead."
+        }
+      ]
     }
   ]
 }
