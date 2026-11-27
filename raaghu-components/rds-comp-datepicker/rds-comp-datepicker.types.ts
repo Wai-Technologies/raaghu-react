@@ -1,3 +1,5 @@
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
+
 export enum DatePickerStyleType {
   Dropdown = "Dropdown",
   Selector = "Selector",
@@ -16,7 +18,7 @@ export enum DatePickerState {
   Selected = "Selected",
 }
 
-export interface RdsCompDatepickerProps {
+export interface RdsCompDatepickerProps extends RdsStylingProps {
   selectedDate?: (date: Date | null) => void;
   dateForEdit?: string;
   value?: Date | string | null;

@@ -3,10 +3,12 @@ import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from "../../raaghu-elements/shared/utils/styling-props";
 
 type NavtabColor = "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
 
-export interface RdsCompNavtabsProps {
+export interface RdsCompNavtabsProps extends RdsStylingPropsWithoutStyle {
   children?: ReactNode;
   navtabsItems: {
     label: string;
@@ -35,7 +37,7 @@ export interface RdsCompNavtabsProps {
   id?: string;
 }
 
-const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
+const RdsCompNavtabs = React.forwardRef<HTMLDivElement, RdsCompNavtabsProps>(function RdsCompNavtabs(props, ref) {
   const [activeNavTabId, setActiveNavTabId] = useState(props.activeNavTabId);
   const [navStyle, setNavStyle] = useState<string | undefined>(props.style);
 
@@ -192,7 +194,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
   };
 
   return (
-    <div className="rds-comp-navtabs">
+    <Box ref={ref} className={joinClassNames("rds-comp-navtabs", props.className)} sx={props.sx}>
       <ul
         className={getNavClasses()}
         id={props.id === "features" ? "features" : ""}
@@ -241,8 +243,8 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
         ))}
       </ul>
       {props.children}
-    </div>
+    </Box>
   );
-};
+});
 RdsCompNavtabs.displayName = "RdsCompNavtabs";
 export default RdsCompNavtabs;

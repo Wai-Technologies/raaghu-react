@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import RdsBreadcrumbs, { BreadcrumbSeparator } from './rds-breadcrumbs';
 
 const meta: Meta<typeof RdsBreadcrumbs> = {
@@ -54,11 +55,22 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'boolean',
       description: 'Show icon in breadcrumb items',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected'],
-      description: 'Breadcrumb item state',
+    selected: {
+      control: 'boolean',
+      description: 'Shows the clicked breadcrumb item in its selected style',
+      table: { defaultValue: { summary: 'false' } },
     },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables the breadcrumb trail',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    hover: {
+      control: 'boolean',
+      description: 'Enables the hover effect on breadcrumb items',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    state: { table: { disable: true } },
     icon: {
       control: 'text',
       description: 'Icon to display in breadcrumb items',
@@ -81,7 +93,9 @@ export const Default: Story = {
     title: 'Home',
     layout: 'without background',
     showIcon: true,
-    state: 'default',
+    selected: false,
+    disabled: false,
+    hover: false,
     level: 'level3',
     separatorType: BreadcrumbSeparator.GreaterThan,
     autoIcons: false,
@@ -99,7 +113,9 @@ export const Simple: Story = {
     ],
     layout: 'without background',
     showIcon: false,
-    state: 'default',
+    selected: false,
+    disabled: false,
+    hover: false,
     level: 'level2',
     separatorType: BreadcrumbSeparator.GreaterThan,
   },
@@ -108,15 +124,17 @@ export const Simple: Story = {
 export const WithClickHandlers: Story = {
   args: {
     items: [
-      { label: 'Home', onClick: () => console.log('Navigate to Home') },
-      { label: 'Products', onClick: () => console.log('Navigate to Products') },
-      { label: 'Category', onClick: () => console.log('Navigate to Category') },
-      { label: 'Subcategory', onClick: () => console.log('Navigate to Subcategory') },
+      { label: 'Home', onClick: fn().mockName('navigateToHome') },
+      { label: 'Products', onClick: fn().mockName('navigateToProducts') },
+      { label: 'Category', onClick: fn().mockName('navigateToCategory') },
+      { label: 'Subcategory', onClick: fn().mockName('navigateToSubcategory') },
       { label: 'Current Page', active: true },
     ],
     layout: 'pill background',
     showIcon: true,
-    state: 'default',
+    selected: false,
+    disabled: false,
+    hover: false,
     separatorType: BreadcrumbSeparator.Arrow,
     autoIcons: false,
     level: 'level3',

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import { joinClassNames, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 import './rds-comp-ai-typing-section.scss';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
@@ -14,7 +16,7 @@ export interface RdsCompAiTypingSectionOption {
 
 const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [{ label: 'Raaghu', value: 1 }];
 
-export interface RdsCompAiTypingSectionProps {
+export interface RdsCompAiTypingSectionProps extends RdsStylingProps {
   colorVariant?: string;
   placeholderText?: string;
   iconName: string;
@@ -44,7 +46,7 @@ declare global {
   }
 }
 
-const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
+const RdsCompAiTypingSection = React.forwardRef<HTMLDivElement, RdsCompAiTypingSectionProps>(function RdsCompAiTypingSection({
   colorVariant,
   placeholderText,
   iconName,
@@ -55,8 +57,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   autoCompleteMaxWidth,
   onNewProjectClick,
   onImportFromFigmaClick,
-  autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS
-}) => {
+  autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
+  className,
+  sx,
+  style,
+}, ref) {
   const [inputText, setInputText] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
@@ -101,7 +106,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
     };
 
   return (
-    <div className="rds-comp-ai-typing-section">
+    <Box ref={ref} className={joinClassNames("rds-comp-ai-typing-section", className)} sx={sx} style={style}>
       <div className="rds-comp-ai-typing-section__input-wrapper">
         <div className={`rds-comp-ai-typing-section__input-with-image${ isMobile ? " rds-comp-ai-typing-section__input-with-image--mobile" : "" }`} >
           <textarea
@@ -117,7 +122,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
           {!inputText && (
             <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
-                colorVariant="primary"
+                color="primary"
                 height="var(--rds-spacing-lg)"
                 isCursorPointer
                 name="enhance"
@@ -200,9 +205,9 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompAiTypingSection.displayName = 'RdsCompAiTypingSection';
 export default RdsCompAiTypingSection;

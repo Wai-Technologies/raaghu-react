@@ -15,7 +15,7 @@ export interface RdsLayoutProps extends Omit<ContainerProps, 'children'> {
   padding?: number;
 }
 
-const RdsLayout= ({
+const RdsLayout= React.forwardRef<HTMLDivElement, RdsLayoutProps>(function RdsLayout({
   children,
   header,
   showHeader = true,
@@ -23,9 +23,9 @@ const RdsLayout= ({
   padding = 3,
   maxWidth = 'lg',
   ...props
-}:RdsLayoutProps) => {
+}, ref) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as any}>
+    <Box ref={ref} sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as any}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}
@@ -49,6 +49,6 @@ const RdsLayout= ({
       </Box>
     </Box>
   );
-};
+});
 RdsLayout.displayName = 'RdsLayout';
 export default RdsLayout;

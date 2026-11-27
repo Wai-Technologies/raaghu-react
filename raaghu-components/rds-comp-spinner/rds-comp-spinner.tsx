@@ -2,6 +2,8 @@ import React, { useId } from "react";
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import "./rds-comp-spinner.scss";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 export enum SpinnerSize {
     Default = "Default",
@@ -24,7 +26,7 @@ export enum SpinnerLevel {
     Level04 = "04",
 }
 
-export interface RdsCompSpinnerProps {
+export interface RdsCompSpinnerProps extends RdsStylingProps {
     spinnerType?: string;
     width?: string;
     height?: string;
@@ -39,7 +41,7 @@ export interface RdsCompSpinnerProps {
     level?: SpinnerLevel;
 }
 
-const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
+const RdsCompSpinner = React.forwardRef<HTMLDivElement, RdsCompSpinnerProps>(function RdsCompSpinner({
     spinnerType = "border",
     width,
     height,
@@ -49,8 +51,11 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     layout,
     color,
     colorVariant,
-    level
-}) => {
+    level,
+    className,
+    sx,
+    style
+}, ref) {
     const paletteColor = resolveDeprecatedProp(color, colorVariant, "RdsCompSpinner", "colorVariant", "`color`");
     if (paletteColor === "danger" || color === "danger" || colorVariant === "danger") {
         warnDeprecatedProp("RdsCompSpinner", 'color="danger"', '`color: "error"`');
@@ -140,7 +145,7 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     };
 
     return (
-        <div className={`spinner-container ${getLayoutClass()}`}>
+        <Box ref={ref} className={joinClassNames(`spinner-container ${getLayoutClass()}`, className)} sx={sx} style={style}>
             {showLabel && (
                 <label id={labelId} className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
             )}
@@ -152,8 +157,8 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
                 aria-label={hasLabel ? undefined : "Loading"}
             >
             </div>
-        </div>
+        </Box>
     );
-};
+});
 RdsCompSpinner.displayName = "RdsCompSpinner";
 export default RdsCompSpinner;

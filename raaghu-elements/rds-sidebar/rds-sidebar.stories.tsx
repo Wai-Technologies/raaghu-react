@@ -69,7 +69,7 @@ When a platform is specified, the component automatically displays the appropria
   argTypes: {
     open: {
       control: 'boolean',
-      description: 'Whether the sidebar is open. Has no effect when `variant` is `permanent`.',
+      description: 'Whether the sidebar is open. A `permanent` sidebar is always visible, so in these demos the toggle collapses it to icons instead.',
     },
     width: {
       control: { type: 'number', min: 64, max: 400, step: 8 },
@@ -163,7 +163,10 @@ const SidebarTemplate = (args: any) => {
   const sidebarWidth = sidebarArgs.width ?? 240;
   const variant = sidebarArgs.variant ?? 'permanent';
   const isPermanent = variant === 'permanent';
-  const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
+  // A permanent drawer is always visible (MUI ignores `open` for it), so the toggle
+  // button collapses it to icons and expands it again instead of hiding it.
+  const permanentCollapsed = isPermanent && !open;
+  const reserveSidebarColumn = isPermanent || (open && (variant === 'temporary' || variant === 'persistent'));
 
   useEffect(() => {
     setOpen(!!args.open);
@@ -187,8 +190,8 @@ const SidebarTemplate = (args: any) => {
         sx={{
           position: 'relative',
           flexShrink: 0,
+          // Permanent: the column follows the drawer's own width (full or icons-only).
           width: reserveSidebarColumn ? (isPermanent ? 'auto' : sidebarWidth) : 0,
-          minWidth: isPermanent && open ? sidebarWidth : undefined,
           minHeight: 400,
           overflow: 'hidden',
         }}
@@ -196,7 +199,8 @@ const SidebarTemplate = (args: any) => {
         <RdsSidebar
           {...sidebarArgs}
           avatarCollapsedSrc={logoSrc}
-          open={open}
+          open={isPermanent ? true : open}
+          collapsed={permanentCollapsed ? true : sidebarArgs.collapsed}
           onClose={() => setOpen(false)}
           container={drawerContainer}
         />
@@ -209,7 +213,7 @@ const SidebarTemplate = (args: any) => {
           alignSelf: 'flex-start',
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           gap: 2,
           flexWrap: 'wrap',
         }}
@@ -220,7 +224,9 @@ const SidebarTemplate = (args: any) => {
             onClick={() => setOpen((prev: boolean) => !prev)}
             sx={{ flexShrink: 0, whiteSpace: 'nowrap' }}
           >
-            {open ? 'Close' : 'Open'} Sidebar
+            {isPermanent
+              ? `${open ? 'Collapse' : 'Expand'} Sidebar`
+              : `${open ? 'Close' : 'Open'} Sidebar`}
           </Button>
         )}
         {!hideMainParagraph && (

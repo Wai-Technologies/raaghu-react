@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useMemo, useSyncExternalStore } from "react";
+import { forwardRef, useMemo, useSyncExternalStore } from "react";
 import { Box, Typography } from "@mui/material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import Lottie from "lottie-react";
@@ -8,8 +8,9 @@ import emptyStatePng from "./empty-state.png";
 import emptyStateDarkPng from "./empty-state-dark.png";
 import illustrationLight from "./illustration-light.json";
 import illustrationDark from "./illustration-dark.json";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-export interface RdsCompEmptyStateProps {
+export interface RdsCompEmptyStateProps extends RdsStylingProps {
   mode?: string;
   label?: string;
   subLabel?: string;
@@ -38,7 +39,7 @@ const subscribeToTheme = (onChange: () => void) => {
 
 const getServerThemeSnapshot = () => false;
 
-const RdsCompEmptyState = ({
+const RdsCompEmptyState = forwardRef<HTMLDivElement, RdsCompEmptyStateProps>(function RdsCompEmptyState({
   mode,
   label,
   subLabel,
@@ -49,7 +50,9 @@ const RdsCompEmptyState = ({
   onButtonClick,
   isContinueAnimate,
   className = "",
-}: RdsCompEmptyStateProps) => {
+  sx,
+  style,
+}, ref) {
   const { width, height } = useMemo(() => {
     const rawW = iconWidth ?? 150;
     const rawH = iconHeight ?? iconWidth ?? 150;
@@ -65,7 +68,7 @@ const RdsCompEmptyState = ({
   const textColor = useDarkVariant ? "var(--rds-neutral-0)" : "var(--rds-neutral-1000)";
 
   return (
-    <Box className={clsx("rds-comp-empty-state", className)}>
+    <Box ref={ref} className={clsx("rds-comp-empty-state", className)} sx={sx} style={style}>
       <Box className="rds-comp-empty-state__content">
         <Box
           className={clsx(
@@ -147,7 +150,7 @@ const RdsCompEmptyState = ({
       </Box>
     </Box>
   );
-};
+});
 
 RdsCompEmptyState.displayName = "RdsCompEmptyState";
 export default RdsCompEmptyState;

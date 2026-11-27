@@ -12,7 +12,7 @@ import {
 export { registerMaterialIcon, registerMaterialIcons };
 export type { RdsCompAiIconProps };
 
-const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
+const RdsCompAiIcon = React.forwardRef<SVGSVGElement | HTMLImageElement, RdsCompAiIconProps>(function RdsCompAiIcon(props, ref) {
   const name: string = !props.name ? "" : props.name.toLowerCase();
   const [IconComponent, setIconComponent] = useState<React.ElementType | null>(props.SvgIcon || null);
 
@@ -30,15 +30,15 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   }, [name, props.SvgIcon]);
 
   if (IconComponent) {
-    return <IconRenderer props={props} IconComponent={IconComponent} />;
+    return <IconRenderer props={props} IconComponent={IconComponent} forwardedRef={ref} />;
   }
 
   if (props.imageUrl) {
-    return <ImageIconRenderer props={props} />;
+    return <ImageIconRenderer props={props} forwardedRef={ref} />;
   }
 
   return null;
-};
+});
 
 RdsCompAiIcon.displayName = "RdsCompAiIcon";
 export default RdsCompAiIcon;

@@ -42,7 +42,7 @@ figma.connect(
             lastName: "Technologies",
             messageStatus: "",
             profilePic:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
             profileType: "icon",
             size: "medium",
             status: "Typing....",
@@ -57,7 +57,7 @@ figma.connect(
             lastName: "Doe",
             messageStatus: "",
             profilePic:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
             profileType: "icon",
             size: "medium",
             status: "Developer",
@@ -72,7 +72,7 @@ figma.connect(
             lastName: "Hense",
             messageStatus: "",
             profilePic:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
             profileType: "icon",
             size: "medium",
             status: "Company Owner",

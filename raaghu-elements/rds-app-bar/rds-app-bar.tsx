@@ -1,6 +1,7 @@
 import {
   Children,
   cloneElement,
+  forwardRef,
   isValidElement,
   useEffect,
   useState,
@@ -59,7 +60,7 @@ const toolbarHeights: Record<RdsAppBarSize, number> = {
   large: 80,
 };
 
-const RdsAppBar = ({
+const RdsAppBar = forwardRef<HTMLElement, RdsAppBarProps>(function RdsAppBar({
   title,
   rightActions,
   centerContent,
@@ -83,7 +84,7 @@ const RdsAppBar = ({
   variantStyle,
   overflowContent,
   ...props
-}:RdsAppBarProps) => {
+}, ref) {
   const tokens = useRdsTokens();
   const [overflowOpen, setOverflowOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -97,6 +98,10 @@ const RdsAppBar = ({
       let threshold = 420;
       if (needsTabletBottomNav) threshold = 840;
       else if (variantLower === 'dashboardwithlang') threshold = 599;
+      // Logo + (search) + tabs + five action icons no longer fit on one row below
+      // ~520px, so these variants move their actions to the bottom bar earlier.
+      // Keep in sync with the matching 421–520px rules in rds-app-bar.scss.
+      else if (variantLower === 'logotabsactions' || variantLower === 'logosearchtabsactions') threshold = 520;
       setIsSmallScreen(window.innerWidth <= threshold);
     };
 
@@ -109,6 +114,7 @@ const RdsAppBar = ({
   const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
+      ref={ref}
       {...props}
       className={clsx(
         `rds-app-bar--size-${size}`,
@@ -145,6 +151,8 @@ const RdsAppBar = ({
               className="rds-header__tabs-inline"
               value={tabValue}
               onChange={(_, v) => onTabChange(v)}
+              variant="scrollable"
+              scrollButtons={false}
               textColor="primary"
               indicatorColor="primary"
             >
@@ -353,6 +361,6 @@ const RdsAppBar = ({
       {subHeader && <div className="rds-header__sub-header">{subHeader}</div>}
     </MuiAppBar>
   );
-};
+});
 RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

@@ -1,11 +1,12 @@
-import { useState, type ChangeEvent, type FocusEvent } from 'react';
+import { forwardRef, useState, type ChangeEvent, type FocusEvent } from 'react';
 import { Box, IconButton, InputBase, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import clsx from 'clsx';
+import type { RdsStylingProps } from '../shared/utils/styling-props';
 import "./rds-counter.scss";
 
-export interface RdsCounterProps {
+export interface RdsCounterProps extends RdsStylingProps {
   value?: number;
   onChange?: (value: number) => void;
   defaultValue?: number;
@@ -40,7 +41,7 @@ const canReachRange = (n: number, min: number, max: number): boolean => {
   return false;
 };
 
-const RdsCounter = ({
+const RdsCounter = forwardRef<HTMLDivElement, RdsCounterProps>(function RdsCounter({
   value,
   onChange,
   defaultValue,
@@ -59,7 +60,10 @@ const RdsCounter = ({
   isMandatory = false,
   selected = false,
   state = 'default',
-}: RdsCounterProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const isControlled = typeof value === 'number' && typeof onChange === 'function';
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
@@ -126,6 +130,7 @@ const RdsCounter = ({
     demoSelected && 'rds-counter--selected',
     demoDisabled && 'rds-counter--disabled',
     `rds-counter--layout-${layout}`,
+    className,
   );
 
   const buildValue = (valueVariant: 'compact' | 'default') => (
@@ -225,7 +230,7 @@ const RdsCounter = ({
   const controlsElement = renderControls();
 
   return (
-    <Box className={containerClasses}>
+    <Box ref={ref} className={containerClasses} sx={sx} style={style}>
       {showTitle && typeof titleText === 'string' && titleText && (
         <Typography className={clsx(
           'rds-counter__label',
@@ -239,7 +244,7 @@ const RdsCounter = ({
       {controlsElement}
     </Box>
   );
-};
+});
 
 RdsCounter.displayName = 'RdsCounter';
 export default RdsCounter;

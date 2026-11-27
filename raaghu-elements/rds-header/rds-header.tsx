@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab, Box, MenuItem } from '@mui/material';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -27,7 +27,7 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   subHeader?: ReactNode;
   children?: ReactNode;
 }
-const RdsHeader = ({
+const RdsHeader = React.forwardRef<HTMLElement, RdsHeaderProps>(function RdsHeader({
   title,
   logo,
   onMenuClick,
@@ -46,7 +46,7 @@ const RdsHeader = ({
   userEmail,
   profileMenuItems,
   ...props
-}: RdsHeaderProps) => {
+}, ref) {
   const colorClass =
     props.color === 'primary' ? 'rds-header--primary' :
     props.color === 'secondary' ? 'rds-header--secondary' :
@@ -55,6 +55,7 @@ const RdsHeader = ({
   return (
     <MuiAppBar
       {...props}
+      ref={ref}
       className={clsx(
         'rds-header',
         colorClass,
@@ -140,6 +141,6 @@ const RdsHeader = ({
       )}
     </MuiAppBar>
   );
-};
+});
 RdsHeader.displayName = 'RdsHeader';
 export default RdsHeader;

@@ -1,9 +1,16 @@
+import type { Ref } from 'react';
 import { Paper, Box } from '@mui/material';
+import { joinClassNames, mergeSx, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
-const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
+export interface LayoutRootProps extends RdsStylingProps {
+  ref?: Ref<HTMLDivElement>;
+}
+
+const renderLayoutContent = (displayType: string, hasShadow: boolean, rootProps: LayoutRootProps = {}) => {
+  const { ref, className, sx, style } = rootProps;
   if (displayType === 'Basic') {
     return (
-      <Box className="rds-comp-layout-wrapper_basic" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', }} >
+      <Box ref={ref} className={joinClassNames("rds-comp-layout-wrapper_basic", className)} sx={mergeSx({ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', }, sx)} style={style} >
         <Box className="rds-comp-layout-inner-wrapper_basic">
           <Paper elevation={3} className="rds-comp-layout__card_basic"
             sx={{ borderRadius: 2.5, }}>
@@ -17,7 +24,7 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
 
   return (
 
-    <Box className="rds-comp-layout-wrapper" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', p: { xs: 2, sm: 2 } }}>
+    <Box ref={ref} className={joinClassNames("rds-comp-layout-wrapper", className)} sx={mergeSx({ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', p: { xs: 2, sm: 2 } }, sx)} style={style}>
       <Box className="rds-comp-layout-inner-wrapper" sx={{ gap: 3 }}>
         {(() => {
           switch (displayType) {

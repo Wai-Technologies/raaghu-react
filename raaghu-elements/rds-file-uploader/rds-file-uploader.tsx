@@ -3,6 +3,8 @@ import './rds-file-uploader.scss';
 import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
 import { useFileUploader } from './RdsFileUploaderComponents';
 import { DefaultModeView } from './rds-file-uploader.helpers';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import type { RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 
 export interface FileWithProgress {
   file: File;
@@ -10,7 +12,7 @@ export interface FileWithProgress {
   error?: string;
 }
 
-export interface RdsFileUploaderProps {
+export interface RdsFileUploaderProps extends RdsStylingPropsWithoutStyle {
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
   accept?: string;
@@ -25,14 +27,18 @@ export interface RdsFileUploaderProps {
   isMandatory?: boolean;
   showHint?: boolean;
   hintText?: string;
+  /** Image shown inside the drop area in place of the default upload icon. */
   placeholderImage?: string;
+  /** Shows the drop area in its selected (highlighted) style. */
+  selected?: boolean;
+  /** @deprecated Use `selected` instead. */
   state?: 'default' | 'selected';
   mode?: 'standard' | 'default';
   style?: 'Drop Area - Side Icon' | 'Drop Area - Top Icon' | 'Drop Area - With Upload Button';
   children?: React.ReactNode;
 }
 
-const RdsFileUploader = ({
+const RdsFileUploader = React.forwardRef<HTMLDivElement, RdsFileUploaderProps>(function RdsFileUploader({
   onFilesChange,
   title,
   onUpload,
@@ -48,10 +54,16 @@ const RdsFileUploader = ({
   showHint = false,
   hintText = '',
   placeholderImage = '',
+  selected,
+  state,
   mode = 'standard',
   style,
   children,
-}: RdsFileUploaderProps) => {
+  className,
+  sx,
+}, ref) {
+  if (state !== undefined) warnDeprecatedProp('RdsFileUploader', 'state', '`selected`');
+  const isSelected = selected ?? state === 'selected';
   const uploader = useFileUploader({
     maxSize,
     maxFiles,
@@ -64,11 +76,15 @@ const RdsFileUploader = ({
   if (mode === 'standard') {
     return (
       <RdsFileUploaderStandardView
+        rootRef={ref}
+        className={className}
+        sx={sx}
         showTitle={showTitle}
         isMandatory={isMandatory}
         mandatoryError={uploader.mandatoryError}
         showHint={showHint}
         hintText={hintText}
+        selected={isSelected}
         disabled={disabled}
         dragAndDrop={dragAndDrop}
         isDragOver={uploader.isDragOver}
@@ -88,12 +104,16 @@ const RdsFileUploader = ({
 
   return (
     <DefaultModeView
+      rootRef={ref}
+      className={className}
+      sx={sx}
       mode={mode}
       style={style}
       showTitle={showTitle}
       title={title}
       isMandatory={isMandatory}
       placeholderImage={placeholderImage}
+      selected={isSelected}
       files={uploader.files}
       fileInputRef={uploader.fileInputRef}
       accept={accept}
@@ -115,7 +135,7 @@ const RdsFileUploader = ({
       formatFileSize={uploader.formatFileSize}
     />
   );
-};
+});
 
 RdsFileUploader.displayName = 'RdsFileUploader';
 export default RdsFileUploader;

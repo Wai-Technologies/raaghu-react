@@ -56,7 +56,7 @@ function useMobilePopoverPosition(position: string): string {
   return mobilePosition;
 }
 
-const RdsPopover= ({
+const RdsPopover= React.forwardRef<HTMLDivElement, RdsPopoverProps>(function RdsPopover({
   isOpen,
   onClose,
   anchorEl,
@@ -67,7 +67,7 @@ const RdsPopover= ({
   maxWidth = 'var(--rds-popover-container-max-width, 400px)',
   position = 'bottom-left',
   ...props
-}:RdsPopoverProps) => {
+}, ref) {
   const positionMap: Record<string, {
     anchorOrigin: { vertical: 'top' | 'center' | 'bottom'; horizontal: 'left' | 'center' | 'right' };
     transformOrigin: { vertical: 'top' | 'center' | 'bottom'; horizontal: 'left' | 'center' | 'right' };
@@ -164,6 +164,7 @@ const RdsPopover= ({
   
   return (
     <MuiPopover
+      ref={ref}
       open={isOpen}
       anchorEl={anchorEl}
       onClose={onClose}
@@ -216,6 +217,6 @@ const RdsPopover= ({
       </Box>
     </MuiPopover>
   );
-};
+});
 RdsPopover.displayName = 'RdsPopover';
 export default RdsPopover;

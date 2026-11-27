@@ -34,7 +34,7 @@ const resolveImageUrl = (image: unknown): string | undefined => {
   return undefined;
 };
 
-const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
+const RdsCardDetail = React.forwardRef<HTMLDivElement, RdsCardDetailProps>(function RdsCardDetail({
   title,
   subtitle,
   image,
@@ -42,7 +42,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   actions,
   children,
   ...props
-}) => {
+}, ref) {
   const { mode } = useRaaghuTheme();
 
   const passedElevation = (props.elevation ?? 0) as number;
@@ -65,7 +65,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   const renderedActions = isRenderableNode(actions) ? actions : null;
 
   return (
-    <Card {...props} sx={mergedSx} className={mergedClassName}>
+    <Card ref={ref} {...props} sx={mergedSx} className={mergedClassName}>
       {(title || subtitle) && (
         <CardHeader
           title={title}
@@ -90,7 +90,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
       )}
     </Card>
   );
-};
+});
 
 RdsCardDetail.displayName = 'RdsCardDetail';
 export default RdsCardDetail;

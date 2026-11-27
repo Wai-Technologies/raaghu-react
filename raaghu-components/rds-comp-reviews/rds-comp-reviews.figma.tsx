@@ -39,7 +39,7 @@ figma.connect(
       description: 'Awesome website and funnel for your business',
       feedIcon: 'person',
       hashtags: '#newbag #fancybag #designerbag',
-      imageUrl: 'https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1',
+      imageUrl: '/assets/Image1.png',
       name: 'Jane Doe',
       rating: 1,
       reviews: '4.75',

@@ -1,3 +1,5 @@
+import type { RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
+
 export enum TreeLevel {
   Level1 = "Level1",
   Level2 = "Level2",
@@ -24,7 +26,7 @@ export interface TreeNode {
   children?: TreeNode[];
 }
 
-export interface RdsCompTreeStructureProps {
+export interface RdsCompTreeStructureProps extends RdsStylingProps {
   level?: TreeLevel;
   showChewron?: boolean;
   showCheckbox?: boolean;

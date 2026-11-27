@@ -4,6 +4,9 @@ import { axe } from 'jest-axe';
 import RdsCompDetailsPane from './rds-comp-details-pane';
 
 jest.mock('./rds-comp-details-pane.scss', () => ({}));
+jest.mock('../assets/placeholder-avatar.jpg', () => 'placeholder-avatar.jpg');
+jest.mock('../assets/placeholder-landscape.jpg', () => 'placeholder-landscape.jpg');
+jest.mock('../assets/placeholder-login-page.png', () => 'placeholder-login-page.png');
 
 jest.mock('./details-pane-components', () => ({
   HistoryFavoritesTabs: ({ activeTab, setActiveTab, historyTabLabel, favouritesTabLabel }: any) => (

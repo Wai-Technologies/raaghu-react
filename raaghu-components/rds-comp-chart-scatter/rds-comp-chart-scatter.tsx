@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import Box from "@mui/material/Box";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import {
   applyChartThemeColors,
@@ -7,6 +8,7 @@ import {
   useChartThemeMode,
 } from "../chart-utils";
 import "./rds-comp-chart-scatter.scss";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 export type ScatterChartType = "scatter" | "bar" | "line";
 
@@ -69,7 +71,7 @@ export function resolveScatterChartType(
   return "scatter";
 }
 
-export interface RdsCompScatterChartProps {
+export interface RdsCompScatterChartProps extends RdsStylingProps {
   labels: any[];
   options: ChartConfiguration["options"];
   dataSets: ChartConfiguration["data"]["datasets"];
@@ -78,14 +80,17 @@ export interface RdsCompScatterChartProps {
   chartType?: ScatterChartType;
 }
 
-const RdsCompScatterChart = ({
+const RdsCompScatterChart = React.forwardRef<HTMLDivElement, RdsCompScatterChartProps>(function RdsCompScatterChart({
   id,
   labels,
   options,
   dataSets,
   chartLabel,
   chartType,
-}: RdsCompScatterChartProps) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const chartRef = useRef<Chart | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const themeMode = useChartThemeMode();
@@ -120,16 +125,16 @@ const RdsCompScatterChart = ({
   }, [id, labels, options, dataSets, themeMode, chartType]);
 
   return (
-    <div className="rds-comp-chart-scatter">
+    <Box ref={ref} className={joinClassNames("rds-comp-chart-scatter", className)} sx={sx} style={style}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
         aria-label={chartLabel ?? "Scatter chart"}
       />
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompScatterChart.displayName = "RdsCompScatterChart";
 export default RdsCompScatterChart;

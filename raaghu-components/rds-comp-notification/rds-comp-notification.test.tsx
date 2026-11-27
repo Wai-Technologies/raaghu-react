@@ -10,6 +10,7 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-comp-notification.scss', () => ({}));
+jest.mock('../assets/placeholder-avatar.jpg', () => 'placeholder-avatar.jpg');
 
 jest.mock('@mui/material', () => ({
   Card: ({ children, className, ...props }: any) => (

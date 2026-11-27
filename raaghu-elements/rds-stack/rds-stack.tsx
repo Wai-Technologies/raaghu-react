@@ -13,14 +13,14 @@ export interface RdsStackProps extends StackProps {
   dividerColor?: string;
 }
 
-const RdsStack: React.FC<RdsStackProps> = ({
+const RdsStack = React.forwardRef<HTMLDivElement, RdsStackProps>(function RdsStack({
   children,
   gap,
   spacing,
   divider,
   dividerColor,
   ...props
-}) => {
+}, ref) {
   let stackDivider: React.ReactNode | undefined = undefined;
   const rawDirection = props.direction;
   const directionValues: string[] = typeof rawDirection === 'string'
@@ -67,6 +67,7 @@ const RdsStack: React.FC<RdsStackProps> = ({
       useFlexGap={useFlexGap}
       flexWrap={flexWrap}
       {...restProps}
+      ref={ref}
       className={rootClassName}
       style={mergedStyle}
       divider={stackDivider}
@@ -74,6 +75,6 @@ const RdsStack: React.FC<RdsStackProps> = ({
       {children}
     </MuiStack>
   );
-};
+});
 RdsStack.displayName = 'RdsStack';
 export default RdsStack;

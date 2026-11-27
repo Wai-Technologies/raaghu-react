@@ -3,6 +3,7 @@ import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, Fo
 import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
+import { joinClassNames } from '../shared/utils/styling-props';
 import './rds-pagination.scss';
 export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
@@ -22,7 +23,7 @@ export interface RdsPaginationProps extends PaginationProps {
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
 }
 
-const RdsPagination: React.FC<RdsPaginationProps> = ({
+const RdsPagination = React.forwardRef<HTMLDivElement, RdsPaginationProps>(function RdsPagination({
   totalPages,
   currentPage,
   onPageChange,
@@ -42,8 +43,11 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   paginationStyle = 'Style 1',
   onPageSizeChange,
   disabled = false,
+  className,
+  sx,
+  style,
   ...props
-}) => {
+}, ref) {
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
   const [innerPage, setInnerPage] = useState(1);
@@ -99,7 +103,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   const shouldShowManualInput = showManualInput || 
     (styleConfig.showManualInputControl && showManualInput !== false);
   return (
-    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}${disabled ? ' rds-pagination-wrapper--disabled' : ''}`} aria-disabled={disabled || undefined}>
+    <Box ref={ref} className={joinClassNames(`rds-pagination-wrapper ${styleConfig.styleClass || ''}${disabled ? ' rds-pagination-wrapper--disabled' : ''}`, className)} sx={sx} style={style} aria-disabled={disabled || undefined}>
       {styleConfig.showPagination && (
       <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={currentPageNumber}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  disabled={disabled}  {...props}
       />
@@ -156,6 +160,6 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
       )}
     </Box>
   );
-};
+});
 RdsPagination.displayName = 'RdsPagination';
 export default RdsPagination;

@@ -1,14 +1,15 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react';
+import { forwardRef, useState, useEffect, useRef, type ReactNode } from 'react';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
+import { mergeSx, type RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 import './rds-carousel.scss';
 
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
 
-export interface RdsCarouselProps {
+export interface RdsCarouselProps extends RdsStylingPropsWithoutStyle {
   children: ReactNode[];
   autoPlay?: boolean;
   className?: string;
@@ -25,7 +26,7 @@ export interface RdsCarouselProps {
   subtitle?: string;
 }
 
-const RdsCarousel = ({
+const RdsCarousel = forwardRef<HTMLDivElement, RdsCarouselProps>(function RdsCarousel({
   children,
   className,
   autoPlay = false,
@@ -40,7 +41,8 @@ const RdsCarousel = ({
   subtitles,
   title,
   subtitle,
-}:RdsCarouselProps) => {
+  sx,
+}, ref) {
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
   const [currentIndex, setCurrentIndex] = useState(() => {
@@ -105,8 +107,9 @@ const RdsCarousel = ({
 
   return (
     <Box 
+      ref={ref}
       className={carouselClassName}
-      sx={{ 
+      sx={mergeSx({ 
         position: 'relative', 
         height: height, 
         overflow: 'hidden',
@@ -116,7 +119,7 @@ const RdsCarousel = ({
         boxSizing: 'border-box',
         borderRadius: style === 'full width image' ? 0 : tokens.radius.md,
         backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
-      }}
+      }, sx)}
     >
       <Box
         className="rds-carousel__track"
@@ -310,7 +313,7 @@ const RdsCarousel = ({
       )}
     </Box>
   );
-};
+});
 
 RdsCarousel.displayName = 'RdsCarousel';
 export default RdsCarousel;

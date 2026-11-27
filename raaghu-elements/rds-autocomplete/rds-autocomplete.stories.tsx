@@ -29,6 +29,13 @@ const meta: Meta<typeof RdsAutocomplete> = {
     },
   },
   tags: ['autodocs', 'stable'],
+  decorators: [
+    (Story) => (
+      <div style={{ width: 300, maxWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     variant: {
       control: { type: 'select' },

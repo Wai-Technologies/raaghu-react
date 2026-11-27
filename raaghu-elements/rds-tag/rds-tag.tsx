@@ -7,14 +7,14 @@ export interface RdsTagProps extends Omit<ChipProps, 'label'> {
   onRemove?: () => void;
 }
 
-const RdsTag: React.FC<RdsTagProps> = ({
+const RdsTag = React.forwardRef<HTMLDivElement, RdsTagProps>(function RdsTag({
   label,
   removable = false,
   onRemove,
   onDelete,
   className,
   ...props
-}) => {
+}, ref) {
   const combinedClassName = ['rds-tag', className].filter(Boolean).join(' ');
 
   return (
@@ -23,8 +23,9 @@ const RdsTag: React.FC<RdsTagProps> = ({
       label={label}
       onDelete={removable ? (onRemove || onDelete) : undefined}
       {...props}
+      ref={ref}
     />
   );
-};
+});
 RdsTag.displayName = 'RdsTag';
 export default RdsTag;

@@ -1,10 +1,12 @@
-import { ReactNode, ReactElement, useState, useEffect, useCallback, isValidElement, cloneElement } from "react";
+import { ReactNode, ReactElement, useState, useEffect, useCallback, isValidElement, cloneElement, forwardRef } from "react";
+import Box from "@mui/material/Box";
 import "./rds-comp-app-shell.scss";
 import { AppShellDisplayType } from "./shell-types";
 export { AppShellDisplayType };
 import { GetShellLayoutCss } from "./shell-layout";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-export interface RdsCompAppShellProps {
+export interface RdsCompAppShellProps extends RdsStylingProps {
   displayType: AppShellDisplayType;
   topbar?: ReactNode;
   sidebar?: ReactNode;
@@ -45,7 +47,7 @@ const TopbarSlot = ({ topbar, onMenuClick }: TopbarSlotProps) => {
 };
 TopbarSlot.displayName = 'TopbarSlot';
 
-const RdsCompAppShell = (props: RdsCompAppShellProps) => {
+const RdsCompAppShell = forwardRef<HTMLDivElement, RdsCompAppShellProps>(function RdsCompAppShell(props, ref) {
   const [internalMobileSidebarOpen, setInternalMobileSidebarOpen] = useState(false);
   
   const mobileSidebarOpen = props.mobileSidebarOpen ?? internalMobileSidebarOpen;
@@ -63,7 +65,7 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
 
   return (
     <>
-      <div className={`${GetShellLayoutCss(props.displayType)} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>
+      <Box ref={ref} className={joinClassNames(`${GetShellLayoutCss(props.displayType)} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''}`, props.className)} sx={props.sx} style={props.style}>
         <div className="sidebar-layout">
           {props.sidebar}
         </div>
@@ -79,9 +81,9 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
             aria-label="Close sidebar overlay"
           />
         )}
-      </div>
+      </Box>
     </>
   );
-};
+});
 RdsCompAppShell.displayName = 'RdsCompAppShell';
 export default RdsCompAppShell;

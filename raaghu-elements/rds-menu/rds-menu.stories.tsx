@@ -285,7 +285,7 @@ export const CustomizedMenu: Story = {
       { id: 2, label: 'Item 1', color: 'primary', icon: <ContentCut fontSize="small" /> },
       { id: 3, label: 'Item 2', color: 'success', icon: <ContentCopy fontSize="small" /> },
       { id: 4, divider: true },
-      { id: 5, label: 'Item 3', color: 'danger', disabled: true, icon: <Delete fontSize="small" /> },
+      { id: 5, label: 'Item 3', color: 'error', disabled: true, icon: <Delete fontSize="small" /> },
       { id: 6, label: 'Item 4', color: 'info', icon: <ContentPaste fontSize="small" /> },
       { id: 7, header: 'Header 2' },
       { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },

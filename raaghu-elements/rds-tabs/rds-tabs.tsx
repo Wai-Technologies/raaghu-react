@@ -49,7 +49,7 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   level?: number;
 }
 
-const RdsTabs = ({
+const RdsTabs = React.forwardRef<HTMLDivElement, RdsTabsProps>(function RdsTabs({
   tabs,
   activeTab,
   onTabChange,
@@ -67,7 +67,7 @@ const RdsTabs = ({
   level: _level,
   className,
   ...props
-}:RdsTabsProps) => {
+}, ref) {
   const isDisabled = disabled ?? state === 'disabled';
   const stateClass = isDisabled ? 'disabled' : (state ?? 'default');
   const capitalizeFirstLetter = (text: string) => {
@@ -106,6 +106,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${stateClass}${isDisabled ? 
       orientation={type}
       className={`rds-tabs ${layoutClass}${className ? ` ${className}` : ''}`}
       {...props}
+      ref={ref}
     >
       {tabsWithIcons.map((tab) => {
         const labelContent = (
@@ -131,6 +132,6 @@ const layoutClass = `rds-tabs--${layout} rds-state--${stateClass}${isDisabled ? 
       })}
     </MuiTabs>
   );
-};
+});
 RdsTabs.displayName = 'RdsTabs';
 export default RdsTabs;

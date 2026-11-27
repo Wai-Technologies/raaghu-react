@@ -6,6 +6,7 @@ import {
   RdsDropZoneDefault,
   RdsFileList,
 } from './RdsFileUploaderComponents';
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 
 export interface FileWithProgress {
   file: File;
@@ -13,13 +14,15 @@ export interface FileWithProgress {
   error?: string;
 }
 
-export interface DefaultModeViewProps {
+export interface DefaultModeViewProps extends RdsStylingPropsWithoutStyle {
+  rootRef?: React.Ref<HTMLDivElement>;
   mode?: 'standard' | 'default';
   style?: 'Drop Area - Side Icon' | 'Drop Area - Top Icon' | 'Drop Area - With Upload Button';
   showTitle: boolean;
   title?: string;
   isMandatory: boolean;
   placeholderImage: string;
+  selected?: boolean;
   files: FileWithProgress[];
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   accept?: string;
@@ -48,6 +51,7 @@ export function DefaultModeView({
   title,
   isMandatory,
   placeholderImage,
+  selected = false,
   files,
   fileInputRef,
   accept,
@@ -67,6 +71,9 @@ export function DefaultModeView({
   openFileDialog,
   removeFile,
   formatFileSize,
+  rootRef,
+  className,
+  sx,
 }: DefaultModeViewProps) {
   const canDrop = dragAndDrop && !disabled;
   const blockDrop = (event: React.DragEvent) => {
@@ -78,6 +85,8 @@ export function DefaultModeView({
     isDragOver: canDrop && isDragOver,
     disabled,
     dragAndDrop,
+    selected,
+    placeholderImage: placeholderImage || undefined,
     onDragOver: canDrop ? handleDragOver : blockDrop,
     onDragLeave: canDrop ? handleDragLeave : blockDrop,
     onDrop: canDrop ? handleDrop : blockDrop,
@@ -85,18 +94,12 @@ export function DefaultModeView({
   };
 
   return (
-    <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
+    <Box ref={rootRef} className={joinClassNames(`rds-file-uploader rds-file-uploader--mode-${mode}`, className)} sx={sx}>
       {showTitle && (
         <Typography className="rds-file-uploader__form-title" variant="subtitle1">
           {title || 'File Upload'}
           {isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
         </Typography>
-      )}
-
-      {placeholderImage && files.length === 0 && (
-        <Box sx={{ mb: 2, textAlign: 'center' }}>
-          <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" />
-        </Box>
       )}
 
       <input

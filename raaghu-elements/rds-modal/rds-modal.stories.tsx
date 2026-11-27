@@ -254,7 +254,7 @@ export const WithImage = {
   },
   args: {
     title: 'Modal with Image',
-    imageSrc: 'https://th.bing.com/th/id/OIP.VVPQIqDqf-OxZPXu07XWKwHaEK?w=326&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+    imageSrc: '/assets/Image1.png',
     children: (
       <Typography>
         This modal displays an image in the header.

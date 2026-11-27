@@ -28,7 +28,7 @@ const normalizeState = (state?: string): RdsSwitchProps['state'] | undefined => 
   return state.trim().toLowerCase().replace(/ +/g, ' ') as RdsSwitchProps['state'];
 };
 
-const RdsSwitch = ({
+const RdsSwitch = React.forwardRef<HTMLDivElement, RdsSwitchProps>(function RdsSwitch({
   label,
   labelPlacement = 'end',
   layout,
@@ -36,7 +36,7 @@ const RdsSwitch = ({
   style: styleProp = 'style1',
   showLabel,
   ...props
-}:RdsSwitchProps) => {
+}, ref) {
   const normalizedLayout = normalizeLayout(layout);
   const normalizedState = normalizeState(state);
 
@@ -90,14 +90,14 @@ const RdsSwitch = ({
 
   if (showLabel === false) {
     return (
-      <div className="rds-switch--row">
+      <div ref={ref} className="rds-switch--row">
         <MuiSwitch {...switchProps} />
       </div>
     );
   }
   if (label) {
     return (
-      <div className="rds-switch--row">
+      <div ref={ref} className="rds-switch--row">
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -108,10 +108,10 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row">
+    <div ref={ref} className="rds-switch--row">
       <MuiSwitch {...switchProps} />
     </div>
   );
-};
+});
 RdsSwitch.displayName = 'RdsSwitch';
 export default RdsSwitch;

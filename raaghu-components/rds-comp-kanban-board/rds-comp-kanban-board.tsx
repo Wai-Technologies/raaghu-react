@@ -1,4 +1,4 @@
-import { useCallback, memo, type ReactNode, type MouseEvent } from 'react';
+import { forwardRef, useCallback, memo, type ReactNode, type MouseEvent } from 'react';
 import clsx from 'clsx';
 import {
   DndContext,
@@ -62,7 +62,7 @@ const SortableSubCard = memo(({ subCard, subCardIndex, boardIndex, avatarData, t
               {subCard.displayId && <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId}</Typography>}
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
-              {subCard.badge && <RdsBadge badgeContent={subCard.badge} color="secondary" size="small" shape="rectangle" colorVariant="secondary" />}
+              {subCard.badge && <RdsBadge badgeContent={subCard.badge} color="secondary" size="small" shape="rectangle" />}
               <IconButton
                 size="small"
                 onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(subCard.SubcardId, e, subCard, boardIndex); }}
@@ -130,14 +130,17 @@ const PlusIcon = (
   </svg>
 );
 
-const RdsCompKanbanBoard = ({
+const RdsCompKanbanBoard = forwardRef<HTMLDivElement, RdsCompKanbanBoardProps>(function RdsCompKanbanBoard({
   avatarData,
   allowAddingNewCard,
   allowAddingNewSubCard,
   allCategoriesList,
   allTagsList,
+  className,
+  sx,
+  style,
   ...props
-}: RdsCompKanbanBoardProps) => {
+}, ref) {
   const state = useKanbanBoardState(props);
   const {
     boardName, boards, showBoard, editingBoardId, showAddBoardBtn,
@@ -175,7 +178,7 @@ const RdsCompKanbanBoard = ({
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd as any}>
-      <Box className="rds-kanban-board-container">
+      <Box ref={ref} className={clsx("rds-kanban-board-container", className)} sx={sx} style={style}>
         {allowAddingNewCard !== undefined && (
           <>
             {showAddBoardBtn && allowAddingNewCard && (
@@ -377,7 +380,7 @@ const RdsCompKanbanBoard = ({
       </Menu>
     </DndContext>
   );
-};
+});
 
 RdsCompKanbanBoard.displayName = "RdsCompKanbanBoard";
 export default RdsCompKanbanBoard;

@@ -11,14 +11,14 @@ export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onTo
   showToggleButton?: boolean;
 }
 
-const RdsCollapse: React.FC<RdsCollapseProps> = ({
+const RdsCollapse = React.forwardRef<HTMLDivElement, RdsCollapseProps>(function RdsCollapse({
   title,
   children,
   expanded = false,
   onToggle,
   showToggleButton = true,
   ...props
-}) => {
+}, ref) {
   const [internalExpanded, setInternalExpanded] = React.useState(expanded);
 
   React.useEffect(() => {
@@ -65,14 +65,14 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           )}
         </Box>
       )}
-      <MuiCollapse in={internalExpanded} {...props}>
+      <MuiCollapse ref={ref} in={internalExpanded} {...props}>
         <Box sx={{ pt: typeof title === 'string' && title ? 1 : 0 }}>
           {children}
         </Box>
       </MuiCollapse>
     </Box>
   );
-};
+});
 
 RdsCollapse.displayName = 'RdsCollapse';
 export default RdsCollapse;

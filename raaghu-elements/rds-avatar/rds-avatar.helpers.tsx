@@ -1,5 +1,7 @@
 import React from 'react';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
+import Box from '@mui/material/Box';
+import { joinClassNames, type RdsStylingProps } from '../shared/utils/styling-props';
 
 export const sizeStyles = {
   smallest: { width: 'var(--rds-size-lg)', height: 'var(--rds-size-lg)', fontSize: 'var(--rds-spacing-9-px)' },
@@ -89,11 +91,12 @@ export function AvatarCore({
   );
 }
 
-export interface StackingAvatarsProps {
+export interface StackingAvatarsProps extends RdsStylingProps {
   avatars: Array<{ src?: string; title?: string; subText?: string; size?: AvatarSize }>;
   size: AvatarSize;
   maxVisibleAvatars: number;
   showRemainingCount: boolean;
+  rootRef?: React.Ref<HTMLDivElement>;
 }
 
 export function StackingAvatarsView({
@@ -101,6 +104,10 @@ export function StackingAvatarsView({
   size,
   maxVisibleAvatars,
   showRemainingCount,
+  rootRef,
+  className,
+  sx,
+  style,
 }: StackingAvatarsProps) {
   const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
   const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
@@ -112,8 +119,10 @@ export function StackingAvatarsView({
     : avatarSize;
 
   return (
-    <div
-      className={`rds-avatar rds-avatar--${size} rds-avatar__stacking avatar-container`}
+    <Box
+      ref={rootRef}
+      className={joinClassNames(`rds-avatar rds-avatar--${size} rds-avatar__stacking avatar-container`, className)}
+      sx={sx}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -121,6 +130,7 @@ export function StackingAvatarsView({
         flexShrink: 0,
         minHeight: avatarSize,
         width: stackWidth,
+        ...style,
       }}
     >
       {visibleAvatars.map((avatar, idx) => (
@@ -153,7 +163,7 @@ export function StackingAvatarsView({
           +{remainingCount}
         </div>
       )}
-    </div>
+    </Box>
   );
 }
 

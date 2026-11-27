@@ -10,6 +10,8 @@ interface RdsDropZoneSideIconProps {
   isDragOver: boolean;
   disabled: boolean;
   dragAndDrop?: boolean;
+  selected?: boolean;
+  placeholderImage?: string;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -21,6 +23,8 @@ interface RdsDropZoneWithButtonProps {
   isDragOver: boolean;
   disabled: boolean;
   dragAndDrop?: boolean;
+  selected?: boolean;
+  placeholderImage?: string;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -32,6 +36,8 @@ interface RdsDropZoneDefaultProps {
   isDragOver: boolean;
   disabled: boolean;
   dragAndDrop?: boolean;
+  selected?: boolean;
+  placeholderImage?: string;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -171,11 +177,21 @@ export const useFileUploader = ({
   };
 };
 
+/** Drop-zone icon: the custom `placeholderImage` when given, otherwise the cloud upload icon. */
+const UploadIcon: React.FC<{ placeholderImage?: string; color: string }> = ({ placeholderImage, color }) =>
+  placeholderImage ? (
+    <img className="rds-file-uploader__icon rds-file-uploader__placeholder-img" src={placeholderImage} alt="" aria-hidden="true" />
+  ) : (
+    <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color }} />
+  );
+
 export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
   mode,
   isDragOver,
   disabled,
   dragAndDrop = true,
+  selected = false,
+  placeholderImage,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -189,7 +205,8 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
       className={
         `rds-file-uploader__drop-zone rds-file-uploader__drop-zone--side-icon` +
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
-        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '') +
+        (selected && !disabled ? ' rds-file-uploader__drop-zone--selected' : '')
       }
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
@@ -205,7 +222,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
         </Typography>
       </Box>
       <Box sx={{ ml: tokens.space(2), display: 'flex', alignItems: 'center' }}>
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
+        <UploadIcon placeholderImage={placeholderImage} color={tokens.cssVar('file-uploader-icon-color')} />
       </Box>
     </Paper>
   );
@@ -216,6 +233,8 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
   isDragOver,
   disabled,
   dragAndDrop = true,
+  selected = false,
+  placeholderImage,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -229,7 +248,8 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       className={
         `rds-file-uploader__drop-zone rds-file-uploader__drop-zone--with-upload-btn` +
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
-        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '') +
+        (selected && !disabled ? ' rds-file-uploader__drop-zone--selected' : '')
       }
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
@@ -248,7 +268,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       }}
     >
       <Box className="rds-file-uploader__icon-box">
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
+        <UploadIcon placeholderImage={placeholderImage} color={tokens.cssVar('file-uploader-icon-color')} />
       </Box>
       {dragAndDrop && (
         <Box className="rds-file-uploader__title-box">
@@ -274,6 +294,8 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   isDragOver,
   disabled,
   dragAndDrop = true,
+  selected = false,
+  placeholderImage,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -287,7 +309,8 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
       className={
         `rds-file-uploader__drop-zone` +
         (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
-        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '') +
+        (selected && !disabled ? ' rds-file-uploader__drop-zone--selected' : '')
       }
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
@@ -295,7 +318,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
       onClick={!disabled ? openFileDialog : undefined}
       sx={mode === 'standard' ? { boxShadow: 3 } : {}}
     >
-      <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
+      <UploadIcon placeholderImage={placeholderImage} color={tokens.cssVar('file-uploader-icon-color')} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
         {dragAndDrop && 'Drag and Drop files or '}<span className="rds-file-uploader__browse-link" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>{!dragAndDrop && ' files'}
       </Typography>

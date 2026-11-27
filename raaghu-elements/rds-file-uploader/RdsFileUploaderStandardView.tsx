@@ -2,8 +2,11 @@ import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import type { FileWithProgress } from './rds-file-uploader';
+import { joinClassNames, mergeSx, type RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 
-interface RdsFileUploaderStandardViewProps {
+interface RdsFileUploaderStandardViewProps extends RdsStylingPropsWithoutStyle {
+  rootRef?: React.Ref<HTMLDivElement>;
+  selected?: boolean;
   showTitle: boolean;
   isMandatory: boolean;
   mandatoryError: string | null;
@@ -24,6 +27,7 @@ interface RdsFileUploaderStandardViewProps {
 }
 
 const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = ({
+  selected = false,
   showTitle,
   isMandatory,
   mandatoryError,
@@ -40,7 +44,10 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   setFiles,
   onFilesChange,
   children,
-  title
+  title,
+  rootRef,
+  className,
+  sx,
 }) => {
   const [internalDragOver, setInternalDragOver] = React.useState(false);
   const canDrop = dragAndDrop && !disabled;
@@ -50,7 +57,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   };
 
   return (
-    <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
+    <Box ref={rootRef} className={joinClassNames('rds-file-uploader__standard', className)} sx={mergeSx({ width: '100%' }, sx)}>
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
@@ -60,7 +67,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
       )}
 
       <Box
-        className={`rds-file-uploader__input-row${(isDragOver || internalDragOver) && canDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}`}
+        className={`rds-file-uploader__input-row${(isDragOver || internalDragOver) && canDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}${selected && !disabled ? ' rds-file-uploader__input-row--selected' : ''}`}
         sx={{
           display: 'flex',
           width: '100%',

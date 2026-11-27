@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {
@@ -9,7 +10,7 @@ export interface RdsSkeletonProps extends SkeletonProps {
   width?: number | string;
 }
 
-const RdsSkeleton = ({
+const RdsSkeleton = forwardRef<HTMLElement, RdsSkeletonProps>(function RdsSkeleton({
   shape = 'text',
   frames = 1,
   animated = true,
@@ -19,7 +20,7 @@ const RdsSkeleton = ({
   height,
   width,
   ...props
-}: RdsSkeletonProps) => {
+}, ref) {
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
@@ -28,6 +29,7 @@ const RdsSkeleton = ({
   if (frames > 1) {
     return (
       <Box
+        ref={ref}
         className={bemClass}
         sx={{
           display: 'flex',
@@ -52,6 +54,7 @@ const RdsSkeleton = ({
 
   return (
     <MuiSkeleton
+      ref={ref}
       variant={shape}
       animation={animationValue}
       {...props}
@@ -59,6 +62,6 @@ const RdsSkeleton = ({
       className={bemClass}
     />
   );
-};
+});
 RdsSkeleton.displayName = 'RdsSkeleton';
 export default RdsSkeleton;

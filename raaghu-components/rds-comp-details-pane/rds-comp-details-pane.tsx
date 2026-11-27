@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef } from "react";
+import { forwardRef, useState, useCallback, useRef } from "react";
+import Box from "@mui/material/Box";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -6,9 +7,10 @@ import {
   SelectionContent,
   ToolbarContent,
   ThumbnailViewContent} from "./details-pane-components";
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from "../../raaghu-elements/shared/utils/styling-props";
 
 
-export interface RdsCompDetailsPaneProps {
+export interface RdsCompDetailsPaneProps extends RdsStylingPropsWithoutStyle {
   headerText: string; 
   historyTabLabel?: string;
   favouritesTabLabel?: string;
@@ -40,7 +42,7 @@ const DEFAULT_OLDER_HISTORY_ITEMS = [
   { id: 2, name: "Task Management Board UI" },
 ];
 
-const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
+const RdsCompDetailsPane = forwardRef<HTMLDivElement, RdsCompDetailsPaneProps>(function RdsCompDetailsPane(props, ref) {
   const {
     style,
     historyItems: providedHistoryItems,
@@ -80,7 +82,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   
   return (
     <>
-      <div className="rds-comp-details-pane" style={{ position: 'relative' }}>
+      <Box ref={ref} className={joinClassNames("rds-comp-details-pane", props.className)} sx={props.sx} style={{ position: 'relative' }}>
         {(props.style === "Favourites" || props.style === "Favourites - New Folder" || props.style === "Prompt History") ? (
           <div>
             <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
@@ -120,9 +122,9 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
           />
         ) : null        
         }
-      </div>
+      </Box>
     </>
   );
-};
+});
 RdsCompDetailsPane.displayName = "RdsCompDetailsPane";
 export default RdsCompDetailsPane;

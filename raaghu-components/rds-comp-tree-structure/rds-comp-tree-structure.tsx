@@ -1,5 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { forwardRef, useCallback, useMemo, useState } from "react";
+import Box from "@mui/material/Box";
 import "./rds-comp-tree-structure.scss";
+import { joinClassNames } from "../../raaghu-elements/shared/utils/styling-props";
 import * as FileType from './fileTypeIcons';
 import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
@@ -10,7 +12,7 @@ import { type TreeNode } from './tree-structure-types';
 
 export { TreeLevel, NodeState, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
 
-const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
+const RdsCompTreeStructure = forwardRef<HTMLDivElement, RdsCompTreeStructureProps>(function RdsCompTreeStructure(props, ref) {
   const ResolvedTreeNodeRow = DirectTreeNodeRow ?? (FileType as any).TreeNodeRow ?? (FileType as any).default?.TreeNodeRow;
   const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>(() =>
     props.showCollapsed ? FileType.getAllNodeIds(props.treeData ?? []) : []
@@ -56,7 +58,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
 
   const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
   return (
-    <div className="rds-comp-tree-structure">
+    <Box ref={ref} className={joinClassNames("rds-comp-tree-structure", props.className)} sx={props.sx} style={props.style}>
       {props.treeData?.map((node: TreeNode) => (
         <ResolvedTreeNodeRow
           key={node.id}
@@ -71,9 +73,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           onCheckboxClick={handleCheckboxClick}
         />
       ))}
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompTreeStructure.displayName = "RdsCompTreeStructure";
 export default RdsCompTreeStructure;

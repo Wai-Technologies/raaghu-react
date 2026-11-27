@@ -1,9 +1,12 @@
+import React from 'react';
 import { Box, Typography, LinearProgress, CircularProgress } from '@mui/material';
+import { joinClassNames, mergeSx, type RdsStylingProps } from '../shared/utils/styling-props';
 import './rds-loader.scss';
-export interface RdsLoaderProps {
+export interface RdsLoaderProps extends RdsStylingProps {
   variant?: 'linear' | 'circular';
   size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+  /** `info` is kept for backward compatibility and renders as `primary` (they share the same blue). */
+  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'success' | 'info';
   value?: number;
   label?: string;
   overlay?: boolean;
@@ -12,7 +15,8 @@ export interface RdsLoaderProps {
 }
 
 
-const RdsLoader = (props: RdsLoaderProps) => {
+const RdsLoader = React.forwardRef<HTMLDivElement, RdsLoaderProps>(function RdsLoader(props, ref) {
+  const { className, sx, style } = props;
   if (props.type) {
     const size = props.size || "medium";
     let type = props.type;
@@ -23,26 +27,29 @@ const RdsLoader = (props: RdsLoaderProps) => {
     const sizeClass = `loader-${size}`;
     const classes = `${loaderClass} ${sizeClass}`.trim();
     return (
-      <div className="d-flex justify-content-center my-5">
+      <Box ref={ref} className={joinClassNames('d-flex justify-content-center my-5', className)} sx={sx} style={style}>
         <div className={classes} />
         {typeof props.label === 'string' && props.label && (
           <div className="rds-loader__label-wrap">
             <span className="rds-loader__label">{props.label}</span>
           </div>
         )}
-      </div>
+      </Box>
     );
   }
 
   const {
     variant = 'circular',
     size = 'medium',
-    color = 'primary',
+    color: colorProp = 'primary',
     value,
     label,
     overlay = false,
     thickness = 3.6,
   } = props;
+
+  // `info` and `primary` look the same, so `info` is folded into `primary`.
+  const color = colorProp === 'info' ? 'primary' : colorProp;
 
   const getSizeValue = () => {
     if (variant === 'circular') {
@@ -62,10 +69,10 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
   const linearHeight = { small: 2, medium: 4, large: 8 }[size] ?? 4;
 
-  const renderLoader = () => {
+  const renderLoader = (isRoot = false) => {
     if (variant === 'linear') {
       return (
-        <Box sx={{ width: '100%' }}>
+        <Box ref={isRoot ? ref : undefined} className={isRoot ? className : undefined} sx={mergeSx({ width: '100%' }, isRoot && sx)} style={isRoot ? style : undefined}>
           {typeof label === 'string' && label && (
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
               {label}
@@ -89,12 +96,15 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
     return (
       <Box
-        sx={{
+        ref={isRoot ? ref : undefined}
+        className={isRoot ? className : undefined}
+        sx={mergeSx({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: 1,
-        }}
+        }, isRoot && sx)}
+        style={isRoot ? style : undefined}
       >
         <CircularProgress
           variant={value !== undefined ? 'determinate' : 'indeterminate'}
@@ -121,7 +131,10 @@ const RdsLoader = (props: RdsLoaderProps) => {
   if (overlay) {
     return (
       <Box
-        sx={{
+        ref={ref}
+        className={className}
+        style={style}
+        sx={mergeSx({
           position: 'fixed',
           top: 0,
           left: 0,
@@ -132,14 +145,14 @@ const RdsLoader = (props: RdsLoaderProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 'var(--rds-z-index-tooltip, 9999)',
-        }}
+        }, sx)}
       >
         {renderLoader()}
       </Box>
     );
   }
 
-  return renderLoader();
-};
+  return renderLoader(true);
+});
 RdsLoader.displayName = 'RdsLoader';
 export default RdsLoader;

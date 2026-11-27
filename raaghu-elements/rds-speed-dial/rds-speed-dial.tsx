@@ -21,7 +21,7 @@ export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children'> {
   tooltipTitle?: string;
 }
 
-const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
+const RdsSpeedDial = React.forwardRef<HTMLDivElement, RdsSpeedDialProps>(function RdsSpeedDial({
   actions,
   icon,
   openIcon,
@@ -31,7 +31,7 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
   onClose,
   onOpen,
   ...props
-}) => {
+}, ref) {
   const [internalOpen, setInternalOpen] = useState(false);
   
   const isControlled = open !== undefined;
@@ -59,6 +59,7 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
       onOpen={handleOpen}
       onClose={handleClose}
       {...props}
+      ref={ref}
     >
       {actions.map((action) => (
         <MuiSpeedDialAction
@@ -70,6 +71,6 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
       ))}
     </MuiSpeedDial>
   );
-};
+});
 RdsSpeedDial.displayName = 'RdsSpeedDial';
 export default RdsSpeedDial;

@@ -1,4 +1,5 @@
 import './rds-avatar.scss';
+import { forwardRef } from 'react';
 import { type AvatarProps } from '@mui/material';
 import {
   getAvatarModifierClasses,
@@ -35,7 +36,7 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'color'> {
   showRemainingCount?: boolean;
 }
 
-const RdsAvatar = ({
+const RdsAvatar = forwardRef<HTMLDivElement, RdsAvatarProps>(function RdsAvatar({
   color,
   colorVariant,
   title: titleProp,
@@ -53,7 +54,7 @@ const RdsAvatar = ({
   showDesignation = true,
   showRemainingCount = true,
   ...props
-}: RdsAvatarProps) => {
+}, ref) {
   const title = typeof titleProp === 'string' ? titleProp : undefined;
   const paletteColor = resolveDeprecatedProp(color, colorVariant, 'RdsAvatar', 'colorVariant', '`color`') ?? 'primary';
   if (paletteColor === 'danger' || color === 'danger' || colorVariant === 'danger') {
@@ -68,11 +69,15 @@ const RdsAvatar = ({
         size={size}
         maxVisibleAvatars={maxVisibleAvatars}
         showRemainingCount={showRemainingCount}
+        rootRef={ref}
+        className={props.className}
+        sx={sx}
+        style={props.style}
       />
     );
   }
 
-  const avatarProps = props;
+  const avatarProps = { ...props, ref };
   const modifierClasses = getAvatarModifierClasses(
     size,
     activityRing,
@@ -135,7 +140,7 @@ const RdsAvatar = ({
       children={children}
     />
   );
-};
+});
 
 RdsAvatar.displayName = 'RdsAvatar';
 export default RdsAvatar;

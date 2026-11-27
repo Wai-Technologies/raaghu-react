@@ -431,7 +431,8 @@
   }
 
   &--hide-description {
-    .rds-card__description {
+    .rds-card__description,
+    .rds-card__long-description {
       display: none;
     }
   }

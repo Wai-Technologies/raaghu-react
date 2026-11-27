@@ -42,7 +42,7 @@ export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose' 
   onPrimaryClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const RdsBanner: React.FC<RdsBannerProps> = ({
+const RdsBanner = React.forwardRef<HTMLDivElement, RdsBannerProps>(function RdsBanner({
   description,
   children,
   color,
@@ -71,7 +71,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   onPrimaryClick,
   className,
   ...props
-}) => {
+}, ref) {
   if (type !== undefined) warnDeprecatedProp('RdsBanner', 'type', '`color`');
   const resolvedColor = color ?? type ?? 'info';
   const [isVisible, setIsVisible] = React.useState(true);
@@ -93,6 +93,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
 
   return (
     <MuiAlert
+      ref={ref}
       severity={resolvedColor}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
@@ -138,7 +139,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
       </div>
     </MuiAlert>
   );
-};
+});
 
 RdsBanner.displayName = 'RdsBanner';
 export default RdsBanner;

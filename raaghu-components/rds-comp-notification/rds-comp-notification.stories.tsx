@@ -22,6 +22,7 @@ const meta: Meta = {
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: NotificationLayout.${p1.replace(/\s+/g, '')}`);
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: NotificationStyle.${p1.replace(/\s+/g, '')}`);
+                    code = code.replace(/color="([^"]+)"/g, (match, p1) => `color={NotificationType.${p1.charAt(0).toUpperCase()}${p1.slice(1)}}`);
                     code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={NotificationType.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: NotificationType.${p1.replace(/\s+/g, '')}`);
                     return code;
@@ -49,12 +50,12 @@ const meta: Meta = {
             options: ["default", "avatar", "icon", "image"],
             control: { type: "select" },
         },
-        type: {
+        color: {
             options: Object.values(NotificationType),
             control: { type: "select" },
-            description: "Semantic notification type (error, info, success, warning)",
+            description: "Semantic notification colour (error, info, success, warning)",
         },
-        color: {
+        type: {
             table: { disable: true },
         },
         severity: {
@@ -72,7 +73,7 @@ export const Default: Story = {
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
         layout: NotificationLayout.Horizontal,
         style: NotificationStyle.Default,
-        type: NotificationType.Info,
+        color: NotificationType.Info,
         showButton: true,
         showPrimaryButton: true,
         showSecondaryButton: true,

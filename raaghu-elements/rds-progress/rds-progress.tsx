@@ -4,11 +4,11 @@ import {
   CircularProgress as MuiCircularProgress,
   Box,
   Typography,
-  type SxProps
 } from '@mui/material';
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from '../shared/utils/styling-props';
 import './rds-progress.scss';
 
-export interface RdsProgressProps {
+export interface RdsProgressProps extends RdsStylingPropsWithoutStyle {
   type?: 'linear' | 'circular';
   style?: 'circular' | 'line' | 'stepper' | 'dash' | 'block';
   value?: number;
@@ -22,13 +22,12 @@ export interface RdsProgressProps {
   label?: string;
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: SxProps;
   animationDuration?: number;
   'aria-label'?: string;
   'aria-labelledby'?: string;
 }
 
-const RdsProgress = ({
+const RdsProgress = React.forwardRef<HTMLDivElement, RdsProgressProps>(function RdsProgress({
   type = 'linear',
   style = 'line',
   value,
@@ -43,10 +42,11 @@ const RdsProgress = ({
   totalSteps = 5,
   stepperType = 'number',
   sx,
+  className,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   ...props
-}:RdsProgressProps) => {
+}, ref) {
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
 
   const getColorValue = () => ({
@@ -57,41 +57,42 @@ const RdsProgress = ({
   const getBaseClasses = (styleType: string) => `rds-progress rds-progress--${styleType} rds-progress--${color}${variant === 'indeterminate' ? ' rds-progress--indeterminate' : ''}`;
 
   const finalValue = getProgressValue();
+  const getRootProps = (rootClasses: string) => ({ ref, className: joinClassNames(rootClasses, className), sx });
   const colorValue = getColorValue();
 
   const renderWithLabel = (baseClasses: string, progressElement: React.ReactNode, labelPosition: 'overlay' | 'side') => {
-    if (!showLabel || variant !== 'determinate') return <div className={baseClasses}>{progressElement}</div>;
+    if (!showLabel || variant !== 'determinate') return <Box {...getRootProps(baseClasses)}>{progressElement}</Box>;
     
     const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
     
     return labelPosition === 'overlay' ? (
-      <div className={baseClasses}>
+      <Box {...getRootProps(baseClasses)}>
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
           {progressElement}
           <Box sx={{ top: 0, left: 0, bottom: 0, right: 0, position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {labelElement}
           </Box>
         </Box>
-      </div>
+      </Box>
     ) : (
-      <div className={baseClasses}>
+      <Box {...getRootProps(baseClasses)}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ width: '100%', mr: 1 }} className="rds-progress__bar">{progressElement}</Box>
           <Box sx={{ minWidth: 35 }}>{labelElement}</Box>
         </Box>
-      </div>
+      </Box>
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant} value={finalValue} valueBuffer={valueBuffer} color={color} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
     return (
-      <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
-        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
+      <Box {...getRootProps(`rds-progress rds-progress--stepper rds-progress--${color}`)}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }} className="rds-progress__stepper">
           {Array.from({ length: totalSteps }, (_, index) => {
             const stepNumber = index + 1;
             const isCompleted = index < currentStep;
@@ -124,7 +125,7 @@ const RdsProgress = ({
             );
           })}
         </Box>
-      </div>
+      </Box>
     );
   };
 
@@ -134,8 +135,8 @@ const RdsProgress = ({
     const isDash = type === 'dash';
     
     return (
-      <div className={`rds-progress rds-progress--${type} rds-progress--${color}`}>
-        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
+      <Box {...getRootProps(`rds-progress rds-progress--${type} rds-progress--${color}`)}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
             {Array.from({ length: count }, (_, index) => {
               const getBorderRadius = () => {
@@ -166,7 +167,7 @@ const RdsProgress = ({
             })}
           </Box>
         </Box>
-      </div>
+      </Box>
     );
   };
 
@@ -178,6 +179,6 @@ const RdsProgress = ({
     case 'block': return renderSegmented('block');
     default: return renderLinear();
   }
-};
+});
 RdsProgress.displayName = 'RdsProgress';
 export default RdsProgress;

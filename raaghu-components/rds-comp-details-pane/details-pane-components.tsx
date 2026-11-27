@@ -10,6 +10,9 @@ import {
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCarousel from "../../raaghu-elements/rds-carousel/rds-carousel";
 import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
+import placeholderAvatar from "../assets/placeholder-avatar.jpg";
+import placeholderLandscape from "../assets/placeholder-landscape.jpg";
+import placeholderLoginPage from "../assets/placeholder-login-page.png";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsCounter from "../../raaghu-elements/rds-counter/rds-counter";
 import RdsSearch from "../../raaghu-elements/rds-search/rds-search";
@@ -155,7 +158,7 @@ export const HistoryFavoritesTabs = ({
   handleDeleteHistoryItem,
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
-  favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
+  favouriteCardImage = placeholderLoginPage,
 }) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
   const resolvedHistoryItems = historyItems ?? EMPTY_HISTORY_ITEMS;
@@ -381,7 +384,6 @@ export const RealEstateContent = ({
                 <RdsBadge 
                   badgeContent={badge.content} 
                   color={badge.color} 
-                  colorVariant="secondary"
                   size={badge.size}
                   shape={badge.shape}
                 />
@@ -439,9 +441,9 @@ export const RealEstateContent = ({
 };
 
 const SELECTION_AGENTS = [
-  { id: 1, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
-  { id: 2, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
-  { id: 3, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 }
+  { id: 1, name: "Jane Doe", designation: "Designation", avatar: placeholderAvatar, count: 4 },
+  { id: 2, name: "Jane Doe", designation: "Designation", avatar: placeholderAvatar, count: 4 },
+  { id: 3, name: "Jane Doe", designation: "Designation", avatar: placeholderAvatar, count: 4 }
 ];
 
 export const SelectionContent = ({
@@ -479,7 +481,7 @@ export const SelectionContent = ({
           <RdsSearch
             value={searchValue}
             onChange={handleSearchChange}
-            iconPosition="right"
+            iconPosition="end"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
             size="small"
@@ -515,7 +517,7 @@ export const SelectionContent = ({
                 <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
                 <div className="rds-comp-details-pane__agent-radio">
                   <RdsRadio
-                    direction="row"
+                    row
                     label=""
                     layout="icon"
                     onChange={(val: React.ChangeEvent<HTMLInputElement>) => {
@@ -524,12 +526,11 @@ export const SelectionContent = ({
                     }}
                     options={[
                       {
-                        text: '',
+                        label: '',
                         value: String(agent.id),
                       },
                     ]}
-                    radioProps={{ name: 'agent-selection' }}
-                    state="default"
+                    slotProps={{ radio: { name: 'agent-selection' } }}
                     value={selectedAgent}
                   />
                 </div>
@@ -991,9 +992,9 @@ export const ToolbarContent = ({
 };
 
 const THUMBNAIL_ACCORDION_ITEMS = [
-  { id: "thumb-1", title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
-  { id: "thumb-2", title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
-  { id: "thumb-3", title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" }
+  { id: "thumb-1", title: "Title", imgSrc: placeholderLandscape },
+  { id: "thumb-2", title: "Title", imgSrc: placeholderLandscape },
+  { id: "thumb-3", title: "Title", imgSrc: placeholderLandscape }
 ];
 
 export const ThumbnailViewContent = ({

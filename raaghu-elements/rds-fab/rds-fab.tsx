@@ -1,5 +1,6 @@
 import React from 'react';
 import { Fab as MuiFab, FabProps } from '@mui/material';
+import { mergeSx } from '../shared/utils/styling-props';
 import './rds-fab.scss';
 
 export interface RdsFabProps extends FabProps {
@@ -8,14 +9,14 @@ export interface RdsFabProps extends FabProps {
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 }
 
-const RdsFab: React.FC<RdsFabProps> = ({
+const RdsFab = React.forwardRef<HTMLButtonElement, RdsFabProps>(function RdsFab({
   icon,
   label,
   children,
   position,
   sx,
   ...props
-}) => {
+}, ref) {
   const getPositionStyles = () => {
     if (!position) return {};
     
@@ -54,15 +55,13 @@ const RdsFab: React.FC<RdsFabProps> = ({
   }
   return (
     <MuiFab
-      sx={{
-        ...getPositionStyles(),
-        ...sx,
-      }}
+      ref={ref}
+      sx={mergeSx(getPositionStyles(), sx)}
       {...props}
     >
       {fabContent}
     </MuiFab>
   );
-};
+});
 RdsFab.displayName = 'RdsFab';
 export default RdsFab;

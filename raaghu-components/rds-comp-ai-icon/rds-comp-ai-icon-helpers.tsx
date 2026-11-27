@@ -3,9 +3,11 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 type IconComponentType = React.ElementType;
-export interface RdsCompAiIconProps {
+export interface RdsCompAiIconProps extends RdsStylingProps {
   width?: string;
   height?: string;
   /** Icon color. `'danger'` is deprecated; use `'error'`. */
@@ -122,20 +124,21 @@ export function buildIconClassName(props: RdsCompAiIconProps) {
 export interface IconRendererProps {
   props: RdsCompAiIconProps;
   IconComponent: IconComponentType;
+  forwardedRef?: React.Ref<SVGSVGElement | HTMLImageElement>;
 }
 
-export function IconRenderer({ props, IconComponent }: IconRendererProps) {
+export function IconRenderer({ props, IconComponent, forwardedRef }: IconRendererProps) {
   const rootClass = "rds-comp-ai-icon";
   const className = buildIconClassName(props);
   const style = buildIconStyle(props);
   try {
     const Icon = IconComponent;
     const svgProps = {
-      className: `${className} ${rootClass}__svg`,
+      className: joinClassNames(`${className} ${rootClass}__svg`, props.className),
       onClick: props.onClick || undefined,
       id: props.id,
       "data-testid": props.dataTestId,
-      style,
+      style: { ...style, ...props.style },
       "data-bs-dismiss": props.databsdismiss,
       "data-bs-target": props.databstarget,
       "data-bs-toggle": props.databstoggle,
@@ -143,25 +146,28 @@ export function IconRenderer({ props, IconComponent }: IconRendererProps) {
       fill: props.fill ? "currentColor" : "none",
       stroke: props.stroke ? (props.strokeColor || "currentColor") : "none",
     };
-    return <Icon {...svgProps} />;
+    return <Box component={Icon} ref={forwardedRef} sx={props.sx} {...svgProps} />;
   } catch {
     return null;
   }
 }
 
-export function ImageIconRenderer({ props }: { props: RdsCompAiIconProps }) {
+export function ImageIconRenderer({ props, forwardedRef }: { props: RdsCompAiIconProps; forwardedRef?: React.Ref<SVGSVGElement | HTMLImageElement> }) {
   const rootClass = "rds-comp-ai-icon";
   const className = buildIconClassName(props);
   const style = buildIconStyle(props);
   return (
-    <img
+    <Box
+      component="img"
+      ref={forwardedRef as React.Ref<HTMLImageElement>}
       src={props.imageUrl}
-      className={`${className} ${rootClass}__img`}
+      className={joinClassNames(`${className} ${rootClass}__img`, props.className)}
       onClick={props.onClick || undefined}
       role="img"
       id={props.id}
       data-testid={props.dataTestId}
-      style={style}
+      style={{ ...style, ...props.style }}
+      sx={props.sx}
       data-bs-dismiss={props.databsdismiss}
       data-bs-target={props.databstarget}
       data-bs-toggle={props.databstoggle}

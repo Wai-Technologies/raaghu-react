@@ -4,6 +4,10 @@ import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { InlineConfig } from 'vite';
 
+// `storybook build` produces the static site that gets published. Dev/test-only addons
+// (coverage instrumentation, MCP manifests, Vitest panel) are skipped there.
+const isStaticBuild = process.argv.includes('build');
+
 const config: StorybookConfig = {
   stories: [
     '../stories/Introduction.mdx',
@@ -25,9 +29,13 @@ const config: StorybookConfig = {
       },
     },
     getAbsolutePath("@storybook/addon-a11y"),
-    getAbsolutePath("@storybook/addon-coverage"),
-    getAbsolutePath("@storybook/addon-mcp"),
-    getAbsolutePath("@storybook/addon-vitest"),
+    ...(isStaticBuild
+      ? []
+      : [
+          getAbsolutePath("@storybook/addon-coverage"),
+          getAbsolutePath("@storybook/addon-mcp"),
+          getAbsolutePath("@storybook/addon-vitest"),
+        ]),
   ],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
@@ -52,6 +60,11 @@ const config: StorybookConfig = {
   async viteFinal(config: InlineConfig) {
     return {
       ...config,
+      build: {
+        ...config.build,
+        // Do not publish source maps (they expose the full source and double the build size).
+        sourcemap: false,
+      },
       resolve: {
         ...config.resolve,
         alias: {

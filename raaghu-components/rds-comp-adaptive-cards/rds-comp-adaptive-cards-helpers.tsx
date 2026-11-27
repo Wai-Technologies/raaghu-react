@@ -17,6 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import type { SxProps, Theme } from "@mui/material/styles";
+import { joinClassNames, mergeSx, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 // @ts-ignore Side-effect stylesheet import is resolved by bundler.
 import './rds-comp-adaptive-cards.scss';
 
@@ -221,10 +223,15 @@ export function InputFormCard(props: AdaptiveCardProps) {
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick, onDismiss }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void; onDismiss?: () => void }) {
+/** Root ref/className/sx/style forwarded from RdsCompAdaptiveCards. `style` is merged into `sx` because RdsCard's `style` prop is a variant. */
+export interface AdaptiveCardRootProps extends RdsStylingProps {
+  rootRef?: React.Ref<HTMLDivElement>;
+}
+
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick, onDismiss, rootRef, className, sx, style }: AdaptiveCardProps & AdaptiveCardRootProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void; onDismiss?: () => void }) {
   const showClose = Boolean(showDismiss || closeIcon);
   return (
-    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
+    <RdsCard ref={rootRef} className={joinClassNames("rds-adaptive-cards rds-adaptive-cards--image-gallery", className)} sx={mergeSx(sx, style as SxProps<Theme>)} showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
           <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
@@ -267,9 +274,13 @@ export function FootballScorecardCard({
   awayScore,
   time,
   finalText,
-}: AdaptiveCardProps) {
+  rootRef,
+  className,
+  sx,
+  style,
+}: AdaptiveCardProps & AdaptiveCardRootProps) {
   return (
-    <RdsCard className={clsx("rds-adaptive-cards", "rds-adaptive-cards--football-scorecard", isLive && " is-live")} showIcon={false} showIndicator={false}>
+    <RdsCard ref={rootRef} className={clsx("rds-adaptive-cards", "rds-adaptive-cards--football-scorecard", isLive && " is-live", className)} sx={mergeSx(sx, style as SxProps<Theme>)} showIcon={false} showIndicator={false}>
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="space-between" className="rds-adaptive-cards__football-header-row">
@@ -427,7 +438,7 @@ export function CalendarReminderForm({
 export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: AdaptiveCardProps) {
   const [selectedValue, setSelectedValue] = useState('');
   const radioOptionsMapped = useMemo(
-    () => radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [],
+    () => radioOptions?.map(opt => ({ value: opt.value, label: `${opt.label} : ${opt.desc}` })) ?? [],
     [radioOptions]
   );
   return (
@@ -444,7 +455,6 @@ export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions 
         options={radioOptionsMapped}
         value={selectedValue}
         onChange={e => setSelectedValue(e.target.value)}
-        direction="column"
         layout="icon with label"
         className="rds-adaptive-cards__activity-update-radio-group"
       />

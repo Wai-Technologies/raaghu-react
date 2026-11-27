@@ -1,11 +1,13 @@
-import { Suspense, lazy, useMemo, createElement, type ComponentType } from "react";
+import { Suspense, lazy, useMemo, createElement, forwardRef, type ComponentType } from "react";
+import Box from "@mui/material/Box";
 import "./rds-comp-video-player.scss";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 export { VideoPlayerType } from './rds-comp-video-player-types';
 import { VideoPlayerType } from './rds-comp-video-player-types';
 
 const ReactPlayer = lazy(() => import("react-player"));
 
-export interface RdsVideoPlayerProps {
+export interface RdsVideoPlayerProps extends RdsStylingProps {
   width?: string | number;
   height?: string | number;
   autoplay?: boolean;
@@ -78,7 +80,7 @@ const buildPlayerConfig = (
   };
 };
 
-const RdsCompVideoPlayer = ({
+const RdsCompVideoPlayer = forwardRef<HTMLDivElement, RdsVideoPlayerProps>(function RdsCompVideoPlayer({
   width = "100%",
   height = "auto",
   autoplay = false,
@@ -89,7 +91,9 @@ const RdsCompVideoPlayer = ({
   volume = 0.8,
   className = "",
   disabled = false,
-}) => {
+  sx,
+  style,
+}, ref) {
   const formattedUrl = useMemo(() => formatVideoUrl(videoLink), [videoLink]);
   const playerConfig = useMemo(
     () => buildPlayerConfig(type, formattedUrl, controls),
@@ -103,7 +107,7 @@ const RdsCompVideoPlayer = ({
   );
 
   return (
-    <div className={rootClassName}>
+    <Box ref={ref} className={rootClassName} sx={sx} style={style}>
       <div className="rds-comp-video-player__wrapper">
         <Suspense
           fallback={
@@ -133,9 +137,9 @@ const RdsCompVideoPlayer = ({
           <div className="rds-comp-video-player__disabled-message">Video player is disabled</div>
         </div>
       )}
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompVideoPlayer.displayName = "RdsCompVideoPlayer";
 export default RdsCompVideoPlayer;

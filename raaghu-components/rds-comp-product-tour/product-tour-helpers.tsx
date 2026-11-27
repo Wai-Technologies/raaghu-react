@@ -3,8 +3,9 @@ import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
 import clsx from 'clsx';
+import type { RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
-export interface RdsCompProductTourProps {
+export interface RdsCompProductTourProps extends RdsStylingProps {
     state?: "Image" | "Carousel" | "GIF" | "Form";
     topLeft?: boolean;
     topRight?: boolean;

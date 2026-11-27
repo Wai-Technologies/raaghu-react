@@ -8,8 +8,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateRangePreset, RangeTime } from './RangeComponents';
 import { RangeFieldRenderer, DateTimeFieldRenderer } from './date-picker-field-helpers';
+import Box from '@mui/material/Box';
+import type { RdsStylingPropsWithoutStyle } from '../../raaghu-elements/shared/utils/styling-props';
 
-export interface RdsCompDatePickerProps {
+export interface RdsCompDatePickerProps extends RdsStylingPropsWithoutStyle {
   variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
   layout?: 'Default' | 'Year Picker' | 'Month Picker' | 'Multi Month';
   label?: string;
@@ -36,7 +38,7 @@ export interface RdsCompDatePickerProps {
   isRequired?: boolean;
 }
 
-export default function RdsCompDatePicker({
+const RdsCompDatePicker = React.forwardRef<HTMLDivElement, RdsCompDatePickerProps>(function RdsCompDatePicker({
   variant = 'date',
   layout = 'Default',
   label,
@@ -58,7 +60,8 @@ export default function RdsCompDatePicker({
   style = 'default',
   showSeconds = true,
   isRequired = false,
-}: RdsCompDatePickerProps) {
+  sx,
+}, ref) {
   const [dateValue, setDateValue] = React.useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
   );
@@ -336,15 +339,15 @@ export default function RdsCompDatePicker({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className={containerClasses}>
+      <Box ref={ref} className={containerClasses} sx={sx}>
         <div className="rds-date-picker__field-wrapper">
           {getPickerComponent()}
           {helperText ? <div className="rds-date-picker__helper">{helperText}</div> : null}
         </div>
-      </div>
+      </Box>
     </LocalizationProvider>
   );
-}
+});
 
 export function DatePickerDemo() {
   const [values, setValues] = React.useState({
@@ -416,3 +419,4 @@ export function DatePickerDemo() {
 
 DatePickerDemo.displayName = 'DatePickerDemo';
 RdsCompDatePicker.displayName = 'RdsCompDatePicker';
+export default RdsCompDatePicker;

@@ -1,9 +1,10 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState, type ReactNode, type ReactElement, Fragment } from 'react';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import React, { useState, type ReactNode, type ReactElement, Fragment } from 'react';
 import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,type ListProps, Divider } from '@mui/material';
 import clsx from 'clsx';
 import './rds-list.scss';
-import {Paper } from '@mui/material';
+import { Paper, Avatar } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 export interface RdsListItem {
   id: string | number;
@@ -35,7 +36,7 @@ const ExpandIcon = ({ open }: { open: boolean }) => (
 );
 
 
-const RdsList = ({
+const RdsList = React.forwardRef<HTMLDivElement, RdsListProps>(function RdsList({
   items,
   variant = 'simple',
   alignItems,
@@ -45,9 +46,11 @@ const RdsList = ({
   onCheckboxChange,
   checkedItems,
   className,
+  sx,
+  style,
   dense,
   ...props
-}: RdsListProps) => {
+}, ref) {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
   const isControlledChecked = checkedItems !== undefined;
@@ -56,9 +59,9 @@ const RdsList = ({
     : internalChecked;
   const showCheckboxes = withCheckboxes === true;
 
-  const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
+  const variantClass = `rds-list--${variant}`;
   const denseClass = dense ? 'rds-list--dense' : '';
-  const rootClass = clsx('rds-list', variantClass, denseClass, className);
+  const rootClass = clsx('rds-list', variantClass, denseClass);
 
   const getItemClass = (item: RdsListItem) => clsx(
     'rds-list__item',
@@ -79,6 +82,30 @@ const RdsList = ({
     onCheckboxChange?.(id, isChecked);
   };
 
+  // What each variant shows in the leading slot:
+  //  - icon:   the item's icon (a small bullet when it has none); avatars are not shown.
+  //  - avatar: the item's avatar, else its icon or first letter inside an avatar circle.
+  //  - simple / button / firebase: the icon and avatar exactly as given.
+  const getLeading = (item: RdsListItem): { icon?: ReactNode; avatar?: ReactNode } => {
+    if (variant === 'icon') {
+      return {
+        icon: item.icon ?? (showCheckboxes ? undefined : <FiberManualRecordIcon className="rds-list__bullet" fontSize="small" />),
+      };
+    }
+    if (variant === 'avatar') {
+      if (item.avatar) return { avatar: item.avatar };
+      if (showCheckboxes && !item.icon) return {};
+      return {
+        avatar: (
+          <Avatar className="rds-list__generated-avatar">
+            {item.icon ?? item.primary.trim().charAt(0).toUpperCase()}
+          </Avatar>
+        ),
+      };
+    }
+    return { icon: item.icon, avatar: item.avatar };
+  };
+
   const handleToggle = (id: string | number) => {
     setOpenMap((prev) => ({ ...prev, [id]: !prev[id] }));
   };
@@ -86,6 +113,7 @@ const RdsList = ({
   const renderListItem = (item: RdsListItem): ReactElement => {
     const hasChildren = Array.isArray(item.children) && item.children.length > 0;
     const isOpen = openMap[item.id] || false;
+    const leading = getLeading(item);
     const itemProps = {
       selected: item.selected,
       disabled: item.disabled,
@@ -103,11 +131,11 @@ const RdsList = ({
             className={clsx(getItemClass(item), isOpen && 'rds-list__item--expanded')}
           >
             <MuiListItemButton onClick={() => handleToggle(item.id)}>
-              {item.icon && (
-                <MuiListItemIcon className="rds-list__icon">{item.icon}</MuiListItemIcon>
+              {leading.icon && (
+                <MuiListItemIcon className="rds-list__icon">{leading.icon}</MuiListItemIcon>
               )}
-              {item.avatar && (
-                <MuiListItemAvatar className="rds-list__avatar">{item.avatar}</MuiListItemAvatar>
+              {leading.avatar && (
+                <MuiListItemAvatar className="rds-list__avatar">{leading.avatar}</MuiListItemAvatar>
               )}
               <MuiListItemText
                 primary={item.primary}
@@ -129,7 +157,7 @@ const RdsList = ({
       );
     }
 
-    if (variant === 'button' || item.onClick || showCheckboxes) {
+    if (variant === 'button' || variant === 'firebase' || item.onClick || showCheckboxes) {
       const checkbox = showCheckboxes && !item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
           <RdsCheckbox
@@ -141,9 +169,9 @@ const RdsList = ({
         </MuiListItemIcon>
       ) : null;
 
-      const icon = item.icon ? (
+      const icon = leading.icon ? (
         <MuiListItemIcon className="rds-list__icon">
-          {item.icon}
+          {leading.icon}
         </MuiListItemIcon>
       ) : checkbox;
 
@@ -154,9 +182,9 @@ const RdsList = ({
             disabled={item.disabled}
           >
             {icon}
-            {item.avatar && (
+            {leading.avatar && (
               <MuiListItemAvatar className="rds-list__avatar">
-                {item.avatar}
+                {leading.avatar}
               </MuiListItemAvatar>
             )}
             <MuiListItemText
@@ -175,14 +203,14 @@ const RdsList = ({
 
     return (
       <MuiListItem key={item.id} {...itemProps}>
-        {item.icon && !item.secondaryAction && (
+        {leading.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
-            {item.icon}
+            {leading.icon}
           </MuiListItemIcon>
         )}
-        {item.avatar && (
+        {leading.avatar && (
           <MuiListItemAvatar className="rds-list__avatar">
-            {item.avatar}
+            {leading.avatar}
           </MuiListItemAvatar>
         )}
         <MuiListItemText
@@ -219,13 +247,13 @@ const RdsList = ({
   }
 
   return (
-    <Paper>
+    <Paper ref={ref} className={clsx(variant === 'firebase' && 'rds-list__surface--firebase', className)} sx={sx} style={style}>
       <MuiList className={rootClass} {...props}>
         {children}
       </MuiList>
     </Paper>
   );
-};
+});
 
 RdsList.displayName = 'RdsList';
 export default RdsList;

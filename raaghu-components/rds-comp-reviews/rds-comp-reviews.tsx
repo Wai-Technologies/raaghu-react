@@ -1,7 +1,9 @@
+import React from "react";
 import "./rds-comp-reviews.scss";
 import { renderReviewStyle } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from "../../raaghu-elements/shared/utils/styling-props";
 
 export interface Item {
   name: string;
@@ -37,19 +39,19 @@ export enum RevieweStyle {
   Style13 = "style13",
 }
 
-export interface RdsCompReviewsProps {
+export interface RdsCompReviewsProps extends RdsStylingPropsWithoutStyle {
   itemList: Item[];
   style?: RevieweStyle;
   variantType?: VariantType;
 }
 
-const RdsCompReviews = (props: RdsCompReviewsProps) => {
+const RdsCompReviews = React.forwardRef<HTMLDivElement, RdsCompReviewsProps>(function RdsCompReviews(props, ref) {
   const renderContentByStyle = (item: Item) => {
     return renderReviewStyle(item, props.style);
   };
 
   return (
-    <Box className="rds-comp-reviews">
+    <Box ref={ref} className={joinClassNames("rds-comp-reviews", props.className)} sx={props.sx}>
       {(props.variantType ?? VariantType.Default) === VariantType.Default && (
         <Grid container spacing={2} wrap="wrap">
           {props.itemList.map((item: Item, index: number) => (
@@ -71,6 +73,6 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
       )}
     </Box>
   );
-};
+});
 RdsCompReviews.displayName = "RdsCompReviews";
 export default RdsCompReviews;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ToggleButton as MuiToggleButton, ToggleButtonProps } from '@mui/material';
+import { Box, ToggleButton as MuiToggleButton, ToggleButtonProps } from '@mui/material';
 import './rds-toggle-button.scss';
 
 export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 'value'> {
@@ -9,12 +9,15 @@ export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 
   children?: React.ReactNode;
 }
 
-const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
+const RdsStandaloneToggleButton = React.forwardRef<HTMLDivElement, RdsStandaloneToggleButtonProps>(function RdsStandaloneToggleButton({
   selected: controlledSelected,
   onChange,
   children,
+  className,
+  sx,
+  style,
   ...props
-}) => {
+}, ref) {
   const [internalSelected, setInternalSelected] = useState(false);
   
   const isControlled = controlledSelected !== undefined;
@@ -31,7 +34,12 @@ const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
   };
 
   return (
-    <div className="rds-toggle-button rds-toggle-button--standalone">
+    <Box
+      ref={ref}
+      className={`rds-toggle-button rds-toggle-button--standalone${className ? ` ${className}` : ''}`}
+      sx={sx}
+      style={style}
+    >
       <MuiToggleButton
         value="standalone"
         selected={selected}
@@ -42,9 +50,9 @@ const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
       >
         {children}
       </MuiToggleButton>
-    </div>
+    </Box>
   );
-};
+});
 
 export default RdsStandaloneToggleButton;
 

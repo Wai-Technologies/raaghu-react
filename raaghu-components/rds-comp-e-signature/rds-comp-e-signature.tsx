@@ -4,8 +4,9 @@ import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import { RdsESignatureUpload, RdsESignatureChoose } from './rds-comp-e-signature-modes';
 import './rds-comp-e-signature.scss';
+import { joinClassNames, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
-export interface RdsCompESignatureProps {
+export interface RdsCompESignatureProps extends RdsStylingProps {
   mode?: 'draw' | 'upload' | 'choose';
   type?: 'fullname' | 'initials';
   colourSwatch?: boolean;
@@ -26,7 +27,7 @@ export interface RdsCompESignatureProps {
   title?: string;
 }
 
-const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
+const RdsCompESignature = React.forwardRef<HTMLDivElement, RdsCompESignatureProps>(function RdsCompESignature({
   mode = 'draw',
   type = 'fullname',
   colourSwatch = true,
@@ -47,7 +48,10 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   height,
   penColor = eSignaturePenColors.black,
   title,
-}) => {
+  className,
+  sx,
+  style,
+}, ref) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const [selectedColor, setSelectedColor] = useState(penColor);
@@ -277,7 +281,10 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   
   return (
     <Box
-      className={getStateClassName()}
+      ref={ref}
+      className={joinClassNames(getStateClassName(), className)}
+      sx={sx}
+      style={style}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -305,6 +312,6 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
 
     </Box>
   );
-};
+});
 RdsCompESignature.displayName = 'RdsCompESignature';
 export default RdsCompESignature;

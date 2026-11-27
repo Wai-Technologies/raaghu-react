@@ -18,7 +18,7 @@ export interface RdsIconButtonProps extends IconButtonProps {
 
 type RdsIconButtonComponentProps = React.PropsWithChildren<RdsIconButtonProps>;
 
-const RdsIconButton = ({
+const RdsIconButton = React.forwardRef<HTMLButtonElement, RdsIconButtonComponentProps>(function RdsIconButton({
   iconOutlined,
   iconFilled,
   variant = 'filled',
@@ -29,7 +29,7 @@ const RdsIconButton = ({
   onClick,
   className: classNameProp,
   ...props
-}:RdsIconButtonComponentProps) => {
+}, ref) {
 
   const getSizedIcon = (iconNode: React.ReactNode) => {
     if (React.isValidElement(iconNode)) {
@@ -66,6 +66,7 @@ const RdsIconButton = ({
 
   return (
     <MuiIconButton
+      ref={ref}
       title={tooltip}
       size={size}
       className={className}
@@ -75,6 +76,6 @@ const RdsIconButton = ({
       {buttonContent}
     </MuiIconButton>
   );
-};
+});
 RdsIconButton.displayName = 'RdsIconButton';
 export default RdsIconButton;

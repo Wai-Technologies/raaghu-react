@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, cloneChartOptions } from "../chart-utils";
+import Box from "@mui/material/Box";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import "./rds-comp-chart-pie.scss";
 
-export interface RdsCompPieProps {
+export interface RdsCompPieProps extends RdsStylingProps {
   labels: string[];
   options: ChartConfiguration['options'];
   dataSets: ChartConfiguration['data']['datasets'];
@@ -12,7 +14,7 @@ export interface RdsCompPieProps {
   chartLabel?: string;
 }
 
-const RdsCompPieChart = (props: RdsCompPieProps) => {
+const RdsCompPieChart = React.forwardRef<HTMLDivElement, RdsCompPieProps>(function RdsCompPieChart(props, ref) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const [themeMode, setThemeMode] = React.useState(() => {
@@ -57,12 +59,12 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
   }, [props.labels, props.options, props.dataSets, props.radius, themeMode]);
 
   return (
-    <div className="rds-comp-chart-pie">
+    <Box ref={ref} className={joinClassNames("rds-comp-chart-pie", props.className)} sx={props.sx} style={props.style}>
       <div className="chart-container">
         <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Pie chart'} />
       </div>
-    </div>
+    </Box>
   );
-};
+});
 RdsCompPieChart.displayName = 'RdsCompPieChart';
 export default RdsCompPieChart;

@@ -244,7 +244,7 @@ const WithAvatarStory = (args) => {
         <div className={`rds-card__avatar-section${isEditMode ? ' rds-card__avatar-section--editable' : ''}`}>
           <div className="rds-card__avatar-row">
             <RdsAvatar 
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b9ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               alt="Jane Doe"
               size="small"
               activityRing={true}
@@ -371,14 +371,14 @@ export const WithBadges: Story = {
       <div className="rds-card__badges">
         <RdsBadge 
           badgeContent="Design System"
-          colorVariant="secondary"
+          color="secondary"
           styleType="primary"
           size="medium"
           shape="rectangle"
         />
         <RdsBadge 
           badgeContent="Javascript"
-          colorVariant="primary"
+          color="primary"
           styleType="primary"
           size="medium"
           shape="rectangle"
@@ -544,7 +544,7 @@ export const WithTags: Story = {
     showIndicator: true,
     showTitle: true,
     showSubtext: true,
-    showDescription: false,
+    showDescription: true,
     layout: 'vertical',
     showIcon: true,
     changeIcon: 'person',
@@ -555,7 +555,7 @@ export const WithTags: Story = {
         <div className="rds-card__tags">
           <RdsBadge 
             badgeContent="Javascript"
-            colorVariant="primary"
+            color="primary"
             styleType="primary"
             size="medium"
             shape="rectangle"

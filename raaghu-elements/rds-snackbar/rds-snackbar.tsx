@@ -21,7 +21,7 @@ export interface RdsSnackbarProps extends Omit<SnackbarProps, 'color'> {
   duration?: number;
 }
 
-const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
+const RdsSnackbar = React.forwardRef<HTMLDivElement, RdsSnackbarProps>(function RdsSnackbar({
   message,
   color,
   type,
@@ -33,7 +33,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   autoHideDuration,
   children,
   ...props
-}) => {
+}, ref) {
   if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`color`');
   const resolvedColor: SnackbarColor = color ?? severity ?? type ?? 'info';
   if (hideCloseButton !== undefined) warnDeprecatedProp('RdsSnackbar', 'hideCloseButton', '`showCloseButton`');
@@ -57,6 +57,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       autoHideDuration={autoHideDuration ?? duration}
       onClose={handleClose}
       {...props}
+      ref={ref}
     >
       {content ? (
         <Alert
@@ -79,6 +80,6 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       )}
     </MuiSnackbar>
   );
-};
+});
 RdsSnackbar.displayName = 'RdsSnackbar';
 export default RdsSnackbar;

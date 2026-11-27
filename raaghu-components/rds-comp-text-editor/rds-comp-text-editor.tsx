@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { InputLabel as Label } from "@mui/material";
+import Box from "@mui/material/Box";
 import "./rds-comp-text-editor.scss";
 import { sanitizeEditorHtml } from "./sanitize-html";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { joinClassNames, type RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-export interface RdsCompTextEditorProps {
+export interface RdsCompTextEditorProps extends RdsStylingProps {
     id?: string;
     onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
     placeholder?: string;
@@ -51,7 +53,7 @@ interface EditorDeps {
     htmlToDraft: (html: string) => { contentBlocks: unknown[] } | null;
 }
 
-const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
+const RdsCompTextEditor = React.forwardRef<HTMLDivElement, RdsCompTextEditorProps>(function RdsCompTextEditor(props, ref) {
     const [deps, setDeps] = useState<EditorDeps | null>(null);
     const [editorState, setEditorState] = useState<DraftEditorStateInstance | null>(null);
     const [isTouch, setIsTouch] = useState(false);
@@ -137,7 +139,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                     {props.isMandatory && <span className="text-danger">*</span>}
                 </Label>
             )}
-            <div id={props.id} className={`rds-comp-text-editor ${stateClass}`}>
+            <Box ref={ref} id={props.id} className={joinClassNames(`rds-comp-text-editor ${stateClass}`, props.className)} sx={props.sx} style={props.style}>
                 {!deps || !editorState ? (
                     <div
                         className="rds-comp-text-editor__skeleton"
@@ -176,7 +178,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                         }}
                     />
                 )}
-            </div>
+            </Box>
             {props.isMandatory && isEmpty() && isTouch && (
                 <div className="form-control-feedback">
                     <span className="text-danger">{props.label} is required</span>
@@ -184,6 +186,6 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
             )}
         </>
     );
-};
+});
 RdsCompTextEditor.displayName = "RdsCompTextEditor";
 export default RdsCompTextEditor;

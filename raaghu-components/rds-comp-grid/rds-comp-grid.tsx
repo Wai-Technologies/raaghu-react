@@ -63,6 +63,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { mergeSx, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
 export type GridRow = Record<string, unknown>;
 
@@ -208,7 +209,7 @@ export interface RdsCompGridRef {
   getSelectedRowCount: () => number;
 }
 
-export interface RdsCompGridProps {
+export interface RdsCompGridProps extends RdsStylingProps {
   tableHeaders: RdsCompGridColumn[];
   tableData: GridRow[];
 
@@ -303,6 +304,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
+  className,
+  sx,
+  style,
 }, ref) => {
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
@@ -1425,7 +1429,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   if (isLoading) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card className={className} sx={mergeSx({ p: 2 }, sx)} style={style}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <Typography variant="h6" color="text.secondary">
             Loading...
@@ -1437,7 +1441,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   if (tableData.length === 0) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card className={className} sx={mergeSx({ p: 2 }, sx)} style={style}>
         {showHeader && (
           <Box p={2} borderBottom="var(--rds-spacing-hairline) solid" borderColor="divider">
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
@@ -1488,7 +1492,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   }
 
   return (
-    <Card sx={{
+    <Card className={className} style={style} sx={mergeSx({
       bgcolor: 'background.paper',
       color: 'text.primary',
       '& .MuiTableCell-root': {
@@ -1513,7 +1517,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         border: 'var(--rds-spacing-xxs) dashed',
         borderColor: 'var(--rds-primary-main)',
       },
-    }}>
+    }, sx)}>
       {showHeader && (
         <Box
           ref={headerScrollRef}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
+import { Box, ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
 import './rds-toggle-button.scss';
 export interface RdsToggleButtonOption {
   value: string;
@@ -19,7 +19,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   inputSize?: 'small' | 'medium' | 'large';
 }
 
-const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
+const RdsToggleButton = React.forwardRef<HTMLDivElement, RdsToggleButtonProps>(function RdsToggleButton({
   options,
   multiple = false,
   orientation = 'horizontal',
@@ -33,8 +33,11 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   size: sizeProp,
   disabled,
   color,
+  className,
+  sx,
+  style,
   ...props
-}) => {
+}, ref) {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
     if (defaultValue !== undefined) {
       return defaultValue;
@@ -189,8 +192,11 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   const countClass = effectiveSize === 'large' && options.length === 3 ? 'rds-toggle-button--large-three' : '';
 
   return (
-    <div
-  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${countClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
+    <Box
+      ref={ref}
+  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${countClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}${className ? ` ${className}` : ''}`}
+      sx={sx}
+      style={style}
       role="group"
       aria-label={otherProps['aria-label'] || 'Toggle button group'}
     >
@@ -212,9 +218,9 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           {memoizedButtons}
         </MuiToggleButtonGroup>
       )}
-    </div>
+    </Box>
   );
-};
+});
 export { default as RdsStandaloneToggleButton } from './rds-standalone-toggle-button';
 RdsToggleButton.displayName = 'RdsToggleButton';
 export default RdsToggleButton;

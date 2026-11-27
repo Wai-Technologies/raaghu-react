@@ -1,4 +1,4 @@
-import { useId, useState, type ChangeEvent } from 'react';
+import React, { useId, useState, type ChangeEvent } from 'react';
 import {
   Radio as MuiRadio,
   RadioGroup,
@@ -52,7 +52,7 @@ const placementLayouts = {
   bottom: 'icon with bottom label',
 } as const;
 
-const RdsRadio = ({
+const RdsRadio = React.forwardRef<HTMLFieldSetElement, RdsRadioProps & { 'data-testid'?: string }>(function RdsRadio({
   options,
   label,
   direction,
@@ -66,8 +66,11 @@ const RdsRadio = ({
   state,
   selected,
   'data-testid': dataTestId,
+  className,
+  sx,
+  style,
   ...props
-}: RdsRadioProps & { 'data-testid'?: string }) => {
+}, ref) {
   if (state !== undefined) warnDeprecatedProp('RdsRadio', 'state', '`disabled`');
   const disabled = disabledProp || state === 'disabled';
   if (direction !== undefined) warnDeprecatedProp('RdsRadio', 'direction', '`row`');
@@ -188,6 +191,7 @@ const RdsRadio = ({
 
   return (
     <FormControl
+      ref={ref}
       component="fieldset"
       data-testid={dataTestId}
       className={clsx(
@@ -195,7 +199,10 @@ const RdsRadio = ({
         `rds-radio--${layout.replace(/ /g, '-')}`,
         disabled && 'rds-radio--disabled',
         state === 'hover' && 'rds-radio--hover',
+        className,
       )}
+      sx={sx}
+      style={style}
     >
       {label && <FormLabel component="legend" id={labelId} className="rds-radio__label">{label}</FormLabel>}
       {layout === 'icon with bottom label' ? (
@@ -225,6 +232,6 @@ const RdsRadio = ({
       )}
     </FormControl>
   );
-};
+});
 RdsRadio.displayName = 'RdsRadio';
 export default RdsRadio;

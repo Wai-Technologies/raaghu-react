@@ -81,6 +81,6 @@ export const Default: Story = {
         controls: true,
         volume: 0.8,
         disabled: false,
-        videoLink: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        videoLink: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
     },
 };

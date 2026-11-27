@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import {
   Grid as MuiGrid,
   type GridProps
@@ -10,16 +10,16 @@ export interface RdsGridProps extends Omit<GridProps, 'component'> {
   children?: ReactNode;
 }
 
-const RdsGrid = ({
+const RdsGrid = React.forwardRef<HTMLDivElement, RdsGridProps>(function RdsGrid({
   children,
   ...props
-}: RdsGridProps) => {
+}, ref) {
   const className = clsx('rds-grid', props.className);
   return (
-    <MuiGrid {...props} className={className}>
+    <MuiGrid {...props} ref={ref} className={className}>
       {children}
     </MuiGrid>
   );
-};
+});
 RdsGrid.displayName = 'RdsGrid';
 export default RdsGrid;

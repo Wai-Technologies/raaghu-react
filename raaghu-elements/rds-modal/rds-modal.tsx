@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import {
   Dialog as MuiDialog,
   DialogTitle,
@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import clsx from 'clsx';
+import { joinClassNames } from '../shared/utils/styling-props';
 import './rds-modal.scss';
  
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component'> {
@@ -29,7 +30,9 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   [key: string]: unknown;
 }
  
-const RdsModal= ({
+// `RdsModalProps` has an index signature, which `forwardRef`'s `PropsWithoutRef` would collapse, so the public type is restored below.
+const RdsModal= React.forwardRef<HTMLDivElement, RdsModalProps>(function RdsModal(modalProps, ref) {
+  const {
   title,
   visibility,
   onClose,
@@ -41,8 +44,9 @@ const RdsModal= ({
   body,
   imageSrc,
   children,
+  className,
   ...restProps
-}: RdsModalProps) => {
+} = modalProps as RdsModalProps;
   const { isOpen: legacyIsOpenProp, showIcon: legacyShowIconProp, showDescription: legacyShowDescriptionProp, ...props } = restProps;
   const legacyIsOpen = typeof legacyIsOpenProp === 'boolean' ? legacyIsOpenProp : undefined;
   const legacyShowIcon = typeof legacyShowIconProp === 'boolean' ? legacyShowIconProp : undefined;
@@ -60,9 +64,10 @@ const RdsModal= ({
 
   return (
     <MuiDialog
+      ref={ref}
       open={resolvedIsOpen}
       onClose={onClose}
-      className="rds-modal"
+      className={joinClassNames('rds-modal', className)}
       {...props}
     >
       {(title || icon || imageSrc) && (
@@ -118,6 +123,6 @@ const RdsModal= ({
       )}
     </MuiDialog>
   );
-};
+}) as unknown as React.ForwardRefExoticComponent<RdsModalProps & React.RefAttributes<HTMLDivElement>>;
 RdsModal.displayName = 'RdsModal';
 export default RdsModal;

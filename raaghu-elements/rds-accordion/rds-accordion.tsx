@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { forwardRef, useState, type ReactNode } from 'react';
 import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
@@ -26,7 +26,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   animationDuration?: number;
 }
 
-const RdsAccordion = ({
+const RdsAccordion = forwardRef<HTMLDivElement, RdsAccordionProps>(function RdsAccordion({
   ShowLeftIcon = true,
   changeleftIcon,
   title,
@@ -39,7 +39,7 @@ const RdsAccordion = ({
   animationDuration = 300,
   className,
   ...props
-}: RdsAccordionProps) => {
+}, ref) {
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
   const isExpanded = props.expanded ?? defaultExpanded;
@@ -85,7 +85,7 @@ const RdsAccordion = ({
 
   return (
     <div className={containerClassName}>
-      <MuiAccordion {...accordionProps}>
+      <MuiAccordion ref={ref} {...accordionProps}>
         <MuiAccordionSummary
           expandIcon={<ExpandMoreIcon />}
           className="rds-accordion__summary"
@@ -109,7 +109,7 @@ const RdsAccordion = ({
     </MuiAccordion>
     </div>
   );
-};
+});
 
 RdsAccordion.displayName = 'RdsAccordion';
 export default RdsAccordion;

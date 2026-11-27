@@ -9,7 +9,7 @@ jest.mock('./rds-file-uploader.scss', () => ({}));
 jest.mock('./RdsFileUploaderStandardView', () => {
   return function MockStandardView(props: any) {
     return (
-      <div data-testid="standard-view">
+      <div data-testid="standard-view" data-selected={props.selected ? 'true' : 'false'}>
         <input type="file" aria-label="Upload file" onChange={props.handleFileSelect} />
       </div>
     );
@@ -27,8 +27,8 @@ jest.mock('./RdsFileUploaderComponents', () => ({
       Drop Zone With Button
     </div>
   ),
-  RdsDropZoneDefault: ({ openFileDialog }: any) => (
-    <button type="button" data-testid="drop-zone-default" onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+  RdsDropZoneDefault: ({ openFileDialog, selected, placeholderImage }: any) => (
+    <button type="button" data-testid="drop-zone-default" data-selected={selected ? 'true' : 'false'} data-placeholder-image={placeholderImage ?? ''} onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
       Drop Zone Default
     </button>
   ),
@@ -291,27 +291,46 @@ describe('RdsFileUploader', () => {
   });
 
   describe('Placeholder Image', () => {
-    it('should render placeholder image when provided', () => {
-      render(
+    it('should render placeholder image inside the drop zone when provided', () => {
+      const { container } = render(
         <RdsFileUploader
           {...defaultProps}
           mode="default"
           placeholderImage="https://example.com/image.png"
         />
       );
-      const img = screen.getByAltText('placeholder');
-      expect(img).toHaveAttribute('src', 'https://example.com/image.png');
+      // Passed into the drop zone (rendered there in place of the upload icon), not above it.
+      expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-placeholder-image', 'https://example.com/image.png');
+      expect(container.querySelector('img')).not.toBeInTheDocument();
     });
 
     it('should not render placeholder image when not provided', () => {
-      render(
+      const { container } = render(
         <RdsFileUploader
           {...defaultProps}
           mode="default"
           placeholderImage=""
         />
       );
-      expect(screen.queryByAltText('placeholder')).not.toBeInTheDocument();
+      expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-placeholder-image', '');
+      expect(container.querySelector('img')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Selected', () => {
+    it('applies the selected style to the drop zone', () => {
+      const { container } = render(<RdsFileUploader {...defaultProps} mode="default" selected />);
+      expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-selected', 'true');
+    });
+
+    it('maps the deprecated state="selected" to selected', () => {
+      const { container } = render(<RdsFileUploader {...defaultProps} mode="default" state="selected" />);
+      expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-selected', 'true');
+    });
+
+    it('applies the selected style to the standard input row', () => {
+      const { container } = render(<RdsFileUploader {...defaultProps} mode="standard" selected />);
+      expect(screen.getByTestId('standard-view')).toHaveAttribute('data-selected', 'true');
     });
   });
 

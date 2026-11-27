@@ -237,7 +237,6 @@ const defaultColumns = [
           color="secondary" 
           size="small" 
           shape="rectangle" 
-          colorVariant="secondary"
         />
     )
   },
@@ -348,14 +347,12 @@ const defaultColumns = [
           color="secondary" 
           size="small" 
           shape="rectangle" 
-          colorVariant="secondary"
         />
         <RdsBadge 
           badgeContent="Pending" 
           color="secondary" 
           size="small" 
           shape="rectangle" 
-          colorVariant="secondary"
         />
       </div>
     )
@@ -386,14 +383,12 @@ const defaultColumns = [
           color="secondary" 
           size="small" 
           shape="rectangle" 
-          colorVariant="secondary"
         />
         <RdsBadge 
           badgeContent="Pending" 
           color="secondary" 
           size="small" 
           shape="rectangle" 
-          colorVariant="secondary"
         />
         <span className="rds-table__content-text">Text</span>
       </div>

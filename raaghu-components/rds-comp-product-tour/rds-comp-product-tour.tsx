@@ -17,11 +17,12 @@ import {
     renderFormNavigation
 } from './product-tour-helpers';
 import './rds-comp-product-tour.scss';
+import { joinClassNames } from '../../raaghu-elements/shared/utils/styling-props';
 
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
 
-const RdsCompProductTour = ({
+const RdsCompProductTour = React.forwardRef<HTMLDivElement, RdsCompProductTourProps>(function RdsCompProductTour({
     state = "Image",
     topLeft = false,
     topRight = false,
@@ -40,8 +41,11 @@ const RdsCompProductTour = ({
     onNext,
     onBack,
     onSkip,
+    className,
+    sx,
+    style,
     ...legacyProps
-}: RdsCompProductTourProps) => {
+}, ref) {
     const legacyShowDismiss = typeof legacyProps['showDismiss'] === 'boolean' ? (legacyProps['showDismiss'] as boolean) : undefined;
     const legacyShowPrimaryButton = typeof legacyProps['showPrimaryButton'] === 'boolean' ? (legacyProps['showPrimaryButton'] as boolean) : undefined;
     const legacyShowSecondaryButton = typeof legacyProps['showSecondaryButton'] === 'boolean' ? (legacyProps['showSecondaryButton'] as boolean) : undefined;
@@ -99,6 +103,9 @@ const RdsCompProductTour = ({
         tabIndex: -1,
         'aria-labelledby': header ? headerId : undefined,
         onKeyDown: handleKeyDown,
+        ref,
+        sx,
+        style,
     };
 
     const cornerDotsElement = renderCornerDots(topLeft, topRight, bottomLeft, bottomRight);
@@ -110,7 +117,7 @@ const RdsCompProductTour = ({
     }
     if (state === "Image") {
         return (
-            <Paper {...dialogProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
+            <Paper {...dialogProps} className={joinClassNames("rds-comp-product-tour__container rds-comp-product-tour__container--image", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
@@ -129,7 +136,7 @@ const RdsCompProductTour = ({
     }
     if (state === "Carousel") {
         return (
-            <Paper {...dialogProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
+            <Paper {...dialogProps} className={joinClassNames("rds-comp-product-tour__container rds-comp-product-tour__container--carousel", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__carousel-header">
@@ -155,7 +162,7 @@ const RdsCompProductTour = ({
     }
     if (state === "GIF") {
         return (
-            <Paper {...dialogProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
+            <Paper {...dialogProps} className={joinClassNames("rds-comp-product-tour__container rds-comp-product-tour__container--animation", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
@@ -175,7 +182,7 @@ const RdsCompProductTour = ({
     }
     if (state === "Form") {
         return (
-            <Paper {...dialogProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
+            <Paper {...dialogProps} className={joinClassNames("rds-comp-product-tour__container rds-comp-product-tour__container--form", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__form-header">
@@ -186,7 +193,7 @@ const RdsCompProductTour = ({
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
                         <Typography id={headerId} variant="h6" className="rds-comp-product-tour__form-title">{header}</Typography>
-                        {badge && <RdsBadge badgeContent={badge} size="medium" colorVariant="primary" shape="pill" layout="text" />}
+                        {badge && <RdsBadge badgeContent={badge} size="medium" color="primary" shape="pill" layout="text" />}
                     </Box>
                     <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">
@@ -209,6 +216,6 @@ const RdsCompProductTour = ({
         );
     }
     return null;
-};
+});
 RdsCompProductTour.displayName = "RdsCompProductTour";
 export default RdsCompProductTour;

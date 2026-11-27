@@ -34,7 +34,7 @@ export interface RdsTableProps extends Omit<TableProps, 'children'> {
   defaultSortDirection?: 'asc' | 'desc';
 }
 
-const RdsTable = ({
+const RdsTable = React.forwardRef<HTMLDivElement, RdsTableProps>(function RdsTable({
   columns,
   rows,
   pagination = false,
@@ -53,8 +53,10 @@ const RdsTable = ({
   onSortChange,
   defaultSortBy,
   defaultSortDirection = 'asc',
+  sx,
+  style,
   ...props
-}: RdsTableProps) => {
+}, ref) {
   const [internalSelectedRows, setInternalSelectedRows] = React.useState<string[]>([]);
   const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
   const handleRowSelection = onRowSelect || setInternalSelectedRows;
@@ -172,7 +174,7 @@ const RdsTable = ({
   const isIndeterminate = selectable && selectedOnPage > 0 && selectedOnPage < displayRowIds.length;
 
   return (
-    <Paper className={`rds-table ${className}`}>
+    <Paper ref={ref} className={`rds-table ${className}`} sx={sx} style={style}>
       <MuiTableContainer
         className={`rds-table__container ${stickyHeader ? 'rds-table__container--sticky' : ''}`}
         style={{ maxHeight: stickyHeader ? 440 : undefined }}
@@ -218,6 +220,6 @@ const RdsTable = ({
       )}
     </Paper>
   );
-};
+});
 RdsTable.displayName = 'RdsTable';
 export default RdsTable;

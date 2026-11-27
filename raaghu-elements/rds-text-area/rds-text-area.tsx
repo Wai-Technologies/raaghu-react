@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import Box from "@mui/material/Box";
 import { createUniqueId } from "../../utils/id";
+import { joinClassNames, type RdsStylingPropsWithoutStyle } from "../shared/utils/styling-props";
 import "./rds-text-area.scss";
 
 export enum TextareaState {
@@ -16,7 +18,7 @@ export enum TextareaStyle {
   BottomOutline = "Bottom Outline"
 }
 
-export interface RdsTextAreaProps {
+export interface RdsTextAreaProps extends RdsStylingPropsWithoutStyle {
   rows?: number;
   label?: string;
   placeholder?: string;
@@ -44,7 +46,7 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
+const RdsTextArea = React.forwardRef<HTMLDivElement, RdsTextAreaProps>(function RdsTextArea(props, ref): React.JSX.Element {
   const baseState = props.disabled
     ? TextareaState.Disabled
     : props.selected
@@ -152,7 +154,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
   };
 
   return (
-    <div className="rds-textarea-container">
+    <Box ref={ref} className={joinClassNames("rds-textarea-container", props.className)} sx={props.sx}>
       {props.showTitle !== false && props.label && (
         <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
           {props.label}
@@ -183,9 +185,9 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
       {isError && getValidationMessage() && (
         <div id={errorId} className="error-message">{getValidationMessage()}</div>
       )}
-    </div>
+    </Box>
   );
-};
+});
 
 RdsTextArea.displayName = 'RdsTextArea';
 export default RdsTextArea;

@@ -25,8 +25,9 @@ import "./rds-comp-emoji-generator.scss";
 import { getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { joinClassNames, type RdsStylingProps } from '../../raaghu-elements/shared/utils/styling-props';
 
-export interface RdsCompEmojiGeneratorProps {
+export interface RdsCompEmojiGeneratorProps extends Omit<RdsStylingProps, 'sx'> {
     Type?: EmojiGeneratorType;
     "Show Skin Tone"?: boolean;
     "Show Footer"?: boolean;
@@ -41,7 +42,7 @@ export interface RdsCompEmojiGeneratorProps {
     sx?: Record<string, unknown>;
 }
 
-const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
+const RdsCompEmojiGenerator = React.forwardRef<HTMLDivElement, RdsCompEmojiGeneratorProps>(function RdsCompEmojiGenerator({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
     "Show Footer": showFooter = true,
@@ -51,10 +52,10 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     onEmojiSelect,
     onMoodChange,
     maxEmojis = 80,
+    className,
 
     ...props
-}) => {
-    const rootRef = React.useRef<HTMLDivElement | null>(null);
+}, ref) {
     const [selectedCategory, setSelectedCategory] = useState(Category);
     React.useEffect(() => {
         setSelectedCategory(Category);
@@ -100,7 +101,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     if (Type === EmojiGeneratorType.QuickReactions) {
         const quickEmojis = ["👍", "😊", "😞", "💯", "😎"];
         return (
-            <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
+            <Box ref={ref} className={joinClassNames("rds-emoji-generator rds-emoji-generator--quick", className)} {...props}>
                 {quickEmojis.map((e) => (
                     <Box
                         key={e}
@@ -133,7 +134,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
     return (
-    <Box ref={rootRef} className="rds-emoji-generator" {...props}>
+    <Box ref={ref} className={joinClassNames("rds-emoji-generator", className)} {...props}>
             {Type === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__search">
                     <Box className="rds-emoji-generator__search-container">
@@ -258,7 +259,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
             )}
         </Box>
     );
-};
+});
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
@@ -274,8 +275,13 @@ function isFlagEmoji(emoji: string): boolean {
         || /\uE006/u.test(normalized);
 }
 
+// Pinned: the twemoji repo is archived, so `@latest` is not a stable reference.
+const TWEMOJI_BASE_URL = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.3/assets/72x72';
+
 function twemojiUrl(emoji: string): string {
-    const normalized = normalizeEmojiForTwemoji(emoji);
-    const codepoints = Array.from(normalized).map(c => c.codePointAt(0)!.toString(16)).join('-');
-    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/${codepoints}.png`;
+    // Twemoji file names keep U+FE0F inside ZWJ sequences (e.g. pirate / rainbow flag)
+    // and drop it everywhere else.
+    const forFileName = emoji.includes('‍') ? emoji.replace(/︎/g, '') : normalizeEmojiForTwemoji(emoji);
+    const codepoints = Array.from(forFileName).map(c => c.codePointAt(0)!.toString(16)).join('-');
+    return `${TWEMOJI_BASE_URL}/${codepoints}.png`;
 }

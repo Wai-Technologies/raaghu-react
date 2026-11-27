@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
+import { forwardRef, useCallback, useMemo, useState } from "react";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 import clsx from 'clsx';
 import "./rds-comp-adaptive-cards.scss";
 import RdsBox from "../../raaghu-elements/rds-box/rds-box";
@@ -71,7 +72,10 @@ const VARIANT_DEFAULTS = {
 const getRdsButtonStyle = (style: unknown): ButtonStyle =>
   ALLOWED_BUTTON_STYLES.includes(style as ButtonStyle) ? (style as ButtonStyle) : "filled";
 
-const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
+export interface RdsCompAdaptiveCardsProps extends AdaptiveCardProps, RdsStylingProps {}
+
+const RdsCompAdaptiveCards = forwardRef<HTMLDivElement, RdsCompAdaptiveCardsProps>(function RdsCompAdaptiveCards(props, ref) {
+  const { className, sx, style } = props;
   const type = props.type || "Default";
   const merged = useMemo(() => ({ ...VARIANT_DEFAULTS, ...props }), [props]);
 
@@ -154,6 +158,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         showHeader={showHeader}
         showDismiss={showClose}
         onDismiss={handleDismiss}
+        rootRef={ref}
+        className={className}
+        sx={sx}
+        style={style}
       />
     );
   }
@@ -181,6 +189,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
         time={time ?? footballProps?.time ?? ""}
         finalText={merged.finalText ?? footballProps?.finalText ?? "Final"}
         closeIcon={false}
+        rootRef={ref}
+        className={className}
+        sx={sx}
+        style={style}
       />
     );
   }
@@ -188,7 +200,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   return (
     visible && (
       <RdsCardDetail
-        className={clsx("rds-adaptive-cards", "rds-adaptive-cards--default")}
+        ref={ref}
+        className={clsx("rds-adaptive-cards", "rds-adaptive-cards--default", className)}
+        sx={sx}
+        style={style}
       >
         {type === "Default" ? (
           <RdsBox className="custom-box">
@@ -444,7 +459,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
       </RdsCardDetail>
     )
   );
-};
+});
 
 RdsCompAdaptiveCards.displayName = "RdsCompAdaptiveCards";
 export default RdsCompAdaptiveCards;

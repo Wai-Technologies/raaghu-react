@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
+import { forwardRef, useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
 import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
@@ -7,6 +7,7 @@ import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
 export interface Comment {
   firstName: string;
@@ -32,7 +33,7 @@ export interface UserData {
   style?: string;
 }
 
-export interface RdsCompChatProps {
+export interface RdsCompChatProps extends RdsStylingProps {
   isChatScreenEnabled: boolean;
   userData: UserData[];
   handleAddComment: (comment: Comment) => void;
@@ -95,15 +96,18 @@ const avatarPropsFor = (user?: UserData) => {
   };
 };
 
-const RdsCompChat = ({
+const RdsCompChat = forwardRef<HTMLDivElement, RdsCompChatProps>(function RdsCompChat({
   isChatScreenEnabled,
   userData,
   handleAddComment: onAddComment,
   currentUserCommentBgColor = "var(--rds-secondary-main)",
   currentUserCommentTextColor = "var(--rds-neutral-0)",
   otherUserCommentBgColor = "var(--rds-neutral-300)",
-  OtherUserCommentTextColor = "var(--rds-text-primary)"
-}: RdsCompChatProps) => {
+  OtherUserCommentTextColor = "var(--rds-text-primary)",
+  className,
+  sx,
+  style
+}, ref) {
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -234,7 +238,7 @@ const RdsCompChat = ({
   const hasCommentText = state.commentText.trim().length > 0;
 
   return (
-    <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
+    <Box ref={ref} className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile", className)} sx={sx} style={style}>
       {showUserList && (
         <div className="rds-comp-chat__screen">
           <div className="rds-comp-chat__screen-header">
@@ -362,9 +366,9 @@ const RdsCompChat = ({
           <canvas ref={canvasRef} className="rds-comp-chat__canvas-hidden" />
         </div>
       )}
-    </div>
+    </Box>
   );
-};
+});
 
 RdsCompChat.displayName = "RdsCompChat";
 export default RdsCompChat;

@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { ChartIcons } from "./chart-icons";
 import { getCSSVar } from "../chart-utils";
+import Box from "@mui/material/Box";
+import type { RdsStylingProps } from "../../raaghu-elements/shared/utils/styling-props";
 
-export interface RdsCompBooleanChartProps {
+export interface RdsCompBooleanChartProps extends RdsStylingProps {
     labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
@@ -13,7 +15,7 @@ export interface RdsCompBooleanChartProps {
     chartLabel?: string;
 }
 
-const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
+const RdsCompBooleanChart = React.forwardRef<HTMLDivElement, RdsCompBooleanChartProps>(function RdsCompBooleanChart(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
@@ -107,10 +109,10 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     }, [props.labels, props.options, props.dataSets, props.centerIconName, themeMode]);
 
     return (
-        <div>
+        <Box ref={ref} className={props.className} sx={props.sx} style={props.style}>
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Boolean chart'} />
-        </div>
+        </Box>
     );
-};
+});
 RdsCompBooleanChart.displayName = 'RdsCompBooleanChart';
 export default RdsCompBooleanChart;

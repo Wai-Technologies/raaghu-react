@@ -8,6 +8,7 @@ import {
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import { mergeSx } from '../shared/utils/styling-props';
 
 
 export interface RdsDividerProps extends DividerProps {
@@ -20,7 +21,7 @@ export interface RdsDividerProps extends DividerProps {
   styleVariant?: 'subtle' | 'strong' | 'primary';
 }
 
-const RdsDivider= ({
+const RdsDivider= React.forwardRef<HTMLDivElement, RdsDividerProps>(function RdsDivider({
   dividerMessage,
   textAlign = 'center',
   layout = 'horizontal',
@@ -28,8 +29,11 @@ const RdsDivider= ({
   iconName = 'InfoOutlined',
   size = 'medium',
   styleVariant = 'subtle',
+  className,
+  sx,
+  style,
   ...props
-}:RdsDividerProps) => {
+}, ref) {
   const iconMap: Record<string, React.ElementType> = {
     InfoOutlined: InfoOutlinedIcon,
     Add: AddIcon,
@@ -141,7 +145,7 @@ const RdsDivider= ({
 
   if (layout === 'vertical') {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center', height: 'var(--rds-divider-vertical-container-height, 120px)' }}>
+      <Box ref={ref} className={className} sx={mergeSx({ display: 'flex', alignItems: 'center', height: 'var(--rds-divider-vertical-container-height, 120px)' }, sx)} style={style}>
         <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>
         <MuiDivider
           orientation="vertical"
@@ -159,10 +163,14 @@ const RdsDivider= ({
   }
 
   return (
-    <Box 
-      display="flex" 
-      alignItems="center" 
-      width="100%" 
+    <Box
+      ref={ref}
+      className={className}
+      sx={sx}
+      style={style}
+      display="flex"
+      alignItems="center"
+      width="100%"
       my={sizeStyles.marginY}
     >
       {textAlign === 'center' && (
@@ -196,6 +204,6 @@ const RdsDivider= ({
       )}
     </Box>
   );
-};
+});
 RdsDivider.displayName = 'RdsDivider';
 export default RdsDivider;

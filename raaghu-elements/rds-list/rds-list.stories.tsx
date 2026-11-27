@@ -195,6 +195,10 @@ const firebaseBuildItems = [
 ];
 
 export const CustomizedList: Story = {
+  // This demo is the Firebase-style list, so the variant is fixed here.
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => (
     <Paper className="rds-list-demo__custom-container">
       <div className="rds-list-demo__header">
@@ -283,22 +287,22 @@ export const Interactive: Story = {
      
       <div>
         <div className="rds-list-demo__title">Text only</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} variant={args.variant} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Icon with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} variant={args.variant} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Avatar with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} variant={args.variant} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Avatar with text and icon</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} variant={args.variant} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
     </div>
   )
@@ -424,6 +428,7 @@ export const StickySubheader: Story = {
           key={section.title}
           withDividers
           className="rds-list--with-subheader"
+          variant={args.variant}
           subheader={<ListSubheader className="rds-list__subheader">{section.title}</ListSubheader>}
           items={section.items}
           dense={args.dense}

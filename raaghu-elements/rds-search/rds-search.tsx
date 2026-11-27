@@ -1,5 +1,5 @@
-import { useEffect, useId, useRef, type ChangeEvent, type KeyboardEvent, type MouseEvent } from 'react';
-import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
+import { forwardRef, useEffect, useId, useRef, type ChangeEvent, type KeyboardEvent, type MouseEvent } from 'react';
+import { Box, TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -36,7 +36,7 @@ export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'compo
   iconPosition?: 'left' | 'right' | 'start' | 'end';
 }
 
-const RdsSearch = ({
+const RdsSearch = forwardRef<HTMLDivElement, RdsSearchProps & { 'data-testid'?: string }>(function RdsSearch({
   value,
   onChange,
   onSearch,
@@ -59,7 +59,7 @@ const RdsSearch = ({
   id,
   'data-testid': dataTestId,
   ...restProps
-}: RdsSearchProps & { 'data-testid'?: string }) => {
+}, ref) {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const generatedId = useId();
   const inputId = id ?? `rds-search-${generatedId}`;
@@ -172,7 +172,7 @@ const RdsSearch = ({
   };
 
   return (
-    <div className={containerClasses} data-testid={dataTestId}>
+    <Box ref={ref} className={containerClasses} data-testid={dataTestId}>
       {typeof label === 'string' && label.trim() !== '' && (
         <label className={labelClasses} htmlFor={inputId}>
           {label}
@@ -195,8 +195,8 @@ const RdsSearch = ({
         {...restProps}
         className={clsx('rds-search__input', className)}
       />
-    </div>
+    </Box>
   );
-};
+});
 RdsSearch.displayName = 'RdsSearch';
 export default RdsSearch;
