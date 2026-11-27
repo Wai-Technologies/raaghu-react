@@ -1,11 +1,12 @@
 import { useEffect, useRef, type DependencyList, type RefObject } from 'react';
-import Chart, {
+import {
+  Chart,
   type ChartConfiguration,
   type ChartData,
   type ChartOptions,
   type ChartType,
   type Plugin,
-} from 'chart.js/auto';
+} from 'chart.js';
 import {
   applyChartThemeColors,
   cloneChartOptions,

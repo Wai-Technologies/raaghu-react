@@ -1,22 +1,23 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Chart from 'chart.js/auto';
+import { Chart } from 'chart.js';
 import { useChart, type UseChartConfig } from './use-chart';
 
 const mockDestroy = jest.fn();
 const mockUpdate = jest.fn();
 
-jest.mock('chart.js/auto', () =>
-  jest.fn().mockImplementation((_ctx, config) => ({
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((_ctx, config) => ({
     canvas: { style: {} },
     config,
     data: config.data,
     options: config.options,
     destroy: mockDestroy,
     update: mockUpdate,
-  }))
-);
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
+});
 
 const ChartMock = Chart as unknown as jest.Mock;
 

@@ -2,7 +2,10 @@ import { useId, useMemo, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js";
+import { registerDoughnutChart } from "../chart-js-register";
+
+registerDoughnutChart();
 import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";

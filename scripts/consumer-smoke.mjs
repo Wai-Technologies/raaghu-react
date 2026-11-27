@@ -10,7 +10,7 @@ import { createElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cjsPath = path.join(root, 'dist/index.cjs');
@@ -80,6 +80,15 @@ try {
   process.exit(1);
 }
 console.log('CJS require passed.');
+
+try {
+  const mod = await import(pathToFileURL(esmPath).href);
+  if (!mod.RaaghuThemeProvider) throw new Error('ESM bundle missing RaaghuThemeProvider');
+  console.log('Node ESM import(dist/index.mjs) passed.');
+} catch (error) {
+  console.error('Node ESM import failed:', error instanceof Error ? error.message : error);
+  process.exit(1);
+}
 
 const Provider = lib.RaaghuThemeProvider;
 if (typeof Provider !== 'function') {

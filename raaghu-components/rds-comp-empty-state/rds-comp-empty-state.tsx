@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore, type ComponentType } from "react";
 import type { ElementType, ReactNode, Ref } from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import SearchOffOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-import Lottie from "lottie-react";
+import type { LottieAnimationRendererProps } from "./lottie-animation-renderer";
 import "./rds-comp-empty-state.scss";
 import emptyStatePng from "./empty-state.png";
 import emptyStateDarkPng from "./empty-state-dark.png";
@@ -40,8 +40,13 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
   onButtonClick?: () => void;
   /** Replaces the default action button. Pass `null` to render no action. */
   action?: ReactNode;
-  /** Plays the Lottie animation instead of the static image (illustration variant). */
+  /** Plays the animation instead of the static image (illustration variant). Needs `animationRenderer`. */
   animated?: boolean;
+  /**
+   * Player used when `animated` is true, e.g. `lottieAnimationRenderer` from `@waiin/raaghu-react/lottie`.
+   * Without it the static image is shown, so the core package never loads `lottie-react`.
+   */
+  animationRenderer?: ComponentType<LottieAnimationRendererProps>;
   /** @deprecated Use `animated` instead. */
   isContinueAnimate?: boolean;
   /** Element used for the heading. Default `"h5"`. */
@@ -89,6 +94,7 @@ const RdsCompEmptyState = ({
   onButtonClick,
   action,
   animated,
+  animationRenderer: AnimationRenderer,
   isContinueAnimate,
   titleComponent = "h5",
   className = "",
@@ -124,7 +130,7 @@ const RdsCompEmptyState = ({
   const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
   const imageSrc = imageUrl || resolvedImage;
   const isDarkMode = mode === "Dark NRA";
-  const shouldLoadLottie = Boolean(!isMinimal && isAnimated);
+  const shouldLoadLottie = Boolean(!isMinimal && isAnimated && AnimationRenderer);
   const [animationData, setAnimationData] = useState<object | null>(null);
 
   useEffect(() => {
@@ -161,9 +167,9 @@ const RdsCompEmptyState = ({
         aria-hidden="true"
       />
     );
-  } else if (shouldLoadLottie && animationData) {
+  } else if (shouldLoadLottie && AnimationRenderer && animationData) {
     iconContent = (
-      <Lottie
+      <AnimationRenderer
         animationData={animationData}
         loop={!prefersReducedMotion}
         autoplay={!prefersReducedMotion}

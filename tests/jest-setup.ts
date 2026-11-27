@@ -1,6 +1,22 @@
 import '@testing-library/jest-dom';
 import 'jest-axe/extend-expect';
 
+jest.mock('../raaghu-components/chart-js-register', () => {
+  const noop = () => undefined;
+  return {
+    registerBarChart: noop,
+    registerLineChart: noop,
+    registerAreaChart: noop,
+    registerMixedChart: noop,
+    registerPieChart: noop,
+    registerDoughnutChart: noop,
+    registerPolarAreaChart: noop,
+    registerRadarChart: noop,
+    registerScatterChart: noop,
+    registerBubbleChart: noop,
+  };
+});
+
 // Mock window matching media
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

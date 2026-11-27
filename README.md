@@ -256,14 +256,42 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 ## <a name='started'></a> Getting Started with Raaghu
 
 ```bash
-npm install @waiin/raaghu-react @mui/material @mui/system @mui/icons-material @mui/lab @mui/x-date-pickers @emotion/react @emotion/styled
+npm install @waiin/raaghu-react @mui/material @mui/icons-material @emotion/react @emotion/styled
 ```
 
-Peer dependencies: `react` / `react-dom` (`^19.0.0`), plus MUI 7 / Emotion 11 (listed above) so the host app owns a single theme tree.
+Required peer dependencies: `react` / `react-dom` (`^19.0.0`), MUI 7 and Emotion 11 (listed above), so the host app owns a single theme tree. The only other runtime dependencies are `clsx` and `dompurify`.
 
 ```tsx
 import '@waiin/raaghu-react/styles.css';
 import { RaaghuThemeProvider, RdsButton } from '@waiin/raaghu-react';
+```
+
+Components that need a specialised library live in their own entry point. Install the listed packages only when you use that entry point; if one is missing, your bundler stops with `Failed to resolve import` naming the package.
+
+| Import from | Components | Also install |
+| --- | --- | --- |
+| `@waiin/raaghu-react/charts` | `RdsComp*Chart` (13 charts) | `chart.js` |
+| `@waiin/raaghu-react/date` | `RdsCompDatepicker`, `RdsCompContribution` | `@mui/x-date-pickers` `dayjs` |
+| `@waiin/raaghu-react/editor` | `RdsCompTextEditor` | `lexical` `@lexical/react` `@lexical/rich-text` `@lexical/list` `@lexical/link` `@lexical/html` `@lexical/selection` |
+| `@waiin/raaghu-react/kanban` | `RdsCompKanbanBoard` | `@dnd-kit/core` `@dnd-kit/sortable` `@dnd-kit/utilities` |
+| `@waiin/raaghu-react/timeline` | `RdsTimeline` | `@mui/lab` (needs `@mui/material` ≥ 7.3.11) |
+| `@waiin/raaghu-react/video` | `RdsCompVideoPlayer` | `react-player` |
+| `@waiin/raaghu-react/map` | `RdsCompMap` | `react-svg-worldmap` |
+| `@waiin/raaghu-react/lottie` | `lottieAnimationRenderer` for `RdsCompEmptyState` | `lottie-react` |
+
+`RdsCompEmptyState` stays in the root entry. To animate it, pass the Lottie renderer:
+
+```tsx
+import { RdsCompEmptyState } from '@waiin/raaghu-react';
+import { lottieAnimationRenderer } from '@waiin/raaghu-react/lottie';
+
+<RdsCompEmptyState animated animationRenderer={lottieAnimationRenderer} label="No results" />;
+```
+
+Upgrading from 2.x: run the bundled codemod to move imports to the new entry points, then install the packages your app uses.
+
+```bash
+node node_modules/@waiin/raaghu-react/scripts/migrate-v3-imports.mjs src
 ```
 
 - [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.

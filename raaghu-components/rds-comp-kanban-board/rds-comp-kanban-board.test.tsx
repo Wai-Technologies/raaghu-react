@@ -798,8 +798,8 @@ describe('RDS-011 drag handlers without dnd-kit mocks', () => {
 
   it('createDragOverHandler moves a card across columns in UI state only', () => {
     let current: KanbanBoardInfo[] = [
-      { cardId: 1, name: 'Todo', cardColor: 'primary', subCards: [makeCard(10, 'Card A'), makeCard(11, 'Card B')] },
-      { cardId: 2, name: 'Doing', cardColor: 'success', subCards: [makeCard(12, 'Card C')] },
+      { cardId: 1, name: 'Todo', subCards: [makeCard(10, 'Card A'), makeCard(11, 'Card B')] } as KanbanBoardInfo,
+      { cardId: 2, name: 'Doing', subCards: [makeCard(12, 'Card C')] } as KanbanBoardInfo,
     ];
     const setBoards = (next: KanbanBoardInfo[]) => {
       current = next;
@@ -818,8 +818,8 @@ describe('RDS-011 drag handlers without dnd-kit mocks', () => {
 
   it('createDragEndHandler commits without double-moving after dragOver', () => {
     const current: KanbanBoardInfo[] = [
-      { cardId: 1, name: 'Todo', cardColor: 'primary', subCards: [makeCard(11, 'Card B')] },
-      { cardId: 2, name: 'Doing', cardColor: 'success', subCards: [makeCard(12, 'Card C'), makeCard(10, 'Card A')] },
+      { cardId: 1, name: 'Todo', subCards: [makeCard(11, 'Card B')] } as KanbanBoardInfo,
+      { cardId: 2, name: 'Doing', subCards: [makeCard(12, 'Card C'), makeCard(10, 'Card A')] } as KanbanBoardInfo,
     ];
     const setBoards = jest.fn();
     const onColumnsChange = jest.fn();

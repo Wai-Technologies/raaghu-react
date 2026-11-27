@@ -1,20 +1,16 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import clsx from 'clsx';
-import type DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
-import { CustomInputWithClear } from './CustomInputWithClear';
 import {
-    getDayClassName,
     getYesterdayDate,
     getTodayDate,
     getLastSevenDaysDate,
     getLastFourteenDaysDate,
 } from './rds-comp-datepicker-helpers';
-import {
-    renderDatePickerTypeView
-} from './rds-comp-datepicker-utils';
+import { DatepickerTypeView } from './rds-comp-datepicker-views';
 import {
     DatePickerStyleType,
     type RdsCompDatepickerProps,
@@ -23,7 +19,6 @@ import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
 const DATE_ONLY = /^(\d{4})-(\d{2})-(\d{2})$/;
-/** `YYYY-MM-DD` is a calendar date in local time. Any other string is an absolute instant. */
 const toDate = (value?: Date | string | null) => {
   if (!value) return null;
   if (value instanceof Date) return value;
@@ -31,7 +26,6 @@ const toDate = (value?: Date | string | null) => {
   if (match) return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
   return new Date(value);
 };
-/** Locale-aware display; omit locale to keep the legacy `toDateString().slice(4)` shape (G4-109). */
 const formatDisplayDate = (date: Date, locale?: string) =>
     locale
         ? date.toLocaleDateString(locale, { month: "short", day: "2-digit", year: "numeric" })
@@ -165,7 +159,6 @@ const RdsDatepicker = ({
         const now = new Date();
         updatePickerState({ startDate: now, dropdownDisplayValue: formatDisplayDate(now, locale) });
     }
-    const datePickerRef = useRef<DatePicker | null>(null);
     const customDropdownRef = useRef<HTMLDivElement | null>(null);
 
     const onRangeChange = useCallback((dates: [Date | null, Date | null]) => {
@@ -179,7 +172,7 @@ const RdsDatepicker = ({
             dropdownDisplayValue:
             start ? formatDisplayDate(start, locale) +
                 (end ? " - " + formatDisplayDate(end, locale) : "") : "",
-            isDropdownOpen: false,
+            ...(end || !start ? { isDropdownOpen: false } : {}),
         });
         emitChange([start, end]);
     }, [customDate, emitChange, updatePickerState, locale]);
@@ -249,8 +242,6 @@ const RdsDatepicker = ({
         updatePickerState({ activeList: "custom" });
     }, [updatePickerState]);
 
-    const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
-
     useEffect(() => {
         if (!isDropdownOpen || type !== "Custom") return;
 
@@ -261,7 +252,7 @@ const RdsDatepicker = ({
             if (customDropdownRef.current?.contains(target)) return;
 
             const targetElement = target instanceof Element ? target : target.parentElement;
-            if (targetElement?.closest(".rds-datepicker__popper, .react-datepicker-popper, .react-datepicker")) {
+            if (targetElement?.closest(".rds-datepicker__popper")) {
                 return;
             }
 
@@ -322,37 +313,36 @@ const RdsDatepicker = ({
     );
 
     return (
-        <Box {...restProps} ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
-            <label
-                className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
-                aria-hidden={!showTitle}
-                htmlFor={showTitle ? inputId : undefined}
-            >
-                {showTitle && titleText ? titleText : ' '}
-                {showTitle && isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
-            </label>
-            {renderDatePickerTypeView(
-                type || 'Default',
-                startDate,
-                endDate,
-                handlerDateChange,
-                onRangeChange,
-                sharedProps,
-                isDropdownOpen,
-                toggleDropdown,
-                dropdownDisplayValue,
-                datePickerRef,
-                activeList,
-                todayClickHandler,
-                yesterdayClickHandler,
-                lastSevenDaysClickHandler,
-                lastFourteenDaysClickHandler,
-                customClickHandler,
-                dayClassName,
-                CustomInputWithClear,
-                customDropdownRef
-            )}
-        </Box>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+            <Box {...restProps} ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
+                <label
+                    className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
+                    aria-hidden={!showTitle}
+                    htmlFor={showTitle ? inputId : undefined}
+                >
+                    {showTitle && titleText ? titleText : ' '}
+                    {showTitle && isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
+                </label>
+                <DatepickerTypeView
+                    type={type || 'Default'}
+                    startDate={startDate}
+                    endDate={endDate}
+                    onSingleChange={handlerDateChange}
+                    onRangeChange={onRangeChange}
+                    props={sharedProps}
+                    isDropdownOpen={isDropdownOpen}
+                    toggleDropdown={toggleDropdown}
+                    dropdownDisplayValue={dropdownDisplayValue}
+                    activeList={activeList}
+                    todayClickHandler={todayClickHandler}
+                    yesterdayClickHandler={yesterdayClickHandler}
+                    lastSevenDaysClickHandler={lastSevenDaysClickHandler}
+                    lastFourteenDaysClickHandler={lastFourteenDaysClickHandler}
+                    customClickHandler={customClickHandler}
+                    customDropdownRef={customDropdownRef}
+                />
+            </Box>
+        </LocalizationProvider>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";

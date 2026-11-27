@@ -4,24 +4,23 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompStackedChart, { type RdsCompStackedProps } from './rds-comp-chart-stacked';
 
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-      width: 300,
-      height: 300,
-    };
-  });
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 300,
+    height: 300,
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 jest.mock('./rds-comp-chart-stacked.scss', () => ({}));
@@ -980,7 +979,7 @@ describe('audit fixes', () => {
   });
 
   it('no longer writes the dead bar percentages onto scales.x', () => {
-    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
     ChartMock.mockClear();
     const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
     render(<RdsCompStackedChart {...defaultProps} />);
@@ -992,7 +991,7 @@ describe('audit fixes', () => {
   });
 
   it('defaults x/y axes to stacked (G3-066)', () => {
-    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
     ChartMock.mockClear();
     const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
     render(<RdsCompStackedChart {...defaultProps} />);

@@ -2,7 +2,10 @@ import { useId, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import type { ChartOptions, ChartDataset, ChartData } from "chart.js/auto";
+import type { ChartOptions, ChartDataset, ChartData } from "chart.js";
+import { registerMixedChart } from "../chart-js-register";
+
+registerMixedChart();
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { useChart } from "../use-chart";

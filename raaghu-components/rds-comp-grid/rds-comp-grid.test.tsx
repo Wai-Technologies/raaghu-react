@@ -5,18 +5,31 @@ import { axe } from 'jest-axe';
 import RdsCompGrid, { RdsCompGridColumn } from './rds-comp-grid';
 
 jest.mock('./rds-comp-grid.scss', () => ({}));
-jest.mock('@hello-pangea/dnd', () => ({
-  DragDropContext: ({ children }: any) => <>{children}</>,
-  Droppable: ({ children }: any) => children({ innerRef: jest.fn(), droppableProps: {}, placeholder: null }, {}),
-  Draggable: ({ children }: any) => children({ innerRef: jest.fn(), draggableProps: {}, dragHandleProps: {} }, {}),
+jest.mock('@dnd-kit/core', () => ({
+  DndContext: ({ children }: any) => <>{children}</>,
+  useSensor: jest.fn(),
+  useSensors: jest.fn(() => []),
+  PointerSensor: class {},
+  KeyboardSensor: class {},
+  closestCenter: jest.fn(),
 }));
 jest.mock('@dnd-kit/sortable', () => ({
-  useSortable: () => ({ attributes: {}, listeners: {}, setNodeRef: jest.fn(), transform: null, transition: null, isDragging: false }),
+  SortableContext: ({ children }: any) => <>{children}</>,
+  useSortable: () => ({ 
+    attributes: {}, 
+    listeners: {}, 
+    setNodeRef: jest.fn(), 
+    transform: null, 
+    transition: null, 
+    isDragging: false 
+  }),
+  verticalListSortingStrategy: jest.fn(),
+  sortableKeyboardCoordinates: jest.fn(),
 }));
 jest.mock('@dnd-kit/utilities', () => ({ CSS: { Transform: { toString: jest.fn() } } }));
 jest.mock('@mui/x-date-pickers/DatePicker', () => ({ DatePicker: () => <input data-testid="date-picker" /> }));
 jest.mock('@mui/x-date-pickers/LocalizationProvider', () => ({ LocalizationProvider: ({ children }: any) => <>{children}</> }));
-jest.mock('@mui/x-date-pickers/AdapterDateFns', () => ({ AdapterDateFns: class {} }));
+jest.mock('@mui/x-date-pickers/AdapterDayjs', () => ({ AdapterDayjs: class {} }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
   __esModule: true,
   default: ({ text, onClick, children, 'aria-label': ariaLabel }: any) => (

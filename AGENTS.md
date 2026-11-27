@@ -28,7 +28,8 @@ export function App() {
 }
 ```
 
-- Import everything from the package root. Wrap the app once in `RaaghuThemeProvider`; it injects the `--rds-*` variables and switches light/dark.
+- Import from the package root, except components that need a specialised library: they come from a subpath and need that library installed. `@waiin/raaghu-react/charts` (`chart.js`), `/date` (`RdsCompDatepicker`, `RdsCompContribution`; `@mui/x-date-pickers` + `dayjs`), `/editor` (`RdsCompTextEditor`; `lexical` + `@lexical/*`), `/kanban` (`@dnd-kit/*`), `/timeline` (`RdsTimeline`; `@mui/lab`), `/video` (`react-player`), `/map` (`react-svg-worldmap`), `/lottie` (`lottieAnimationRenderer` for `RdsCompEmptyState`; `lottie-react`). `docs/ai/components.json` gives each component's import line and `requires` list.
+- Wrap the app once in `RaaghuThemeProvider`; it injects the `--rds-*` variables and switches light/dark.
 - React 19 only: pass `ref` as a normal prop (no `forwardRef`).
 - Components forward `className`, `sx`, `ref` and other DOM props to their root.
 - Never use a prop listed under `deprecatedProps` in `components.json`; use the replacement it names.
@@ -54,7 +55,7 @@ export function App() {
 | Pick one option from a short list | `RdsSelect` | |
 | Searchable or multi-select list | `RdsAutocomplete` | |
 | Button that opens a list of options | `RdsButtonDropdown` | `RdsMenu` for context menus |
-| Date / time | `RdsCompDatepicker`, `RdsCompTimePicker` | |
+| Date / time | `RdsCompDatepicker` (from `/date`), `RdsCompTimePicker` | |
 | App frame (top bar + side nav) | `RdsCompAppShell` | `RdsLayout` is a simple header + content page |
 
 Internal (not exported, do not import): `rds-comp-grid` (paid enterprise), `rds-comp-adaptive-cards`, `rds-comp-chat`, `rds-comp-code-snippet`, `rds-comp-comments-box`, `rds-comp-date-and-time-picker`, `rds-comp-details-pane`, `rds-comp-navtabs`, `rds-comp-tree-structure`.

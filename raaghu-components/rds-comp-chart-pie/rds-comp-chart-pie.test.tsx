@@ -3,30 +3,26 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPieChart, { type RdsCompPieProps } from './rds-comp-chart-pie';
-import Chart from 'chart.js/auto';
 
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-    };
-  });
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn(() => null) }) };
 });
-
-(Chart as any).getChart = jest.fn(() => null);
 
 const defaultProps = {
   labels: ['Red', 'Blue', 'Yellow', 'Green'],
@@ -746,7 +742,7 @@ describe('RdsCompPieChart', () => {
   });
 });
 describe('audit fixes', () => {
-  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const ChartMock = jest.requireMock('chart.js').Chart as jest.Mock;
   const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
 
   beforeEach(() => {

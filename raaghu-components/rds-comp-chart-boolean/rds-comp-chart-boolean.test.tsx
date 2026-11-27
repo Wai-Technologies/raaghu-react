@@ -4,30 +4,29 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
 import type { ChartIconName } from './chart-icons';
-import type { ChartOptions } from 'chart.js/auto';
+import type { ChartOptions } from 'chart.js';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('./rds-comp-chart-boolean.scss', () => ({}));
 
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: {
-        style: {
-          height: '',
-          width: '',
-        },
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: {
+      style: {
+        height: '',
+        width: '',
       },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-      width: 300,
-      height: 300,
-    };
-  });
+    },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 300,
+    height: 300,
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 jest.mock('./chart-icons', () => ({
@@ -730,7 +729,7 @@ describe('audit fixes', () => {
 
   it('adds no centre-icon plugin for a missing or unknown icon name', () => {
     jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
-    const Chart = jest.requireMock('chart.js/auto');
+    const Chart = jest.requireMock('chart.js').Chart;
     Chart.mockClear();
     render(<RdsCompBooleanChart {...defaultProps} centerIconName={"nope" as ChartIconName} />);
     render(<RdsCompBooleanChart {...defaultProps} centerIconName={undefined} id="b2" />);

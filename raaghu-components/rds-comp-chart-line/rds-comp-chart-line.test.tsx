@@ -6,19 +6,18 @@ import RdsCompLineChart, { type RdsCompLineProps } from './rds-comp-chart-line';
 
 jest.mock('./rds-comp-chart-line.scss', () => ({}));
 
-jest.mock('chart.js/auto', () => {
-  return jest.fn().mockImplementation((ctx, config) => {
-    return {
-      ctx,
-      config,
-      canvas: ctx?.canvas ?? { style: { height: '', width: '' } },
-      destroy: jest.fn(),
-      update: jest.fn(),
-      resize: jest.fn(),
-      width: 300,
-      height: 300,
-    };
-  });
+jest.mock('chart.js', () => {
+  const MockChart = jest.fn().mockImplementation((ctx, config) => ({
+    ctx,
+    config,
+    canvas: ctx?.canvas ?? { style: { height: '', width: '' } },
+    destroy: jest.fn(),
+    update: jest.fn(),
+    resize: jest.fn(),
+    width: 300,
+    height: 300,
+  }));
+  return { Chart: Object.assign(MockChart, { register: jest.fn(), getChart: jest.fn() }) };
 });
 
 const defaultProps = {

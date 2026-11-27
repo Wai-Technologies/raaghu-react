@@ -5,7 +5,7 @@ import {
   type BackdropProps,
   type Theme
 } from '@mui/material';
-import type { SystemStyleObject } from '@mui/system';
+import type { SxProps } from '@mui/material/styles';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
@@ -20,7 +20,7 @@ export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'componen
   open?: boolean;
 }
 
-const baseSx = (theme: Theme): SystemStyleObject<Theme> => ({
+const baseSx = (theme: Theme): NonNullable<SxProps<Theme>> => ({
   '&.rds-backdrop': {
     position: 'fixed',
     top: 0,

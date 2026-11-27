@@ -5,10 +5,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SettingsIcon from "@mui/icons-material/Settings";
 import RdsInput, { type RdsInputProps } from "../../raaghu-elements/rds-input/rds-input";
 
-/**
- * Props react-datepicker injects into its `customInput` (`onChange`, `onKeyDown`, `onFocus`, `onBlur`,
- * `id`, `name`, `className`, `aria-*`, …) plus the Raaghu-specific ones.
- */
 interface CustomInputWithClearProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "onClick" | "value" | "size" | "color"> {
   value?: string;
@@ -20,11 +16,9 @@ interface CustomInputWithClearProps
   changeIcon?: string;
   openPickerIcon?: ReactNode;
   openCustomPicker?: () => void;
-  /** When defined, the open button exposes `aria-expanded` (the popup it toggles is open). */
+  onInputClick?: () => void;
   expanded?: boolean;
-  /** Id of the popup the open button toggles (`aria-controls`). */
   controlsId?: string;
-  /** Ref to the underlying `<input>` element. */
   ref?: Ref<HTMLInputElement>;
 }
 
@@ -45,6 +39,7 @@ export const CustomInputWithClear = (
       changeIcon,
       openPickerIcon,
       openCustomPicker,
+      onInputClick,
       expanded,
       controlsId,
       id,
@@ -78,11 +73,14 @@ export const CustomInputWithClear = (
           className={clsx(
             "rds-datepicker__input",
             isDisabled && "rds-datepicker--disabled",
-            showClearDate && value && "rds-datepicker__input--with-clear",
             className
           )}
           value={value || ""}
-          onClick={handleTriggerClick}
+          onClick={(e) => {
+            if (!onInputClick) return handleTriggerClick(e);
+            e.stopPropagation();
+            if (!isDisabled) onInputClick();
+          }}
           onChange={onChange as RdsInputProps["onChange"]}
           onFocus={onFocus as RdsInputProps["onFocus"]}
           onBlur={onBlur as RdsInputProps["onBlur"]}
@@ -92,7 +90,6 @@ export const CustomInputWithClear = (
           inputRef={ref}
           slotProps={{ htmlInput: inputProps }}
           endIcon={
-            // Rendered as the input's end adornment so the buttons always sit inside the field.
             <span className="rds-datepicker__adornment">
               {showClearDate && value && (
                 <button
@@ -116,6 +113,7 @@ export const CustomInputWithClear = (
                 onClick={handleTriggerClick}
                 title="Open calendar"
                 aria-label="Open calendar"
+                aria-haspopup="dialog"
                 aria-expanded={expanded}
                 aria-controls={expanded !== undefined ? controlsId : undefined}
                 disabled={isDisabled}

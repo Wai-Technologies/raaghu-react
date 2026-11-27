@@ -1,0 +1,2 @@
+export { default as RdsCompTextEditor } from './raaghu-components/rds-comp-text-editor/rds-comp-text-editor';
+export type { RdsCompTextEditorProps } from './raaghu-components/rds-comp-text-editor/rds-comp-text-editor';

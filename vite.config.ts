@@ -37,10 +37,12 @@ function prependStaticTokensCss(): Plugin {
 /** Prepends "use client" to component, index, provider and hook modules for React Server Components. */
 function addUseClientDirective(): Plugin {
   const directive = '"use client";\n';
+  const subpathEntries =
+    'index|charts|editor|date|kanban|timeline|video|map|lottie';
   const isClientModule = (fileName: string) =>
     !fileName.includes('vendor') &&
     (/\/rds-[^/]+\/rds-[^/]+\.(mjs|cjs)$/.test(fileName) ||
-      /^index\.(mjs|cjs)$/.test(fileName) ||
+      new RegExp(`^(${subpathEntries})\\.(mjs|cjs)$`).test(fileName) ||
       /provider|hooks/.test(fileName));
   return {
     name: 'add-use-client-directive',
@@ -69,7 +71,17 @@ export default defineConfig(() => {
     },
     build: {
       lib: {
-        entry: path.resolve(__dirname, 'index.ts'),
+        entry: {
+          index: path.resolve(__dirname, 'index.ts'),
+          charts: path.resolve(__dirname, 'charts.ts'),
+          editor: path.resolve(__dirname, 'editor.ts'),
+          date: path.resolve(__dirname, 'date.ts'),
+          kanban: path.resolve(__dirname, 'kanban.ts'),
+          timeline: path.resolve(__dirname, 'timeline.ts'),
+          video: path.resolve(__dirname, 'video.ts'),
+          map: path.resolve(__dirname, 'map.ts'),
+          lottie: path.resolve(__dirname, 'lottie.ts'),
+        },
         name: 'RaaghuReact',
         formats: ['es', 'cjs'],
         // With preserveModules, `entryName` is the module path relative to

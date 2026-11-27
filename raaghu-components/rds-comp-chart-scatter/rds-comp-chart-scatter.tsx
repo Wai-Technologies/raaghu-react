@@ -2,7 +2,10 @@ import { useId, useMemo, type HTMLAttributes, type Ref } from "react";
 import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
+import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js";
+import { registerScatterChart } from "../chart-js-register";
+
+registerScatterChart();
 import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { ChartAccessibleAlternative, chartAccessibleDescribedBy } from "../chart-accessible-alternative";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
