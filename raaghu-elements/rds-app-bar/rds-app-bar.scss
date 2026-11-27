@@ -2989,10 +2989,23 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   .rds-header__logo,
   .rds-header__menu-button,
-  .rds-header__actions,
-  .rds-header__right-actions,
-  .rds-header__center-content {
+  .rds-header__actions {
     flex-shrink: 0;
+  }
+
+  // Middle groups of links/buttons give way before the profile/actions do:
+  // they shrink and scroll sideways (scrollbar hidden) instead of pushing the
+  // actions off the edge.
+  .rds-header__center-content,
+  .rds-header__right-actions {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .rds-header__title {
@@ -3034,10 +3047,15 @@ $rds-app-bar-breakpoint-xs: 320px;
 // (see the threshold in rds-app-bar.tsx), so hide the top-bar copies of the
 // actions from 421px too, exactly as the <=420px rules above do.
 @media (min-width: 421px) and (max-width: 520px) {
+  // The icons move to the bottom bar; the profile avatar stays in the top bar.
   .rds-header--variant-logotabsactions .rds-story-nav-actions,
+  .rds-header--variant-logosearchtabsactions .rds-story-nav-actions {
+    display: contents;
+  }
+
   .rds-header--variant-logotabsactions .rds-story-nav-action,
   .rds-header--variant-logotabsactions .rds-appbar-overflow-button,
-  .rds-header--variant-logosearchtabsactions .rds-story-nav-actions,
+  .rds-header--variant-logosearchtabsactions .rds-story-nav-action,
   .rds-header--variant-logosearchtabsactions .rds-appbar-overflow-button {
     display: none;
   }
