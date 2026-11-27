@@ -5,7 +5,8 @@ import './rds-loader.scss';
 export interface RdsLoaderProps extends RdsStylingProps {
   variant?: 'linear' | 'circular';
   size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+  /** `info` is kept for backward compatibility and renders as `primary` (they share the same blue). */
+  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'success' | 'info';
   value?: number;
   label?: string;
   overlay?: boolean;
@@ -40,12 +41,15 @@ const RdsLoader = React.forwardRef<HTMLDivElement, RdsLoaderProps>(function RdsL
   const {
     variant = 'circular',
     size = 'medium',
-    color = 'primary',
+    color: colorProp = 'primary',
     value,
     label,
     overlay = false,
     thickness = 3.6,
   } = props;
+
+  // `info` and `primary` look the same, so `info` is folded into `primary`.
+  const color = colorProp === 'info' ? 'primary' : colorProp;
 
   const getSizeValue = () => {
     if (variant === 'circular') {

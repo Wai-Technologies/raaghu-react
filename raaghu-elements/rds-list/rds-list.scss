@@ -394,3 +394,86 @@
   }
 }
 
+
+// ---- variant="icon": bullet shown for items without their own icon ----
+.rds-list__bullet.MuiSvgIcon-root {
+  font-size: var(--rds-list-bullet-size, 10px);
+  color: var(--rds-text-secondary);
+}
+
+// ---- variant="avatar": avatar built from the item's icon or first letter ----
+.rds-list__generated-avatar.MuiAvatar-root {
+  background-color: var(--rds-list-avatar-bg, var(--rds-primary-main));
+  color: var(--rds-list-avatar-color, var(--rds-primary-contrast-text));
+  font-size: var(--rds-font-size-md);
+
+  .MuiSvgIcon-root {
+    font-size: var(--rds-font-size-icon-md, 20px);
+    color: inherit;
+  }
+}
+
+// ---- variant="firebase": dark navigation list ----
+.rds-list__surface--firebase.MuiPaper-root,
+.rds-list-demo__custom-container.MuiPaper-root {
+  --rds-list-firebase-bg: rgb(16, 42, 67);
+  background-color: var(--rds-list-firebase-bg);
+  color: var(--rds-list-firebase-text, rgba(255, 255, 255, 0.9));
+}
+
+.rds-list__surface--firebase.MuiPaper-root {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.rds-list.rds-list--firebase {
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+
+  .rds-list__item {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .rds-list__item .MuiListItemButton-root {
+    padding: var(--rds-spacing-xs) var(--rds-spacing-md);
+
+    &:hover,
+    &.Mui-focusVisible {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .rds-list__content-primary {
+    color: var(--rds-list-firebase-text, rgba(255, 255, 255, 0.9));
+    font-size: var(--rds-font-size-sm);
+    font-weight: var(--rds-font-weight-medium);
+  }
+
+  .rds-list__content-secondary {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .rds-list__icon,
+  .rds-list__icon .MuiSvgIcon-root,
+  .rds-list__firebase-icon {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .rds-list__item--selected .MuiListItemButton-root {
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .rds-list__divider {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.rds-list-demo__custom-container .rds-list-demo__header-icon {
+  color: var(--rds-warning-main, #ffa000);
+}
+
+.rds-list-demo__custom-container .rds-list-demo__section-header {
+  color: rgba(255, 255, 255, 0.6);
+}

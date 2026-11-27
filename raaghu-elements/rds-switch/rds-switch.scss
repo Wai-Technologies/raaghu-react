@@ -488,3 +488,30 @@
   opacity: var(--rds-switch-disabled-track-opacity);
   background-color: var(--rds-switch-disabled-bg);
 }
+
+// Checked colours. The theme override (MuiSwitch.switchBase) paints every checked
+// track with the pale primary colour at MUI's 0.5 opacity, so the `color` prop
+// never showed. These selectors outrank it; disabled keeps its own rules above.
+@each $color in primary, secondary, error, warning, success, info {
+  .rds-switch--color-#{$color}.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track,
+  .rds-switch--color-#{$color} .MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track {
+    background-color: var(--rds-switch-#{$color}-track-bg, var(--rds-#{$color}-main));
+    opacity: 1;
+  }
+
+  .rds-switch--color-#{$color}.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) .MuiSwitch-thumb,
+  .rds-switch--color-#{$color} .MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) .MuiSwitch-thumb {
+    background-color: var(--rds-color-switch-thumb, #fff);
+  }
+
+  // Style 4 has a thin track under a larger thumb: tint the track, colour the thumb.
+  .rds-switch--style4.rds-switch--color-#{$color}.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track,
+  .rds-switch--style4.rds-switch--color-#{$color} .MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track {
+    background-color: var(--rds-switch-#{$color}-track-bg, color-mix(in srgb, var(--rds-#{$color}-main) 45%, transparent));
+  }
+
+  .rds-switch--style4.rds-switch--color-#{$color}.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) .MuiSwitch-thumb,
+  .rds-switch--style4.rds-switch--color-#{$color} .MuiSwitch-root .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) .MuiSwitch-thumb {
+    background-color: var(--rds-switch-#{$color}-thumb-bg, var(--rds-#{$color}-main));
+  }
+}
